@@ -3,7 +3,7 @@ const path = require("path");
 const {globSync} = require("glob");
 
 const NOTES_GLOB = "src/site/notes/**/*.md";
-const FRONT_MATTER_REGEX = /^---\r?\n([\s\S]*?)\r?\n---(\r?\n|$)/;
+const FRONT_MATTER_REGEX = /^(---)(\r?\n)([\s\S]*?)(\r?\n)(---)(\r?\n|$)/;
 
 let updatedFiles = 0;
 let replacements = 0;
@@ -17,16 +17,18 @@ for (const filePath of globSync(NOTES_GLOB)) {
     continue;
   }
 
-  const frontMatter = match[1];
+  const frontMatter = match[3];
+  const escapedPipes = frontMatter.match(/\\\|/g);
   const normalizedFrontMatter = frontMatter.replace(/\\\|/g, "|");
   if (normalizedFrontMatter === frontMatter) {
     continue;
   }
 
-  replacements += (frontMatter.match(/\\\|/g) || []).length;
+  replacements += escapedPipes ? escapedPipes.length : 0;
+  const normalizedFrontMatterBlock = `${match[1]}${match[2]}${normalizedFrontMatter}${match[4]}${match[5]}${match[6]}`;
   const updatedContent =
     content.slice(0, match.index) +
-    match[0].replace(frontMatter, normalizedFrontMatter) +
+    normalizedFrontMatterBlock +
     content.slice(match.index + match[0].length);
   fs.writeFileSync(absolutePath, updatedContent, "utf8");
   updatedFiles += 1;
