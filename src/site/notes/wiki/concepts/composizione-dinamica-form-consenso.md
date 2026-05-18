@@ -1,11 +1,11 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/composizione-dinamica-form-consenso/","title":"Composizione Dinamica Form Consenso — Single Source of Truth","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"dg-note-properties":{"title":"Composizione Dinamica Form Consenso — Single Source of Truth","aliases":["Composizione Dinamica Form Consenso — Single Source of Truth"],"type":"concept","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"created":"2026-05-14","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised"],"related":["[[Gestione Consensi - Applicativo]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Sistemi Esterni Integrati]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/composizione-dinamica-form-consenso/","title":"Composizione Dinamica Form Consenso — Single Source of Truth","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"dg-note-properties":{"title":"Composizione Dinamica Form Consenso — Single Source of Truth","aliases":["Composizione Dinamica Form Consenso — Single Source of Truth"],"type":"concept","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"created":"2026-05-14","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised"],"related":["[[Gestione Consensi - Applicativo]]","[[wiki/concepts/ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[Sistemi Esterni Integrati]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
 # Composizione Dinamica Form Consenso — Single Source of Truth
 
-**Origine:** risposte MF a revisione SRS v3 — commenti MB29, MB27, MB34, MB36, MB38, MB40, MB42, MB56 (vedi [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] tema C e tema F).
+**Origine:** risposte MF a revisione SRS v3 — commenti MB29, MB27, MB34, MB36, MB38, MB40, MB42, MB56 (vedi [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3|analysis-2026-05-14-risposte-mf-srs-v3]] tema C e tema F).
 
 Pattern architetturale unico per il rendering delle pagine di consenso lato **Cittadino** (CDU-02, CDU-03, CDU-04) e **Operatore** (CDU-09, CDU-10, CDU-11). Vincolo: nessuna divergenza di struttura fra le due interfacce.
 
@@ -147,7 +147,7 @@ Il backend (Spring Boot 3) espone l'endpoint, il Form Renderer Angular lo consum
 
 ## 8. Riferimenti
 
-- Dettaglio risposte MF: [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]
-- Profili utente: [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]]
-- Stati consenso (rendering dipendente): [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]
-- AURA (popolamento dati assistito lato operatore): [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]]
+- Dettaglio risposte MF: [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3|analysis-2026-05-14-risposte-mf-srs-v3]]
+- Profili utente: [[wiki/concepts/gestione-consensi-applicativo|Gestione Consensi - Applicativo]]
+- Stati consenso (rendering dipendente): [[wiki/concepts/ciclo-vita-consenso|Ciclo di Vita del Consenso]]
+- AURA (popolamento dati assistito lato operatore): [[wiki/concepts/sistemi-esterni-integrati|Sistemi Esterni Integrati]]
