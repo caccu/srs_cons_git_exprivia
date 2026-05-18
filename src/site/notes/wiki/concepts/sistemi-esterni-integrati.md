@@ -1,11 +1,11 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura ECaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura ECaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
 # Sistemi Esterni Integrati
 
-Sistemi esterni con cui [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] si integra nel TO-BE. Tutti gestiti da [[wiki/entities/csi-piemonte\|CSI Piemonte]] o dalle ASR della Regione Piemonte.
+Sistemi esterni con cui [[wiki/concepts/gestione-consensi-applicativo|Gestione Consensi - Applicativo]] si integra nel TO-BE. Tutti gestiti da [[wiki/entities/csi-piemonte|CSI Piemonte]] o dalle ASR della Regione Piemonte.
 
 ---
 
@@ -13,7 +13,7 @@ Sistemi esterni con cui [[wiki/concepts/gestione-consensi-applicativo\|Gestione 
 
 | Aspetto                    | Dettaglio                                                            |
 | -------------------------- | -------------------------------------------------------------------- |
-| Gestore                    | [[wiki/entities/csi-piemonte\|CSI Piemonte]]                                       |
+| Gestore                    | [[wiki/entities/csi-piemonte|CSI Piemonte]]                                       |
 | Protocollo                 | SOAP + WS-Security UsernameToken (credenziali IRIS)                  |
 | Credenziali                | IRIS — da richiedere a referente CSI Sprint 0 ❌                      |
 | Uso                        | Ricerca assistito per codice fiscale (CDU-07, CDU-08 area Operatore) |
@@ -38,14 +38,14 @@ Sistema bidirezionale — consumatore API REST e destinatario notifiche SOAP.
 | Direzione | Protocollo | CDU/Batch | Stato |
 |---|---|---|---|
 | Inbound (SIA→Regionale) | REST OpenAPI 3.x — OAuth2 Bearer JWT | CDU-15, CDU-16, **CDU-17 (snapshot)** | Specifica CDU-15/16 **da produrre** ❌; CDU-17 in proposta TR68 |
-| Outbound (Regionale→SIA) | SOAP AS-IS invariato — [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]] | BATCH-01 (solo notifiche puntuali) | Contratto definito ✅ |
+| Outbound (Regionale→SIA) | SOAP AS-IS invariato — [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]] | BATCH-01 (solo notifiche puntuali) | Contratto definito ✅ |
 
-**BATCH-03 push rimosso:** l'allineamento massivo per nuovo endpoint passa a modello PULL (CDU-17). Vedi [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]].
+**BATCH-03 push rimosso:** l'allineamento massivo per nuovo endpoint passa a modello PULL (CDU-17). Vedi [[wiki/concepts/alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]].
 
 **Sicurezza outbound SOAP (BATCH-01):** WS-Security X509, un certificato per ASR — richiederli in Sprint 0.
-**Sicurezza inbound REST:** OAuth2 Client Credentials + tabella `cons_t_client_ente`. Vedi [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]].
+**Sicurezza inbound REST:** OAuth2 Client Credentials + tabella `cons_t_client_ente`. Vedi [[wiki/concepts/sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]].
 
-**Rischi aperti:** ambiguità BATCH-01 WSDL + semantica SCADUTO AS-IS≠TO-BE. Vedi [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]].
+**Rischi aperti:** ambiguità BATCH-01 WSDL + semantica SCADUTO AS-IS≠TO-BE. Vedi [[wiki/concepts/batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]].
 
 ---
 
@@ -53,7 +53,7 @@ Sistema bidirezionale — consumatore API REST e destinatario notifiche SOAP.
 
 | Aspetto           | Dettaglio                                                                                                                    |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Gestore           | [[wiki/entities/csi-piemonte\|CSI Piemonte]]                                                                                               |
+| Gestore           | [[wiki/entities/csi-piemonte|CSI Piemonte]]                                                                                               |
 | Protocollo        | REST                                                                                                                         |
 | Canali supportati | Email, push, AppIO                                                                                                           |
 | Uso               | Notifiche applicative generiche verso cittadino (NON per conferma rilascio consenso — quella va via Notificatore di Deleghe) |
@@ -65,7 +65,7 @@ Sistema bidirezionale — consumatore API REST e destinatario notifiche SOAP.
 
 | Aspetto     | Dettaglio                                                                    |
 | ----------- | ---------------------------------------------------------------------------- |
-| Gestore     | [[wiki/entities/csi-piemonte\|CSI Piemonte]]                                               |
+| Gestore     | [[wiki/entities/csi-piemonte|CSI Piemonte]]                                               |
 | Uso         | **Notifica cittadino/delegato post-acquisizione consenso**                   |
 | Timing      | Parte **SOLO dopo conferma notifica aziende** (BATCH-01, stato = COMPLETATO) |
 | Distinzione | Servizio separato dall'UNP — non confondere                                  |
@@ -80,7 +80,7 @@ Sistema bidirezionale — consumatore API REST e destinatario notifiche SOAP.
 | ---------------- | --------------------------------------------------------------------------------------------------------------- |
 | Protocollo       | SOAP + OAuth2 Client Credentials                                                                                |
 | Uso              | Verifica deleghe familiari — cittadino che opera per conto di un delegante (pulsante "Deleghe" webapp, MF20R19) |
-| WSDL             | Da richiedere a [[wiki/entities/csi-piemonte\|CSI Piemonte]] Sprint 0 ❌                                                       |
+| WSDL             | Da richiedere a [[wiki/entities/csi-piemonte|CSI Piemonte]] Sprint 0 ❌                                                       |
 | Stato produzione | Scenario delegante già attivo in produzione (MF22R21)                                                           |
 
 Variante errore [PROPOSTA]: se il servizio non risponde, il sistema impedisce la selezione del delegante e mostra avviso. Il cittadino opera solo per sé stesso.
@@ -108,7 +108,7 @@ Nota: l'acronimo LIS va chiarito formalmente con CSI nella prossima revisione SR
 
 > **Nota MF7R5:** Cittadino **NON** è profilo applicativo del Configuratore — accede via webapp dedicata SPID/CIE. Configuratore gestisce solo i profili operatore.
 
-Registrazione app PUA (2 profili operatore) da richiedere a [[wiki/entities/csi-piemonte\|CSI Piemonte]] in Sprint 0 ❌.
+Registrazione app PUA (2 profili operatore) da richiedere a [[wiki/entities/csi-piemonte|CSI Piemonte]] in Sprint 0 ❌.
 
 ---
 
