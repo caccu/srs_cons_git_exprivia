@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Risposte MF — Revisione SRS v3 lavorazione (69 commenti)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="risposte-mf-revisione-srs-v3-lavorazione" tabindex="-1">Risposte MF — Revisione SRS v3 lavorazione</h1>
+<p><strong>File sorgente:</strong> <code>raw/CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf</code><br>
+<strong>Commenti totali:</strong> 69 (SC = Sicurezza/Customer, MB = Marco Bianchi reviewer, TR = Tecnico/Reviewer)<br>
+<strong>Risposte MF (Marco Forneris/Exprivia):</strong> ~30<br>
+<strong>Data analisi:</strong> 2026-05-14</p>
+<p>Le risposte MF nel PDF sono <strong>decisioni autoritative</strong> del responsabile tecnico Exprivia. Questa analisi consolida tutte le decisioni e mappa la propagazione sulla wiki.</p>
+<blockquote>
+<p><strong>Nota numerazione:</strong> la v3_lavorazione rinumera i commenti rispetto alla v3. Mapping principali: TR30 → TR58 (sicurezza CDU-15/16), TR34 → TR68 (alternativa BATCH-03). Wiki riporta entrambi gli ID.</p>
+</blockquote>
+<hr>
+<h2 id="tabella-maestra-30-risposte-mf" tabindex="-1">Tabella maestra — 30 risposte MF</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>ID MF</th>
+<th>Tema</th>
+<th>Decisione (sintesi)</th>
+<th>Pagina wiki</th>
+<th>Stato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MF3R1, MF4R1</td>
+<td>A — Canali acquisizione</td>
+<td>Cittadino può esprimere consenso anche presso <strong>LIS</strong> (oltre webapp citt + operatore). Aggiungere didascalia diagramma</td>
+<td>[[wiki/concepts/gestione-consensi-applicativo</td>
+<td>Gestione Consensi - Applicativo]], [[wiki/concepts/sistemi-esterni-integrati</td>
+</tr>
+<tr>
+<td>MF7R5</td>
+<td>A — Profili</td>
+<td>Cittadino NON è profilo applicativo del Configuratore. Accede webapp dedicata SPID/CIE. Profilo logico interno solo per «sé stesso» vs «delegante»</td>
+<td>[[wiki/concepts/gestione-consensi-applicativo</td>
+<td>Gestione Consensi - Applicativo]]</td>
+</tr>
+<tr>
+<td>MF9R8</td>
+<td>A — UI termini</td>
+<td>Sostituire &quot;Accettato/Negato&quot; con <strong>&quot;acconsento/nego&quot;</strong> in tutta la nota tecnica 5.2. Mantenere mapping tecnico ATTIVO/NEGATO invariato</td>
+<td>[[wiki/concepts/ciclo-vita-consenso</td>
+<td>ciclo-vita-consenso]]</td>
+</tr>
+<tr>
+<td>MF11R10</td>
+<td>B — Stati</td>
+<td>Aggiungere transizione <strong>ATTIVO → NEGATO</strong> (via webapp citt o operatore) senza richiedere nuova informativa</td>
+<td>[[wiki/concepts/ciclo-vita-consenso</td>
+<td>ciclo-vita-consenso]]</td>
+</tr>
+<tr>
+<td>MF14R12</td>
+<td>B — Stati</td>
+<td>Aggiungere transizione <strong>NEGATO → ATTIVO</strong> (via webapp citt o operatore) senza richiedere nuova informativa</td>
+<td>[[wiki/concepts/ciclo-vita-consenso</td>
+<td>ciclo-vita-consenso]]</td>
+</tr>
+<tr>
+<td>MF16R15</td>
+<td>A — CDU-01</td>
+<td>Dividere CDU-01: <strong>CDU-01a Operatore</strong> (RUPAR/IRIDE/SPID + profilazione) e <strong>CDU-01b Cittadino</strong> (SPID/CIE webapp separata, no profilazione)</td>
+<td>[[wiki/concepts/gestione-consensi-applicativo</td>
+<td>Gestione Consensi - Applicativo]], [[wiki/concepts/gasp-salute</td>
+</tr>
+<tr>
+<td>MF18R17</td>
+<td>A — CDU-01</td>
+<td>Dividere precondizioni CDU-01 per scenario (a/b)</td>
+<td>[[wiki/concepts/gestione-consensi-applicativo</td>
+<td>Gestione Consensi - Applicativo]]</td>
+</tr>
+<tr>
+<td>MF20R19</td>
+<td>A — Deleghe</td>
+<td>Webapp cittadino mostra sempre utente autenticato. Pulsante &quot;Deleghe&quot; → elenco deleganti → selezione carica cruscotto del delegante</td>
+<td>[[wiki/concepts/gestione-consensi-applicativo</td>
+<td>Gestione Consensi - Applicativo]], [[wiki/concepts/sistemi-esterni-integrati</td>
+</tr>
+<tr>
+<td>MF22R21</td>
+<td>A — Deleghe</td>
+<td>Nota implementativa: scenario deleghe già attivo in produzione</td>
+<td>[[wiki/concepts/gestione-consensi-applicativo</td>
+<td>Gestione Consensi - Applicativo]]</td>
+</tr>
+<tr>
+<td>MF24R23</td>
+<td>H — Riferimenti CDU-14</td>
+<td>Aggiungere riferimento esplicito a 6.14 CDU-14 e ALG01 per la logica di selezione endpoint nel flusso flag_online check</td>
+<td>[[wiki/concepts/batch-processes</td>
+<td>batch-processes]]</td>
+</tr>
+<tr>
+<td>MF26R25</td>
+<td>C — CDU-02</td>
+<td>Sistema mostra TUTTI i tipi configurati. Regionale=1 record con stato globale. Aziendale=1 record per azienda con stato relativo</td>
+<td>[[wiki/concepts/composizione-dinamica-form-consenso</td>
+<td>composizione-dinamica-form-consenso]]</td>
+</tr>
+<tr>
+<td>MF28R27</td>
+<td>C — Informativa</td>
+<td>Consensi aziendali: visualizzare informativa singola azienda <strong>prima</strong> di raccogliere consenso per quell'azienda</td>
+<td>[[wiki/concepts/composizione-dinamica-form-consenso</td>
+<td>composizione-dinamica-form-consenso]]</td>
+</tr>
+<tr>
+<td>MF30R29</td>
+<td>C — Dinamica pagina</td>
+<td>Pagina espressione consenso composta dinamicamente: valori ammessi, domande opzionali, flag richiesto — letti da config DB</td>
+<td>[[wiki/concepts/composizione-dinamica-form-consenso</td>
+<td>composizione-dinamica-form-consenso]]</td>
+</tr>
+<tr>
+<td>MF33R31</td>
+<td>G — Notifica</td>
+<td>Notifica cittadino/delegato via <strong>Notificatore di Deleghe</strong> (NON UNP). Parte SOLO dopo conferma notifica aziende (stato=COMPLETATO)</td>
+<td>[[wiki/concepts/batch-processes</td>
+<td>batch-processes]], [[wiki/concepts/sistemi-esterni-integrati</td>
+</tr>
+<tr>
+<td>MF35R34</td>
+<td>C — Valori dinamici</td>
+<td>Valori consenso letti dinamicamente da DB per tipo. Composizione pagina dinamica come §6.2</td>
+<td>[[wiki/concepts/composizione-dinamica-form-consenso</td>
+<td>composizione-dinamica-form-consenso]]</td>
+</tr>
+<tr>
+<td>MF37R36</td>
+<td>C — UI cittadino</td>
+<td>Webapp cittadino: pulsante unico <strong>«Salva»</strong>. Operazioni distinte (rilascio vs modifica) gestite internamente, non esposte UI</td>
+<td>[[wiki/concepts/composizione-dinamica-form-consenso</td>
+<td>composizione-dinamica-form-consenso]]</td>
+</tr>
+<tr>
+<td>MF39R38</td>
+<td>C — Modifica</td>
+<td>Pagina modifica consenso CDU-04 segue stesse regole composizione dinamica §6.2</td>
+<td>[[wiki/concepts/composizione-dinamica-form-consenso</td>
+<td>composizione-dinamica-form-consenso]]</td>
+</tr>
+<tr>
+<td>MF41R40</td>
+<td>C — Modifica</td>
+<td>Idem (rinforzo MF39)</td>
+<td>[[wiki/concepts/composizione-dinamica-form-consenso</td>
+<td>composizione-dinamica-form-consenso]]</td>
+</tr>
+<tr>
+<td>MF43R42</td>
+<td>C — Modifica valori</td>
+<td>Valori consenso letti dinamicamente da DB per tipo (rinforzo)</td>
+<td>[[wiki/concepts/composizione-dinamica-form-consenso</td>
+<td>composizione-dinamica-form-consenso]]</td>
+</tr>
+<tr>
+<td>MF45R44</td>
+<td>C — CDU-04/05 merge</td>
+<td>Webapp Cittadino: CDU-05 NON caso d'uso separato → inglobato in CDU-04. Distinzione CDU-04/05 rilevante solo per Operatore e logica interna</td>
+<td>[[wiki/concepts/gestione-consensi-applicativo</td>
+<td>Gestione Consensi - Applicativo]]], [[wiki/concepts/composizione-dinamica-form-consenso</td>
+</tr>
+<tr>
+<td>MF47R46</td>
+<td>D — CDU-06 PDF</td>
+<td>Scope ridotto: Cittadino stampa PDF <strong>solo informativa accettata</strong>, senza firma digitale, senza valore consenso espresso</td>
+<td>[[wiki/concepts/gestione-consensi-applicativo</td>
+<td>Gestione Consensi - Applicativo]]</td>
+</tr>
+<tr>
+<td>MF49R48</td>
+<td>D — CDU-06 PDF</td>
+<td>Struttura PDF era proposta implementativa: marcata [PROPOSTA] da concordare</td>
+<td>[[wiki/concepts/gestione-consensi-applicativo</td>
+<td>Gestione Consensi - Applicativo]]</td>
+</tr>
+<tr>
+<td>MF51R50</td>
+<td>D — CDU-06 PDF</td>
+<td>[PROPOSTA] da concordare</td>
+<td>[[wiki/concepts/gestione-consensi-applicativo</td>
+<td>Gestione Consensi - Applicativo]]</td>
+</tr>
+<tr>
+<td>MF53R52</td>
+<td>E — CDU-07 AURA</td>
+<td>Sistema invoca FindProfiliAnagrafici + getProfiloSanitario di AURA. Se CF non trovato → &quot;La ricerca con il filtro fornito non ha prodotto risultati&quot;. <strong>Nessuna chiamata SistemaTS</strong></td>
+<td>[[wiki/concepts/sistemi-esterni-integrati</td>
+<td>Sistemi Esterni Integrati]]</td>
+</tr>
+<tr>
+<td>MF55R54</td>
+<td>E — CDU-07 cleanup</td>
+<td><strong>ELIMINARE tutti i riferimenti fallback SistemaTS</strong> in 6.7</td>
+<td>[[wiki/concepts/sistemi-esterni-integrati</td>
+<td>Sistemi Esterni Integrati]]</td>
+</tr>
+<tr>
+<td>MF57R56</td>
+<td>F — SSoT operatore</td>
+<td>Pagina operatore (CDU-09/10/11) composizione dinamica IDENTICA al cittadino. Single Source of Truth. <strong>Form Renderer unico</strong> condiviso fra le 2 webapp. Differenze solo <code>fonte_id='PASS'</code>, <code>login_operazione</code>, <code>ruoloop_id</code></td>
+<td>[[wiki/concepts/composizione-dinamica-form-consenso</td>
+<td>composizione-dinamica-form-consenso]]</td>
+</tr>
+<tr>
+<td>MF59-62R58</td>
+<td>I — Sicurezza (ex TR30)</td>
+<td><strong>TR58 = ex TR30.</strong> CDU-15/16: no API Manager, JWT + tabella <code>cons_t_client_ente</code> + filter Spring Security. Già in wiki</td>
+<td>[[wiki/concepts/sicurezza-cdu-15-16</td>
+<td>sicurezza-cdu-15-16]]</td>
+</tr>
+<tr>
+<td>MF64R63</td>
+<td>H — Scheduling</td>
+<td>Aggiungere tabella transizioni stato <code>cons_t_notifica</code>/<code>cons_t_batch</code>. BATCH-01 <strong>5 minuti</strong> con <code>SELECT FOR UPDATE SKIP LOCKED</code> su <code>cons_t_notifica</code>. Sostituisce AS-IS 30 minuti</td>
+<td>[[wiki/concepts/batch-processes</td>
+<td>batch-processes]]</td>
+</tr>
+<tr>
+<td>MF66R65</td>
+<td>H — BATCH-02 SQL</td>
+<td>SQL per determinare <code>nuova_d_informativa_id</code>: SELECT informativa corrente non scaduta con ORDER BY data_decorrenza DESC LIMIT 1</td>
+<td>[[wiki/concepts/batch-processes</td>
+<td>batch-processes]]</td>
+</tr>
+<tr>
+<td>MF69R68</td>
+<td>I — BATCH-03 PULL (ex TR34)</td>
+<td><strong>TR68 = ex TR34.</strong> Sostituzione BATCH-03 push con PULL CDU-17. Già in wiki</td>
+<td>[[wiki/concepts/alternativa-batch-03-pull</td>
+<td>alternativa-batch-03-pull]]</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="commenti-senza-risposta-mf" tabindex="-1">Commenti senza risposta MF</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Cosa cliente chiede</th>
+<th>Stato</th>
+<th>Azione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SC67</td>
+<td>&quot;da approfondire e verificare meglio&quot; su INSERT cons_t_consenso da batch (BATCH-02 ALG02 storicizzazione)</td>
+<td>🟠 Aperto</td>
+<td>Discutere con CSI/MF prima di chiudere SRS</td>
+</tr>
+<tr>
+<td>MF3R1 (vuoto)</td>
+<td>LIS — la risposta utile è in MF4R1</td>
+<td>Coperto da MF4R1</td>
+<td>—</td>
+</tr>
+<tr>
+<td>MF13R12 (vuoto)</td>
+<td>Stati — la risposta utile è in MF14R12</td>
+<td>Coperto da MF14R12</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="dettaglio-per-tema" tabindex="-1">Dettaglio per tema</h2>
+<h3 id="tema-a-ui-terminologia-and-amp-profili-cittadino" tabindex="-1">Tema A — UI terminologia &amp; profili Cittadino</h3>
+<p><strong>Decisioni chiave:</strong></p>
+<ol>
+<li>
+<p><strong>LIS come canale aggiuntivo (MF3, MF4)</strong> — Il cittadino può esprimere consenso anche presso il LIS (Laboratorio Informazioni Sanitarie? — da chiarire acronimo) oltre alla webapp cittadino e alla via operatore. Implicazione: SRS §1/§2 diagramma di contesto deve riflettere 3 canali di acquisizione, non 2.</p>
+</li>
+<li>
+<p><strong>Cittadino NON profilo Configuratore (MF7)</strong> — Webapp dedicata SPID/CIE, distinta da PUA/Configuratore. Il &quot;profilo&quot; cittadino è una <strong>distinzione logica interna</strong> (per discriminare se l'utente sta agendo per sé o per un delegante via pulsante Deleghe), non un profilo applicativo registrato nel Configuratore Regionale.</p>
+</li>
+<li>
+<p><strong>UI terminologia &quot;acconsento&quot;/&quot;nego&quot; (MF9)</strong> — Termini visibili all'utente. Mapping tecnico immutato: <code>acconsento</code> → <code>ATTIVO</code>, <code>nego</code> → <code>NEGATO</code>. La modifica è solo UI; le tabelle DB e API REST continuano a usare <code>ATTIVO</code>/<code>NEGATO</code>.</p>
+</li>
+<li>
+<p><strong>CDU-01 split a+b (MF16, MF18)</strong> — Due sotto-scenari separati:</p>
+<ul>
+<li><strong>CDU-01a Operatore:</strong> accesso via RUPAR/IRIDE/SPID; selezione profilo operatore visibile</li>
+<li><strong>CDU-01b Cittadino:</strong> accesso via SPID/CIE su webapp separata; nessuna profilazione iniziale; pulsante &quot;Deleghe&quot; per agire come delegato<br>
+Precondizioni separate per scenario.</li>
+</ul>
+</li>
+<li>
+<p><strong>Deleghe (MF20, MF22)</strong> — Pulsante &quot;Deleghe&quot; → elenco deleganti attivi (recuperati via servizio Gestione Deleghe) → selezione carica cruscotto consensi del delegante. Scenario già attivo in produzione (nota implementativa).</p>
+</li>
+</ol>
+<h3 id="tema-b-ciclo-vita-consenso" tabindex="-1">Tema B — Ciclo vita consenso</h3>
+<p><strong>Decisioni chiave (MF11, MF14):</strong> il diagramma stati attuale è incompleto. Mancano transizioni dirette ATTIVO↔NEGATO senza richiedere nuova informativa, quando il cittadino o un operatore modifica il valore. Aggiungere entrambe le frecce.</p>
+<h3 id="tema-c-cdu-02-03-04-05-dinamica-cittadino" tabindex="-1">Tema C — CDU-02/03/04/05 dinamica cittadino</h3>
+<p><strong>Decisioni chiave:</strong></p>
+<ul>
+<li>CDU-02 (MF26): tutti i tipi configurati, regionale=1, aziendale=N per azienda — anche quelli già espressi</li>
+<li>Informativa per ente (MF28): visualizzazione singola per consenso aziendale con informativa specifica per azienda</li>
+<li>Pagina dinamica (MF30, MF35): config DB → UI rendering</li>
+<li>Pulsante unico Salva (MF37): UI non distingue rilascio da modifica</li>
+<li>Modifica = stesse regole (MF39, MF41, MF43)</li>
+<li>CDU-04/05 merge cittadino (MF45): CDU-05 separato solo per Operatore</li>
+</ul>
+<p><strong>Concept dedicato:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a></p>
+<h3 id="tema-d-cdu-06-pdf" tabindex="-1">Tema D — CDU-06 PDF</h3>
+<p><strong>Decisioni chiave (MF47, MF49, MF51):</strong></p>
+<ul>
+<li>CDU-06 ha scope <strong>ridotto</strong>: il cittadino può stampare in PDF <strong>solo l'informativa accettata</strong>, senza:
+<ul>
+<li>firma digitale</li>
+<li>valore consenso espresso</li>
+</ul>
+</li>
+<li>La struttura completa del PDF (con dettagli aggiuntivi) era una <strong>proposta implementativa</strong>: tutto marcato <code>[PROPOSTA]</code> da concordare con CSI.</li>
+</ul>
+<p>Implicazione: il CDU non genera &quot;attestazione completa del consenso&quot;, solo &quot;copia dell'informativa accettata&quot;.</p>
+<h3 id="tema-e-cdu-07-aura-no-sistema-ts" tabindex="-1">Tema E — CDU-07 AURA / no SistemaTS</h3>
+<p><strong>Decisioni chiave (MF53, MF55):</strong></p>
+<ul>
+<li>AURA invocata con <strong>FindProfiliAnagrafici</strong> + <strong>getProfiloSanitario</strong></li>
+<li>Se il CF non viene trovato: messaggio fisso &quot;La ricerca con il filtro fornito non ha prodotto risultati&quot;</li>
+<li><strong>SistemaTS NON viene chiamato</strong> — né come fallback né come supporto. Eliminare ogni riferimento a SistemaTS dal §6.7.</li>
+</ul>
+<p>Wiki: rimuovere &quot;Fallback SistemaTS&quot; da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> AURA. Aggiornare <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a>.</p>
+<h3 id="tema-f-operatore-composizione-dinamica-s-so-t" tabindex="-1">Tema F — Operatore composizione dinamica SSoT</h3>
+<p><strong>Decisione chiave (MF57R56):</strong> vincolo di unicità UI fra Cittadino e Operatore. Form Renderer unico. CDU-09/10/11 devono avere paragrafo &quot;Composizione dinamica pagina operatore&quot; che rimanda esplicitamente a §6.2 e §6.4 lato cittadino.</p>
+<p>Differenze ammesse solo a livello metadati di tracciatura sorgente (<code>fonte_id</code>, <code>login_operazione</code>, <code>ruoloop_id</code>).</p>
+<p>Architetturalmente: aggiungere componente &quot;Form Renderer dinamico&quot; in SRS §3.3.</p>
+<p><strong>Concept dedicato:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a></p>
+<h3 id="tema-g-notifica-cittadino-post-completato" tabindex="-1">Tema G — Notifica cittadino post-COMPLETATO</h3>
+<p><strong>Decisione chiave (MF33R31):</strong></p>
+<ul>
+<li>Canale: <strong>Notificatore di Deleghe</strong> (NON UNP — User Notification Platform usata per altri canali)</li>
+<li>Timing: notifica al cittadino/delegato parte <strong>SOLO dopo</strong> che le notifiche alle aziende risultano <code>COMPLETATO</code></li>
+</ul>
+<p>Implicazione: dipendenza temporale stretta fra BATCH-01 (notifica aziende) e notifica cittadino. Se BATCH-01 fallisce/ritarda, anche la notifica cittadino è ritardata.</p>
+<p>Wiki: distinguere chiaramente <strong>Notificatore di Deleghe</strong> vs <strong>UNP (User Notification Platform)</strong> in <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> — sono due servizi diversi.</p>
+<h3 id="tema-h-batch-sql-scheduling" tabindex="-1">Tema H — Batch SQL/scheduling</h3>
+<p><strong>Decisioni chiave:</strong></p>
+<ul>
+<li><strong>MF24R23:</strong> logica selezione endpoint riferita a §6.14 CDU-14 e ALG01. Cross-reference esplicito.</li>
+<li><strong>MF64R63:</strong> tabella transizioni stato per <code>cons_t_notifica</code> e <code>cons_t_batch</code> da aggiungere. Scheduling BATCH-01: <strong>5 minuti</strong> (era AS-IS 30 min) con <code>SELECT FOR UPDATE SKIP LOCKED</code> su <code>cons_t_notifica</code> per evitare sovrapposizioni fra esecuzioni successive.</li>
+<li><strong>MF66R65:</strong> SQL canonico per BATCH-02 per determinare <code>nuova_d_informativa_id</code> (informativa corrente non scaduta):<pre><code class="language-sql">SELECT d_informativa_id AS nuova_d_informativa_id
+FROM cons_d_informativa
+WHERE sotto_tipo_consenso = :sotto_tipo_consenso_scaduta
+  AND (data_scadenza IS NULL OR data_scadenza &gt; NOW())
+  AND data_decorrenza &lt;= NOW()
+  AND data_cancellazione IS NULL
+ORDER BY data_decorrenza DESC
+LIMIT 1
+</code></pre>
+</li>
+</ul>
+<h3 id="tema-i-gia-consolidato-ex-tr-30-ex-tr-34" tabindex="-1">Tema I — Già consolidato (ex TR30, ex TR34)</h3>
+<ul>
+<li><strong>TR58 = TR30</strong> (MF59-62R58): security CDU-15/16. Wiki: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a>. Aggiornare cross-ref ID.</li>
+<li><strong>TR68 = TR34</strong> (MF69R68): alternativa BATCH-03 PULL. Wiki: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a>. Aggiornare cross-ref ID.</li>
+</ul>
+<h3 id="tema-j-aperto" tabindex="-1">Tema J — Aperto</h3>
+<ul>
+<li><strong>SC67:</strong> &quot;da approfondire e verificare meglio&quot; su INSERT cons_t_consenso da batch storicizzazione. Da discutere prima di chiusura SRS.</li>
+</ul>
+<hr>
+<h2 id="propagazione-wiki-riepilogo-file-impattati" tabindex="-1">Propagazione wiki — riepilogo file impattati</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Modifica</th>
+<th>Stato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wiki/concepts/composizione-dinamica-form-consenso.md</code></td>
+<td>Nuovo concept SSoT</td>
+<td>✅ creato</td>
+</tr>
+<tr>
+<td><code>wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3.md</code></td>
+<td>Questo file</td>
+<td>✅ creato</td>
+</tr>
+<tr>
+<td><code>wiki/concepts/ciclo-vita-consenso.md</code></td>
+<td>Transizioni ATTIVO↔NEGATO + UI termini</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>wiki/concepts/gestione-consensi-applicativo.md</code></td>
+<td>Profili, CDU-01 split, deleghe, CDU-04/05 merge, CDU-06 scope, LIS</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>wiki/concepts/batch-processes.md</code></td>
+<td>BATCH-01 5min+SKIP LOCKED, BATCH-02 SQL, Notificatore Deleghe</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>wiki/concepts/sistemi-esterni-integrati.md</code></td>
+<td>AURA dettaglio + no SistemaTS, Notificatore Deleghe, LIS canale</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>wiki/concepts/sicurezza-cdu-15-16.md</code></td>
+<td>Cross-ref ID TR58 (ex TR30)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>wiki/concepts/alternativa-batch-03-pull.md</code></td>
+<td>Cross-ref ID TR68 (ex TR34)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>wiki/analyses/analysis-gap-as-is-to-be.md</code></td>
+<td>Scheduling, SistemaTS, UI, CDU-01 split, CDU-04/05 merge, LIS</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>wiki/sources/2026-03-02-conspref-srs-v1-revised.md</code></td>
+<td>Postilla v3_lavorazione</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>wiki/index.md</code>, <code>wiki/log.md</code>, <code>wiki/overview.md</code></td>
+<td>Aggiornamento indice e log</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table></div>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

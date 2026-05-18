@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="open-api-cdu-15-16-descrizione-e-stato-consolidamento" tabindex="-1">OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento</h1>
+<p><strong>File spec:</strong> <code>wiki/analyses/openapi-cdu-15-16-v0.1.yaml</code><br>
+<strong>Versione corrente:</strong> <code>0.1-DRAFT</code><br>
+<strong>Stato:</strong> Bozza interna — non ancora condivisa con ASR<br>
+<strong>Fonte SRS:</strong> CONSPREF-SRS-V1.0 bozza v2, §6.15–6.16</p>
+<hr>
+<h2 id="cos-e-questo-documento" tabindex="-1">Cos'è questo documento</h2>
+<p>Specifica OpenAPI 3.0 delle due API REST esposte dal sistema Gestione Consensi verso i <strong>Sistemi Informativi Aziendali (SIA)</strong> delle ASR del Piemonte.</p>
+<p>Queste API sono il canale <strong>inbound</strong> (SIA → Regionale): i SIA le chiamano per leggere configurazioni e stato consensi. Non vanno confuse con il canale <strong>outbound</strong> (BATCH-01 → SIA via SOAP), che usa il WSDL AS-IS invariato (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a>).</p>
+<hr>
+<h2 id="endpoint-esposti" tabindex="-1">Endpoint esposti</h2>
+<h3 id="cdu-15-stato-consenso" tabindex="-1">CDU-15 — Stato consenso</h3>
+<pre><code>GET /api/v1/consensi/stato
+    ?codice_fiscale={CF}
+    &amp;codice_consenso={cod}
+    &amp;codice_ente={ente}
+</code></pre>
+<p><strong>Scopo:</strong> Un SIA verifica lo stato corrente di un consenso per un dato cittadino.</p>
+<p><strong>Fonte dati:</strong></p>
+<ul>
+<li><code>cons_t_consenso</code> — ultimo record valido</li>
+<li><code>cons_d_informativa</code> — informativa associata</li>
+</ul>
+<p><strong>Response 200 (campi):</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codice_fiscale</code></td>
+<td>string</td>
+<td>CF assistito</td>
+</tr>
+<tr>
+<td><code>codice_consenso</code></td>
+<td>string</td>
+<td>Tipo consenso (es. ROL)</td>
+</tr>
+<tr>
+<td><code>codice_ente</code></td>
+<td>string</td>
+<td>Codice ASR richiedente</td>
+</tr>
+<tr>
+<td><code>stato_consenso</code></td>
+<td>enum</td>
+<td>Vedi stati sotto</td>
+</tr>
+<tr>
+<td><code>valore_consenso</code></td>
+<td>enum SI/NO/null</td>
+<td>null se NON_ESPRESSO</td>
+</tr>
+<tr>
+<td><code>data_espressione</code></td>
+<td>datetime UTC</td>
+<td>Quando il cittadino ha scelto</td>
+</tr>
+<tr>
+<td><code>data_inizio_validita_consenso</code></td>
+<td>date/null</td>
+<td>Inizio validità</td>
+</tr>
+<tr>
+<td><code>data_fine_validita_consenso</code></td>
+<td>date/null</td>
+<td>Fine validità (null = attivo)</td>
+</tr>
+<tr>
+<td><code>informativa.id</code></td>
+<td>long</td>
+<td>ID informativa corrente</td>
+</tr>
+<tr>
+<td><code>informativa.versione</code></td>
+<td>string</td>
+<td>Versione informativa</td>
+</tr>
+<tr>
+<td><code>informativa.data_decorrenza</code></td>
+<td>date</td>
+<td>Decorrenza informativa</td>
+</tr>
+<tr>
+<td><code>informativa.data_scadenza</code></td>
+<td>date/null</td>
+<td>Scadenza informativa (null = attiva)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>HTTP status:</strong> 200, 400, 401, 403, 404, 500</p>
+<hr>
+<h3 id="cdu-16-configurazione-ente" tabindex="-1">CDU-16 — Configurazione ente</h3>
+<pre><code>GET /api/v1/configurazione/{codice_ente}
+</code></pre>
+<p><strong>Scopo:</strong> Un SIA scarica la configurazione completa dei consensi per il proprio ente — tipi attivi, informative correnti, endpoint SOAP di notifica.</p>
+<p><strong>Fonte dati:</strong></p>
+<ul>
+<li><code>cons_d_sotto_tipo_cons</code> — tipi consenso</li>
+<li><code>cons_d_informativa</code> — informative attive</li>
+<li><code>cons_r_asr_endpoint</code> + <code>cons_t_endpoint</code> — endpoint notifica</li>
+<li><code>cons_r_sotto_tipo_cons_asr_endpoint</code> — join tipo-ente-endpoint</li>
+</ul>
+<p><strong>Response 200 (struttura):</strong></p>
+<pre><code>consensi_attivi[]
+  ├── codice_consenso
+  ├── descrizione
+  ├── tipo (AZIENDALE | REGIONALE | NAZIONALE)
+  ├── informativa
+  │   ├── id
+  │   └── data_decorrenza
+  └── endpoints_notifica[]
+      ├── endp_id
+      └── endp_url  ← stessi URL che usa BATCH-01 per notifiche SOAP
+</code></pre>
+<p><strong>HTTP status:</strong> 200, 401, 403, 404, 500</p>
+<hr>
+<h2 id="sicurezza" tabindex="-1">Sicurezza</h2>
+<p><strong>Schema:</strong> Bearer JWT — OAuth2 Client Credentials flow. <strong>Niente API Gateway/Manager CSI</strong> (decisione §3.2 SRS v3): security gestita interamente a livello applicativo (Spring Security).</p>
+<p>Il SIA chiamante ottiene un token JWT dall'Authorization Server CSI Piemonte, incluso nell'header:</p>
+<pre><code>Authorization: Bearer &lt;token&gt;
+</code></pre>
+<p>Il token contiene il claim <code>client_id</code> del SIA chiamante. L'autorizzazione per ente non si poggia sul claim ma su tabella applicativa <code>cons_t_client_ente</code> che lega <code>client_id</code> → <code>codice_ente</code>. Difesa in profondità a 3 livelli (firma JWT + filter Spring Security + WHERE clause repository).</p>
+<blockquote>
+<p>Modello completo, claim minimi, pseudocodice filter, schema tabella, matrice attacchi/mitigazioni, audit log, testo proposto per SRS: <strong><a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a></strong> (risposta tecnica al commento cliente TR30).</p>
+</blockquote>
+<hr>
+<h2 id="gestione-errori" tabindex="-1">Gestione errori</h2>
+<p>Tutti gli endpoint usano <strong>RFC 7807</strong> (Problem Details for HTTP APIs):</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;https://gestioneconsensi.csi.piemonte.it/errors/not-found&quot;,
+  &quot;title&quot;: &quot;Not Found&quot;,
+  &quot;status&quot;: 404,
+  &quot;detail&quot;: &quot;Nessun consenso trovato per i parametri specificati.&quot;,
+  &quot;instance&quot;: &quot;/api/v1/consensi/stato&quot;
+}
+</code></pre>
+<p>Content-type: <code>application/problem+json</code></p>
+<hr>
+<h2 id="nota-semantica-critica-per-integratori-sia" tabindex="-1">Nota semantica critica per integratori SIA</h2>
+<blockquote>
+<p>⚠️ <strong>Stato SCADUTO — comportamento cambiato tra AS-IS e TO-BE</strong></p>
+</blockquote>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th></th>
+<th>AS-IS</th>
+<th>TO-BE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chi imposta SCADUTO</td>
+<td>Logica acquisizione durante SRV-01</td>
+<td>BATCH-02 su scadenza informativa</td>
+</tr>
+<tr>
+<td>Quando</td>
+<td>Durante acquisizione (sincrono)</td>
+<td>A scadenza informativa (asincrono, notturno)</td>
+</tr>
+<tr>
+<td>Notifica ASR</td>
+<td>Sincrona durante acquisizione</td>
+<td>Nessuna notifica per SCADUTO — solo per ANNULLATO</td>
+</tr>
+</tbody>
+</table></div>
+<p>I SIA che hanno logica basata sul vecchio comportamento devono aggiornare i propri processi interni. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a> §Cambiamenti semantici critici.</p>
+<hr>
+<h2 id="enum-stato-consenso" tabindex="-1">Enum StatoConsenso</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Valore</th>
+<th>Significato</th>
+<th>Notifica BATCH-01 inviata?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NON_ESPRESSO</code></td>
+<td>Cittadino non ha mai scelto</td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>ATTIVO</code></td>
+<td>Consenso valido, informativa corrente</td>
+<td>Sì (su variazione)</td>
+</tr>
+<tr>
+<td><code>NEGATO</code></td>
+<td>Rifiuto esplicito, informativa corrente</td>
+<td>Sì (su variazione)</td>
+</tr>
+<tr>
+<td><code>SCADUTO</code></td>
+<td>Informativa cambiata, <code>annulla_consensi=NO</code></td>
+<td><strong>No</strong></td>
+</tr>
+<tr>
+<td><code>ANNULLATO</code></td>
+<td>Informativa cambiata, <code>annulla_consensi=SI</code></td>
+<td><strong>Sì</strong></td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="integrazione-con-spring-boot-note-sviluppatori" tabindex="-1">Integrazione con Spring Boot (note sviluppatori)</h2>
+<p>L'SRS raccomanda generazione automatica degli stub dal YAML:</p>
+<pre><code class="language-xml">&lt;!-- pom.xml --&gt;
+&lt;plugin&gt;
+  &lt;groupId&gt;org.openapitools&lt;/groupId&gt;
+  &lt;artifactId&gt;openapi-generator-maven-plugin&lt;/artifactId&gt;
+  &lt;configuration&gt;
+    &lt;inputSpec&gt;${project.basedir}/src/main/resources/openapi-cdu-15-16.yaml&lt;/inputSpec&gt;
+    &lt;generatorName&gt;spring&lt;/generatorName&gt;
+    &lt;configOptions&gt;
+      &lt;useSpringBoot3&gt;true&lt;/useSpringBoot3&gt;
+      &lt;interfaceOnly&gt;true&lt;/interfaceOnly&gt;
+    &lt;/configOptions&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre>
+<p>Swagger UI esposta in ambienti non produttivi su <code>/swagger-ui.html</code> tramite <strong>SpringDoc OpenAPI</strong>:</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.springdoc&lt;/groupId&gt;
+  &lt;artifactId&gt;springdoc-openapi-starter-webmvc-ui&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<hr>
+<h2 id="stato-consolidamento" tabindex="-1">Stato consolidamento</h2>
+<h3 id="consolidato-ricavato-da-srs" tabindex="-1">✅ Consolidato — ricavato da SRS</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Elemento</th>
+<th>Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C01</td>
+<td>Endpoint CDU-15: <code>GET /api/v1/consensi/stato</code></td>
+<td>SRS §6.15</td>
+</tr>
+<tr>
+<td>C02</td>
+<td>Endpoint CDU-16: <code>GET /api/v1/configurazione/{codice_ente}</code></td>
+<td>SRS §6.16</td>
+</tr>
+<tr>
+<td>C03</td>
+<td>Query params CDU-15: <code>codice_fiscale</code>, <code>codice_consenso</code>, <code>codice_ente</code></td>
+<td>SRS §6.15 scenario principale</td>
+</tr>
+<tr>
+<td>C04</td>
+<td>Path param CDU-16: <code>codice_ente</code></td>
+<td>SRS §6.16 scenario principale</td>
+</tr>
+<tr>
+<td>C05</td>
+<td>Tutti i campi response CDU-15 (9 campi + nested informativa)</td>
+<td>SRS §6.15 response 200</td>
+</tr>
+<tr>
+<td>C06</td>
+<td>Struttura response CDU-16 (consensi_attivi + informativa + endpoints_notifica)</td>
+<td>SRS §6.16 response 200</td>
+</tr>
+<tr>
+<td>C07</td>
+<td>Auth: Bearer JWT OAuth2 Client Credentials</td>
+<td>SRS §6.15–6.16 + Q&amp;A CSI <a class="tag" onclick="toggleTagSearch(this)" data-content="#6">#6</a></td>
+</tr>
+<tr>
+<td>C08</td>
+<td>Errori RFC 7807 su tutti gli endpoint</td>
+<td>SRS §4.x</td>
+</tr>
+<tr>
+<td>C09</td>
+<td>HTTP status codes CDU-15: 200/400/401/403/404/500</td>
+<td>SRS §6.15</td>
+</tr>
+<tr>
+<td>C10</td>
+<td>HTTP status codes CDU-16: 200/401/403/404/500</td>
+<td>SRS §6.16</td>
+</tr>
+<tr>
+<td>C11</td>
+<td>Enum StatoConsenso: 5 valori (NON_ESPRESSO/ATTIVO/NEGATO/SCADUTO/ANNULLATO)</td>
+<td>SRS §5 macchina a stati</td>
+</tr>
+<tr>
+<td>C12</td>
+<td>Enum ValoreConsenso: SI/NO/null</td>
+<td>SRS §5</td>
+</tr>
+<tr>
+<td>C13</td>
+<td>Enum tipo consenso: AZIENDALE/REGIONALE/NAZIONALE</td>
+<td>SRS §5 + CONSPREF-SRS-01-V03</td>
+</tr>
+<tr>
+<td>C14</td>
+<td>Base path <code>/api/v1/</code></td>
+<td>SRS §6.15 (esplicito)</td>
+</tr>
+<tr>
+<td>C15</td>
+<td>Pattern CF: regex <code>^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$</code></td>
+<td>standard italiano</td>
+</tr>
+<tr>
+<td>C16</td>
+<td>Tabelle DB sorgente per ogni endpoint</td>
+<td>SRS §6.15–6.16 + §8</td>
+</tr>
+<tr>
+<td>C17</td>
+<td><code>endp_url</code> in CDU-16 = stessi URL usati da BATCH-01</td>
+<td>SRS §7.1 + §6.16</td>
+</tr>
+<tr>
+<td>C18</td>
+<td>Generazione stub via <code>openapi-generator-maven-plugin</code></td>
+<td>SRS §4 prerequisiti OpenAPI</td>
+</tr>
+<tr>
+<td>C19</td>
+<td>Swagger UI via SpringDoc su <code>/swagger-ui.html</code> (non-prod)</td>
+<td>SRS §4</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h3 id="da-consolidare-con-csi-piemonte" tabindex="-1">❌ Da consolidare con CSI Piemonte</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Informazione mancante</th>
+<th>Impatto sul YAML</th>
+<th>Priorità</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TODO-M1</td>
+<td>URL Authorization Server CSI + JWKS endpoint</td>
+<td><code>securitySchemes.bearerAuth</code> — ora placeholder</td>
+<td>🔴 Pre go-live</td>
+</tr>
+<tr>
+<td>TODO-M2</td>
+<td>Scope OAuth2 richiesto per client SIA (es. <code>consensi:read</code>)</td>
+<td>Documentazione integrazione SIA</td>
+<td>🔴 Pre go-live</td>
+</tr>
+<tr>
+<td>TODO-M3</td>
+<td>Paginazione su CDU-16 richiesta?</td>
+<td>Aggiunta <code>page</code>/<code>size</code> query params + <code>PaginatedResponse</code> schema</td>
+<td>🟠 Sprint 2</td>
+</tr>
+<tr>
+<td>TODO-M4</td>
+<td>SLA: rate limit per client, timeout massimo risposta</td>
+<td>Header <code>X-RateLimit-*</code>, note NFR</td>
+<td>🟡 Pre UAT</td>
+</tr>
+<tr>
+<td>TODO-M5</td>
+<td>Lista ASR coinvolte + <code>client_id</code> per env DEV/PROD</td>
+<td>Env-specific server URLs, test setup</td>
+<td>🟡 Sprint 3</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h3 id="da-produrre-internamente-exprivia" tabindex="-1">🔧 Da produrre internamente (Exprivia)</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Attività</th>
+<th>Scadenza raccomandata</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P01</td>
+<td>Validazione YAML con Swagger Editor / <code>swagger-codegen validate</code></td>
+<td>Immediato</td>
+</tr>
+<tr>
+<td>P02</td>
+<td>Aggiornare versione da <code>0.1-DRAFT</code> a <code>0.1</code> dopo validazione CSI bozza</td>
+<td>Post prima review CSI</td>
+</tr>
+<tr>
+<td>P03</td>
+<td>Copia YAML in <code>src/main/resources/</code> del progetto Spring Boot</td>
+<td>Sprint 1</td>
+</tr>
+<tr>
+<td>P04</td>
+<td>Configurare <code>openapi-generator-maven-plugin</code> per generazione stub</td>
+<td>Sprint 1</td>
+</tr>
+<tr>
+<td>P05</td>
+<td>Implementare endpoint CDU-15 e CDU-16 (Sprint 6 nel piano)</td>
+<td>Sprint 6</td>
+</tr>
+<tr>
+<td>P06</td>
+<td>Condividere bozza con referenti tecnici ASR per feedback</td>
+<td><strong>Anticipare a Sprint 2</strong> (non Sprint 6)</td>
+</tr>
+<tr>
+<td>P07</td>
+<td>Compilare TODO-M1÷M5 e rimuovere <code>-DRAFT</code> dalla versione</td>
+<td>Prima di Sprint 6</td>
+</tr>
+<tr>
+<td>P08</td>
+<td>Test integrazione con SIA DEV (mock → reale)</td>
+<td>Sprint 8</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="cronologia-versioni" tabindex="-1">Cronologia versioni</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Versione</th>
+<th>Data</th>
+<th>Autore</th>
+<th>Modifiche</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.1-DRAFT</td>
+<td>2026-05-06</td>
+<td>Exprivia (wiki LLM)</td>
+<td>Prima bozza da SRS §6.15–6.16</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="prossimi-passi" tabindex="-1">Prossimi passi</h2>
+<ol>
+<li><strong>Subito:</strong> validare il YAML con Swagger Editor (incolla <code>openapi-cdu-15-16-v0.1.yaml</code>)</li>
+<li><strong>Sprint 0:</strong> richiedere a CSI URL Auth Server (TODO-M1) e scope (TODO-M2)</li>
+<li><strong>Sprint 1:</strong> copiare YAML nel progetto, configurare plugin Maven</li>
+<li><strong>Sprint 2:</strong> condividere bozza con ASR + raccogliere feedback su TODO-M3/M4/M5</li>
+<li><strong>Prima di Sprint 6:</strong> compilare tutti i TBD, rilasciare versione <code>1.0</code></li>
+</ol>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

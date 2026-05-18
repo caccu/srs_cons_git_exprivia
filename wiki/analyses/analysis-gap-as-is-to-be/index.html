@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Analisi Gap AS-IS → TO-BE — Gestione Consensi</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="analisi-gap-as-is-to-be-gestione-consensi" tabindex="-1">Analisi Gap AS-IS → TO-BE — Gestione Consensi</h1>
+<p><strong>Scopo:</strong> Identificare cosa cambia, cosa rimane invariato e cosa viene dismesso tra sistema AS-IS (2019) e TO-BE (SRS 2026). Input per sprint planning e gestione rischi integrazione.</p>
+<p><strong>Fonti AS-IS:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-02-01-sfu-gestione-consensi-v1-7/">Studio Funzionale Gestione Consensi SoL V1.7 (AS-IS 2019)</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/">ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-04-08-dizionario-dati-as-is/">Modello Dizionario Dati AS-IS (2019)</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a><br>
+<strong>Fonti TO-BE:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-02-conspref-srs-v1-revised/">CONSPREF-SRS-V1.0 revised bozza v2</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2023-09-01-conspref-srs-01-v03/">CONSPREF-SRS-01-V03 Requisiti Gestione Consensi</a></p>
+<hr>
+<h2 id="sintesi-delta" tabindex="-1">Sintesi delta</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Dimensione</th>
+<th>AS-IS</th>
+<th>TO-BE</th>
+<th>Tipo cambiamento</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Casi d'uso</td>
+<td>6 CDU</td>
+<td>16 CDU</td>
+<td>espansione funzionale</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Modello dati</td>
+<td>12 entità</td>
+<td>25+ entità</td>
+<td>nuove entità batch/endpoint/allegati</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Stack DB</td>
+<td>PostgreSQL 9 (RETIRED)</td>
+<td>PostgreSQL 17 (CURRENT)</td>
+<td>Migrazione obbligatoria</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Stack applicativo</td>
+<td>Legacy non documentato</td>
+<td>Spring Boot 3 + Angular 19</td>
+<td>Rifacimento completo</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Processi batch</td>
+<td>Assenti</td>
+<td>3 batch (BATCH-01/02/03) — BATCH-03 contestato TR34, possibile sostituzione con PULL CDU-17 ([[alternativa-batch-03-pull</td>
+<td>Alternativa BATCH-03 — PULL CDU-17 (centro stella)]])</td>
+<td>Nuovi — vedi [[batch-processes</td>
+<td>Processi Batch — BATCH-01, BATCH-02, BATCH-03]]</td>
+</tr>
+<tr>
+<td>API esterne per SIA</td>
+<td>Solo SOAP inbound (SRV-01/02)</td>
+<td>SOAP outbound + REST CDU-15/16</td>
+<td>Espansione bidirezionale</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Autenticazione Cittadino</td>
+<td>Non documentata</td>
+<td>[[wiki/concepts/gasp-salute</td>
+<td>GASP Salute]] SPID/CIE</td>
+<td>Modernizzazione</td>
+<td></td>
+</tr>
+<tr>
+<td>Notifiche ASR</td>
+<td>Sincrono durante acquisizione</td>
+<td>Asincrono BATCH-01 ogni <strong>5 min</strong> con <code>SELECT FOR UPDATE SKIP LOCKED</code> (MF64R63 — sostituisce AS-IS 30 min)</td>
+<td>Cambio paradigma + ottimizzazione concorrenza</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Notifica cittadino</td>
+<td>Non documentata</td>
+<td>Via <strong>Notificatore di Deleghe</strong> (NON UNP), post-COMPLETATO aziende (MF33R31)</td>
+<td>Nuovo canale dedicato</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Ricerca assistito operatore</td>
+<td>Non documentata</td>
+<td>AURA: FindProfiliAnagrafici + getProfiloSanitario; <strong>NO SistemaTS</strong> (MF53/MF55)</td>
+<td>Stack semplificato</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UI terminologia consenso</td>
+<td>Non standard</td>
+<td>&quot;acconsento&quot;/&quot;nego&quot; UI, mapping tecnico ATTIVO/NEGATO invariato (MF9R8)</td>
+<td>Allineamento UX</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CDU-01</td>
+<td>Singolo caso d'uso</td>
+<td><strong>Split CDU-01a Operatore</strong> (RUPAR/IRIDE/SPID + profilazione) + <strong>CDU-01b Cittadino</strong> (SPID/CIE webapp separata) (MF16R15)</td>
+<td>Separazione canali autenticazione</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CDU-04/CDU-05 lato cittadino</td>
+<td>Casi d'uso distinti</td>
+<td><strong>Inglobati</strong>: webapp citt usa pulsante unico &quot;Salva&quot;, CDU-05 separato solo per Operatore (MF45R44)</td>
+<td>Semplificazione UX</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Canali acquisizione consenso</td>
+<td>webapp + operatore</td>
+<td>webapp + operatore + <strong>LIS</strong> (MF3/MF4)</td>
+<td>+1 canale (LIS)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Form rendering Citt vs Operatore</td>
+<td>Non vincolato</td>
+<td>Form Renderer unico SSoT (MF57R56) — niente divergenze fra le 2 webapp</td>
+<td>Nuovo vincolo architetturale</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Storicizzazione consensi</td>
+<td><code>cons_s_consenso</code> non usata</td>
+<td>Usata attivamente</td>
+<td>Attivazione feature esistente</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Infrastruttura</td>
+<td>Legacy</td>
+<td>ECaaS/Kubernetes Nivola</td>
+<td>Migrazione cloud</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="cdu-cosa-cambia" tabindex="-1">CDU: cosa cambia</h2>
+<h3 id="cdu-con-continuita-as-is-to-be" tabindex="-1">CDU con continuità AS-IS → TO-BE</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Funzione AS-IS</th>
+<th>CDU TO-BE</th>
+<th>Variazioni principali</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Acquisizione consenso</td>
+<td>CDU-03 Rilascio</td>
+<td>Aggiunta visualizzazione informativa PDF obbligatoria + checkbox presa visione</td>
+</tr>
+<tr>
+<td>Modifica consenso</td>
+<td>CDU-04 Modifica con scadenza</td>
+<td>Aggiunta logica riaccettazione se SCADUTO/ANNULLATO</td>
+</tr>
+<tr>
+<td>Cambio valore</td>
+<td>CDU-05 Cambio valore</td>
+<td>Stessa logica, no riaccettazione (informativa invariata)</td>
+</tr>
+<tr>
+<td>Consultazione stato</td>
+<td>CDU-02 Consultazione</td>
+<td>Redesign UI — cruscotto con card per tipo/sottotipo</td>
+</tr>
+<tr>
+<td>Acquisizione da operatore</td>
+<td>CDU-07/08 Ricerca + gestione per conto</td>
+<td>Separati, con ricerca [[wiki/concepts/sistemi-esterni-integrati</td>
+</tr>
+<tr>
+<td>Storico operazioni</td>
+<td>CDU-09 Storico</td>
+<td>Aggiunta tracciatura <code>fonte_id</code></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="cdu-nuovi-nel-to-be" tabindex="-1">CDU nuovi nel TO-BE</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>CDU</th>
+<th>Descrizione</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CDU-01</td>
+<td>Autenticazione cittadino</td>
+<td>[[wiki/concepts/gasp-salute</td>
+</tr>
+<tr>
+<td>CDU-06</td>
+<td>Download PDF attestazione consenso</td>
+<td>Nuova funzionalità — [PROPOSTA]</td>
+</tr>
+<tr>
+<td>CDU-10/11</td>
+<td>Gestione consenso operatore PASS</td>
+<td>Espansione area operatore</td>
+</tr>
+<tr>
+<td>CDU-12/13</td>
+<td>Back office tipi consenso e informative</td>
+<td>Parametrizzazione dinamica</td>
+</tr>
+<tr>
+<td>CDU-14</td>
+<td>Back office enti ed endpoint</td>
+<td>Gestione endpoint ASR — trigger BATCH-03</td>
+</tr>
+<tr>
+<td>CDU-15</td>
+<td>API stato consensi per SIA</td>
+<td>REST — specifica OpenAPI da produrre ❌</td>
+</tr>
+<tr>
+<td>CDU-16</td>
+<td>API configurazione per SIA</td>
+<td>REST — specifica OpenAPI da produrre ❌</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="modello-dati-entita-nuove-to-be" tabindex="-1">Modello dati: entità nuove TO-BE</h2>
+<p>Rispetto alle 12 entità AS-IS documentate in <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-04-08-dizionario-dati-as-is/">Modello Dizionario Dati AS-IS (2019)</a>:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Categoria</th>
+<th>Entità TO-BE nuove</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Notifiche batch</td>
+<td><code>cons_t_notifica</code>, <code>cons_t_notifica_errore_dett</code>, <code>cons_t_batch_errori</code></td>
+</tr>
+<tr>
+<td>Endpoint ASR</td>
+<td><code>cons_t_endpoint</code>, <code>cons_r_asr_endpoint</code></td>
+</tr>
+<tr>
+<td>Allegati informativa</td>
+<td><code>cons_t_allegato</code>, <code>cons_d_allegato_tipo</code></td>
+</tr>
+<tr>
+<td>Parametri dinamici</td>
+<td><code>cons_d_parametro</code>, <code>cons_r_consenso_parametro</code></td>
+</tr>
+<tr>
+<td>Tracciatura esterna</td>
+<td><code>cons_t_traccia_serv_est</code></td>
+</tr>
+<tr>
+<td>Relazioni n:m nuove</td>
+<td><code>cons_r_sotto_tipo_cons_asr_endpoint</code>, <code>cons_r_consenso_valore</code>, <code>cons_r_informativa_asr</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Entità attivata (esistente ma non usata AS-IS):</strong> <code>cons_s_consenso</code> — storico pre-modifica, usata attivamente nel <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/ciclo-vita-consenso/">Ciclo di Vita del Consenso</a> TO-BE per garantire no-sovrascrittura. Struttura da verificare nell'audit DDL Sprint 0.</p>
+<hr>
+<h2 id="integrazioni-delta-dettagliato" tabindex="-1">Integrazioni: delta dettagliato</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Sistema</th>
+<th>AS-IS</th>
+<th>TO-BE</th>
+<th>Cambiamento</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SIA ASR (outbound)</td>
+<td>Sincrono durante acquisizione (SRV-01)</td>
+<td>Asincrono [[batch-processes</td>
+<td>Processi Batch — BATCH-01, BATCH-02, BATCH-03]]</td>
+<td>Paradigma asincrono — rischio semantica SCADUTO</td>
+</tr>
+<tr>
+<td>SIA ASR (inbound)</td>
+<td>Non presente</td>
+<td>CDU-15/16 REST OpenAPI</td>
+<td>Nuovo canale — spec da produrre</td>
+<td></td>
+</tr>
+<tr>
+<td>AURA</td>
+<td>Non documentata</td>
+<td>SOAP + WS-Security IRIS</td>
+<td>Nuovo (WSDL da richiedere)</td>
+<td></td>
+</tr>
+<tr>
+<td>Gestione Deleghe</td>
+<td>Non documentata</td>
+<td>SOAP + OAuth2 Client Credentials</td>
+<td>Nuovo (WSDL da richiedere)</td>
+<td></td>
+</tr>
+<tr>
+<td>Notificatore UNP</td>
+<td>Non presente</td>
+<td>REST</td>
+<td>Nuovo</td>
+<td></td>
+</tr>
+<tr>
+<td>[[wiki/concepts/gasp-salute</td>
+<td>GASP Salute]]</td>
+<td>Non documentata</td>
+<td>OIDC/SAML2 (da definire)</td>
+<td>Nuovo — rischio critico</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="cambiamenti-semantici-critici-rischi-integrazione" tabindex="-1">Cambiamenti semantici critici (rischi integrazione)</h2>
+<h3 id="1-stato-scaduto-meccanismo-diverso" tabindex="-1">1. Stato SCADUTO — meccanismo diverso</h3>
+<p>| | AS-IS (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/">ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)</a>) | TO-BE |<br>
+|---|---|---|<br>
+| Chi imposta SCADUTO | Logica acquisizione (SRV-01) | BATCH-02 su scadenza informativa |<br>
+| Quando | Durante acquisizione se consenso già presente | Alla scadenza dell'informativa |<br>
+| Notifica ASR | Sincrona | Asincrona (dopo BATCH-01, max 5 min dopo BATCH-02) |</p>
+<blockquote>
+<p>⚠️ SIA ASR che si aspetta comportamento AS-IS riceve notifica in momento diverso. Documentare nella specifica OpenAPI CDU-15/16 e verificare con tutti i SIA coinvolti prima del go-live.</p>
+</blockquote>
+<h3 id="2-storicizzazione-attivazione-feature" tabindex="-1">2. Storicizzazione — attivazione feature</h3>
+<p><code>cons_s_consenso</code> esiste nel DB AS-IS ma non popolata. Nel TO-BE usata attivamente. Rischio: struttura fisica potrebbe non corrispondere al DDL atteso dal TO-BE. Verificare nell'audit DDL Sprint 0 (comando <code>\d cons_s_consenso</code> su DB AS-IS reale).</p>
+<h3 id="3-notifica-acquisizione-da-sincrona-ad-asincrona" tabindex="-1">3. Notifica acquisizione — da sincrona ad asincrona</h3>
+<p>AS-IS: SIA ASR riceve notifica in real-time durante acquisizione.<br>
+TO-BE: BATCH-01 notifica entro 5 minuti. Se SIA ha logica temporale che dipende dalla notifica sincrona, adattamento necessario.</p>
+<hr>
+<h2 id="cosa-rimane-invariato" tabindex="-1">Cosa rimane invariato</h2>
+<ul>
+<li><strong>Contratto WSDL outbound</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a>) — confermato da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a>, invariato nel TO-BE</li>
+<li><strong>Logica fondamentale</strong> — un consenso per tipo/sottotipo/ASR per cittadino</li>
+<li><strong>Dati di business core</strong> — tipi consenso, ASR, valori SI/NO, codice fiscale</li>
+<li><strong>Accesso operatori</strong> — RUPAR/IRIDE (PUA) — meccanismo invariato</li>
+<li><strong>Namespace SOAP</strong> — <code>http://consprefbe.csi.it/</code></li>
+</ul>
+<hr>
+<h2 id="cosa-viene-dismesso" tabindex="-1">Cosa viene dismesso</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Motivo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PostgreSQL 9</td>
+<td>RETIRED da [[wiki/entities/csi-piemonte</td>
+</tr>
+<tr>
+<td>Stack legacy applicativo</td>
+<td>Rifacimento completo su [[wiki/concepts/architettura-ecaas</td>
+</tr>
+<tr>
+<td>Acquisizione sincrona SIA→Regionale come unico canale</td>
+<td>Sostituito da CDU-15/16 REST + BATCH-01 asincrono</td>
+</tr>
+<tr>
+<td>Assenza tracciatura storico (<code>cons_s_consenso</code> vuota)</td>
+<td>TO-BE attiva storicizzazione immutabile</td>
+</tr>
+</tbody>
+</table></div>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Composizione Dinamica Form Consenso — Single Source of Truth</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="composizione-dinamica-form-consenso-single-source-of-truth" tabindex="-1">Composizione Dinamica Form Consenso — Single Source of Truth</h1>
+<p><strong>Origine:</strong> risposte MF a revisione SRS v3 — commenti MB29, MB27, MB34, MB36, MB38, MB40, MB42, MB56 (vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/">analysis-2026-05-14-risposte-mf-srs-v3</a> tema C e tema F).</p>
+<p>Pattern architetturale unico per il rendering delle pagine di consenso lato <strong>Cittadino</strong> (CDU-02, CDU-03, CDU-04) e <strong>Operatore</strong> (CDU-09, CDU-10, CDU-11). Vincolo: nessuna divergenza di struttura fra le due interfacce.</p>
+<hr>
+<h2 id="1-vincolo-architetturale-mf-57-r56" tabindex="-1">1. Vincolo architetturale (MF57R56)</h2>
+<p><strong>Single Source of Truth (SSoT):</strong> la stessa logica di rendering della pagina cittadino viene riusata lato operatore. Non sono ammesse divergenze nella struttura dei campi tra interfaccia Cittadino e interfaccia Operatore per lo stesso <code>sotto_tipo_consenso</code>.</p>
+<p><strong>Conseguenza implementativa:</strong> motore di rendering <strong>&quot;Form Renderer dinamico&quot;</strong> unico, riusato da entrambe le web app (Cittadino + Operatore/PUA). Da riflettere nel SRS §3.3 Componenti software come componente identificato.</p>
+<hr>
+<h2 id="2-regole-di-composizione-mf-26-mf-28-mf-30-mf-35" tabindex="-1">2. Regole di composizione (MF26, MF28, MF30, MF35)</h2>
+<p>La pagina di consenso si compone <strong>dinamicamente</strong> sulla base della configurazione del tipo di consenso. Nulla è hardcoded a livello UI: tutto deriva dalla configurazione DB.</p>
+<h3 id="2-1-cosa-e-dinamico" tabindex="-1">2.1 Cosa è dinamico</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Elemento UI</th>
+<th>Sorgente DB</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Campi visualizzati</td>
+<td><code>cons_d_sotto_tipo_cons</code> + tabelle correlate</td>
+<td>Letti per <code>sotto_tipo_consenso</code></td>
+</tr>
+<tr>
+<td>Valori ammessi per <code>valore_consenso</code></td>
+<td><code>cons_d_sotto_tipo_cons</code> / tabelle valori</td>
+<td>Non solo SI/NO — possono essere multipli</td>
+</tr>
+<tr>
+<td>Domande/flag opzionali</td>
+<td>Tabelle configurazione</td>
+<td>Mostrate solo se previste</td>
+</tr>
+<tr>
+<td>Flag &quot;campo richiesto&quot;</td>
+<td>Config tipo consenso</td>
+<td>Vincolo validazione</td>
+</tr>
+<tr>
+<td>Layout informativa</td>
+<td>Config aziendale vs regionale</td>
+<td>Vedi §2.3</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="2-2-lista-consensi-mostrati-cdu-02-mf-26" tabindex="-1">2.2 Lista consensi mostrati (CDU-02 MF26)</h3>
+<blockquote>
+<p>Il sistema mostra <strong>tutti</strong> i tipi di consenso configurati per il cittadino, indipendentemente dallo stato espresso.</p>
+</blockquote>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Tipologia</th>
+<th>Visualizzazione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Regionale</td>
+<td><strong>Un singolo record</strong> con stato globale (la scelta si propaga a tutte le ASR)</td>
+</tr>
+<tr>
+<td>Aziendale</td>
+<td><strong>Un record per ogni azienda</strong> con il relativo stato (inclusi quelli già espressi)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Errore da evitare: mostrare solo i consensi non ancora espressi. Il cittadino deve vedere anche quelli già espressi per poterli modificare.</p>
+<h3 id="2-3-informativa-per-consenso-aziendale-mf-28-r27" tabindex="-1">2.3 Informativa per consenso aziendale (MF28R27)</h3>
+<blockquote>
+<p>Per i consensi aziendali, se ogni azienda ha una propria informativa specifica, il sistema deve permettere la visualizzazione dell'informativa della singola azienda <strong>prima</strong> di raccogliere il consenso per quell'azienda.</p>
+</blockquote>
+<p>Implementazione: dropdown o tab per azienda; alla selezione, fetch dell'informativa specifica via <code>d_informativa_id</code> legato all'ente.</p>
+<hr>
+<h2 id="3-pulsante-unico-and-quot-salva-and-quot-lato-cittadino-mf-37-r36" tabindex="-1">3. Pulsante unico &quot;Salva&quot; lato cittadino (MF37R36)</h2>
+<blockquote>
+<p>Web app cittadino: pulsante unico <strong>«Salva»</strong>. Operazioni tecniche distinte (rilascio CDU-03 vs modifica CDU-04) gestite internamente, non esposte UI.</p>
+</blockquote>
+<p>Razionale (MB38, MB44): il cittadino non distingue &quot;rilascio&quot; da &quot;modifica&quot; — vuole solo salvare la propria scelta. Distinzione CDU-03/CDU-04 rilevante solo per logica backend e tracciatura.</p>
+<p><strong>Conseguenza (MF45R44):</strong> lato webapp Cittadino, CDU-05 <strong>NON è caso d'uso separato</strong> — flusso inglobato in CDU-04. La distinzione CDU-04/CDU-05 (modifica con scadenza vs cambio valore) resta rilevante solo per:</p>
+<ul>
+<li>l'Operatore (UI distinta per casistiche operative diverse)</li>
+<li>la logica interna (riaccettazione informativa o no)</li>
+</ul>
+<hr>
+<h2 id="4-lato-operatore-differenze-mf-57-r56" tabindex="-1">4. Lato Operatore — differenze (MF57R56)</h2>
+<p>Layout dinamico <strong>identico</strong> al lato cittadino. Le sole differenze riguardano i metadati di tracciatura sorgente:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Lato Cittadino</th>
+<th>Lato Operatore</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fonte_id</code></td>
+<td>derivato da contesto webapp citt. (es. <code>WEB_CITT</code>, <code>LIS</code>)</td>
+<td><code>'PASS'</code></td>
+</tr>
+<tr>
+<td><code>login_operazione</code></td>
+<td>CF cittadino autenticato</td>
+<td>login operatore PUA</td>
+</tr>
+<tr>
+<td><code>ruoloop_id</code></td>
+<td>NULL</td>
+<td>ID ruolo operatore PUA</td>
+</tr>
+</tbody>
+</table></div>
+<p>I CDU operatore coinvolti:</p>
+<ul>
+<li><strong>CDU-09</strong> Rilascio consenso per conto dell'assistito</li>
+<li><strong>CDU-10</strong> Modifica consenso per conto dell'assistito</li>
+<li><strong>CDU-11</strong> Cambio valore consenso per conto dell'assistito</li>
+</ul>
+<p>Ognuno deve avere paragrafo &quot;Composizione dinamica pagina operatore&quot; che rimanda esplicitamente alle regole §6.2 (CDU-02 cittadino) e §6.4 (CDU-04 cittadino) come unica fonte autorevole.</p>
+<hr>
+<h2 id="5-implementazione-raccomandata" tabindex="-1">5. Implementazione raccomandata</h2>
+<h3 id="5-1-componente-architetturale-srs-3-3" tabindex="-1">5.1 Componente architetturale SRS §3.3</h3>
+<p>Aggiungere componente <strong>&quot;Form Renderer dinamico&quot;</strong> nei componenti software:</p>
+<ul>
+<li>Tecnologia: Angular component library condivisa</li>
+<li>Input: <code>tipo_consenso</code>, <code>sotto_tipo_consenso</code>, <code>codice_ente</code> (per aziendali), <code>modalita</code> (<code>citt</code> | <code>operatore</code>)</li>
+<li>Output: form renderizzato + binding bidirezionale con backend</li>
+<li>Riuso: stesso componente importato da <code>app-cittadino</code> e <code>app-operatore</code></li>
+</ul>
+<h3 id="5-2-schema-configurazione-db" tabindex="-1">5.2 Schema configurazione DB</h3>
+<p>Tabella principale: <code>cons_d_sotto_tipo_cons</code> con campi configurativi:</p>
+<ul>
+<li><code>valori_ammessi_json</code> o tabella correlata <code>cons_d_valore_consenso</code></li>
+<li><code>domande_opzionali_json</code> o tabella correlata</li>
+<li><code>flag_informativa_per_ente</code> (boolean)</li>
+<li><code>flag_richiesto</code> (boolean per campo)</li>
+</ul>
+<h3 id="5-3-pattern-fetch" tabindex="-1">5.3 Pattern fetch</h3>
+<pre><code>GET /api/v1/config/sotto-tipo-consenso/{sotto_tipo}
+  ↓
+{
+  &quot;sotto_tipo&quot;: &quot;ROL&quot;,
+  &quot;campi&quot;: [...],
+  &quot;valori_ammessi&quot;: [...],
+  &quot;domande&quot;: [...],
+  &quot;informativa_per_ente&quot;: true
+}
+</code></pre>
+<p>Il backend (Spring Boot 3) espone l'endpoint, il Form Renderer Angular lo consuma alla <code>init</code> della pagina consenso. Cache lato browser opportuna.</p>
+<hr>
+<h2 id="6-mapping-commenti-mf-coperti" tabindex="-1">6. Mapping commenti MF coperti</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Commento revisore</th>
+<th>Risposta MF</th>
+<th>Sezione di questo concept</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MB29 (composizione dinamica)</td>
+<td>MF30R29</td>
+<td>§2</td>
+</tr>
+<tr>
+<td>MB27 (informativa per azienda)</td>
+<td>MF28R27</td>
+<td>§2.3</td>
+</tr>
+<tr>
+<td>MB34 (valori dinamici)</td>
+<td>MF35R34</td>
+<td>§2.1</td>
+</tr>
+<tr>
+<td>MB36 (manca compilazione dinamica)</td>
+<td>MF37R36</td>
+<td>§3</td>
+</tr>
+<tr>
+<td>MB38 (pulsante unico)</td>
+<td>MF37R36</td>
+<td>§3</td>
+</tr>
+<tr>
+<td>MB40/MB42 (modifica dinamica)</td>
+<td>MF39/41/43</td>
+<td>§2 + §3</td>
+</tr>
+<tr>
+<td>MB44 (CDU-04/05 merge cittadino)</td>
+<td>MF45R44</td>
+<td>§3</td>
+</tr>
+<tr>
+<td>MB56 (logica operatore = cittadino)</td>
+<td>MF57R56</td>
+<td>§1 + §4</td>
+</tr>
+<tr>
+<td>SC25 (lista completa CDU-02)</td>
+<td>MF26R25</td>
+<td>§2.2</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="7-gap-srs-da-chiudere" tabindex="-1">7. Gap SRS da chiudere</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Sezione SRS</th>
+<th>Modifica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G1</td>
+<td>§6.2 CDU-02</td>
+<td>Riscrittura punto &quot;tipi visibili&quot; come da MF26R25 (regionale=1, aziendale=N per azienda, tutti i tipi mostrati)</td>
+</tr>
+<tr>
+<td>G2</td>
+<td>§6.3 CDU-03</td>
+<td>Pulsante unico Salva (MF37) — niente UI rilascio vs modifica</td>
+</tr>
+<tr>
+<td>G3</td>
+<td>§6.4 CDU-04</td>
+<td>Stesse regole composizione di §6.2 — riferimento esplicito</td>
+</tr>
+<tr>
+<td>G4</td>
+<td>§6.5 CDU-05</td>
+<td>Lato cittadino: inglobato in CDU-04. Lato operatore: caso d'uso separato resta</td>
+</tr>
+<tr>
+<td>G5</td>
+<td>§6.9, §6.10, §6.11</td>
+<td>Aggiungere paragrafo &quot;Composizione dinamica pagina operatore&quot; identico per ogni CDU — rimanda a §6.2 e §6.4</td>
+</tr>
+<tr>
+<td>G6</td>
+<td>§3.3 Componenti software</td>
+<td>Aggiungere &quot;Form Renderer dinamico&quot; come componente shared fra le 2 webapp</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="8-riferimenti" tabindex="-1">8. Riferimenti</h2>
+<ul>
+<li>Dettaglio risposte MF: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/">analysis-2026-05-14-risposte-mf-srs-v3</a></li>
+<li>Profili utente: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a></li>
+<li>Stati consenso (rendering dipendente): <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/ciclo-vita-consenso/">Ciclo di Vita del Consenso</a></li>
+<li>AURA (popolamento dati assistito lato operatore): <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a></li>
+</ul>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

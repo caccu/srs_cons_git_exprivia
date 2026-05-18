@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>GASP Salute</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="gasp-salute" tabindex="-1">GASP Salute</h1>
+<p>Identity Provider (IdP) federato gestito da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a>. Fornisce autenticazione SSO per cittadini sulla piattaforma Sanità Elettronica Regione Piemonte tramite SPID e CIE.</p>
+<hr>
+<h2 id="ruolo-nel-progetto" tabindex="-1">Ruolo nel progetto</h2>
+<p>Tutti i CDU Cittadino (CDU-01 ÷ CDU-06) in <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a> dipendono da GASP Salute per l'autenticazione. Nessuna autenticazione diretta nell'applicativo — tutto delegato a GASP. Blocco di CDU-01 equivale a blocco dell'intera area Cittadino.</p>
+<hr>
+<h2 id="rischio-critico-aperto-protocollo-non-definito" tabindex="-1">Rischio critico aperto — protocollo non definito</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Stato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Protocollo</td>
+<td><strong>OIDC o SAML2 — non ancora scelto</strong></td>
+</tr>
+<tr>
+<td>Responsabilità scelta</td>
+<td>[[wiki/entities/csi-piemonte</td>
+</tr>
+<tr>
+<td>Impatto se SAML2</td>
+<td>Libreria aggiuntiva Spring Security SAML2, configurazione keystores, maggiore complessità</td>
+</tr>
+<tr>
+<td>Impatto se OIDC</td>
+<td>Più semplice — Spring Security OAuth2/OIDC nativo, nessuna dipendenza aggiuntiva</td>
+</tr>
+<tr>
+<td>Azione richiesta</td>
+<td>Documentazione tecnica GASP da richiedere <strong>Sprint 0 giorno 1</strong></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>⚠️ GASP Salute è il <strong>Blocco critico <a class="tag" onclick="toggleTagSearch(this)" data-content="#1">#1</a></strong> prima del lancio sprint. Senza protocollo definito, CDU-01 non può essere progettato né implementato. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/valutazione-qualita-srs-consensi/">Valutazione Qualità SRS — Gestione Consensi</a> §RISCHIO CRITICO 2.</p>
+</blockquote>
+<hr>
+<h2 id="come-appare-nell-srs-e-nei-documenti" tabindex="-1">Come appare nell'SRS e nei documenti</h2>
+<ul>
+<li><strong>SRS §3.2:</strong> &quot;L'autenticazione avverrà tramite GASP Salute a seconda del protocollo esposto (OIDC/SAML2) — dettaglio da definire con referente CSI in fase di design tecnico&quot;</li>
+<li><strong>Domande CSI V02:</strong> confermato che GASP Salute è l'IdP, protocollo non specificato</li>
+<li><strong>Diagramma Mermaid:</strong> <code>WC -. &quot;Autenticazione gestita da GASP Salute&quot; .-&gt; CR</code> (linea tratteggiata = dipendenza esterna)</li>
+<li><strong>Pile tecnologiche CSI:</strong> GASP Salute non catalogato direttamente — componente infrastrutturale CSI</li>
+</ul>
+<hr>
+<h2 id="integrazione-tecnica-scenari-possibili" tabindex="-1">Integrazione tecnica (scenari possibili)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Scenario OIDC</th>
+<th>Scenario SAML2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dipendenza Spring</td>
+<td><code>spring-boot-starter-oauth2-client</code></td>
+<td><code>spring-security-saml2-service-provider</code></td>
+</tr>
+<tr>
+<td>Flow</td>
+<td>Authorization Code PKCE</td>
+<td>SAML2 POST binding</td>
+</tr>
+<tr>
+<td>Token</td>
+<td>JWT / access_token</td>
+<td>SAML Assertion XML</td>
+</tr>
+<tr>
+<td>Configurazione</td>
+<td><code>spring.security.oauth2.client.*</code></td>
+<td>Keystore + IdP metadata XML</td>
+</tr>
+<tr>
+<td>Complessità</td>
+<td>Bassa</td>
+<td>Media-Alta</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="relazione-con-altri-sistemi-di-autenticazione" tabindex="-1">Relazione con altri sistemi di autenticazione</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Sistema</th>
+<th>Profilo</th>
+<th>IdP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GASP Salute</td>
+<td>Cittadino (SPID/CIE)</td>
+<td>Esterno a [[wiki/concepts/architettura-ecaas</td>
+</tr>
+<tr>
+<td>PUA / RUPAR / IRIDE</td>
+<td>Operatore Sanitario/Amministrativo</td>
+<td>Gestito da [[wiki/entities/csi-piemonte</td>
+</tr>
+<tr>
+<td>OAuth2 Bearer JWT</td>
+<td>SIA Aziendale (CDU-15/16)</td>
+<td>Gestito internamente</td>
+</tr>
+</tbody>
+</table></div>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

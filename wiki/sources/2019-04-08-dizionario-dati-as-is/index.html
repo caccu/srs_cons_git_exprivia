@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Modello Dizionario Dati AS-IS (2019)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="modello-dizionario-dati-as-is" tabindex="-1">Modello Dizionario Dati AS-IS</h1>
+<p><strong>Documento:</strong> <a href="http://CSI-Progetto-Consensi-Modello-Dizionario-dati-3.md" target="_blank" class="external-link">CSI-Progetto-Consensi-Modello-Dizionario-dati-3.md</a><br>
+<strong>Autore:</strong> Marcello Frinco — 08/04/2019<br>
+<strong>Versione:</strong> 01<br>
+<strong>Rilevanza:</strong> Baseline schema DB AS-IS — input per migrazione PG9→PG17 e audit DDL</p>
+<hr>
+<h2 id="struttura-modello-as-is" tabindex="-1">Struttura modello AS-IS</h2>
+<p><strong>12 entità totali</strong> (vs <strong>25+</strong> nel TO-BE):</p>
+<ul>
+<li><strong>2 entità di business</strong> (1 principale + 1 di storico)</li>
+<li><strong>1 tabella di log</strong></li>
+<li><strong>9 tabelle di dominio</strong></li>
+</ul>
+<hr>
+<h2 id="entita-as-is" tabindex="-1">Entità AS-IS</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Entità</th>
+<th>Tipo</th>
+<th>Storicizzazione</th>
+<th>Descrizione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cons_t_consenso</code></td>
+<td>Business</td>
+<td><strong>SÌ</strong></td>
+<td>Consensi espressi</td>
+</tr>
+<tr>
+<td><code>cons_s_consenso</code></td>
+<td>Business (storico)</td>
+<td>NO</td>
+<td>Storicizzazione — <strong>al momento non popolata</strong></td>
+</tr>
+<tr>
+<td><code>csi_log_audit</code></td>
+<td>Log</td>
+<td>NO</td>
+<td>Log accessi/operazioni</td>
+</tr>
+<tr>
+<td><code>cons_d_valore_consenso</code></td>
+<td>Dominio</td>
+<td>No</td>
+<td>Valori esprimibili di consenso</td>
+</tr>
+<tr>
+<td><code>cons_d_asr</code></td>
+<td>Dominio</td>
+<td>No</td>
+<td>Anagrafica ASR</td>
+</tr>
+<tr>
+<td><code>cons_d_operatore</code></td>
+<td>Dominio</td>
+<td>No</td>
+<td>Operatori</td>
+</tr>
+<tr>
+<td><code>cons_d_stato</code></td>
+<td>Dominio</td>
+<td>No</td>
+<td>Stati del consenso</td>
+</tr>
+<tr>
+<td><code>cons_d_fonte</code></td>
+<td>Dominio</td>
+<td>No</td>
+<td>Fonti</td>
+</tr>
+<tr>
+<td><code>cons_d_tipo_fonte</code></td>
+<td>Dominio</td>
+<td>No</td>
+<td>Tipologie di fonti</td>
+</tr>
+<tr>
+<td><code>cons_d_informativa</code></td>
+<td>Dominio</td>
+<td>No</td>
+<td>Informative per tipo/sottotipo consenso</td>
+</tr>
+<tr>
+<td><code>cons_d_sotto_tipo_cons</code></td>
+<td>Dominio</td>
+<td>No</td>
+<td>Sottotipi di consenso</td>
+</tr>
+<tr>
+<td><code>cons_d_tipo_cons</code></td>
+<td>Dominio</td>
+<td>No</td>
+<td>Tipi di consenso</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="delta-as-is-to-be-modello-dati" tabindex="-1">Delta AS-IS → TO-BE (modello dati)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>AS-IS</th>
+<th>TO-BE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Totale entità</td>
+<td>12</td>
+<td><strong>25+</strong></td>
+</tr>
+<tr>
+<td>Tabella storico</td>
+<td><code>cons_s_consenso</code> (non usata)</td>
+<td>Usata attivamente</td>
+</tr>
+<tr>
+<td>Notifiche batch</td>
+<td>Non presente</td>
+<td><code>cons_t_notifica</code>, <code>cons_t_notifica_errore_dett</code> — vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a></td>
+</tr>
+<tr>
+<td>Endpoint</td>
+<td>Non modellato</td>
+<td><code>cons_t_endpoint</code>, <code>cons_r_asr_endpoint</code></td>
+</tr>
+<tr>
+<td>Tracciatura ext.</td>
+<td>Non presente</td>
+<td><code>cons_t_traccia_serv_est</code></td>
+</tr>
+<tr>
+<td>Parametri dinamici</td>
+<td>Non presente</td>
+<td><code>cons_d_parametro</code>, <code>cons_r_consenso_parametro</code></td>
+</tr>
+<tr>
+<td>Allegati informativa</td>
+<td>Non presente</td>
+<td><code>cons_t_allegato</code>, <code>cons_d_allegato_tipo</code></td>
+</tr>
+<tr>
+<td>Batch errori</td>
+<td>Non presente</td>
+<td><code>cons_t_batch_errori</code></td>
+</tr>
+<tr>
+<td>Relazioni</td>
+<td>Non visibili nel doc</td>
+<td><code>cons_r_sotto_tipo_cons_asr_endpoint</code>, <code>cons_r_consenso_valore</code>, <code>cons_r_informativa_asr</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="note-critiche" tabindex="-1">Note critiche</h2>
+<p><strong>Il dizionario AS-IS è molto scarno</strong> — nessuna definizione di attributi nei campi visibili del documento. I dettagli degli attributi (nomi colonne, tipi, vincoli) non sono stati pubblicati nel documento markdown. Questo significa che l'<strong>audit PG9→PG17</strong> (Sprint 0) deve lavorare direttamente sul DDL reale del DB AS-IS, non da questo documento.</p>
+<p><strong>Nota su <code>cons_s_consenso</code>:</strong> Il documento AS-IS dice &quot;al momento non popolata&quot;. Nel TO-BE invece viene usata attivamente come tabella di storico pre-modifica (INSERT prima di ogni UPDATE) — vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/ciclo-vita-consenso/">Ciclo di Vita del Consenso</a>. Questo potrebbe significare che la tabella esiste fisicamente nel DB ma è vuota — da verificare nell'audit DDL.</p>
+<hr>
+<h2 id="implicazioni-per-audit-migrazione" tabindex="-1">Implicazioni per audit migrazione</h2>
+<ol>
+<li>Eseguire <code>\d</code> su ogni tabella AS-IS per ottenere il DDL reale</li>
+<li>Confrontare con tabelle TO-BE dell'SRS (cap. 8)</li>
+<li>Verificare che <code>cons_s_consenso</code> esista e abbia struttura compatibile con il TO-BE</li>
+<li>Identificare colonne deprecate/rinominate tra AS-IS e TO-BE</li>
+<li>Verificare presenza di SERIAL/BIGSERIAL da migrare a <code>GENERATED ALWAYS AS IDENTITY</code></li>
+</ol>
+<p>Vedi anche: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a> per delta completo modello dati.</p>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

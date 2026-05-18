@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Informativa Consenso</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="informativa-consenso" tabindex="-1">Informativa Consenso</h1>
+<p><strong>Definizione:</strong> Documento normativo-applicativo che descrive scopo, base giuridica, ambito ASR, decorrenza/scadenza e contenuti del consenso che il cittadino è chiamato a esprimere. È l'<strong>oggetto dichiarativo</strong> rispetto al quale il consenso (record <code>cons_t_consenso</code>) è una posizione del cittadino.</p>
+<hr>
+<h2 id="modello-dati" tabindex="-1">Modello dati</h2>
+<h3 id="tabella-code-cons-d-informativa-code-8-3-5-srs" tabindex="-1">Tabella <code>cons_d_informativa</code> (§8.3.5 SRS)</h3>
+<p>Chiave logica: <code>(codice_tipo_consenso, codice_sotto_tipo_consenso, data_decorrenza_max)</code>.</p>
+<p>Una nuova informativa per la stessa coppia (tipo, sottotipo) <strong>scaduisce</strong> automaticamente i consensi attivi sulla precedente — gestito dal <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">BATCH-02</a> (transizione → SCADUTO nel <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/ciclo-vita-consenso/">Ciclo di Vita del Consenso</a>).</p>
+<h3 id="relazioni-rilevanti" tabindex="-1">Relazioni rilevanti</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Tabella</th>
+<th>Ruolo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cons_d_informativa</code></td>
+<td>dizionario informative attive/scadute</td>
+</tr>
+<tr>
+<td><code>cons_r_informativa_asr</code> (§8.3.6)</td>
+<td>mapping informativa ↔ ASR di applicabilità</td>
+</tr>
+<tr>
+<td><code>cons_r_asr_endpoint</code> (§8.3.7)</td>
+<td>endpoint SIA ASR per notifica acquisizione</td>
+</tr>
+<tr>
+<td><code>cons_d_allegato_tipo</code> + <code>cons_t_allegato</code></td>
+<td>allegati PDF/testuali</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="estensione-proposta-8-4-8" tabindex="-1">Estensione [PROPOSTA §8.4.8]</h3>
+<p>Estensione di <code>cons_d_informativa</code> con campi aggiuntivi per gestione versionamento e metadata legali. Dettaglio in <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-02-conspref-srs-v1-revised/">CONSPREF-SRS-V1.0 revised bozza v2</a>.</p>
+<hr>
+<h2 id="ciclo-di-vita" tabindex="-1">Ciclo di vita</h2>
+<pre><code>[bozza redazionale] → ATTIVA (decorrenza ≤ today &lt; scadenza) → SCADUTA
+</code></pre>
+<ul>
+<li><strong>Attivazione:</strong> una nuova informativa con <code>data_decorrenza</code> futura entra in vigore al raggiungimento della data.</li>
+<li><strong>Scadenza implicita:</strong> quando viene attivata una nuova informativa per la stessa coppia (tipo, sotto-tipo), la precedente diventa SCADUTA e i consensi attivi su di essa sono propagati a stato SCADUTO.</li>
+<li><strong>Trigger di scadenza:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">BATCH-02</a> ogni notte verifica le informative scadute e applica la transizione di stato sui consensi (storicizzazione in <code>cons_s_consenso</code>).</li>
+</ul>
+<hr>
+<h2 id="lookup-nel-servizio-di-acquisizione-cdu-03" tabindex="-1">Lookup nel servizio di acquisizione (CDU-03)</h2>
+<p>Durante DA01 <code>acquisizioneConsenso</code> (vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/">ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)</a>):</p>
+<ol>
+<li>Validazione <code>codiceTipoConsenso</code> ∈ <code>CONS_D_TIPO_CONS</code></li>
+<li>Validazione <code>codiceSottotipoConsenso</code> ∈ <code>CONS_D_SOTTO_TIPO_CONS</code></li>
+<li>Lookup informativa: <code>SELECT FROM cons_d_informativa WHERE tipo + sotto_tipo AND data_decorrenza ≤ today ORDER BY data_decorrenza DESC LIMIT 1</code></li>
+<li>Se non trovata → errore <code>0016</code> (informativa non trovata)</li>
+</ol>
+<hr>
+<h2 id="composizione-dinamica-del-form" tabindex="-1">Composizione dinamica del form</h2>
+<p>L'informativa è la <strong>Single Source of Truth</strong> per la composizione del form di consenso (vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso</a>):</p>
+<ul>
+<li>Backend Spring Boot espone endpoint <code>GET /informativa/{tipo}/{sottotipo}</code> con metadata</li>
+<li>Frontend Angular Form Renderer consuma il payload e costruisce dinamicamente:
+<ul>
+<li>Testo informativa</li>
+<li>Allegati scaricabili</li>
+<li>Sezioni opzionali con valori multipli (<code>cons_d_valore_cons</code>)</li>
+<li>ASR target applicabili</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="riferimenti-normativi" tabindex="-1">Riferimenti normativi</h2>
+<ul>
+<li>DPCM 178/2015 — FSE</li>
+<li>Nota Garante 0020885/2017</li>
+<li>GDPR — artt. 13, 14 (informativa al trattamento)</li>
+<li>Regione Piemonte DGR 19-4900 del 20/4/2017</li>
+</ul>
+<hr>
+<h2 id="punti-aperti" tabindex="-1">Punti aperti</h2>
+<ul>
+<li><strong>Versionamento storico:</strong> retention di informative scadute per audit legale → da verificare con <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a> policy retention DB</li>
+<li><strong>Notifica scadenza al cittadino:</strong> quando un'informativa scade, va notificato il cittadino con consenso attivo? (no in SRS attuale)</li>
+<li><strong>PROPOSTA §8.4.8</strong> non ancora validata da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a> — vedi tracker <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/">Punti Aperti CSI — Tracker Unificato</a></li>
+</ul>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

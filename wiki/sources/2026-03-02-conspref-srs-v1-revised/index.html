@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>CONSPREF-SRS-V1.0 revised bozza v2</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="conspref-srs-v1-0-specifica-requisiti-sistema-gestione-consensi" tabindex="-1">CONSPREF-SRS-V1.0 — Specifica Requisiti Sistema Gestione Consensi</h1>
+<p><strong>Documento:</strong> CONSPREF-SRS-V1.0 (bozza v2, revised)<br>
+<strong>Autore:</strong> Marco Forneris / Exprivia S.p.A.<br>
+<strong>Data:</strong> 02/03/2026<br>
+<strong>Stato:</strong> Bozza — in attesa di controllo/approvazione CSI</p>
+<blockquote>
+<p>📝 <strong>Revisione cliente v3_lavorazione (2026-05-14):</strong> disponibile in raw/ il file <code>CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf</code> contenente <strong>69 commenti</strong> dei revisori (SC/MB/TR) con <strong>~30 risposte autoritative MF</strong> (Marco Forneris). Sintesi e propagazione wiki: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/">analysis-2026-05-14-risposte-mf-srs-v3</a>. Decisioni chiave già propagate: terminologia UI acconsento/nego, transizioni stati ATTIVO↔NEGATO dirette, CDU-01 split a+b, CDU-04/05 merge cittadino, CDU-06 scope ridotto, eliminazione SistemaTS, Form Renderer SSoT, BATCH-01 5min+SKIP LOCKED, Notificatore di Deleghe distinto da UNP, BATCH-03 sostituito da PULL CDU-17, LIS come 3° canale acquisizione.</p>
+</blockquote>
+<hr>
+<h2 id="scopo" tabindex="-1">Scopo</h2>
+<p>Definisce i requisiti funzionali e non funzionali per il <strong>rifacimento</strong> dell'applicativo Gestione Consensi della Regione Piemonte. Documento di riferimento per progettazione, sviluppo e collaudo.</p>
+<hr>
+<h2 id="contesto" tabindex="-1">Contesto</h2>
+<p>Sistema parte dell'ecosistema <strong>Sanità Elettronica Regione Piemonte</strong>. Gestisce tre livelli di consenso:</p>
+<ul>
+<li><strong>Nazionale</strong> — FSE/INI (es. apertura Fascicolo Sanitario Elettronico)</li>
+<li><strong>Regionale</strong> — stratificazione, cronicità, telemedicina, reti di patologia</li>
+<li><strong>Aziendale ASR</strong> — Dossier Clinico, ROL referti, prestazioni specifiche</li>
+</ul>
+<p>Tre profili utente:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Profilo</th>
+<th>Accesso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cittadino</td>
+<td>SPID/CIE via GASP Salute</td>
+</tr>
+<tr>
+<td>Operatore Sanitario/Amministrativo</td>
+<td>PUA con RUPAR/IRIDE</td>
+</tr>
+<tr>
+<td>Operatore di Back Office</td>
+<td>PUA con RUPAR/IRIDE</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="architettura-cap-3" tabindex="-1">Architettura (cap. 3)</h2>
+<p><strong>Paradigma:</strong> microservizi su <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/architettura-ecaas/">Architettura ECaaS</a> (Kubernetes/Nivola CSI Piemonte)</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Tecnologia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frontend</td>
+<td>SPA Angular 19, componenti QUASAR CSI, Apache WS k8s</td>
+</tr>
+<tr>
+<td>Backend</td>
+<td>Spring Boot 3.4.10+, Java 17, Spring Security (no API Gateway)</td>
+</tr>
+<tr>
+<td>Database</td>
+<td>PostgreSQL 17 via DBaaS Nivola (esterno al namespace ECaaS)</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>GitLab + Jenkins + SonarQube, deploy GitOps Helm</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Vincoli infrastrutturali rilevanti:</strong></p>
+<ul>
+<li>IngressController: solo TRAEFIK</li>
+<li>Registry immagini: solo Artifactory CSI (docker-trusted, docker-base, docker-projects)</li>
+<li>No KNative, Istio, network mesh</li>
+<li>Ogni Deployment: resources requests/limits + livenessProbe + readinessProbe obbligatori</li>
+</ul>
+<p><strong>No API Gateway CSI</strong> — confermato. Integrazione diretta frontend→backend via Spring Security.</p>
+<hr>
+<h2 id="integrazioni-esterne-cap-4-2" tabindex="-1">Integrazioni Esterne (cap. 4.2)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Sistema</th>
+<th>Protocollo</th>
+<th>Autenticazione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GASP Salute (IdP)</td>
+<td>OAuth2/OIDC o SAML2</td>
+<td>Federazione SPID/CIE</td>
+</tr>
+<tr>
+<td>AURA (anagrafica)</td>
+<td>SOAP</td>
+<td>WS-Security UsernameToken (IRIS)</td>
+</tr>
+<tr>
+<td>Gestione Deleghe</td>
+<td>SOAP</td>
+<td>OAuth2 Client Credentials</td>
+</tr>
+<tr>
+<td>Notificatore UNP</td>
+<td>REST</td>
+<td>Token applicativo UNP</td>
+</tr>
+<tr>
+<td>SIA ASR (BATCH-01 uscente)</td>
+<td>SOAP</td>
+<td>Contratto AS-IS invariato</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="requisiti-di-business-cap-5" tabindex="-1">Requisiti di Business (cap. 5)</h2>
+<h3 id="stati-del-consenso" tabindex="-1">Stati del Consenso</h3>
+<pre><code>NON_ESPRESSO → ATTIVO | NEGATO → SCADUTO | ANNULLATO
+</code></pre>
+<ul>
+<li>Ogni variazione <strong>non sovrascrive</strong>: chiude record precedente (data_fine=NOW()) e crea nuovo</li>
+<li>SCADUTO: valore valido, informativa cambiata, annulla_consensi=NO → <strong>non notificato</strong> alle ASR</li>
+<li>ANNULLATO: informativa cambiata, annulla_consensi=SI → <strong>notificato</strong> alle ASR</li>
+</ul>
+<hr>
+<h2 id="casi-d-uso-16-cdu-cap-6" tabindex="-1">Casi d'Uso — 16 CDU (cap. 6)</h2>
+<p><strong>Area Cittadino (CDU-01÷CDU-06):</strong></p>
+<ul>
+<li>CDU-01: Accesso/selezione profilo (GASP Salute, deleghe)</li>
+<li>CDU-02: Consultazione consensi (cruscotto con card per stato)</li>
+<li>CDU-03: Rilascio nuovo consenso (ALG01 caricamento, ALG02 salvataggio+notifica)</li>
+<li>CDU-04: Modifica consenso (logica differenziata per stato ATTIVO/NEGATO/SCADUTO/ANNULLATO)</li>
+<li>CDU-05: Modifica valore consenso (solo ATTIVO/NEGATO, senza riaccettazione informativa)</li>
+<li>CDU-06: Download/stampa PDF (<strong>NUOVA funzionalità TO-BE</strong>, iText7 o PDFBox lato backend)</li>
+</ul>
+<p><strong>Area Operatore Sanitario/Amministrativo (CDU-07÷CDU-11):</strong></p>
+<ul>
+<li>CDU-07: Ricerca assistito (AURA → fallback SistemaTS, tracciatura cons_t_traccia_serv_est)</li>
+<li>CDU-08: Consultazione consensi assistito</li>
+<li>CDU-09: Rilascio consenso per conto (fonte_id='PASS')</li>
+<li>CDU-10: Modifica consenso per conto</li>
+<li>CDU-11: Modifica valore per conto</li>
+</ul>
+<p><strong>Area Back Office (CDU-12÷CDU-14):</strong></p>
+<ul>
+<li>CDU-12: Gestione tipo consenso (parametri dinamici da cons_d_parametro, ALG01 popolamento enti, ALG02 salvataggio multi-tabella)</li>
+<li>CDU-13: Gestione informativa (upload PDF, trigger asincrono BATCH-02)</li>
+<li>CDU-14: Gestione ente ed endpoint (stato_allineamento, trigger BATCH-03)</li>
+</ul>
+<p><strong>Servizi per SIA (CDU-15÷CDU-16):</strong></p>
+<ul>
+<li>CDU-15: GET /api/v1/consensi/stato — Bearer JWT OAuth2 CC, RFC 7807 errori</li>
+<li>CDU-16: GET /api/v1/configurazione/{codiceEnte} — configurazioni attive per ente</li>
+</ul>
+<hr>
+<h2 id="processi-batch-cap-7" tabindex="-1">Processi Batch (cap. 7)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Batch</th>
+<th>Nome</th>
+<th>Periodicità</th>
+<th>Funzione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BATCH-01</td>
+<td>NotificaConsensi</td>
+<td>Ogni 5 min</td>
+<td>Notifica variazioni consensi alle ASR via SOAP</td>
+</tr>
+<tr>
+<td>BATCH-02</td>
+<td>NotificaScadenzaInformative</td>
+<td>1x/giorno (notturno)</td>
+<td>Scadenza informative → aggiorna stati consenso</td>
+</tr>
+<tr>
+<td>BATCH-03</td>
+<td>AllineamentoConsensi</td>
+<td>On-demand (trigger CDU-14)</td>
+<td>Allinea consensi verso nuovi endpoint</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="modello-dati-cap-8" tabindex="-1">Modello Dati (cap. 8)</h2>
+<p><strong>25 tabelle principali</strong>, schema <code>gestioneconsensi</code>:</p>
+<ul>
+<li><code>cons_t_consenso</code> — record storico consensi (no sovrascrittura)</li>
+<li><code>cons_s_consenso</code> — copia storica pre-modifica</li>
+<li><code>cons_d_informativa</code> — informative con versioning</li>
+<li><code>cons_d_asr</code> — enti/aziende sanitarie</li>
+<li><code>cons_r_asr_endpoint</code> / <code>cons_t_endpoint</code> — endpoint notifica</li>
+<li><code>cons_r_sotto_tipo_cons_asr_endpoint</code> — associazione tipo-ente-endpoint</li>
+<li><code>cons_t_notifica</code> — coda notifiche BATCH-01</li>
+<li><code>csi_log_audit</code> — audit DB</li>
+<li><code>cons_t_traccia_serv_est</code> — tracciatura chiamate esterne</li>
+</ul>
+<p><strong>9 proposte evolutive</strong> incluse nel documento (nuove tabelle e estensioni).</p>
+<hr>
+<h2 id="requisiti-non-funzionali-cap-9" tabindex="-1">Requisiti Non Funzionali (cap. 9)</h2>
+<ul>
+<li><strong>Sicurezza:</strong> Spring Security, JWT Bearer, CSRF su POST/PUT, OWASP Top 10, CF mascherato nei log, secrets via K8s Secret</li>
+<li><strong>Scalabilità:</strong> stateless, ≥2 repliche in PROD, HikariCP max 40 conn/replica</li>
+<li><strong>Migrazione:</strong> PG9→PG17 (8 major release, dump/restore), piano CONSPREF-DMP da redigere</li>
+<li><strong>Logging:</strong> audit DB (csi_log_audit) + SLF4j/Logback su ELK + log accesso HTTP Apache</li>
+<li><strong>Accessibilità:</strong> AgID WCAG 2.1 livello AA (obbligatorio per go-live)</li>
+</ul>
+<hr>
+<h2 id="tag-documento" tabindex="-1">Tag documento</h2>
+<p>I requisiti sono etichettati con:</p>
+<ul>
+<li><code>[DOC]</code> — derivato direttamente da CONSPREF-SRS-01-V03</li>
+<li><code>[DEDOTTO]</code> — derivato logicamente dal contesto</li>
+<li><code>[PROPOSTA]</code> — proposta del team Exprivia non ancora concordata</li>
+</ul>
+<hr>
+<h2 id="note-critiche" tabindex="-1">Note critiche</h2>
+<ul>
+<li>Specifica OpenAPI 3.x CDU-15/16: da produrre a cura Exprivia <strong>prima</strong> dello sprint di sviluppo</li>
+<li>CONSPREF-DMP (migration plan): <strong>non ancora formalizzato</strong> al momento della stesura</li>
+<li>GASP Salute: protocollo OIDC vs SAML2 ancora da definire con referente CSI</li>
+<li>WSDL AURA e Deleghe: disponibili su richiesta, lista servizi da specificare</li>
+<li>CDU-06 (PDF): funzionalità nuova — firma digitale eIDAS <strong>non richiesta</strong></li>
+</ul>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

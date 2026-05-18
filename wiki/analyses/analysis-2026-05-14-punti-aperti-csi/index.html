@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="punti-aperti-da-chiedere-a-csi-piemonte" tabindex="-1">Punti Aperti da Chiedere a CSI Piemonte</h1>
+<p><strong>Scopo:</strong> consolidare in un unico tracker tutte le domande, ambiguità, TBD e proposte in attesa di conferma sparse nel corpus wiki. Ogni voce rimanda alla pagina autoritativa.</p>
+<p><strong>Stato corpus alla data:</strong> 31 pagine, 30/30 risposte MF da SRS v3_lavorazione propagate, 0 dead-link.</p>
+<p><strong>Legenda priorità:</strong></p>
+<ul>
+<li>🔴 <strong>CRITICO</strong> — blocca Sprint 0/1, da chiarire <strong>Giorno 1</strong></li>
+<li>🟠 <strong>ALTO</strong> — blocca Sprint 2-3</li>
+<li>🟡 <strong>MODERATO</strong> — necessario prima di UAT/go-live</li>
+<li>⚪ <strong>APERTO</strong> — utile ma non bloccante</li>
+</ul>
+<hr>
+<h2 id="1-identita-and-amp-autenticazione-cittadino-operatore" tabindex="-1">1. Identità &amp; Autenticazione (Cittadino + Operatore)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Domanda</th>
+<th>Prio</th>
+<th>Sprint</th>
+<th>Fonte wiki</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID-01</td>
+<td><strong>GASP Salute: protocollo OIDC o SAML2?</strong> Endpoint AS + metadata + flow autenticazione</td>
+<td>🔴</td>
+<td>Giorno 1</td>
+<td>[[GASP Salute</td>
+</tr>
+<tr>
+<td>ID-02</td>
+<td>Registrazione app PUA — 2 profili (Operatore, Amministratore)</td>
+<td>🟠</td>
+<td>Sprint 2</td>
+<td>Checklist §B9</td>
+</tr>
+<tr>
+<td>ID-03</td>
+<td>Credenziali IRIS per autenticazione AURA (ambiente DEV)</td>
+<td>🟠</td>
+<td>Sprint 1</td>
+<td>Checklist §B7</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="2-sicurezza-cdu-15-16-o-auth2-jwt-tr-30-tr-58" tabindex="-1">2. Sicurezza CDU-15/16 — OAuth2/JWT (TR30 → TR58)</h2>
+<p>Tutte da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a> §Punti da chiarire con CSI.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Domanda</th>
+<th>Prio</th>
+<th>Sprint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SEC-01</td>
+<td>URL produzione/test Authorization Server CSI Piemonte</td>
+<td>🔴</td>
+<td>Sprint 0</td>
+</tr>
+<tr>
+<td>SEC-02</td>
+<td>Algoritmo firma JWT (RS256? ES256?) + URL endpoint JWKS</td>
+<td>🔴</td>
+<td>Sprint 0</td>
+</tr>
+<tr>
+<td>SEC-03</td>
+<td>Procedura onboarding nuovo SIA — chi crea <code>client_id</code>, chi popola tabella mapping <code>cons_t_client_ente</code></td>
+<td>🟠</td>
+<td>Sprint 1</td>
+</tr>
+<tr>
+<td>SEC-04</td>
+<td>TTL token raccomandato + politica refresh (default proposto: 3600s)</td>
+<td>🟠</td>
+<td>Sprint 1</td>
+</tr>
+<tr>
+<td>SEC-05</td>
+<td>Scope OAuth predefiniti CSI o liberi a definire dal progetto? (<code>consensi:read</code>, <code>consensi:snapshot</code>, ...)</td>
+<td>🟠</td>
+<td>Sprint 1</td>
+</tr>
+<tr>
+<td>SEC-06</td>
+<td>Politica revoca credenziali compromesse (blacklist? rotation?)</td>
+<td>🟡</td>
+<td>Sprint 2</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="3-cdu-17-snapshot-pull-tr-34-tr-68-sostituzione-batch-03" tabindex="-1">3. CDU-17 Snapshot Pull (TR34 → TR68) — sostituzione BATCH-03</h2>
+<p>Tutte da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a> §Domande aperte CSI.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Domanda</th>
+<th>Prio</th>
+<th>Sprint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PULL-01</td>
+<td>Variante 6.A (blocco acquisizioni durante snapshot) o 6.B (watermark no-block) preferita?</td>
+<td>🔴</td>
+<td>Sprint 0</td>
+</tr>
+<tr>
+<td>PULL-02</td>
+<td>Canale notifica out-of-band al SIA: email solo o anche webhook configurabile per ASR?</td>
+<td>🔴</td>
+<td>Sprint 0</td>
+</tr>
+<tr>
+<td>PULL-03</td>
+<td>Scope OAuth <code>consensi:snapshot</code> accettato? Lifecycle (attivazione → disattivazione post-allineamento)?</td>
+<td>🟠</td>
+<td>Sprint 1</td>
+</tr>
+<tr>
+<td>PULL-04</td>
+<td><code>page_size</code> massimo accettabile? Tunable per ASR via <code>cons_t_client_ente</code>?</td>
+<td>🟡</td>
+<td>Sprint 2</td>
+</tr>
+<tr>
+<td>PULL-05</td>
+<td>Variante export-with-downtime da formalizzare come opzione retrocompatibile (fallback)?</td>
+<td>🟡</td>
+<td>Sprint 2</td>
+</tr>
+<tr>
+<td>PULL-06</td>
+<td><strong>BATCH-03: eliminazione totale dal SRS o deprecation marker?</strong></td>
+<td>🟠</td>
+<td>Sprint 1</td>
+</tr>
+<tr>
+<td>PULL-07</td>
+<td>Conferma completamento allineamento via PATCH idempotente accettabile? Alternativa: auto-detect timeout?</td>
+<td>🟡</td>
+<td>Sprint 2</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="4-open-api-cdu-15-16-tbd-da-open-api-v0-1" tabindex="-1">4. OpenAPI CDU-15/16 — TBD da OpenAPI v0.1</h2>
+<p>Da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/">analysis-2026-05-06-openapi-cdu-15-16</a> e dal file <code>openapi-cdu-15-16-v0.1.yaml</code>.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Domanda</th>
+<th>Prio</th>
+<th>Sprint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API-01</td>
+<td>URL Authorization Server CSI (TODO-M1) — confluisce con SEC-01</td>
+<td>🔴</td>
+<td>Sprint 0</td>
+</tr>
+<tr>
+<td>API-02</td>
+<td>Scope OAuth richiesto per <code>/consensi/stato</code> (TODO-M2) — confluisce con SEC-05</td>
+<td>🟠</td>
+<td>Sprint 1</td>
+</tr>
+<tr>
+<td>API-03</td>
+<td>Schema paginazione cursor-based — <code>page_size</code> default + max accettato (TODO-M3)</td>
+<td>🟡</td>
+<td>Sprint 2</td>
+</tr>
+<tr>
+<td>API-04</td>
+<td>SLA tempo risposta + throughput target per CDU-15/16 (TODO-M4)</td>
+<td>🟡</td>
+<td>UAT</td>
+</tr>
+<tr>
+<td>API-05</td>
+<td>Lista ASR coinvolte nel TO-BE + referenti tecnici per recepimento OpenAPI (TODO-M5)</td>
+<td>🟠</td>
+<td>Sprint 2</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="5-batch-and-amp-wsdl-batch-01-batch-02" tabindex="-1">5. Batch &amp; WSDL — BATCH-01 / BATCH-02</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Domanda</th>
+<th>Prio</th>
+<th>Sprint</th>
+<th>Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BAT-01</td>
+<td><strong>Operazione WSDL per BATCH-01: SRV-01 (AcquisizioneConsenso inbound) o SRV-03 (NotificaAcquisizioneConsenso outbound)?</strong></td>
+<td>🟡 (rischio implementativo grave)</td>
+<td>Sprint 1</td>
+<td>[[wiki/concepts/batch-processes</td>
+</tr>
+<tr>
+<td>BAT-02</td>
+<td><strong>SC67 — Logica INSERT cons_t_consenso da BATCH-02 (ALG02 storicizzazione): &quot;da approfondire e verificare meglio&quot;</strong></td>
+<td>🟠</td>
+<td>Prima di chiudere SRS</td>
+<td>[[wiki/concepts/batch-processes</td>
+</tr>
+<tr>
+<td>BAT-03</td>
+<td>Stato SCADUTO — semantica cambiata AS-IS vs TO-BE: SIA ASR devono aggiornare logica business. Conferma comunicazione ASR?</td>
+<td>🟠</td>
+<td>Sprint 1</td>
+<td>[[wiki/concepts/batch-processes</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="6-integrazioni-and-amp-canali" tabindex="-1">6. Integrazioni &amp; Canali</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Domanda</th>
+<th>Prio</th>
+<th>Sprint</th>
+<th>Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INT-01</td>
+<td><strong>WSDL AURA</strong> — lista completa servizi (CDU-07/08 ricerca paziente + operatori)</td>
+<td>🟠</td>
+<td>Sprint 0</td>
+<td>Checklist §B5</td>
+</tr>
+<tr>
+<td>INT-02</td>
+<td><strong>WSDL Gestione Deleghe</strong></td>
+<td>🟠</td>
+<td>Sprint 0</td>
+<td>Checklist §B6</td>
+</tr>
+<tr>
+<td>INT-03</td>
+<td><strong>LIS — acronimo + spec integrazione canale acquisizione consensi</strong> (MF3R1, MF4R1)</td>
+<td>🟠</td>
+<td>Sprint 1</td>
+<td>[[wiki/concepts/sistemi-esterni-integrati</td>
+</tr>
+<tr>
+<td>INT-04</td>
+<td>Accesso repo <strong>QUASAR CSI</strong> (componenti UI)</td>
+<td>🟠</td>
+<td>Sprint 1</td>
+<td>Checklist §B8</td>
+</tr>
+<tr>
+<td>INT-05</td>
+<td>Distinzione formalizzata in SRS: <strong>Notificatore di Deleghe ≠ Notificatore UNP</strong> (MF33R31)</td>
+<td>🟡</td>
+<td>Sprint 2</td>
+<td>[[wiki/concepts/sistemi-esterni-integrati</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="7-infrastruttura-and-amp-provisioning" tabindex="-1">7. Infrastruttura &amp; Provisioning</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Domanda</th>
+<th>Prio</th>
+<th>Sprint</th>
+<th>Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INF-01</td>
+<td><strong>Provisioning DBaaS Nivola DEV</strong> — scheda provisioning standard</td>
+<td>🔴</td>
+<td>Giorno 1</td>
+<td>Checklist §B2</td>
+</tr>
+<tr>
+<td>INF-02</td>
+<td><strong>Provisioning DBaaS Nivola PROD</strong></td>
+<td>🔴</td>
+<td>Sprint 0</td>
+<td>Checklist §B3</td>
+</tr>
+<tr>
+<td>INF-03</td>
+<td><strong>Accesso automation CSI</strong> per generazione skeleton progetto (struttura + pipeline + Helm)</td>
+<td>🔴</td>
+<td>Giorno 1</td>
+<td>Checklist §B4</td>
+</tr>
+<tr>
+<td>INF-04</td>
+<td><strong>Diagramma architetturale</strong> (<code>Mermaid.txt</code>) — versione concordata con CSI o proposta Exprivia? Risolvere conflitto nodo &quot;API Gateway&quot; (CSI ha confermato no-API-GW)</td>
+<td>🟠</td>
+<td>Sprint 0</td>
+<td>[[wiki/sources/2026-05-05-mermaid-architettura</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="8-governance-and-amp-documenti" tabindex="-1">8. Governance &amp; Documenti</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Domanda</th>
+<th>Prio</th>
+<th>Sprint</th>
+<th>Fonte</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GOV-01</td>
+<td><strong>Approvazione formale SRS V1.0 bozza v2</strong> da CSI (post-recepimento risposte MF v3_lavorazione)</td>
+<td>🟠</td>
+<td>Prima Sprint 1</td>
+<td>Checklist §B12, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3</td>
+<td>analysis-2026-05-14-risposte-mf-srs-v3]]</td>
+<td></td>
+</tr>
+<tr>
+<td>GOV-02</td>
+<td><strong>Validazione [PROPOSTA] nell'SRS</strong> — ALG02 BATCH-01 (gestione tentativi), CDU-06 PDF (MF49R48 MF51R50), 10 proposte §8.4</td>
+<td>🟠</td>
+<td>Prima Sprint 2</td>
+<td>Checklist §B13, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3</td>
+<td>analysis-2026-05-14-risposte-mf-srs-v3]] §Tema D</td>
+<td></td>
+</tr>
+<tr>
+<td>GOV-03</td>
+<td><strong>CONSPREF-DMP</strong> — Piano migrazione PG9→PG17 non ancora formalizzato: chi è responsabile lato CSI?</td>
+<td>🔴</td>
+<td>Sprint 0</td>
+<td>[[2026-03-02-domande-srs-csi-v02</td>
+<td>Domande SRS Consensi — Revisione CSI V02]] Q11, [[valutazione-qualita-srs-consensi</td>
+<td>Valutazione Qualità SRS — Gestione Consensi]]</td>
+</tr>
+<tr>
+<td>GOV-04</td>
+<td><strong>SLA e NFR performance</strong> — tempo risposta max CDU-02, throughput BATCH-01, disponibilità (99.x%)</td>
+<td>🟡</td>
+<td>Prima UAT</td>
+<td>Checklist §B15</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>GOV-05</td>
+<td><strong>Lista ASR coinvolte</strong> + referenti tecnici (confluisce con API-05)</td>
+<td>🟠</td>
+<td>Sprint 2</td>
+<td>Checklist §B11</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="riepilogo-per-sprint" tabindex="-1">Riepilogo per Sprint</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Sprint</th>
+<th>Numero punti aperti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Giorno 1 / Sprint 0 critico</td>
+<td>ID-01, INF-01, INF-02, INF-03, GOV-03, SEC-01, SEC-02, PULL-01, PULL-02, API-01 → <strong>10 punti</strong></td>
+</tr>
+<tr>
+<td>Sprint 0 alto</td>
+<td>INT-01, INT-02, INF-04 → <strong>3 punti</strong></td>
+</tr>
+<tr>
+<td>Sprint 1</td>
+<td>ID-03, SEC-03÷05, PULL-03, PULL-06, API-02, BAT-03, INT-03, INT-04, GOV-01 → <strong>11 punti</strong></td>
+</tr>
+<tr>
+<td>Sprint 2+</td>
+<td>ID-02, SEC-06, PULL-04, PULL-05, PULL-07, API-03, API-05, BAT-01, BAT-02, INT-05, GOV-02, GOV-05 → <strong>12 punti</strong></td>
+</tr>
+<tr>
+<td>Prima UAT</td>
+<td>API-04, GOV-04 → <strong>2 punti</strong></td>
+</tr>
+<tr>
+<td><strong>Totale</strong></td>
+<td><strong>38 punti aperti</strong> (dedupli: PULL-03↔SEC-05, API-01↔SEC-01, API-02↔SEC-05, API-05↔GOV-05 → ~34 distinti)</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="note-di-gestione" tabindex="-1">Note di gestione</h2>
+<ol>
+<li><strong>Ownership tracker:</strong> Marco Forneris (Exprivia) propone questo file come agenda per la prossima riunione CSI/Exprivia.</li>
+<li><strong>Workflow proposto:</strong> ogni voce avrà un campo <code>risposta_csi</code> da popolare in revisione successiva del SRS; alla chiusura del punto, la voce si trasforma in entry permanente in <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/">analysis-2026-05-14-risposte-mf-srs-v3</a> o nella relativa concept page.</li>
+<li><strong>Dipendenze incrociate evidenti:</strong>
+<ul>
+<li>SEC-01/API-01 (URL AS) → bloccante per qualsiasi test integrazione SIA</li>
+<li>SEC-05/PULL-03/API-02 (scope) → da chiarire in singolo round</li>
+<li>INT-01/INT-02 (WSDL AURA/Deleghe) → bloccano CDU-07/08</li>
+<li>INF-01/INF-03 (DBaaS + automation) → bloccano partenza Sprint 1 tout court</li>
+</ul>
+</li>
+<li><strong>Riferimenti operativi:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/">Checklist Avvio Progetto — Gestione Consensi</a> resta lo strumento day-1 operativo; questo tracker è la versione consolidata e tematicamente raggruppata.</li>
+</ol>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

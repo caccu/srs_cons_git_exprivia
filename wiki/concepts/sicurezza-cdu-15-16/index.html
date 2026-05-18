@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="sicurezza-cdu-15-16-modello-autorizzazione-per-ente" tabindex="-1">Sicurezza CDU-15/16 — Modello Autorizzazione per Ente</h1>
+<p><strong>Origine:</strong> risposta tecnica al commento cliente <strong>TR30</strong> sulla revisione SRS bozza v3 (PDF righe 4456–4459, sez. §6.16). Rinumerato come <strong>TR58</strong> nella revisione <code>CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf</code> (MF59-62R58). Vedi mapping in <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/">analysis-2026-05-14-risposte-mf-srs-v3</a>.</p>
+<p><strong>Quesito originale TR30 / TR58:</strong></p>
+<blockquote>
+<p>&quot;Si richiede di dettagliare meglio il comportamento del WS e la security (come si lega la possibilità di vedere unicamente i propri ws, passiamo dal API manger?)&quot;</p>
+</blockquote>
+<hr>
+<h2 id="1-risposta-diretta-niente-api-manager" tabindex="-1">1. Risposta diretta — niente API Manager</h2>
+<p><strong>No.</strong> Il progetto <strong>non attraversa l'API Gateway/Manager centralizzato del CSI Piemonte</strong>.</p>
+<p>Decisione confermata da CSI (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-02-domande-srs-csi-v02/">Domande SRS Consensi — Revisione CSI V02</a> §Q&amp;A <a class="tag" onclick="toggleTagSearch(this)" data-content="#6">#6</a>) e formalizzata in SRS v3 §3.2:</p>
+<blockquote>
+<p>&quot;il progetto non adotterà l'API Gateway centralizzato del CSI Piemonte come punto d'ingresso esterno. L'architettura adotta un modello di integrazione diretta: le chiamate HTTP [...] vengono instradate direttamente ai Servizi Backend Spring Boot 3, senza intermediari gateway esterni al progetto. La sicurezza delle API (autenticazione e autorizzazione) è interamente gestita a livello applicativo tramite Spring Security&quot;</p>
+</blockquote>
+<h3 id="implicazioni-operative" tabindex="-1">Implicazioni operative</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Funzione tipica APIM</th>
+<th>Chi la gestisce in TO-BE</th>
+<th>Componente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Autenticazione (token validation)</td>
+<td>Backend applicativo</td>
+<td>Spring Security + nimbus-jose-jwt</td>
+</tr>
+<tr>
+<td>Autorizzazione granulare</td>
+<td>Backend applicativo</td>
+<td>Filter custom <code>EnteAuthorizationFilter</code></td>
+</tr>
+<tr>
+<td>Rate limiting / throttling</td>
+<td>Backend applicativo</td>
+<td><code>bucket4j</code> o <code>resilience4j-ratelimiter</code></td>
+</tr>
+<tr>
+<td>TLS termination</td>
+<td>Piattaforma</td>
+<td>Ingress Kubernetes ECaaS</td>
+</tr>
+<tr>
+<td>WAF</td>
+<td>Piattaforma</td>
+<td>Layer di rete CSI/Nivola</td>
+</tr>
+<tr>
+<td>Audit log centralizzato</td>
+<td>Backend applicativo</td>
+<td>Logger applicativo strutturato JSON</td>
+</tr>
+<tr>
+<td>Quota per client</td>
+<td>Backend applicativo</td>
+<td>Tabella DB + filter</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="2-flusso-end-to-end-sia-asr-gestione-consensi" tabindex="-1">2. Flusso end-to-end (SIA ASR → Gestione Consensi)</h2>
+<pre><code>[SIA ASR x]
+   │ 1. POST /token  (grant_type=client_credentials, client_id, client_secret)
+   ▼
+[Authorization Server CSI Piemonte]  ──► JWT firmato (claims: client_id, scope, exp, iss, aud)
+   │
+   │ 2. GET /api/v1/...  +  Header: Authorization: Bearer &lt;JWT&gt;
+   ▼
+[Ingress Kubernetes ECaaS]  ──► TLS termination, instradamento al Service
+   │
+   ▼
+[Spring Boot Backend Gestione Consensi]
+   ├─ A) Spring Security filter chain
+   │     ├─ Validazione firma JWT (chiave pubblica AS via JWKS endpoint)
+   │     ├─ Check claim: exp, iss, aud
+   │     └─ Estrazione client_id
+   ├─ B) EnteAuthorizationFilter (custom)
+   │     ├─ Lookup tabella cons_t_client_ente: client_id → codice_ente_autorizzato
+   │     ├─ Estrazione codice_ente dalla request (path/query)
+   │     └─ Confronto: mismatch → 403 Forbidden
+   ├─ C) Business logic (RestController CDU-15/16)
+   │     └─ Repository query SEMPRE con WHERE codice_ente = :authorizedEnte
+   │        (preso da SecurityContext, NON dal parametro request)
+   └─ D) Response 200 / 401 / 403 / 404 / 500
+</code></pre>
+<hr>
+<h2 id="3-isolamento-dati-per-ente-difesa-a-3-livelli" tabindex="-1">3. Isolamento dati per ente — difesa a 3 livelli</h2>
+<p>Il requisito &quot;vedere unicamente i propri WS/consensi&quot; non si poggia sul trasporto ma su tre controlli sovrapposti.</p>
+<h3 id="livello-a-identita-del-client" tabindex="-1">Livello A — Identità del client</h3>
+<ul>
+<li>Ogni SIA ASR riceve coppia <code>client_id</code> + <code>client_secret</code> dall'AS CSI Piemonte (procedura onboarding da concordare).</li>
+<li>AS emette JWT firmato (RS256/ES256) con claim <code>client_id</code> immodificabile.</li>
+<li>La chiave pubblica AS è pubblicata via endpoint JWKS; il backend la usa per verificare la firma.</li>
+<li>Nessun client può spacciarsi per altro ente: rotazione/revoca gestita lato AS.</li>
+</ul>
+<h3 id="livello-b-mapping-client-id-codice-ente" tabindex="-1">Livello B — Mapping client_id → codice_ente</h3>
+<ul>
+<li>Tabella applicativa <code>cons_t_client_ente</code> (da aggiungere in SRS §8 modello dati) lega ogni <code>client_id</code> a <strong>uno e un solo</strong> <code>codice_ente</code> autorizzato.</li>
+<li>Lookup eseguito dal filter, non encoded nel JWT → consente revoca senza riemissione token, audit storico, ruoli speciali (es. ente &quot;aggregatore&quot; multi-ente in futuro).</li>
+<li>Schema tabella proposto:</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Colonna</th>
+<th>Tipo</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>client_id</code></td>
+<td>varchar(128) PK</td>
+<td>Stringa fornita da AS CSI</td>
+</tr>
+<tr>
+<td><code>codice_ente</code></td>
+<td>varchar(10) NOT NULL</td>
+<td>FK a <code>cons_d_ente</code></td>
+</tr>
+<tr>
+<td><code>scopes</code></td>
+<td>text[]</td>
+<td>Es. <code>{&quot;consensi:read&quot;}</code></td>
+</tr>
+<tr>
+<td><code>data_attivazione</code></td>
+<td>timestamp NOT NULL</td>
+<td></td>
+</tr>
+<tr>
+<td><code>data_revoca</code></td>
+<td>timestamp NULL</td>
+<td>NULL = attivo</td>
+</tr>
+<tr>
+<td><code>note</code></td>
+<td>text</td>
+<td>Riferimento contratto/ticket onboarding</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="livello-c-filtro-query-defense-in-depth" tabindex="-1">Livello C — Filtro query (defense in depth)</h3>
+<ul>
+<li>Tutte le query repository di CDU-15/16 prendono <code>codice_ente</code> da <code>SecurityContext</code>, <strong>mai dal parametro request</strong>.</li>
+<li>Anche se il filter B fosse bypassato per bug, la query <code>WHERE codice_ente = :authEnte</code> impedisce data leak.</li>
+<li>Pattern repository:</li>
+</ul>
+<pre><code class="language-java">@Query(&quot;SELECT c FROM Consenso c WHERE c.codiceEnte = :authEnte AND c.codiceFiscale = :cf&quot;)
+Optional&lt;Consenso&gt; findByCfAndAuthEnte(@Param(&quot;cf&quot;) String cf, @Param(&quot;authEnte&quot;) String authEnte);
+</code></pre>
+<hr>
+<h2 id="4-matrice-attacchi-mitigazioni" tabindex="-1">4. Matrice attacchi/mitigazioni</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Attacco</th>
+<th>Mitigazione</th>
+<th>Livello</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Token forgiato</td>
+<td>Firma JWT validata con chiave pubblica AS (JWKS)</td>
+<td>A</td>
+</tr>
+<tr>
+<td>Replay di token scaduto</td>
+<td>Check claim <code>exp</code></td>
+<td>A</td>
+</tr>
+<tr>
+<td>Token rubato da altro ente</td>
+<td><code>client_id</code> legato a singolo <code>codice_ente</code> in DB</td>
+<td>B</td>
+</tr>
+<tr>
+<td>Manipolazione <code>codice_ente</code> in URL</td>
+<td>Compare URL ente vs ente autorizzato → 403</td>
+<td>B</td>
+</tr>
+<tr>
+<td>Bug nel filter applicativo</td>
+<td>Repository forza <code>WHERE codice_ente = :authEnte</code></td>
+<td>C</td>
+</tr>
+<tr>
+<td>Enumerazione codici fiscali</td>
+<td>Rate limit applicativo (<code>bucket4j</code>) + audit log</td>
+<td>App</td>
+</tr>
+<tr>
+<td>Credenziale <code>client_secret</code> esposta</td>
+<td>Rotation + revoca via <code>data_revoca</code> in tabella</td>
+<td>A+B</td>
+</tr>
+<tr>
+<td>MITM</td>
+<td>TLS obbligatorio su Ingress, HSTS</td>
+<td>Piattaforma</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="5-specifica-tecnica-per-srs" tabindex="-1">5. Specifica tecnica per SRS</h2>
+<h3 id="5-1-security-scheme-open-api" tabindex="-1">5.1 Security Scheme OpenAPI</h3>
+<pre><code class="language-yaml">components:
+  securitySchemes:
+    bearerAuth:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.csi.piemonte.it/oauth2/token   # ⚠️ URL da confermare con CSI
+          scopes:
+            consensi:read: Lettura stato consensi e configurazioni del proprio ente
+
+security:
+  - bearerAuth: [consensi:read]
+</code></pre>
+<h3 id="5-2-claim-jwt-minimi" tabindex="-1">5.2 Claim JWT minimi</h3>
+<pre><code class="language-json">{
+  &quot;iss&quot;: &quot;https://auth.csi.piemonte.it&quot;,
+  &quot;aud&quot;: &quot;gestione-consensi&quot;,
+  &quot;sub&quot;: &quot;sia-asl-to1-prod&quot;,
+  &quot;client_id&quot;: &quot;sia-asl-to1-prod&quot;,
+  &quot;scope&quot;: &quot;consensi:read&quot;,
+  &quot;iat&quot;: 1736937600,
+  &quot;exp&quot;: 1736941200
+}
+</code></pre>
+<p><strong>TTL raccomandato:</strong> 3600 secondi (da confermare con CSI).</p>
+<h3 id="5-3-pseudocodice-filter-spring-security" tabindex="-1">5.3 Pseudocodice filter Spring Security</h3>
+<pre><code class="language-java">@Component
+public class EnteAuthorizationFilter extends OncePerRequestFilter {
+
+    private final ClientEnteMapper mapper;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest req,
+                                    HttpServletResponse res,
+                                    FilterChain chain) throws ServletException, IOException {
+
+        Jwt jwt = (Jwt) SecurityContextHolder.getContext()
+                                             .getAuthentication()
+                                             .getPrincipal();
+        String clientId = jwt.getClaimAsString(&quot;client_id&quot;);
+
+        String authorizedEnte = mapper.resolveEnte(clientId);
+        if (authorizedEnte == null) {
+            problem(res, 403, &quot;client_not_registered&quot;,
+                    &quot;Client non censito nella tabella cons_t_client_ente&quot;);
+            return;
+        }
+
+        String requestedEnte = extractEnteFromRequest(req);
+        if (!authorizedEnte.equals(requestedEnte)) {
+            problem(res, 403, &quot;ente_mismatch&quot;,
+                    &quot;Ente richiesto non corrisponde al client autenticato&quot;);
+            return;
+        }
+
+        req.setAttribute(&quot;authorizedEnte&quot;, authorizedEnte);
+        chain.doFilter(req, res);
+    }
+}
+</code></pre>
+<h3 id="5-4-http-status-codes" tabindex="-1">5.4 HTTP status codes</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Codice</th>
+<th>Causa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>200 OK</code></td>
+<td>Token valido, ente match, dato trovato</td>
+</tr>
+<tr>
+<td><code>401 Unauthorized</code></td>
+<td>Token assente, scaduto o firma invalida</td>
+</tr>
+<tr>
+<td><code>403 Forbidden</code></td>
+<td>Token valido ma <code>codice_ente</code> richiesto ≠ autorizzato, oppure client non censito</td>
+</tr>
+<tr>
+<td><code>404 Not Found</code></td>
+<td>Ente autorizzato ma nessun consenso/configurazione per i parametri</td>
+</tr>
+<tr>
+<td><code>429 Too Many Requests</code></td>
+<td>Rate limit applicativo superato (nuovo, conseguenza assenza APIM)</td>
+</tr>
+<tr>
+<td><code>500 Internal Server Error</code></td>
+<td>Errore non gestito</td>
+</tr>
+</tbody>
+</table></div>
+<p>Tutti i 4xx/5xx rispettano <strong>RFC 7807</strong> con <code>application/problem+json</code>.</p>
+<hr>
+<h2 id="6-audit-log-obbligatorio" tabindex="-1">6. Audit log obbligatorio</h2>
+<p>Ogni invocazione di CDU-15/CDU-16 registra (struttura JSON):</p>
+<pre><code class="language-json">{
+  &quot;ts&quot;: &quot;2026-05-14T10:35:22.143Z&quot;,
+  &quot;client_id&quot;: &quot;sia-asl-to1-prod&quot;,
+  &quot;codice_ente_requested&quot;: &quot;010&quot;,
+  &quot;codice_ente_authorized&quot;: &quot;010&quot;,
+  &quot;endpoint&quot;: &quot;/api/v1/consensi/stato&quot;,
+  &quot;params_hash&quot;: &quot;sha256:...&quot;,
+  &quot;outcome&quot;: &quot;200&quot;,
+  &quot;latency_ms&quot;: 47,
+  &quot;trace_id&quot;: &quot;...&quot;
+}
+</code></pre>
+<p>Codice fiscale <strong>NON</strong> loggato in chiaro (vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/valutazione-qualita-srs-consensi/">Valutazione Qualità SRS — Gestione Consensi</a> §sicurezza, OWASP). Hash dei parametri per ricerca breach post-mortem.</p>
+<hr>
+<h2 id="7-gap-aperti-azioni-richieste" tabindex="-1">7. Gap aperti / azioni richieste</h2>
+<h3 id="aggiornamenti-srs-richiesti" tabindex="-1">Aggiornamenti SRS richiesti</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Sezione SRS</th>
+<th>Modifica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G1</td>
+<td>§6.15, §6.16</td>
+<td>Aggiungere paragrafo &quot;Modello di sicurezza per ente&quot; (testo proposto in §8 sotto)</td>
+</tr>
+<tr>
+<td>G2</td>
+<td>§3.3 Componenti software</td>
+<td>Aggiungere componente <code>EnteAuthorizationFilter</code> (Spring Security custom filter)</td>
+</tr>
+<tr>
+<td>G3</td>
+<td>§3.6 (sicurezza, se esistente)</td>
+<td>Documentare rate limiting applicativo <code>bucket4j</code> come sostituto APIM</td>
+</tr>
+<tr>
+<td>G4</td>
+<td>§8 Modello dati</td>
+<td>Aggiungere entità <code>cons_t_client_ente</code> (schema in §3.2 sopra)</td>
+</tr>
+<tr>
+<td>G5</td>
+<td>§10 Test plan</td>
+<td>Aggiungere caso E2E cross-tenant: client A tenta lettura ente B → atteso 403</td>
+</tr>
+<tr>
+<td>G6</td>
+<td>§11 Ops/Monitoring</td>
+<td>Definire dashboard audit log con outcome 401/403/429 anomali</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="punti-da-chiarire-con-csi" tabindex="-1">Punti da chiarire con CSI</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Domanda</th>
+<th>Blocco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q1</td>
+<td>URL produzione/test Authorization Server CSI Piemonte</td>
+<td>⚠️ Sprint 0</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>Algoritmo firma JWT (RS256? ES256?) + URL endpoint JWKS</td>
+<td>⚠️ Sprint 0</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>Procedura onboarding nuovo SIA (chi crea <code>client_id</code>, chi popola mapping)</td>
+<td>Sprint 1</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>TTL token raccomandato e politica refresh</td>
+<td>Sprint 1</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>Scope predefiniti CSI o liberi a definire dal progetto?</td>
+<td>Sprint 1</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>Politica revoca credenziali compromesse (blacklist? rotation?)</td>
+<td>Sprint 2</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="8-testo-proposto-per-inserimento-in-srs-6-15-e-6-16" tabindex="-1">8. Testo proposto per inserimento in SRS §6.15 e §6.16</h2>
+<blockquote>
+<p><strong>Modello di sicurezza CDU-15/16</strong></p>
+<p>L'accesso ai servizi CDU-15 e CDU-16 è regolato da autenticazione OAuth2 Client Credentials con token JWT emesso dall'Authorization Server del CSI Piemonte, e da un modello di autorizzazione applicativo a tre livelli, <strong>senza intermediazione di API Gateway/Manager</strong> (cfr. §3.2).</p>
+<p>L'isolamento dei dati per ente (visibilità unicamente dei propri consensi/configurazioni) è garantito da:</p>
+<p><strong>(a)</strong> JWT firmato dall'AS CSI Piemonte contenente il claim <code>client_id</code> univoco del SIA chiamante, validato dal backend tramite chiave pubblica esposta su endpoint JWKS;</p>
+<p><strong>(b)</strong> tabella applicativa <code>cons_t_client_ente</code> che lega ogni <code>client_id</code> a un singolo <code>codice_ente</code> autorizzato, popolata in fase di onboarding del SIA e gestita dall'amministratore di sistema;</p>
+<p><strong>(c)</strong> filtro Spring Security (<code>EnteAuthorizationFilter</code>) che confronta il <code>codice_ente</code> presente nella request (path/query) con quello autorizzato per il <code>client_id</code> autenticato, rispondendo <code>403 Forbidden</code> in caso di discrepanza, e repository che applica sempre <code>WHERE codice_ente = :authorizedEnte</code> come difesa in profondità.</p>
+<p>La funzionalità di rate limiting, normalmente fornita da un API Manager, è implementata a livello applicativo tramite <code>bucket4j</code> (default: 60 richieste/minuto per client, configurabile). Un audit log strutturato è obbligatorio per ogni invocazione e registra <code>client_id</code>, <code>codice_ente_requested</code>, <code>codice_ente_authorized</code>, <code>outcome</code>, <code>latency_ms</code>, <code>trace_id</code>. Il codice fiscale non viene loggato in chiaro.</p>
+</blockquote>
+<hr>
+<h2 id="9-riferimenti" tabindex="-1">9. Riferimenti</h2>
+<ul>
+<li>Decisione architetturale &quot;no API Gateway&quot;: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-02-domande-srs-csi-v02/">Domande SRS Consensi — Revisione CSI V02</a> Q&amp;A <a class="tag" onclick="toggleTagSearch(this)" data-content="#6">#6</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-02-conspref-srs-v1-revised/">CONSPREF-SRS-V1.0 revised bozza v2</a> §3.2</li>
+<li>Specifica OpenAPI dei due endpoint: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/">analysis-2026-05-06-openapi-cdu-15-16</a></li>
+<li>Stack tecnologico Spring Boot 3 + Spring Security: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-12-pile-tecnologiche-csi/">Pile Tecnologiche CSI Piemonte</a></li>
+<li>Vincoli ECaaS / Ingress / TLS: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native/">Linee Guida Cloud Native per Fornitori v1.0.1</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/architettura-ecaas/">Architettura ECaaS</a></li>
+<li>Inventario sistemi consumer (SIA ASR): <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a></li>
+</ul>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

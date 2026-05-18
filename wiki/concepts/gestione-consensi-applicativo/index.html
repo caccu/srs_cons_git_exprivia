@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gestione Consensi - Applicativo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="gestione-consensi-applicativo" tabindex="-1">Gestione Consensi — Applicativo</h1>
+<p>Sistema centrale per la raccolta, gestione e consultazione dei consensi sanitari dei cittadini piemontesi. Parte dell'ecosistema Sanità Elettronica Regione Piemonte.</p>
+<hr>
+<h2 id="tre-livelli-di-consenso" tabindex="-1">Tre livelli di consenso</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Livello</th>
+<th>Ambito</th>
+<th>Esempi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nazionale</td>
+<td>Tutto il territorio</td>
+<td>FSE/INI (apertura fascicolo)</td>
+</tr>
+<tr>
+<td>Regionale</td>
+<td>Regione Piemonte</td>
+<td>Stratificazione, cronicità, telemedicina, reti patologia</td>
+</tr>
+<tr>
+<td>Aziendale</td>
+<td>Singola ASR</td>
+<td>Dossier Clinico, ROL referti, trattamento dati personali</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Regola chiave:</strong> Consenso regionale = 1 scelta → propagata a tutte le ASR. Consenso aziendale = 1 scelta per ogni ASR separatamente.</p>
+<hr>
+<h2 id="canali-di-acquisizione-consenso-mf-3-r1-mf-4-r1" tabindex="-1">Canali di acquisizione consenso (MF3R1, MF4R1)</h2>
+<p>Il cittadino può esprimere il proprio consenso attraverso <strong>tre canali</strong> distinti:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Canale</th>
+<th>Descrizione</th>
+<th>Profilo accesso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Webapp Cittadino</td>
+<td>Webapp dedicata SPID/CIE</td>
+<td>Cittadino autenticato</td>
+</tr>
+<tr>
+<td>Webapp Operatore</td>
+<td>Operatore opera per conto dell'assistito</td>
+<td>Operatore PUA (RUPAR/IRIDE)</td>
+</tr>
+<tr>
+<td><strong>LIS</strong></td>
+<td>Acquisizione presso il Laboratorio (canale di front-office)</td>
+<td>Operatore LIS dedicato</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>Decisione MF4R1: aggiungere didascalia nel diagramma di contesto: &quot;Consensi esprimibili anche presso LIS oltre webapp cittadino e Operatore&quot;. Aggiornare SRS §1/§2.</p>
+</blockquote>
+<hr>
+<h2 id="profili-utente-aggiornato-mf-7-mf-16" tabindex="-1">Profili utente (aggiornato MF7, MF16)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Profilo</th>
+<th>Accesso</th>
+<th>CDU</th>
+<th>Profilo applicativo Configuratore?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cittadino</strong></td>
+<td>SPID/CIE via [[wiki/concepts/gasp-salute</td>
+<td>GASP Salute]] su <strong>webapp dedicata</strong></td>
+<td>CDU-01b, CDU-02÷CDU-06</td>
+</tr>
+<tr>
+<td>Operatore Sanitario/Amministrativo</td>
+<td>PUA / RUPAR/IRIDE</td>
+<td>CDU-01a, CDU-07÷CDU-11</td>
+<td>Sì</td>
+</tr>
+<tr>
+<td>Operatore di Back Office</td>
+<td>PUA / RUPAR/IRIDE</td>
+<td>CDU-12÷CDU-14</td>
+<td>Sì</td>
+</tr>
+<tr>
+<td>SIA Aziendale</td>
+<td>API REST (OAuth2 Bearer JWT)</td>
+<td>CDU-15, CDU-16, CDU-17</td>
+<td>N/A — autenticazione machine-to-machine</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="nota-su-profilo-cittadino-mf-7-r5" tabindex="-1">Nota su profilo Cittadino (MF7R5)</h3>
+<blockquote>
+<p>Cittadino <strong>NON è profilo applicativo del Configuratore</strong>. Accede a webapp dedicata (SPID/CIE). Il &quot;profilo&quot; logico interno serve solo a distinguere se l'utente sta agendo per <strong>sé stesso</strong> o per un <strong>delegante</strong> (selezionato tramite pulsante &quot;Deleghe&quot;).</p>
+</blockquote>
+<p>Implicazione: nelle tabelle dei profili in SRS aggiungere colonna &quot;NOTE&quot; che marca esplicitamente questa differenza.</p>
+<hr>
+<h2 id="cdu-01-split-mf-16-r15-mf-18-r17" tabindex="-1">CDU-01 split (MF16R15, MF18R17)</h2>
+<p>Il caso d'uso di autenticazione viene diviso in due sotto-scenari espliciti:</p>
+<h3 id="cdu-01a-accesso-operatore" tabindex="-1">CDU-01a — Accesso Operatore</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Dettaglio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accesso</td>
+<td>RUPAR / IRIDE / SPID via PUA</td>
+</tr>
+<tr>
+<td>Selezione profilo</td>
+<td>Sì — il sistema mostra la selezione del profilo operatore</td>
+</tr>
+<tr>
+<td>Precondizioni</td>
+<td>Operatore censito in Configuratore Regionale</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="cdu-01b-accesso-cittadino" tabindex="-1">CDU-01b — Accesso Cittadino</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Dettaglio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accesso</td>
+<td>SPID / CIE su <strong>webapp separata</strong></td>
+</tr>
+<tr>
+<td>Profilazione iniziale</td>
+<td>Nessuna</td>
+</tr>
+<tr>
+<td>Precondizioni</td>
+<td>Cittadino con identità digitale attiva</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="flusso-deleghe-mf-20-r19-mf-22-r21" tabindex="-1">Flusso Deleghe (MF20R19, MF22R21)</h2>
+<blockquote>
+<p>La webapp del cittadino mostra <strong>sempre</strong> il cruscotto dell'utente autenticato. Se il cittadino vuole operare per conto di un delegante, clicca il pulsante <strong>&quot;Deleghe&quot;</strong>, che mostra l'elenco dei deleganti attivi. Selezionando un delegante, il sistema carica il cruscotto consensi di quel soggetto.</p>
+</blockquote>
+<pre><code>Pulsante «Deleghe» → elenco deleganti (servizio Gestione Deleghe) → selezione → cruscotto consensi del delegante
+</code></pre>
+<p><strong>Nota implementativa (MF22R21):</strong> questo scenario è già attivo in produzione. Implementazione segue pattern esistente.</p>
+<p>Variante 6.1.3 [PROPOSTA]: se il servizio Gestione Deleghe non risponde o restituisce un errore, il sistema impedisce la selezione del profilo delegato e mostra un messaggio di avviso. L'utente può comunque operare solo per sé stesso.</p>
+<hr>
+<h2 id="funzionalita-principali-to-be" tabindex="-1">Funzionalità principali TO-BE</h2>
+<h3 id="area-cittadino-webapp-dedicata" tabindex="-1">Area Cittadino (webapp dedicata)</h3>
+<ul>
+<li><strong>CDU-02</strong> Consultazione cruscotto consensi: mostra <strong>tutti i tipi configurati</strong> (regionale=1 record, aziendale=N record per azienda) anche quelli non ancora espressi (MF26R25). Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a>.</li>
+<li><strong>CDU-03</strong> Rilascio nuovo consenso (con visualizzazione informativa PDF)</li>
+<li><strong>CDU-04</strong> Modifica consenso — <strong>ingloba anche il cambio valore</strong> (CDU-05 non separato lato cittadino, MF45R44). Pulsante unico &quot;Salva&quot; (MF37R36).</li>
+<li><strong>CDU-06</strong> Download PDF — scope ridotto (MF47R46):
+<ul>
+<li>Cittadino stampa PDF della <strong>sola informativa accettata</strong></li>
+<li><strong>Senza</strong> firma digitale</li>
+<li><strong>Senza</strong> valore consenso espresso</li>
+<li>Struttura ulteriore: <code>[PROPOSTA]</code> da concordare (MF49R48, MF51R50)</li>
+</ul>
+</li>
+</ul>
+<h3 id="area-operatore" tabindex="-1">Area Operatore</h3>
+<ul>
+<li>Ricerca assistito via <strong>AURA</strong> (FindProfiliAnagrafici + getProfiloSanitario). Se CF non trovato → messaggio &quot;La ricerca con il filtro fornito non ha prodotto risultati&quot;. <strong>Nessuna chiamata a SistemaTS</strong> (MF53R52, MF55R54).</li>
+<li>Gestione consensi per conto dell'assistito — CDU-09 (rilascio), CDU-10 (modifica), CDU-11 (cambio valore). Composizione pagina <strong>identica al lato cittadino</strong>, motore Form Renderer unico (MF57R56). Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a>.</li>
+<li>Tracciatura: <code>fonte_id='PASS'</code>, <code>login_operazione</code>, <code>ruoloop_id</code> valorizzati con dati operatore.</li>
+</ul>
+<h3 id="area-back-office" tabindex="-1">Area Back Office</h3>
+<ul>
+<li>Configurazione tipi consenso (parametri dinamici — input del Form Renderer)</li>
+<li>Gestione informative (upload PDF, versioning)</li>
+<li>Gestione enti ed endpoint (<strong>CDU-14</strong>) — trigger dell'allineamento. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a> per il modello PULL sostituto del BATCH-03 push.</li>
+</ul>
+<h3 id="api-per-sia" tabindex="-1">API per SIA</h3>
+<ul>
+<li><code>GET /api/v1/consensi/stato</code> (CDU-15)</li>
+<li><code>GET /api/v1/configurazione/{codiceEnte}</code> (CDU-16)</li>
+<li><code>GET /api/v1/consensi/snapshot</code> (CDU-17, proposta — vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a>)</li>
+</ul>
+<p>Sicurezza per tutti gli endpoint SIA: vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a>.</p>
+<hr>
+<h2 id="notifica-al-cittadino-post-acquisizione-mf-33-r31" tabindex="-1">Notifica al cittadino post-acquisizione (MF33R31)</h2>
+<blockquote>
+<p>Notifica cittadino/delegato via <strong>Notificatore di Deleghe</strong> (NON UNP) parte <strong>SOLO dopo conferma notifica alle aziende</strong> (stato = COMPLETATO).</p>
+</blockquote>
+<p>Dipendenza temporale: la notifica al cittadino arriva solo a valle del completamento di BATCH-01. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a> e <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a>.</p>
+<hr>
+<h2 id="ciclo-di-vita-consenso" tabindex="-1">Ciclo di vita consenso</h2>
+<p>Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/ciclo-vita-consenso/">Ciclo di Vita del Consenso</a>. Aggiornato con transizioni dirette ATTIVO↔NEGATO (MF11/MF14) e terminologia UI &quot;acconsento/nego&quot; (MF9).</p>
+<h2 id="architettura" tabindex="-1">Architettura</h2>
+<p>Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/architettura-ecaas/">Architettura ECaaS</a>. Nuovo componente da aggiungere in SRS §3.3: <strong>Form Renderer dinamico</strong> (motore di rendering form-consenso unico, condiviso fra webapp Cittadino e webapp Operatore — vincolo SSoT MF57R56).</p>
+<hr>
+<h2 id="storia-documento" tabindex="-1">Storia documento</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Versione</th>
+<th>Anno</th>
+<th>Documento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AS-IS</td>
+<td>2019</td>
+<td>[[wiki/sources/2019-02-01-sfu-gestione-consensi-v1-7</td>
+</tr>
+<tr>
+<td>Requisiti committente</td>
+<td>2023</td>
+<td>[[wiki/sources/2023-09-01-conspref-srs-01-v03</td>
+</tr>
+<tr>
+<td>SRS TO-BE</td>
+<td>2026</td>
+<td>[[wiki/sources/2026-03-02-conspref-srs-v1-revised</td>
+</tr>
+<tr>
+<td>Revisione cliente v3</td>
+<td>2026-05</td>
+<td><code>raw/CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf</code> — 69 commenti, ~30 risposte MF. Sintesi: [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3</td>
+</tr>
+</tbody>
+</table></div>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

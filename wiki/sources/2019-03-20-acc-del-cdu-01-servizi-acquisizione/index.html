@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="acc-del-cdu-01-servizi-acquisizione-consensi-as-is" tabindex="-1">ACC-DEL-CDU-01 — Servizi Acquisizione Consensi (AS-IS)</h1>
+<p><strong>Documento:</strong> ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi<br>
+<strong>Autore:</strong> Celoria (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a>) — 20/03/2019<br>
+<strong>Versione:</strong> V01<br>
+<strong>Uso:</strong> Interno CSI Piemonte<br>
+<strong>Contesto:</strong> Specifica dei servizi SOAP esposti dal Modulo Regionale Gestione Consensi lato <strong>inbound</strong> (da WebApp o SIA ASR verso il Regionale)</p>
+<hr>
+<h2 id="scopo" tabindex="-1">Scopo</h2>
+<p>Definisce i requisiti di accettazione per il servizio GESTIONE CONSENSI lato acquisizione (inbound). Complementare alla <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a> che copre le notifiche outbound.</p>
+<hr>
+<h2 id="4-operazioni-soap-as-is" tabindex="-1">4 Operazioni SOAP AS-IS</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Operazione</th>
+<th>Codice</th>
+<th>Descrizione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DA01</td>
+<td>acquisizioneConsenso</td>
+<td>Acquisisce (rilascia) un consenso cittadino</td>
+</tr>
+<tr>
+<td>DA02</td>
+<td>revocaConsenso</td>
+<td>Revoca un consenso esistente</td>
+</tr>
+<tr>
+<td>DA03a</td>
+<td>consultazioneConsenso</td>
+<td>Legge stato consensi per un cittadino</td>
+</tr>
+<tr>
+<td>DA03b</td>
+<td>consultazioneInformativa</td>
+<td>Legge informativa di un consenso</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Modalità chiamata:</strong></p>
+<ul>
+<li>Sincrona: da WebApp Cittadino/Punto Assistito → Modulo Regionale</li>
+<li>Asincrona: da Modulo Regionale → ASR (notifica)</li>
+</ul>
+<hr>
+<h2 id="da-01-acquisizione-consenso-logica-dettagliata" tabindex="-1">DA01: acquisizioneConsenso — Logica dettagliata</h2>
+<h3 id="validazioni-input-in-ordine" tabindex="-1">Validazioni input (in ordine)</h3>
+<ol>
+<li><code>cfRichiedente</code> — obbligatorio, validazione formale, lookup AURA (ricava nome/cognome/idAura)</li>
+<li><code>cfDelegato</code> — opzionale, se presente deve essere diverso da cfRichiedente</li>
+<li><code>operatore</code> (tipo + codice) — opzionale, se presente verifica chiave in <code>CONS_D_OPERATORE</code></li>
+<li><code>fonte</code> (codiceTipoFonte + codiceFonte) — <strong>obbligatorio</strong>, verifica in <code>CONS_D_TIPO_FONTE</code> e <code>CONS_D_FONTE</code></li>
+<li><code>dataAcquisizione</code> — obbligatorio, validazione sintattica</li>
+<li><code>codiceTipoConsenso</code> — obbligatorio, verifica in <code>CONS_D_TIPO_CONS</code></li>
+<li><code>codiceSottotipoConsenso</code> — obbligatorio, verifica in <code>CONS_D_SOTTO_TIPO_CONS</code></li>
+<li>Per ogni consenso dell'array: se tipo='A' (aziendale), <code>codiceASR</code> obbligatorio</li>
+<li>Lookup informativa in <code>CONS_D_INFORMATIVA</code> (chiave: tipo_consenso + sotto_tipo + data_decorrenza &gt; max)</li>
+</ol>
+<h3 id="logica-aggiornamento-db-upsert" tabindex="-1">Logica aggiornamento DB (upsert)</h3>
+<pre><code>SELECT da cons_t_consenso WHERE informativa_id + cfCittadino + fonte_id + stato_attivo
+  SE non trovato → INSERT nuovo consenso
+  SE trovato:
+    SE valoreConsenso == valore_consenso attuale → nessuna azione
+    SE valoreConsenso = 'NE' e diverso → esito KO (errore E01)
+    ALTRIMENTI:
+      UPDATE occorrenza: data_fine_validita = today, tipo_stato = 'scaduto'
+      INSERT nuovo consenso con nuovo valore
+</code></pre>
+<hr>
+<h2 id="interfaccia-da-01-input" tabindex="-1">Interfaccia DA01 — Input</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Livello</th>
+<th>Obbligatorio</th>
+<th>Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cfRichiedente</td>
+<td>1</td>
+<td>Sì</td>
+<td>TEXT</td>
+</tr>
+<tr>
+<td>cfDelegato</td>
+<td>1</td>
+<td>No</td>
+<td>TEXT</td>
+</tr>
+<tr>
+<td>tipoOperatore</td>
+<td>1</td>
+<td>Sì</td>
+<td>TEXT</td>
+</tr>
+<tr>
+<td>codiceOperatore</td>
+<td>1</td>
+<td>Sì</td>
+<td>TEXT</td>
+</tr>
+<tr>
+<td>codiceTipoFonte</td>
+<td>1</td>
+<td>Sì</td>
+<td>TEXT</td>
+</tr>
+<tr>
+<td>codiceFonte</td>
+<td>1</td>
+<td>Sì</td>
+<td>TEXT</td>
+</tr>
+<tr>
+<td>dataAcquisizione</td>
+<td>1</td>
+<td>Sì</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>codiceTipoConsenso</td>
+<td>1</td>
+<td>Sì</td>
+<td>TEXT</td>
+</tr>
+<tr>
+<td>codiceSottotipoConsenso</td>
+<td>1</td>
+<td>Sì</td>
+<td>TEXT</td>
+</tr>
+<tr>
+<td>descrizioneSottotipoConsenso</td>
+<td>1</td>
+<td>Sì</td>
+<td>TEXT</td>
+</tr>
+<tr>
+<td>elencoConsensi.valoreConsenso(n)</td>
+<td>2</td>
+<td>Sì</td>
+<td>TEXT</td>
+</tr>
+<tr>
+<td>elencoConsensi.codiceASR(n)</td>
+<td>2</td>
+<td>Sì</td>
+<td>TEXT</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="interfaccia-da-01-output-response" tabindex="-1">Interfaccia DA01 — Output (Response)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Campo DB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Esito</td>
+<td>TEXT</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Errori.codice</td>
+<td>TEXT</td>
+<td>err_cod</td>
+</tr>
+<tr>
+<td>Consenso.idConsenso</td>
+<td>TEXT</td>
+<td>cons_id</td>
+</tr>
+<tr>
+<td>Consenso.codiceFiscale.Cittadino</td>
+<td>TEXT</td>
+<td>cf_cittadino</td>
+</tr>
+<tr>
+<td>Consenso.idAURA</td>
+<td>TEXT</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Consenso.dataAcquisizione</td>
+<td>TIMESTAMP</td>
+<td>data_acquisizione</td>
+</tr>
+<tr>
+<td>Consenso.id_operatore</td>
+<td>TEXT</td>
+<td>operatore_id</td>
+</tr>
+<tr>
+<td>Consenso.fonte_id</td>
+<td>INTEGER</td>
+<td>fonte_id</td>
+</tr>
+<tr>
+<td>Consenso.audit_id</td>
+<td>INTEGER</td>
+<td>audit_id</td>
+</tr>
+<tr>
+<td>Consenso.tipoStato</td>
+<td>TEXT</td>
+<td>tipo_stato</td>
+</tr>
+<tr>
+<td>Consenso.valoreConsenso</td>
+<td>TEXT</td>
+<td>valore_consenso</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="confronto-as-is-vs-to-be" tabindex="-1">Confronto AS-IS vs TO-BE</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>AS-IS (ACC-DEL-CDU-01)</th>
+<th>TO-BE (SRS CDU-03)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Storicizzazione</td>
+<td>UPDATE tipo_stato='scaduto' + INSERT</td>
+<td>UPDATE data_fine=NOW() + INSERT in cons_s_consenso + INSERT nuovo</td>
+</tr>
+<tr>
+<td>Stato 'scaduto'</td>
+<td>Impostato su UPDATE durante acquisizione</td>
+<td>Impostato da BATCH-02 su scadenza informativa</td>
+</tr>
+<tr>
+<td>Audit</td>
+<td>csi_log_audit</td>
+<td>csi_log_audit (stessa tabella)</td>
+</tr>
+<tr>
+<td>Notifica ASR</td>
+<td>Sincrona nel servizio</td>
+<td>Asincrona via BATCH-01 (coda cons_t_notifica) — vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>⚠️ <strong>Differenza importante:</strong> nell'AS-IS lo stato 'scaduto' viene impostato durante l'operazione di acquisizione (se il cittadino ha già espresso quel consenso). Nel TO-BE invece SCADUTO è uno stato del <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/ciclo-vita-consenso/">ciclo di vita</a> gestito da BATCH-02 quando l'informativa scade. Sono due meccanismi distinti.</p>
+</blockquote>
+<hr>
+<h2 id="codici-errore-principali-da-01" tabindex="-1">Codici errore principali DA01</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Codice</th>
+<th>Condizione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0001</td>
+<td>cfRichiedente non valorizzato</td>
+</tr>
+<tr>
+<td>0002</td>
+<td>cfRichiedente non trovato su AURA</td>
+</tr>
+<tr>
+<td>0003</td>
+<td>cfDelegato sintassi errata</td>
+</tr>
+<tr>
+<td>0004</td>
+<td>operatore non trovato in CONS_D_OPERATORE</td>
+</tr>
+<tr>
+<td>0005</td>
+<td>dataAcquisizione non valorizzata</td>
+</tr>
+<tr>
+<td>0006</td>
+<td>dataAcquisizione sintassi errata</td>
+</tr>
+<tr>
+<td>0007</td>
+<td>codiceTipoFonte non trovato</td>
+</tr>
+<tr>
+<td>0008</td>
+<td>codiceFonte non trovato</td>
+</tr>
+<tr>
+<td>0009</td>
+<td>codiceTipoConsenso non valorizzato</td>
+</tr>
+<tr>
+<td>0010</td>
+<td>codiceSottotipoConsenso non valorizzato</td>
+</tr>
+<tr>
+<td>0011</td>
+<td>codiceTipoConsenso non trovato in CONS_D_TIPO_CONS</td>
+</tr>
+<tr>
+<td>0012</td>
+<td>codiceSottotipoConsenso non trovato</td>
+</tr>
+<tr>
+<td>0013</td>
+<td>fonte non valorizzata</td>
+</tr>
+<tr>
+<td>0014</td>
+<td>codiceASR mancante per consenso aziendale</td>
+</tr>
+<tr>
+<td>0015</td>
+<td>ASR fonte non coincide con ASR consenso</td>
+</tr>
+<tr>
+<td>0016</td>
+<td>informativa non trovata</td>
+</tr>
+<tr>
+<td>0017</td>
+<td>cfRichiedente sintassi errata</td>
+</tr>
+<tr>
+<td>0018</td>
+<td>cfDelegato == cfRichiedente</td>
+</tr>
+<tr>
+<td>E01</td>
+<td>tentativo di impostare valore 'NE' su consenso già presente</td>
+</tr>
+</tbody>
+</table></div>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

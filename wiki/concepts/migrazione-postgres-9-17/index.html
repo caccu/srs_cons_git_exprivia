@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Migrazione PostgreSQL 9 → 17</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="migrazione-postgre-sql-9-17" tabindex="-1">Migrazione PostgreSQL 9 → 17</h1>
+<p><strong>Salto di 8 major release.</strong> Strategia: <strong>dump/restore</strong> (pg_dump custom format → pg_restore). Pianificata in <strong>Fase 6</strong> (Sprint 9) del progetto.</p>
+<blockquote>
+<p>⚠️ <strong>Rischio critico:</strong> Il documento formale di piano migrazione (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/conspref-dmp-tracker/">CONSPREF-DMP</a>) <strong>non è ancora formalizzato</strong>. Senza piano, Fase 6 è a rischio slittamento (vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/valutazione-qualita-srs-consensi/">Valutazione Qualità SRS — Gestione Consensi</a> §Rischio Critico 1).</p>
+</blockquote>
+<hr>
+<h2 id="contesto-stack" tabindex="-1">Contesto stack</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Versione</th>
+<th>Stato CSI</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PostgreSQL 9</td>
+<td><strong>RETIRED</strong> da [[wiki/entities/csi-piemonte</td>
+<td>CSI Piemonte]]</td>
+</tr>
+<tr>
+<td>PostgreSQL 17</td>
+<td><strong>CURRENT</strong> (dic 2025)</td>
+<td>DBaaS Nivola</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-12-pile-tecnologiche-csi/">Pile Tecnologiche CSI Piemonte</a> per dettaglio.</p>
+<hr>
+<h2 id="strategia-cutover-da-wiki-sources-2026-03-02-appunti-e-pianificazione-appunti-sistema-pianificazione-progetto-consensi-piano-migrazione" tabindex="-1">Strategia cutover (da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-02-appunti-e-pianificazione/">Appunti Sistema + Pianificazione Progetto Consensi</a> §Piano Migrazione)</h2>
+<pre><code>1. Snapshot e blocco scritture PG9 PROD
+2. Dump finale PG9 PROD (pg_dump -Fc, custom format)
+3. Restore su PG17 PROD (pg_restore con jobs parallel)
+4. Aggiornare K8s Secret con nuovo DSN PG17
+5. Restart pod applicativi
+6. Smoke test funzionale + verifica conteggi tabelle
+7. Standby rollback 48h (PG9 mantenuto in read-only)
+</code></pre>
+<p><strong>Finestra cutover:</strong> stimata 21 giorni Fase 6 (Sprint 9). Vincolata da volumi reali (ignoti finché audit DDL non completato).</p>
+<hr>
+<h2 id="rischi-tecnici-principali" tabindex="-1">Rischi tecnici principali</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Rischio</th>
+<th>Mitigazione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Autenticazione</strong></td>
+<td>md5 → scram-sha-256 in PG17</td>
+<td>Aggiornare JDBC driver + datasource pool config</td>
+</tr>
+<tr>
+<td><strong>Tipi deprecati</strong></td>
+<td><code>money</code>, <code>xml</code>, <code>OIDs</code> interni cambi semantica</td>
+<td>Audit DDL PG9 per individuare uso</td>
+</tr>
+<tr>
+<td><strong>Timestamp</strong></td>
+<td>comportamento <code>timestamp without time zone</code> raffinato in versioni intermedie</td>
+<td>Test regression su CDU stato</td>
+</tr>
+<tr>
+<td><strong>Estensioni</strong></td>
+<td><code>gen_random_uuid()</code> nativo solo da PG13+ (era <code>pgcrypto</code> extension)</td>
+<td>Cleanup script extension AS-IS</td>
+</tr>
+<tr>
+<td><strong>Collation</strong></td>
+<td>ICU default da PG13+ può cambiare ordinamenti</td>
+<td>Forzare collation legacy se necessario</td>
+</tr>
+<tr>
+<td><strong>Parametri server</strong></td>
+<td><code>synchronous_commit</code>, <code>wal_level</code> rifrazionati</td>
+<td>Confronto postgresql.conf PG9 vs PG17</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="audit-ddl-sprint-0-prerequisito" tabindex="-1">Audit DDL Sprint 0 (prerequisito)</h2>
+<p>Vedi <code>analysis-2026-05-06-checklist-avvio-progetto.md</code> §A6 e <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-04-08-dizionario-dati-as-is/">Modello Dizionario Dati AS-IS (2019)</a> §Note.</p>
+<p>Step:</p>
+<ol>
+<li>Accesso DB PG9 AS-IS (richiesta credenziali a <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a>)</li>
+<li><code>\d</code> su ogni tabella → DDL reale</li>
+<li>Focus su <code>cons_s_consenso</code> (storicizzazione) — verifica struttura fisica vs DDL atteso TO-BE</li>
+<li>Inventario indici, FK, trigger, sequence</li>
+<li>Dimensionamento volumi (<code>pg_total_relation_size</code>) per stimare durata dump/restore</li>
+</ol>
+<hr>
+<h2 id="modello-dati-to-be-post-migrazione" tabindex="-1">Modello dati TO-BE post-migrazione</h2>
+<p>25 tabelle (§8.3 SRS) + 10 [PROPOSTA] (§8.4) — vs 12 tabelle AS-IS. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-02-sommario-srs-consensi/">Sommario SRS Gestione Consensi — Indice Strutturale</a> per elenco completo.</p>
+<p>Trasformazioni schema PG9 → PG17:</p>
+<ul>
+<li>Conversione struttura storicizzazione (UPDATE+INSERT vs trigger storico AS-IS)</li>
+<li>Nuove tabelle: <code>cons_t_traccia_serv_est</code> (§8.4.1), <code>cons_d_asr_destinazione</code> (§8.4.7), <code>cons_t_batch_errori</code> (§8.4.9)</li>
+<li>Estensioni colonne in <code>cons_s_consenso</code>, <code>cons_t_consenso</code>, <code>cons_d_informativa</code>, <code>cons_t_notifica</code>, <code>cons_r_asr_endpoint</code></li>
+</ul>
+<hr>
+<h2 id="funzionalita-pg-17-sfruttate-dal-to-be" tabindex="-1">Funzionalità PG17 sfruttate dal TO-BE</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Funzionalità</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SELECT FOR UPDATE SKIP LOCKED</code></td>
+<td>[[wiki/concepts/batch-processes</td>
+</tr>
+<tr>
+<td><code>gen_random_uuid()</code> nativa</td>
+<td>UUID nuovi record storicizzati (BATCH-02)</td>
+</tr>
+<tr>
+<td>MERGE statement (SQL standard PG15+)</td>
+<td>Upsert in CDU-03 acquisizione</td>
+</tr>
+<tr>
+<td><code>pg_stat_io</code></td>
+<td>Monitoraggio I/O DBaaS</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="stato-e-prossimi-passi" tabindex="-1">Stato e prossimi passi</h2>
+<ul>
+<li>❌ CONSPREF-DMP bozza v1 — <strong>Da produrre Sprint 0</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a> responsabile)</li>
+<li>❌ Audit DDL PG9 — Pianificato Sprint 0</li>
+<li>❌ Responsabile formale lato <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a> — domanda aperta (GOV-03 in <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/">Punti Aperti CSI — Tracker Unificato</a>)</li>
+<li>✅ Stack target confermato (Q&amp;A CSI <a class="tag" onclick="toggleTagSearch(this)" data-content="#10">#10</a>)</li>
+<li>✅ Strategia dump/restore accettata</li>
+</ul>
+<p>Vedi anche: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/conspref-dmp-tracker/">CONSPREF-DMP — Tracker Piano Migrazione Dati</a>.</p>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

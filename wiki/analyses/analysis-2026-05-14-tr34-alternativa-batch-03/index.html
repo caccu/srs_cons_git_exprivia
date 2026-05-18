@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>TR34 — Alternativa BATCH-03 (centro stella PULL)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="tr-34-alternativa-batch-03-centro-stella-pull" tabindex="-1">TR34 — Alternativa BATCH-03 (centro stella PULL)</h1>
+<blockquote>
+<p><strong>Mapping ID commento:</strong> TR34 (CONSPREF-SRS-V1.0-revised_bozza_v3_CSI.pdf) = <strong>TR68</strong> (CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf, MF69R68). Stesso contenuto, numerazione cambiata. Riferimento unificato: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/">analysis-2026-05-14-risposte-mf-srs-v3</a>.</p>
+</blockquote>
+<p><strong>Quesito originale (CSI/Regione, commento TR34 / TR68 su CONSPREF-SRS-V1.0-revised_bozza_v3_CSI.pdf, righe 4951–4956, sez. §7.3):</strong></p>
+<blockquote>
+<p>&quot;No, allineamento massivo deve avvenire con un passaggio di dati all'interno dell'azienda, altrimenti ci carichiamo di un onere che non ci è dovuto. Vogliamo spingere verso un centro stella!!!!! Or export dei dati ma con interruzione del servizio online fino al caricamento.&quot;</p>
+</blockquote>
+<p><strong>Status decisionale:</strong> 🟠 PROPOSTA — attende feedback CSI</p>
+<p><strong>Data analisi:</strong> 2026-05-14</p>
+<hr>
+<h2 id="risposta-sintetica-al-cliente" tabindex="-1">Risposta sintetica al cliente</h2>
+<p>Proposta soluzione <strong>semplice e indolore</strong>: <strong>CDU-17 PULL — Snapshot consensi per allineamento endpoint</strong>.</p>
+<ul>
+<li>Sistema regionale espone endpoint REST paginato (<code>GET /api/v1/consensi/snapshot</code>)</li>
+<li>SIA pulla autonomamente, alla cadenza che preferisce, finché next_cursor è null</li>
+<li>Zero push, zero <code>cons_t_notifica</code> popolata in massa, zero downtime</li>
+<li>Riusa modello sicurezza CDU-15/16 (OAuth2 CC + JWT + tabella <code>cons_t_client_ente</code>)</li>
+<li>BATCH-03 eliminato dal SRS</li>
+<li>Variante B (export file con downtime) documentata come opzione retrocompatibile coerente con seconda preferenza cliente nel commento, ma sconsigliata: peggiore su tutti i criteri tranne semplicità lato SIA</li>
+</ul>
+<p><strong>Dettaglio progettuale completo:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a></p>
+<hr>
+<h2 id="punti-chiave-proposta" tabindex="-1">Punti chiave proposta</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Punto</th>
+<th>Valore</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Architettura</td>
+<td>Hub-and-spoke (&quot;centro stella&quot; — rispetta esplicitamente terminologia cliente)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Endpoint</td>
+<td><code>GET /api/v1/consensi/snapshot</code> paginato cursor-based</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Workflow</td>
+<td>SIA: ack IN_CORSO → loop snapshot → ack COMPLETATO</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Sicurezza</td>
+<td>Riuso pattern CDU-15/16 + nuovo scope OAuth <code>consensi:snapshot</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Race condition</td>
+<td>Variante A: blocco CDU-03/09 (default). Variante B: watermark no-block (opzionale)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Conferma</td>
+<td><code>PATCH /endpoints/{id}/stato-allineamento</code> idempotente</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Notifica trigger</td>
+<td>Out-of-band (email + webhook configurabile) — non garanzia delivery sistema regionale</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Modello dati</td>
+<td>Niente nuove tabelle; <code>cons_t_batch_errori</code> potenzialmente rimovibile</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="decisione-tracciata" tabindex="-1">Decisione tracciata</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Stato</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proposta tecnica formalizzata</td>
+<td>✅ Fatto (2026-05-14)</td>
+<td>Exprivia</td>
+</tr>
+<tr>
+<td>Concept page wiki</td>
+<td>✅ [[wiki/concepts/alternativa-batch-03-pull</td>
+<td>Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]</td>
+</tr>
+<tr>
+<td>Testo proposto per SRS §6.17</td>
+<td>✅ Pronto (vedi concept §11)</td>
+<td>Exprivia</td>
+</tr>
+<tr>
+<td>Validazione architetturale CSI</td>
+<td>⏳ In attesa</td>
+<td>CSI Piemonte</td>
+</tr>
+<tr>
+<td>Scelta variante 6.A vs 6.B (blocco vs watermark)</td>
+<td>⏳ Aperta</td>
+<td>CSI Piemonte</td>
+</tr>
+<tr>
+<td>Approvazione scope OAuth <code>consensi:snapshot</code></td>
+<td>⏳ Aperta</td>
+<td>CSI Piemonte</td>
+</tr>
+<tr>
+<td>Aggiornamento SRS §6 e §7.3</td>
+<td>⏳ Post-approvazione</td>
+<td>Exprivia</td>
+</tr>
+<tr>
+<td>Spec OpenAPI CDU-17</td>
+<td>⏳ Post-approvazione</td>
+<td>Exprivia</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="impatti-sulle-altre-pagine-wiki" tabindex="-1">Impatti sulle altre pagine wiki</h2>
+<ul>
+<li><a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a> — sezione BATCH-03 marcata &quot;sotto revisione TR34&quot;</li>
+<li><a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a> — riga &quot;Processi batch&quot; da postillare (3 batch potenzialmente 2)</li>
+<li><a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/">analysis-2026-05-06-openapi-cdu-15-16</a> — pattern paginazione cursor riutilizzabile come riferimento</li>
+</ul>
+<hr>
+<h2 id="cosa-serve-dal-cliente" tabindex="-1">Cosa serve dal cliente</h2>
+<ol>
+<li><strong>OK architetturale</strong> sulla scelta PULL vs export (preferenza cliente)</li>
+<li><strong>Risposta a Q1–Q7</strong> del concept page (variante race condition, canale notifica, scope OAuth, page_size, conferma idempotente, deprecation BATCH-03)</li>
+<li><strong>Disponibilità Authorization Server CSI</strong> per emissione scope <code>consensi:snapshot</code> (rimando aperto da TR30)</li>
+</ol>
+<hr>
+<h2 id="risposta-da-inserire-come-reply-al-commento-tr-34-testo-per-pdf-word" tabindex="-1">Risposta da inserire come reply al commento TR34 (testo per PDF/Word)</h2>
+<blockquote>
+<p>Testo pronto per essere incollato nel campo &quot;rispondi&quot; del commento TR34 del documento <code>CONSPREF-SRS-V1.0-revised_bozza_v3_CSI.pdf</code> o nella nuova revisione SRS. Tono formale, sintetico, action-oriented.</p>
+</blockquote>
+<hr>
+<h3 id="versione-breve-comment-reply-150-parole" tabindex="-1">Versione breve (comment reply, ~150 parole)</h3>
+<p><strong>Risposta Exprivia al commento TR34 (§7.3 BATCH-03)</strong></p>
+<p>Accogliamo l'osservazione. Concordiamo che l'allineamento massivo non debba gravare sul sistema regionale e proponiamo una revisione architetturale conforme al modello &quot;centro stella&quot; indicato.</p>
+<p><strong>Proposta:</strong> sostituzione di BATCH-03 con un nuovo caso d'uso <strong>CDU-17 — Snapshot consensi per allineamento endpoint</strong>, in modalità <strong>PULL</strong> REST paginata. Il SIA, ricevuta notifica out-of-band di un nuovo endpoint registrato (CDU-14), invoca autonomamente l'endpoint <code>GET /api/v1/consensi/snapshot?codice_ente={ente}&amp;codice_consenso={cod}&amp;cursor={c}</code> finché esaurisce le pagine, quindi conferma il completamento via <code>PATCH /api/v1/endpoints/{id}/stato-allineamento</code>. Sicurezza identica a CDU-15/16 (OAuth2 Client Credentials + JWT).</p>
+<p><strong>Vantaggi:</strong> zero push, zero downtime, nessun popolamento massivo di <code>cons_t_notifica</code>, idempotenza nativa, cadenza controllata dal SIA, scalabilità per qualsiasi volume tramite paginazione cursor-based.</p>
+<p>Il §7.3 viene rimosso; il nuovo §6.17 dettaglia CDU-17. Variante con export file e interruzione servizio disponibile come fallback.</p>
+<p>Restiamo in attesa di conferma per procedere con la stesura della specifica OpenAPI CDU-17.</p>
+<hr>
+<h3 id="versione-estesa-4-punti-chiave-formato-bullet" tabindex="-1">Versione estesa (4 punti chiave, formato bullet)</h3>
+<p><strong>Risposta Exprivia al commento TR34 (§7.3 BATCH-03)</strong></p>
+<ol>
+<li>
+<p><strong>Accolta richiesta architetturale:</strong> il sistema regionale non eseguirà più push massivo verso i SIA. BATCH-03 viene <strong>rimosso</strong> dalla specifica.</p>
+</li>
+<li>
+<p><strong>Modello &quot;centro stella&quot; implementato via CDU-17 PULL:</strong> nuovo endpoint REST <code>GET /api/v1/consensi/snapshot</code> paginato (cursor-based, opaco, stateless server-side). Il SIA pulla autonomamente i consensi attivi della sotto-tipologia associata al nuovo endpoint, alla cadenza che preferisce. Conferma completamento tramite <code>PATCH /api/v1/endpoints/{id}/stato-allineamento</code>.</p>
+</li>
+<li>
+<p><strong>Riuso integrale del modello di sicurezza CDU-15/16</strong> (OAuth2 Client Credentials + JWT firmato dall'AS CSI Piemonte + isolamento per ente via tabella <code>cons_t_client_ente</code>). Aggiunta del solo scope <code>consensi:snapshot</code> per concessione granulare, attivabile durante l'onboarding e revocabile a completamento.</p>
+</li>
+<li>
+<p><strong>Benefici:</strong> zero onere infrastrutturale sul sistema regionale, zero downtime del servizio online, zero popolamento massivo di <code>cons_t_notifica</code>, idempotenza nativa (SIA può rieseguire il pull senza side-effect), scalabilità trasparente su qualsiasi volume.</p>
+</li>
+</ol>
+<p><strong>Punti da definire congiuntamente con CSI:</strong></p>
+<ul>
+<li>Gestione finestra di allineamento: blocco delle acquisizioni CDU-03/CDU-09 per il <code>sotto_tipo_consenso</code> interessato (default, semplice) oppure modalità watermark senza blocco (più complessa, zero indisponibilità).</li>
+<li>Canale di notifica out-of-band al referente tecnico SIA all'attivazione del nuovo endpoint (email, webhook configurabile o entrambi).</li>
+<li>Politica scope OAuth <code>consensi:snapshot</code>: attivazione una tantum o permanente per SIA.</li>
+</ul>
+<p>In allegato (oppure: nelle sezioni dedicate del SRS) viene fornita la bozza completa di §6.17 con scenario principale, codici di risposta, riferimenti di sicurezza e specifica OpenAPI in produzione.</p>
+<p>La <strong>variante &quot;export con interruzione del servizio&quot;</strong> citata nel commento è progettualmente coerente con la seconda opzione indicata, ma sconsigliata rispetto al PULL: richiede downtime, formato file dedicato, gestione storage temporaneo e processo di download manuale. Resta documentata come fallback per ASR senza capacità di integrazione REST (situazione non prevista, dato che CDU-15 e CDU-16 già richiedono client REST lato SIA).</p>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

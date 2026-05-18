@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Ciclo di Vita del Consenso</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="ciclo-di-vita-del-consenso" tabindex="-1">Ciclo di Vita del Consenso</h1>
+<p>Macchina a stati che governa ogni consenso espresso nel sistema <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a>.</p>
+<hr>
+<h2 id="terminologia-ui-vs-tecnica-mf-9-r8-srs-v3" tabindex="-1">Terminologia UI vs tecnica (MF9R8 — SRS v3)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Termine UI (acconsento/nego)</th>
+<th>Valore tecnico DB</th>
+<th>Codice in API REST</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&quot;acconsento&quot;</td>
+<td><code>ATTIVO</code></td>
+<td><code>&quot;valore_consenso&quot;: &quot;SI&quot;</code> (+ <code>&quot;stato_consenso&quot;: &quot;ATTIVO&quot;</code>)</td>
+</tr>
+<tr>
+<td>&quot;nego&quot;</td>
+<td><code>NEGATO</code></td>
+<td><code>&quot;valore_consenso&quot;: &quot;NO&quot;</code> (+ <code>&quot;stato_consenso&quot;: &quot;NEGATO&quot;</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>⚠️ I termini visibili all'utente nell'interfaccia sono <strong>&quot;acconsento&quot;</strong> e <strong>&quot;nego&quot;</strong> (decisione MF9R8). I termini tecnici <code>ATTIVO</code>/<code>NEGATO</code> restano invariati a livello DB, API e tracciatura. Sostituire ogni occorrenza &quot;Accettato/Negato&quot; nelle UI mockup e documentazione utente.</p>
+</blockquote>
+<hr>
+<h2 id="diagramma-degli-stati-aggiornato-mf-11-mf-14" tabindex="-1">Diagramma degli stati (aggiornato MF11/MF14)</h2>
+<pre><code>NON_ESPRESSO
+    │
+    ├─→ ATTIVO (valore=SI, UI=&quot;acconsento&quot;)
+    │       ▲
+    │       │  ◄────────────┐
+    │       │   (modifica   │  cambio diretto via webapp citt o operatore
+    │       │    valore)    │  (CDU-04/05 — no nuova informativa richiesta)
+    │       ▼               │
+    └─→ NEGATO (valore=NO, UI=&quot;nego&quot;) ─┘
+         │
+         ├─[informativa scaduta, annulla_consensi=NO]─→ SCADUTO
+         └─[informativa scaduta, annulla_consensi=SI]─→ ANNULLATO
+                    │
+                    ├─→ ATTIVO (nuova espressione con riaccettazione informativa)
+                    └─→ NEGATO (nuova espressione con riaccettazione informativa)
+</code></pre>
+<p><strong>Transizioni dirette ATTIVO ↔ NEGATO (MF11R10 + MF14R12):</strong></p>
+<ul>
+<li>ATTIVO → NEGATO: cambio valore via webapp cittadino o operatore (CDU-04 lato citt, CDU-05/CDU-11 lato op). Nessuna riaccettazione informativa richiesta finché l'informativa è quella corrente.</li>
+<li>NEGATO → ATTIVO: simmetrica.</li>
+</ul>
+<hr>
+<h2 id="semantica-degli-stati" tabindex="-1">Semantica degli stati</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Stato (tecnico)</th>
+<th>UI label</th>
+<th>Significato</th>
+<th>Notifica ASR?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NON_ESPRESSO</code></td>
+<td>(vuoto / &quot;non espresso&quot;)</td>
+<td>Mai espresso</td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>ATTIVO</code></td>
+<td>&quot;acconsento&quot;</td>
+<td>Espresso con SI</td>
+<td>Sì (al cambiamento)</td>
+</tr>
+<tr>
+<td><code>NEGATO</code></td>
+<td>&quot;nego&quot;</td>
+<td>Espresso con NO</td>
+<td>Sì (al cambiamento)</td>
+</tr>
+<tr>
+<td><code>SCADUTO</code></td>
+<td>&quot;scaduto&quot;</td>
+<td>Informativa cambiata, annulla=NO, valore ancora valido</td>
+<td><strong>No</strong></td>
+</tr>
+<tr>
+<td><code>ANNULLATO</code></td>
+<td>&quot;annullato&quot;</td>
+<td>Informativa cambiata, annulla=SI, consenso nullo</td>
+<td><strong>Sì</strong></td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="regola-fondamentale-no-sovrascrittura" tabindex="-1">Regola fondamentale — No sovrascrittura</h2>
+<p><strong>Ogni variazione NON sovrascrive il record precedente.</strong></p>
+<ul>
+<li>Record esistente: <code>UPDATE data_fine = NOW()</code></li>
+<li>Copia storica: <code>INSERT in cons_s_consenso</code></li>
+<li>Nuovo stato: <code>INSERT in cons_t_consenso</code></li>
+</ul>
+<p>Garantisce storia completa degli atti di consenso. Vale anche per le transizioni dirette ATTIVO↔NEGATO: si chiude il record corrente e si inserisce un nuovo record con il nuovo valore.</p>
+<hr>
+<h2 id="logica-cdu-aggiornata-mf-45" tabindex="-1">Logica CDU (aggiornata MF45)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>CDU</th>
+<th>Stato di partenza</th>
+<th>Azione</th>
+<th>Richiede riaccettazione informativa?</th>
+<th>Lato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CDU-03</td>
+<td>NON_ESPRESSO</td>
+<td>Rilascio</td>
+<td><strong>Sì</strong> — lettura + checkbox presa visione</td>
+<td>Citt + Op</td>
+</tr>
+<tr>
+<td>CDU-04</td>
+<td>SCADUTO</td>
+<td>Modifica con riaccettazione</td>
+<td><strong>Sì</strong> — nuova informativa</td>
+<td>Citt + Op</td>
+</tr>
+<tr>
+<td>CDU-04</td>
+<td>ANNULLATO</td>
+<td>Modifica come rilascio ex-novo</td>
+<td><strong>Sì</strong> — come rilascio ex-novo</td>
+<td>Citt + Op</td>
+</tr>
+<tr>
+<td>CDU-04</td>
+<td>ATTIVO / NEGATO</td>
+<td>Cambio valore (UI cittadino inglobata in CDU-04 — MF45)</td>
+<td><strong>No</strong></td>
+<td>Citt</td>
+</tr>
+<tr>
+<td>CDU-05</td>
+<td>ATTIVO o NEGATO</td>
+<td>Cambio valore</td>
+<td><strong>No</strong></td>
+<td><strong>Solo Op</strong></td>
+</tr>
+<tr>
+<td>CDU-09/10/11</td>
+<td>qualsiasi</td>
+<td>Equivalenti operatore di CDU-03/04/05</td>
+<td>Variabile</td>
+<td>Op</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Nota MF45R44:</strong> lato <strong>webapp Cittadino</strong>, CDU-05 NON è caso d'uso separato — il flusso &quot;cambio valore&quot; è inglobato in CDU-04 (pulsante unico &quot;Salva&quot;). La distinzione CDU-04/CDU-05 è rilevante solo lato <strong>Operatore</strong> e per la logica interna di tracciatura.</p>
+</blockquote>
+<hr>
+<h2 id="trigger-batch" tabindex="-1">Trigger batch</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Evento</th>
+<th>Batch</th>
+<th>Risultato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nuovo consenso espresso o variazione</td>
+<td>→ record in <code>cons_t_notifica</code></td>
+<td>[[wiki/concepts/batch-processes</td>
+</tr>
+<tr>
+<td>Informativa scaduta</td>
+<td>BATCH-02</td>
+<td>Consensi → SCADUTO o ANNULLATO (SQL canonico in [[wiki/concepts/batch-processes</td>
+</tr>
+<tr>
+<td>Nuovo endpoint configurato</td>
+<td><s>BATCH-03 push</s> → <strong>PULL CDU-17</strong></td>
+<td>Allineamento on-demand via [[wiki/concepts/alternativa-batch-03-pull</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="consenso-aziendale-caso-speciale-cdu-04" tabindex="-1">Consenso aziendale — caso speciale CDU-04</h2>
+<p>Se anche solo <strong>1 consenso</strong> di un cittadino per un'ASR è SCADUTO o ANNULLATO → il cittadino deve riaccettare le informative di <strong>tutte</strong> le ASR per quel tipo consenso.</p>
+<p><strong>Visualizzazione informativa per azienda (MF28R27):</strong> quando il consenso aziendale ha informativa specifica per ente, l'UI deve consentire la visualizzazione dell'informativa della singola azienda <strong>prima</strong> della raccolta del consenso per quell'azienda. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a> §2.3.</p>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

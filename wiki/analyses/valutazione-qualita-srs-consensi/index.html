@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Valutazione Qualità SRS — Gestione Consensi</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="valutazione-qualita-srs-progetto-consensi" tabindex="-1">Valutazione Qualità SRS — Progetto Consensi</h1>
+<p><strong>Oggetto valutato:</strong> CONSPREF-SRS-V1.0 (bozza v2) + appunti + pianificazione + Q&amp;A CSI<br>
+<strong>Data valutazione:</strong> 2026-05-05<br>
+<strong>Metodo:</strong> analisi incrociata di tutti i documenti disponibili</p>
+<hr>
+<hr>
+<h2 id="punti-di-forza" tabindex="-1">Punti di Forza ✅</h2>
+<h3 id="1-copertura-funzionale-completa-16-cdu" tabindex="-1">1. Copertura funzionale completa (16 CDU)</h3>
+<p>L'AS-IS aveva 6 CDU (2019). Il TO-BE ne specifica 16, con espansione logica e ben motivata:</p>
+<ul>
+<li>Ogni CDU ha: obiettivo, precondizioni, scenario principale tabellare, varianti, algoritmi (ALG01/ALG02)</li>
+<li>Le &quot;Informazioni trasmesse&quot; sono specificate per ogni CDU con tipo campo, modalità (I/D/I/D), obbligatorietà, formato, validazione, messaggi di errore</li>
+<li>La distinzione CDU-04/CDU-05 (con/senza riaccettazione informativa) è precisa e corretta</li>
+</ul>
+<h3 id="2-macchina-a-stati-consenso" tabindex="-1">2. Macchina a stati consenso</h3>
+<ul>
+<li>5 stati ben definiti con semantica chiara</li>
+<li>Regola no-sovrascrittura documentata e implementativa (UPDATE + INSERT in cons_s_consenso)</li>
+<li>Distinzione SCADUTO (no notifica) vs ANNULLATO (notifica) motivata e corretta</li>
+<li>Trigger BATCH-01/02/03 collegati agli eventi applicativi</li>
+</ul>
+<h3 id="3-architettura-tecnologica-allineata-alle-pile-csi" tabindex="-1">3. Architettura tecnologica — allineata alle pile CSI</h3>
+<ul>
+<li>Spring Boot 3.4.10+ ✅ (CURRENT)</li>
+<li>PostgreSQL 17 ✅ (CURRENT da dic 2025)</li>
+<li>Java 17 ✅ (CURRENT)</li>
+<li>Angular 19 ✅ (CURRENT stack SPA v2.1.0)</li>
+<li>ECaaS/Kubernetes ✅ con tutti i vincoli infrastrutturali documentati</li>
+<li>Gestione DBaaS Nivola: schema connessione sicura (K8s Secret), HikariCP config, escluso dal namespace</li>
+</ul>
+<h3 id="4-integrazioni-esterne" tabindex="-1">4. Integrazioni esterne</h3>
+<ul>
+<li>AURA: SOAP + WS-Security UsernameToken (IRIS) — protocollo preciso</li>
+<li>Gestione Deleghe: SOAP + OAuth2 Client Credentials — preciso</li>
+<li>BATCH-01 verso SIA: SOAP AS-IS invariato confermato da CSI</li>
+<li>CDU-15/16 verso SIA: REST OpenAPI 3.x — contratto da produrre, responsabilità chiara</li>
+<li>RFC 7807 adottato per error response — standard corretto</li>
+</ul>
+<h3 id="5-sicurezza" tabindex="-1">5. Sicurezza</h3>
+<ul>
+<li>No segreti nel codice sorgente (K8s Secret)</li>
+<li>OWASP Top 10, CSRF su POST/PUT</li>
+<li>CF mascherato nei log</li>
+<li>Spring Security senza API Gateway (scelta confermata da CSI)</li>
+<li>TLS 1.2+</li>
+<li>Librerie open source (conformità Developers Italia)</li>
+</ul>
+<h3 id="6-tag-di-classificazione-requisiti-doc-dedotto-proposta" tabindex="-1">6. Tag di classificazione requisiti [DOC]/[DEDOTTO]/[PROPOSTA]</h3>
+<ul>
+<li>Sistema molto utile per distinguere requisiti da committente vs interpretazioni vs proposte</li>
+<li>Consente al team CSI di validare solo i [DEDOTTO] e [PROPOSTA] senza rivedere tutto</li>
+</ul>
+<h3 id="7-pianificazione-dettagliata" tabindex="-1">7. Pianificazione dettagliata</h3>
+<ul>
+<li>8 fasi, 10 sprint, stima in Story Points (1SP=4h) per ogni attività</li>
+<li>Identificazione dipendenze critiche (DBaaS Nivola, AURA WSDL, GASP Salute doc)</li>
+<li>Piano migrazione PG9→PG17 con analisi rischi specifica e procedura cutover dettagliata</li>
+</ul>
+<hr>
+<h2 id="lacune-e-rischi" tabindex="-1">Lacune e Rischi ⚠️</h2>
+<h3 id="rischio-critico-1-conspref-dmp-non-formalizzato" tabindex="-1">RISCHIO CRITICO 1 — CONSPREF-DMP non formalizzato</h3>
+<p><strong>Problema:</strong> Il Data Migration Plan PG9→PG17 non esiste ancora come documento formale.<br>
+<strong>Impatto:</strong> Sprint 0 include la bozza v1, ma se il provisioning DBaaS è lento (alta latenza), la Fase 6 Migrazione (sett. 13-16) rischia di slittare.<br>
+<strong>Azione raccomandata:</strong> Avviare la redazione DMP in parallelo all'SRS. Assegnare responsabile formale al team.</p>
+<h3 id="rischio-critico-2-protocollo-gasp-salute-non-definito" tabindex="-1">RISCHIO CRITICO 2 — Protocollo GASP Salute non definito</h3>
+<p><strong>Problema:</strong> OIDC vs SAML2 non ancora scelto. L'SRS dice &quot;a seconda del protocollo esposto da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gasp-salute/">GASP Salute</a> — dettaglio da definire con referente CSI in fase di design tecnico.&quot;<br>
+<strong>Impatto:</strong> CDU-01 (autenticazione) è prerequisito di tutti gli altri CDU Cittadino. Se <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gasp-salute/">GASP Salute</a> usa SAML2, l'integrazione è più complessa e richiede librerie specifiche.<br>
+<strong>Azione raccomandata:</strong> Richiesta formale documentazione <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gasp-salute/">GASP Salute</a> in Sprint 0, giorni 1-2.</p>
+<h3 id="rischio-moderato-3-open-api-cdu-15-16-parzialmente-mitigato" tabindex="-1">✅ RISCHIO MODERATO 3 — OpenAPI CDU-15/16 — PARZIALMENTE MITIGATO</h3>
+<p><strong>Stato:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/">v0.1-DRAFT prodotta</a> (2026-05-06) — 19 punti consolidati, 5 TBD da confermare con CSI.<br>
+<strong>Impatto residuo:</strong> I 5 TBD (URL base AS-IS, scope OAuth, rate-limiting, lista ASR, versioning) bloccano la condivisione con SIA ASR. UAT rimane a rischio se TBD non chiusi entro Sprint 1-2.<br>
+<strong>Azione raccomandata:</strong> Portare bozza v0.1 a riunione Sprint 0, chiudere TBD con CSI, condividere v0.2 con referenti ASR.</p>
+<h3 id="lacuna-4-chiusa-linee-guida-cloud-native-verificate" tabindex="-1">✅ LACUNA 4 — CHIUSA: Linee Guida Cloud Native verificate</h3>
+<p><strong>Risultato:</strong> <code>Linea-Guida-Fornitori-v1.0.1_cloud.md</code> ingestionata. La sezione 3.5 dell'SRS recepisce correttamente <strong>tutti</strong> i vincoli ECaaS. Nessun gap identificato. L'SRS è conforme alla guida.</p>
+<h3 id="rischio-aggiunto-4-ambiguita-batch-01-web-service-spec" tabindex="-1">RISCHIO AGGIUNTO 4 — Ambiguità BATCH-01 / WebService spec</h3>
+<p><strong>Problema:</strong> L'SRS §7.1 dice che BATCH-01 usa &quot;operazione Acquisizione&quot; per il contratto WSDL AS-IS. Ma dalla WebService spec v03, i servizi <strong>uscenti</strong> dal Regionale verso le ASR sono <strong>SRV-03 NotificaAcquisizioneConsenso</strong> e <strong>SRV-04 NotificaRevocaConsenso</strong> — non SRV-01 (AcquisizioneConsenso) che è inbound.<br>
+<strong>Impatto:</strong> Se il team implementa <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">BATCH-01</a> chiamando SRV-01 invece di SRV-03, il contratto WSDL sarà sbagliato. Errore implementativo potenzialmente grave.<br>
+<strong>Azione raccomandata:</strong> Chiedere conferma a CSI: quale operazione WSDL usa BATCH-01? SRV-03 NotificaAcquisizioneConsenso o SRV-01 AcquisizioneConsenso?</p>
+<h3 id="rischio-aggiunto-5-differenza-as-is-vs-to-be-su-stato-scaduto" tabindex="-1">RISCHIO AGGIUNTO 5 — Differenza AS-IS vs TO-BE su stato SCADUTO</h3>
+<p><strong>Problema:</strong> Nell'AS-IS (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/">ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)</a>), lo stato 'scaduto' viene impostato durante l'operazione di acquisizione stessa (se il consenso è già presente). Nel TO-BE invece SCADUTO è gestito esclusivamente da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">BATCH-02</a> alla scadenza dell'informativa. Sono due meccanismi distinti.<br>
+<strong>Impatto:</strong> Se il SIA_ASR si aspettano il comportamento AS-IS (scadenza durante acquisizione), il TO-BE potrebbe rompere l'integrazione.<br>
+<strong>Azione:</strong> Documentare la differenza nella specifica OpenAPI e verificare con i SIA ASR che siano allineati al nuovo comportamento. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a> §Cambiamenti semantici critici.</p>
+<h3 id="lacuna-5-chiusa-web-service-spec-analizzata" tabindex="-1">✅ LACUNA 5 — CHIUSA: WebService spec analizzata</h3>
+<p><strong>Risultato:</strong> 5 servizi SOAP documentati. Contratto WSDL identificato. Ambiguità su BATCH-01 segnalata come rischio.</p>
+<h3 id="lacuna-6-parzialmente-chiusa-dizionario-dati-as-is-analizzato" tabindex="-1">✅ LACUNA 6 — PARZIALMENTE CHIUSA: Dizionario dati AS-IS analizzato</h3>
+<p><strong>Risultato:</strong> 12 entità AS-IS vs 25+ TO-BE. Il dizionario è scarno (nessun attributo visibile). La cons_s_consenso AS-IS risulta &quot;non popolata&quot; — rilevante per il TO-BE che la usa attivamente. L'audit DDL Sprint 0 rimane necessario sul DB reale.</p>
+<h3 id="lacuna-7-chiusa-acc-del-cdu-01-analizzato" tabindex="-1">✅ LACUNA 7 — CHIUSA: ACC-DEL-CDU-01 analizzato</h3>
+<p><strong>Risultato:</strong> Specifiche SOAP inbound complete documentate. Trovata differenza semantica AS-IS/TO-BE su stato SCADUTO (segnalata come rischio).</p>
+<h3 id="nota-mancanza-di-sezione-nfr-performance-sla" tabindex="-1">NOTA — Mancanza di sezione NFR performance/SLA</h3>
+<p><strong>Problema:</strong> L'SRS specifica scalabilità e sicurezza ma non include SLA espliciti (es. tempo risposta massimo CDU-02, throughput BATCH-01, disponibilità 99.x%).<br>
+<strong>Impatto:</strong> Basso in questa fase, ma mancanza tipica da colmare prima del collaudo.</p>
+<hr>
+<h2 id="confronto-as-is-to-be" tabindex="-1">Confronto AS-IS → TO-BE</h2>
+<p>Per analisi dettagliata del delta vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a>.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Dimensione</th>
+<th>AS-IS (2019)</th>
+<th>TO-BE (2026)</th>
+<th>Evoluzione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CDU</td>
+<td>6</td>
+<td>16</td>
+<td>+167% — ben giustificato</td>
+</tr>
+<tr>
+<td>Download PDF</td>
+<td>Non previsto</td>
+<td>CDU-06 NUOVO</td>
+<td>Aggiunta valore</td>
+</tr>
+<tr>
+<td>API per SIA</td>
+<td>Solo SOAP outbound</td>
+<td>SOAP + REST CDU-15/16</td>
+<td>Apertura moderna</td>
+</tr>
+<tr>
+<td>Stack DB</td>
+<td>PostgreSQL 9 (RETIRED)</td>
+<td>PostgreSQL 17 (CURRENT)</td>
+<td>Obbligo tecnico</td>
+</tr>
+<tr>
+<td>Architettura</td>
+<td>Legacy</td>
+<td>ECaaS/K8s microservizi</td>
+<td>Allineamento CSI</td>
+</tr>
+<tr>
+<td>Autenticazione</td>
+<td>Non documentata</td>
+<td>GASP Salute SPID/CIE</td>
+<td>Modernizzazione</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="checklist-pre-avvio-sprint-di-sviluppo" tabindex="-1">Checklist pre-avvio sprint di sviluppo</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Stato</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SRS V1.0 approvata da CSI</td>
+<td>⏳ In revisione</td>
+<td>Bozza v2</td>
+</tr>
+<tr>
+<td>Documentazione GASP Salute ricevuta</td>
+<td>❌ Da richiedere</td>
+<td>Sprint 0 giorno 1</td>
+</tr>
+<tr>
+<td>WSDL AURA ricevuti</td>
+<td>❌ Da richiedere</td>
+<td>Lista servizi da specificare</td>
+</tr>
+<tr>
+<td>WSDL Gestione Deleghe ricevuti</td>
+<td>❌ Da richiedere</td>
+<td></td>
+</tr>
+<tr>
+<td>DBaaS Nivola DEV provisioned</td>
+<td>❌ Da richiedere</td>
+<td>Alta latenza</td>
+</tr>
+<tr>
+<td>DBaaS Nivola PROD provisioned</td>
+<td>❌ Da richiedere</td>
+<td>Alta latenza</td>
+</tr>
+<tr>
+<td>Accesso repo QUASAR CSI</td>
+<td>❌ Da richiedere</td>
+<td>Prerequisito UI</td>
+</tr>
+<tr>
+<td>Registrazione app PUA (2 profili)</td>
+<td>❌ Da richiedere</td>
+<td></td>
+</tr>
+<tr>
+<td>Credenziali IRIS per AURA</td>
+<td>❌ Da richiedere</td>
+<td></td>
+</tr>
+<tr>
+<td>CONSPREF-DMP bozza v1</td>
+<td>❌ Da produrre</td>
+<td>Sprint 0</td>
+</tr>
+<tr>
+<td>Specifica OpenAPI CDU-15/16 bozza</td>
+<td>⚠️ <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/">v0.1-DRAFT prodotta</a> — 5 TBD aperti</td>
+<td>Condividere con ASR dopo TBD chiusi</td>
+</tr>
+<tr>
+<td>Audit DDL PG9 → PG17</td>
+<td>❌ Pianificato Sprint 0</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="domande-aperte-per-il-team" tabindex="-1">Domande aperte per il team</h2>
+<ol>
+<li>Chi è il referente formale CSI per GASP Salute? Quando è disponibile la documentazione tecnica?</li>
+<li>La specifica OpenAPI CDU-15/16 va condivisa con i SIA ASR: quali ASR sono coinvolte e chi è il referente?</li>
+<li>Il CONSPREF-DMP: chi è il responsabile formale in Exprivia?</li>
+<li>I [PROPOSTA] nell'SRS (es. ALG02 BATCH-01 gestione tentativi, CDU-06 PDF) sono stati condivisi con CSI? Qual è la loro risposta?</li>
+<li>Il documento <code>Mermaid.txt</code> contiene il diagramma architetturale. È la versione concordata con CSI o è una proposta?</li>
+</ol>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

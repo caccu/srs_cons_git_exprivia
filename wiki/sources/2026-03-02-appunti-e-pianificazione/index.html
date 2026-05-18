@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Appunti Sistema + Pianificazione Progetto Consensi</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="appunti-sistema-pianificazione-progetto-consensi" tabindex="-1">Appunti Sistema + Pianificazione Progetto Consensi</h1>
+<p><strong>File originali:</strong> <code>appunti.md</code>, <code>pianificazione.md</code><br>
+<strong>Contesto:</strong> Documenti di sintesi e pianificazione operativa redatti da Exprivia</p>
+<hr>
+<h2 id="sintesi-architetturale-da-a-href-http-appunti-md-target-blank-class-external-link-appunti-md-a" tabindex="-1">Sintesi Architetturale (da <a href="http://appunti.md" target="_blank" class="external-link">appunti.md</a>)</h2>
+<p>Documento di sintesi rapida dell'intero sistema. Conferma e integra l'SRS:</p>
+<h3 id="stack-tecnologico-confermato" tabindex="-1">Stack tecnologico confermato</h3>
+<ul>
+<li>Frontend: Angular 19, QUASAR CSI</li>
+<li>Backend: Spring Boot 3 / Java 17</li>
+<li>DB: PostgreSQL 17 via DBaaS Nivola</li>
+<li>CI/CD: GitLab + Jenkins + SonarQube + Helm GitOps</li>
+</ul>
+<h3 id="6-sistemi-esterni" tabindex="-1">6 sistemi esterni</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Sistema</th>
+<th>Protocollo</th>
+<th>Auth</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GASP Salute</td>
+<td>OAuth2/OIDC o SAML2</td>
+<td>SPID/CIE</td>
+</tr>
+<tr>
+<td>AURA</td>
+<td>SOAP</td>
+<td>WS-Security UsernameToken (IRIS)</td>
+</tr>
+<tr>
+<td>Gestione Deleghe</td>
+<td>SOAP</td>
+<td>OAuth2 CC</td>
+</tr>
+<tr>
+<td>Notificatore UNP</td>
+<td>REST</td>
+<td>Token UNP</td>
+</tr>
+<tr>
+<td>SIA ASR</td>
+<td>REST (CDU-15/16)</td>
+<td>Bearer JWT</td>
+</tr>
+<tr>
+<td>PUA/Config. Regionale</td>
+<td>Web</td>
+<td>RUPAR/IRIDE</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="ciclo-vita-consenso" tabindex="-1">Ciclo vita consenso</h3>
+<p><code>NON ESPRESSO → ATTIVO/NEGATO → SCADUTO/ANNULLATO</code><br>
+— no sovrascrittura, storia completa garantita</p>
+<h3 id="16-cdu-3-batch-25-tabelle-9-proposte-evolutive" tabindex="-1">16 CDU, 3 Batch, 25 tabelle, 9 proposte evolutive</h3>
+<hr>
+<h2 id="pianificazione-da-a-href-http-pianificazione-md-target-blank-class-external-link-pianificazione-md-a" tabindex="-1">Pianificazione (da <a href="http://pianificazione.md" target="_blank" class="external-link">pianificazione.md</a>)</h2>
+<h3 id="timeline-8-fasi-120gg-lavorativi-17-settimane" tabindex="-1">Timeline 8 fasi — 120gg lavorativi / 17 settimane</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Fase</th>
+<th>Settimane</th>
+<th>Durata</th>
+<th>Dipendenze critiche</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FASE 0 – Setup &amp; Prerequisiti</td>
+<td>1–2</td>
+<td>10gg</td>
+<td>DBaaS Nivola, AURA WSDL, GASP doc (latenze esterne)</td>
+</tr>
+<tr>
+<td>FASE 1 – Design Tecnico</td>
+<td>2–3</td>
+<td>10gg</td>
+<td>Può partire in parallelo a Fase 0</td>
+</tr>
+<tr>
+<td>FASE 2 – Data Layer TO-BE</td>
+<td>3–5</td>
+<td>14gg</td>
+<td>DBaaS provisioned</td>
+</tr>
+<tr>
+<td>FASE 3 – Backend Spring Boot</td>
+<td>4–11</td>
+<td>49gg</td>
+<td>Dipende da Fase 1+2</td>
+</tr>
+<tr>
+<td>FASE 4 – Frontend Angular 19</td>
+<td>5–12</td>
+<td>49gg</td>
+<td><strong>Parallelo</strong> a Fase 3</td>
+</tr>
+<tr>
+<td>FASE 5 – Testing &amp; QA</td>
+<td>11–15</td>
+<td>28gg</td>
+<td></td>
+</tr>
+<tr>
+<td>FASE 6 – Migrazione PG9→PG17</td>
+<td>13–16</td>
+<td>21gg</td>
+<td>Strategia dump/restore</td>
+</tr>
+<tr>
+<td>FASE 7 – Go-Live</td>
+<td>15–17</td>
+<td>14gg</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="piano-sprint-agile-10-sprint-2-settimane" tabindex="-1">Piano Sprint Agile — 10 sprint × 2 settimane</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Sprint</th>
+<th>Focus</th>
+<th>SP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sprint 0</td>
+<td>Setup infra, provisioning, DMP bozza</td>
+<td>13</td>
+</tr>
+<tr>
+<td>Sprint 1</td>
+<td>Skeleton Angular+Spring, DDL base, GASP backend</td>
+<td>19</td>
+</tr>
+<tr>
+<td>Sprint 2</td>
+<td>CDU-01 FE+BE, client SOAP AURA+Deleghe, DDL esteso</td>
+<td>23</td>
+</tr>
+<tr>
+<td>Sprint 3</td>
+<td>CDU-03/04/05 macchina a stati consenso</td>
+<td>27</td>
+</tr>
+<tr>
+<td>Sprint 4</td>
+<td>CDU-06/07/08 PDF+ricerca assistito</td>
+<td>24</td>
+</tr>
+<tr>
+<td>Sprint 5</td>
+<td>CDU-09/10/11/12 operatore+backoffice</td>
+<td>26</td>
+</tr>
+<tr>
+<td>Sprint 6</td>
+<td>CDU-13/14/15/16 informativa+enti+API SIA</td>
+<td>27</td>
+</tr>
+<tr>
+<td>Sprint 7</td>
+<td>BATCH-01/02/03 + audit completo</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Sprint 8</td>
+<td>Testing, security, stati consenso</td>
+<td>24</td>
+</tr>
+<tr>
+<td>Sprint 9</td>
+<td>UAT, migrazione PG9→PG17, deploy PROD</td>
+<td>19</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Scala:</strong> 1 SP = 4 ore/sviluppatore</p>
+<hr>
+<h2 id="piano-migrazione-pg-9-pg-17" tabindex="-1">Piano Migrazione PG9→PG17</h2>
+<p><strong>Strategia:</strong> dump &amp; restore logico (pg_dump/pg_restore) — <strong>no pg_upgrade diretto</strong> (salto 8 major release)</p>
+<h3 id="rischi-principali-identificati" tabindex="-1">Rischi principali identificati</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Categoria</th>
+<th>Rischio</th>
+<th>Azione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Autenticazione</td>
+<td>md5 → scram-sha-256 in PG17</td>
+<td>Aggiornare JDBC + datasource</td>
+</tr>
+<tr>
+<td>Tipi</td>
+<td>SERIAL/BIGSERIAL deprecati</td>
+<td>GENERATED ALWAYS AS IDENTITY nel TO-BE</td>
+</tr>
+<tr>
+<td>default_with_oids</td>
+<td>Rimosso in PG12</td>
+<td>Verificare tabelle AS-IS</td>
+</tr>
+<tr>
+<td>JSON/JSONB</td>
+<td>Operatori cambiati</td>
+<td>Rivalutare query con -&gt;, -&gt;&gt;</td>
+</tr>
+<tr>
+<td>Sequenze orfane</td>
+<td>Rimangono dopo drop oggetti</td>
+<td>SELECT * FROM pg_sequences + cleanup</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>AT TIME ZONE cambiato in PG15</td>
+<td>Test su data_acquisizione, data_fine</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="procedura-cutover-prod" tabindex="-1">Procedura cutover PROD</h3>
+<ol>
+<li>Stop app (kubectl scale --replicas=0)</li>
+<li>Dump finale PG9 PROD</li>
+<li>Restore incrementale su PG17 PROD</li>
+<li>Aggiornamento K8s Secret con nuova stringa JDBC</li>
+<li>Restart (--replicas=2), verifica readinessProbe</li>
+<li>Smoke test (login, rilascio consenso, verifica cons_t_notifica)</li>
+<li>Monitoraggio ELK 30 min</li>
+<li><strong>Rollback:</strong> K8s Secret → stringa JDBC PG9, istanza PG9 standby 48h</li>
+</ol>
+<hr>
+<h2 id="note-critiche" tabindex="-1">Note critiche</h2>
+<ul>
+<li>DBaaS Nivola e credenziali IRIS/AURA: <strong>latenze esterne imprevedibili</strong> → avviare giorno 1</li>
+<li>CONSPREF-DMP: bozza v1 da produrre in Sprint 0</li>
+<li>Sprint 3 identificato come più complesso (macchina a stati CDU-03/04)</li>
+</ul>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

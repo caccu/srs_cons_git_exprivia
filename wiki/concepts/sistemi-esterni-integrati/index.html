@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Sistemi Esterni Integrati</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="sistemi-esterni-integrati" tabindex="-1">Sistemi Esterni Integrati</h1>
+<p>Sistemi esterni con cui <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a> si integra nel TO-BE. Tutti gestiti da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a> o dalle ASR della Regione Piemonte.</p>
+<hr>
+<h2 id="aura-anagrafe-unica-regionale-assistiti" tabindex="-1">AURA — Anagrafe Unica Regionale Assistiti</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Dettaglio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gestore</td>
+<td>[[wiki/entities/csi-piemonte</td>
+</tr>
+<tr>
+<td>Protocollo</td>
+<td>SOAP + WS-Security UsernameToken (credenziali IRIS)</td>
+</tr>
+<tr>
+<td>Credenziali</td>
+<td>IRIS — da richiedere a referente CSI Sprint 0 ❌</td>
+</tr>
+<tr>
+<td>Uso</td>
+<td>Ricerca assistito per codice fiscale (CDU-07, CDU-08 area Operatore)</td>
+</tr>
+<tr>
+<td>Servizi invocati (MF53R52)</td>
+<td><strong>FindProfiliAnagrafici</strong>, <strong>getProfiloSanitario</strong></td>
+</tr>
+<tr>
+<td>Fallback</td>
+<td><strong>NESSUNO</strong> — vedi nota sotto</td>
+</tr>
+<tr>
+<td>WSDL</td>
+<td>Da richiedere a CSI (lista servizi da specificare) ❌</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="comportamento-ricerca-assistito-mf-53-r52-mf-55-r54" tabindex="-1">Comportamento ricerca assistito (MF53R52, MF55R54)</h3>
+<blockquote>
+<p>Il sistema invoca <strong>FindProfiliAnagrafici</strong> + <strong>getProfiloSanitario</strong> di AURA. Se il CF non viene trovato → messaggio fisso: <strong>«La ricerca con il filtro fornito non ha prodotto risultati»</strong>. <strong>Nessuna chiamata a SistemaTS.</strong></p>
+</blockquote>
+<blockquote>
+<p>⚠️ <strong>Eliminazione SistemaTS dal SRS:</strong> decisione MF55R54 elimina <strong>tutti i riferimenti</strong> a SistemaTS come fallback in SRS §6.7. SistemaTS non fa parte dell'integrazione del sistema Gestione Consensi TO-BE.</p>
+</blockquote>
+<p>Conseguenza wiki: rimosso dal corpus dei sistemi integrati. La voce SistemaTS NON deve comparire nei diagrammi di contesto, nelle mappe di integrazione né nel modello dati.</p>
+<hr>
+<h2 id="sia-asr-sistemi-informativi-aziendali-delle-asr" tabindex="-1">SIA ASR — Sistemi Informativi Aziendali delle ASR</h2>
+<p>Sistema bidirezionale — consumatore API REST e destinatario notifiche SOAP.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Direzione</th>
+<th>Protocollo</th>
+<th>CDU/Batch</th>
+<th>Stato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inbound (SIA→Regionale)</td>
+<td>REST OpenAPI 3.x — OAuth2 Bearer JWT</td>
+<td>CDU-15, CDU-16, <strong>CDU-17 (snapshot)</strong></td>
+<td>Specifica CDU-15/16 <strong>da produrre</strong> ❌; CDU-17 in proposta TR68</td>
+</tr>
+<tr>
+<td>Outbound (Regionale→SIA)</td>
+<td>SOAP AS-IS invariato — [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03</td>
+<td>Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]</td>
+<td>BATCH-01 (solo notifiche puntuali)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>BATCH-03 push rimosso:</strong> l'allineamento massivo per nuovo endpoint passa a modello PULL (CDU-17). Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a>.</p>
+<p><strong>Sicurezza outbound SOAP (BATCH-01):</strong> WS-Security X509, un certificato per ASR — richiederli in Sprint 0.<br>
+<strong>Sicurezza inbound REST:</strong> OAuth2 Client Credentials + tabella <code>cons_t_client_ente</code>. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a>.</p>
+<p><strong>Rischi aperti:</strong> ambiguità BATCH-01 WSDL + semantica SCADUTO AS-IS≠TO-BE. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a>.</p>
+<hr>
+<h2 id="notificatore-unp-user-notification-platform" tabindex="-1">Notificatore UNP — User Notification Platform</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Dettaglio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gestore</td>
+<td>[[wiki/entities/csi-piemonte</td>
+</tr>
+<tr>
+<td>Protocollo</td>
+<td>REST</td>
+</tr>
+<tr>
+<td>Canali supportati</td>
+<td>Email, push, AppIO</td>
+</tr>
+<tr>
+<td>Uso</td>
+<td>Notifiche applicative generiche verso cittadino (NON per conferma rilascio consenso — quella va via Notificatore di Deleghe)</td>
+</tr>
+<tr>
+<td>Documentazione</td>
+<td><a href="http://gitlab.csi.it/user-notification-platform/unpdocumentazione" target="_blank" class="external-link">gitlab.csi.it/user-notification-platform/unpdocumentazione</a></td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="notificatore-di-deleghe-mf-33-r31-distinto-da-unp" tabindex="-1">Notificatore di Deleghe (MF33R31) — distinto da UNP</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Dettaglio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gestore</td>
+<td>[[wiki/entities/csi-piemonte</td>
+</tr>
+<tr>
+<td>Uso</td>
+<td><strong>Notifica cittadino/delegato post-acquisizione consenso</strong></td>
+</tr>
+<tr>
+<td>Timing</td>
+<td>Parte <strong>SOLO dopo conferma notifica aziende</strong> (BATCH-01, stato = COMPLETATO)</td>
+</tr>
+<tr>
+<td>Distinzione</td>
+<td>Servizio separato dall'UNP — non confondere</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>⚠️ <strong>Importante:</strong> Notificatore di Deleghe ≠ Notificatore UNP. UNP per notifiche applicative generiche; Notificatore di Deleghe per la conferma al cittadino/delegato a valle dell'acquisizione consenso. Documentare distinzione in SRS §3 e §7 (sezione notifiche).</p>
+</blockquote>
+<hr>
+<h2 id="gestione-deleghe" tabindex="-1">Gestione Deleghe</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Dettaglio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Protocollo</td>
+<td>SOAP + OAuth2 Client Credentials</td>
+</tr>
+<tr>
+<td>Uso</td>
+<td>Verifica deleghe familiari — cittadino che opera per conto di un delegante (pulsante &quot;Deleghe&quot; webapp, MF20R19)</td>
+</tr>
+<tr>
+<td>WSDL</td>
+<td>Da richiedere a [[wiki/entities/csi-piemonte</td>
+</tr>
+<tr>
+<td>Stato produzione</td>
+<td>Scenario delegante già attivo in produzione (MF22R21)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Variante errore [PROPOSTA]: se il servizio non risponde, il sistema impedisce la selezione del delegante e mostra avviso. Il cittadino opera solo per sé stesso.</p>
+<hr>
+<h2 id="lis-laboratorio-canale-acquisizione-consensi-mf-3-r1-mf-4-r1" tabindex="-1">LIS — Laboratorio (canale acquisizione consensi) (MF3R1, MF4R1)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Dettaglio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Funzione</td>
+<td>Acquisizione consenso del cittadino presso il laboratorio (front-office)</td>
+</tr>
+<tr>
+<td>Integrazione</td>
+<td>Da definire — canale aggiuntivo rispetto a webapp Citt e webapp Operatore</td>
+</tr>
+<tr>
+<td>Implicazione SRS</td>
+<td>Diagramma di contesto §1/§2 deve riflettere 3 canali, non 2</td>
+</tr>
+</tbody>
+</table></div>
+<p>Nota: l'acronimo LIS va chiarito formalmente con CSI nella prossima revisione SRS.</p>
+<hr>
+<h2 id="configuratore-regionale-pua" tabindex="-1">Configuratore Regionale / PUA</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Sistema</th>
+<th>Funzione</th>
+<th>Profilo utente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PUA (Punto Unico di Accesso)</td>
+<td>Autenticazione operatori sanitari/amministrativi</td>
+<td>RUPAR / IRIDE</td>
+</tr>
+<tr>
+<td>Configuratore Regionale</td>
+<td>Censimento applicazioni, profili operatori, endpoint ASR</td>
+<td>Back Office</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Nota MF7R5:</strong> Cittadino <strong>NON</strong> è profilo applicativo del Configuratore — accede via webapp dedicata SPID/CIE. Configuratore gestisce solo i profili operatore.</p>
+</blockquote>
+<p>Registrazione app PUA (2 profili operatore) da richiedere a <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a> in Sprint 0 ❌.</p>
+<hr>
+<h2 id="mappa-integrazioni-sintetica-aggiornata" tabindex="-1">Mappa integrazioni sintetica (aggiornata)</h2>
+<pre><code>[Cittadino] → GASP Salute (OIDC/SAML2) → Webapp Citt
+[Cittadino c/o LIS] → operatore LIS → Webapp Operatore (caso d'uso LIS)
+[Operatore] → PUA/Configuratore Regionale → Webapp Operatore
+                              ↓
+[Applicativo Gestione Consensi]
+        ├─ AURA              (SOAP/IRIS) — FindProfiliAnagrafici, getProfiloSanitario
+        ├─ Gestione Deleghe  (SOAP/OAuth2) — verifica deleghe familiari
+        ├─ Notificatore Deleghe (REST?) — conferma post-acquisizione al cittadino
+        ├─ Notificatore UNP  (REST) — notifiche applicative generiche
+        ├─ SIA ASR           (SOAP outbound) ← BATCH-01 notifiche puntuali
+        └─ SIA ASR           (REST inbound) ← CDU-15, CDU-16, CDU-17 PULL
+</code></pre>
+<hr>
+<h2 id="stato-approvvigionamento-sprint-0" tabindex="-1">Stato approvvigionamento Sprint 0</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Sistema</th>
+<th>Cosa serve</th>
+<th>Stato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AURA</td>
+<td>Credenziali IRIS + WSDL (FindProfiliAnagrafici, getProfiloSanitario)</td>
+<td>❌ Da richiedere</td>
+</tr>
+<tr>
+<td>SIA ASR</td>
+<td>Certificati X509 per ogni ASR</td>
+<td>❌ Da richiedere</td>
+</tr>
+<tr>
+<td>Gestione Deleghe</td>
+<td>WSDL</td>
+<td>❌ Da richiedere</td>
+</tr>
+<tr>
+<td>Notificatore di Deleghe</td>
+<td>API + integration spec</td>
+<td>❌ Da richiedere (distinta da UNP)</td>
+</tr>
+<tr>
+<td>Notificatore UNP</td>
+<td>Già documentato — <a href="http://gitlab.csi.it" target="_blank" class="external-link">gitlab.csi.it</a></td>
+<td>✅ Riferimento disponibile</td>
+</tr>
+<tr>
+<td>PUA</td>
+<td>Registrazione 2 profili applicativo</td>
+<td>❌ Da richiedere</td>
+</tr>
+<tr>
+<td>LIS</td>
+<td>Specifica integrazione canale acquisizione</td>
+<td>❌ Da chiarire con CSI (acronimo + spec)</td>
+</tr>
+<tr>
+<td>GASP Salute</td>
+<td>Documentazione protocollo OIDC/SAML2</td>
+<td>❌ Blocco critico — giorno 1</td>
+</tr>
+<tr>
+<td>SistemaTS</td>
+<td>—</td>
+<td>⛔ <strong>NON integrato</strong> (decisione MF55R54 — rimosso dal SRS)</td>
+</tr>
+</tbody>
+</table></div>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>CONSPREF-SRS-01-V03 Requisiti Gestione Consensi</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="conspref-srs-01-v03-requisiti-gestione-consensi" tabindex="-1">CONSPREF-SRS-01-V03 — Requisiti Gestione Consensi</h1>
+<p><strong>Documento:</strong> ACC-DEL-CDU-01-V01 + CONSPREF-SRS-01-V03-Requisiti-Gestione-Consensi<br>
+<strong>Autore:</strong> Bontempi (CSI Piemonte) — V01: 01/09/2023<br>
+<strong>Ruolo:</strong> Documento committente — specifica i requisiti dal lato CSI/Regione</p>
+<hr>
+<h2 id="obiettivo" tabindex="-1">Obiettivo</h2>
+<p>Definisce cosa deve fare l'applicativo Gestione Consensi da una prospettiva funzionale e di business del committente (CSI Piemonte / Regione Piemonte). Questo è il documento <code>[DOC]</code> di riferimento dell'SRS Exprivia.</p>
+<hr>
+<h2 id="tre-livelli-di-consenso" tabindex="-1">Tre livelli di consenso</h2>
+<ul>
+<li><strong>Nazionale</strong> — FSE via INI (es. apertura fascicolo)</li>
+<li><strong>Regionale</strong> — stratificazione, cronicità, telemedicina, reti di patologia, cure palliative, studi sperimentali</li>
+<li><strong>Aziendale ASR</strong> — dossier clinico, consenso informato, ROL referti, trattamento dati personali</li>
+</ul>
+<hr>
+<h2 id="architettura-funzionale" tabindex="-1">Architettura funzionale</h2>
+<p>Modulo Regionale ↔ n Moduli Aziendali (SIA)</p>
+<ul>
+<li><strong>Modulo Regionale</strong> = SIR, frontend cittadino + backoffice operatori</li>
+<li><strong>Moduli Aziendali</strong> = SIA delle ASR, ricevono notifiche SOAP</li>
+</ul>
+<p><strong>Flusso bidirezionale:</strong></p>
+<ul>
+<li>Cittadino/Operatore esprime consenso → notifica SOAP a SIA</li>
+<li>SIA riceve consenso da ente → invia al Regionale → Regionale notifica ad altri SIA stessa ente</li>
+</ul>
+<hr>
+<h2 id="configurazione-backoffice" tabindex="-1">Configurazione backoffice</h2>
+<p>Popolare DB con:</p>
+<ol>
+<li>Tipi di consenso</li>
+<li>Enti/aziende</li>
+<li>Informative (PDF) per ogni ente/consenso</li>
+<li>Endpoint notifica</li>
+</ol>
+<p><strong>Profili Configuratore Regionale (PUA):</strong></p>
+<ul>
+<li>Profilo Operatore Sanitario/Amministrativo (CDU-07÷CDU-11)</li>
+<li>Profilo Operatore di Back Office (CDU-12÷CDU-14)</li>
+</ul>
+<hr>
+<h2 id="regole-business-chiave" tabindex="-1">Regole business chiave</h2>
+<ul>
+<li>Massimo <strong>1 informativa valida</strong> per consenso/ente in un dato momento</li>
+<li>Consenso aziendale: il cittadino esprime preferenza <strong>separata per ogni ASR</strong></li>
+<li>Consenso regionale: <strong>1 scelta</strong> → propagata a tutte le ASR della regione</li>
+<li>Al variare dell'informativa: <code>annulla_consensi=SI</code> → ANNULLATO (notifica); <code>NO</code> → SCADUTO (no notifica)</li>
+<li>Ogni operazione tracciata: data + CF operatore su ogni tabella modificata</li>
+</ul>
+<hr>
+<h2 id="tabelle-core-menzionate" tabindex="-1">Tabelle core menzionate</h2>
+<ul>
+<li><code>cons_d_sotto_tipo_cons</code> — tipi consenso</li>
+<li><code>cons_d_informativa</code> — informative</li>
+<li><code>cons_d_asr</code> — enti/aziende</li>
+<li><code>cons_r_asr_endpoint</code> — endpoint</li>
+<li><code>cons_t_consenso</code> — consensi espressi</li>
+<li><code>cons_r_sotto_tipo_cons_asr_endpoint</code> — join tipo-ente-endpoint</li>
+<li><code>cons_d_parametro</code> — parametri dinamici</li>
+<li><code>cons_r_consenso_parametro</code> / <code>cons_r_consenso_valore</code> — valori dinamici per tipo</li>
+</ul>
+<hr>
+<h2 id="note" tabindex="-1">Note</h2>
+<p>Questo documento rappresenta la baseline ufficiale del committente. L'SRS Exprivia (CONSPREF-SRS-V1.0) lo cita come riferimento <code>[1]</code> per tutti i requisiti classificati <code>[DOC]</code>. I requisiti <code>[DEDOTTO]</code> e <code>[PROPOSTA]</code> sono aggiunte/interpretazioni di Exprivia.</p>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

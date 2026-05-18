@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Linee Guida Cloud Native per Fornitori v1.0.1</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="linee-guida-cloud-native-per-fornitori-v1-0-1" tabindex="-1">Linee Guida Cloud Native per Fornitori v1.0.1</h1>
+<p><strong>Documento:</strong> Linea-Guida-Fornitori-v1.0.1_cloud.md<br>
+<strong>Emittente:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a> — Area Architetture/DevOps<br>
+<strong>Rilevanza:</strong> Documento normativo vincolante per tutti i fornitori ECaaS, incluso <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/exprivia/">Exprivia S.p.A.</a></p>
+<hr>
+<h2 id="risultato-verifica-srs" tabindex="-1">Risultato verifica SRS</h2>
+<blockquote>
+<p>✅ La sezione 3.5 dell'SRS (CONSPREF-SRS-V1.0) recepisce correttamente e completamente tutte le prescrizioni di questo documento. Nessun vincolo omesso.</p>
+</blockquote>
+<hr>
+<h2 id="infrastruttura-wiki-concepts-architettura-ecaas-e-caa-s-riepilogo-vincoli" tabindex="-1">Infrastruttura <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/architettura-ecaas/">ECaaS</a> — Riepilogo vincoli</h2>
+<p>Tutti i vincoli confermano il §3.5 dell'SRS:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Vincolo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IngressController</td>
+<td>Solo <strong>TRAEFIK</strong> — no altri tipi</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>Solo NFS via StorageClass CSI Trident — no host volumes</td>
+</tr>
+<tr>
+<td>CNI</td>
+<td>Solo <strong>Cilium</strong> — no altri CNI</td>
+</tr>
+<tr>
+<td>Monitoraggio</td>
+<td>Prometheus</td>
+</tr>
+<tr>
+<td>Log</td>
+<td>Stack ELK</td>
+</tr>
+<tr>
+<td>Deploy</td>
+<td>Helm + GitOps — chart esterne non ammesse</td>
+</tr>
+<tr>
+<td>Immagini</td>
+<td>Solo da registry Artifactory CSI — cluster rigetta immagini esterne</td>
+</tr>
+<tr>
+<td>Software cluster</td>
+<td>No installazioni autonome (KNative, Istio, nuovi IngressController)</td>
+</tr>
+<tr>
+<td>Deployment</td>
+<td>resources.requests + limits obbligatori + livenessProbe + readinessProbe</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="registry-immagini" tabindex="-1">Registry immagini</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Registry</th>
+<th>Scopo</th>
+<th>Autori</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker-trusted</td>
+<td>Immagini pubbliche as-is approvate</td>
+<td>Area Architetture/DevOps</td>
+</tr>
+<tr>
+<td>docker-base</td>
+<td>Immagini CSI customizzate (standard interni/sicurezza)</td>
+<td>Area Architetture/DevOps + aree specifiche</td>
+</tr>
+<tr>
+<td>docker-projects</td>
+<td>Immagini da CI del progetto</td>
+<td>CI automation, controllo team progetto</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Per nuove immagini base:</strong> scrivere a <a href="mailto:architetture_ai@csi.it" target="_blank" class="external-link">architetture_ai@csi.it</a></p>
+<h3 id="immagini-docker-base-rilevanti-per-wiki-concepts-gestione-consensi-applicativo-gestione-consensi" tabindex="-1">Immagini docker-base rilevanti per <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi</a></h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Immagine</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>reference/spring-boot</code></td>
+<td>Backend Spring Boot</td>
+</tr>
+<tr>
+<td><code>angular</code></td>
+<td>Frontend Angular</td>
+</tr>
+<tr>
+<td><code>httpd_csi</code></td>
+<td>Web Server Apache</td>
+</tr>
+<tr>
+<td><code>maven</code></td>
+<td>Build Maven (stage di build multi-stage)</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="linee-guida-dockerfile" tabindex="-1">Linee guida Dockerfile</h2>
+<ol>
+<li>Raggruppare RUN — no layer eccessivi</li>
+<li>Eliminare artefatti temporanei nello stesso RUN che li crea</li>
+<li><strong>Multi-stage build</strong> — build Maven in stage build, copia solo JAR in stage finale</li>
+<li>Variabili d'ambiente per configurazione — immagine usabile sia con <code>docker run</code> sia da Helm</li>
+<li><strong>Label OpenContainers obbligatorie</strong> su ogni immagine</li>
+</ol>
+<h3 id="label-obbligatorie" tabindex="-1">Label obbligatorie</h3>
+<pre><code>org.opencontainers.image.created
+org.opencontainers.image.authors
+org.opencontainers.image.url
+org.opencontainers.image.source
+org.opencontainers.image.version
+org.opencontainers.image.revision
+org.opencontainers.image.vendor
+org.opencontainers.image.licenses
+org.opencontainers.image.title
+org.opencontainers.image.description
+</code></pre>
+<hr>
+<h2 id="pipeline-ci-cd-e-tagging" tabindex="-1">Pipeline CI/CD e tagging</h2>
+<ul>
+<li>Webhook GitLab → Jenkins → build immagine → Artifactory push</li>
+<li>Branching mode: <code>REPO_BRANCH_MODE_ACTIVE=true</code> in <code>csi.props</code></li>
+<li>Tag GitLab = tag immagine Artifactory (versioning del progetto)</li>
+<li>Push su <code>master</code> in modalità branching: ignorato (nessuna immagine generata)</li>
+</ul>
+<hr>
+<h2 id="helm-chart" tabindex="-1">Helm Chart</h2>
+<ul>
+<li>Dispiegamento solo tramite <strong>Chart CSI</strong> (helm-base, helm-projects)</li>
+<li>Chart di progetto include come dipendenze le chart CSI delle tecnologie usate</li>
+<li>Per <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi</a>: <code>springboot</code> (backend) + <code>httpd</code> (web server)</li>
+<li>No chart Bitnami o esterne</li>
+<li>Il DB (DBaaS Nivola) non è in una chart — K8s Secret per credenziali</li>
+</ul>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>

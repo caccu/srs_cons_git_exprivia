@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Alternativa BATCH-03 — PULL CDU-17 (centro stella)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="/" style="text-decoration:none">
+<h1 style="margin:15px!important">Digital Garden</h1>
+</a>
+</div>
+</nav>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="alternativa-batch-03-pull-cdu-17-centro-stella" tabindex="-1">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</h1>
+<p><strong>Origine:</strong> risposta tecnica al commento cliente <strong>TR34</strong> sulla revisione SRS bozza v3 (PDF righe 4951–4956, sez. §7.3 BATCH-03). Rinumerato come <strong>TR68</strong> nella revisione <code>CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf</code> (MF69R68). Vedi mapping in <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/">analysis-2026-05-14-risposte-mf-srs-v3</a>.</p>
+<p><strong>Quesito originale TR34 (cliente CSI/Regione):</strong></p>
+<blockquote>
+<p>&quot;No, allineamento massivo deve avvenire con un passaggio di dati all'interno dell'azienda, altrimenti ci carichiamo di un onere che non ci è dovuto. Vogliamo spingere verso un centro stella!!!!! Or export dei dati ma con interruzione del servizio online fino al caricamento.&quot;</p>
+</blockquote>
+<p><strong>Status:</strong> PROPOSTA — attende feedback CSI Piemonte.</p>
+<hr>
+<h2 id="1-sintesi-tl-dr" tabindex="-1">1. Sintesi (TL;DR)</h2>
+<p><strong>Soluzione semplice e indolore:</strong> sostituire <strong>BATCH-03 push</strong> con <strong>CDU-17 PULL</strong> — un nuovo endpoint REST paginato che il SIA chiama autonomamente quando viene registrato un nuovo endpoint. Sistema regionale = hub (centro stella), SIA = spoke che si tira giù i dati.</p>
+<ul>
+<li>Zero push dal sistema regionale → zero onere infrastrutturale</li>
+<li>Zero downtime del servizio online</li>
+<li>Riusa interamente il modello di sicurezza già definito per <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a></li>
+<li>Paginazione cursor-based → scala su qualunque volume</li>
+<li>Idempotente: SIA può rieseguire pull senza side-effect</li>
+<li>BATCH-03 eliminato dal SRS → modello dati semplificato (<code>cons_t_notifica</code> non viene popolata in massa)</li>
+</ul>
+<hr>
+<h2 id="2-problema-con-design-attuale-batch-03-push" tabindex="-1">2. Problema con design attuale (BATCH-03 push)</h2>
+<h3 id="disegno-srs-bozza-v3-7-3" tabindex="-1">Disegno SRS bozza v3 §7.3</h3>
+<pre><code>Operatore CSI registra nuovo endpoint (CDU-14)
+  → cons_r_asr_endpoint.stato_allineamento = DA_ALLINEARE
+  → BATCH-03 triggerato async:
+      ├─ legge TUTTI i consensi attivi della sotto-tipologia (cons_t_consenso)
+      ├─ INSERT N record in cons_t_notifica (uno per consenso)
+      ├─ BATCH-01 (ogni 5 min) consegna via SOAP al nuovo endpoint SIA
+      └─ stato_allineamento → COMPLETATO
+</code></pre>
+<h3 id="perche-il-cliente-lo-rifiuta" tabindex="-1">Perché il cliente lo rifiuta</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Critica cliente</th>
+<th>Causa tecnica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&quot;ci carichiamo di onere non dovuto&quot;</td>
+<td>Sistema regionale paga: CPU lettura DB, storage <code>cons_t_notifica</code>, banda SOAP outbound, retry/error handling su milioni di record per ASR</td>
+</tr>
+<tr>
+<td>&quot;centro stella!!!&quot;</td>
+<td>Cliente vuole architettura hub-and-spoke: regionale espone dato, SIA pull. Allineamento è responsabilità del consumatore, non del produttore</td>
+</tr>
+<tr>
+<td>Saturazione <code>cons_t_notifica</code></td>
+<td>Tabella usata anche da BATCH-01 ordinario: una mass-insert da allineamento può degradare le notifiche real-time degli altri ASR</td>
+</tr>
+<tr>
+<td>Difficoltà recovery</td>
+<td>Se BATCH-03 si interrompe a metà, ripartenza idempotente richiede logica custom (record già inseriti, error rows in <code>cons_t_batch_errori</code>, etc.)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="variante-b-nel-commento-cliente" tabindex="-1">Variante B nel commento cliente</h3>
+<blockquote>
+<p>&quot;Or export dei dati ma con interruzione del servizio online fino al caricamento&quot;</p>
+</blockquote>
+<p>Cliente accetterebbe export massivo con downtime — peggiore della pull on-demand ma comunque preferibile al push. Documentata in §7 sotto per completezza.</p>
+<hr>
+<h2 id="3-proposta-cdu-17-snapshot-consensi-per-allineamento-endpoint" tabindex="-1">3. Proposta — CDU-17 Snapshot consensi per allineamento endpoint</h2>
+<h3 id="3-1-endpoint" tabindex="-1">3.1 Endpoint</h3>
+<pre><code>GET /api/v1/consensi/snapshot
+    ?codice_ente={ente}
+    &amp;codice_consenso={sotto_tipo}
+    &amp;cursor={base64-opaque}
+    &amp;page_size={1..5000, default 1000}
+    &amp;since={iso-8601-optional}
+</code></pre>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Parametro</th>
+<th>Tipo</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codice_ente</code></td>
+<td>string, required</td>
+<td>Codice ASR — vincolato dal <code>client_id</code> autenticato (vedi §4)</td>
+</tr>
+<tr>
+<td><code>codice_consenso</code></td>
+<td>string, required</td>
+<td>Sotto-tipologia di consenso (es. <code>ROL</code>) — solo i consensi di quel tipo</td>
+</tr>
+<tr>
+<td><code>cursor</code></td>
+<td>string, optional</td>
+<td>Opaque cursor per pagina successiva. Assente alla prima chiamata</td>
+</tr>
+<tr>
+<td><code>page_size</code></td>
+<td>int, optional</td>
+<td>Dimensione pagina (1..5000, default 1000)</td>
+</tr>
+<tr>
+<td><code>since</code></td>
+<td>ISO-8601 datetime, optional</td>
+<td>Restituisce solo consensi con <code>data_ultima_modifica &gt; since</code>. Utile per resync incrementale</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="3-2-response-200" tabindex="-1">3.2 Response 200</h3>
+<pre><code class="language-json">{
+  &quot;codice_ente&quot;: &quot;010&quot;,
+  &quot;codice_consenso&quot;: &quot;ROL&quot;,
+  &quot;snapshot_taken_at&quot;: &quot;2026-05-14T11:30:00Z&quot;,
+  &quot;page_size&quot;: 1000,
+  &quot;items&quot;: [
+    {
+      &quot;codice_fiscale&quot;: &quot;RSSMRA80A01L219X&quot;,
+      &quot;codice_consenso&quot;: &quot;ROL&quot;,
+      &quot;codice_ente&quot;: &quot;010&quot;,
+      &quot;stato_consenso&quot;: &quot;ATTIVO&quot;,
+      &quot;valore_consenso&quot;: &quot;SI&quot;,
+      &quot;data_espressione&quot;: &quot;2024-09-12T14:20:11Z&quot;,
+      &quot;data_inizio_validita_consenso&quot;: &quot;2024-09-12&quot;,
+      &quot;data_fine_validita_consenso&quot;: null,
+      &quot;informativa&quot;: { &quot;id&quot;: 42, &quot;versione&quot;: &quot;3.1&quot;, &quot;data_decorrenza&quot;: &quot;2024-06-01&quot;, &quot;data_scadenza&quot;: null }
+    }
+  ],
+  &quot;next_cursor&quot;: &quot;eyJjb25zX2lkIjogMTIzNDU2fQ==&quot;,
+  &quot;has_more&quot;: true
+}
+</code></pre>
+<p>Quando <code>has_more=false</code> e <code>next_cursor=null</code>, allineamento iniziale completato.</p>
+<h3 id="3-3-pattern-paginazione" tabindex="-1">3.3 Pattern paginazione</h3>
+<ul>
+<li><strong>Cursor opaco</strong> (base64 JSON con <code>last_cons_id</code>) — niente offset (offset degrada O(n²) su PostgreSQL)</li>
+<li>Stabile rispetto a INSERT concorrenti: la query include <code>WHERE cons_id &gt; :cursor</code> su PK, mai duplicati</li>
+<li>Stateless server-side — il cursor codifica tutto lo stato necessario</li>
+<li>Idempotente: stesso cursor → stesso risultato (se non arrivano UPDATE su record già paginati)</li>
+</ul>
+<h3 id="3-4-confirmation-endpoint-chiusura-ciclo" tabindex="-1">3.4 Confirmation endpoint (chiusura ciclo)</h3>
+<pre><code>PATCH /api/v1/endpoints/{endp_id}/stato-allineamento
+Body: { &quot;stato&quot;: &quot;COMPLETATO&quot; }
+</code></pre>
+<p>SIA conferma fine allineamento. Sistema regionale aggiorna <code>cons_r_asr_endpoint.stato_allineamento</code> → <code>COMPLETATO</code> e sblocca CDU-03/CDU-09 se erano bloccati (vedi §5).</p>
+<hr>
+<h2 id="4-sicurezza" tabindex="-1">4. Sicurezza</h2>
+<p><strong>Identica a <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a></strong>, nessuna modifica:</p>
+<ul>
+<li>OAuth2 Client Credentials + JWT firmato dall'AS CSI Piemonte</li>
+<li>Tabella <code>cons_t_client_ente</code> lega <code>client_id</code> → <code>codice_ente</code></li>
+<li>Filter <code>EnteAuthorizationFilter</code> rigetta con 403 ogni mismatch</li>
+<li>Repository query forza <code>WHERE codice_ente = :authorizedEnte</code></li>
+</ul>
+<p><strong>Nuovo scope OAuth richiesto:</strong></p>
+<ul>
+<li><code>consensi:snapshot</code> — distinto da <code>consensi:read</code> per consentire concessione granulare</li>
+<li>Motivo: snapshot è operazione &quot;bulk&quot; che può essere abilitata solo durante onboarding/allineamento, poi disattivata</li>
+</ul>
+<p><strong>Rate limit dedicato:</strong> <code>bucket4j</code> con quota separata per <code>/snapshot</code> (es. 600 req/min) → impedisce che pull aggressivo di un SIA degradi le risposte CDU-15 real-time degli altri.</p>
+<hr>
+<h2 id="5-workflow-end-to-end" tabindex="-1">5. Workflow end-to-end</h2>
+<pre><code>┌───────────────────────────────────────────────────────────────────┐
+│  Operatore CSI                                                    │
+│   1. CDU-14: registra nuovo endpoint                              │
+│      → INSERT cons_t_endpoint                                     │
+│      → INSERT cons_r_asr_endpoint (stato_allineamento=DA_ALLINEARE)│
+└──────────────────────────────┬────────────────────────────────────┘
+                               │
+                               ▼
+┌───────────────────────────────────────────────────────────────────┐
+│  Notifica out-of-band al SIA                                      │
+│   - Email al referente tecnico + webhook configurabile            │
+│   - Payload: codice_ente, endp_id, codice_consenso, data_attivaz. │
+│   - Sistema regionale NON deve garantire delivery — SIA è         │
+│     responsabile di monitorare la propria casella                 │
+└──────────────────────────────┬────────────────────────────────────┘
+                               │
+                               ▼
+┌───────────────────────────────────────────────────────────────────┐
+│  SIA chiama PATCH /endpoints/{id}/stato-allineamento              │
+│     stato=IN_CORSO  (acknowledge — opzionale ma raccomandato)     │
+└──────────────────────────────┬────────────────────────────────────┘
+                               │
+                               ▼
+┌───────────────────────────────────────────────────────────────────┐
+│  SIA cicla:                                                       │
+│   while next_cursor != null:                                      │
+│      GET /api/v1/consensi/snapshot?codice_ente=...&amp;cursor=...     │
+│      processa items locamente                                     │
+│   (nessun rate limit problem — cadenza controllata da SIA)        │
+└──────────────────────────────┬────────────────────────────────────┘
+                               │
+                               ▼
+┌───────────────────────────────────────────────────────────────────┐
+│  SIA chiama PATCH /endpoints/{id}/stato-allineamento              │
+│     stato=COMPLETATO                                              │
+│   → cons_r_asr_endpoint.stato_allineamento = COMPLETATO           │
+│   → CDU-03/09 sbloccano acquisizioni per quel sotto_tipo          │
+└───────────────────────────────────────────────────────────────────┘
+</code></pre>
+<hr>
+<h2 id="6-gestione-race-condition-consensi-nuovi-durante-pull" tabindex="-1">6. Gestione race condition (consensi nuovi durante pull)</h2>
+<p>Durante il pull, possono arrivare nuovi consensi via CDU-03/09. Due varianti progettuali:</p>
+<h3 id="variante-6-a-blocco-acquisizioni-semplice-gia-nel-srs" tabindex="-1">Variante 6.A — Blocco acquisizioni (semplice, già nel SRS)</h3>
+<ul>
+<li>Mantiene comportamento attuale: CDU-03/CDU-09 bloccano nuove acquisizioni per quel <code>sotto_tipo_consenso</code> finché <code>stato_allineamento=IN_CORSO</code></li>
+<li>Pro: zero ambiguità, snapshot è punto-nel-tempo perfetto</li>
+<li>Contro: finestra di indisponibilità per cittadini (ma allineamenti sono rari, tipicamente onboarding nuova ASR)</li>
+<li><strong>Raccomandata</strong> come default</li>
+</ul>
+<h3 id="variante-6-b-watermark-delta-sync-no-blocco" tabindex="-1">Variante 6.B — Watermark + delta sync (no blocco)</h3>
+<ul>
+<li>Snapshot include nel response header <code>X-Watermark-Cons-Id: 123456</code> (max <code>cons_id</code> al momento dello snapshot)</li>
+<li>CDU-03/CDU-09 restano operativi</li>
+<li>Dopo <code>COMPLETATO</code>, SIA chiama CDU-15 per ogni <code>cons_id &gt; 123456</code> arrivato durante il pull, OPPURE attiva BATCH-01 ordinario che notificherà via SOAP i nuovi</li>
+<li>Pro: zero downtime di acquisizione</li>
+<li>Contro: SIA deve implementare logica delta, leggera complessità in più</li>
+</ul>
+<p>Decisione default: <strong>Variante A</strong>. Variante B disponibile se CSI/SIA preferisce no-block.</p>
+<hr>
+<h2 id="7-variante-b-cliente-export-file-con-downtime" tabindex="-1">7. Variante B cliente — Export file con downtime</h2>
+<p>Per completezza, opzione coerente con la seconda preferenza nel commento TR34 (&quot;export dei dati ma con interruzione del servizio online&quot;):</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Descrizione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Formato</td>
+<td>CSV/JSON.GZ generato da job on-demand</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>S3 compatible (CSI MinIO?) o SFTP fornito da CSI</td>
+</tr>
+<tr>
+<td>Workflow</td>
+<td>Operatore CSI dispatcha export → job genera file → URL pre-signed inviato a SIA → SIA scarica → conferma</td>
+</tr>
+<tr>
+<td>Downtime</td>
+<td>CDU-03/09 bloccati per intero periodo (generazione + download + load lato SIA)</td>
+</tr>
+<tr>
+<td>Volume tipico</td>
+<td>File singolo, anche multi-GB con compressione gzip</td>
+</tr>
+<tr>
+<td>Sicurezza</td>
+<td>URL pre-signed scaduto in 24h, IP allowlist SIA</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Confronto con PULL CDU-17:</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>CDU-17 PULL</th>
+<th>Export file</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Downtime cittadini</td>
+<td>Solo durante IN_CORSO (variante A) o zero (variante B)</td>
+<td>Intero ciclo export+download+load</td>
+</tr>
+<tr>
+<td>Onere sistema regionale</td>
+<td>Risposta REST on-demand</td>
+<td>Job batch dedicato + storage temporaneo</td>
+</tr>
+<tr>
+<td>Complessità SIA</td>
+<td>Loop HTTP semplice</td>
+<td>Download + parser file custom</td>
+</tr>
+<tr>
+<td>Recovery</td>
+<td>Idempotente, retry banale</td>
+<td>Re-download intero file</td>
+</tr>
+<tr>
+<td>Auditability</td>
+<td>Per-request log strutturato</td>
+<td>File singolo, audit grossolano</td>
+</tr>
+<tr>
+<td>Integrazione con CDU-15/16</td>
+<td>Stesso pattern, zero nuovo concept</td>
+<td>Canale parallelo, formato divergente</td>
+</tr>
+<tr>
+<td>Volume scalabile</td>
+<td>Sì (paginazione)</td>
+<td>Limite pratico size file</td>
+</tr>
+</tbody>
+</table></div>
+<p>Raccomandazione: <strong>CDU-17 PULL</strong> come primaria. Export disponibile come fallback per ASR senza capacità integrazione REST (improbabile dato che CDU-15/16 già richiedono REST).</p>
+<hr>
+<h2 id="8-confronto-con-design-attuale-batch-03" tabindex="-1">8. Confronto con design attuale BATCH-03</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Dimensione</th>
+<th>BATCH-03 push (attuale SRS)</th>
+<th>CDU-17 PULL (proposta)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Iniziativa</td>
+<td>Sistema regionale</td>
+<td>SIA</td>
+</tr>
+<tr>
+<td>Direzione flusso</td>
+<td>Outbound SOAP push</td>
+<td>Inbound REST pull</td>
+</tr>
+<tr>
+<td>Tabella <code>cons_t_notifica</code></td>
+<td>Popolata in massa (N record)</td>
+<td>Non popolata</td>
+</tr>
+<tr>
+<td>Onere infrastrutturale</td>
+<td>Sistema regionale</td>
+<td>SIA</td>
+</tr>
+<tr>
+<td>Coerenza con CDU-15/16</td>
+<td>Diverso paradigma (SOAP push)</td>
+<td>Stesso paradigma (REST pull)</td>
+</tr>
+<tr>
+<td>Sicurezza</td>
+<td>Da definire (X509 outbound)</td>
+<td>Riusa OAuth2 CC + JWT esistente</td>
+</tr>
+<tr>
+<td>Retry/recovery</td>
+<td>Custom in BATCH-03 + <code>cons_t_batch_errori</code></td>
+<td>Idempotente per costruzione</td>
+</tr>
+<tr>
+<td>Volume scalabile</td>
+<td>Sì ma onere proporzionale</td>
+<td>Sì, paginazione cursor</td>
+</tr>
+<tr>
+<td>Downtime</td>
+<td>Sì (CDU-03/09 bloccati durante IN_CORSO)</td>
+<td>Sì (variante A) o no (variante B watermark)</td>
+</tr>
+<tr>
+<td>Modello dati</td>
+<td>+1 tabella errori</td>
+<td>Niente nuove tabelle</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="9-gap-srs-da-chiudere" tabindex="-1">9. Gap SRS da chiudere</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Sezione SRS</th>
+<th>Modifica richiesta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G1</td>
+<td>§7.3 BATCH-03</td>
+<td>Marcare deprecato; sostituire con riferimento al nuovo §6.17 CDU-17. Oppure rimuovere completamente §7.3</td>
+</tr>
+<tr>
+<td>G2</td>
+<td>§6 Casi d'uso</td>
+<td>Aggiungere nuovo §6.17 CDU-17 con testo proposto in §11 sotto</td>
+</tr>
+<tr>
+<td>G3</td>
+<td>§6.14 CDU-14</td>
+<td>Modificare step 6: dopo INSERT endpoint, sistema invia notifica out-of-band a SIA (canale da definire). Eliminare trigger BATCH-03</td>
+</tr>
+<tr>
+<td>G4</td>
+<td>§8 Modello dati</td>
+<td>Rimuovere <code>cons_t_batch_errori</code> se non più necessaria (verificare uso da BATCH-01/02)</td>
+</tr>
+<tr>
+<td>G5</td>
+<td>§6.15/§6.16</td>
+<td>Aggiornare sezione &quot;Modello di sicurezza&quot; per includere scope <code>consensi:snapshot</code> (rimando a [[wiki/concepts/sicurezza-cdu-15-16</td>
+</tr>
+<tr>
+<td>G6</td>
+<td>§10 Test plan</td>
+<td>Aggiungere E2E: registrazione endpoint → notifica → pull paginato → conferma → consensi visibili lato SIA</td>
+</tr>
+<tr>
+<td>G7</td>
+<td>§3.3 Componenti software</td>
+<td>Aggiungere componente &quot;Snapshot Service&quot; (Spring Boot service con cursor pagination)</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="10-domande-aperte-csi" tabindex="-1">10. Domande aperte CSI</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Domanda</th>
+<th>Blocco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q1</td>
+<td>Variante 6.A (blocco acquisizioni) o 6.B (watermark) preferita?</td>
+<td>⚠️ Sprint 0 — impatta SRS §6.17 e CDU-03/09</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>Canale notifica out-of-band al SIA: email solo, o anche webhook configurabile per ASR?</td>
+<td>⚠️ Sprint 0</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>Scope OAuth <code>consensi:snapshot</code> accettato? Gestione lifecycle (attivazione → disattivazione post-allineamento)?</td>
+<td>Sprint 1</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td><code>page_size</code> massimo accettabile? Tunable per ASR via <code>cons_t_client_ente</code>?</td>
+<td>Sprint 2</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>Variante export-with-downtime da formalizzare come opzione retrocompatibile?</td>
+<td>Sprint 2</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>Mantenere o rimuovere BATCH-03 dal SRS? (eliminazione totale vs. deprecation marker)</td>
+<td>Sprint 1</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>Conferma completamento via PATCH idempotente — accettabile? Alternativa: auto-detect via timeout?</td>
+<td>Sprint 2</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="11-testo-proposto-per-inserimento-in-srs" tabindex="-1">11. Testo proposto per inserimento in SRS</h2>
+<h3 id="11-1-nuovo-6-17-sostituisce-7-3" tabindex="-1">11.1 Nuovo §6.17 (sostituisce §7.3)</h3>
+<blockquote>
+<p><strong>6.17 CDU-17: Snapshot consensi per allineamento endpoint (PULL)</strong></p>
+<p><strong>Attore primario:</strong> Sistema Informativo Aziendale (SIA) della ASR a cui è stato associato un nuovo endpoint.</p>
+<p><strong>Obiettivo:</strong> Permettere al SIA di acquisire autonomamente, in modalità PULL paginata, lo stato di tutti i consensi attivi della sotto-tipologia associata al nuovo endpoint, senza coinvolgere processi batch push dal sistema regionale.</p>
+<p><strong>Motivazione architetturale:</strong> Modello hub-and-spoke (&quot;centro stella&quot;) richiesto dal committente. Il sistema regionale espone il dato; il SIA, in qualità di consumatore, è responsabile dell'allineamento. Questo elimina l'onere infrastrutturale di push massivo dal sistema centrale e mantiene coerenza con il paradigma REST già adottato per CDU-15 e CDU-16.</p>
+<p><strong>Precondizioni:</strong></p>
+<ul>
+<li>Endpoint registrato via CDU-14 con <code>stato_allineamento = DA_ALLINEARE</code></li>
+<li>SIA autenticato con scope OAuth <code>consensi:snapshot</code></li>
+<li>Notifica out-of-band ricevuta dal referente tecnico SIA</li>
+</ul>
+<p><strong>Scenario principale:</strong></p>
+<ol>
+<li>SIA chiama <code>PATCH /api/v1/endpoints/{endp_id}/stato-allineamento</code> con <code>stato=IN_CORSO</code></li>
+<li>Sistema imposta <code>cons_r_asr_endpoint.stato_allineamento = IN_CORSO</code>, blocca CDU-03/CDU-09 per quel <code>sotto_tipo_consenso</code></li>
+<li>SIA chiama in loop <code>GET /api/v1/consensi/snapshot?codice_ente={ente}&amp;codice_consenso={cod}&amp;cursor={c}&amp;page_size={n}</code></li>
+<li>Sistema risponde con pagina di consensi attivi + <code>next_cursor</code> opaco (base64 di <code>cons_id</code> ultimo elemento)</li>
+<li>Loop termina quando <code>has_more=false</code></li>
+<li>SIA chiama <code>PATCH /api/v1/endpoints/{endp_id}/stato-allineamento</code> con <code>stato=COMPLETATO</code></li>
+<li>Sistema imposta <code>stato_allineamento = COMPLETATO</code>, sblocca CDU-03/CDU-09</li>
+</ol>
+<p><strong>Specifiche tecniche API:</strong> vedi <code>openapi-cdu-17-v0.1.yaml</code> (in fase di redazione).</p>
+<p><strong>Autenticazione:</strong> Bearer Token JWT (OAuth2 Client Credentials), scope <code>consensi:snapshot</code>. Modello autorizzazione per ente identico a CDU-15/CDU-16 (vedi §6.15 &quot;Modello di sicurezza&quot;).</p>
+<p><strong>Codici di risposta:</strong> 200 OK, 400 (cursor invalido o parametri mancanti), 401 Unauthorized, 403 Forbidden (ente non autorizzato), 404 Not Found (endpoint non esistente), 409 Conflict (stato_allineamento già COMPLETATO), 429 Too Many Requests, 500 Internal Server Error.</p>
+</blockquote>
+<h3 id="11-2-eliminazione-7-3" tabindex="-1">11.2 Eliminazione §7.3</h3>
+<blockquote>
+<p><strong>7.3 BATCH-03 (RIMOSSO)</strong></p>
+<p>Il processo BATCH-03 di allineamento massivo via push SOAP è stato rimosso dalla specifica TO-BE. L'allineamento di un nuovo endpoint con i consensi pre-esistenti è ora gestito in modalità PULL dal SIA tramite CDU-17 (vedi §6.17), in coerenza con il modello &quot;centro stella&quot; richiesto dal committente.</p>
+</blockquote>
+<hr>
+<h2 id="12-riferimenti" tabindex="-1">12. Riferimenti</h2>
+<ul>
+<li>Decisione &quot;no API Gateway&quot;: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-02-conspref-srs-v1-revised/">CONSPREF-SRS-V1.0 revised bozza v2</a> §3.2</li>
+<li>Pattern sicurezza riusato: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a></li>
+<li>Specifica OpenAPI fratelli CDU-15/16: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/">analysis-2026-05-06-openapi-cdu-15-16</a></li>
+<li>Inventario consumer (SIA ASR): <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a></li>
+<li>Design batch corrente sotto revisione: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a></li>
+<li>Macchina a stati consensi: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/ciclo-vita-consenso/">Ciclo di Vita del Consenso</a></li>
+</ul>
+</main>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>
