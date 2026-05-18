@@ -29,15 +29,15 @@
 
 ## Stato di ciascuna sezione
 
-| #   | Sezione               | Stato                                                                                     | Owner                                                                          | Sprint target |
-| --- | --------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------- |
-| 1   | Inventario sorgente   | ❌ Bloccato — manca accesso DB PG9                                                         | [[wiki/entities/csi-piemonte\|csi-piemonte]]                                                               | Sprint 0      |
-| 2   | Mapping AS-IS → TO-BE | 🟡 Parziale — §8 SRS copre TO-BE, AS-IS scarno (vedi [[wiki/sources/2019-04-08-dizionario-dati-as-is\|2019-04-08-dizionario-dati-as-is]] | [[CSI-Progetto-Consensi-Modello-Dizionario-dati-3 csi-piemonte\|CSI Piemonte]] | Sprint 0      |
-| 3   | Trasformazioni        | ❌ Da produrre                                                                             | [[wiki/entities/csi-piemonte\|CSI Piemonte]]                                                 | Sprint 1      |
-| 4   | Strategia cutover     | 🟡 Bozza nei [[wiki/sources/2026-03-02-appunti-e-pianificazione\|2026-03-02-appunti-e-pianificazione]]                                      | [[wiki/entities/csi-piemonte\|csi-piemonte]]                                                               | Sprint 0      |
-| 5   | Test plan             | ❌ Da produrre                                                                             | [[wiki/entities/exprivia\|Exprivia S.p.A.]]                                                  | Sprint 8      |
-| 6   | Rollback              | 🟡 Bozza (standby 48h)                                                                    | [[wiki/entities/exprivia\|Exprivia S.p.A.]]                                                  | Sprint 8      |
-| 7   | RACI                  | ❌ Responsabile formale lato CSI mancante                                                  | Da assegnare                                                                   | Sprint 0      |
+| #   | Sezione               | Stato                                                                                     | Owner                          | Sprint target |
+| --- | --------------------- | ----------------------------------------------------------------------------------------- | ------------------------------ | ------------- |
+| 1   | Inventario sorgente   | ❌ Bloccato — manca accesso DB PG9                                                         | [[wiki/entities/csi-piemonte\|csi-piemonte]]               | Sprint 0      |
+| 2   | Mapping AS-IS → TO-BE | 🟡 Parziale — §8 SRS copre TO-BE, AS-IS scarno (vedi [[wiki/sources/2019-04-08-dizionario-dati-as-is\|2019-04-08-dizionario-dati-as-is]] | [[wiki/entities/csi-piemonte\|CSI Piemonte]] | Sprint 0      |
+| 3   | Trasformazioni        | ❌ Da produrre                                                                             | [[wiki/entities/csi-piemonte\|CSI Piemonte]] | Sprint 1      |
+| 4   | Strategia cutover     | 🟡 Bozza nei [[wiki/sources/2026-03-02-appunti-e-pianificazione\|2026-03-02-appunti-e-pianificazione]]                                      | [[wiki/entities/csi-piemonte\|csi-piemonte]]               | Sprint 0      |
+| 5   | Test plan             | ❌ Da produrre                                                                             | [[wiki/entities/exprivia\|Exprivia S.p.A.]]  | Sprint 8      |
+| 6   | Rollback              | 🟡 Bozza (standby 48h)                                                                    | [[wiki/entities/exprivia\|Exprivia S.p.A.]]  | Sprint 8      |
+| 7   | RACI                  | ❌ Responsabile formale lato CSI mancante                                                  | Da assegnare                   | Sprint 0      |
 
 ---
 
