@@ -13,10 +13,10 @@
 <script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
 <script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
-<link href="/styles/digital-garden-base.css" rel="stylesheet">
-<link href="/styles/obsidian-base.css" rel="stylesheet">
-<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
-<link href="/styles/custom-style.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/obsidian-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/custom-style.css" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -26,7 +26,7 @@
 <body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
 <nav class="navbar">
 <div class="navbar-inner">
-<a href="/" style="text-decoration:none">
+<a href="/srs_cons_git/" style="text-decoration:none">
 <h1 style="margin:15px!important">Digital Garden</h1>
 </a>
 </div>
@@ -37,13 +37,13 @@
 </div>
 </header>
 <h1 id="processi-batch" tabindex="-1">Processi Batch</h1>
-<p>Processi asincroni del sistema TO-BE <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a>. Assenti nell'AS-IS — introdotti per disaccoppiare la logica di notifica/scadenza/allineamento dall'acquisizione sincrona.</p>
+<p>Processi asincroni del sistema TO-BE <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a>. Assenti nell'AS-IS — introdotti per disaccoppiare la logica di notifica/scadenza/allineamento dall'acquisizione sincrona.</p>
 <blockquote>
 <p><strong>Aggiornamento revisione SRS v3 (2026-05-14):</strong></p>
 <ul>
 <li>BATCH-01: scheduling <strong>5 minuti</strong> con <code>SELECT FOR UPDATE SKIP LOCKED</code> (MF64R63) — sostituisce AS-IS 30 minuti</li>
 <li>BATCH-02: SQL canonico per nuova informativa (MF66R65)</li>
-<li>BATCH-03 push: <strong>rimosso</strong> — sostituito da PULL CDU-17 (MF69R68, ex TR34/TR68). Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a></li>
+<li>BATCH-03 push: <strong>rimosso</strong> — sostituito da PULL CDU-17 (MF69R68, ex TR34/TR68). Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a></li>
 <li>Notifica cittadino: via <strong>Notificatore di Deleghe</strong> (NON UNP), parte solo post-COMPLETATO (MF33R31)</li>
 </ul>
 </blockquote>
@@ -53,7 +53,7 @@
 <strong>Frequenza:</strong> <strong>Ogni 5 minuti</strong> (MF64R63 — sostituisce AS-IS 30 min)<br>
 <strong>Concorrenza:</strong> <code>SELECT FOR UPDATE SKIP LOCKED</code> su <code>cons_t_notifica</code> per prevenire sovrapposizioni fra esecuzioni successive (MF64R63)<br>
 <strong>Azione:</strong> Chiama WebService SOAP verso ogni ASR coinvolta per notificare acquisizione/modifica consenso<br>
-<strong>Contratto WSDL:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a> — invariato nel TO-BE (confermato da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a>)</p>
+<strong>Contratto WSDL:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a> — invariato nel TO-BE (confermato da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a>)</p>
 <h3 id="pattern-di-lock-concorrenza-mf-64-r63" tabindex="-1">Pattern di lock concorrenza (MF64R63)</h3>
 <pre><code class="language-sql">-- Lettura batch di notifiche da inviare, con lock skip-locked per parallelismo sicuro
 SELECT n.not_id, n.cf_cittadino, n.codice_consenso, n.endp_url, ...
@@ -155,13 +155,13 @@ FOR UPDATE SKIP LOCKED;
 <p>Distinzione canale:</p>
 <ul>
 <li><strong>Notificatore di Deleghe</strong>: conferma post-acquisizione al cittadino/delegato (questo caso)</li>
-<li><strong>Notificatore UNP</strong>: altre notifiche applicative generiche (vedi <a class="internal-link is-unresolved" href="/404" target="">Sistemi Esterni Integrati</a>)</li>
+<li><strong>Notificatore UNP</strong>: altre notifiche applicative generiche (vedi <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">Sistemi Esterni Integrati</a>)</li>
 </ul>
 <h3 id="rischio-critico-ambiguita-operazione-wsdl" tabindex="-1">⚠️ RISCHIO CRITICO — Ambiguità operazione WSDL</h3>
 <blockquote>
-<p><strong>Problema:</strong> SRS §7.1 nomina &quot;operazione Acquisizione&quot; per BATCH-01. Nella <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a>, i servizi <strong>uscenti</strong> dal Regionale verso le ASR sono <strong>SRV-03 NotificaAcquisizioneConsenso</strong> — non SRV-01 AcquisizioneConsenso (che è inbound ASR→Regionale).</p>
+<p><strong>Problema:</strong> SRS §7.1 nomina &quot;operazione Acquisizione&quot; per BATCH-01. Nella <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a>, i servizi <strong>uscenti</strong> dal Regionale verso le ASR sono <strong>SRV-03 NotificaAcquisizioneConsenso</strong> — non SRV-01 AcquisizioneConsenso (che è inbound ASR→Regionale).</p>
 <p>Implementare BATCH-01 chiamando SRV-01 invece di SRV-03 = contratto WSDL sbagliato = errore grave di integrazione.</p>
-<p><strong>Azione:</strong> Conferma scritta da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a> prima di implementare BATCH-01. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/valutazione-qualita-srs-consensi/">Valutazione Qualità SRS — Gestione Consensi</a> §RISCHIO AGGIUNTO 4.</p>
+<p><strong>Azione:</strong> Conferma scritta da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a> prima di implementare BATCH-01. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/valutazione-qualita-srs-consensi/">Valutazione Qualità SRS — Gestione Consensi</a> §RISCHIO AGGIUNTO 4.</p>
 </blockquote>
 <hr>
 <h2 id="batch-02-scadenza-informative" tabindex="-1">BATCH-02 — Scadenza informative</h2>
@@ -188,7 +188,7 @@ FOR UPDATE SKIP LOCKED;
 </tr>
 </tbody>
 </table></div>
-<p>Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/ciclo-vita-consenso/">Ciclo di Vita del Consenso</a> per semantica completa degli stati.</p>
+<p>Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/ciclo-vita-consenso/">Ciclo di Vita del Consenso</a> per semantica completa degli stati.</p>
 <h3 id="sql-canonico-determinazione-nuova-informativa-mf-66-r65" tabindex="-1">SQL canonico — determinazione nuova informativa (MF66R65)</h3>
 <p>Per ogni informativa scaduta, BATCH-02 deve determinare la <strong>nuova informativa corrente</strong> (quella ancora valida) per il medesimo <code>sotto_tipo_consenso</code>:</p>
 <pre><code class="language-sql">SELECT d_informativa_id AS nuova_d_informativa_id
@@ -224,9 +224,9 @@ WHERE d_informativa_id = :id_informativa_scaduta
 </ul>
 <h3 id="differenza-semantica-as-is-vs-to-be-stato-scaduto" tabindex="-1">⚠️ Differenza semantica AS-IS vs TO-BE — stato SCADUTO</h3>
 <blockquote>
-<p><strong>AS-IS:</strong> stato SCADUTO impostato durante l'operazione di acquisizione stessa, se il consenso è già presente (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/">ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)</a>).</p>
+<p><strong>AS-IS:</strong> stato SCADUTO impostato durante l'operazione di acquisizione stessa, se il consenso è già presente (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/">ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)</a>).</p>
 <p><strong>TO-BE:</strong> SCADUTO gestito <strong>esclusivamente</strong> da BATCH-02 alla scadenza dell'informativa.</p>
-<p>Paradigmi diversi. Se i <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> SIA ASR si aspettano comportamento AS-IS (scadenza sincrona durante acquisizione), il TO-BE potrebbe rompere l'integrazione.</p>
+<p>Paradigmi diversi. Se i <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> SIA ASR si aspettano comportamento AS-IS (scadenza sincrona durante acquisizione), il TO-BE potrebbe rompere l'integrazione.</p>
 <p><strong>Azione:</strong> Documentare la differenza nella specifica OpenAPI CDU-15/16 e verificare con tutti i SIA coinvolti.</p>
 </blockquote>
 <hr>
@@ -234,7 +234,7 @@ WHERE d_informativa_id = :id_informativa_scaduta
 <blockquote>
 <p>🟢 <strong>DESIGN RIVISTO — risposta MF69R68 (ex TR34/TR68):</strong></p>
 <p>BATCH-03 push viene <strong>rimosso</strong> dalla specifica TO-BE. L'allineamento massivo per nuovo endpoint passa a modello <strong>PULL</strong> via CDU-17 (REST snapshot paginato, SIA pulla autonomamente). Decisione condivisa con CSI come accoglimento del commento TR68 &quot;centro stella&quot;.</p>
-<p>Dettaglio progettuale completo: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a></p>
+<p>Dettaglio progettuale completo: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a></p>
 </blockquote>
 <p>Design storico (push, deprecato):</p>
 <ul>
@@ -268,7 +268,7 @@ Nuovo endpoint configurato (CDU-14 Back Office)
 <li>BATCH-01: client SOAP Apache CXF o Spring-WS</li>
 <li>BATCH-01 concorrenza: <code>SELECT FOR UPDATE SKIP LOCKED</code> (PostgreSQL 17 nativa) — più istanze pod sicure</li>
 <li>BATCH-02: usa <code>gen_random_uuid()</code> PostgreSQL 17 per UUID nuovi record storicizzati</li>
-<li>Certificati X509 WS-Security: richiederli a <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a> in Sprint 0</li>
+<li>Certificati X509 WS-Security: richiederli a <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a> in Sprint 0</li>
 <li><code>cons_t_batch_errori</code>: tabella TO-BE per tracciatura anomalie (non presente AS-IS)</li>
 </ul>
 <hr>

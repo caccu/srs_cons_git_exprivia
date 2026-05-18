@@ -13,10 +13,10 @@
 <script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
 <script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
-<link href="/styles/digital-garden-base.css" rel="stylesheet">
-<link href="/styles/obsidian-base.css" rel="stylesheet">
-<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
-<link href="/styles/custom-style.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/obsidian-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/custom-style.css" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -26,7 +26,7 @@
 <body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
 <nav class="navbar">
 <div class="navbar-inner">
-<a href="/" style="text-decoration:none">
+<a href="/srs_cons_git/" style="text-decoration:none">
 <h1 style="margin:15px!important">Digital Garden</h1>
 </a>
 </div>
@@ -38,8 +38,8 @@
 </header>
 <h1 id="analisi-gap-as-is-to-be-gestione-consensi" tabindex="-1">Analisi Gap AS-IS → TO-BE — Gestione Consensi</h1>
 <p><strong>Scopo:</strong> Identificare cosa cambia, cosa rimane invariato e cosa viene dismesso tra sistema AS-IS (2019) e TO-BE (SRS 2026). Input per sprint planning e gestione rischi integrazione.</p>
-<p><strong>Fonti AS-IS:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-02-01-sfu-gestione-consensi-v1-7/">Studio Funzionale Gestione Consensi SoL V1.7 (AS-IS 2019)</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/">ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-04-08-dizionario-dati-as-is/">Modello Dizionario Dati AS-IS (2019)</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a><br>
-<strong>Fonti TO-BE:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-02-conspref-srs-v1-revised/">CONSPREF-SRS-V1.0 revised bozza v2</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2023-09-01-conspref-srs-01-v03/">CONSPREF-SRS-01-V03 Requisiti Gestione Consensi</a></p>
+<p><strong>Fonti AS-IS:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-02-01-sfu-gestione-consensi-v1-7/">Studio Funzionale Gestione Consensi SoL V1.7 (AS-IS 2019)</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/">ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-04-08-dizionario-dati-as-is/">Modello Dizionario Dati AS-IS (2019)</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a><br>
+<strong>Fonti TO-BE:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2026-03-02-conspref-srs-v1-revised/">CONSPREF-SRS-V1.0 revised bozza v2</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2023-09-01-conspref-srs-01-v03/">CONSPREF-SRS-01-V03 Requisiti Gestione Consensi</a></p>
 <hr>
 <h2 id="sintesi-delta" tabindex="-1">Sintesi delta</h2>
 <div class="table-wrapper"><table>
@@ -285,7 +285,7 @@
 </table></div>
 <hr>
 <h2 id="modello-dati-entita-nuove-to-be" tabindex="-1">Modello dati: entità nuove TO-BE</h2>
-<p>Rispetto alle 12 entità AS-IS documentate in <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-04-08-dizionario-dati-as-is/">Modello Dizionario Dati AS-IS (2019)</a>:</p>
+<p>Rispetto alle 12 entità AS-IS documentate in <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-04-08-dizionario-dati-as-is/">Modello Dizionario Dati AS-IS (2019)</a>:</p>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
@@ -320,7 +320,7 @@
 </tr>
 </tbody>
 </table></div>
-<p><strong>Entità attivata (esistente ma non usata AS-IS):</strong> <code>cons_s_consenso</code> — storico pre-modifica, usata attivamente nel <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/ciclo-vita-consenso/">Ciclo di Vita del Consenso</a> TO-BE per garantire no-sovrascrittura. Struttura da verificare nell'audit DDL Sprint 0.</p>
+<p><strong>Entità attivata (esistente ma non usata AS-IS):</strong> <code>cons_s_consenso</code> — storico pre-modifica, usata attivamente nel <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/ciclo-vita-consenso/">Ciclo di Vita del Consenso</a> TO-BE per garantire no-sovrascrittura. Struttura da verificare nell'audit DDL Sprint 0.</p>
 <hr>
 <h2 id="integrazioni-delta-dettagliato" tabindex="-1">Integrazioni: delta dettagliato</h2>
 <div class="table-wrapper"><table>
@@ -381,7 +381,7 @@
 <hr>
 <h2 id="cambiamenti-semantici-critici-rischi-integrazione" tabindex="-1">Cambiamenti semantici critici (rischi integrazione)</h2>
 <h3 id="1-stato-scaduto-meccanismo-diverso" tabindex="-1">1. Stato SCADUTO — meccanismo diverso</h3>
-<p>| | AS-IS (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/">ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)</a>) | TO-BE |<br>
+<p>| | AS-IS (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/">ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)</a>) | TO-BE |<br>
 |---|---|---|<br>
 | Chi imposta SCADUTO | Logica acquisizione (SRV-01) | BATCH-02 su scadenza informativa |<br>
 | Quando | Durante acquisizione se consenso già presente | Alla scadenza dell'informativa |<br>
@@ -397,7 +397,7 @@ TO-BE: BATCH-01 notifica entro 5 minuti. Se SIA ha logica temporale che dipende 
 <hr>
 <h2 id="cosa-rimane-invariato" tabindex="-1">Cosa rimane invariato</h2>
 <ul>
-<li><strong>Contratto WSDL outbound</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a>) — confermato da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a>, invariato nel TO-BE</li>
+<li><strong>Contratto WSDL outbound</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a>) — confermato da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a>, invariato nel TO-BE</li>
 <li><strong>Logica fondamentale</strong> — un consenso per tipo/sottotipo/ASR per cittadino</li>
 <li><strong>Dati di business core</strong> — tipi consenso, ASR, valori SI/NO, codice fiscale</li>
 <li><strong>Accesso operatori</strong> — RUPAR/IRIDE (PUA) — meccanismo invariato</li>

@@ -2,198 +2,198 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
         <url>
-            <loc>/wiki/sources/2019-02-01-sfu-gestione-consensi-v1-7/</loc>
+            <loc>/srs_cons_git/wiki/sources/2019-02-01-sfu-gestione-consensi-v1-7/</loc>
             <lastmod>2019-02-01T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/</loc>
+            <loc>/srs_cons_git/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/</loc>
             <lastmod>2019-03-20T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/sources/2019-04-08-dizionario-dati-as-is/</loc>
+            <loc>/srs_cons_git/wiki/sources/2019-04-08-dizionario-dati-as-is/</loc>
             <lastmod>2019-04-08T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native/</loc>
+            <loc>/srs_cons_git/wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native/</loc>
             <lastmod>2019-06-01T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/</loc>
+            <loc>/srs_cons_git/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/</loc>
             <lastmod>2019-06-01T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/sources/2023-09-01-conspref-srs-01-v03/</loc>
+            <loc>/srs_cons_git/wiki/sources/2023-09-01-conspref-srs-01-v03/</loc>
             <lastmod>2023-09-01T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/sources/2026-03-02-appunti-e-pianificazione/</loc>
+            <loc>/srs_cons_git/wiki/sources/2026-03-02-appunti-e-pianificazione/</loc>
             <lastmod>2026-03-02T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/sources/2026-03-02-conspref-srs-v1-revised/</loc>
+            <loc>/srs_cons_git/wiki/sources/2026-03-02-conspref-srs-v1-revised/</loc>
             <lastmod>2026-03-02T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/sources/2026-03-02-domande-srs-csi-v02/</loc>
+            <loc>/srs_cons_git/wiki/sources/2026-03-02-domande-srs-csi-v02/</loc>
             <lastmod>2026-03-02T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/sources/2026-03-02-sommario-srs-consensi/</loc>
+            <loc>/srs_cons_git/wiki/sources/2026-03-02-sommario-srs-consensi/</loc>
             <lastmod>2026-03-02T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/sources/2026-03-12-pile-tecnologiche-csi/</loc>
+            <loc>/srs_cons_git/wiki/sources/2026-03-12-pile-tecnologiche-csi/</loc>
             <lastmod>2026-03-12T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/sources/2026-05-05-mermaid-architettura/</loc>
+            <loc>/srs_cons_git/wiki/sources/2026-05-05-mermaid-architettura/</loc>
             <lastmod>2026-05-05T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/</loc>
+            <loc>/srs_cons_git/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/</loc>
             <lastmod>2026-05-06T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/</loc>
+            <loc>/srs_cons_git/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/</loc>
             <lastmod>2026-05-06T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/</loc>
+            <loc>/srs_cons_git/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/</loc>
             <lastmod>2026-05-14T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/</loc>
+            <loc>/srs_cons_git/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/</loc>
             <lastmod>2026-05-14T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/analyses/analysis-2026-05-14-tr34-alternativa-batch-03/</loc>
+            <loc>/srs_cons_git/wiki/analyses/analysis-2026-05-14-tr34-alternativa-batch-03/</loc>
             <lastmod>2026-05-14T00:00:00.000Z</lastmod>
         </url>
     
         <url>
-            <loc>/404.html</loc>
-            <lastmod>2026-05-18T09:56:07.009Z</lastmod>
+            <loc>/srs_cons_git/404.html</loc>
+            <lastmod>2026-05-18T10:08:18.065Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/analyses/analysis-gap-as-is-to-be/</loc>
-            <lastmod>2026-05-18T09:56:07.011Z</lastmod>
+            <loc>/srs_cons_git/wiki/analyses/analysis-gap-as-is-to-be/</loc>
+            <lastmod>2026-05-18T10:08:18.067Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/analyses/conspref-dmp-tracker/</loc>
-            <lastmod>2026-05-18T09:56:07.012Z</lastmod>
+            <loc>/srs_cons_git/wiki/analyses/conspref-dmp-tracker/</loc>
+            <lastmod>2026-05-18T10:08:18.068Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/analyses/valutazione-qualita-srs-consensi/</loc>
-            <lastmod>2026-05-18T09:56:07.012Z</lastmod>
+            <loc>/srs_cons_git/wiki/analyses/valutazione-qualita-srs-consensi/</loc>
+            <lastmod>2026-05-18T10:08:18.068Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/concepts/alternativa-batch-03-pull/</loc>
-            <lastmod>2026-05-18T09:56:07.012Z</lastmod>
+            <loc>/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/</loc>
+            <lastmod>2026-05-18T10:08:18.068Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/concepts/architettura-ecaas/</loc>
-            <lastmod>2026-05-18T09:56:07.012Z</lastmod>
+            <loc>/srs_cons_git/wiki/concepts/architettura-ecaas/</loc>
+            <lastmod>2026-05-18T10:08:18.068Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/concepts/batch-processes/</loc>
-            <lastmod>2026-05-18T09:56:07.012Z</lastmod>
+            <loc>/srs_cons_git/wiki/concepts/batch-processes/</loc>
+            <lastmod>2026-05-18T10:08:18.068Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/concepts/ciclo-vita-consenso/</loc>
-            <lastmod>2026-05-18T09:56:07.012Z</lastmod>
+            <loc>/srs_cons_git/wiki/concepts/ciclo-vita-consenso/</loc>
+            <lastmod>2026-05-18T10:08:18.068Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/concepts/composizione-dinamica-form-consenso/</loc>
-            <lastmod>2026-05-18T09:56:07.012Z</lastmod>
+            <loc>/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/</loc>
+            <lastmod>2026-05-18T10:08:18.068Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/concepts/gasp-salute/</loc>
-            <lastmod>2026-05-18T09:56:07.012Z</lastmod>
+            <loc>/srs_cons_git/wiki/concepts/gasp-salute/</loc>
+            <lastmod>2026-05-18T10:08:18.068Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/concepts/gestione-consensi-applicativo/</loc>
-            <lastmod>2026-05-18T09:56:07.012Z</lastmod>
+            <loc>/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/</loc>
+            <lastmod>2026-05-18T10:08:18.068Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/concepts/informativa/</loc>
-            <lastmod>2026-05-18T09:56:07.012Z</lastmod>
+            <loc>/srs_cons_git/wiki/concepts/informativa/</loc>
+            <lastmod>2026-05-18T10:08:18.068Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/concepts/migrazione-postgres-9-17/</loc>
-            <lastmod>2026-05-18T09:56:07.012Z</lastmod>
+            <loc>/srs_cons_git/wiki/concepts/migrazione-postgres-9-17/</loc>
+            <lastmod>2026-05-18T10:08:18.068Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/concepts/sicurezza-cdu-15-16/</loc>
-            <lastmod>2026-05-18T09:56:07.012Z</lastmod>
+            <loc>/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/</loc>
+            <lastmod>2026-05-18T10:08:18.068Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/concepts/sistemi-esterni-integrati/</loc>
-            <lastmod>2026-05-18T09:56:07.013Z</lastmod>
+            <loc>/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/</loc>
+            <lastmod>2026-05-18T10:08:18.068Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/concepts/stack-tecnologico-applicativo/</loc>
-            <lastmod>2026-05-18T09:56:07.013Z</lastmod>
+            <loc>/srs_cons_git/wiki/concepts/stack-tecnologico-applicativo/</loc>
+            <lastmod>2026-05-18T10:08:18.069Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/entities/csi-piemonte/</loc>
-            <lastmod>2026-05-18T09:56:07.013Z</lastmod>
+            <loc>/srs_cons_git/wiki/entities/csi-piemonte/</loc>
+            <lastmod>2026-05-18T10:08:18.069Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/entities/exprivia/</loc>
-            <lastmod>2026-05-18T09:56:07.013Z</lastmod>
+            <loc>/srs_cons_git/wiki/entities/exprivia/</loc>
+            <lastmod>2026-05-18T10:08:18.069Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/entities/notificatore-unp/</loc>
-            <lastmod>2026-05-18T09:56:07.013Z</lastmod>
+            <loc>/srs_cons_git/wiki/entities/notificatore-unp/</loc>
+            <lastmod>2026-05-18T10:08:18.069Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/entities/regione-piemonte/</loc>
-            <lastmod>2026-05-18T09:56:07.013Z</lastmod>
+            <loc>/srs_cons_git/wiki/entities/regione-piemonte/</loc>
+            <lastmod>2026-05-18T10:08:18.069Z</lastmod>
         </url>
     
         <url>
-            <loc>/</loc>
-            <lastmod>2026-05-18T09:56:07.013Z</lastmod>
+            <loc>/srs_cons_git/</loc>
+            <lastmod>2026-05-18T10:08:18.069Z</lastmod>
         </url>
     
         <url>
-            <loc>/wiki/overview/</loc>
-            <lastmod>2026-05-18T09:56:07.013Z</lastmod>
+            <loc>/srs_cons_git/wiki/overview/</loc>
+            <lastmod>2026-05-18T10:08:18.069Z</lastmod>
         </url>
     
 </urlset>

@@ -13,10 +13,10 @@
 <script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
 <script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
-<link href="/styles/digital-garden-base.css" rel="stylesheet">
-<link href="/styles/obsidian-base.css" rel="stylesheet">
-<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
-<link href="/styles/custom-style.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/obsidian-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/custom-style.css" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -26,7 +26,7 @@
 <body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
 <nav class="navbar">
 <div class="navbar-inner">
-<a href="/" style="text-decoration:none">
+<a href="/srs_cons_git/" style="text-decoration:none">
 <h1 style="margin:15px!important">Digital Garden</h1>
 </a>
 </div>
@@ -38,13 +38,13 @@
 </header>
 <h1 id="acc-del-cdu-01-servizi-acquisizione-consensi-as-is" tabindex="-1">ACC-DEL-CDU-01 — Servizi Acquisizione Consensi (AS-IS)</h1>
 <p><strong>Documento:</strong> ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi<br>
-<strong>Autore:</strong> Celoria (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a>) — 20/03/2019<br>
+<strong>Autore:</strong> Celoria (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a>) — 20/03/2019<br>
 <strong>Versione:</strong> V01<br>
 <strong>Uso:</strong> Interno CSI Piemonte<br>
 <strong>Contesto:</strong> Specifica dei servizi SOAP esposti dal Modulo Regionale Gestione Consensi lato <strong>inbound</strong> (da WebApp o SIA ASR verso il Regionale)</p>
 <hr>
 <h2 id="scopo" tabindex="-1">Scopo</h2>
-<p>Definisce i requisiti di accettazione per il servizio GESTIONE CONSENSI lato acquisizione (inbound). Complementare alla <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a> che copre le notifiche outbound.</p>
+<p>Definisce i requisiti di accettazione per il servizio GESTIONE CONSENSI lato acquisizione (inbound). Complementare alla <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a> che copre le notifiche outbound.</p>
 <hr>
 <h2 id="4-operazioni-soap-as-is" tabindex="-1">4 Operazioni SOAP AS-IS</h2>
 <div class="table-wrapper"><table>
@@ -289,12 +289,12 @@
 <tr>
 <td>Notifica ASR</td>
 <td>Sincrona nel servizio</td>
-<td>Asincrona via BATCH-01 (coda cons_t_notifica) — vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a></td>
+<td>Asincrona via BATCH-01 (coda cons_t_notifica) — vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a></td>
 </tr>
 </tbody>
 </table></div>
 <blockquote>
-<p>⚠️ <strong>Differenza importante:</strong> nell'AS-IS lo stato 'scaduto' viene impostato durante l'operazione di acquisizione (se il cittadino ha già espresso quel consenso). Nel TO-BE invece SCADUTO è uno stato del <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/ciclo-vita-consenso/">ciclo di vita</a> gestito da BATCH-02 quando l'informativa scade. Sono due meccanismi distinti.</p>
+<p>⚠️ <strong>Differenza importante:</strong> nell'AS-IS lo stato 'scaduto' viene impostato durante l'operazione di acquisizione (se il cittadino ha già espresso quel consenso). Nel TO-BE invece SCADUTO è uno stato del <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/ciclo-vita-consenso/">ciclo di vita</a> gestito da BATCH-02 quando l'informativa scade. Sono due meccanismi distinti.</p>
 </blockquote>
 <hr>
 <h2 id="codici-errore-principali-da-01" tabindex="-1">Codici errore principali DA01</h2>

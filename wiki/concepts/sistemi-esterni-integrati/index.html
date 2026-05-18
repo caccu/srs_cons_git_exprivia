@@ -13,10 +13,10 @@
 <script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
 <script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
-<link href="/styles/digital-garden-base.css" rel="stylesheet">
-<link href="/styles/obsidian-base.css" rel="stylesheet">
-<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
-<link href="/styles/custom-style.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/obsidian-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/custom-style.css" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -26,7 +26,7 @@
 <body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
 <nav class="navbar">
 <div class="navbar-inner">
-<a href="/" style="text-decoration:none">
+<a href="/srs_cons_git/" style="text-decoration:none">
 <h1 style="margin:15px!important">Digital Garden</h1>
 </a>
 </div>
@@ -37,7 +37,7 @@
 </div>
 </header>
 <h1 id="sistemi-esterni-integrati" tabindex="-1">Sistemi Esterni Integrati</h1>
-<p>Sistemi esterni con cui <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a> si integra nel TO-BE. Tutti gestiti da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a> o dalle ASR della Regione Piemonte.</p>
+<p>Sistemi esterni con cui <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a> si integra nel TO-BE. Tutti gestiti da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a> o dalle ASR della Regione Piemonte.</p>
 <hr>
 <h2 id="aura-anagrafe-unica-regionale-assistiti" tabindex="-1">AURA — Anagrafe Unica Regionale Assistiti</h2>
 <div class="table-wrapper"><table>
@@ -113,10 +113,10 @@
 </tr>
 </tbody>
 </table></div>
-<p><strong>BATCH-03 push rimosso:</strong> l'allineamento massivo per nuovo endpoint passa a modello PULL (CDU-17). Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a>.</p>
+<p><strong>BATCH-03 push rimosso:</strong> l'allineamento massivo per nuovo endpoint passa a modello PULL (CDU-17). Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a>.</p>
 <p><strong>Sicurezza outbound SOAP (BATCH-01):</strong> WS-Security X509, un certificato per ASR — richiederli in Sprint 0.<br>
-<strong>Sicurezza inbound REST:</strong> OAuth2 Client Credentials + tabella <code>cons_t_client_ente</code>. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a>.</p>
-<p><strong>Rischi aperti:</strong> ambiguità BATCH-01 WSDL + semantica SCADUTO AS-IS≠TO-BE. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a>.</p>
+<strong>Sicurezza inbound REST:</strong> OAuth2 Client Credentials + tabella <code>cons_t_client_ente</code>. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a>.</p>
+<p><strong>Rischi aperti:</strong> ambiguità BATCH-01 WSDL + semantica SCADUTO AS-IS≠TO-BE. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a>.</p>
 <hr>
 <h2 id="notificatore-unp-user-notification-platform" tabindex="-1">Notificatore UNP — User Notification Platform</h2>
 <div class="table-wrapper"><table>
@@ -260,7 +260,7 @@
 <blockquote>
 <p><strong>Nota MF7R5:</strong> Cittadino <strong>NON</strong> è profilo applicativo del Configuratore — accede via webapp dedicata SPID/CIE. Configuratore gestisce solo i profili operatore.</p>
 </blockquote>
-<p>Registrazione app PUA (2 profili operatore) da richiedere a <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a> in Sprint 0 ❌.</p>
+<p>Registrazione app PUA (2 profili operatore) da richiedere a <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a> in Sprint 0 ❌.</p>
 <hr>
 <h2 id="mappa-integrazioni-sintetica-aggiornata" tabindex="-1">Mappa integrazioni sintetica (aggiornata)</h2>
 <pre><code>[Cittadino] → GASP Salute (OIDC/SAML2) → Webapp Citt

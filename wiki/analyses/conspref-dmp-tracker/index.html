@@ -13,10 +13,10 @@
 <script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
 <script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
-<link href="/styles/digital-garden-base.css" rel="stylesheet">
-<link href="/styles/obsidian-base.css" rel="stylesheet">
-<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
-<link href="/styles/custom-style.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/obsidian-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/custom-style.css" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -26,7 +26,7 @@
 <body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
 <nav class="navbar">
 <div class="navbar-inner">
-<a href="/" style="text-decoration:none">
+<a href="/srs_cons_git/" style="text-decoration:none">
 <h1 style="margin:15px!important">Digital Garden</h1>
 </a>
 </div>
@@ -37,9 +37,9 @@
 </div>
 </header>
 <h1 id="conspref-dmp-tracker-piano-migrazione-dati" tabindex="-1">CONSPREF-DMP — Tracker Piano Migrazione Dati</h1>
-<p><strong>Stato:</strong> 🔴 <strong>Non formalizzato</strong> al 2026-05-15. Rischio critico per Fase 6 (Sprint 9) migrazione <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/migrazione-postgres-9-17/">PG9 → PG17</a>.</p>
+<p><strong>Stato:</strong> 🔴 <strong>Non formalizzato</strong> al 2026-05-15. Rischio critico per Fase 6 (Sprint 9) migrazione <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/migrazione-postgres-9-17/">PG9 → PG17</a>.</p>
 <blockquote>
-<p>Questo tracker centralizza lo stato del documento CONSPREF-DMP e i decision-point aperti. Non sostituisce il documento stesso (che va prodotto da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/exprivia/">Exprivia S.p.A.</a> in Sprint 0).</p>
+<p>Questo tracker centralizza lo stato del documento CONSPREF-DMP e i decision-point aperti. Non sostituisce il documento stesso (che va prodotto da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/exprivia/">Exprivia S.p.A.</a> in Sprint 0).</p>
 </blockquote>
 <hr>
 <h2 id="cos-e-conspref-dmp" tabindex="-1">Cos'è CONSPREF-DMP</h2>
@@ -165,10 +165,10 @@
 <hr>
 <h2 id="decision-point-aperti" tabindex="-1">Decision-point aperti</h2>
 <h3 id="d1-responsabile-formale-lato-csi" tabindex="-1">D1 — Responsabile formale lato CSI</h3>
-<p>Chi sponsorizza la migrazione lato <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a>? Senza referente, sblocco accessi DB e validazione strategia rallentano.</p>
+<p>Chi sponsorizza la migrazione lato <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a>? Senza referente, sblocco accessi DB e validazione strategia rallentano.</p>
 <ul>
-<li><strong>Domanda 11</strong> in <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-02-domande-srs-csi-v02/">Domande SRS Consensi — Revisione CSI V02</a>: risposta = &quot;Non ancora formalizzato&quot;</li>
-<li>Tracciato come <strong>GOV-03</strong> in <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/">Punti Aperti CSI — Tracker Unificato</a></li>
+<li><strong>Domanda 11</strong> in <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2026-03-02-domande-srs-csi-v02/">Domande SRS Consensi — Revisione CSI V02</a>: risposta = &quot;Non ancora formalizzato&quot;</li>
+<li>Tracciato come <strong>GOV-03</strong> in <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/">Punti Aperti CSI — Tracker Unificato</a></li>
 </ul>
 <h3 id="d2-strategia-logical-replication-vs-dump-restore-puro" tabindex="-1">D2 — Strategia logical replication vs dump/restore puro</h3>
 <ul>
@@ -183,7 +183,7 @@
 </ul>
 <h3 id="d4-retention-storico" tabindex="-1">D4 — Retention storico</h3>
 <ul>
-<li>Informative scadute (vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/informativa/">Informativa Consenso</a>) — policy retention non definita per audit legale</li>
+<li>Informative scadute (vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/informativa/">Informativa Consenso</a>) — policy retention non definita per audit legale</li>
 </ul>
 <hr>
 <h2 id="rischi-correlati" tabindex="-1">Rischi correlati</h2>
@@ -222,18 +222,18 @@
 <h2 id="azioni-immediate-sprint-0" tabindex="-1">Azioni immediate (Sprint 0)</h2>
 <ol>
 <li><strong>Assegnare responsabile interno Exprivia</strong> per redazione CONSPREF-DMP</li>
-<li><strong>Richiedere accesso DB PG9 AS-IS</strong> a <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a></li>
+<li><strong>Richiedere accesso DB PG9 AS-IS</strong> a <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a></li>
 <li><strong>Avviare audit DDL PG9</strong> (<code>\d</code> per ogni tabella, focus <code>cons_s_consenso</code>)</li>
 <li><strong>Identificare sponsor CSI</strong> per migrazione (chiusura GOV-03)</li>
 <li><strong>Produrre bozza v1 CONSPREF-DMP</strong> entro fine Sprint 0</li>
 </ol>
-<p>Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/">Checklist Avvio Progetto</a> §A6 per la versione checklist operativa.</p>
+<p>Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/">Checklist Avvio Progetto</a> §A6 per la versione checklist operativa.</p>
 <hr>
 <h2 id="riferimenti-tra-wiki" tabindex="-1">Riferimenti tra wiki</h2>
 <ul>
-<li><a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/migrazione-postgres-9-17/">Migrazione PostgreSQL 9 → 17</a> — concept tecnico migrazione</li>
-<li><a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/valutazione-qualita-srs-consensi/">Valutazione Qualità SRS — Gestione Consensi</a> — RC1 sul DMP mancante</li>
-<li><a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/exprivia/">Exprivia S.p.A.</a> — fornitore responsabile redazione</li>
+<li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/migrazione-postgres-9-17/">Migrazione PostgreSQL 9 → 17</a> — concept tecnico migrazione</li>
+<li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/valutazione-qualita-srs-consensi/">Valutazione Qualità SRS — Gestione Consensi</a> — RC1 sul DMP mancante</li>
+<li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/exprivia/">Exprivia S.p.A.</a> — fornitore responsabile redazione</li>
 </ul>
 </main>
 <script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>

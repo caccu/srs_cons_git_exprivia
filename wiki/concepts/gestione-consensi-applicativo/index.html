@@ -13,10 +13,10 @@
 <script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
 <script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
-<link href="/styles/digital-garden-base.css" rel="stylesheet">
-<link href="/styles/obsidian-base.css" rel="stylesheet">
-<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
-<link href="/styles/custom-style.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/obsidian-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/custom-style.css" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -26,7 +26,7 @@
 <body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
 <nav class="navbar">
 <div class="navbar-inner">
-<a href="/" style="text-decoration:none">
+<a href="/srs_cons_git/" style="text-decoration:none">
 <h1 style="margin:15px!important">Digital Garden</h1>
 </a>
 </div>
@@ -204,7 +204,7 @@
 <h2 id="funzionalita-principali-to-be" tabindex="-1">Funzionalità principali TO-BE</h2>
 <h3 id="area-cittadino-webapp-dedicata" tabindex="-1">Area Cittadino (webapp dedicata)</h3>
 <ul>
-<li><strong>CDU-02</strong> Consultazione cruscotto consensi: mostra <strong>tutti i tipi configurati</strong> (regionale=1 record, aziendale=N record per azienda) anche quelli non ancora espressi (MF26R25). Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a>.</li>
+<li><strong>CDU-02</strong> Consultazione cruscotto consensi: mostra <strong>tutti i tipi configurati</strong> (regionale=1 record, aziendale=N record per azienda) anche quelli non ancora espressi (MF26R25). Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a>.</li>
 <li><strong>CDU-03</strong> Rilascio nuovo consenso (con visualizzazione informativa PDF)</li>
 <li><strong>CDU-04</strong> Modifica consenso — <strong>ingloba anche il cambio valore</strong> (CDU-05 non separato lato cittadino, MF45R44). Pulsante unico &quot;Salva&quot; (MF37R36).</li>
 <li><strong>CDU-06</strong> Download PDF — scope ridotto (MF47R46):
@@ -219,33 +219,33 @@
 <h3 id="area-operatore" tabindex="-1">Area Operatore</h3>
 <ul>
 <li>Ricerca assistito via <strong>AURA</strong> (FindProfiliAnagrafici + getProfiloSanitario). Se CF non trovato → messaggio &quot;La ricerca con il filtro fornito non ha prodotto risultati&quot;. <strong>Nessuna chiamata a SistemaTS</strong> (MF53R52, MF55R54).</li>
-<li>Gestione consensi per conto dell'assistito — CDU-09 (rilascio), CDU-10 (modifica), CDU-11 (cambio valore). Composizione pagina <strong>identica al lato cittadino</strong>, motore Form Renderer unico (MF57R56). Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a>.</li>
+<li>Gestione consensi per conto dell'assistito — CDU-09 (rilascio), CDU-10 (modifica), CDU-11 (cambio valore). Composizione pagina <strong>identica al lato cittadino</strong>, motore Form Renderer unico (MF57R56). Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a>.</li>
 <li>Tracciatura: <code>fonte_id='PASS'</code>, <code>login_operazione</code>, <code>ruoloop_id</code> valorizzati con dati operatore.</li>
 </ul>
 <h3 id="area-back-office" tabindex="-1">Area Back Office</h3>
 <ul>
 <li>Configurazione tipi consenso (parametri dinamici — input del Form Renderer)</li>
 <li>Gestione informative (upload PDF, versioning)</li>
-<li>Gestione enti ed endpoint (<strong>CDU-14</strong>) — trigger dell'allineamento. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a> per il modello PULL sostituto del BATCH-03 push.</li>
+<li>Gestione enti ed endpoint (<strong>CDU-14</strong>) — trigger dell'allineamento. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a> per il modello PULL sostituto del BATCH-03 push.</li>
 </ul>
 <h3 id="api-per-sia" tabindex="-1">API per SIA</h3>
 <ul>
 <li><code>GET /api/v1/consensi/stato</code> (CDU-15)</li>
 <li><code>GET /api/v1/configurazione/{codiceEnte}</code> (CDU-16)</li>
-<li><code>GET /api/v1/consensi/snapshot</code> (CDU-17, proposta — vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a>)</li>
+<li><code>GET /api/v1/consensi/snapshot</code> (CDU-17, proposta — vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a>)</li>
 </ul>
-<p>Sicurezza per tutti gli endpoint SIA: vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a>.</p>
+<p>Sicurezza per tutti gli endpoint SIA: vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a>.</p>
 <hr>
 <h2 id="notifica-al-cittadino-post-acquisizione-mf-33-r31" tabindex="-1">Notifica al cittadino post-acquisizione (MF33R31)</h2>
 <blockquote>
 <p>Notifica cittadino/delegato via <strong>Notificatore di Deleghe</strong> (NON UNP) parte <strong>SOLO dopo conferma notifica alle aziende</strong> (stato = COMPLETATO).</p>
 </blockquote>
-<p>Dipendenza temporale: la notifica al cittadino arriva solo a valle del completamento di BATCH-01. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a> e <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a>.</p>
+<p>Dipendenza temporale: la notifica al cittadino arriva solo a valle del completamento di BATCH-01. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a> e <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a>.</p>
 <hr>
 <h2 id="ciclo-di-vita-consenso" tabindex="-1">Ciclo di vita consenso</h2>
-<p>Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/ciclo-vita-consenso/">Ciclo di Vita del Consenso</a>. Aggiornato con transizioni dirette ATTIVO↔NEGATO (MF11/MF14) e terminologia UI &quot;acconsento/nego&quot; (MF9).</p>
+<p>Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/ciclo-vita-consenso/">Ciclo di Vita del Consenso</a>. Aggiornato con transizioni dirette ATTIVO↔NEGATO (MF11/MF14) e terminologia UI &quot;acconsento/nego&quot; (MF9).</p>
 <h2 id="architettura" tabindex="-1">Architettura</h2>
-<p>Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/architettura-ecaas/">Architettura ECaaS</a>. Nuovo componente da aggiungere in SRS §3.3: <strong>Form Renderer dinamico</strong> (motore di rendering form-consenso unico, condiviso fra webapp Cittadino e webapp Operatore — vincolo SSoT MF57R56).</p>
+<p>Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/architettura-ecaas/">Architettura ECaaS</a>. Nuovo componente da aggiungere in SRS §3.3: <strong>Form Renderer dinamico</strong> (motore di rendering form-consenso unico, condiviso fra webapp Cittadino e webapp Operatore — vincolo SSoT MF57R56).</p>
 <hr>
 <h2 id="storia-documento" tabindex="-1">Storia documento</h2>
 <div class="table-wrapper"><table>

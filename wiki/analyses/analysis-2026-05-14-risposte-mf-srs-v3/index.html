@@ -13,10 +13,10 @@
 <script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
 <script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
-<link href="/styles/digital-garden-base.css" rel="stylesheet">
-<link href="/styles/obsidian-base.css" rel="stylesheet">
-<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
-<link href="/styles/custom-style.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/obsidian-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/custom-style.css" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -26,7 +26,7 @@
 <body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
 <nav class="navbar">
 <div class="navbar-inner">
-<a href="/" style="text-decoration:none">
+<a href="/srs_cons_git/" style="text-decoration:none">
 <h1 style="margin:15px!important">Digital Garden</h1>
 </a>
 </div>
@@ -340,7 +340,7 @@ Precondizioni separate per scenario.</li>
 <li>Modifica = stesse regole (MF39, MF41, MF43)</li>
 <li>CDU-04/05 merge cittadino (MF45): CDU-05 separato solo per Operatore</li>
 </ul>
-<p><strong>Concept dedicato:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a></p>
+<p><strong>Concept dedicato:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a></p>
 <h3 id="tema-d-cdu-06-pdf" tabindex="-1">Tema D — CDU-06 PDF</h3>
 <p><strong>Decisioni chiave (MF47, MF49, MF51):</strong></p>
 <ul>
@@ -360,12 +360,12 @@ Precondizioni separate per scenario.</li>
 <li>Se il CF non viene trovato: messaggio fisso &quot;La ricerca con il filtro fornito non ha prodotto risultati&quot;</li>
 <li><strong>SistemaTS NON viene chiamato</strong> — né come fallback né come supporto. Eliminare ogni riferimento a SistemaTS dal §6.7.</li>
 </ul>
-<p>Wiki: rimuovere &quot;Fallback SistemaTS&quot; da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> AURA. Aggiornare <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a>.</p>
+<p>Wiki: rimuovere &quot;Fallback SistemaTS&quot; da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> AURA. Aggiornare <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a>.</p>
 <h3 id="tema-f-operatore-composizione-dinamica-s-so-t" tabindex="-1">Tema F — Operatore composizione dinamica SSoT</h3>
 <p><strong>Decisione chiave (MF57R56):</strong> vincolo di unicità UI fra Cittadino e Operatore. Form Renderer unico. CDU-09/10/11 devono avere paragrafo &quot;Composizione dinamica pagina operatore&quot; che rimanda esplicitamente a §6.2 e §6.4 lato cittadino.</p>
 <p>Differenze ammesse solo a livello metadati di tracciatura sorgente (<code>fonte_id</code>, <code>login_operazione</code>, <code>ruoloop_id</code>).</p>
 <p>Architetturalmente: aggiungere componente &quot;Form Renderer dinamico&quot; in SRS §3.3.</p>
-<p><strong>Concept dedicato:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a></p>
+<p><strong>Concept dedicato:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a></p>
 <h3 id="tema-g-notifica-cittadino-post-completato" tabindex="-1">Tema G — Notifica cittadino post-COMPLETATO</h3>
 <p><strong>Decisione chiave (MF33R31):</strong></p>
 <ul>
@@ -373,7 +373,7 @@ Precondizioni separate per scenario.</li>
 <li>Timing: notifica al cittadino/delegato parte <strong>SOLO dopo</strong> che le notifiche alle aziende risultano <code>COMPLETATO</code></li>
 </ul>
 <p>Implicazione: dipendenza temporale stretta fra BATCH-01 (notifica aziende) e notifica cittadino. Se BATCH-01 fallisce/ritarda, anche la notifica cittadino è ritardata.</p>
-<p>Wiki: distinguere chiaramente <strong>Notificatore di Deleghe</strong> vs <strong>UNP (User Notification Platform)</strong> in <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> — sono due servizi diversi.</p>
+<p>Wiki: distinguere chiaramente <strong>Notificatore di Deleghe</strong> vs <strong>UNP (User Notification Platform)</strong> in <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> — sono due servizi diversi.</p>
 <h3 id="tema-h-batch-sql-scheduling" tabindex="-1">Tema H — Batch SQL/scheduling</h3>
 <p><strong>Decisioni chiave:</strong></p>
 <ul>
@@ -392,8 +392,8 @@ LIMIT 1
 </ul>
 <h3 id="tema-i-gia-consolidato-ex-tr-30-ex-tr-34" tabindex="-1">Tema I — Già consolidato (ex TR30, ex TR34)</h3>
 <ul>
-<li><strong>TR58 = TR30</strong> (MF59-62R58): security CDU-15/16. Wiki: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a>. Aggiornare cross-ref ID.</li>
-<li><strong>TR68 = TR34</strong> (MF69R68): alternativa BATCH-03 PULL. Wiki: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a>. Aggiornare cross-ref ID.</li>
+<li><strong>TR58 = TR30</strong> (MF59-62R58): security CDU-15/16. Wiki: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a>. Aggiornare cross-ref ID.</li>
+<li><strong>TR68 = TR34</strong> (MF69R68): alternativa BATCH-03 PULL. Wiki: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a>. Aggiornare cross-ref ID.</li>
 </ul>
 <h3 id="tema-j-aperto" tabindex="-1">Tema J — Aperto</h3>
 <ul>

@@ -13,10 +13,10 @@
 <script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
 <script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
-<link href="/styles/digital-garden-base.css" rel="stylesheet">
-<link href="/styles/obsidian-base.css" rel="stylesheet">
-<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
-<link href="/styles/custom-style.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/obsidian-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/custom-style.css" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -26,7 +26,7 @@
 <body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
 <nav class="navbar">
 <div class="navbar-inner">
-<a href="/" style="text-decoration:none">
+<a href="/srs_cons_git/" style="text-decoration:none">
 <h1 style="margin:15px!important">Digital Garden</h1>
 </a>
 </div>
@@ -37,7 +37,7 @@
 </div>
 </header>
 <h1 id="stack-tecnologico-applicativo" tabindex="-1">Stack Tecnologico Applicativo</h1>
-<p>Stack TO-BE del progetto <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a>. Tutte le versioni allineate alle <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-12-pile-tecnologiche-csi/">Pile Tecnologiche CSI</a> CURRENT (marzo 2026).</p>
+<p>Stack TO-BE del progetto <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a>. Tutte le versioni allineate alle <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2026-03-12-pile-tecnologiche-csi/">Pile Tecnologiche CSI</a> CURRENT (marzo 2026).</p>
 <hr>
 <h2 id="riepilogo" tabindex="-1">Riepilogo</h2>
 <div class="table-wrapper"><table>
@@ -105,20 +105,20 @@
 <ul>
 <li><strong>SPA Angular 19</strong> servita da Apache <code>httpd_csi</code> (docker-base CSI)</li>
 <li>Componenti UI: libreria <strong>QUASAR CSI</strong> v2.1.0 (componenti standardizzati riusabili tra applicativi sanità)</li>
-<li>Pattern di rendering form: <strong>Form Renderer dinamico</strong> che consuma metadata backend (vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso</a>)</li>
+<li>Pattern di rendering form: <strong>Form Renderer dinamico</strong> che consuma metadata backend (vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso</a>)</li>
 <li>Build: <code>ng build --configuration=production</code>, copia in <code>dist/</code> → immagine Docker</li>
-<li>Routing: client-side, integrazione con autenticazione <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gasp-salute/">GASP Salute</a> tramite redirect SPID/CIE</li>
+<li>Routing: client-side, integrazione con autenticazione <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gasp-salute/">GASP Salute</a> tramite redirect SPID/CIE</li>
 </ul>
 <hr>
 <h2 id="backend-spring-boot-3-4-10" tabindex="-1">Backend — Spring Boot 3.4.10+</h2>
 <ul>
 <li><strong>Java 17 LTS</strong> (richiesto da Spring Boot 3)</li>
 <li><strong>Spring Boot 3.4.10+</strong> (range 3.4.10 ÷ 3.4.x come da Q&amp;A CSI <a class="tag" onclick="toggleTagSearch(this)" data-content="#5">#5</a>)</li>
-<li><strong>Spring Security</strong>: gestione autenticazione/autorizzazione <strong>applicativa</strong> (no API Gateway esterno — vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15/16</a>)</li>
-<li>Persistenza: Spring Data JPA + driver PostgreSQL ufficiale (configurazione scram-sha-256 post-<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/migrazione-postgres-9-17/">migrazione PG17</a>)</li>
-<li>Client SOAP: <strong>Apache CXF</strong> o <strong>Spring-WS</strong> (entrambi compatibili Spring Boot 3) per integrazione <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sistemi-esterni-integrati/">AURA, Gestione Deleghe, SIA-ASR</a></li>
-<li>Client REST: WebClient / RestTemplate per <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/notificatore-unp/">Notificatore UNP</a></li>
-<li>Scheduling: <code>@Scheduled</code> o Spring Batch per <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">processi batch</a></li>
+<li><strong>Spring Security</strong>: gestione autenticazione/autorizzazione <strong>applicativa</strong> (no API Gateway esterno — vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15/16</a>)</li>
+<li>Persistenza: Spring Data JPA + driver PostgreSQL ufficiale (configurazione scram-sha-256 post-<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/migrazione-postgres-9-17/">migrazione PG17</a>)</li>
+<li>Client SOAP: <strong>Apache CXF</strong> o <strong>Spring-WS</strong> (entrambi compatibili Spring Boot 3) per integrazione <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">AURA, Gestione Deleghe, SIA-ASR</a></li>
+<li>Client REST: WebClient / RestTemplate per <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/notificatore-unp/">Notificatore UNP</a></li>
+<li>Scheduling: <code>@Scheduled</code> o Spring Batch per <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">processi batch</a></li>
 <li>OpenAPI: SpringDoc + openapi-generator (vedi <code>analysis-2026-05-06-openapi-cdu-15-16.md</code> §Integrazione Spring Boot)</li>
 </ul>
 <h3 id="due-microservizi-backend" tabindex="-1">Due microservizi backend</h3>
@@ -129,14 +129,14 @@
 <hr>
 <h2 id="database-postgre-sql-17" tabindex="-1">Database — PostgreSQL 17</h2>
 <ul>
-<li><strong>DBaaS Nivola</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a>) — non PG nel pod Kubernetes</li>
+<li><strong>DBaaS Nivola</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a>) — non PG nel pod Kubernetes</li>
 <li>Connessione via K8s Secret (no chart Helm dedicata al DB)</li>
 <li>Funzionalità sfruttate: <code>SELECT FOR UPDATE SKIP LOCKED</code>, <code>gen_random_uuid()</code> nativa, MERGE</li>
-<li>Migrazione da PG9: vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/migrazione-postgres-9-17/">Migrazione PostgreSQL 9 → 17</a> e <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/conspref-dmp-tracker/">CONSPREF-DMP — Tracker Piano Migrazione Dati</a></li>
+<li>Migrazione da PG9: vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/migrazione-postgres-9-17/">Migrazione PostgreSQL 9 → 17</a> e <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/conspref-dmp-tracker/">CONSPREF-DMP — Tracker Piano Migrazione Dati</a></li>
 </ul>
 <hr>
 <h2 id="infrastruttura-e-caa-s-nivola" tabindex="-1">Infrastruttura — ECaaS Nivola</h2>
-<p>Vincoli vincolanti da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native/">Linee Guida Cloud Native per Fornitori v1.0.1</a>:</p>
+<p>Vincoli vincolanti da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native/">Linee Guida Cloud Native per Fornitori v1.0.1</a>:</p>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
@@ -175,7 +175,7 @@
 </tr>
 </tbody>
 </table></div>
-<p>Dettaglio: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/architettura-ecaas/">Architettura ECaaS</a>.</p>
+<p>Dettaglio: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/architettura-ecaas/">Architettura ECaaS</a>.</p>
 <hr>
 <h2 id="vincoli-e-linee-guida" tabindex="-1">Vincoli e linee guida</h2>
 <ul>
@@ -183,7 +183,7 @@
 <li><strong>Multi-stage Dockerfile:</strong> build Maven in stage build, JAR copiato in stage finale</li>
 <li><strong>Label OpenContainers obbligatorie</strong> su ogni immagine</li>
 <li><strong>Helm chart obbligatori:</strong> <code>springboot</code> (backend) + <code>httpd</code> (web server) da <code>helm-base</code> CSI</li>
-<li><strong>No API Gateway esterno:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sicurezza-cdu-15-16/">Spring Security gestisce auth direttamente</a></li>
+<li><strong>No API Gateway esterno:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">Spring Security gestisce auth direttamente</a></li>
 </ul>
 <hr>
 <h2 id="pile-retired-da-evitare" tabindex="-1">Pile RETIRED da evitare</h2>
@@ -218,7 +218,7 @@
 </tr>
 </tbody>
 </table></div>
-<p>Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-12-pile-tecnologiche-csi/">Pile Tecnologiche CSI Piemonte</a> per elenco completo.</p>
+<p>Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2026-03-12-pile-tecnologiche-csi/">Pile Tecnologiche CSI Piemonte</a> per elenco completo.</p>
 </main>
 <script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
 <script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>

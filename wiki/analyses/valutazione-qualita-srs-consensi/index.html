@@ -13,10 +13,10 @@
 <script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
 <script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
-<link href="/styles/digital-garden-base.css" rel="stylesheet">
-<link href="/styles/obsidian-base.css" rel="stylesheet">
-<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
-<link href="/styles/custom-style.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/obsidian-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/custom-style.css" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -26,7 +26,7 @@
 <body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
 <nav class="navbar">
 <div class="navbar-inner">
-<a href="/" style="text-decoration:none">
+<a href="/srs_cons_git/" style="text-decoration:none">
 <h1 style="margin:15px!important">Digital Garden</h1>
 </a>
 </div>
@@ -101,23 +101,23 @@
 <strong>Impatto:</strong> Sprint 0 include la bozza v1, ma se il provisioning DBaaS è lento (alta latenza), la Fase 6 Migrazione (sett. 13-16) rischia di slittare.<br>
 <strong>Azione raccomandata:</strong> Avviare la redazione DMP in parallelo all'SRS. Assegnare responsabile formale al team.</p>
 <h3 id="rischio-critico-2-protocollo-gasp-salute-non-definito" tabindex="-1">RISCHIO CRITICO 2 — Protocollo GASP Salute non definito</h3>
-<p><strong>Problema:</strong> OIDC vs SAML2 non ancora scelto. L'SRS dice &quot;a seconda del protocollo esposto da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gasp-salute/">GASP Salute</a> — dettaglio da definire con referente CSI in fase di design tecnico.&quot;<br>
-<strong>Impatto:</strong> CDU-01 (autenticazione) è prerequisito di tutti gli altri CDU Cittadino. Se <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gasp-salute/">GASP Salute</a> usa SAML2, l'integrazione è più complessa e richiede librerie specifiche.<br>
-<strong>Azione raccomandata:</strong> Richiesta formale documentazione <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gasp-salute/">GASP Salute</a> in Sprint 0, giorni 1-2.</p>
+<p><strong>Problema:</strong> OIDC vs SAML2 non ancora scelto. L'SRS dice &quot;a seconda del protocollo esposto da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gasp-salute/">GASP Salute</a> — dettaglio da definire con referente CSI in fase di design tecnico.&quot;<br>
+<strong>Impatto:</strong> CDU-01 (autenticazione) è prerequisito di tutti gli altri CDU Cittadino. Se <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gasp-salute/">GASP Salute</a> usa SAML2, l'integrazione è più complessa e richiede librerie specifiche.<br>
+<strong>Azione raccomandata:</strong> Richiesta formale documentazione <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gasp-salute/">GASP Salute</a> in Sprint 0, giorni 1-2.</p>
 <h3 id="rischio-moderato-3-open-api-cdu-15-16-parzialmente-mitigato" tabindex="-1">✅ RISCHIO MODERATO 3 — OpenAPI CDU-15/16 — PARZIALMENTE MITIGATO</h3>
-<p><strong>Stato:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/">v0.1-DRAFT prodotta</a> (2026-05-06) — 19 punti consolidati, 5 TBD da confermare con CSI.<br>
+<p><strong>Stato:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/">v0.1-DRAFT prodotta</a> (2026-05-06) — 19 punti consolidati, 5 TBD da confermare con CSI.<br>
 <strong>Impatto residuo:</strong> I 5 TBD (URL base AS-IS, scope OAuth, rate-limiting, lista ASR, versioning) bloccano la condivisione con SIA ASR. UAT rimane a rischio se TBD non chiusi entro Sprint 1-2.<br>
 <strong>Azione raccomandata:</strong> Portare bozza v0.1 a riunione Sprint 0, chiudere TBD con CSI, condividere v0.2 con referenti ASR.</p>
 <h3 id="lacuna-4-chiusa-linee-guida-cloud-native-verificate" tabindex="-1">✅ LACUNA 4 — CHIUSA: Linee Guida Cloud Native verificate</h3>
 <p><strong>Risultato:</strong> <code>Linea-Guida-Fornitori-v1.0.1_cloud.md</code> ingestionata. La sezione 3.5 dell'SRS recepisce correttamente <strong>tutti</strong> i vincoli ECaaS. Nessun gap identificato. L'SRS è conforme alla guida.</p>
 <h3 id="rischio-aggiunto-4-ambiguita-batch-01-web-service-spec" tabindex="-1">RISCHIO AGGIUNTO 4 — Ambiguità BATCH-01 / WebService spec</h3>
 <p><strong>Problema:</strong> L'SRS §7.1 dice che BATCH-01 usa &quot;operazione Acquisizione&quot; per il contratto WSDL AS-IS. Ma dalla WebService spec v03, i servizi <strong>uscenti</strong> dal Regionale verso le ASR sono <strong>SRV-03 NotificaAcquisizioneConsenso</strong> e <strong>SRV-04 NotificaRevocaConsenso</strong> — non SRV-01 (AcquisizioneConsenso) che è inbound.<br>
-<strong>Impatto:</strong> Se il team implementa <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">BATCH-01</a> chiamando SRV-01 invece di SRV-03, il contratto WSDL sarà sbagliato. Errore implementativo potenzialmente grave.<br>
+<strong>Impatto:</strong> Se il team implementa <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">BATCH-01</a> chiamando SRV-01 invece di SRV-03, il contratto WSDL sarà sbagliato. Errore implementativo potenzialmente grave.<br>
 <strong>Azione raccomandata:</strong> Chiedere conferma a CSI: quale operazione WSDL usa BATCH-01? SRV-03 NotificaAcquisizioneConsenso o SRV-01 AcquisizioneConsenso?</p>
 <h3 id="rischio-aggiunto-5-differenza-as-is-vs-to-be-su-stato-scaduto" tabindex="-1">RISCHIO AGGIUNTO 5 — Differenza AS-IS vs TO-BE su stato SCADUTO</h3>
-<p><strong>Problema:</strong> Nell'AS-IS (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/">ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)</a>), lo stato 'scaduto' viene impostato durante l'operazione di acquisizione stessa (se il consenso è già presente). Nel TO-BE invece SCADUTO è gestito esclusivamente da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">BATCH-02</a> alla scadenza dell'informativa. Sono due meccanismi distinti.<br>
+<p><strong>Problema:</strong> Nell'AS-IS (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/">ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)</a>), lo stato 'scaduto' viene impostato durante l'operazione di acquisizione stessa (se il consenso è già presente). Nel TO-BE invece SCADUTO è gestito esclusivamente da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">BATCH-02</a> alla scadenza dell'informativa. Sono due meccanismi distinti.<br>
 <strong>Impatto:</strong> Se il SIA_ASR si aspettano il comportamento AS-IS (scadenza durante acquisizione), il TO-BE potrebbe rompere l'integrazione.<br>
-<strong>Azione:</strong> Documentare la differenza nella specifica OpenAPI e verificare con i SIA ASR che siano allineati al nuovo comportamento. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a> §Cambiamenti semantici critici.</p>
+<strong>Azione:</strong> Documentare la differenza nella specifica OpenAPI e verificare con i SIA ASR che siano allineati al nuovo comportamento. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a> §Cambiamenti semantici critici.</p>
 <h3 id="lacuna-5-chiusa-web-service-spec-analizzata" tabindex="-1">✅ LACUNA 5 — CHIUSA: WebService spec analizzata</h3>
 <p><strong>Risultato:</strong> 5 servizi SOAP documentati. Contratto WSDL identificato. Ambiguità su BATCH-01 segnalata come rischio.</p>
 <h3 id="lacuna-6-parzialmente-chiusa-dizionario-dati-as-is-analizzato" tabindex="-1">✅ LACUNA 6 — PARZIALMENTE CHIUSA: Dizionario dati AS-IS analizzato</h3>
@@ -129,7 +129,7 @@
 <strong>Impatto:</strong> Basso in questa fase, ma mancanza tipica da colmare prima del collaudo.</p>
 <hr>
 <h2 id="confronto-as-is-to-be" tabindex="-1">Confronto AS-IS → TO-BE</h2>
-<p>Per analisi dettagliata del delta vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a>.</p>
+<p>Per analisi dettagliata del delta vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a>.</p>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
@@ -241,7 +241,7 @@
 </tr>
 <tr>
 <td>Specifica OpenAPI CDU-15/16 bozza</td>
-<td>⚠️ <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/">v0.1-DRAFT prodotta</a> — 5 TBD aperti</td>
+<td>⚠️ <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/">v0.1-DRAFT prodotta</a> — 5 TBD aperti</td>
 <td>Condividere con ASR dopo TBD chiusi</td>
 </tr>
 <tr>

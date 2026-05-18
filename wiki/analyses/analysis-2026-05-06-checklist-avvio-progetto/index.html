@@ -13,10 +13,10 @@
 <script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
 <script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
-<link href="/styles/digital-garden-base.css" rel="stylesheet">
-<link href="/styles/obsidian-base.css" rel="stylesheet">
-<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
-<link href="/styles/custom-style.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/obsidian-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/custom-style.css" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -26,7 +26,7 @@
 <body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
 <nav class="navbar">
 <div class="navbar-inner">
-<a href="/" style="text-decoration:none">
+<a href="/srs_cons_git/" style="text-decoration:none">
 <h1 style="margin:15px!important">Digital Garden</h1>
 </a>
 </div>
@@ -37,7 +37,7 @@
 </div>
 </header>
 <h1 id="checklist-avvio-progetto-gestione-consensi" tabindex="-1">Checklist Avvio Progetto — Gestione Consensi</h1>
-<p><strong>Scopo:</strong> Quadro completo dei punti cardine per far partire il progetto. Distingue ciò che è già confermato da ciò che deve essere richiesto a <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a> o prodotto internamente da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/exprivia/">Exprivia S.p.A.</a>.</p>
+<p><strong>Scopo:</strong> Quadro completo dei punti cardine per far partire il progetto. Distingue ciò che è già confermato da ciò che deve essere richiesto a <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a> o prodotto internamente da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/exprivia/">Exprivia S.p.A.</a>.</p>
 <p><strong>Fonti:</strong> SRS V1.0 bozza v2, Q&amp;A CSI V02, appunti, pianificazione, spec WebService v03, ACC-DEL-CDU-01.</p>
 <hr>
 <h2 id="sezione-a-gia-confermato" tabindex="-1">SEZIONE A — Già confermato ✅</h2>
@@ -145,19 +145,19 @@
 </table></div>
 <h3 id="a3-architettura-applicativa" tabindex="-1">A3. Architettura applicativa</h3>
 <ul>
-<li>No API Gateway CSI — integrazione diretta, sicurezza gestita da Spring Security (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-02-domande-srs-csi-v02/">Q&amp;A CSI <a class="tag" onclick="toggleTagSearch(this)" data-content="#6">#6</a></a>)</li>
-<li>No skeleton ex-novo — CSI fornisce automation per struttura + pipeline + Helm (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-02-domande-srs-csi-v02/">Q&amp;A CSI <a class="tag" onclick="toggleTagSearch(this)" data-content="#1">#1</a></a>)</li>
-<li>DBaaS Nivola per PostgreSQL — non PG nel pod K8s (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-02-domande-srs-csi-v02/">Q&amp;A CSI <a class="tag" onclick="toggleTagSearch(this)" data-content="#10">#10</a></a>)</li>
+<li>No API Gateway CSI — integrazione diretta, sicurezza gestita da Spring Security (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2026-03-02-domande-srs-csi-v02/">Q&amp;A CSI <a class="tag" onclick="toggleTagSearch(this)" data-content="#6">#6</a></a>)</li>
+<li>No skeleton ex-novo — CSI fornisce automation per struttura + pipeline + Helm (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2026-03-02-domande-srs-csi-v02/">Q&amp;A CSI <a class="tag" onclick="toggleTagSearch(this)" data-content="#1">#1</a></a>)</li>
+<li>DBaaS Nivola per PostgreSQL — non PG nel pod K8s (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2026-03-02-domande-srs-csi-v02/">Q&amp;A CSI <a class="tag" onclick="toggleTagSearch(this)" data-content="#10">#10</a></a>)</li>
 <li>K8s Secret per tutte le credenziali — nessun segreto nel codice sorgente</li>
 <li>Scheletro progetto generato da automation CSI (già attivato o da richiedere → vedi B4)</li>
 </ul>
 <h3 id="a4-funzionalita-scope-confermato" tabindex="-1">A4. Funzionalità — scope confermato</h3>
 <ul>
 <li><strong>16 CDU</strong> (tutti documentati con scenario principale, varianti, algoritmi, campi validati)</li>
-<li><strong>3 processi batch</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a>): BATCH-01 ogni 5 min, BATCH-02 su scadenza, BATCH-03 su modifica endpoint</li>
+<li><strong>3 processi batch</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a>): BATCH-01 ogni 5 min, BATCH-02 su scadenza, BATCH-03 su modifica endpoint</li>
 <li><strong>25 tabelle TO-BE</strong> (§8.3.1–8.3.25 dell'SRS)</li>
 <li><strong>No sovrascrittura consensi</strong> — storicizzazione immutabile via <code>cons_s_consenso</code></li>
-<li><strong>CDU-06 PDF</strong> è funzionalità nuova (non presente AS-IS) — firma eIDAS <strong>non richiesta</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-02-domande-srs-csi-v02/">Q&amp;A CSI <a class="tag" onclick="toggleTagSearch(this)" data-content="#13">#13</a></a>)</li>
+<li><strong>CDU-06 PDF</strong> è funzionalità nuova (non presente AS-IS) — firma eIDAS <strong>non richiesta</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2026-03-02-domande-srs-csi-v02/">Q&amp;A CSI <a class="tag" onclick="toggleTagSearch(this)" data-content="#13">#13</a></a>)</li>
 <li>WSDL outbound verso SIA ASR: namespace <code>http://consprefbe.csi.it/</code> invariato</li>
 </ul>
 <h3 id="a5-sicurezza-requisiti-confermati" tabindex="-1">A5. Sicurezza — requisiti confermati</h3>
@@ -408,7 +408,7 @@
 <h2 id="sezione-e-sequenza-di-azioni-giorno-1" tabindex="-1">SEZIONE E — Sequenza di azioni giorno 1</h2>
 <p>Ordine di priorità per il kick-off:</p>
 <ol>
-<li><strong>Richiedere documentazione <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gasp-salute/">GASP Salute</a></strong> a referente CSI (B1) — identifica il responsabile CSI oggi</li>
+<li><strong>Richiedere documentazione <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gasp-salute/">GASP Salute</a></strong> a referente CSI (B1) — identifica il responsabile CSI oggi</li>
 <li><strong>Avviare provisioning DBaaS Nivola DEV + PROD</strong> (B2/B3) — compilare scheda standard e inviarla</li>
 <li><strong>Richiedere WSDL AURA + Gestione Deleghe</strong> (B5/B6)</li>
 <li><strong>Richiedere accesso automation skeleton + repo QUASAR</strong> (B4/B8)</li>

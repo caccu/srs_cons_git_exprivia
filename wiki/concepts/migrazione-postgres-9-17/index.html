@@ -13,10 +13,10 @@
 <script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
 <script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
-<link href="/styles/digital-garden-base.css" rel="stylesheet">
-<link href="/styles/obsidian-base.css" rel="stylesheet">
-<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
-<link href="/styles/custom-style.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/obsidian-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/custom-style.css" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -26,7 +26,7 @@
 <body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
 <nav class="navbar">
 <div class="navbar-inner">
-<a href="/" style="text-decoration:none">
+<a href="/srs_cons_git/" style="text-decoration:none">
 <h1 style="margin:15px!important">Digital Garden</h1>
 </a>
 </div>
@@ -39,7 +39,7 @@
 <h1 id="migrazione-postgre-sql-9-17" tabindex="-1">Migrazione PostgreSQL 9 → 17</h1>
 <p><strong>Salto di 8 major release.</strong> Strategia: <strong>dump/restore</strong> (pg_dump custom format → pg_restore). Pianificata in <strong>Fase 6</strong> (Sprint 9) del progetto.</p>
 <blockquote>
-<p>⚠️ <strong>Rischio critico:</strong> Il documento formale di piano migrazione (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/conspref-dmp-tracker/">CONSPREF-DMP</a>) <strong>non è ancora formalizzato</strong>. Senza piano, Fase 6 è a rischio slittamento (vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/valutazione-qualita-srs-consensi/">Valutazione Qualità SRS — Gestione Consensi</a> §Rischio Critico 1).</p>
+<p>⚠️ <strong>Rischio critico:</strong> Il documento formale di piano migrazione (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/conspref-dmp-tracker/">CONSPREF-DMP</a>) <strong>non è ancora formalizzato</strong>. Senza piano, Fase 6 è a rischio slittamento (vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/valutazione-qualita-srs-consensi/">Valutazione Qualità SRS — Gestione Consensi</a> §Rischio Critico 1).</p>
 </blockquote>
 <hr>
 <h2 id="contesto-stack" tabindex="-1">Contesto stack</h2>
@@ -69,9 +69,9 @@
 </tr>
 </tbody>
 </table></div>
-<p>Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-12-pile-tecnologiche-csi/">Pile Tecnologiche CSI Piemonte</a> per dettaglio.</p>
+<p>Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2026-03-12-pile-tecnologiche-csi/">Pile Tecnologiche CSI Piemonte</a> per dettaglio.</p>
 <hr>
-<h2 id="strategia-cutover-da-wiki-sources-2026-03-02-appunti-e-pianificazione-appunti-sistema-pianificazione-progetto-consensi-piano-migrazione" tabindex="-1">Strategia cutover (da <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-02-appunti-e-pianificazione/">Appunti Sistema + Pianificazione Progetto Consensi</a> §Piano Migrazione)</h2>
+<h2 id="strategia-cutover-da-wiki-sources-2026-03-02-appunti-e-pianificazione-appunti-sistema-pianificazione-progetto-consensi-piano-migrazione" tabindex="-1">Strategia cutover (da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2026-03-02-appunti-e-pianificazione/">Appunti Sistema + Pianificazione Progetto Consensi</a> §Piano Migrazione)</h2>
 <pre><code>1. Snapshot e blocco scritture PG9 PROD
 2. Dump finale PG9 PROD (pg_dump -Fc, custom format)
 3. Restore su PG17 PROD (pg_restore con jobs parallel)
@@ -126,10 +126,10 @@
 </table></div>
 <hr>
 <h2 id="audit-ddl-sprint-0-prerequisito" tabindex="-1">Audit DDL Sprint 0 (prerequisito)</h2>
-<p>Vedi <code>analysis-2026-05-06-checklist-avvio-progetto.md</code> §A6 e <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-04-08-dizionario-dati-as-is/">Modello Dizionario Dati AS-IS (2019)</a> §Note.</p>
+<p>Vedi <code>analysis-2026-05-06-checklist-avvio-progetto.md</code> §A6 e <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-04-08-dizionario-dati-as-is/">Modello Dizionario Dati AS-IS (2019)</a> §Note.</p>
 <p>Step:</p>
 <ol>
-<li>Accesso DB PG9 AS-IS (richiesta credenziali a <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a>)</li>
+<li>Accesso DB PG9 AS-IS (richiesta credenziali a <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a>)</li>
 <li><code>\d</code> su ogni tabella → DDL reale</li>
 <li>Focus su <code>cons_s_consenso</code> (storicizzazione) — verifica struttura fisica vs DDL atteso TO-BE</li>
 <li>Inventario indici, FK, trigger, sequence</li>
@@ -137,7 +137,7 @@
 </ol>
 <hr>
 <h2 id="modello-dati-to-be-post-migrazione" tabindex="-1">Modello dati TO-BE post-migrazione</h2>
-<p>25 tabelle (§8.3 SRS) + 10 [PROPOSTA] (§8.4) — vs 12 tabelle AS-IS. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2026-03-02-sommario-srs-consensi/">Sommario SRS Gestione Consensi — Indice Strutturale</a> per elenco completo.</p>
+<p>25 tabelle (§8.3 SRS) + 10 [PROPOSTA] (§8.4) — vs 12 tabelle AS-IS. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2026-03-02-sommario-srs-consensi/">Sommario SRS Gestione Consensi — Indice Strutturale</a> per elenco completo.</p>
 <p>Trasformazioni schema PG9 → PG17:</p>
 <ul>
 <li>Conversione struttura storicizzazione (UPDATE+INSERT vs trigger storico AS-IS)</li>
@@ -175,13 +175,13 @@
 <hr>
 <h2 id="stato-e-prossimi-passi" tabindex="-1">Stato e prossimi passi</h2>
 <ul>
-<li>❌ CONSPREF-DMP bozza v1 — <strong>Da produrre Sprint 0</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a> responsabile)</li>
+<li>❌ CONSPREF-DMP bozza v1 — <strong>Da produrre Sprint 0</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a> responsabile)</li>
 <li>❌ Audit DDL PG9 — Pianificato Sprint 0</li>
-<li>❌ Responsabile formale lato <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a> — domanda aperta (GOV-03 in <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/">Punti Aperti CSI — Tracker Unificato</a>)</li>
+<li>❌ Responsabile formale lato <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a> — domanda aperta (GOV-03 in <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/">Punti Aperti CSI — Tracker Unificato</a>)</li>
 <li>✅ Stack target confermato (Q&amp;A CSI <a class="tag" onclick="toggleTagSearch(this)" data-content="#10">#10</a>)</li>
 <li>✅ Strategia dump/restore accettata</li>
 </ul>
-<p>Vedi anche: <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/conspref-dmp-tracker/">CONSPREF-DMP — Tracker Piano Migrazione Dati</a>.</p>
+<p>Vedi anche: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/conspref-dmp-tracker/">CONSPREF-DMP — Tracker Piano Migrazione Dati</a>.</p>
 </main>
 <script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
 <script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>

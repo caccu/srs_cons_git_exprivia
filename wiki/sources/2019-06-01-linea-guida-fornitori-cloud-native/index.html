@@ -13,10 +13,10 @@
 <script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
 <script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
-<link href="/styles/digital-garden-base.css" rel="stylesheet">
-<link href="/styles/obsidian-base.css" rel="stylesheet">
-<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
-<link href="/styles/custom-style.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/obsidian-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/custom-style.css" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -26,7 +26,7 @@
 <body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
 <nav class="navbar">
 <div class="navbar-inner">
-<a href="/" style="text-decoration:none">
+<a href="/srs_cons_git/" style="text-decoration:none">
 <h1 style="margin:15px!important">Digital Garden</h1>
 </a>
 </div>
@@ -38,15 +38,15 @@
 </header>
 <h1 id="linee-guida-cloud-native-per-fornitori-v1-0-1" tabindex="-1">Linee Guida Cloud Native per Fornitori v1.0.1</h1>
 <p><strong>Documento:</strong> Linea-Guida-Fornitori-v1.0.1_cloud.md<br>
-<strong>Emittente:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/csi-piemonte/">CSI Piemonte</a> — Area Architetture/DevOps<br>
-<strong>Rilevanza:</strong> Documento normativo vincolante per tutti i fornitori ECaaS, incluso <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/entities/exprivia/">Exprivia S.p.A.</a></p>
+<strong>Emittente:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a> — Area Architetture/DevOps<br>
+<strong>Rilevanza:</strong> Documento normativo vincolante per tutti i fornitori ECaaS, incluso <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/exprivia/">Exprivia S.p.A.</a></p>
 <hr>
 <h2 id="risultato-verifica-srs" tabindex="-1">Risultato verifica SRS</h2>
 <blockquote>
 <p>✅ La sezione 3.5 dell'SRS (CONSPREF-SRS-V1.0) recepisce correttamente e completamente tutte le prescrizioni di questo documento. Nessun vincolo omesso.</p>
 </blockquote>
 <hr>
-<h2 id="infrastruttura-wiki-concepts-architettura-ecaas-e-caa-s-riepilogo-vincoli" tabindex="-1">Infrastruttura <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/architettura-ecaas/">ECaaS</a> — Riepilogo vincoli</h2>
+<h2 id="infrastruttura-wiki-concepts-architettura-ecaas-e-caa-s-riepilogo-vincoli" tabindex="-1">Infrastruttura <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/architettura-ecaas/">ECaaS</a> — Riepilogo vincoli</h2>
 <p>Tutti i vincoli confermano il §3.5 dell'SRS:</p>
 <div class="table-wrapper"><table>
 <thead>
@@ -123,7 +123,7 @@
 </tbody>
 </table></div>
 <p><strong>Per nuove immagini base:</strong> scrivere a <a href="mailto:architetture_ai@csi.it" target="_blank" class="external-link">architetture_ai@csi.it</a></p>
-<h3 id="immagini-docker-base-rilevanti-per-wiki-concepts-gestione-consensi-applicativo-gestione-consensi" tabindex="-1">Immagini docker-base rilevanti per <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi</a></h3>
+<h3 id="immagini-docker-base-rilevanti-per-wiki-concepts-gestione-consensi-applicativo-gestione-consensi" tabindex="-1">Immagini docker-base rilevanti per <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi</a></h3>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
@@ -184,7 +184,7 @@ org.opencontainers.image.description
 <ul>
 <li>Dispiegamento solo tramite <strong>Chart CSI</strong> (helm-base, helm-projects)</li>
 <li>Chart di progetto include come dipendenze le chart CSI delle tecnologie usate</li>
-<li>Per <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi</a>: <code>springboot</code> (backend) + <code>httpd</code> (web server)</li>
+<li>Per <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi</a>: <code>springboot</code> (backend) + <code>httpd</code> (web server)</li>
 <li>No chart Bitnami o esterne</li>
 <li>Il DB (DBaaS Nivola) non è in una chart — K8s Secret per credenziali</li>
 </ul>

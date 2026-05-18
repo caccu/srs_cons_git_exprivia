@@ -13,10 +13,10 @@
 <script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
 <script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
-<link href="/styles/digital-garden-base.css" rel="stylesheet">
-<link href="/styles/obsidian-base.css" rel="stylesheet">
-<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
-<link href="/styles/custom-style.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/obsidian-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/custom-style.css" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -26,7 +26,7 @@
 <body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
 <nav class="navbar">
 <div class="navbar-inner">
-<a href="/" style="text-decoration:none">
+<a href="/srs_cons_git/" style="text-decoration:none">
 <h1 style="margin:15px!important">Digital Garden</h1>
 </a>
 </div>
@@ -44,7 +44,7 @@
 <hr>
 <h2 id="cos-e-questo-documento" tabindex="-1">Cos'è questo documento</h2>
 <p>Specifica OpenAPI 3.0 delle due API REST esposte dal sistema Gestione Consensi verso i <strong>Sistemi Informativi Aziendali (SIA)</strong> delle ASR del Piemonte.</p>
-<p>Queste API sono il canale <strong>inbound</strong> (SIA → Regionale): i SIA le chiamano per leggere configurazioni e stato consensi. Non vanno confuse con il canale <strong>outbound</strong> (BATCH-01 → SIA via SOAP), che usa il WSDL AS-IS invariato (<a class="internal-link" target="" data-note-icon="undefined" href="/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a>).</p>
+<p>Queste API sono il canale <strong>inbound</strong> (SIA → Regionale): i SIA le chiamano per leggere configurazioni e stato consensi. Non vanno confuse con il canale <strong>outbound</strong> (BATCH-01 → SIA via SOAP), che usa il WSDL AS-IS invariato (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a>).</p>
 <hr>
 <h2 id="endpoint-esposti" tabindex="-1">Endpoint esposti</h2>
 <h3 id="cdu-15-stato-consenso" tabindex="-1">CDU-15 — Stato consenso</h3>
@@ -165,7 +165,7 @@
 </code></pre>
 <p>Il token contiene il claim <code>client_id</code> del SIA chiamante. L'autorizzazione per ente non si poggia sul claim ma su tabella applicativa <code>cons_t_client_ente</code> che lega <code>client_id</code> → <code>codice_ente</code>. Difesa in profondità a 3 livelli (firma JWT + filter Spring Security + WHERE clause repository).</p>
 <blockquote>
-<p>Modello completo, claim minimi, pseudocodice filter, schema tabella, matrice attacchi/mitigazioni, audit log, testo proposto per SRS: <strong><a class="internal-link" target="" data-note-icon="undefined" href="/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a></strong> (risposta tecnica al commento cliente TR30).</p>
+<p>Modello completo, claim minimi, pseudocodice filter, schema tabella, matrice attacchi/mitigazioni, audit log, testo proposto per SRS: <strong><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a></strong> (risposta tecnica al commento cliente TR30).</p>
 </blockquote>
 <hr>
 <h2 id="gestione-errori" tabindex="-1">Gestione errori</h2>
@@ -210,7 +210,7 @@
 </tr>
 </tbody>
 </table></div>
-<p>I SIA che hanno logica basata sul vecchio comportamento devono aggiornare i propri processi interni. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a> §Cambiamenti semantici critici.</p>
+<p>I SIA che hanno logica basata sul vecchio comportamento devono aggiornare i propri processi interni. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a> §Cambiamenti semantici critici.</p>
 <hr>
 <h2 id="enum-stato-consenso" tabindex="-1">Enum StatoConsenso</h2>
 <div class="table-wrapper"><table>
