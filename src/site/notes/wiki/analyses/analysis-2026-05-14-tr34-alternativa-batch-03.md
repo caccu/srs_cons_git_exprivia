@@ -1,11 +1,11 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-14-tr34-alternativa-batch-03/","title":"TR34 — Alternativa BATCH-03 (centro stella PULL)","tags":["tr34","batch-03","cdu-17","pull","centro-stella","proposta","decisione-aperta","risposta-cliente"],"dg-note-properties":{"title":"TR34 — Alternativa BATCH-03 (centro stella PULL)","aliases":["TR34 — Alternativa BATCH-03 (centro stella PULL)"],"type":"analysis","tags":["tr34","batch-03","cdu-17","pull","centro-stella","proposta","decisione-aperta","risposta-cliente"],"created":"2026-05-14","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised"],"related":["[[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]","[[wiki/analyses/analysis-gap-as-is-to-be\|Analisi Gap AS-IS → TO-BE — Gestione Consensi]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-14-tr34-alternativa-batch-03/","title":"TR34 — Alternativa BATCH-03 (centro stella PULL)","tags":["tr34","batch-03","cdu-17","pull","centro-stella","proposta","decisione-aperta","risposta-cliente"],"dg-note-properties":{"title":"TR34 — Alternativa BATCH-03 (centro stella PULL)","aliases":["TR34 — Alternativa BATCH-03 (centro stella PULL)"],"type":"analysis","tags":["tr34","batch-03","cdu-17","pull","centro-stella","proposta","decisione-aperta","risposta-cliente"],"created":"2026-05-14","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised"],"related":["[[wiki/concepts/alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[wiki/concepts/batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16|analysis-2026-05-06-openapi-cdu-15-16]]","[[wiki/analyses/analysis-gap-as-is-to-be|Analisi Gap AS-IS → TO-BE — Gestione Consensi]]"]}}
 ---
 
 
 # TR34 — Alternativa BATCH-03 (centro stella PULL)
 
-> **Mapping ID commento:** TR34 (CONSPREF-SRS-V1.0-revised_bozza_v3_CSI.pdf) = **TR68** (CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf, MF69R68). Stesso contenuto, numerazione cambiata. Riferimento unificato: [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]].
+> **Mapping ID commento:** TR34 (CONSPREF-SRS-V1.0-revised_bozza_v3_CSI.pdf) = **TR68** (CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf, MF69R68). Stesso contenuto, numerazione cambiata. Riferimento unificato: [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3|analysis-2026-05-14-risposte-mf-srs-v3]].
 
 **Quesito originale (CSI/Regione, commento TR34 / TR68 su CONSPREF-SRS-V1.0-revised_bozza_v3_CSI.pdf, righe 4951–4956, sez. §7.3):**
 
@@ -28,7 +28,7 @@ Proposta soluzione **semplice e indolore**: **CDU-17 PULL — Snapshot consensi 
 - BATCH-03 eliminato dal SRS
 - Variante B (export file con downtime) documentata come opzione retrocompatibile coerente con seconda preferenza cliente nel commento, ma sconsigliata: peggiore su tutti i criteri tranne semplicità lato SIA
 
-**Dettaglio progettuale completo:** [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]
+**Dettaglio progettuale completo:** [[wiki/concepts/alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]
 
 ---
 
@@ -52,7 +52,7 @@ Proposta soluzione **semplice e indolore**: **CDU-17 PULL — Snapshot consensi 
 | Aspetto | Stato | Owner |
 |---|---|---|
 | Proposta tecnica formalizzata | ✅ Fatto (2026-05-14) | Exprivia |
-| Concept page wiki | ✅ [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]] | Exprivia |
+| Concept page wiki | ✅ [[wiki/concepts/alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]] | Exprivia |
 | Testo proposto per SRS §6.17 | ✅ Pronto (vedi concept §11) | Exprivia |
 | Validazione architetturale CSI | ⏳ In attesa | CSI Piemonte |
 | Scelta variante 6.A vs 6.B (blocco vs watermark) | ⏳ Aperta | CSI Piemonte |
@@ -64,9 +64,9 @@ Proposta soluzione **semplice e indolore**: **CDU-17 PULL — Snapshot consensi 
 
 ## Impatti sulle altre pagine wiki
 
-- [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] — sezione BATCH-03 marcata "sotto revisione TR34"
-- [[wiki/analyses/analysis-gap-as-is-to-be\|Analisi Gap AS-IS → TO-BE — Gestione Consensi]] — riga "Processi batch" da postillare (3 batch potenzialmente 2)
-- [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]] — pattern paginazione cursor riutilizzabile come riferimento
+- [[wiki/concepts/batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] — sezione BATCH-03 marcata "sotto revisione TR34"
+- [[wiki/analyses/analysis-gap-as-is-to-be|Analisi Gap AS-IS → TO-BE — Gestione Consensi]] — riga "Processi batch" da postillare (3 batch potenzialmente 2)
+- [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16|analysis-2026-05-06-openapi-cdu-15-16]] — pattern paginazione cursor riutilizzabile come riferimento
 
 ---
 
