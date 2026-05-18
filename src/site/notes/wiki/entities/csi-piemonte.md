@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/entities/csi-piemonte/","title":"CSI Piemonte","tags":["organizzazione","committente","infrastruttura","piemonte"],"dg-note-properties":{"title":"CSI Piemonte","aliases":["CSI Piemonte"],"type":"entity","tags":["organizzazione","committente","infrastruttura","piemonte"],"created":"2026-05-05","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-12-pile-tecnologiche-csi","2026-03-02-domande-srs-csi-v02"],"related":["[[Regione Piemonte]]","[[Architettura ECaaS]]","[[wiki/sources/2026-03-12-pile-tecnologiche-csi|Pile Tecnologiche CSI Piemonte]]","[[Gestione Consensi - Applicativo]]"]}}
+{"dg-publish":true,"permalink":"/wiki/entities/csi-piemonte/","title":"CSI Piemonte","tags":["organizzazione","committente","infrastruttura","piemonte"],"dg-note-properties":{"title":"CSI Piemonte","aliases":["CSI Piemonte"],"type":"entity","tags":["organizzazione","committente","infrastruttura","piemonte"],"created":"2026-05-05","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-12-pile-tecnologiche-csi","2026-03-02-domande-srs-csi-v02"],"related":["[[Regione Piemonte]]","[[Architettura ECaaS]]","[[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]","[[Gestione Consensi - Applicativo]]"]}}
 ---
 
 
