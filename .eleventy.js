@@ -15,12 +15,51 @@ const {
 } = require("./src/helpers/userSetup");
 
 const Image = require("@11ty/eleventy-img");
+
+function normalizePathPrefix(prefix = "") {
+  if (!prefix || prefix === "/") {
+    return "/";
+  }
+  const normalized = `/${prefix}`.replace(/\/{2,}/g, "/").replace(/\/$/, "");
+  return normalized || "/";
+}
+
+function detectPathPrefix() {
+  const configuredPathPrefix =
+    process.env.SITE_PATH_PREFIX ||
+    process.env.ELEVENTY_PATH_PREFIX ||
+    process.env.PATH_PREFIX;
+  if (configuredPathPrefix) {
+    return normalizePathPrefix(configuredPathPrefix);
+  }
+
+  const repository = process.env.GITHUB_REPOSITORY || "";
+  const repositoryName = repository.split("/")[1] || "";
+  if (repositoryName && !repositoryName.endsWith(".github.io")) {
+    return normalizePathPrefix(repositoryName);
+  }
+
+  return "/";
+}
+
+const pathPrefix = detectPathPrefix();
+
+function withPathPrefix(path = "") {
+  if (!path || !path.startsWith("/")) {
+    return path;
+  }
+  if (pathPrefix === "/") {
+    return path;
+  }
+  return `${pathPrefix}${path}`;
+}
+
 function transformImage(src, cls, alt, sizes, widths = ["500", "700", "auto"]) {
   let options = {
     widths: widths,
     formats: ["webp", "jpeg"],
     outputDir: "./dist/img/optimized",
-    urlPath: "/img/optimized",
+    urlPath: withPathPrefix("/img/optimized"),
   };
 
   // generate images, while this is async we don’t wait
@@ -74,7 +113,7 @@ function getAnchorAttributes(filePath, linkTitle) {
     return {
       attributes: {
         "class": "internal-link is-unresolved",
-        "href": "/404",
+        "href": withPathPrefix("/404"),
         "target": "",
       },
       innerHTML: title,
@@ -85,7 +124,7 @@ function getAnchorAttributes(filePath, linkTitle) {
       "class": "internal-link",
       "target": "",
       "data-note-icon": noteIcon,
-      "href": `${permalink}${headerLinkPath}`,
+      "href": withPathPrefix(`${permalink}${headerLinkPath}`),
     },
     innerHTML: title,
   }
@@ -567,6 +606,7 @@ module.exports = function (eleventyConfig) {
       output: "dist",
       data: `_data`,
     },
+    pathPrefix,
     templateFormats: ["njk", "md", "11ty.js"],
     htmlTemplateEngine: "njk",
     markdownTemplateEngine: false,
