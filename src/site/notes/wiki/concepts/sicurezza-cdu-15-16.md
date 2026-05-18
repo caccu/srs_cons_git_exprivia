@@ -1,11 +1,11 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/sicurezza-cdu-15-16/","title":"Sicurezza CDU-15-16 — Modello Autorizzazione per Ente","tags":["sicurezza","cdu-15","cdu-16","oauth2","jwt","multi-tenancy","spring-security","tr30"],"dg-note-properties":{"title":"Sicurezza CDU-15-16 — Modello Autorizzazione per Ente","aliases":["Sicurezza CDU-15-16 — Modello Autorizzazione per Ente"],"type":"concept","tags":["sicurezza","cdu-15","cdu-16","oauth2","jwt","multi-tenancy","spring-security","tr30"],"created":"2026-05-14","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02"],"related":["[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]","[[Sistemi Esterni Integrati]]","[[Architettura ECaaS]]","[[CSI Piemonte]]","[[Gestione Consensi - Applicativo]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/sicurezza-cdu-15-16/","title":"Sicurezza CDU-15-16 — Modello Autorizzazione per Ente","tags":["sicurezza","cdu-15","cdu-16","oauth2","jwt","multi-tenancy","spring-security","tr30"],"dg-note-properties":{"title":"Sicurezza CDU-15-16 — Modello Autorizzazione per Ente","aliases":["Sicurezza CDU-15-16 — Modello Autorizzazione per Ente"],"type":"concept","tags":["sicurezza","cdu-15","cdu-16","oauth2","jwt","multi-tenancy","spring-security","tr30"],"created":"2026-05-14","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02"],"related":["[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16|analysis-2026-05-06-openapi-cdu-15-16]]","[[Sistemi Esterni Integrati]]","[[Architettura ECaaS]]","[[CSI Piemonte]]","[[Gestione Consensi - Applicativo]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
 # Sicurezza CDU-15/16 — Modello Autorizzazione per Ente
 
-**Origine:** risposta tecnica al commento cliente **TR30** sulla revisione SRS bozza v3 (PDF righe 4456–4459, sez. §6.16). Rinumerato come **TR58** nella revisione `CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf` (MF59-62R58). Vedi mapping in [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]].
+**Origine:** risposta tecnica al commento cliente **TR30** sulla revisione SRS bozza v3 (PDF righe 4456–4459, sez. §6.16). Rinumerato come **TR58** nella revisione `CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf` (MF59-62R58). Vedi mapping in [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3|analysis-2026-05-14-risposte-mf-srs-v3]].
 
 **Quesito originale TR30 / TR58:**
 > "Si richiede di dettagliare meglio il comportamento del WS e la security (come si lega la possibilità di vedere unicamente i propri ws, passiamo dal API manger?)"
@@ -16,7 +16,7 @@
 
 **No.** Il progetto **non attraversa l'API Gateway/Manager centralizzato del CSI Piemonte**.
 
-Decisione confermata da CSI ([[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] §Q&A #6) e formalizzata in SRS v3 §3.2:
+Decisione confermata da CSI ([[wiki/sources/2026-03-02-domande-srs-csi-v02|Domande SRS Consensi — Revisione CSI V02]] §Q&A #6) e formalizzata in SRS v3 §3.2:
 
 > "il progetto non adotterà l'API Gateway centralizzato del CSI Piemonte come punto d'ingresso esterno. L'architettura adotta un modello di integrazione diretta: le chiamate HTTP [...] vengono instradate direttamente ai Servizi Backend Spring Boot 3, senza intermediari gateway esterni al progetto. La sicurezza delle API (autenticazione e autorizzazione) è interamente gestita a livello applicativo tramite Spring Security"
 
@@ -224,7 +224,7 @@ Ogni invocazione di CDU-15/CDU-16 registra (struttura JSON):
 }
 ```
 
-Codice fiscale **NON** loggato in chiaro (vedi [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]] §sicurezza, OWASP). Hash dei parametri per ricerca breach post-mortem.
+Codice fiscale **NON** loggato in chiaro (vedi [[wiki/analyses/valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]] §sicurezza, OWASP). Hash dei parametri per ricerca breach post-mortem.
 
 ---
 
@@ -274,8 +274,8 @@ Codice fiscale **NON** loggato in chiaro (vedi [[wiki/analyses/valutazione-quali
 
 ## 9. Riferimenti
 
-- Decisione architetturale "no API Gateway": [[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #6, [[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] §3.2
-- Specifica OpenAPI dei due endpoint: [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]
-- Stack tecnologico Spring Boot 3 + Spring Security: [[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]
-- Vincoli ECaaS / Ingress / TLS: [[wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native\|Linee Guida Cloud Native per Fornitori v1.0.1]], [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]]
-- Inventario sistemi consumer (SIA ASR): [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]]
+- Decisione architetturale "no API Gateway": [[wiki/sources/2026-03-02-domande-srs-csi-v02|Domande SRS Consensi — Revisione CSI V02]] Q&A #6, [[wiki/sources/2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]] §3.2
+- Specifica OpenAPI dei due endpoint: [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16|analysis-2026-05-06-openapi-cdu-15-16]]
+- Stack tecnologico Spring Boot 3 + Spring Security: [[wiki/sources/2026-03-12-pile-tecnologiche-csi|Pile Tecnologiche CSI Piemonte]]
+- Vincoli ECaaS / Ingress / TLS: [[wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native|Linee Guida Cloud Native per Fornitori v1.0.1]], [[wiki/concepts/architettura-ecaas|Architettura ECaaS]]
+- Inventario sistemi consumer (SIA ASR): [[wiki/concepts/sistemi-esterni-integrati|Sistemi Esterni Integrati]]
