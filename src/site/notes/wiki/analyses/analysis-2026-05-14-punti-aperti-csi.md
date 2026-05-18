@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/","title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"dg-note-properties":{"title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","aliases":["Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato"],"type":"analysis","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"created":"2026-05-14","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02"],"related":["[[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|Checklist Avvio Progetto — Gestione Consensi]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]","[[GASP Salute\|GASP Salute]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[wiki/sources/2026-05-05-mermaid-architettura\|Diagramma Architettura Sistema — Mermaid]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/","title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"dg-note-properties":{"title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","aliases":["Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato"],"type":"analysis","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"created":"2026-05-14","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02"],"related":["[[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]]","[[wiki/concepts/sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[wiki/concepts/alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16|analysis-2026-05-06-openapi-cdu-15-16]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3|analysis-2026-05-14-risposte-mf-srs-v3]]","[[GASP Salute|GASP Salute]]","[[wiki/concepts/batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[wiki/sources/2026-05-05-mermaid-architettura|Diagramma Architettura Sistema — Mermaid]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]"]}}
 ---
 
 
@@ -21,7 +21,7 @@
 
 | #     | Domanda                                                                                                    | Prio | Sprint     | Fonte wiki                                                            |
 |-------|------------------------------------------------------------------------------------------------------------|------|------------|------------------------------------------------------------------------|
-| ID-01 | **GASP Salute: protocollo OIDC o SAML2?** Endpoint AS + metadata + flow autenticazione                     | 🔴   | Giorno 1   | [[GASP Salute\|GASP Salute]], [[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|Checklist Avvio Progetto — Gestione Consensi]] §B1 |
+| ID-01 | **GASP Salute: protocollo OIDC o SAML2?** Endpoint AS + metadata + flow autenticazione                     | 🔴   | Giorno 1   | [[GASP Salute|GASP Salute]], [[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]] §B1 |
 | ID-02 | Registrazione app PUA — 2 profili (Operatore, Amministratore)                                              | 🟠   | Sprint 2   | Checklist §B9                                                          |
 | ID-03 | Credenziali IRIS per autenticazione AURA (ambiente DEV)                                                   | 🟠   | Sprint 1   | Checklist §B7                                                          |
 
@@ -29,7 +29,7 @@
 
 ## 2. Sicurezza CDU-15/16 — OAuth2/JWT (TR30 → TR58)
 
-Tutte da [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]] §Punti da chiarire con CSI.
+Tutte da [[wiki/concepts/sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]] §Punti da chiarire con CSI.
 
 | #     | Domanda                                                                                                    | Prio | Sprint   |
 |-------|------------------------------------------------------------------------------------------------------------|------|----------|
@@ -44,7 +44,7 @@ Tutte da [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Au
 
 ## 3. CDU-17 Snapshot Pull (TR34 → TR68) — sostituzione BATCH-03
 
-Tutte da [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]] §Domande aperte CSI.
+Tutte da [[wiki/concepts/alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]] §Domande aperte CSI.
 
 | #     | Domanda                                                                                                    | Prio | Sprint   |
 |-------|------------------------------------------------------------------------------------------------------------|------|----------|
@@ -60,7 +60,7 @@ Tutte da [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PUL
 
 ## 4. OpenAPI CDU-15/16 — TBD da OpenAPI v0.1
 
-Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]] e dal file `openapi-cdu-15-16-v0.1.yaml`.
+Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16|analysis-2026-05-06-openapi-cdu-15-16]] e dal file `openapi-cdu-15-16-v0.1.yaml`.
 
 | #     | Domanda                                                                                                    | Prio | Sprint   |
 |-------|------------------------------------------------------------------------------------------------------------|------|----------|
@@ -76,9 +76,9 @@ Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-op
 
 | #     | Domanda                                                                                                    | Prio | Sprint   | Fonte                                                              |
 |-------|------------------------------------------------------------------------------------------------------------|------|----------|--------------------------------------------------------------------|
-| BAT-01 | **Operazione WSDL per BATCH-01: SRV-01 (AcquisizioneConsenso inbound) o SRV-03 (NotificaAcquisizioneConsenso outbound)?** | 🟡 (rischio implementativo grave) | Sprint 1 | [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] §RISCHIO, Checklist §B10 |
-| BAT-02 | **SC67 — Logica INSERT cons_t_consenso da BATCH-02 (ALG02 storicizzazione): "da approfondire e verificare meglio"** | 🟠   | Prima di chiudere SRS | [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] §ALG02, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] §Tema J |
-| BAT-03 | Stato SCADUTO — semantica cambiata AS-IS vs TO-BE: SIA ASR devono aggiornare logica business. Conferma comunicazione ASR? | 🟠   | Sprint 1 | [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] §Differenza semantica, [[wiki/analyses/analysis-gap-as-is-to-be\|Analisi Gap AS-IS → TO-BE — Gestione Consensi]] |
+| BAT-01 | **Operazione WSDL per BATCH-01: SRV-01 (AcquisizioneConsenso inbound) o SRV-03 (NotificaAcquisizioneConsenso outbound)?** | 🟡 (rischio implementativo grave) | Sprint 1 | [[wiki/concepts/batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] §RISCHIO, Checklist §B10 |
+| BAT-02 | **SC67 — Logica INSERT cons_t_consenso da BATCH-02 (ALG02 storicizzazione): "da approfondire e verificare meglio"** | 🟠   | Prima di chiudere SRS | [[wiki/concepts/batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] §ALG02, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3|analysis-2026-05-14-risposte-mf-srs-v3]] §Tema J |
+| BAT-03 | Stato SCADUTO — semantica cambiata AS-IS vs TO-BE: SIA ASR devono aggiornare logica business. Conferma comunicazione ASR? | 🟠   | Sprint 1 | [[wiki/concepts/batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] §Differenza semantica, [[wiki/analyses/analysis-gap-as-is-to-be|Analisi Gap AS-IS → TO-BE — Gestione Consensi]] |
 
 ---
 
@@ -88,9 +88,9 @@ Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-op
 | ------ | ----------------------------------------------------------------------------------------- | ---- | -------- | ----------------------------------------------------------------------------------------------------------------- |
 | INT-01 | **WSDL AURA** — lista completa servizi (CDU-07/08 ricerca paziente + operatori)           | 🟠   | Sprint 0 | Checklist §B5                                                                                                     |
 | INT-02 | **WSDL Gestione Deleghe**                                                                 | 🟠   | Sprint 0 | Checklist §B6                                                                                                     |
-| INT-03 | **LIS — acronimo + spec integrazione canale acquisizione consensi** (MF3R1, MF4R1)        | 🟠   | Sprint 1 | [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] §LIS, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] §Tema A |
+| INT-03 | **LIS — acronimo + spec integrazione canale acquisizione consensi** (MF3R1, MF4R1)        | 🟠   | Sprint 1 | [[wiki/concepts/sistemi-esterni-integrati|Sistemi Esterni Integrati]] §LIS, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3|analysis-2026-05-14-risposte-mf-srs-v3]] §Tema A |
 | INT-04 | Accesso repo **QUASAR CSI** (componenti UI)                                               | 🟠   | Sprint 1 | Checklist §B8                                                                                                     |
-| INT-05 | Distinzione formalizzata in SRS: **Notificatore di Deleghe ≠ Notificatore UNP** (MF33R31) | 🟡   | Sprint 2 | [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] §Notificatore                                            |
+| INT-05 | Distinzione formalizzata in SRS: **Notificatore di Deleghe ≠ Notificatore UNP** (MF33R31) | 🟡   | Sprint 2 | [[wiki/concepts/sistemi-esterni-integrati|Sistemi Esterni Integrati]] §Notificatore                                            |
 |        |                                                                                           |      |          |                                                                                                                   |
 
 ---
@@ -102,7 +102,7 @@ Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-op
 | INF-01 | **Provisioning DBaaS Nivola DEV** — scheda provisioning standard                                          | 🔴   | Giorno 1 | Checklist §B2 |
 | INF-02 | **Provisioning DBaaS Nivola PROD**                                                                       | 🔴   | Sprint 0 | Checklist §B3 |
 | INF-03 | **Accesso automation CSI** per generazione skeleton progetto (struttura + pipeline + Helm)               | 🔴   | Giorno 1 | Checklist §B4 |
-| INF-04 | **Diagramma architetturale** (`Mermaid.txt`) — versione concordata con CSI o proposta Exprivia? Risolvere conflitto nodo "API Gateway" (CSI ha confermato no-API-GW) | 🟠 | Sprint 0 | [[wiki/sources/2026-05-05-mermaid-architettura\|Diagramma Architettura Sistema — Mermaid]] §Conflict, Checklist §B14 |
+| INF-04 | **Diagramma architetturale** (`Mermaid.txt`) — versione concordata con CSI o proposta Exprivia? Risolvere conflitto nodo "API Gateway" (CSI ha confermato no-API-GW) | 🟠 | Sprint 0 | [[wiki/sources/2026-05-05-mermaid-architettura|Diagramma Architettura Sistema — Mermaid]] §Conflict, Checklist §B14 |
 
 ---
 
@@ -110,9 +110,9 @@ Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-op
 
 | #      | Domanda                                                                                                                   | Prio | Sprint         | Fonte                                                              |                                                                                    |                                               |
 | ------ | ------------------------------------------------------------------------------------------------------------------------- | ---- | -------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------- | --------------------------------------------- |
-| GOV-01 | **Approvazione formale SRS V1.0 bozza v2** da CSI (post-recepimento risposte MF v3_lavorazione)                           | 🟠   | Prima Sprint 1 | Checklist §B12, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]         |                                                                                    |                                               |
-| GOV-02 | **Validazione [PROPOSTA] nell'SRS** — ALG02 BATCH-01 (gestione tentativi), CDU-06 PDF (MF49R48 MF51R50), 10 proposte §8.4 | 🟠   | Prima Sprint 2 | Checklist §B13, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] §Tema D |                                                                                    |                                               |
-| GOV-03 | **CONSPREF-DMP** — Piano migrazione PG9→PG17 non ancora formalizzato: chi è responsabile lato CSI?                        | 🔴   | Sprint 0       | [[2026-03-02-domande-srs-csi-v02                                   \| Domande SRS Consensi — Revisione CSI V02]] Q11, [[valutazione-qualita-srs-consensi \| Valutazione Qualità SRS — Gestione Consensi]] |
+| GOV-01 | **Approvazione formale SRS V1.0 bozza v2** da CSI (post-recepimento risposte MF v3_lavorazione)                           | 🟠   | Prima Sprint 1 | Checklist §B12, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3|analysis-2026-05-14-risposte-mf-srs-v3]]         |                                                                                    |                                               |
+| GOV-02 | **Validazione [PROPOSTA] nell'SRS** — ALG02 BATCH-01 (gestione tentativi), CDU-06 PDF (MF49R48 MF51R50), 10 proposte §8.4 | 🟠   | Prima Sprint 2 | Checklist §B13, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3|analysis-2026-05-14-risposte-mf-srs-v3]] §Tema D |                                                                                    |                                               |
+| GOV-03 | **CONSPREF-DMP** — Piano migrazione PG9→PG17 non ancora formalizzato: chi è responsabile lato CSI?                        | 🔴   | Sprint 0       | [[2026-03-02-domande-srs-csi-v02                                   | Domande SRS Consensi — Revisione CSI V02]] Q11, [[valutazione-qualita-srs-consensi | Valutazione Qualità SRS — Gestione Consensi]] |
 | GOV-04 | **SLA e NFR performance** — tempo risposta max CDU-02, throughput BATCH-01, disponibilità (99.x%)                         | 🟡   | Prima UAT      | Checklist §B15                                                     |                                                                                    |                                               |
 | GOV-05 | **Lista ASR coinvolte** + referenti tecnici (confluisce con API-05)                                                       | 🟠   | Sprint 2       | Checklist §B11                                                     |                                                                                    |                                               |
 
@@ -134,10 +134,10 @@ Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-op
 ## Note di gestione
 
 1. **Ownership tracker:** Marco Forneris (Exprivia) propone questo file come agenda per la prossima riunione CSI/Exprivia.
-2. **Workflow proposto:** ogni voce avrà un campo `risposta_csi` da popolare in revisione successiva del SRS; alla chiusura del punto, la voce si trasforma in entry permanente in [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] o nella relativa concept page.
+2. **Workflow proposto:** ogni voce avrà un campo `risposta_csi` da popolare in revisione successiva del SRS; alla chiusura del punto, la voce si trasforma in entry permanente in [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3|analysis-2026-05-14-risposte-mf-srs-v3]] o nella relativa concept page.
 3. **Dipendenze incrociate evidenti:**
    - SEC-01/API-01 (URL AS) → bloccante per qualsiasi test integrazione SIA
    - SEC-05/PULL-03/API-02 (scope) → da chiarire in singolo round
    - INT-01/INT-02 (WSDL AURA/Deleghe) → bloccano CDU-07/08
    - INF-01/INF-03 (DBaaS + automation) → bloccano partenza Sprint 1 tout court
-1. **Riferimenti operativi:** [[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|Checklist Avvio Progetto — Gestione Consensi]] resta lo strumento day-1 operativo; questo tracker è la versione consolidata e tematicamente raggruppata.
+1. **Riferimenti operativi:** [[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]] resta lo strumento day-1 operativo; questo tracker è la versione consolidata e tematicamente raggruppata.
