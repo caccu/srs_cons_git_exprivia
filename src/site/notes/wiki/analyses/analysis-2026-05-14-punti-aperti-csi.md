@@ -19,11 +19,11 @@
 
 ## 1. Identità & Autenticazione (Cittadino + Operatore)
 
-| #     | Domanda                                                                                | Prio | Sprint   | Fonte wiki                                                                   |                                                    |
-| ----- | -------------------------------------------------------------------------------------- | ---- | -------- | ---------------------------------------------------------------------------- | -------------------------------------------------- |
-| ID-01 | **GASP Salute: protocollo OIDC o SAML2?** Endpoint AS + metadata + flow autenticazione | 🔴   | Giorno 1 | [[wiki/concepts/gasp-salute\|GASP Salute]], [[analysis-2026-05-06-checklist-avvio-progetto \| Checklist Avvio Progetto — Gestione Consensi]] §B1 |
-| ID-02 | Registrazione app PUA — 2 profili (Operatore, Amministratore)                          | 🟠   | Sprint 2 | Checklist §B9                                                                |                                                    |
-| ID-03 | Credenziali IRIS per autenticazione AURA (ambiente DEV)                                | 🟠   | Sprint 1 | Checklist §B7                                                                |                                                    |
+| #     | Domanda                                                                                | Prio | Sprint   | Fonte wiki                                                                         |
+| ----- | -------------------------------------------------------------------------------------- | ---- | -------- | ---------------------------------------------------------------------------------- |
+| ID-01 | **GASP Salute: protocollo OIDC o SAML2?** Endpoint AS + metadata + flow autenticazione | 🔴   | Giorno 1 | [[wiki/concepts/gasp-salute\|GASP Salute]], [[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|analysis-2026-05-06-checklist-avvio-progetto]] §B1 |
+| ID-02 | Registrazione app PUA — 2 profili (Operatore, Amministratore)                          | 🟠   | Sprint 2 | Checklist §B9                                                                      |
+| ID-03 | Credenziali IRIS per autenticazione AURA (ambiente DEV)                                | 🟠   | Sprint 1 | Checklist §B7                                                                      |
 
 ---
 
