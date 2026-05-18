@@ -354,7 +354,12 @@
 <tr>
 <td>Notificatore UNP</td>
 <td>REST</td>
-<td>Token applicativo UNP</td>
+<td>Token applicativo UNP — notifiche generiche</td>
+</tr>
+<tr>
+<td><strong>Notificatore di Deleghe</strong></td>
+<td>REST</td>
+<td>Conferma post-acquisizione consenso al cittadino/delegato (MF33R31) — <strong>servizio distinto da UNP</strong></td>
 </tr>
 <tr>
 <td>SIA ASR (BATCH-01 uscente)</td>
@@ -386,7 +391,7 @@
 </ul>
 <p><strong>Area Operatore Sanitario/Amministrativo (CDU-07÷CDU-11):</strong></p>
 <ul>
-<li>CDU-07: Ricerca assistito (AURA → fallback SistemaTS, tracciatura cons_t_traccia_serv_est)</li>
+<li>CDU-07: Ricerca assistito (AURA: FindProfiliAnagrafici + getProfiloSanitario; <strong>nessun fallback SistemaTS</strong> — MF55R54; tracciatura cons_t_traccia_serv_est)</li>
 <li>CDU-08: Consultazione consensi assistito</li>
 <li>CDU-09: Rilascio consenso per conto (fonte_id='PASS')</li>
 <li>CDU-10: Modifica consenso per conto</li>
@@ -428,10 +433,10 @@
 <td>Scadenza informative → aggiorna stati consenso</td>
 </tr>
 <tr>
-<td>BATCH-03</td>
-<td>AllineamentoConsensi</td>
-<td>On-demand (trigger CDU-14)</td>
-<td>Allinea consensi verso nuovi endpoint</td>
+<td><s>BATCH-03</s></td>
+<td><s>AllineamentoConsensi</s></td>
+<td><s>On-demand (trigger CDU-14)</s></td>
+<td><strong>RIMOSSO</strong> — sostituito da CDU-17 PULL (MF69R68/TR68). Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a></td>
 </tr>
 </tbody>
 </table></div>
