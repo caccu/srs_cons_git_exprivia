@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "prestart": "npm run sanitize:frontmatter",
-        "prebuild": "npm run sanitize:frontmatter && rimraf dist",
+        "prebuild": "rimraf dist && npm run sanitize:frontmatter",
         "start": "npm-run-all get-theme build:sass --parallel watch:*",
         "watch:sass": "sass --watch src/site/styles:dist/styles",
         "watch:eleventy": "cross-env ELEVENTY_ENV=dev eleventy --serve",
