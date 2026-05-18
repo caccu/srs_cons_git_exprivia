@@ -259,8 +259,6 @@
 <th>AS-IS</th>
 <th>TO-BE</th>
 <th>Tipo cambiamento</th>
-<th></th>
-<th></th>
 </tr>
 </thead>
 <tbody>
@@ -269,136 +267,102 @@
 <td>6 CDU</td>
 <td>16 CDU</td>
 <td>espansione funzionale</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>Modello dati</td>
 <td>12 entità</td>
 <td>25+ entità</td>
 <td>nuove entità batch/endpoint/allegati</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>Stack DB</td>
 <td>PostgreSQL 9 (RETIRED)</td>
 <td>PostgreSQL 17 (CURRENT)</td>
 <td>Migrazione obbligatoria</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>Stack applicativo</td>
 <td>Legacy non documentato</td>
 <td>Spring Boot 3 + Angular 19</td>
 <td>Rifacimento completo</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>Processi batch</td>
 <td>Assenti</td>
-<td>3 batch (BATCH-01/02/03) — BATCH-03 contestato TR34, possibile sostituzione con PULL CDU-17 (<a class="internal-link is-unresolved" href="/srs_cons_git/404" target=""> Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a>)</td>
-<td>Nuovi — vedi <a class="internal-link is-unresolved" href="/srs_cons_git/404" target=""> Processi Batch — BATCH-01, BATCH-02, BATCH-03</a></td>
-<td></td>
-<td></td>
+<td>3 batch (BATCH-01/02/03) — BATCH-03 contestato TR34, possibile sostituzione con PULL CDU-17 (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-tr34-alternativa-batch-03/">analysis-2026-05-14-tr34-alternativa-batch-03</a></td>
+<td>Nuovi — vedi<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a></td>
 </tr>
 <tr>
 <td>API esterne per SIA</td>
 <td>Solo SOAP inbound (SRV-01/02)</td>
 <td>SOAP outbound + REST CDU-15/16</td>
 <td>Espansione bidirezionale</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>Autenticazione Cittadino</td>
 <td>Non documentata</td>
 <td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gasp-salute/">GASP Salute</a> SPID/CIE</td>
 <td>Modernizzazione</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>Notifiche ASR</td>
 <td>Sincrono durante acquisizione</td>
 <td>Asincrono BATCH-01 ogni <strong>5 min</strong> con <code>SELECT FOR UPDATE SKIP LOCKED</code> (MF64R63 — sostituisce AS-IS 30 min)</td>
 <td>Cambio paradigma + ottimizzazione concorrenza</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>Notifica cittadino</td>
 <td>Non documentata</td>
 <td>Via <strong>Notificatore di Deleghe</strong> (NON UNP), post-COMPLETATO aziende (MF33R31)</td>
 <td>Nuovo canale dedicato</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>Ricerca assistito operatore</td>
 <td>Non documentata</td>
 <td>AURA: FindProfiliAnagrafici + getProfiloSanitario; <strong>NO SistemaTS</strong> (MF53/MF55)</td>
 <td>Stack semplificato</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>UI terminologia consenso</td>
 <td>Non standard</td>
 <td>&quot;acconsento&quot;/&quot;nego&quot; UI, mapping tecnico ATTIVO/NEGATO invariato (MF9R8)</td>
 <td>Allineamento UX</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>CDU-01</td>
 <td>Singolo caso d'uso</td>
 <td><strong>Split CDU-01a Operatore</strong> (RUPAR/IRIDE/SPID + profilazione) + <strong>CDU-01b Cittadino</strong> (SPID/CIE webapp separata) (MF16R15)</td>
 <td>Separazione canali autenticazione</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>CDU-04/CDU-05 lato cittadino</td>
 <td>Casi d'uso distinti</td>
 <td><strong>Inglobati</strong>: webapp citt usa pulsante unico &quot;Salva&quot;, CDU-05 separato solo per Operatore (MF45R44)</td>
 <td>Semplificazione UX</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>Canali acquisizione consenso</td>
 <td>webapp + operatore</td>
 <td>webapp + operatore + <strong>LIS</strong> (MF3/MF4)</td>
 <td>+1 canale (LIS)</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>Form rendering Citt vs Operatore</td>
 <td>Non vincolato</td>
 <td>Form Renderer unico SSoT (MF57R56) — niente divergenze fra le 2 webapp</td>
 <td>Nuovo vincolo architetturale</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>Storicizzazione consensi</td>
 <td><code>cons_s_consenso</code> non usata</td>
 <td>Usata attivamente</td>
 <td>Attivazione feature esistente</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>Infrastruttura</td>
 <td>Legacy</td>
 <td>ECaaS/Kubernetes Nivola</td>
 <td>Migrazione cloud</td>
-<td></td>
-<td></td>
 </tr>
 </tbody>
 </table></div>
@@ -540,51 +504,44 @@
 <th>AS-IS</th>
 <th>TO-BE</th>
 <th>Cambiamento</th>
-<th></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>SIA ASR (outbound)</td>
 <td>Sincrono durante acquisizione (SRV-01)</td>
-<td>Asincrono <a class="internal-link is-unresolved" href="/srs_cons_git/404" target=""> Processi Batch — BATCH-01, BATCH-02, BATCH-03</a></td>
+<td>Asincrono <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a></td>
 <td>Paradigma asincrono — rischio semantica SCADUTO</td>
-<td></td>
 </tr>
 <tr>
 <td>SIA ASR (inbound)</td>
 <td>Non presente</td>
 <td>CDU-15/16 REST OpenAPI</td>
 <td>Nuovo canale — spec da produrre</td>
-<td></td>
 </tr>
 <tr>
 <td>AURA</td>
 <td>Non documentata</td>
 <td>SOAP + WS-Security IRIS</td>
 <td>Nuovo (WSDL da richiedere)</td>
-<td></td>
 </tr>
 <tr>
 <td>Gestione Deleghe</td>
 <td>Non documentata</td>
 <td>SOAP + OAuth2 Client Credentials</td>
 <td>Nuovo (WSDL da richiedere)</td>
-<td></td>
 </tr>
 <tr>
 <td>Notificatore UNP</td>
 <td>Non presente</td>
 <td>REST</td>
 <td>Nuovo</td>
-<td></td>
 </tr>
 <tr>
 <td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gasp-salute/">GASP Salute</a></td>
 <td>Non documentata</td>
 <td>OIDC/SAML2 (da definire)</td>
 <td>Nuovo — rischio critico</td>
-<td></td>
 </tr>
 </tbody>
 </table></div>
