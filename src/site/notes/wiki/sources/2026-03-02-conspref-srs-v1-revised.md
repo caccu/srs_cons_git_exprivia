@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/sources/2026-03-02-conspref-srs-v1-revised/","title":"CONSPREF-SRS-V1.0 revised bozza v2","tags":["srs","requisiti","gestione-consensi","exprivia","csi-piemonte"],"dg-note-properties":{"title":"CONSPREF-SRS-V1.0 revised bozza v2","aliases":["CONSPREF-SRS-V1.0 revised bozza v2"],"type":"source","tags":["srs","requisiti","gestione-consensi","exprivia","csi-piemonte"],"created":"2026-05-05","updated":"2026-05-14","sources":[],"related":["[[2023-09-01-conspref-srs-01-v03|CONSPREF-SRS-01-V03 Requisiti Gestione Consensi]]","[[2026-03-02-appunti-e-pianificazione|Appunti Sistema + Pianificazione Progetto Consensi]]","[[Gestione Consensi - Applicativo]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[Architettura ECaaS]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/sources/2026-03-02-conspref-srs-v1-revised/","title":"CONSPREF-SRS-V1.0 revised bozza v2","tags":["srs","requisiti","gestione-consensi","exprivia","csi-piemonte"],"dg-note-properties":{"title":"CONSPREF-SRS-V1.0 revised bozza v2","aliases":["CONSPREF-SRS-V1.0 revised bozza v2"],"type":"source","tags":["srs","requisiti","gestione-consensi","exprivia","csi-piemonte"],"created":"2026-05-05","updated":"2026-05-18","sources":[],"related":["[[2023-09-01-conspref-srs-01-v03|CONSPREF-SRS-01-V03 Requisiti Gestione Consensi]]","[[2026-03-02-appunti-e-pianificazione|Appunti Sistema + Pianificazione Progetto Consensi]]","[[Gestione Consensi - Applicativo]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[Architettura ECaaS]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -64,7 +64,8 @@ Tre profili utente:
 | GASP Salute (IdP) | OAuth2/OIDC o SAML2 | Federazione SPID/CIE |
 | AURA (anagrafica) | SOAP | WS-Security UsernameToken (IRIS) |
 | Gestione Deleghe | SOAP | OAuth2 Client Credentials |
-| Notificatore UNP | REST | Token applicativo UNP |
+| Notificatore UNP | REST | Token applicativo UNP — notifiche generiche |
+| **Notificatore di Deleghe** | REST | Conferma post-acquisizione consenso al cittadino/delegato (MF33R31) — **servizio distinto da UNP** |
 | SIA ASR (BATCH-01 uscente) | SOAP | Contratto AS-IS invariato |
 
 ---
@@ -92,7 +93,7 @@ NON_ESPRESSO → ATTIVO | NEGATO → SCADUTO | ANNULLATO
 - CDU-06: Download/stampa PDF (**NUOVA funzionalità TO-BE**, iText7 o PDFBox lato backend)
 
 **Area Operatore Sanitario/Amministrativo (CDU-07÷CDU-11):**
-- CDU-07: Ricerca assistito (AURA → fallback SistemaTS, tracciatura cons_t_traccia_serv_est)
+- CDU-07: Ricerca assistito (AURA: FindProfiliAnagrafici + getProfiloSanitario; **nessun fallback SistemaTS** — MF55R54; tracciatura cons_t_traccia_serv_est)
 - CDU-08: Consultazione consensi assistito
 - CDU-09: Rilascio consenso per conto (fonte_id='PASS')
 - CDU-10: Modifica consenso per conto
@@ -115,7 +116,7 @@ NON_ESPRESSO → ATTIVO | NEGATO → SCADUTO | ANNULLATO
 |---|---|---|---|
 | BATCH-01 | NotificaConsensi | Ogni 5 min | Notifica variazioni consensi alle ASR via SOAP |
 | BATCH-02 | NotificaScadenzaInformative | 1x/giorno (notturno) | Scadenza informative → aggiorna stati consenso |
-| BATCH-03 | AllineamentoConsensi | On-demand (trigger CDU-14) | Allinea consensi verso nuovi endpoint |
+| ~~BATCH-03~~ | ~~AllineamentoConsensi~~ | ~~On-demand (trigger CDU-14)~~ | **RIMOSSO** — sostituito da CDU-17 PULL (MF69R68/TR68). Vedi [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]] |
 
 ---
 
