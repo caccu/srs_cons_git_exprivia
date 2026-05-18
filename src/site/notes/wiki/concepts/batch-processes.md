@@ -1,16 +1,16 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/batch-processes/","title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"dg-note-properties":{"title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","aliases":["Processi Batch — BATCH-01, BATCH-02, BATCH-03"],"type":"concept","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"created":"2026-05-05","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione"],"related":["[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]","[[Sistemi Esterni Integrati\|Sistemi Esterni Integrati]]","[[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/batch-processes/","title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"dg-note-properties":{"title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","aliases":["Processi Batch — BATCH-01, BATCH-02, BATCH-03"],"type":"concept","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"created":"2026-05-05","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione"],"related":["[[wiki/concepts/ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/sources/2019-06-01-webservice-consenso-regionale-v03|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]","[[Sistemi Esterni Integrati|Sistemi Esterni Integrati]]","[[wiki/analyses/valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/concepts/alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
 # Processi Batch
 
-Processi asincroni del sistema TO-BE [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]]. Assenti nell'AS-IS — introdotti per disaccoppiare la logica di notifica/scadenza/allineamento dall'acquisizione sincrona.
+Processi asincroni del sistema TO-BE [[wiki/concepts/gestione-consensi-applicativo|Gestione Consensi - Applicativo]]. Assenti nell'AS-IS — introdotti per disaccoppiare la logica di notifica/scadenza/allineamento dall'acquisizione sincrona.
 
 > **Aggiornamento revisione SRS v3 (2026-05-14):**
 > - BATCH-01: scheduling **5 minuti** con `SELECT FOR UPDATE SKIP LOCKED` (MF64R63) — sostituisce AS-IS 30 minuti
 > - BATCH-02: SQL canonico per nuova informativa (MF66R65)
-> - BATCH-03 push: **rimosso** — sostituito da PULL CDU-17 (MF69R68, ex TR34/TR68). Vedi [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]
+> - BATCH-03 push: **rimosso** — sostituito da PULL CDU-17 (MF69R68, ex TR34/TR68). Vedi [[wiki/concepts/alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]
 > - Notifica cittadino: via **Notificatore di Deleghe** (NON UNP), parte solo post-COMPLETATO (MF33R31)
 
 ---
@@ -21,7 +21,7 @@ Processi asincroni del sistema TO-BE [[wiki/concepts/gestione-consensi-applicati
 **Frequenza:** **Ogni 5 minuti** (MF64R63 — sostituisce AS-IS 30 min)
 **Concorrenza:** `SELECT FOR UPDATE SKIP LOCKED` su `cons_t_notifica` per prevenire sovrapposizioni fra esecuzioni successive (MF64R63)
 **Azione:** Chiama WebService SOAP verso ogni ASR coinvolta per notificare acquisizione/modifica consenso
-**Contratto WSDL:** [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]] — invariato nel TO-BE (confermato da [[wiki/entities/csi-piemonte\|CSI Piemonte]])
+**Contratto WSDL:** [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]] — invariato nel TO-BE (confermato da [[wiki/entities/csi-piemonte|CSI Piemonte]])
 
 ### Pattern di lock concorrenza (MF64R63)
 
@@ -78,15 +78,15 @@ Implicazione: dipendenza temporale stretta. Quando tutti i record `cons_t_notifi
 
 Distinzione canale:
 - **Notificatore di Deleghe**: conferma post-acquisizione al cittadino/delegato (questo caso)
-- **Notificatore UNP**: altre notifiche applicative generiche (vedi [[Sistemi Esterni Integrati\|Sistemi Esterni Integrati]])
+- **Notificatore UNP**: altre notifiche applicative generiche (vedi [[Sistemi Esterni Integrati|Sistemi Esterni Integrati]])
 
 ### ⚠️ RISCHIO CRITICO — Ambiguità operazione WSDL
 
-> **Problema:** SRS §7.1 nomina "operazione Acquisizione" per BATCH-01. Nella [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]], i servizi **uscenti** dal Regionale verso le ASR sono **SRV-03 NotificaAcquisizioneConsenso** — non SRV-01 AcquisizioneConsenso (che è inbound ASR→Regionale).
+> **Problema:** SRS §7.1 nomina "operazione Acquisizione" per BATCH-01. Nella [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]], i servizi **uscenti** dal Regionale verso le ASR sono **SRV-03 NotificaAcquisizioneConsenso** — non SRV-01 AcquisizioneConsenso (che è inbound ASR→Regionale).
 >
 > Implementare BATCH-01 chiamando SRV-01 invece di SRV-03 = contratto WSDL sbagliato = errore grave di integrazione.
 >
-> **Azione:** Conferma scritta da [[wiki/entities/csi-piemonte\|CSI Piemonte]] prima di implementare BATCH-01. Vedi [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]] §RISCHIO AGGIUNTO 4.
+> **Azione:** Conferma scritta da [[wiki/entities/csi-piemonte|CSI Piemonte]] prima di implementare BATCH-01. Vedi [[wiki/analyses/valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]] §RISCHIO AGGIUNTO 4.
 
 ---
 
@@ -100,7 +100,7 @@ Distinzione canale:
 | NO | SCADUTO | No |
 | SI | ANNULLATO | Sì → INSERT `cons_t_notifica` → BATCH-01 |
 
-Vedi [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]] per semantica completa degli stati.
+Vedi [[wiki/concepts/ciclo-vita-consenso|Ciclo di Vita del Consenso]] per semantica completa degli stati.
 
 ### SQL canonico — determinazione nuova informativa (MF66R65)
 
@@ -142,11 +142,11 @@ Note tecniche (SRS §BATCH-02):
 
 ### ⚠️ Differenza semantica AS-IS vs TO-BE — stato SCADUTO
 
-> **AS-IS:** stato SCADUTO impostato durante l'operazione di acquisizione stessa, se il consenso è già presente ([[wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione\|ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)]]).
+> **AS-IS:** stato SCADUTO impostato durante l'operazione di acquisizione stessa, se il consenso è già presente ([[wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione|ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)]]).
 >
 > **TO-BE:** SCADUTO gestito **esclusivamente** da BATCH-02 alla scadenza dell'informativa.
 >
-> Paradigmi diversi. Se i [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] SIA ASR si aspettano comportamento AS-IS (scadenza sincrona durante acquisizione), il TO-BE potrebbe rompere l'integrazione.
+> Paradigmi diversi. Se i [[wiki/concepts/sistemi-esterni-integrati|Sistemi Esterni Integrati]] SIA ASR si aspettano comportamento AS-IS (scadenza sincrona durante acquisizione), il TO-BE potrebbe rompere l'integrazione.
 >
 > **Azione:** Documentare la differenza nella specifica OpenAPI CDU-15/16 e verificare con tutti i SIA coinvolti.
 
@@ -158,7 +158,7 @@ Note tecniche (SRS §BATCH-02):
 >
 > BATCH-03 push viene **rimosso** dalla specifica TO-BE. L'allineamento massivo per nuovo endpoint passa a modello **PULL** via CDU-17 (REST snapshot paginato, SIA pulla autonomamente). Decisione condivisa con CSI come accoglimento del commento TR68 "centro stella".
 >
-> Dettaglio progettuale completo: [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]
+> Dettaglio progettuale completo: [[wiki/concepts/alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]
 
 Design storico (push, deprecato):
 - Trigger: nuovo endpoint ASR (`cons_t_endpoint` con `stato_allineamento=DA_ALLINEARE`)
@@ -196,7 +196,7 @@ Nuovo endpoint configurato (CDU-14 Back Office)
 - BATCH-01: client SOAP Apache CXF o Spring-WS
 - BATCH-01 concorrenza: `SELECT FOR UPDATE SKIP LOCKED` (PostgreSQL 17 nativa) — più istanze pod sicure
 - BATCH-02: usa `gen_random_uuid()` PostgreSQL 17 per UUID nuovi record storicizzati
-- Certificati X509 WS-Security: richiederli a [[wiki/entities/csi-piemonte\|CSI Piemonte]] in Sprint 0
+- Certificati X509 WS-Security: richiederli a [[wiki/entities/csi-piemonte|CSI Piemonte]] in Sprint 0
 - `cons_t_batch_errori`: tabella TO-BE per tracciatura anomalie (non presente AS-IS)
 
 ---
