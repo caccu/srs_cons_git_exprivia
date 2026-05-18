@@ -1,11 +1,11 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/ciclo-vita-consenso/","title":"Ciclo di Vita del Consenso","tags":["macchina-a-stati","consenso","business-logic","gestione-consensi","terminologia-ui","mf9","mf11","mf14"],"dg-note-properties":{"title":"Ciclo di Vita del Consenso","aliases":["Ciclo di Vita del Consenso"],"type":"concept","tags":["macchina-a-stati","consenso","business-logic","gestione-consensi","terminologia-ui","mf9","mf11","mf14"],"created":"2026-05-05","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03"],"related":["[[Gestione Consensi - Applicativo]]","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]","[[wiki/concepts/composizione-dinamica-form-consenso|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/ciclo-vita-consenso/","title":"Ciclo di Vita del Consenso","tags":["macchina-a-stati","consenso","business-logic","gestione-consensi","terminologia-ui","mf9","mf11","mf14"],"dg-note-properties":{"title":"Ciclo di Vita del Consenso","aliases":["Ciclo di Vita del Consenso"],"type":"concept","tags":["macchina-a-stati","consenso","business-logic","gestione-consensi","terminologia-ui","mf9","mf11","mf14"],"created":"2026-05-05","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03"],"related":["[[Gestione Consensi - Applicativo]]","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
 # Ciclo di Vita del Consenso
 
-Macchina a stati che governa ogni consenso espresso nel sistema [[wiki/concepts/gestione-consensi-applicativo|Gestione Consensi - Applicativo]].
+Macchina a stati che governa ogni consenso espresso nel sistema [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]].
 
 ---
 
@@ -88,9 +88,9 @@ Garantisce storia completa degli atti di consenso. Vale anche per le transizioni
 
 | Evento | Batch | Risultato |
 |---|---|---|
-| Nuovo consenso espresso o variazione | → record in `cons_t_notifica` | [[wiki/concepts/batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] BATCH-01 invia alle ASR ogni 5 min (con `SELECT FOR UPDATE SKIP LOCKED`) |
-| Informativa scaduta | BATCH-02 | Consensi → SCADUTO o ANNULLATO (SQL canonico in [[wiki/concepts/batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] MF66) |
-| Nuovo endpoint configurato | ~~BATCH-03 push~~ → **PULL CDU-17** | Allineamento on-demand via [[wiki/concepts/alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]] |
+| Nuovo consenso espresso o variazione | → record in `cons_t_notifica` | [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] BATCH-01 invia alle ASR ogni 5 min (con `SELECT FOR UPDATE SKIP LOCKED`) |
+| Informativa scaduta | BATCH-02 | Consensi → SCADUTO o ANNULLATO (SQL canonico in [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] MF66) |
+| Nuovo endpoint configurato | ~~BATCH-03 push~~ → **PULL CDU-17** | Allineamento on-demand via [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]] |
 
 ---
 
@@ -98,4 +98,4 @@ Garantisce storia completa degli atti di consenso. Vale anche per le transizioni
 
 Se anche solo **1 consenso** di un cittadino per un'ASR è SCADUTO o ANNULLATO → il cittadino deve riaccettare le informative di **tutte** le ASR per quel tipo consenso.
 
-**Visualizzazione informativa per azienda (MF28R27):** quando il consenso aziendale ha informativa specifica per ente, l'UI deve consentire la visualizzazione dell'informativa della singola azienda **prima** della raccolta del consenso per quell'azienda. Vedi [[wiki/concepts/composizione-dinamica-form-consenso|Composizione Dinamica Form Consenso — Single Source of Truth]] §2.3.
+**Visualizzazione informativa per azienda (MF28R27):** quando il consenso aziendale ha informativa specifica per ente, l'UI deve consentire la visualizzazione dell'informativa della singola azienda **prima** della raccolta del consenso per quell'azienda. Vedi [[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]] §2.3.

@@ -1,11 +1,11 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/alternativa-batch-03-pull/","title":"Alternativa BATCH-03 — PULL CDU-17 (centro stella)","tags":["batch-03","cdu-17","pull","centro-stella","allineamento","sia","openapi","tr34","proposta"],"dg-note-properties":{"title":"Alternativa BATCH-03 — PULL CDU-17 (centro stella)","aliases":["Alternativa BATCH-03 — PULL CDU-17 (centro stella)"],"type":"concept","tags":["batch-03","cdu-17","pull","centro-stella","allineamento","sia","openapi","tr34","proposta"],"created":"2026-05-14","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised"],"related":["[[wiki/concepts/batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[wiki/concepts/sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16|analysis-2026-05-06-openapi-cdu-15-16]]","[[Sistemi Esterni Integrati]]","[[wiki/concepts/ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/alternativa-batch-03-pull/","title":"Alternativa BATCH-03 — PULL CDU-17 (centro stella)","tags":["batch-03","cdu-17","pull","centro-stella","allineamento","sia","openapi","tr34","proposta"],"dg-note-properties":{"title":"Alternativa BATCH-03 — PULL CDU-17 (centro stella)","aliases":["Alternativa BATCH-03 — PULL CDU-17 (centro stella)"],"type":"concept","tags":["batch-03","cdu-17","pull","centro-stella","allineamento","sia","openapi","tr34","proposta"],"created":"2026-05-14","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised"],"related":["[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]","[[Sistemi Esterni Integrati]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
 # Alternativa BATCH-03 — PULL CDU-17 (centro stella)
 
-**Origine:** risposta tecnica al commento cliente **TR34** sulla revisione SRS bozza v3 (PDF righe 4951–4956, sez. §7.3 BATCH-03). Rinumerato come **TR68** nella revisione `CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf` (MF69R68). Vedi mapping in [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3|analysis-2026-05-14-risposte-mf-srs-v3]].
+**Origine:** risposta tecnica al commento cliente **TR34** sulla revisione SRS bozza v3 (PDF righe 4951–4956, sez. §7.3 BATCH-03). Rinumerato come **TR68** nella revisione `CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf` (MF69R68). Vedi mapping in [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]].
 
 **Quesito originale TR34 (cliente CSI/Regione):**
 > "No, allineamento massivo deve avvenire con un passaggio di dati all'interno dell'azienda, altrimenti ci carichiamo di un onere che non ci è dovuto. Vogliamo spingere verso un centro stella!!!!! Or export dei dati ma con interruzione del servizio online fino al caricamento."
@@ -20,7 +20,7 @@
 
 - Zero push dal sistema regionale → zero onere infrastrutturale
 - Zero downtime del servizio online
-- Riusa interamente il modello di sicurezza già definito per [[wiki/concepts/sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]
+- Riusa interamente il modello di sicurezza già definito per [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]
 - Paginazione cursor-based → scala su qualunque volume
 - Idempotente: SIA può rieseguire pull senza side-effect
 - BATCH-03 eliminato dal SRS → modello dati semplificato (`cons_t_notifica` non viene popolata in massa)
@@ -125,7 +125,7 @@ SIA conferma fine allineamento. Sistema regionale aggiorna `cons_r_asr_endpoint.
 
 ## 4. Sicurezza
 
-**Identica a [[wiki/concepts/sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]**, nessuna modifica:
+**Identica a [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]**, nessuna modifica:
 
 - OAuth2 Client Credentials + JWT firmato dall'AS CSI Piemonte
 - Tabella `cons_t_client_ente` lega `client_id` → `codice_ente`
@@ -262,7 +262,7 @@ Raccomandazione: **CDU-17 PULL** come primaria. Export disponibile come fallback
 | G2 | §6 Casi d'uso | Aggiungere nuovo §6.17 CDU-17 con testo proposto in §11 sotto |
 | G3 | §6.14 CDU-14 | Modificare step 6: dopo INSERT endpoint, sistema invia notifica out-of-band a SIA (canale da definire). Eliminare trigger BATCH-03 |
 | G4 | §8 Modello dati | Rimuovere `cons_t_batch_errori` se non più necessaria (verificare uso da BATCH-01/02) |
-| G5 | §6.15/§6.16 | Aggiornare sezione "Modello di sicurezza" per includere scope `consensi:snapshot` (rimando a [[wiki/concepts/sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]) |
+| G5 | §6.15/§6.16 | Aggiornare sezione "Modello di sicurezza" per includere scope `consensi:snapshot` (rimando a [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]) |
 | G6 | §10 Test plan | Aggiungere E2E: registrazione endpoint → notifica → pull paginato → conferma → consensi visibili lato SIA |
 | G7 | §3.3 Componenti software | Aggiungere componente "Snapshot Service" (Spring Boot service con cursor pagination) |
 
@@ -324,9 +324,9 @@ Raccomandazione: **CDU-17 PULL** come primaria. Export disponibile come fallback
 
 ## 12. Riferimenti
 
-- Decisione "no API Gateway": [[wiki/sources/2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]] §3.2
-- Pattern sicurezza riusato: [[wiki/concepts/sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]
-- Specifica OpenAPI fratelli CDU-15/16: [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16|analysis-2026-05-06-openapi-cdu-15-16]]
-- Inventario consumer (SIA ASR): [[wiki/concepts/sistemi-esterni-integrati|Sistemi Esterni Integrati]]
-- Design batch corrente sotto revisione: [[wiki/concepts/batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]
-- Macchina a stati consensi: [[wiki/concepts/ciclo-vita-consenso|Ciclo di Vita del Consenso]]
+- Decisione "no API Gateway": [[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] §3.2
+- Pattern sicurezza riusato: [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]
+- Specifica OpenAPI fratelli CDU-15/16: [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]
+- Inventario consumer (SIA ASR): [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]]
+- Design batch corrente sotto revisione: [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]
+- Macchina a stati consensi: [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]

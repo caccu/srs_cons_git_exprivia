@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/","title":"OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento","tags":["openapi","cdu-15","cdu-16","sia","rest","api","draft","consolidamento","sicurezza"],"dg-note-properties":{"title":"OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento","aliases":["OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento"],"type":"analysis","tags":["openapi","cdu-15","cdu-16","sia","rest","api","draft","consolidamento","sicurezza"],"created":"2026-05-06","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2019-06-01-webservice-consenso-regionale-v03"],"related":["[[analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/analyses/analysis-gap-as-is-to-be|Analisi Gap AS-IS → TO-BE — Gestione Consensi]]","[[Sistemi Esterni Integrati]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[wiki/concepts/sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/","title":"OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento","tags":["openapi","cdu-15","cdu-16","sia","rest","api","draft","consolidamento","sicurezza"],"dg-note-properties":{"title":"OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento","aliases":["OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento"],"type":"analysis","tags":["openapi","cdu-15","cdu-16","sia","rest","api","draft","consolidamento","sicurezza"],"created":"2026-05-06","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2019-06-01-webservice-consenso-regionale-v03"],"related":["[[analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/analyses/analysis-gap-as-is-to-be\|Analisi Gap AS-IS → TO-BE — Gestione Consensi]]","[[Sistemi Esterni Integrati]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]"]}}
 ---
 
 
@@ -16,7 +16,7 @@
 
 Specifica OpenAPI 3.0 delle due API REST esposte dal sistema Gestione Consensi verso i **Sistemi Informativi Aziendali (SIA)** delle ASR del Piemonte.
 
-Queste API sono il canale **inbound** (SIA → Regionale): i SIA le chiamano per leggere configurazioni e stato consensi. Non vanno confuse con il canale **outbound** (BATCH-01 → SIA via SOAP), che usa il WSDL AS-IS invariato ([[wiki/sources/2019-06-01-webservice-consenso-regionale-v03|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]).
+Queste API sono il canale **inbound** (SIA → Regionale): i SIA le chiamano per leggere configurazioni e stato consensi. Non vanno confuse con il canale **outbound** (BATCH-01 → SIA via SOAP), che usa il WSDL AS-IS invariato ([[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]).
 
 ---
 
@@ -102,7 +102,7 @@ Authorization: Bearer <token>
 
 Il token contiene il claim `client_id` del SIA chiamante. L'autorizzazione per ente non si poggia sul claim ma su tabella applicativa `cons_t_client_ente` che lega `client_id` → `codice_ente`. Difesa in profondità a 3 livelli (firma JWT + filter Spring Security + WHERE clause repository).
 
-> Modello completo, claim minimi, pseudocodice filter, schema tabella, matrice attacchi/mitigazioni, audit log, testo proposto per SRS: **[[wiki/concepts/sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]** (risposta tecnica al commento cliente TR30).
+> Modello completo, claim minimi, pseudocodice filter, schema tabella, matrice attacchi/mitigazioni, audit log, testo proposto per SRS: **[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]** (risposta tecnica al commento cliente TR30).
 
 ---
 
@@ -134,7 +134,7 @@ Content-type: `application/problem+json`
 | Quando | Durante acquisizione (sincrono) | A scadenza informativa (asincrono, notturno) |
 | Notifica ASR | Sincrona durante acquisizione | Nessuna notifica per SCADUTO — solo per ANNULLATO |
 
-I SIA che hanno logica basata sul vecchio comportamento devono aggiornare i propri processi interni. Vedi [[wiki/analyses/analysis-gap-as-is-to-be|Analisi Gap AS-IS → TO-BE — Gestione Consensi]] §Cambiamenti semantici critici.
+I SIA che hanno logica basata sul vecchio comportamento devono aggiornare i propri processi interni. Vedi [[wiki/analyses/analysis-gap-as-is-to-be\|Analisi Gap AS-IS → TO-BE — Gestione Consensi]] §Cambiamenti semantici critici.
 
 ---
 

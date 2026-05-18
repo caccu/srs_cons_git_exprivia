@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/migrazione-postgres-9-17/","title":"Migrazione PostgreSQL 9 → 17","tags":["database","postgresql","migrazione","rischio-critico","sprint-0","fase-6"],"dg-note-properties":{"title":"Migrazione PostgreSQL 9 → 17","aliases":["Migrazione PostgreSQL 9 → 17","Migrazione PG9 PG17","PG9 → PG17"],"type":"concept","tags":["database","postgresql","migrazione","rischio-critico","sprint-0","fase-6"],"created":"2026-05-15","updated":"2026-05-15","sources":["2026-03-02-appunti-e-pianificazione","2026-03-02-conspref-srs-v1-revised","2026-03-12-pile-tecnologiche-csi","2019-04-08-dizionario-dati-as-is"],"related":["[[wiki/analyses/conspref-dmp-tracker|CONSPREF-DMP — Tracker Piano Migrazione Dati]]","[[Architettura ECaaS]]","[[wiki/sources/2026-03-12-pile-tecnologiche-csi|Pile Tecnologiche CSI Piemonte]]","[[wiki/analyses/valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[CSI Piemonte]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/migrazione-postgres-9-17/","title":"Migrazione PostgreSQL 9 → 17","tags":["database","postgresql","migrazione","rischio-critico","sprint-0","fase-6"],"dg-note-properties":{"title":"Migrazione PostgreSQL 9 → 17","aliases":["Migrazione PostgreSQL 9 → 17","Migrazione PG9 PG17","PG9 → PG17"],"type":"concept","tags":["database","postgresql","migrazione","rischio-critico","sprint-0","fase-6"],"created":"2026-05-15","updated":"2026-05-15","sources":["2026-03-02-appunti-e-pianificazione","2026-03-02-conspref-srs-v1-revised","2026-03-12-pile-tecnologiche-csi","2019-04-08-dizionario-dati-as-is"],"related":["[[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]]","[[Architettura ECaaS]]","[[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]","[[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]]","[[CSI Piemonte]]"]}}
 ---
 
 
@@ -7,7 +7,7 @@
 
 **Salto di 8 major release.** Strategia: **dump/restore** (pg_dump custom format → pg_restore). Pianificata in **Fase 6** (Sprint 9) del progetto.
 
-> ⚠️ **Rischio critico:** Il documento formale di piano migrazione ([[wiki/analyses/conspref-dmp-tracker|CONSPREF-DMP]]) **non è ancora formalizzato**. Senza piano, Fase 6 è a rischio slittamento (vedi [[wiki/analyses/valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]] §Rischio Critico 1).
+> ⚠️ **Rischio critico:** Il documento formale di piano migrazione ([[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP]]) **non è ancora formalizzato**. Senza piano, Fase 6 è a rischio slittamento (vedi [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]] §Rischio Critico 1).
 
 ---
 
@@ -15,15 +15,15 @@
 
 | Versione      | Stato CSI                                     | Note               |
 | ------------- | --------------------------------------------- | ------------------ |
-| PostgreSQL 9  | **RETIRED** da [[wiki/entities/csi-piemonte|CSI Piemonte]] | Obbligo migrazione |
+| PostgreSQL 9  | **RETIRED** da [[wiki/entities/csi-piemonte\|CSI Piemonte]] | Obbligo migrazione |
 | PostgreSQL 17 | **CURRENT** (dic 2025)                        | DBaaS Nivola       |
 |               |                                               |                    |
 
-Vedi [[wiki/sources/2026-03-12-pile-tecnologiche-csi|Pile Tecnologiche CSI Piemonte]] per dettaglio.
+Vedi [[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]] per dettaglio.
 
 ---
 
-## Strategia cutover (da [[wiki/sources/2026-03-02-appunti-e-pianificazione|Appunti Sistema + Pianificazione Progetto Consensi]] §Piano Migrazione)
+## Strategia cutover (da [[wiki/sources/2026-03-02-appunti-e-pianificazione\|Appunti Sistema + Pianificazione Progetto Consensi]] §Piano Migrazione)
 
 ```
 1. Snapshot e blocco scritture PG9 PROD
@@ -54,10 +54,10 @@ Vedi [[wiki/sources/2026-03-12-pile-tecnologiche-csi|Pile Tecnologiche CSI Piemo
 
 ## Audit DDL Sprint 0 (prerequisito)
 
-Vedi `analysis-2026-05-06-checklist-avvio-progetto.md` §A6 e [[wiki/sources/2019-04-08-dizionario-dati-as-is|Modello Dizionario Dati AS-IS (2019)]] §Note.
+Vedi `analysis-2026-05-06-checklist-avvio-progetto.md` §A6 e [[wiki/sources/2019-04-08-dizionario-dati-as-is\|Modello Dizionario Dati AS-IS (2019)]] §Note.
 
 Step:
-1. Accesso DB PG9 AS-IS (richiesta credenziali a [[wiki/entities/csi-piemonte|CSI Piemonte]])
+1. Accesso DB PG9 AS-IS (richiesta credenziali a [[wiki/entities/csi-piemonte\|CSI Piemonte]])
 2. `\d` su ogni tabella → DDL reale
 3. Focus su `cons_s_consenso` (storicizzazione) — verifica struttura fisica vs DDL atteso TO-BE
 4. Inventario indici, FK, trigger, sequence
@@ -67,7 +67,7 @@ Step:
 
 ## Modello dati TO-BE post-migrazione
 
-25 tabelle (§8.3 SRS) + 10 [PROPOSTA] (§8.4) — vs 12 tabelle AS-IS. Vedi [[wiki/sources/2026-03-02-sommario-srs-consensi|Sommario SRS Gestione Consensi — Indice Strutturale]] per elenco completo.
+25 tabelle (§8.3 SRS) + 10 [PROPOSTA] (§8.4) — vs 12 tabelle AS-IS. Vedi [[wiki/sources/2026-03-02-sommario-srs-consensi\|Sommario SRS Gestione Consensi — Indice Strutturale]] per elenco completo.
 
 Trasformazioni schema PG9 → PG17:
 - Conversione struttura storicizzazione (UPDATE+INSERT vs trigger storico AS-IS)
@@ -80,7 +80,7 @@ Trasformazioni schema PG9 → PG17:
 
 | Funzionalità | Uso |
 |---|---|
-| `SELECT FOR UPDATE SKIP LOCKED` | [[wiki/concepts/batch-processes|BATCH-01]] concorrenza-safe multi-pod |
+| `SELECT FOR UPDATE SKIP LOCKED` | [[wiki/concepts/batch-processes\|BATCH-01]] concorrenza-safe multi-pod |
 | `gen_random_uuid()` nativa | UUID nuovi record storicizzati (BATCH-02) |
 | MERGE statement (SQL standard PG15+) | Upsert in CDU-03 acquisizione |
 | `pg_stat_io` | Monitoraggio I/O DBaaS |
@@ -89,10 +89,10 @@ Trasformazioni schema PG9 → PG17:
 
 ## Stato e prossimi passi
 
-- ❌ CONSPREF-DMP bozza v1 — **Da produrre Sprint 0** ([[wiki/entities/csi-piemonte|CSI Piemonte]] responsabile)
+- ❌ CONSPREF-DMP bozza v1 — **Da produrre Sprint 0** ([[wiki/entities/csi-piemonte\|CSI Piemonte]] responsabile)
 - ❌ Audit DDL PG9 — Pianificato Sprint 0
-- ❌ Responsabile formale lato [[wiki/entities/csi-piemonte|CSI Piemonte]] — domanda aperta (GOV-03 in [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi|Punti Aperti CSI — Tracker Unificato]])
+- ❌ Responsabile formale lato [[wiki/entities/csi-piemonte\|CSI Piemonte]] — domanda aperta (GOV-03 in [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punti Aperti CSI — Tracker Unificato]])
 - ✅ Stack target confermato (Q&A CSI #10)
 - ✅ Strategia dump/restore accettata
 
-Vedi anche: [[wiki/analyses/conspref-dmp-tracker|CONSPREF-DMP — Tracker Piano Migrazione Dati]].
+Vedi anche: [[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]].
