@@ -17,15 +17,26 @@ for (const filePath of globSync(NOTES_GLOB)) {
     continue;
   }
 
-  const frontMatter = match[3];
-  const escapedPipes = frontMatter.match(/\\\|/g);
-  const normalizedFrontMatter = frontMatter.replace(/\\\|/g, "|");
-  if (normalizedFrontMatter === frontMatter) {
+  const [
+    ,
+    frontMatterOpen,
+    frontMatterOpenNewline,
+    frontMatter,
+    frontMatterCloseNewline,
+    frontMatterClose,
+    frontMatterTrailingNewline,
+  ] = match;
+  let escapedPipeCount = 0;
+  const normalizedFrontMatter = frontMatter.replace(/\\\|/g, () => {
+    escapedPipeCount += 1;
+    return "|";
+  });
+  if (escapedPipeCount === 0) {
     continue;
   }
 
-  replacements += escapedPipes ? escapedPipes.length : 0;
-  const normalizedFrontMatterBlock = `${match[1]}${match[2]}${normalizedFrontMatter}${match[4]}${match[5]}${match[6]}`;
+  replacements += escapedPipeCount;
+  const normalizedFrontMatterBlock = `${frontMatterOpen}${frontMatterOpenNewline}${normalizedFrontMatter}${frontMatterCloseNewline}${frontMatterClose}${frontMatterTrailingNewline}`;
   const updatedContent =
     content.slice(0, match.index) +
     normalizedFrontMatterBlock +
