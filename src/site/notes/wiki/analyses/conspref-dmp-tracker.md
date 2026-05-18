@@ -1,0 +1,92 @@
+---
+{"dg-publish":true,"permalink":"/wiki/analyses/conspref-dmp-tracker/","title":"CONSPREF-DMP — Tracker Piano Migrazione Dati","tags":["tracker","dmp","migrazione","rischio-critico","governance","sprint-0"],"dg-note-properties":{"title":"CONSPREF-DMP — Tracker Piano Migrazione Dati","aliases":["CONSPREF-DMP — Tracker Piano Migrazione Dati","CONSPREF-DMP Tracker","CONSPREF-DMP"],"type":"analysis","tags":["tracker","dmp","migrazione","rischio-critico","governance","sprint-0"],"created":"2026-05-15","updated":"2026-05-15","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-appunti-e-pianificazione","2026-03-02-domande-srs-csi-v02"],"related":["[[wiki/concepts/migrazione-postgres-9-17\|Migrazione PostgreSQL 9 → 17]]","[[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/entities/exprivia\|Exprivia S.p.A.]]","[[CSI Piemonte]]","[[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|Checklist Avvio Progetto]]","[[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punti Aperti CSI — Tracker Unificato]]"]}}
+---
+
+
+# CONSPREF-DMP — Tracker Piano Migrazione Dati
+
+**Stato:** 🔴 **Non formalizzato** al 2026-05-15. Rischio critico per Fase 6 (Sprint 9) migrazione [[wiki/concepts/migrazione-postgres-9-17\|PG9 → PG17]].
+
+> Questo tracker centralizza lo stato del documento CONSPREF-DMP e i decision-point aperti. Non sostituisce il documento stesso (che va prodotto da [[wiki/entities/exprivia\|Exprivia S.p.A.]] in Sprint 0).
+
+---
+
+## Cos'è CONSPREF-DMP
+
+**Data Migration Plan** — documento formale di pianificazione migrazione dati AS-IS → TO-BE che deve coprire:
+
+| Sezione | Contenuto |
+|---|---|
+| Inventario sorgente | DDL reale PG9 + volumi + indici + FK |
+| Mapping AS-IS → TO-BE | Tabella-per-tabella, campo-per-campo (12 → 25 tabelle) |
+| Trasformazioni | UPDATE+INSERT vs trigger storico, conversioni tipo, nuovi UUID |
+| Strategia cutover | dump/restore, finestra, rollback |
+| Test plan | Verifica conteggi, integrità referenziale, smoke test funzionale |
+| Rollback | Standby PG9 read-only 48h post-cutover |
+| Responsabilità | RACI Exprivia ↔ CSI ↔ Regione |
+
+---
+
+## Stato di ciascuna sezione
+
+| #   | Sezione               | Stato                                                                                   | Owner                                   | Sprint target     |                   |          |
+| --- | --------------------- | --------------------------------------------------------------------------------------- | --------------------------------------- | ----------------- | ----------------- | -------- |
+| 1   | Inventario sorgente   | ❌ Bloccato — manca accesso DB PG9                                                       | [[wiki/entities/csi-piemonte\|csi-piemonte]]                        | [[wiki/entities/csi-piemonte\|csi-piemonte]]  | Sprint 0          |          |
+| 2   | Mapping AS-IS → TO-BE | 🟡 Parziale — §8 SRS copre TO-BE, AS-IS scarno (vedi [[2019-04-08-dizionario-dati-as-is \| Modello Dizionario Dati AS-IS (2019)]]) | [[wiki/entities/csi-piemonte\|csi-piemonte]]  | Exprivia S.p.A.]] | Sprint 0 |
+| 3   | Trasformazioni        | ❌ Da produrre                                                                           | [[exprivia                              \| Exprivia S.p.A.]] | Sprint 1          |          |
+| 4   | Strategia cutover     | 🟡 Bozza nei [[2026-03-02-appunti-e-pianificazione                                      \| Appunti]] §Piano Migrazione PG9→PG17    | [[wiki/entities/csi-piemonte\|csi-piemonte]]  | [[wiki/entities/csi-piemonte\|csi-piemonte]]  | Sprint 0 |
+| 5   | Test plan             | ❌ Da produrre                                                                           | [[exprivia                              \| Exprivia S.p.A.]] | Sprint 8          |          |
+| 6   | Rollback              | 🟡 Bozza (standby 48h)                                                                  | [[exprivia                              \| Exprivia S.p.A.]] | Sprint 8          |          |
+| 7   | RACI                  | ❌ Responsabile formale lato CSI mancante                                                | Da assegnare                            | Sprint 0          |                   |          |
+
+---
+
+## Decision-point aperti
+
+### D1 — Responsabile formale lato CSI
+Chi sponsorizza la migrazione lato [[wiki/entities/csi-piemonte\|CSI Piemonte]]? Senza referente, sblocco accessi DB e validazione strategia rallentano.
+- **Domanda 11** in [[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]]: risposta = "Non ancora formalizzato"
+- Tracciato come **GOV-03** in [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punti Aperti CSI — Tracker Unificato]]
+
+### D2 — Strategia logical replication vs dump/restore puro
+- **Default attuale:** dump/restore (pg_dump -Fc + pg_restore)
+- **Alternativa:** logical replication (CDC) per ridurre downtime — non valutata
+- **Da decidere:** vincoli SLA downtime applicativo
+
+### D3 — Conversione tipi deprecati
+- `money`, `xml` se presenti in PG9 → tipo target?
+- Dipende da audit DDL Sprint 0
+
+### D4 — Retention storico
+- Informative scadute (vedi [[wiki/concepts/informativa\|Informativa Consenso]]) — policy retention non definita per audit legale
+
+---
+
+## Rischi correlati
+
+| Codice | Rischio | Riferimento |
+|---|---|---|
+| RISCH-01 | DMP non formalizzato → slittamento Fase 6 | [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]] §RC1 |
+| GOV-03 | Responsabile CSI mancante | [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punti Aperti CSI — Tracker Unificato]] |
+| TECH-01 | Audit DDL PG9 bloccato da accessi | Checklist §A6 |
+| TECH-02 | Volumi reali ignoti → finestra cutover stimabile | Da audit |
+
+---
+
+## Azioni immediate (Sprint 0)
+
+1. **Assegnare responsabile interno Exprivia** per redazione CONSPREF-DMP
+2. **Richiedere accesso DB PG9 AS-IS** a [[wiki/entities/csi-piemonte\|CSI Piemonte]]
+3. **Avviare audit DDL PG9** (`\d` per ogni tabella, focus `cons_s_consenso`)
+4. **Identificare sponsor CSI** per migrazione (chiusura GOV-03)
+5. **Produrre bozza v1 CONSPREF-DMP** entro fine Sprint 0
+
+Vedi [[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|Checklist Avvio Progetto]] §A6 per la versione checklist operativa.
+
+---
+
+## Riferimenti tra wiki
+
+- [[wiki/concepts/migrazione-postgres-9-17\|Migrazione PostgreSQL 9 → 17]] — concept tecnico migrazione
+- [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]] — RC1 sul DMP mancante
+- [[wiki/entities/exprivia\|Exprivia S.p.A.]] — fornitore responsabile redazione
