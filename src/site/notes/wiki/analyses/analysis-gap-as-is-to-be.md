@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-gap-as-is-to-be/","title":"Analisi Gap AS-IS → TO-BE — Gestione Consensi","tags":["gap-analysis","as-is","to-be","migrazione","delta","dismissione"],"dg-note-properties":{"title":"Analisi Gap AS-IS → TO-BE — Gestione Consensi","aliases":["Analisi Gap AS-IS → TO-BE — Gestione Consensi"],"type":"analysis","tags":["gap-analysis","as-is","to-be","migrazione","delta","dismissione"],"created":"2026-05-05","updated":"2026-05-14","sources":["2019-02-01-sfu-gestione-consensi-v1-7","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2019-04-08-dizionario-dati-as-is","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03"],"related":["[[Gestione Consensi - Applicativo]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[wiki/sources/2019-04-08-dizionario-dati-as-is\|Modello Dizionario Dati AS-IS (2019)]]","[[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]]","[[wiki/sources/2019-02-01-sfu-gestione-consensi-v1-7\|Studio Funzionale Gestione Consensi SoL V1.7 (AS-IS 2019)]]","[[alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[composizione-dinamica-form-consenso|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-gap-as-is-to-be/","title":"Analisi Gap AS-IS → TO-BE — Gestione Consensi","tags":["gap-analysis","as-is","to-be","migrazione","delta","dismissione"],"dg-note-properties":{"title":"Analisi Gap AS-IS → TO-BE — Gestione Consensi","aliases":["Analisi Gap AS-IS → TO-BE — Gestione Consensi"],"type":"analysis","tags":["gap-analysis","as-is","to-be","migrazione","delta","dismissione"],"created":"2026-05-05","updated":"2026-05-14","sources":["2019-02-01-sfu-gestione-consensi-v1-7","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2019-04-08-dizionario-dati-as-is","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03"],"related":["[[Gestione Consensi - Applicativo]]","[[wiki/concepts/ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[wiki/sources/2019-04-08-dizionario-dati-as-is|Modello Dizionario Dati AS-IS (2019)]]","[[wiki/sources/2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]","[[wiki/sources/2019-02-01-sfu-gestione-consensi-v1-7|Studio Funzionale Gestione Consensi SoL V1.7 (AS-IS 2019)]]","[[alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[composizione-dinamica-form-consenso|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -7,8 +7,8 @@
 
 **Scopo:** Identificare cosa cambia, cosa rimane invariato e cosa viene dismesso tra sistema AS-IS (2019) e TO-BE (SRS 2026). Input per sprint planning e gestione rischi integrazione.
 
-**Fonti AS-IS:** [[wiki/sources/2019-02-01-sfu-gestione-consensi-v1-7\|Studio Funzionale Gestione Consensi SoL V1.7 (AS-IS 2019)]], [[wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione\|ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)]], [[wiki/sources/2019-04-08-dizionario-dati-as-is\|Modello Dizionario Dati AS-IS (2019)]], [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]
-**Fonti TO-BE:** [[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]], [[wiki/sources/2023-09-01-conspref-srs-01-v03\|CONSPREF-SRS-01-V03 Requisiti Gestione Consensi]]
+**Fonti AS-IS:** [[wiki/sources/2019-02-01-sfu-gestione-consensi-v1-7|Studio Funzionale Gestione Consensi SoL V1.7 (AS-IS 2019)]], [[wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione|ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)]], [[wiki/sources/2019-04-08-dizionario-dati-as-is|Modello Dizionario Dati AS-IS (2019)]], [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]
+**Fonti TO-BE:** [[wiki/sources/2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]], [[wiki/sources/2023-09-01-conspref-srs-01-v03|CONSPREF-SRS-01-V03 Requisiti Gestione Consensi]]
 
 ---
 
@@ -20,9 +20,9 @@
 | Modello dati                     | 12 entità                     | 25+ entità                                                                                                                 | nuove entità batch/endpoint/allegati                  |                                |                                                 |
 | Stack DB                         | PostgreSQL 9 (RETIRED)        | PostgreSQL 17 (CURRENT)                                                                                                    | Migrazione obbligatoria                               |                                |                                                 |
 | Stack applicativo                | Legacy non documentato        | Spring Boot 3 + Angular 19                                                                                                 | Rifacimento completo                                  |                                |                                                 |
-| Processi batch                   | Assenti                       | 3 batch (BATCH-01/02/03) — BATCH-03 contestato TR34, possibile sostituzione con PULL CDU-17 ([[alternativa-batch-03-pull   \| Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]) | Nuovi — vedi [[batch-processes \| Processi Batch — BATCH-01, BATCH-02, BATCH-03]] |
+| Processi batch                   | Assenti                       | 3 batch (BATCH-01/02/03) — BATCH-03 contestato TR34, possibile sostituzione con PULL CDU-17 ([[alternativa-batch-03-pull   | Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]) | Nuovi — vedi [[batch-processes | Processi Batch — BATCH-01, BATCH-02, BATCH-03]] |
 | API esterne per SIA              | Solo SOAP inbound (SRV-01/02) | SOAP outbound + REST CDU-15/16                                                                                             | Espansione bidirezionale                              |                                |                                                 |
-| Autenticazione Cittadino         | Non documentata               | [[wiki/concepts/gasp-salute\|GASP Salute]] SPID/CIE                                                                                      | Modernizzazione                                       |                                |                                                 |
+| Autenticazione Cittadino         | Non documentata               | [[wiki/concepts/gasp-salute|GASP Salute]] SPID/CIE                                                                                      | Modernizzazione                                       |                                |                                                 |
 | Notifiche ASR                    | Sincrono durante acquisizione | Asincrono BATCH-01 ogni **5 min** con `SELECT FOR UPDATE SKIP LOCKED` (MF64R63 — sostituisce AS-IS 30 min)                 | Cambio paradigma + ottimizzazione concorrenza         |                                |                                                 |
 | Notifica cittadino               | Non documentata               | Via **Notificatore di Deleghe** (NON UNP), post-COMPLETATO aziende (MF33R31)                                               | Nuovo canale dedicato                                 |                                |                                                 |
 | Ricerca assistito operatore      | Non documentata               | AURA: FindProfiliAnagrafici + getProfiloSanitario; **NO SistemaTS** (MF53/MF55)                                            | Stack semplificato                                    |                                |                                                 |
@@ -46,14 +46,14 @@
 | Modifica consenso         | CDU-04 Modifica con scadenza           | Aggiunta logica riaccettazione se SCADUTO/ANNULLATO                                 |
 | Cambio valore             | CDU-05 Cambio valore                   | Stessa logica, no riaccettazione (informativa invariata)                            |
 | Consultazione stato       | CDU-02 Consultazione                   | Redesign UI — cruscotto con card per tipo/sottotipo                                 |
-| Acquisizione da operatore | CDU-07/08 Ricerca + gestione per conto | Separati, con ricerca [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] AURA |
+| Acquisizione da operatore | CDU-07/08 Ricerca + gestione per conto | Separati, con ricerca [[wiki/concepts/sistemi-esterni-integrati|Sistemi Esterni Integrati]] AURA |
 | Storico operazioni        | CDU-09 Storico                         | Aggiunta tracciatura `fonte_id`                                                     |
 
 ### CDU nuovi nel TO-BE
 
 | CDU       | Descrizione                             | Note                                             |
 | --------- | --------------------------------------- | ------------------------------------------------ |
-| CDU-01    | Autenticazione cittadino                | [[wiki/concepts/gasp-salute\|GASP Salute]] — blocco rischio #1 |
+| CDU-01    | Autenticazione cittadino                | [[wiki/concepts/gasp-salute|GASP Salute]] — blocco rischio #1 |
 | CDU-06    | Download PDF attestazione consenso      | Nuova funzionalità — [PROPOSTA]                  |
 | CDU-10/11 | Gestione consenso operatore PASS        | Espansione area operatore                        |
 | CDU-12/13 | Back office tipi consenso e informative | Parametrizzazione dinamica                       |
@@ -65,7 +65,7 @@
 
 ## Modello dati: entità nuove TO-BE
 
-Rispetto alle 12 entità AS-IS documentate in [[wiki/sources/2019-04-08-dizionario-dati-as-is\|Modello Dizionario Dati AS-IS (2019)]]:
+Rispetto alle 12 entità AS-IS documentate in [[wiki/sources/2019-04-08-dizionario-dati-as-is|Modello Dizionario Dati AS-IS (2019)]]:
 
 | Categoria | Entità TO-BE nuove |
 |---|---|
@@ -76,7 +76,7 @@ Rispetto alle 12 entità AS-IS documentate in [[wiki/sources/2019-04-08-dizionar
 | Tracciatura esterna | `cons_t_traccia_serv_est` |
 | Relazioni n:m nuove | `cons_r_sotto_tipo_cons_asr_endpoint`, `cons_r_consenso_valore`, `cons_r_informativa_asr` |
 
-**Entità attivata (esistente ma non usata AS-IS):** `cons_s_consenso` — storico pre-modifica, usata attivamente nel [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]] TO-BE per garantire no-sovrascrittura. Struttura da verificare nell'audit DDL Sprint 0.
+**Entità attivata (esistente ma non usata AS-IS):** `cons_s_consenso` — storico pre-modifica, usata attivamente nel [[wiki/concepts/ciclo-vita-consenso|Ciclo di Vita del Consenso]] TO-BE per garantire no-sovrascrittura. Struttura da verificare nell'audit DDL Sprint 0.
 
 ---
 
@@ -84,12 +84,12 @@ Rispetto alle 12 entità AS-IS documentate in [[wiki/sources/2019-04-08-dizionar
 
 | Sistema                      | AS-IS                                  | TO-BE                            | Cambiamento                                     |                                                 |
 | ---------------------------- | -------------------------------------- | -------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
-| SIA ASR (outbound)           | Sincrono durante acquisizione (SRV-01) | Asincrono [[batch-processes      \| Processi Batch — BATCH-01, BATCH-02, BATCH-03]] | Paradigma asincrono — rischio semantica SCADUTO |
+| SIA ASR (outbound)           | Sincrono durante acquisizione (SRV-01) | Asincrono [[batch-processes      | Processi Batch — BATCH-01, BATCH-02, BATCH-03]] | Paradigma asincrono — rischio semantica SCADUTO |
 | SIA ASR (inbound)            | Non presente                           | CDU-15/16 REST OpenAPI           | Nuovo canale — spec da produrre                 |                                                 |
 | AURA                         | Non documentata                        | SOAP + WS-Security IRIS          | Nuovo (WSDL da richiedere)                      |                                                 |
 | Gestione Deleghe             | Non documentata                        | SOAP + OAuth2 Client Credentials | Nuovo (WSDL da richiedere)                      |                                                 |
 | Notificatore UNP             | Non presente                           | REST                             | Nuovo                                           |                                                 |
-| [[wiki/concepts/gasp-salute\|GASP Salute]] | Non documentata                        | OIDC/SAML2 (da definire)         | Nuovo — rischio critico                         |                                                 |
+| [[wiki/concepts/gasp-salute|GASP Salute]] | Non documentata                        | OIDC/SAML2 (da definire)         | Nuovo — rischio critico                         |                                                 |
 
 ---
 
@@ -97,7 +97,7 @@ Rispetto alle 12 entità AS-IS documentate in [[wiki/sources/2019-04-08-dizionar
 
 ### 1. Stato SCADUTO — meccanismo diverso
 
-| | AS-IS ([[wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione\|ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)]]) | TO-BE |
+| | AS-IS ([[wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione|ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)]]) | TO-BE |
 |---|---|---|
 | Chi imposta SCADUTO | Logica acquisizione (SRV-01) | BATCH-02 su scadenza informativa |
 | Quando | Durante acquisizione se consenso già presente | Alla scadenza dell'informativa |
@@ -118,7 +118,7 @@ TO-BE: BATCH-01 notifica entro 5 minuti. Se SIA ha logica temporale che dipende 
 
 ## Cosa rimane invariato
 
-- **Contratto WSDL outbound** ([[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]) — confermato da [[wiki/entities/csi-piemonte\|CSI Piemonte]], invariato nel TO-BE
+- **Contratto WSDL outbound** ([[wiki/sources/2019-06-01-webservice-consenso-regionale-v03|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]) — confermato da [[wiki/entities/csi-piemonte|CSI Piemonte]], invariato nel TO-BE
 - **Logica fondamentale** — un consenso per tipo/sottotipo/ASR per cittadino
 - **Dati di business core** — tipi consenso, ASR, valori SI/NO, codice fiscale
 - **Accesso operatori** — RUPAR/IRIDE (PUA) — meccanismo invariato
@@ -130,7 +130,7 @@ TO-BE: BATCH-01 notifica entro 5 minuti. Se SIA ha logica temporale che dipende 
 
 | Componente                                            | Motivo                                                                |
 | ----------------------------------------------------- | --------------------------------------------------------------------- |
-| PostgreSQL 9                                          | RETIRED da [[wiki/entities/csi-piemonte\|CSI Piemonte]] — obbligo migrazione a PG17 |
-| Stack legacy applicativo                              | Rifacimento completo su [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]]    |
+| PostgreSQL 9                                          | RETIRED da [[wiki/entities/csi-piemonte|CSI Piemonte]] — obbligo migrazione a PG17 |
+| Stack legacy applicativo                              | Rifacimento completo su [[wiki/concepts/architettura-ecaas|Architettura ECaaS]]    |
 | Acquisizione sincrona SIA→Regionale come unico canale | Sostituito da CDU-15/16 REST + BATCH-01 asincrono                     |
 | Assenza tracciatura storico (`cons_s_consenso` vuota) | TO-BE attiva storicizzazione immutabile                               |
