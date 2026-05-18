@@ -299,10 +299,10 @@
 <tr>
 <td>Processi batch</td>
 <td>Assenti</td>
-<td>3 batch (BATCH-01/02/03) — BATCH-03 contestato TR34, possibile sostituzione con PULL CDU-17 ([[alternativa-batch-03-pull</td>
-<td>Alternativa BATCH-03 — PULL CDU-17 (centro stella)]])</td>
-<td>Nuovi — vedi [[batch-processes</td>
-<td>Processi Batch — BATCH-01, BATCH-02, BATCH-03]]</td>
+<td>3 batch (BATCH-01/02/03) — BATCH-03 contestato TR34, possibile sostituzione con PULL CDU-17 (<a class="internal-link is-unresolved" href="/srs_cons_git/404" target=""> Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a>)</td>
+<td>Nuovi — vedi <a class="internal-link is-unresolved" href="/srs_cons_git/404" target=""> Processi Batch — BATCH-01, BATCH-02, BATCH-03</a></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>API esterne per SIA</td>
@@ -315,9 +315,9 @@
 <tr>
 <td>Autenticazione Cittadino</td>
 <td>Non documentata</td>
-<td>[[wiki/concepts/gasp-salute</td>
-<td>GASP Salute]] SPID/CIE</td>
+<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gasp-salute/">GASP Salute</a> SPID/CIE</td>
 <td>Modernizzazione</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
@@ -437,7 +437,7 @@
 <tr>
 <td>Acquisizione da operatore</td>
 <td>CDU-07/08 Ricerca + gestione per conto</td>
-<td>Separati, con ricerca [[wiki/concepts/sistemi-esterni-integrati</td>
+<td>Separati, con ricerca <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> AURA</td>
 </tr>
 <tr>
 <td>Storico operazioni</td>
@@ -459,7 +459,7 @@
 <tr>
 <td>CDU-01</td>
 <td>Autenticazione cittadino</td>
-<td>[[wiki/concepts/gasp-salute</td>
+<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gasp-salute/">GASP Salute</a> — blocco rischio <a class="tag" onclick="toggleTagSearch(this)" data-content="#1">#1</a></td>
 </tr>
 <tr>
 <td>CDU-06</td>
@@ -547,9 +547,9 @@
 <tr>
 <td>SIA ASR (outbound)</td>
 <td>Sincrono durante acquisizione (SRV-01)</td>
-<td>Asincrono [[batch-processes</td>
-<td>Processi Batch — BATCH-01, BATCH-02, BATCH-03]]</td>
+<td>Asincrono <a class="internal-link is-unresolved" href="/srs_cons_git/404" target=""> Processi Batch — BATCH-01, BATCH-02, BATCH-03</a></td>
 <td>Paradigma asincrono — rischio semantica SCADUTO</td>
+<td></td>
 </tr>
 <tr>
 <td>SIA ASR (inbound)</td>
@@ -580,22 +580,43 @@
 <td></td>
 </tr>
 <tr>
-<td>[[wiki/concepts/gasp-salute</td>
-<td>GASP Salute]]</td>
+<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gasp-salute/">GASP Salute</a></td>
 <td>Non documentata</td>
 <td>OIDC/SAML2 (da definire)</td>
 <td>Nuovo — rischio critico</td>
+<td></td>
 </tr>
 </tbody>
 </table></div>
 <hr>
 <h2 id="cambiamenti-semantici-critici-rischi-integrazione" tabindex="-1">Cambiamenti semantici critici (rischi integrazione)</h2>
 <h3 id="1-stato-scaduto-meccanismo-diverso" tabindex="-1">1. Stato SCADUTO — meccanismo diverso</h3>
-<p>| | AS-IS (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/">ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)</a>) | TO-BE |<br>
-|---|---|---|<br>
-| Chi imposta SCADUTO | Logica acquisizione (SRV-01) | BATCH-02 su scadenza informativa |<br>
-| Quando | Durante acquisizione se consenso già presente | Alla scadenza dell'informativa |<br>
-| Notifica ASR | Sincrona | Asincrona (dopo BATCH-01, max 5 min dopo BATCH-02) |</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th></th>
+<th>AS-IS (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/">ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)</a>)</th>
+<th>TO-BE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chi imposta SCADUTO</td>
+<td>Logica acquisizione (SRV-01)</td>
+<td>BATCH-02 su scadenza informativa</td>
+</tr>
+<tr>
+<td>Quando</td>
+<td>Durante acquisizione se consenso già presente</td>
+<td>Alla scadenza dell'informativa</td>
+</tr>
+<tr>
+<td>Notifica ASR</td>
+<td>Sincrona</td>
+<td>Asincrona (dopo BATCH-01, max 5 min dopo BATCH-02)</td>
+</tr>
+</tbody>
+</table></div>
 <blockquote>
 <p>⚠️ SIA ASR che si aspetta comportamento AS-IS riceve notifica in momento diverso. Documentare nella specifica OpenAPI CDU-15/16 e verificare con tutti i SIA coinvolti prima del go-live.</p>
 </blockquote>
@@ -625,11 +646,11 @@ TO-BE: BATCH-01 notifica entro 5 minuti. Se SIA ha logica temporale che dipende 
 <tbody>
 <tr>
 <td>PostgreSQL 9</td>
-<td>RETIRED da [[wiki/entities/csi-piemonte</td>
+<td>RETIRED da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a> — obbligo migrazione a PG17</td>
 </tr>
 <tr>
 <td>Stack legacy applicativo</td>
-<td>Rifacimento completo su [[wiki/concepts/architettura-ecaas</td>
+<td>Rifacimento completo su <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/architettura-ecaas/">Architettura ECaaS</a></td>
 </tr>
 <tr>
 <td>Acquisizione sincrona SIA→Regionale come unico canale</td>
