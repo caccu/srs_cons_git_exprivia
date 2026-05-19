@@ -30,7 +30,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 - [[wiki/entities/csi-piemonte\|CSI Piemonte]] — Committente tecnico, gestore infrastruttura ECaaS/Nivola, fornitore componenti (GASP, AURA, PUA, IRIS, UNP)
 - [[wiki/entities/exprivia\|Exprivia S.p.A.]] — Fornitore sviluppo, redattore SRS, team analisi e sviluppo TO-BE
 - [[wiki/entities/notificatore-unp\|Notificatore UNP]] — User Notification Platform CSI (REST); distinto da Notificatore di Deleghe; canali email/push/IO/mex
-- [[wiki/entities/regione-piemonte\|Regione Piemonte]] — Committente finale, proprietaria Sanità Elettronica Regionale, finanziatore progetto
+- [[wiki/entities/regione-piemonte\|Regione Piemonte]] — Committente finale, proprietaria Sanità Elettronica Regionale
 
 ---
 
