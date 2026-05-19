@@ -1,6 +1,8 @@
 const slugify = require("@sindresorhus/slugify");
 const markdownIt = require("markdown-it");
 const fs = require("fs");
+const path = require("path");
+const { globSync } = require("glob");
 const matter = require("gray-matter");
 // Obsidian writes [[Page\|Alias]] in frontmatter, but \| is an invalid YAML
 // escape sequence. This custom engine strips \| before parsing. Shared between
@@ -148,6 +150,93 @@ const tagRegex = /(^|\s|\>)(#[^\s!@#$%^&*()=+\.,\[{\]};:'"?><]+)(?!([^<]*>))/g;
 
 const markdownFileTypeRegex = /\.(md|markdown)$/i;
 const isMarkdownPage = (inputPath) => inputPath && inputPath.match(markdownFileTypeRegex);
+const notesRootPath = path.resolve("./src/site/notes");
+
+const notesByFileName = (() => {
+  const byFileName = new Map();
+  for (const relPath of globSync("**/*.{md,markdown}", { cwd: notesRootPath, nodir: true })) {
+    const normalized = relPath.replace(/\\/g, "/");
+    const baseName = path.basename(normalized).toLowerCase();
+    if (!byFileName.has(baseName)) {
+      byFileName.set(baseName, []);
+    }
+    byFileName.get(baseName).push(normalized);
+  }
+  return byFileName;
+})();
+
+function splitHrefParts(href) {
+  const matched = String(href || "").match(/^([^?#]*)(\?[^#]*)?(#.*)?$/);
+  return {
+    pathPart: matched?.[1] || "",
+    queryPart: matched?.[2] || "",
+    hashPart: matched?.[3] || "",
+  };
+}
+
+function decodeHrefPath(hrefPath) {
+  try {
+    return decodeURI(hrefPath);
+  } catch {
+    return hrefPath;
+  }
+}
+
+function sanitizeRelativePath(relPath) {
+  const normalized = path.normalize(relPath || "").replace(/\\/g, "/").replace(/^\.\/+/, "");
+  if (!normalized || normalized === "." || normalized === ".." || normalized.startsWith("../")) {
+    return null;
+  }
+  return normalized;
+}
+
+function getExistingRelativeNotePath(candidatePath) {
+  const sanitized = sanitizeRelativePath(candidatePath);
+  if (!sanitized) return null;
+  const fullPath = path.resolve(notesRootPath, sanitized);
+  const relative = path.relative(notesRootPath, fullPath).replace(/\\/g, "/");
+  if (!relative || relative === "." || relative.startsWith("..")) return null;
+  return fs.existsSync(fullPath) ? relative : null;
+}
+
+function resolveNotePathFromMarkdownHref(hrefPath, inputPath) {
+  const decodedPath = decodeHrefPath(hrefPath);
+  const candidates = [];
+
+  if (decodedPath.startsWith("/")) {
+    candidates.push(decodedPath.replace(/^\/+/, ""));
+  } else {
+    if (inputPath) {
+      const inputDirectory = path.dirname(path.resolve(inputPath));
+      const relativeToNotes = path.relative(
+        notesRootPath,
+        path.resolve(inputDirectory, decodedPath)
+      );
+      candidates.push(relativeToNotes);
+    }
+    candidates.push(decodedPath);
+  }
+
+  for (const candidate of candidates) {
+    const resolved = getExistingRelativeNotePath(candidate);
+    if (resolved) return resolved;
+  }
+
+  const basenameMatches = notesByFileName.get(path.basename(decodedPath).toLowerCase());
+  if (basenameMatches && basenameMatches.length === 1) {
+    return basenameMatches[0];
+  }
+  return null;
+}
+
+function shouldResolveMarkdownHref(href) {
+  const trimmed = String(href || "").trim();
+  if (!trimmed || trimmed.startsWith("#") || /^[a-z][a-z0-9+.-]*:/i.test(trimmed)) {
+    return false;
+  }
+  const { pathPart } = splitHrefParts(trimmed);
+  return markdownFileTypeRegex.test(pathPart);
+}
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.setLiquidOptions({
@@ -476,6 +565,34 @@ module.exports = function(eleventyConfig) {
       dataViewJsLink.innerHTML = innerHTML;
     }
 
+    return str && parsed.innerHTML;
+  });
+
+  eleventyConfig.addTransform("resolve-markdown-file-links", function(str) {
+    if (!isMarkdownPage(this.page.inputPath)) {
+      return str;
+    }
+    const parsed = parse(str);
+    for (const anchor of parsed.querySelectorAll("a[href]")) {
+      const href = anchor.getAttribute("href");
+      if (!shouldResolveMarkdownHref(href)) {
+        continue;
+      }
+      const { pathPart, queryPart, hashPart } = splitHrefParts(href);
+      const resolvedNotePath = resolveNotePathFromMarkdownHref(pathPart, this.page.inputPath);
+      const notePathForAnchor = resolvedNotePath || decodeHrefPath(pathPart);
+      const { attributes } = getAnchorAttributes(notePathForAnchor, anchor.innerHTML);
+      anchor.setAttribute("href", `${attributes.href}${queryPart}${hashPart}`);
+      if (attributes.class) {
+        anchor.setAttribute("class", attributes.class);
+      }
+      if (attributes.target !== undefined) {
+        anchor.setAttribute("target", attributes.target);
+      }
+      if (attributes["data-note-icon"]) {
+        anchor.setAttribute("data-note-icon", attributes["data-note-icon"]);
+      }
+    }
     return str && parsed.innerHTML;
   });
 
