@@ -287,7 +287,7 @@
 <tr>
 <td>BATCH-03 push contestato TR34</td>
 <td>Onere infra regionale, cliente vuole &quot;centro stella&quot;</td>
-<td>Proposta PULL CDU-17 in attesa OK CSI</td>
+<td>Proposta PULL CDU-17 (<a href="../docs/adr/ADR-006-batch-03-pull-cdu-17.md" target="_blank" class="external-link">ADR-006</a>, <strong>proposed</strong>) in attesa sign-off CSI</td>
 </tr>
 <tr>
 <td>SC67 — INSERT storicizzazione BATCH-02</td>
@@ -360,6 +360,116 @@
 <li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/">Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato</a> — Consolidato 38 punti aperti aggregati da 8 pagine, raggruppati per area (auth, security, pull, openapi, batch, integrazioni, infra, gov) e sprint</li>
 <li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/conspref-dmp-tracker/">CONSPREF-DMP — Tracker Piano Migrazione Dati</a> — Tracker stato Data Migration Plan PG9→PG17; 7 sezioni con owner, 4 decision-point aperti, RACI CSI mancante.</li>
 </ul>
+<hr>
+<h2 id="architecture-decision-records" tabindex="-1">Architecture Decision Records</h2>
+<p>Registry decisioni architetturali in <code>docs/adr/</code>. Lifecycle gestito (proposed/accepted/superseded), cross-link bidirezionale con concept/analysis pages. 19 ADR materializzati il 2026-05-19 (18 accepted + 1 proposed).</p>
+<p>Indice completo: <a href="../docs/adr/README.md" target="_blank" class="external-link">docs/adr/README.md</a></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>ADR</th>
+<th>Titolo</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../docs/adr/ADR-001-stack-tecnologico.md" target="_blank" class="external-link">ADR-001</a></td>
+<td>Stack tecnologico (Spring Boot 3 + Java 17 + Angular 19 + PG17)</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-002-piattaforma-ecaas.md" target="_blank" class="external-link">ADR-002</a></td>
+<td>Piattaforma ECaaS Kubernetes Nivola + vincoli</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-003-dbaas-nivola.md" target="_blank" class="external-link">ADR-003</a></td>
+<td>DBaaS Nivola esterno al namespace</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-004-no-api-gateway.md" target="_blank" class="external-link">ADR-004</a></td>
+<td>No API Gateway — sicurezza applicativa Spring Security</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-005-sicurezza-cdu-15-16.md" target="_blank" class="external-link">ADR-005</a></td>
+<td>Sicurezza CDU-15/16 OAuth2 CC + JWT + per-ente</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-006-batch-03-pull-cdu-17.md" target="_blank" class="external-link">ADR-006</a></td>
+<td>BATCH-03 push → CDU-17 PULL centro stella</td>
+<td><strong>proposed</strong></td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-007-batch-01-5min-skip-locked.md" target="_blank" class="external-link">ADR-007</a></td>
+<td>BATCH-01 5 min con SKIP LOCKED</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-008-ssot-form-renderer.md" target="_blank" class="external-link">ADR-008</a></td>
+<td>SSoT Form Renderer (Citt + Op)</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-009-eliminazione-sistemats.md" target="_blank" class="external-link">ADR-009</a></td>
+<td>Eliminazione SistemaTS</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-010-cdu-01-split.md" target="_blank" class="external-link">ADR-010</a></td>
+<td>Split CDU-01 (01a Op + 01b Citt)</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-011-merge-cdu-04-05-cittadino.md" target="_blank" class="external-link">ADR-011</a></td>
+<td>Merge CDU-04/05 cittadino — pulsante unico</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-012-notificatore-deleghe-post-completato.md" target="_blank" class="external-link">ADR-012</a></td>
+<td>Notificatore di Deleghe ≠ UNP, post-COMPLETATO</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-013-migrazione-pg-dump-restore.md" target="_blank" class="external-link">ADR-013</a></td>
+<td>Migrazione PG9 → PG17 dump/restore</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-014-apache-cxf-soap-client.md" target="_blank" class="external-link">ADR-014</a></td>
+<td>Apache CXF client SOAP</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-015-storicizzazione-immutabile.md" target="_blank" class="external-link">ADR-015</a></td>
+<td>Storicizzazione immutabile</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-016-scaduto-async-batch-02.md" target="_blank" class="external-link">ADR-016</a></td>
+<td>SCADUTO async via BATCH-02</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-017-lis-terzo-canale.md" target="_blank" class="external-link">ADR-017</a></td>
+<td>LIS terzo canale acquisizione</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-018-rfc-7807-error-response.md" target="_blank" class="external-link">ADR-018</a></td>
+<td>RFC 7807 error response</td>
+<td>accepted</td>
+</tr>
+<tr>
+<td><a href="../docs/adr/ADR-019-cdu-06-pdf-scope-ridotto.md" target="_blank" class="external-link">ADR-019</a></td>
+<td>CDU-06 PDF scope ridotto</td>
+<td>accepted</td>
+</tr>
+</tbody>
+</table></div>
 </main>
 <aside>
 <div class="sidebar">

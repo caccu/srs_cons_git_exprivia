@@ -289,8 +289,8 @@
 <tr>
 <td>Processi batch</td>
 <td>Assenti</td>
-<td>3 batch (BATCH-01/02/03) — BATCH-03 contestato TR34, possibile sostituzione con PULL CDU-17 (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-tr34-alternativa-batch-03/">analysis-2026-05-14-tr34-alternativa-batch-03</a></td>
-<td>Nuovi — vedi<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a></td>
+<td>2 batch attivi (BATCH-01/02) + BATCH-03 push <strong>sostituito</strong> da PULL CDU-17 (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17</a> / [ADR-006] — <strong>proposed</strong>, attende sign-off CSI Piemonte)</td>
+<td>Nuovi — vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a></td>
 </tr>
 <tr>
 <td>API esterne per SIA</td>
@@ -616,6 +616,50 @@ TO-BE: BATCH-01 notifica entro 5 minuti. Se SIA ha logica temporale che dipende 
 <tr>
 <td>Assenza tracciatura storico (<code>cons_s_consenso</code> vuota)</td>
 <td>TO-BE attiva storicizzazione immutabile</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="adr-correlati" tabindex="-1">ADR correlati</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>ADR</th>
+<th>Decisione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../docs/adr/ADR-007-batch-01-5min-skip-locked.md" target="_blank" class="external-link">ADR-007</a></td>
+<td>BATCH-01 5min (cambio paradigma sync → async)</td>
+</tr>
+<tr>
+<td><a href="../../docs/adr/ADR-009-eliminazione-sistemats.md" target="_blank" class="external-link">ADR-009</a></td>
+<td>Eliminazione SistemaTS (semplificazione stack integrazione)</td>
+</tr>
+<tr>
+<td><a href="../../docs/adr/ADR-010-cdu-01-split.md" target="_blank" class="external-link">ADR-010</a></td>
+<td>Split CDU-01 (separazione canali auth)</td>
+</tr>
+<tr>
+<td><a href="../../docs/adr/ADR-011-merge-cdu-04-05-cittadino.md" target="_blank" class="external-link">ADR-011</a></td>
+<td>Merge CDU-04/05 lato Cittadino</td>
+</tr>
+<tr>
+<td><a href="../../docs/adr/ADR-015-storicizzazione-immutabile.md" target="_blank" class="external-link">ADR-015</a></td>
+<td>Storicizzazione immutabile (attivazione feature <code>cons_s_consenso</code>)</td>
+</tr>
+<tr>
+<td><a href="../../docs/adr/ADR-016-scaduto-async-batch-02.md" target="_blank" class="external-link">ADR-016</a></td>
+<td>SCADUTO async (cambio semantica AS-IS → TO-BE)</td>
+</tr>
+<tr>
+<td><a href="../../docs/adr/ADR-017-lis-terzo-canale.md" target="_blank" class="external-link">ADR-017</a></td>
+<td>LIS terzo canale</td>
+</tr>
+<tr>
+<td><a href="../../docs/adr/ADR-006-batch-03-pull-cdu-17.md" target="_blank" class="external-link">ADR-006</a></td>
+<td>BATCH-03 push → CDU-17 PULL (<strong>proposed</strong>)</td>
 </tr>
 </tbody>
 </table></div>

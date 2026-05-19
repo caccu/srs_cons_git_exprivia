@@ -476,7 +476,7 @@
 <td>I — BATCH-03 PULL (ex TR34)</td>
 <td><strong>TR68 = ex TR34.</strong> Sostituzione BATCH-03 push con PULL CDU-17. Già in wiki</td>
 <td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">alternativa-batch-03-pull</a></td>
-<td>✅ già propagato</td>
+<td>✅ propagato internamente · ⏳ attende sign-off CSI ([ADR-006] <strong>proposed</strong>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -674,6 +674,71 @@ LIMIT 1
 <td><code>wiki/index.md</code>, <code>wiki/log.md</code>, <code>wiki/overview.md</code></td>
 <td>Aggiornamento indice e log</td>
 <td>✅</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="adr-correlati" tabindex="-1">ADR correlati</h2>
+<p>Le risposte MF hanno generato decisioni architetturali formalizzate come ADR. Mapping MF → ADR:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Tema MF</th>
+<th>ADR generati</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A — Canali (MF3/MF4)</td>
+<td><a href="../../docs/adr/ADR-017-lis-terzo-canale.md" target="_blank" class="external-link">ADR-017</a> LIS terzo canale</td>
+</tr>
+<tr>
+<td>A — CDU-01 split (MF16/MF18)</td>
+<td><a href="../../docs/adr/ADR-010-cdu-01-split.md" target="_blank" class="external-link">ADR-010</a> Split CDU-01</td>
+</tr>
+<tr>
+<td>B — Stati (MF11/MF14)</td>
+<td><a href="../../docs/adr/ADR-011-merge-cdu-04-05-cittadino.md" target="_blank" class="external-link">ADR-011</a> transizioni dirette in merge CDU-04/05</td>
+</tr>
+<tr>
+<td>C — Composizione dinamica (MF26/28/30/35/37/39/41/43)</td>
+<td><a href="../../docs/adr/ADR-008-ssot-form-renderer.md" target="_blank" class="external-link">ADR-008</a> SSoT Form Renderer</td>
+</tr>
+<tr>
+<td>C — Merge CDU-04/05 cittadino (MF45)</td>
+<td><a href="../../docs/adr/ADR-011-merge-cdu-04-05-cittadino.md" target="_blank" class="external-link">ADR-011</a></td>
+</tr>
+<tr>
+<td>D — CDU-06 PDF (MF47/49/51)</td>
+<td><a href="../../docs/adr/ADR-019-cdu-06-pdf-scope-ridotto.md" target="_blank" class="external-link">ADR-019</a> CDU-06 scope ridotto</td>
+</tr>
+<tr>
+<td>E — No SistemaTS (MF53/55)</td>
+<td><a href="../../docs/adr/ADR-009-eliminazione-sistemats.md" target="_blank" class="external-link">ADR-009</a> Eliminazione SistemaTS</td>
+</tr>
+<tr>
+<td>F — SSoT operatore (MF57)</td>
+<td><a href="../../docs/adr/ADR-008-ssot-form-renderer.md" target="_blank" class="external-link">ADR-008</a></td>
+</tr>
+<tr>
+<td>G — Notificatore Deleghe (MF33)</td>
+<td><a href="../../docs/adr/ADR-012-notificatore-deleghe-post-completato.md" target="_blank" class="external-link">ADR-012</a></td>
+</tr>
+<tr>
+<td>H — Scheduling (MF64)</td>
+<td><a href="../../docs/adr/ADR-007-batch-01-5min-skip-locked.md" target="_blank" class="external-link">ADR-007</a> BATCH-01 5min</td>
+</tr>
+<tr>
+<td>H — BATCH-02 SQL (MF66)</td>
+<td><a href="../../docs/adr/ADR-016-scaduto-async-batch-02.md" target="_blank" class="external-link">ADR-016</a> SCADUTO async</td>
+</tr>
+<tr>
+<td>I — Sicurezza (MF59-62, ex TR30/TR58)</td>
+<td><a href="../../docs/adr/ADR-005-sicurezza-cdu-15-16.md" target="_blank" class="external-link">ADR-005</a> + <a href="../../docs/adr/ADR-004-no-api-gateway.md" target="_blank" class="external-link">ADR-004</a></td>
+</tr>
+<tr>
+<td>I — BATCH-03 PULL (MF69, ex TR34/TR68)</td>
+<td><a href="../../docs/adr/ADR-006-batch-03-pull-cdu-17.md" target="_blank" class="external-link">ADR-006</a> — <strong>proposed</strong></td>
 </tr>
 </tbody>
 </table></div>

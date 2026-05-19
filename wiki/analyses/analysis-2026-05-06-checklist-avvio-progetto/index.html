@@ -364,7 +364,7 @@
 <h3 id="a4-funzionalita-scope-confermato" tabindex="-1">A4. Funzionalità — scope confermato</h3>
 <ul>
 <li><strong>16 CDU</strong> (tutti documentati con scenario principale, varianti, algoritmi, campi validati)</li>
-<li><strong>3 processi batch</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a>): BATCH-01 ogni 5 min, BATCH-02 su scadenza, BATCH-03 su modifica endpoint</li>
+<li><strong>2 processi batch attivi + 1 sostituito</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a>): BATCH-01 ogni 5 min, BATCH-02 su scadenza. BATCH-03 push <strong>sostituito</strong> da PULL CDU-17 (vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a> e <a href="../../docs/adr/ADR-006-batch-03-pull-cdu-17.md" target="_blank" class="external-link">ADR-006</a> — <strong>proposed</strong>, attende sign-off CSI)</li>
 <li><strong>25 tabelle TO-BE</strong> (§8.3.1–8.3.25 dell'SRS)</li>
 <li><strong>No sovrascrittura consensi</strong> — storicizzazione immutabile via <code>cons_s_consenso</code></li>
 <li><strong>CDU-06 PDF</strong> è funzionalità nuova (non presente AS-IS) — firma eIDAS <strong>non richiesta</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2026-03-02-domande-srs-csi-v02/">Q&amp;A CSI <a class="tag" onclick="toggleTagSearch(this)" data-content="#13">#13</a></a>)</li>

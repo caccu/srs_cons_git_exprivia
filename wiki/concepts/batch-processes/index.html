@@ -440,10 +440,10 @@ WHERE d_informativa_id = :id_informativa_scaduta
 <p><strong>Azione:</strong> Documentare la differenza nella specifica OpenAPI CDU-15/16 e verificare con tutti i SIA coinvolti.</p>
 </blockquote>
 <hr>
-<h2 id="s-batch-03-s-rimosso-sostituito-da-pull-cdu-17" tabindex="-1"><s>BATCH-03</s> — RIMOSSO (sostituito da PULL CDU-17)</h2>
+<h2 id="s-batch-03-s-sostituito-da-pull-cdu-17-strong-proposed-strong-attende-sign-off-csi" tabindex="-1"><s>BATCH-03</s> — sostituito da PULL CDU-17 (<strong>proposed</strong>, attende sign-off CSI)</h2>
 <blockquote>
-<p>🟢 <strong>DESIGN RIVISTO — risposta MF69R68 (ex TR34/TR68):</strong></p>
-<p>BATCH-03 push viene <strong>rimosso</strong> dalla specifica TO-BE. L'allineamento massivo per nuovo endpoint passa a modello <strong>PULL</strong> via CDU-17 (REST snapshot paginato, SIA pulla autonomamente). Decisione condivisa con CSI come accoglimento del commento TR68 &quot;centro stella&quot;.</p>
+<p>🟡 <strong>DESIGN RIVISTO — risposta MF69R68 (ex TR34/TR68):</strong></p>
+<p>BATCH-03 push viene <strong>sostituito</strong> dalla specifica TO-BE da modello <strong>PULL</strong> via CDU-17 (REST snapshot paginato, SIA pulla autonomamente). Proposta tecnica Exprivia (2026-05-14) come accoglimento del commento cliente TR68 &quot;centro stella&quot; — vedi <a href="../../docs/adr/ADR-006-batch-03-pull-cdu-17.md" target="_blank" class="external-link">ADR-006</a>, status <code>proposed</code>. Propagazione interna sulla wiki completata; <strong>attende sign-off formale CSI Piemonte</strong> prima di chiudere SRS e rimuovere fisicamente §7.3.</p>
 <p>Dettaglio progettuale completo: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a></p>
 </blockquote>
 <p>Design storico (push, deprecato):</p>
@@ -510,6 +510,38 @@ Nuovo endpoint configurato (CDU-14 Back Office)
 <td>SRS non specifica</td>
 <td>Schedulazione precisa BATCH-02</td>
 <td>🟠 Da definire con CSI</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="adr-correlati" tabindex="-1">ADR correlati</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>ADR</th>
+<th>Decisione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../docs/adr/ADR-007-batch-01-5min-skip-locked.md" target="_blank" class="external-link">ADR-007</a></td>
+<td>BATCH-01 5 min con SKIP LOCKED</td>
+</tr>
+<tr>
+<td><a href="../../docs/adr/ADR-016-scaduto-async-batch-02.md" target="_blank" class="external-link">ADR-016</a></td>
+<td>Stato SCADUTO async via BATCH-02</td>
+</tr>
+<tr>
+<td><a href="../../docs/adr/ADR-006-batch-03-pull-cdu-17.md" target="_blank" class="external-link">ADR-006</a></td>
+<td>BATCH-03 push → CDU-17 PULL (<strong>proposed</strong>)</td>
+</tr>
+<tr>
+<td><a href="../../docs/adr/ADR-012-notificatore-deleghe-post-completato.md" target="_blank" class="external-link">ADR-012</a></td>
+<td>Notifica cittadino via Notificatore di Deleghe post-COMPLETATO</td>
+</tr>
+<tr>
+<td><a href="../../docs/adr/ADR-014-apache-cxf-soap-client.md" target="_blank" class="external-link">ADR-014</a></td>
+<td>Apache CXF client SOAP (BATCH-01 outbound)</td>
 </tr>
 </tbody>
 </table></div>

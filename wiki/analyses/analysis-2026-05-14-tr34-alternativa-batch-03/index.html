@@ -426,6 +426,26 @@
 </ul>
 <p>In allegato (oppure: nelle sezioni dedicate del SRS) viene fornita la bozza completa di §6.17 con scenario principale, codici di risposta, riferimenti di sicurezza e specifica OpenAPI in produzione.</p>
 <p>La <strong>variante &quot;export con interruzione del servizio&quot;</strong> citata nel commento è progettualmente coerente con la seconda opzione indicata, ma sconsigliata rispetto al PULL: richiede downtime, formato file dedicato, gestione storage temporaneo e processo di download manuale. Resta documentata come fallback per ASR senza capacità di integrazione REST (situazione non prevista, dato che CDU-15 e CDU-16 già richiedono client REST lato SIA).</p>
+<hr>
+<h2 id="adr-correlati" tabindex="-1">ADR correlati</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>ADR</th>
+<th>Decisione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../docs/adr/ADR-006-batch-03-pull-cdu-17.md" target="_blank" class="external-link">ADR-006</a></td>
+<td>Sostituzione BATCH-03 push → CDU-17 PULL — <strong>proposed</strong> (questa analysis è la risposta cliente sintetica)</td>
+</tr>
+<tr>
+<td><a href="../../docs/adr/ADR-005-sicurezza-cdu-15-16.md" target="_blank" class="external-link">ADR-005</a></td>
+<td>Pattern sicurezza riusato dal PULL</td>
+</tr>
+</tbody>
+</table></div>
 </main>
 <aside>
 <div class="sidebar">
