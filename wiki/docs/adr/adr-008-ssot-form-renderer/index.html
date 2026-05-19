@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Single Source of Truth — Form Renderer dinamico unico per Cittadino e Operatore</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("icon-name",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/srs_cons_git/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/obsidian-base.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+</head>
+<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
+<div x-init="isDesktop = (window.innerWidth>=1400) ? true: false;" x-on:resize.window="isDesktop = (window.innerWidth>=1400) ? true : false;" x-data="{isDesktop: true, showFilesMobile: false}">
+<div x-show.important="!isDesktop" style="display:none">
+<nav class="navbar">
+<div class="navbar-inner">
+<span style="font-size:1.5rem;margin-right:10px" @click="showFilesMobile=!showFilesMobile"><i icon-name="menu"></i></span>
+<a href="/srs_cons_git/" style="text-decoration:none">
+<h1 style="margin:15px!important">SRS Consensi</h1>
+</a>
+</div>
+</nav>
+</div>
+<div x-show="showFilesMobile && !isDesktop" @click="showFilesMobile = false" style="display:none" class="fullpage-overlay"></div>
+<nav class="filetree-sidebar" x-show.important="isDesktop || showFilesMobile" style="display:none">
+<a href="/srs_cons_git/" style="text-decoration:none">
+<h1 style="text-align:center">SRS Consensi</h1>
+</a>
+<div class="folder" x-data="{isOpen: true}">
+<div x-show="isOpen" style="display:none" class="">
+<div class="folder inner-folder" x-data="{isOpen: $persist(false).as('docs')}" @click.stop="isOpen=!isOpen">
+<div class="foldername-wrapper align-icon">
+<i x-show="isOpen" style="display:none" icon-name="chevron-down"></i>
+<i x-show="!isOpen" icon-name="chevron-right"></i>
+<span class="foldername">docs</span>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div class="folder inner-folder" x-data="{isOpen: $persist(false).as('docs/adr')}" @click.stop="isOpen=!isOpen">
+<div class="foldername-wrapper align-icon">
+<i x-show="isOpen" style="display:none" icon-name="chevron-down"></i>
+<i x-show="!isOpen" icon-name="chevron-right"></i>
+<span class="foldername">adr</span>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-001-stack-tecnologico/">Stack tecnologico applicativo (Spring Boot 3 + Java 17 + Angular 19 + PostgreSQL 17) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-002-piattaforma-ecaas/">Piattaforma ECaaS Kubernetes Nivola con vincoli operativi </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-003-dbaas-nivola/">Database PostgreSQL su DBaaS Nivola, esterno al namespace ECaaS </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-004-no-api-gateway/">No API Gateway/Manager CSI — sicurezza interamente applicativa via Spring Security </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-005-sicurezza-cdu-15-16/">Sicurezza CDU-15/16 — OAuth2 Client Credentials + JWT + autorizzazione per ente a 3 livelli </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-006-batch-03-pull-cdu-17/">Sostituzione BATCH-03 push con CDU-17 PULL (centro stella) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-007-batch-01-5min-skip-locked/">BATCH-01 scheduling 5 min con SELECT FOR UPDATE SKIP LOCKED </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-008-ssot-form-renderer/">Single Source of Truth — Form Renderer dinamico unico per Cittadino e Operatore </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-009-eliminazione-sistemats/">Eliminazione SistemaTS dall&#39;integrazione (no fallback ricerca assistito) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-010-cdu-01-split/">Split CDU-01 in CDU-01a Operatore e CDU-01b Cittadino </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-011-merge-cdu-04-05-cittadino/">Merge CDU-04/CDU-05 lato Cittadino con pulsante unico Salva </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-012-notificatore-deleghe-post-completato/">Notifica cittadino post-acquisizione via Notificatore di Deleghe (NON UNP), dopo COMPLETATO </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-013-migrazione-pg-dump-restore/">Migrazione PostgreSQL 9 → 17 via dump/restore logico </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-014-apache-cxf-soap-client/">Apache CXF come client SOAP (compatibile Spring Boot 3) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-015-storicizzazione-immutabile/">Storicizzazione immutabile dei consensi (no sovrascrittura, UPDATE+INSERT) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-016-scaduto-async-batch-02/">Stato SCADUTO gestito esclusivamente da BATCH-02 (asincrono, no scadenza sincrona durante acquisizione) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-017-lis-terzo-canale/">LIS come terzo canale di acquisizione consenso </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-018-rfc-7807-error-response/">RFC 7807 (application/problem+json) come standard error response </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/adr-019-cdu-06-pdf-scope-ridotto/">CDU-06 PDF — scope ridotto a sola informativa accettata, no firma, no valore consenso </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/docs/adr/readme/">Architecture Decision Records — Gestione Consensi </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="">
+<div class="folder inner-folder" x-data="{isOpen: $persist(false).as('wiki')}" @click.stop="isOpen=!isOpen">
+<div class="foldername-wrapper align-icon">
+<i x-show="isOpen" style="display:none" icon-name="chevron-down"></i>
+<i x-show="!isOpen" icon-name="chevron-right"></i>
+<span class="foldername">wiki</span>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div class="folder inner-folder" x-data="{isOpen: $persist(false).as('wiki/analyses')}" @click.stop="isOpen=!isOpen">
+<div class="foldername-wrapper align-icon">
+<i x-show="isOpen" style="display:none" icon-name="chevron-down"></i>
+<i x-show="!isOpen" icon-name="chevron-right"></i>
+<span class="foldername">analyses</span>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/">Checklist Avvio Progetto — Gestione Consensi </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/analyses/conspref-dmp-tracker/">CONSPREF-DMP — Tracker Piano Migrazione Dati </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/">OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/">Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/">Risposte MF — Revisione SRS v3 lavorazione (69 commenti) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-tr34-alternativa-batch-03/">TR34 — Alternativa BATCH-03 (centro stella PULL) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/analyses/valutazione-qualita-srs-consensi/">Valutazione Qualità SRS — Gestione Consensi </a>
+</div>
+</div>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div class="folder inner-folder" x-data="{isOpen: $persist(false).as('wiki/concepts')}" @click.stop="isOpen=!isOpen">
+<div class="foldername-wrapper align-icon">
+<i x-show="isOpen" style="display:none" icon-name="chevron-down"></i>
+<i x-show="!isOpen" icon-name="chevron-right"></i>
+<span class="foldername">concepts</span>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/concepts/architettura-ecaas/">Architettura ECaaS </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03 </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/concepts/ciclo-vita-consenso/">Ciclo di Vita del Consenso </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/concepts/gasp-salute/">GASP Salute </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/concepts/informativa/">Informativa Consenso </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/concepts/migrazione-postgres-9-17/">Migrazione PostgreSQL 9 → 17 </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/concepts/stack-tecnologico-applicativo/">Stack Tecnologico Applicativo </a>
+</div>
+</div>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div class="folder inner-folder" x-data="{isOpen: $persist(false).as('wiki/docs')}" @click.stop="isOpen=!isOpen">
+<div class="foldername-wrapper align-icon">
+<i x-show="isOpen" style="display:none" icon-name="chevron-down"></i>
+<i x-show="!isOpen" icon-name="chevron-right"></i>
+<span class="foldername">docs</span>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div class="folder inner-folder" x-data="{isOpen: $persist(false).as('wiki/docs/adr')}" @click.stop="isOpen=!isOpen">
+<div class="foldername-wrapper align-icon">
+<i x-show="isOpen" style="display:none" icon-name="chevron-down"></i>
+<i x-show="!isOpen" icon-name="chevron-right"></i>
+<span class="foldername">adr</span>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-001-stack-tecnologico/">Stack tecnologico applicativo (Spring Boot 3 + Java 17 + Angular 19 + PostgreSQL 17) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-002-piattaforma-ecaas/">Piattaforma ECaaS Kubernetes Nivola con vincoli operativi </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-003-dbaas-nivola/">Database PostgreSQL su DBaaS Nivola, esterno al namespace ECaaS </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-004-no-api-gateway/">No API Gateway/Manager CSI — sicurezza interamente applicativa via Spring Security </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-005-sicurezza-cdu-15-16/">Sicurezza CDU-15/16 — OAuth2 Client Credentials + JWT + autorizzazione per ente a 3 livelli </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-006-batch-03-pull-cdu-17/">Sostituzione BATCH-03 push con CDU-17 PULL (centro stella) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-007-batch-01-5min-skip-locked/">BATCH-01 scheduling 5 min con SELECT FOR UPDATE SKIP LOCKED </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink active-note"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-008-ssot-form-renderer/">Single Source of Truth — Form Renderer dinamico unico per Cittadino e Operatore </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-009-eliminazione-sistemats/">Eliminazione SistemaTS dall&#39;integrazione (no fallback ricerca assistito) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-010-cdu-01-split/">Split CDU-01 in CDU-01a Operatore e CDU-01b Cittadino </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-011-merge-cdu-04-05-cittadino/">Merge CDU-04/CDU-05 lato Cittadino con pulsante unico Salva </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-012-notificatore-deleghe-post-completato/">Notifica cittadino post-acquisizione via Notificatore di Deleghe (NON UNP), dopo COMPLETATO </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-013-migrazione-pg-dump-restore/">Migrazione PostgreSQL 9 → 17 via dump/restore logico </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-014-apache-cxf-soap-client/">Apache CXF come client SOAP (compatibile Spring Boot 3) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-015-storicizzazione-immutabile/">Storicizzazione immutabile dei consensi (no sovrascrittura, UPDATE+INSERT) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-016-scaduto-async-batch-02/">Stato SCADUTO gestito esclusivamente da BATCH-02 (asincrono, no scadenza sincrona durante acquisizione) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-017-lis-terzo-canale/">LIS come terzo canale di acquisizione consenso </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-018-rfc-7807-error-response/">RFC 7807 (application/problem+json) come standard error response </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-019-cdu-06-pdf-scope-ridotto/">CDU-06 PDF — scope ridotto a sola informativa accettata, no firma, no valore consenso </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/readme/">Architecture Decision Records — Gestione Consensi </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div class="folder inner-folder" x-data="{isOpen: $persist(false).as('wiki/entities')}" @click.stop="isOpen=!isOpen">
+<div class="foldername-wrapper align-icon">
+<i x-show="isOpen" style="display:none" icon-name="chevron-down"></i>
+<i x-show="!isOpen" icon-name="chevron-right"></i>
+<span class="foldername">entities</span>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/entities/exprivia/">Exprivia S.p.A. </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/entities/notificatore-unp/">Notificatore UNP </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/entities/regione-piemonte/">Regione Piemonte </a>
+</div>
+</div>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div class="folder inner-folder" x-data="{isOpen: $persist(false).as('wiki/sources')}" @click.stop="isOpen=!isOpen">
+<div class="foldername-wrapper align-icon">
+<i x-show="isOpen" style="display:none" icon-name="chevron-down"></i>
+<i x-show="!isOpen" icon-name="chevron-right"></i>
+<span class="foldername">sources</span>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/">ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/sources/2026-03-02-appunti-e-pianificazione/">Appunti Sistema + Pianificazione Progetto Consensi </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/sources/2023-09-01-conspref-srs-01-v03/">CONSPREF-SRS-01-V03 Requisiti Gestione Consensi </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/sources/2026-03-02-conspref-srs-v1-revised/">CONSPREF-SRS-V1.0 revised bozza v2 </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/sources/2019-04-08-dizionario-dati-as-is/">Modello Dizionario Dati AS-IS (2019) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/sources/2026-03-02-domande-srs-csi-v02/">Domande SRS Consensi — Revisione CSI V02 </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native/">Linee Guida Cloud Native per Fornitori v1.0.1 </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/sources/2026-05-05-mermaid-architettura/">Diagramma Architettura Sistema — Mermaid </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/sources/2026-03-12-pile-tecnologiche-csi/">Pile Tecnologiche CSI Piemonte </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/sources/2019-02-01-sfu-gestione-consensi-v1-7/">Studio Funzionale Gestione Consensi SoL V1.7 (AS-IS 2019) </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/sources/2026-03-02-sommario-srs-consensi/">Sommario SRS Gestione Consensi — Indice Strutturale </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS) </a>
+</div>
+</div>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/">Wiki Index </a>
+</div>
+</div>
+<div x-show="isOpen" style="display:none" class="filelist">
+<div @click.stop class="notelink"><i icon-name="sticky-note" aria-hidden="true"></i><a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/overview/">Overview </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</div>
+<main class="content cm-s-obsidian">
+<header>
+<div class="header-meta">
+</div>
+</header>
+<h1 id="adr-008-single-source-of-truth-form-renderer-unico" tabindex="-1">ADR-008: Single Source of Truth — Form Renderer unico</h1>
+<h2 id="status" tabindex="-1">Status</h2>
+<p><code>accepted</code> — vincolo architetturale dichiarato in MF57R56 sulla revisione SRS v3.</p>
+<h2 id="context" tabindex="-1">Context</h2>
+<p>Il SRS prevede due webapp:</p>
+<ul>
+<li><strong>app-cittadino</strong> (CDU-02, CDU-03, CDU-04 lato cittadino)</li>
+<li><strong>app-operatore</strong> (CDU-09, CDU-10, CDU-11 lato operatore PUA)</li>
+</ul>
+<p>Entrambe rendono il form di consenso per la stessa configurazione (<code>tipo_consenso</code>, <code>sotto_tipo_consenso</code>). Senza vincolo esplicito, due implementazioni divergenti del form sono il default — con conseguenze gravi:</p>
+<ul>
+<li>Bug duplicati (e diversamente diagnosticabili)</li>
+<li>Drift UX: cittadino e operatore vedono validazioni o campi diversi per lo stesso consenso</li>
+<li>Difficoltà di evoluzione: ogni nuovo <code>sotto_tipo_consenso</code> deve essere aggiunto due volte</li>
+<li>Test moltiplicati</li>
+</ul>
+<h2 id="decision" tabindex="-1">Decision</h2>
+<p>Vincolo SSoT: <strong>nessuna divergenza di struttura fra interfaccia Cittadino e Operatore</strong> per lo stesso <code>sotto_tipo_consenso</code>.</p>
+<p>Implementazione:</p>
+<ul>
+<li>Un singolo componente <strong>Form Renderer dinamico</strong> Angular, condiviso fra le 2 webapp</li>
+<li>Input: <code>tipo_consenso</code>, <code>sotto_tipo_consenso</code>, <code>codice_ente</code> (per aziendali), <code>modalita</code> (<code>citt</code> | <code>operatore</code>)</li>
+<li>Output: form renderizzato + binding bidirezionale con backend</li>
+<li>Componente da aggiungere a SRS §3.3 Componenti software</li>
+</ul>
+<p>Differenze ammesse fra Cittadino e Operatore — <strong>solo metadati di tracciatura sorgente</strong> (non struttura form):</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Cittadino</th>
+<th>Operatore</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fonte_id</code></td>
+<td>da contesto webapp (es. <code>WEB_CITT</code>, <code>LIS</code>)</td>
+<td><code>'PASS'</code></td>
+</tr>
+<tr>
+<td><code>login_operazione</code></td>
+<td>CF cittadino autenticato</td>
+<td>login operatore PUA</td>
+</tr>
+<tr>
+<td><code>ruoloop_id</code></td>
+<td>NULL</td>
+<td>ID ruolo operatore PUA</td>
+</tr>
+</tbody>
+</table></div>
+<p>Configurazione completamente DB-driven (<code>cons_d_sotto_tipo_cons</code> + tabelle correlate). Nulla hardcoded a livello UI.</p>
+<h2 id="consequences" tabindex="-1">Consequences</h2>
+<h3 id="positive" tabindex="-1">Positive</h3>
+<ul>
+<li>Coerenza UX cittadino/operatore garantita per costruzione</li>
+<li>Singolo punto di evoluzione per ogni nuovo <code>sotto_tipo_consenso</code></li>
+<li>Riduzione superficie test (un solo renderer da testare per regola)</li>
+<li>Architettura aperta a nuovi canali (es. mobile, kiosk LIS — vedi <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-017</a>)</li>
+</ul>
+<h3 id="negative" tabindex="-1">Negative</h3>
+<ul>
+<li>Vincola le 2 webapp ad usare la stessa stack frontend (Angular + componente shared)</li>
+<li>Versioning del componente shared deve essere sincronizzato fra le webapp</li>
+<li>Endpoint <code>GET /api/v1/config/sotto-tipo-consenso/{sotto_tipo}</code> da implementare</li>
+</ul>
+<h3 id="neutral" tabindex="-1">Neutral</h3>
+<ul>
+<li>Cache lato browser opportuna per ridurre fetch ripetuti</li>
+</ul>
+<h2 id="alternatives-considered" tabindex="-1">Alternatives considered</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Alternativa</th>
+<th>Motivo scarto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Due renderer separati cittadino/operatore</td>
+<td>Drift garantito; bug doppi; rigetta MF57R56</td>
+</tr>
+<tr>
+<td>Server-side rendering</td>
+<td>Backend Spring Boot deve restare API-only per coerenza con stack <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-001</a></td>
+</tr>
+<tr>
+<td>Form schema standard (JSON Schema / RJSF)</td>
+<td>Aggiunge dipendenza esterna; configurazione DB già presente</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="references" tabindex="-1">References</h2>
+<ul>
+<li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a> (concept completo con regole §2-§5)</li>
+<li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/">Risposte MF SRS v3</a> MF57R56 (+ MF26R25, MF28R27, MF30R29, MF37R36)</li>
+<li>Correlato: <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-011</a> merge CDU-04/CDU-05 lato cittadino (uso pulsante unico abilitato dal renderer dinamico)</li>
+</ul>
+</main>
+<aside>
+<div class="sidebar">
+<div class="sidebar-container">
+<script>async function fetchGraphData(){const e=await fetch("/srs_cons_git/graph.json").then((e=>e.json()));return{graphData:e,fullGraphData:filterFullGraphData(e)}}function getNextLevelNeighbours(e,t){const n=Object.values(e).map((e=>e.neighbors)).flat();return Object.keys(t).reduce(((r,l)=>(-1!=n.indexOf(l)?t[l].hide||(e[l]=t[l]):r[l]=t[l],r)),{})}function filterLocalGraphData(e,t){if(null==e)return null;let n=JSON.parse(JSON.stringify(e.nodes)),r=JSON.parse(JSON.stringify(e.links)),l=n[decodeURI(window.location.pathname)]||Object.values(n).find((e=>e.home));if(delete n[l.url],!l.home){delete n[Object.values(n).find((e=>e.home)).url]}l.current=!0;let i={};i[l.url]=l;for(let e=0;e<t;e++)n=getNextLevelNeighbours(i,n);nodes=Object.values(i),l.home||(nodes=nodes.filter((e=>!e.home)));let o=nodes.map((e=>e.id));return{nodes:nodes,links:r.filter((function(e){return o.indexOf(e.target)>-1&&o.indexOf(e.source)>-1}))}}function getCssVar(e){return getComputedStyle(document.body).getPropertyValue(e)}function htmlDecode(e){return(new DOMParser).parseFromString(e,"text/html").documentElement.textContent}function renderGraph(e,t,n,r){if(null==e)return;const l=document.getElementById(t);width=l.offsetWidth,height=l.offsetHeight;const i=new Set;let o=null;const a=getCssVar("--graph-main"),s=getCssVar("--graph-muted");let u=ForceGraph()(l).graphData(e).nodeId("id").nodeLabel("title").linkSource("source").linkTarget("target").d3AlphaDecay(.1).width(width).height(height).linkDirectionalArrowLength(2).linkDirectionalArrowRelPos(.5).autoPauseRedraw(!1).linkColor((e=>null==o||e.source.id==o.id||e.target.id==o.id?a:s)).nodeCanvasObject(((e,t)=>{const n=e.neighbors&&e.neighbors.length||2,r=Math.min(7,Math.max(n/2,2));t.beginPath(),t.arc(e.x,e.y,r,0,2*Math.PI,!1),null==o||e==o||i.has(e.url)?t.fillStyle=a:t.fillStyle=s,t.fill(),e.current&&(t.beginPath(),t.arc(e.x,e.y,r+1,0,2*Math.PI,!1),t.lineWidth=.5,t.strokeStyle=a,t.stroke());const l=htmlDecode(e.title);t.font="3.5px Sans-Serif",t.textAlign="center",t.textBaseline="top",t.fillText(l,e.x,e.y+r+2)})).onNodeClick((e=>{window.location=e.url})).onNodeHover((e=>{i.clear(),e&&(i.add(e),e.neighbors.forEach((e=>i.add(e)))),o=e||null}));return(r||null!=n&&e.nodes.length>4)&&setTimeout((()=>{u.zoomToFit(5,75)}),n||200),u}function renderLocalGraph(e,t,n){window.graph&&window.graph._destructor();return renderGraph(filterLocalGraphData(e,t),"link-graph",null,n)}function filterFullGraphData(e){if(null==e)return null;e=JSON.parse(JSON.stringify(e));const t=Object.values(e.nodes).filter((e=>e.hide)).map((e=>e.id));return{links:JSON.parse(JSON.stringify(e.links)).filter((e=>-1==t.indexOf(e.source)&&-1==t.indexOf(e.target))),nodes:[...Object.values(e.nodes).filter((e=>!e.hide))]}}function openFullGraph(e){return lucide.createIcons({attrs:{class:["svg-icon"]}}),renderGraph(e,"full-graph-container",200,!1)}function closefullGraph(e){return e&&e._destructor(),null}</script>
+<div x-init="{graphData, fullGraphData} = await fetchGraphData();" x-data="{ graphData: null, depth: 1, graph: null, fullGraph: null, showFullGraph: false, fullScreen: false, fullGraphData: null}" id="graph-component" x-bind:class="fullScreen ? 'graph graph-fs' : 'graph'" v-scope>
+<div class="graph-title-container">
+<div class="graph-title">Connected Pages</div>
+<div id="graph-controls">
+<div class="depth-control">
+<label for="graph-depth">Depth</label>
+<div class="slider">
+<input x-model.number="depth" name="graph-depth" list="depthmarkers" type="range" step="1" min="1" max="3" id="graph-depth">
+<datalist id="depthmarkers">
+<option value="1" label="1"></option>
+<option value="2" label="2"></option>
+<option value="3" label="3"></option>
+</datalist>
+</div>
+<span id="depth-display" x-text="depth"></span>
+</div>
+<div class="ctrl-right">
+<span id="global-graph-btn" x-on:click="showFullGraph = true; setTimeout(() => {fullGraph = openFullGraph(fullGraphData)}, 100)"><i icon-name="globe" aria-hidden="true"></i></span>
+<span id="graph-fs-btn" x-on:click="fullScreen = !fullScreen"><i icon-name="expand" aria-hidden="true"></i></span>
+</div>
+</div>
+</div>
+<div x-effect="window.graph = renderLocalGraph(graphData, depth, fullScreen)" id="link-graph"></div>
+<div x-show="showFullGraph" id="full-graph" class="show" style="display:none">
+<span id="full-graph-close" x-on:click="fullGraph = closefullGraph(fullGraph); showFullGraph = false;"><i icon-name="x" aria-hidden="true"></i></span><div id="full-graph-container"></div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
+<script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+<script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
+<script>lucide.createIcons({attrs:{class:["svg-icon"]}})</script>
+</body>
+</html>
