@@ -96,3 +96,13 @@ Trasformazioni schema PG9 → PG17:
 - ✅ Strategia dump/restore accettata
 
 Vedi anche: [[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]].
+
+---
+
+## ADR correlati
+
+| ADR | Decisione |
+|---|---|
+| [ADR-013](../../docs/adr/ADR-013-migrazione-pg-dump-restore.md) | Strategia migrazione PG9 → PG17 via dump/restore logico |
+| [ADR-003](../../docs/adr/ADR-003-dbaas-nivola.md) | DBaaS Nivola (vincolo no-filesystem) |
+| [ADR-001](../../docs/adr/ADR-001-stack-tecnologico.md) | Stack target PG17 |

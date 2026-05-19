@@ -92,3 +92,12 @@ graph TD
     SGC --> NOT[Notificatore UNP - REST]
     SGC --> SIA[SIA ASR - SOAP/REST]
 ```
+
+---
+
+## ADR correlati
+
+| ADR | Decisione |
+|---|---|
+| [ADR-002](../../docs/adr/ADR-002-piattaforma-ecaas.md) | Piattaforma ECaaS Kubernetes Nivola + vincoli |
+| [ADR-003](../../docs/adr/ADR-003-dbaas-nivola.md) | DBaaS Nivola esterno al namespace ECaaS |

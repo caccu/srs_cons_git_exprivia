@@ -151,3 +151,12 @@ Il backend (Spring Boot 3) espone l'endpoint, il Form Renderer Angular lo consum
 - Profili utente: [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]]
 - Stati consenso (rendering dipendente): [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]
 - AURA (popolamento dati assistito lato operatore): [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]]
+
+---
+
+## ADR correlati
+
+| ADR | Decisione |
+|---|---|
+| [ADR-008](../../docs/adr/ADR-008-ssot-form-renderer.md) | SSoT Form Renderer unico (questa concept è la fonte autoritativa) |
+| [ADR-011](../../docs/adr/ADR-011-merge-cdu-04-05-cittadino.md) | Merge CDU-04/05 lato Cittadino (pulsante unico Salva) |

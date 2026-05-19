@@ -149,3 +149,16 @@ Vedi [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]]. Nuovo componente 
 | Requisiti committente | 2023 | [[wiki/sources/2023-09-01-conspref-srs-01-v03\|CONSPREF-SRS-01-V03 Requisiti Gestione Consensi]] |
 | SRS TO-BE | 2026 | [[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] |
 | Revisione cliente v3 | 2026-05 | `raw/CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf` — 69 commenti, ~30 risposte MF. Sintesi: [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] |
+
+---
+
+## ADR correlati
+
+| ADR | Decisione |
+|---|---|
+| [ADR-001](../../docs/adr/ADR-001-stack-tecnologico.md) | Stack tecnologico |
+| [ADR-010](../../docs/adr/ADR-010-cdu-01-split.md) | Split CDU-01 in CDU-01a Operatore + CDU-01b Cittadino |
+| [ADR-011](../../docs/adr/ADR-011-merge-cdu-04-05-cittadino.md) | Merge CDU-04/05 lato Cittadino (pulsante unico) |
+| [ADR-008](../../docs/adr/ADR-008-ssot-form-renderer.md) | SSoT Form Renderer dinamico |
+| [ADR-017](../../docs/adr/ADR-017-lis-terzo-canale.md) | LIS terzo canale di acquisizione |
+| [ADR-019](../../docs/adr/ADR-019-cdu-06-pdf-scope-ridotto.md) | CDU-06 PDF scope ridotto |

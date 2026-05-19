@@ -147,3 +147,14 @@ Per analisi dettagliata del delta vedi [[wiki/analyses/analysis-gap-as-is-to-be\
 3. Il CONSPREF-DMP: chi è il responsabile formale in Exprivia?
 4. I [PROPOSTA] nell'SRS (es. ALG02 BATCH-01 gestione tentativi, CDU-06 PDF) sono stati condivisi con CSI? Qual è la loro risposta?
 5. Il documento `Mermaid.txt` contiene il diagramma architetturale. È la versione concordata con CSI o è una proposta?
+
+---
+
+## ADR correlati
+
+| ADR | Decisione |
+|---|---|
+| [ADR-005](../../docs/adr/ADR-005-sicurezza-cdu-15-16.md) | Sicurezza CDU-15/16 (rischio MODERATO 3 mitigato) |
+| [ADR-007](../../docs/adr/ADR-007-batch-01-5min-skip-locked.md) | BATCH-01 5min (rischio AGGIUNTO 4 — ambiguità SRV-01/SRV-03 da chiudere) |
+| [ADR-013](../../docs/adr/ADR-013-migrazione-pg-dump-restore.md) | Migrazione PG (rischio CRITICO 1 — DMP non formalizzato) |
+| [ADR-016](../../docs/adr/ADR-016-scaduto-async-batch-02.md) | SCADUTO async (rischio AGGIUNTO 5 — semantica AS-IS vs TO-BE) |

@@ -98,3 +98,13 @@ Dettaglio: [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]].
 | Angular ≤ 14 | RETIRED | — |
 
 Vedi [[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]] per elenco completo.
+
+---
+
+## ADR correlati
+
+| ADR | Decisione |
+|---|---|
+| [ADR-001](../../docs/adr/ADR-001-stack-tecnologico.md) | Stack tecnologico (Spring Boot 3 + Java 17 + Angular 19 + PG17) |
+| [ADR-002](../../docs/adr/ADR-002-piattaforma-ecaas.md) | Piattaforma ECaaS Kubernetes Nivola + vincoli |
+| [ADR-014](../../docs/adr/ADR-014-apache-cxf-soap-client.md) | Apache CXF come client SOAP |

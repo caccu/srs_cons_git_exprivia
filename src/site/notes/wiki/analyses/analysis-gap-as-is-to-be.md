@@ -20,7 +20,7 @@
 | Modello dati                     | 12 entità                     | 25+ entità                                                                                                                                     | nuove entità batch/endpoint/allegati                                            |
 | Stack DB                         | PostgreSQL 9 (RETIRED)        | PostgreSQL 17 (CURRENT)                                                                                                                        | Migrazione obbligatoria                                                         |
 | Stack applicativo                | Legacy non documentato        | Spring Boot 3 + Angular 19                                                                                                                     | Rifacimento completo                                                            |
-| Processi batch                   | Assenti                       | 3 batch (BATCH-01/02/03) — BATCH-03 contestato TR34, possibile sostituzione con PULL CDU-17 ([[wiki/analyses/analysis-2026-05-14-tr34-alternativa-batch-03\|analysis-2026-05-14-tr34-alternativa-batch-03]] | Nuovi —  vedi[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] |
+| Processi batch                   | Assenti                       | 2 batch attivi (BATCH-01/02) + BATCH-03 push **sostituito** da PULL CDU-17 ([[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17]] / [ADR-006] — **proposed**, attende sign-off CSI Piemonte) | Nuovi — vedi [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] |
 | API esterne per SIA              | Solo SOAP inbound (SRV-01/02) | SOAP outbound + REST CDU-15/16                                                                                                                 | Espansione bidirezionale                                                        |
 | Autenticazione Cittadino         | Non documentata               | [[wiki/concepts/gasp-salute\|GASP Salute]] SPID/CIE                                                                                                          | Modernizzazione                                                                 |
 | Notifiche ASR                    | Sincrono durante acquisizione | Asincrono BATCH-01 ogni **5 min** con `SELECT FOR UPDATE SKIP LOCKED` (MF64R63 — sostituisce AS-IS 30 min)                                     | Cambio paradigma + ottimizzazione concorrenza                                   |
@@ -134,3 +134,18 @@ TO-BE: BATCH-01 notifica entro 5 minuti. Se SIA ha logica temporale che dipende 
 | Stack legacy applicativo                              | Rifacimento completo su [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]]    |
 | Acquisizione sincrona SIA→Regionale come unico canale | Sostituito da CDU-15/16 REST + BATCH-01 asincrono                     |
 | Assenza tracciatura storico (`cons_s_consenso` vuota) | TO-BE attiva storicizzazione immutabile                               |
+
+---
+
+## ADR correlati
+
+| ADR | Decisione |
+|---|---|
+| [ADR-007](../../docs/adr/ADR-007-batch-01-5min-skip-locked.md) | BATCH-01 5min (cambio paradigma sync → async) |
+| [ADR-009](../../docs/adr/ADR-009-eliminazione-sistemats.md) | Eliminazione SistemaTS (semplificazione stack integrazione) |
+| [ADR-010](../../docs/adr/ADR-010-cdu-01-split.md) | Split CDU-01 (separazione canali auth) |
+| [ADR-011](../../docs/adr/ADR-011-merge-cdu-04-05-cittadino.md) | Merge CDU-04/05 lato Cittadino |
+| [ADR-015](../../docs/adr/ADR-015-storicizzazione-immutabile.md) | Storicizzazione immutabile (attivazione feature `cons_s_consenso`) |
+| [ADR-016](../../docs/adr/ADR-016-scaduto-async-batch-02.md) | SCADUTO async (cambio semantica AS-IS → TO-BE) |
+| [ADR-017](../../docs/adr/ADR-017-lis-terzo-canale.md) | LIS terzo canale |
+| [ADR-006](../../docs/adr/ADR-006-batch-03-pull-cdu-17.md) | BATCH-03 push → CDU-17 PULL (**proposed**) |

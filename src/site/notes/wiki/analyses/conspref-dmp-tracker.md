@@ -90,3 +90,12 @@ Vedi [[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|Checklist Avv
 - [[wiki/concepts/migrazione-postgres-9-17\|Migrazione PostgreSQL 9 → 17]] — concept tecnico migrazione
 - [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]] — RC1 sul DMP mancante
 - [[wiki/entities/exprivia\|Exprivia S.p.A.]] — fornitore responsabile redazione
+
+---
+
+## ADR correlati
+
+| ADR | Decisione |
+|---|---|
+| [ADR-013](../../docs/adr/ADR-013-migrazione-pg-dump-restore.md) | Strategia migrazione dump/restore (questo tracker monitora la formalizzazione del DMP) |
+| [ADR-003](../../docs/adr/ADR-003-dbaas-nivola.md) | DBaaS Nivola (vincolo provisioning + no-filesystem) |

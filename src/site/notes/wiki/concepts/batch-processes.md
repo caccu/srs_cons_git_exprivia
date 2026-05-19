@@ -152,11 +152,11 @@ Note tecniche (SRS §BATCH-02):
 
 ---
 
-## ~~BATCH-03~~ — RIMOSSO (sostituito da PULL CDU-17)
+## ~~BATCH-03~~ — sostituito da PULL CDU-17 (**proposed**, attende sign-off CSI)
 
-> 🟢 **DESIGN RIVISTO — risposta MF69R68 (ex TR34/TR68):**
+> 🟡 **DESIGN RIVISTO — risposta MF69R68 (ex TR34/TR68):**
 >
-> BATCH-03 push viene **rimosso** dalla specifica TO-BE. L'allineamento massivo per nuovo endpoint passa a modello **PULL** via CDU-17 (REST snapshot paginato, SIA pulla autonomamente). Decisione condivisa con CSI come accoglimento del commento TR68 "centro stella".
+> BATCH-03 push viene **sostituito** dalla specifica TO-BE da modello **PULL** via CDU-17 (REST snapshot paginato, SIA pulla autonomamente). Proposta tecnica Exprivia (2026-05-14) come accoglimento del commento cliente TR68 "centro stella" — vedi [ADR-006](../../docs/adr/ADR-006-batch-03-pull-cdu-17.md), status `proposed`. Propagazione interna sulla wiki completata; **attende sign-off formale CSI Piemonte** prima di chiudere SRS e rimuovere fisicamente §7.3.
 >
 > Dettaglio progettuale completo: [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]
 
@@ -208,3 +208,15 @@ Nuovo endpoint configurato (CDU-14 Back Office)
 | SC67 | Revisione SRS v3 lavorazione | Logica INSERT cons_t_consenso da batch storicizzazione "da approfondire e verificare meglio" | 🟠 Aperto — discutere con CSI |
 | BATCH-01 SRV-01 vs SRV-03 | Rischio interno | Ambiguità contratto WSDL outbound | 🔴 Critico — conferma CSI prima implementazione |
 | BATCH-02 frequenza | SRS non specifica | Schedulazione precisa BATCH-02 | 🟠 Da definire con CSI |
+
+---
+
+## ADR correlati
+
+| ADR | Decisione |
+|---|---|
+| [ADR-007](../../docs/adr/ADR-007-batch-01-5min-skip-locked.md) | BATCH-01 5 min con SKIP LOCKED |
+| [ADR-016](../../docs/adr/ADR-016-scaduto-async-batch-02.md) | Stato SCADUTO async via BATCH-02 |
+| [ADR-006](../../docs/adr/ADR-006-batch-03-pull-cdu-17.md) | BATCH-03 push → CDU-17 PULL (**proposed**) |
+| [ADR-012](../../docs/adr/ADR-012-notificatore-deleghe-post-completato.md) | Notifica cittadino via Notificatore di Deleghe post-COMPLETATO |
+| [ADR-014](../../docs/adr/ADR-014-apache-cxf-soap-client.md) | Apache CXF client SOAP (BATCH-01 outbound) |

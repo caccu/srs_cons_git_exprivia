@@ -330,3 +330,13 @@ Raccomandazione: **CDU-17 PULL** come primaria. Export disponibile come fallback
 - Inventario consumer (SIA ASR): [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]]
 - Design batch corrente sotto revisione: [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]
 - Macchina a stati consensi: [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]
+
+---
+
+## ADR correlati
+
+| ADR | Decisione |
+|---|---|
+| [ADR-006](../../docs/adr/ADR-006-batch-03-pull-cdu-17.md) | Sostituzione BATCH-03 push → CDU-17 PULL (questa concept è la fonte autoritativa) — **proposed** |
+| [ADR-005](../../docs/adr/ADR-005-sicurezza-cdu-15-16.md) | Pattern sicurezza riusato |
+| [ADR-007](../../docs/adr/ADR-007-batch-01-5min-skip-locked.md) | BATCH-01 5min (rimane attivo per notifiche puntuali) |

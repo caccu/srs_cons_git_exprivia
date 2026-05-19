@@ -58,3 +58,11 @@ Tutti i CDU Cittadino (CDU-01 ÷ CDU-06) in [[wiki/concepts/gestione-consensi-ap
 | GASP Salute         | Cittadino (SPID/CIE)               | Esterno a [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]] |
 | PUA / RUPAR / IRIDE | Operatore Sanitario/Amministrativo | Gestito da [[wiki/entities/csi-piemonte\|CSI Piemonte]]            |
 | OAuth2 Bearer JWT   | SIA Aziendale (CDU-15/16)          | Gestito internamente                                 |
+
+---
+
+## ADR correlati
+
+| ADR | Decisione |
+|---|---|
+| [ADR-010](../../docs/adr/ADR-010-cdu-01-split.md) | Split CDU-01 in CDU-01a Operatore + CDU-01b Cittadino (CDU-01b dipende da GASP) |

@@ -143,3 +143,14 @@ Registrazione app PUA (2 profili operatore) da richiedere a [[wiki/entities/csi-
 | LIS | Specifica integrazione canale acquisizione | ❌ Da chiarire con CSI (acronimo + spec) |
 | GASP Salute | Documentazione protocollo OIDC/SAML2 | ❌ Blocco critico — giorno 1 |
 | SistemaTS | — | ⛔ **NON integrato** (decisione MF55R54 — rimosso dal SRS) |
+
+---
+
+## ADR correlati
+
+| ADR | Decisione |
+|---|---|
+| [ADR-009](../../docs/adr/ADR-009-eliminazione-sistemats.md) | Eliminazione SistemaTS dall'integrazione |
+| [ADR-012](../../docs/adr/ADR-012-notificatore-deleghe-post-completato.md) | Notificatore di Deleghe ≠ Notificatore UNP, post-COMPLETATO |
+| [ADR-014](../../docs/adr/ADR-014-apache-cxf-soap-client.md) | Apache CXF client SOAP (AURA, Deleghe, SIA outbound) |
+| [ADR-017](../../docs/adr/ADR-017-lis-terzo-canale.md) | LIS terzo canale di acquisizione |

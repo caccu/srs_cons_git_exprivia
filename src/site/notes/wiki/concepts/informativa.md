@@ -83,3 +83,12 @@ L'informativa è la **Single Source of Truth** per la composizione del form di c
 - **Versionamento storico:** retention di informative scadute per audit legale → da verificare con [[wiki/entities/csi-piemonte\|CSI Piemonte]] policy retention DB
 - **Notifica scadenza al cittadino:** quando un'informativa scade, va notificato il cittadino con consenso attivo? (no in SRS attuale)
 - **PROPOSTA §8.4.8** non ancora validata da [[wiki/entities/csi-piemonte\|CSI Piemonte]] — vedi tracker [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punti Aperti CSI — Tracker Unificato]]
+
+---
+
+## ADR correlati
+
+| ADR | Decisione |
+|---|---|
+| [ADR-015](../../docs/adr/ADR-015-storicizzazione-immutabile.md) | Storicizzazione immutabile (anche informative scadute) |
+| [ADR-016](../../docs/adr/ADR-016-scaduto-async-batch-02.md) | Scadenza informativa → stato SCADUTO async via BATCH-02 |

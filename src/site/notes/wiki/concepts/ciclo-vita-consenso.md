@@ -99,3 +99,13 @@ Garantisce storia completa degli atti di consenso. Vale anche per le transizioni
 Se anche solo **1 consenso** di un cittadino per un'ASR è SCADUTO o ANNULLATO → il cittadino deve riaccettare le informative di **tutte** le ASR per quel tipo consenso.
 
 **Visualizzazione informativa per azienda (MF28R27):** quando il consenso aziendale ha informativa specifica per ente, l'UI deve consentire la visualizzazione dell'informativa della singola azienda **prima** della raccolta del consenso per quell'azienda. Vedi [[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]] §2.3.
+
+---
+
+## ADR correlati
+
+| ADR | Decisione |
+|---|---|
+| [ADR-015](../../docs/adr/ADR-015-storicizzazione-immutabile.md) | Storicizzazione immutabile (no sovrascrittura) |
+| [ADR-016](../../docs/adr/ADR-016-scaduto-async-batch-02.md) | Stato SCADUTO async via BATCH-02 |
+| [ADR-011](../../docs/adr/ADR-011-merge-cdu-04-05-cittadino.md) | Merge CDU-04/05 lato Cittadino (transizioni dirette ATTIVO↔NEGATO) |

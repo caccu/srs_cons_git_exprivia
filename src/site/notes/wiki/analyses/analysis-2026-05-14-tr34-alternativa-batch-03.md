@@ -121,3 +121,12 @@ In allegato (oppure: nelle sezioni dedicate del SRS) viene fornita la bozza comp
 
 La **variante "export con interruzione del servizio"** citata nel commento è progettualmente coerente con la seconda opzione indicata, ma sconsigliata rispetto al PULL: richiede downtime, formato file dedicato, gestione storage temporaneo e processo di download manuale. Resta documentata come fallback per ASR senza capacità di integrazione REST (situazione non prevista, dato che CDU-15 e CDU-16 già richiedono client REST lato SIA).
 
+---
+
+## ADR correlati
+
+| ADR | Decisione |
+|---|---|
+| [ADR-006](../../docs/adr/ADR-006-batch-03-pull-cdu-17.md) | Sostituzione BATCH-03 push → CDU-17 PULL — **proposed** (questa analysis è la risposta cliente sintetica) |
+| [ADR-005](../../docs/adr/ADR-005-sicurezza-cdu-15-16.md) | Pattern sicurezza riusato dal PULL |
+

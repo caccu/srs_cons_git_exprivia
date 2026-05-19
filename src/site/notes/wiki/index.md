@@ -18,7 +18,7 @@ Master catalog di tutte le pagine. Aggiornato dopo ogni ingest.
 | OpenAPI CDU-15/16 — [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|v0.1-DRAFT prodotta]], 5 TBD aperti con CSI | Blocca go-live integrazione SIA ASR | Condividere bozza con ASR, confermare 5 TBD Sprint 1-2 |
 | BATCH-01: SRV-01 vs SRV-03? | Errore implementativo WSDL | Conferma scritta da CSI |
 | SCADUTO AS-IS ≠ TO-BE | Rottura integrazione SIA ASR | Documentare diff in OpenAPI |
-| BATCH-03 push contestato TR34 | Onere infra regionale, cliente vuole "centro stella" | Proposta PULL CDU-17 in attesa OK CSI |
+| BATCH-03 push contestato TR34 | Onere infra regionale, cliente vuole "centro stella" | Proposta PULL CDU-17 ([ADR-006](../docs/adr/ADR-006-batch-03-pull-cdu-17.md), **proposed**) in attesa sign-off CSI |
 | SC67 — INSERT storicizzazione BATCH-02 | "Da approfondire e verificare meglio" | Discutere con CSI prima di chiudere SRS |
 
 Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]]
@@ -91,4 +91,33 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 - [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato]] — Consolidato 38 punti aperti aggregati da 8 pagine, raggruppati per area (auth, security, pull, openapi, batch, integrazioni, infra, gov) e sprint
 - [[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]] — Tracker stato Data Migration Plan PG9→PG17; 7 sezioni con owner, 4 decision-point aperti, RACI CSI mancante.
 
+---
+
+## Architecture Decision Records
+
+Registry decisioni architetturali in `docs/adr/`. Lifecycle gestito (proposed/accepted/superseded), cross-link bidirezionale con concept/analysis pages. 19 ADR materializzati il 2026-05-19 (18 accepted + 1 proposed).
+
+Indice completo: [docs/adr/README.md](../docs/adr/README.md)
+
+| ADR | Titolo | Status |
+|---|---|---|
+| [ADR-001](../docs/adr/ADR-001-stack-tecnologico.md) | Stack tecnologico (Spring Boot 3 + Java 17 + Angular 19 + PG17) | accepted |
+| [ADR-002](../docs/adr/ADR-002-piattaforma-ecaas.md) | Piattaforma ECaaS Kubernetes Nivola + vincoli | accepted |
+| [ADR-003](../docs/adr/ADR-003-dbaas-nivola.md) | DBaaS Nivola esterno al namespace | accepted |
+| [ADR-004](../docs/adr/ADR-004-no-api-gateway.md) | No API Gateway — sicurezza applicativa Spring Security | accepted |
+| [ADR-005](../docs/adr/ADR-005-sicurezza-cdu-15-16.md) | Sicurezza CDU-15/16 OAuth2 CC + JWT + per-ente | accepted |
+| [ADR-006](../docs/adr/ADR-006-batch-03-pull-cdu-17.md) | BATCH-03 push → CDU-17 PULL centro stella | **proposed** |
+| [ADR-007](../docs/adr/ADR-007-batch-01-5min-skip-locked.md) | BATCH-01 5 min con SKIP LOCKED | accepted |
+| [ADR-008](../docs/adr/ADR-008-ssot-form-renderer.md) | SSoT Form Renderer (Citt + Op) | accepted |
+| [ADR-009](../docs/adr/ADR-009-eliminazione-sistemats.md) | Eliminazione SistemaTS | accepted |
+| [ADR-010](../docs/adr/ADR-010-cdu-01-split.md) | Split CDU-01 (01a Op + 01b Citt) | accepted |
+| [ADR-011](../docs/adr/ADR-011-merge-cdu-04-05-cittadino.md) | Merge CDU-04/05 cittadino — pulsante unico | accepted |
+| [ADR-012](../docs/adr/ADR-012-notificatore-deleghe-post-completato.md) | Notificatore di Deleghe ≠ UNP, post-COMPLETATO | accepted |
+| [ADR-013](../docs/adr/ADR-013-migrazione-pg-dump-restore.md) | Migrazione PG9 → PG17 dump/restore | accepted |
+| [ADR-014](../docs/adr/ADR-014-apache-cxf-soap-client.md) | Apache CXF client SOAP | accepted |
+| [ADR-015](../docs/adr/ADR-015-storicizzazione-immutabile.md) | Storicizzazione immutabile | accepted |
+| [ADR-016](../docs/adr/ADR-016-scaduto-async-batch-02.md) | SCADUTO async via BATCH-02 | accepted |
+| [ADR-017](../docs/adr/ADR-017-lis-terzo-canale.md) | LIS terzo canale acquisizione | accepted |
+| [ADR-018](../docs/adr/ADR-018-rfc-7807-error-response.md) | RFC 7807 error response | accepted |
+| [ADR-019](../docs/adr/ADR-019-cdu-06-pdf-scope-ridotto.md) | CDU-06 PDF scope ridotto | accepted |
 
