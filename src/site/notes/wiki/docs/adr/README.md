@@ -99,7 +99,7 @@ ADR-019 CDU-06 PDF scope ridotto (standalone, allineato con UX cittadino)
 
 ## Punti aperti correlati
 
-Vedi tracker autoritativo: [`wiki/analyses/analysis-2026-05-14-punti-aperti-csi.md`](../../wiki/analyses/analysis-2026-05-14-punti-aperti-csi.md).
+Vedi tracker autoritativo: [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|analysis-2026-05-14-punti-aperti-csi]].
 
 ADR con open issues:
 - **ADR-005**: SEC-01÷06 (URL AS, JWT, onboarding SIA, TTL, scope, revoca)
