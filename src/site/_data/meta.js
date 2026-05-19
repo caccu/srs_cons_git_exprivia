@@ -6,6 +6,15 @@ module.exports = async (data) => {
   if (baseUrl && !baseUrl.startsWith("http")) {
     baseUrl = "https://" + baseUrl;
   }
+  let basePath = "";
+  if (baseUrl) {
+    try {
+      const parsed = new URL(baseUrl);
+      basePath = parsed.pathname.replace(/\/$/, "");
+    } catch (e) {
+      basePath = "";
+    }
+  }
   let themeStyle = globSync("src/site/styles/_theme.*.css")[0] || "";
 
   // Check for logo file (supports multiple image formats)
@@ -98,6 +107,7 @@ module.exports = async (data) => {
     siteLogoPath: logoPath,
     mainLanguage: process.env.SITE_MAIN_LANGUAGE || "en",
     siteBaseUrl: baseUrl,
+    siteBasePath: basePath,
     styleSettingsCss,
     uiStrings,
     buildDate: new Date(),
