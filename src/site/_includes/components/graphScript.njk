@@ -6,6 +6,25 @@ import { drag as d3Drag } from 'd3-drag';
 
 // Pixi v7 loaded as UMD global
 const { Application, Container, Graphics, Text, Circle } = PIXI;
+const SITE_BASE_PATH = '{{ meta.siteBasePath }}';
+
+function normalizeCurrentPath(pathname) {
+    if (!pathname) return pathname;
+    if (!SITE_BASE_PATH) return pathname;
+    if (pathname === SITE_BASE_PATH) return '/';
+    if (pathname.startsWith(`${SITE_BASE_PATH}/`)) {
+        return pathname.slice(SITE_BASE_PATH.length) || '/';
+    }
+    return pathname;
+}
+
+function resolveNodeUrl(url) {
+    if (!url) return url;
+    if (!url.startsWith('/')) return url;
+    if (!SITE_BASE_PATH) return url;
+    if (url === SITE_BASE_PATH || url.startsWith(`${SITE_BASE_PATH}/`)) return url;
+    return `${SITE_BASE_PATH}${url}`;
+}
 
 async function fetchGraphData() {
     const graphData = await fetch('{{ meta.siteBasePath }}/graph.json').then(res => res.json());
@@ -27,7 +46,7 @@ function filterLocalGraphData(graphData) {
     if (!graphData) return null;
     const allNodes = JSON.parse(JSON.stringify(graphData.nodes));
     const allLinks = JSON.parse(JSON.stringify(graphData.links));
-    let currentLink = decodeURI(window.location.pathname);
+    let currentLink = normalizeCurrentPath(decodeURI(window.location.pathname));
 
     let currentNode = allNodes[currentLink];
     if (!currentNode) {
@@ -324,7 +343,7 @@ function renderGraph(graphData, containerId, isFullScreen) {
                 const dist = Math.sqrt(dx * dx + dy * dy);
                 if (dt < 500 && dist < 5) {
                     if (node.url) {
-                        window.location = node.url;
+                        window.location = resolveNodeUrl(node.url);
                     }
                 }
             })
