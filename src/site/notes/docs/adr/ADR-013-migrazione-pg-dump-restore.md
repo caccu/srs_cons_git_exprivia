@@ -1,0 +1,81 @@
+---
+{"dg-publish":true,"permalink":"/docs/adr/adr-013-migrazione-pg-dump-restore/","title":"Migrazione PostgreSQL 9 → 17 via dump/restore logico","tags":["database","postgresql","migrazione","dump-restore","sprint-9","rischio-critico"],"dg-note-properties":{"adr":13,"title":"Migrazione PostgreSQL 9 → 17 via dump/restore logico","status":"accepted","date":"2026-03-02","deciders":["Exprivia","CSI Piemonte"],"supersedes":[],"superseded-by":[],"tags":["database","postgresql","migrazione","dump-restore","sprint-9","rischio-critico"],"related_wiki":["[[wiki/concepts/migrazione-postgres-9-17\|Migrazione PostgreSQL 9 → 17]]","[[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]"],"sources":["[[wiki/sources/2026-03-02-appunti-e-pianificazione\|Appunti e pianificazione]] §Piano Migrazione","[[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|Checklist Avvio Progetto]] §A6"]}}
+---
+
+
+# ADR-013: Strategia migrazione PG9 → PG17 — dump/restore
+
+## Status
+
+`accepted` — strategia confermata in appunti e checklist; CONSPREF-DMP formale **non ancora prodotto** (rischio aperto).
+
+## Context
+
+PostgreSQL 9 è RETIRED da CSI; PG17 è CURRENT (DBaaS Nivola). Salto di **8 major release**, con cambi semantici e di sicurezza significativi:
+
+- Autenticazione: `md5` → `scram-sha-256`
+- Tipi deprecati: `money`, `xml`, `OIDs` interni
+- Estensioni: `gen_random_uuid()` nativa da PG13+ (era `pgcrypto`)
+- Collation: ICU default da PG13+
+- Comportamento `timestamp without time zone` raffinato
+
+Vincoli:
+- DBaaS Nivola ([[ADR-003\|ADR-003]]): niente accesso filesystem diretto, niente `pg_upgrade` server-side
+- Nivola gestisce backup/HA — la migrazione deve passare per dump/restore client-side
+- Finestra cutover stretta da minimizzare per impatto utenti
+
+## Decision
+
+Strategia: **dump/restore logico** (`pg_dump` custom format → `pg_restore`).
+
+Procedura cutover PROD:
+1. Snapshot e blocco scritture PG9 PROD
+2. `pg_dump -Fc` finale (custom format)
+3. `pg_restore` su PG17 PROD con `--jobs N` (parallelism)
+4. Aggiornare K8s Secret con DSN PG17
+5. Restart pod applicativi (rolling)
+6. Smoke test funzionale + verifica conteggi tabelle
+7. Standby rollback 48h (PG9 mantenuto in read-only)
+
+Finestra cutover stimata: 21 giorni in Fase 6 (Sprint 9). Vincolata da volumi reali ignoti finché audit DDL non completato.
+
+## Consequences
+
+### Positive
+- Funziona senza accesso filesystem (compatibile DBaaS Nivola)
+- Trasformazioni schema PG9 → PG17 applicabili in restore (custom format consente filtri)
+- Rollback semplice: PG9 read-only standby per 48h post-cutover
+- Compatibilità garantita: pg_dump/pg_restore stabili cross-version
+
+### Negative
+- **Downtime applicativo durante dump finale + restore** (no logical replication)
+- Volumi reali ignoti → durata finestra stimabile solo dopo audit DDL Sprint 0
+- **CONSPREF-DMP** formale non prodotto → rischio slittamento Fase 6 (R6 in checklist)
+- Niente parallelismo migrazione/applicativo (downtime sincrono)
+
+### Neutral
+- Audit DDL PG9 Sprint 0 (richiede accesso DB AS-IS — bloccato in attesa CSI)
+- Trasformazioni schema necessarie: storicizzazione, nuove tabelle ([[ADR-015\|ADR-015]]), estensioni colonne
+
+## Alternatives considered
+
+| Alternativa | Motivo scarto |
+|---|---|
+| `pg_upgrade` server-side | Incompatibile DBaaS Nivola (no filesystem access); 8 major release jump non sempre supportato |
+| Logical replication (CDC) | Non valutata in dettaglio; complica setup; downtime minore ma più rischio di drift dati durante sync |
+| Esportazione CSV custom | Rischio perdita di vincoli FK, sequence, indici; restore manuale poco riproducibile |
+
+## Open issues
+
+- GOV-03: responsabile formale lato CSI per migrazione (tracker [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punti Aperti CSI]] §8)
+- D2 [[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP]]: valutare logical replication come alternativa per ridurre downtime
+- D3: tipi deprecati (`money`, `xml`) — conversione target dipende da audit DDL Sprint 0
+- TECH-01: audit DDL PG9 bloccato da accessi DB
+
+## References
+
+- [[wiki/concepts/migrazione-postgres-9-17\|Migrazione PostgreSQL 9 → 17]] (concept tecnico completo con rischi e features sfruttate)
+- [[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]] (governance e decision-point aperti)
+- [[wiki/sources/2026-03-02-appunti-e-pianificazione\|Appunti e pianificazione]] §Piano Migrazione
+- [[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|Checklist Avvio Progetto]] §A6
+- Correlato: [[ADR-001\|ADR-001]] stack (PG17), [[ADR-003\|ADR-003]] DBaaS Nivola (vincolo accesso)
