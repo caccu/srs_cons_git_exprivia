@@ -46,7 +46,13 @@ function getSiteBasePath() {
 const siteBasePath = getSiteBasePath();
 
 function withSiteBasePath(url) {
-  if (!url || typeof url !== "string" || !url.startsWith("/")) {
+  if (typeof url !== "string") {
+    return "";
+  }
+  if (!url) {
+    return "";
+  }
+  if (!url.startsWith("/")) {
     return url;
   }
   if (!siteBasePath) {
@@ -126,12 +132,13 @@ function getAnchorAttributes(filePath, linkTitle) {
       innerHTML: title,
     }
   }
+  const resolvedPermalink = withSiteBasePath(permalink || "/");
   return {
     attributes: {
       "class": "internal-link",
       "target": "",
       "data-note-icon": noteIcon,
-      "href": `${withSiteBasePath(permalink)}${headerLinkPath}`,
+      "href": `${resolvedPermalink}${headerLinkPath}`,
     },
     innerHTML: title,
   }
