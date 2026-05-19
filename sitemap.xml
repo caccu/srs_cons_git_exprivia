@@ -88,212 +88,212 @@
     
         <url>
             <loc>/srs_cons_git/404.html</loc>
-            <lastmod>2026-05-19T13:56:15.097Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.155Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/analyses/analysis-gap-as-is-to-be/</loc>
-            <lastmod>2026-05-19T13:56:15.099Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.157Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/analyses/conspref-dmp-tracker/</loc>
-            <lastmod>2026-05-19T13:56:15.099Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.157Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/analyses/valutazione-qualita-srs-consensi/</loc>
-            <lastmod>2026-05-19T13:56:15.100Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.157Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/</loc>
-            <lastmod>2026-05-19T13:56:15.100Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.157Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/concepts/architettura-ecaas/</loc>
-            <lastmod>2026-05-19T13:56:15.100Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.157Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/concepts/batch-processes/</loc>
-            <lastmod>2026-05-19T13:56:15.100Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.157Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/concepts/ciclo-vita-consenso/</loc>
-            <lastmod>2026-05-19T13:56:15.100Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.158Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/</loc>
-            <lastmod>2026-05-19T13:56:15.100Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.158Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/concepts/gasp-salute/</loc>
-            <lastmod>2026-05-19T13:56:15.100Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.158Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/</loc>
-            <lastmod>2026-05-19T13:56:15.100Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.158Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/concepts/informativa/</loc>
-            <lastmod>2026-05-19T13:56:15.100Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.158Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/concepts/migrazione-postgres-9-17/</loc>
-            <lastmod>2026-05-19T13:56:15.100Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.158Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/</loc>
-            <lastmod>2026-05-19T13:56:15.100Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.158Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/</loc>
-            <lastmod>2026-05-19T13:56:15.100Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.158Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/concepts/stack-tecnologico-applicativo/</loc>
-            <lastmod>2026-05-19T13:56:15.100Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.158Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-001-stack-tecnologico/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.158Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-002-piattaforma-ecaas/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.158Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-003-dbaas-nivola/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.158Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-004-no-api-gateway/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.158Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-005-sicurezza-cdu-15-16/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.158Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-006-batch-03-pull-cdu-17/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-007-batch-01-5min-skip-locked/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-008-ssot-form-renderer/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-009-eliminazione-sistemats/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-010-cdu-01-split/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-011-merge-cdu-04-05-cittadino/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-012-notificatore-deleghe-post-completato/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-013-migrazione-pg-dump-restore/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-014-apache-cxf-soap-client/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-015-storicizzazione-immutabile/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-016-scaduto-async-batch-02/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-017-lis-terzo-canale/</loc>
-            <lastmod>2026-05-19T13:56:15.101Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-018-rfc-7807-error-response/</loc>
-            <lastmod>2026-05-19T13:56:15.102Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/adr-019-cdu-06-pdf-scope-ridotto/</loc>
-            <lastmod>2026-05-19T13:56:15.102Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/docs/adr/readme/</loc>
-            <lastmod>2026-05-19T13:56:15.102Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/entities/csi-piemonte/</loc>
-            <lastmod>2026-05-19T13:56:15.102Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/entities/exprivia/</loc>
-            <lastmod>2026-05-19T13:56:15.102Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/entities/notificatore-unp/</loc>
-            <lastmod>2026-05-19T13:56:15.102Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.159Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/entities/regione-piemonte/</loc>
-            <lastmod>2026-05-19T13:56:15.102Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.160Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/</loc>
-            <lastmod>2026-05-19T13:56:15.102Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.160Z</lastmod>
         </url>
     
         <url>
             <loc>/srs_cons_git/wiki/overview/</loc>
-            <lastmod>2026-05-19T13:56:15.102Z</lastmod>
+            <lastmod>2026-05-19T14:13:31.160Z</lastmod>
         </url>
     
 </urlset>

@@ -353,9 +353,9 @@
 <ul>
 <li>Latenza di notifica al SIA fino a 30 minuti → impatta SLA percepito</li>
 <li>Lock di tabella tradizionale rischia di bloccare run successive</li>
-<li>In ambiente multi-pod K8s (<a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-002</a>), più istanze BATCH-01 potrebbero girare in parallelo e generare duplicati o conflitti</li>
+<li>In ambiente multi-pod K8s (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-002-piattaforma-ecaas/">ADR-002-piattaforma-ecaas</a>), più istanze BATCH-01 potrebbero girare in parallelo e generare duplicati o conflitti</li>
 </ul>
-<p>PostgreSQL 17 (<a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-001</a>, <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-003</a>) supporta nativamente <code>SELECT FOR UPDATE SKIP LOCKED</code> — feature che consente lettura concorrente senza collisioni.</p>
+<p>PostgreSQL 17 (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-001-stack-tecnologico/">ADR-001-stack-tecnologico</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-003-dbaas-nivola/">ADR-003-dbaas-nivola</a>) supporta nativamente <code>SELECT FOR UPDATE SKIP LOCKED</code> — feature che consente lettura concorrente senza collisioni.</p>
 <h2 id="decision" tabindex="-1">Decision</h2>
 <p>BATCH-01 viene riprogettato:</p>
 <ul>
@@ -419,14 +419,14 @@ FOR UPDATE SKIP LOCKED;
 <h2 id="open-issues" tabindex="-1">Open issues</h2>
 <ul>
 <li>BAT-01: conferma scritta CSI su operazione WSDL (SRV-01 vs SRV-03) prima implementazione</li>
-<li>BATCH-02 scheduling preciso (vedi <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-016</a>)</li>
+<li>BATCH-02 scheduling preciso (vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-016-scaduto-async-batch-02/">ADR-016-scaduto-async-batch-02</a>)</li>
 </ul>
 <h2 id="references" tabindex="-1">References</h2>
 <ul>
 <li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a></li>
 <li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/">Risposte MF SRS v3</a> MF64R63</li>
 <li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a></li>
-<li>Correlato: <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-001</a> stack (PG17 SKIP LOCKED nativo), <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-006</a> CDU-17 PULL sostituisce BATCH-03, <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-014</a> Apache CXF client SOAP, <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-016</a> stato SCADUTO async</li>
+<li>Correlato: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-001-stack-tecnologico/">ADR-001-stack-tecnologico</a> stack (PG17 SKIP LOCKED nativo), <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-006-batch-03-pull-cdu-17/">ADR-006-batch-03-pull-cdu-17</a> CDU-17 PULL sostituisce BATCH-03, <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-014-apache-cxf-soap-client/">ADR-014-apache-cxf-soap-client</a> Apache CXF client SOAP, <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-016-scaduto-async-batch-02/">ADR-016-scaduto-async-batch-02</a> stato SCADUTO async</li>
 </ul>
 </main>
 <aside>

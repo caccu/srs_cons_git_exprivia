@@ -365,10 +365,10 @@
 <p>Vale per <strong>tutte</strong> le transizioni:</p>
 <ul>
 <li>ATTIVO ↔ NEGATO (cambio diretto via CDU-04/05/10/11)</li>
-<li>ATTIVO/NEGATO → SCADUTO/ANNULLATO (BATCH-02, vedi <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-016</a>)</li>
+<li>ATTIVO/NEGATO → SCADUTO/ANNULLATO (BATCH-02, vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-016-scaduto-async-batch-02/">ADR-016-scaduto-async-batch-02</a>)</li>
 <li>SCADUTO/ANNULLATO → ATTIVO/NEGATO (riaccettazione informativa)</li>
 </ul>
-<p>Per UUID dei nuovi record storicizzati: <code>gen_random_uuid()</code> nativa PostgreSQL 17 (<a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-001</a>).</p>
+<p>Per UUID dei nuovi record storicizzati: <code>gen_random_uuid()</code> nativa PostgreSQL 17 (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-001-stack-tecnologico/">ADR-001-stack-tecnologico</a>).</p>
 <h2 id="consequences" tabindex="-1">Consequences</h2>
 <h3 id="positive" tabindex="-1">Positive</h3>
 <ul>
@@ -420,7 +420,7 @@
 <li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/ciclo-vita-consenso/">Ciclo di Vita del Consenso</a> §Regola fondamentale — No sovrascrittura</li>
 <li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2026-03-02-conspref-srs-v1-revised/">CONSPREF-SRS-V1.0 revised bozza v2</a> §5 (macchina a stati), §8.3 (modello dati)</li>
 <li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE</a> §Storicizzazione — attivazione feature</li>
-<li>Correlato: <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-016</a> SCADUTO via BATCH-02 (anch'esso storicizzato), <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-001</a> stack (PG17 <code>gen_random_uuid</code> nativa)</li>
+<li>Correlato: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-016-scaduto-async-batch-02/">ADR-016-scaduto-async-batch-02</a> SCADUTO via BATCH-02 (anch'esso storicizzato), <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-001-stack-tecnologico/">ADR-001-stack-tecnologico</a> stack (PG17 <code>gen_random_uuid</code> nativa)</li>
 </ul>
 </main>
 <aside>

@@ -383,7 +383,7 @@
 <ul>
 <li>Rate limit applicativo via <code>bucket4j</code> (default 60 req/min per client)</li>
 <li>Audit log JSON strutturato con <code>client_id</code>, <code>codice_ente_requested</code>, <code>codice_ente_authorized</code>, <code>outcome</code>, <code>latency_ms</code>, <code>trace_id</code> (CF mai loggato in chiaro)</li>
-<li>Errori RFC 7807 (<a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-018</a>)</li>
+<li>Errori RFC 7807 (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-018-rfc-7807-error-response/">ADR-018-rfc-7807-error-response</a>)</li>
 </ul>
 <h2 id="consequences" tabindex="-1">Consequences</h2>
 <h3 id="positive" tabindex="-1">Positive</h3>
@@ -391,7 +391,7 @@
 <li>Isolamento dati per ente garantito da 3 controlli indipendenti</li>
 <li>Revoca client senza dover riemettere token (basta <code>data_revoca</code> in tabella)</li>
 <li>Audit log granulare per investigazione breach</li>
-<li>Pattern riusabile per <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-006</a> CDU-17 PULL</li>
+<li>Pattern riusabile per <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-006-batch-03-pull-cdu-17/">ADR-006-batch-03-pull-cdu-17</a> CDU-17 PULL</li>
 </ul>
 <h3 id="negative" tabindex="-1">Negative</h3>
 <ul>
@@ -419,7 +419,7 @@
 </tr>
 <tr>
 <td>API Manager CSI come gatekeeper</td>
-<td>Escluso da <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-004</a>; modello multi-tenant per ente non standard APIM</td>
+<td>Escluso da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-004-no-api-gateway/">ADR-004-no-api-gateway</a>; modello multi-tenant per ente non standard APIM</td>
 </tr>
 <tr>
 <td>mTLS per ente</td>
@@ -442,7 +442,7 @@
 <li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15/16 — Modello Autorizzazione per Ente</a> (concept completo con pseudocodice filter e matrice attacchi)</li>
 <li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/">OpenAPI CDU-15/16</a></li>
 <li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/">Risposte MF — Revisione SRS v3 lavorazione</a> MF59-62R58</li>
-<li>Correlato: <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-004</a> no API Gateway, <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-006</a> CDU-17 PULL riusa stesso pattern, <a class="internal-link is-unresolved" href="/srs_cons_git/404" target="">ADR-018</a> RFC 7807</li>
+<li>Correlato: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-004-no-api-gateway/">ADR-004-no-api-gateway</a> no API Gateway, <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-006-batch-03-pull-cdu-17/">ADR-006-batch-03-pull-cdu-17</a> CDU-17 PULL riusa stesso pattern, <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-018-rfc-7807-error-response/">ADR-018-rfc-7807-error-response</a> RFC 7807</li>
 </ul>
 </main>
 <aside>
