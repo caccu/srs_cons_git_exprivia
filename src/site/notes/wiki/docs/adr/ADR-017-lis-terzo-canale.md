@@ -35,14 +35,14 @@ Implicazioni documentali:
 - Didascalia diagramma: "Consensi esprimibili anche presso LIS oltre webapp cittadino e Operatore" (MF4R1)
 - Tracciatura: `fonte_id` con valore distintivo per LIS (es. `LIS`)
 
-Composizione dinamica del form ([[ADR-008\|ADR-008]]) si applica anche al canale LIS: il Form Renderer può essere riusato in modalità operatore LIS.
+Composizione dinamica del form ([[wiki/docs/adr/ADR-008-ssot-form-renderer\|ADR-008-ssot-form-renderer]]) si applica anche al canale LIS: il Form Renderer può essere riusato in modalità operatore LIS.
 
 ## Consequences
 
 ### Positive
 - Documentazione SRS allineata alla realtà operativa
 - Tracciatura `fonte_id` distingue acquisizioni LIS da webapp citt e operatore PUA
-- Architettura SSoT Form Renderer ([[ADR-008\|ADR-008]]) gestisce il canale senza divergenze
+- Architettura SSoT Form Renderer ([[wiki/docs/adr/ADR-008-ssot-form-renderer\|ADR-008-ssot-form-renderer]]) gestisce il canale senza divergenze
 
 ### Negative
 - **Acronimo LIS non definito** ufficialmente — INT-03 aperto
@@ -68,4 +68,4 @@ Composizione dinamica del form ([[ADR-008\|ADR-008]]) si applica anche al canale
 - [[Gestione Consensi - Applicativo\|Gestione Consensi - Applicativo]] §Canali di acquisizione
 - [[Sistemi Esterni Integrati\|Sistemi Esterni Integrati]] §LIS
 - [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] tema A (MF3R1, MF4R1)
-- Correlato: [[ADR-008\|ADR-008]] SSoT Form Renderer (riuso per LIS), [[ADR-011\|ADR-011]] merge CDU-04/05 (UX cittadino, non LIS)
+- Correlato: [[wiki/docs/adr/ADR-008-ssot-form-renderer\|ADR-008-ssot-form-renderer]] SSoT Form Renderer (riuso per LIS), [[wiki/docs/adr/ADR-011-merge-cdu-04-05-cittadino\|ADR-011-merge-cdu-04-05-cittadino]] merge CDU-04/05 (UX cittadino, non LIS)

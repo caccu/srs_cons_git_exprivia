@@ -16,9 +16,9 @@ L'AS-IS prevedeva uno scheduling di **30 minuti** per la consegna delle notifich
 Limiti AS-IS:
 - Latenza di notifica al SIA fino a 30 minuti → impatta SLA percepito
 - Lock di tabella tradizionale rischia di bloccare run successive
-- In ambiente multi-pod K8s ([[ADR-002\|ADR-002]]), più istanze BATCH-01 potrebbero girare in parallelo e generare duplicati o conflitti
+- In ambiente multi-pod K8s ([[wiki/docs/adr/ADR-002-piattaforma-ecaas\|ADR-002-piattaforma-ecaas]]), più istanze BATCH-01 potrebbero girare in parallelo e generare duplicati o conflitti
 
-PostgreSQL 17 ([[ADR-001\|ADR-001]], [[ADR-003\|ADR-003]]) supporta nativamente `SELECT FOR UPDATE SKIP LOCKED` — feature che consente lettura concorrente senza collisioni.
+PostgreSQL 17 ([[wiki/docs/adr/ADR-001-stack-tecnologico\|ADR-001-stack-tecnologico]], [[wiki/docs/adr/ADR-003-dbaas-nivola\|ADR-003-dbaas-nivola]]) supporta nativamente `SELECT FOR UPDATE SKIP LOCKED` — feature che consente lettura concorrente senza collisioni.
 
 ## Decision
 
@@ -68,11 +68,11 @@ FOR UPDATE SKIP LOCKED;
 ## Open issues
 
 - BAT-01: conferma scritta CSI su operazione WSDL (SRV-01 vs SRV-03) prima implementazione
-- BATCH-02 scheduling preciso (vedi [[ADR-016\|ADR-016]])
+- BATCH-02 scheduling preciso (vedi [[wiki/docs/adr/ADR-016-scaduto-async-batch-02\|ADR-016-scaduto-async-batch-02]])
 
 ## References
 
 - [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]
 - [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF64R63
 - [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]
-- Correlato: [[ADR-001\|ADR-001]] stack (PG17 SKIP LOCKED nativo), [[ADR-006\|ADR-006]] CDU-17 PULL sostituisce BATCH-03, [[ADR-014\|ADR-014]] Apache CXF client SOAP, [[ADR-016\|ADR-016]] stato SCADUTO async
+- Correlato: [[wiki/docs/adr/ADR-001-stack-tecnologico\|ADR-001-stack-tecnologico]] stack (PG17 SKIP LOCKED nativo), [[wiki/docs/adr/ADR-006-batch-03-pull-cdu-17\|ADR-006-batch-03-pull-cdu-17]] CDU-17 PULL sostituisce BATCH-03, [[wiki/docs/adr/ADR-014-apache-cxf-soap-client\|ADR-014-apache-cxf-soap-client]] Apache CXF client SOAP, [[wiki/docs/adr/ADR-016-scaduto-async-batch-02\|ADR-016-scaduto-async-batch-02]] stato SCADUTO async

@@ -40,7 +40,7 @@ Lo stack TO-BE è:
 - PostgreSQL 17 abilita features sfruttate dal TO-BE: `SELECT FOR UPDATE SKIP LOCKED`, `gen_random_uuid()` nativa, MERGE statement
 
 ### Negative
-- Migrazione PG9 → PG17 obbligatoria con salto di 8 major release (vedi [[ADR-013\|ADR-013]])
+- Migrazione PG9 → PG17 obbligatoria con salto di 8 major release (vedi [[wiki/docs/adr/ADR-013-migrazione-pg-dump-restore\|ADR-013-migrazione-pg-dump-restore]])
 - Spring Boot 3 incompatible con Java 8/11 — niente backport possibile
 - QUASAR CSI library richiede accesso repo CSI (dipendenza esterna)
 
@@ -61,4 +61,4 @@ Lo stack TO-BE è:
 - [[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] — Q&A #2 (Angular), #5 (Spring Boot 3.4.10+), #10 (PostgreSQL 17 DBaaS)
 - [[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]
 - [[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico Applicativo]]
-- Correlato: [[ADR-002\|ADR-002]] piattaforma ECaaS, [[ADR-013\|ADR-013]] migrazione PG
+- Correlato: [[wiki/docs/adr/ADR-002-piattaforma-ecaas\|ADR-002-piattaforma-ecaas]]] piattaforma ECaaS, [[wiki/docs/adr/ADR-013-migrazione-pg-dump-restore\|ADR-013-migrazione-pg-dump-restore]] migrazione PG

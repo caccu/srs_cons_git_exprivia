@@ -20,7 +20,7 @@ PostgreSQL 9 è RETIRED da CSI; PG17 è CURRENT (DBaaS Nivola). Salto di **8 maj
 - Comportamento `timestamp without time zone` raffinato
 
 Vincoli:
-- DBaaS Nivola ([[ADR-003\|ADR-003]]): niente accesso filesystem diretto, niente `pg_upgrade` server-side
+- DBaaS Nivola ([[wiki/docs/adr/ADR-003-dbaas-nivola\|ADR-003-dbaas-nivola]]): niente accesso filesystem diretto, niente `pg_upgrade` server-side
 - Nivola gestisce backup/HA — la migrazione deve passare per dump/restore client-side
 - Finestra cutover stretta da minimizzare per impatto utenti
 
@@ -78,4 +78,4 @@ Finestra cutover stimata: 21 giorni in Fase 6 (Sprint 9). Vincolata da volumi re
 - [[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]] (governance e decision-point aperti)
 - [[wiki/sources/2026-03-02-appunti-e-pianificazione\|Appunti e pianificazione]] §Piano Migrazione
 - [[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|Checklist Avvio Progetto]] §A6
-- Correlato: [[ADR-001\|ADR-001]] stack (PG17), [[ADR-003\|ADR-003]] DBaaS Nivola (vincolo accesso)
+- Correlato: [[wiki/docs/adr/ADR-001-stack-tecnologico\|ADR-001-stack-tecnologico]] stack (PG17), [[wiki/docs/adr/ADR-003-dbaas-nivola\|ADR-003-dbaas-nivola]] DBaaS Nivola (vincolo accesso)

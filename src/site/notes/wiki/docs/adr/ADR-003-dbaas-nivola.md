@@ -55,4 +55,4 @@ PostgreSQL 17 viene erogato da **DBaaS Nivola** (servizio gestito CSI), esterno 
 
 - [[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #10
 - [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]] §DBaaS Nivola
-- Correlato: [[ADR-002\|ADR-002]] piattaforma ECaaS, [[ADR-013\|ADR-013]] migrazione, [[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]]
+- Correlato: [[wiki/docs/adr/ADR-002-piattaforma-ecaas\|ADR-002-piattaforma-ecaas]] piattaforma ECaaS, [[wiki/docs/adr/ADR-013-migrazione-pg-dump-restore\|ADR-013-migrazione-pg-dump-restore]] migrazione, [[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]]

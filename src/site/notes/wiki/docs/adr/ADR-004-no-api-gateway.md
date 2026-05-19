@@ -24,13 +24,13 @@ L'applicativo **non attraversa l'API Gateway/Manager centralizzato del CSI Piemo
 
 Conseguenza diretta: tutte le funzioni tipicamente APIM vengono ripiegate nell'app:
 
-| Funzione APIM | Componente applicativo TO-BE |
-|---|---|
-| Autenticazione (token validation) | Spring Security + nimbus-jose-jwt |
-| Autorizzazione granulare per ente | Filter custom `EnteAuthorizationFilter` (vedi [[ADR-005\|ADR-005]]) |
-| Rate limiting / throttling | `bucket4j` o `resilience4j-ratelimiter` |
-| Audit log strutturato | Logger applicativo JSON |
-| Quota per client | Tabella DB + filter |
+| Funzione APIM                     | Componente applicativo TO-BE                                                   |
+| --------------------------------- | ------------------------------------------------------------------------------ |
+| Autenticazione (token validation) | Spring Security + nimbus-jose-jwt                                              |
+| Autorizzazione granulare per ente | Filter custom `EnteAuthorizationFilter` (vedi [[wiki/docs/adr/ADR-005-sicurezza-cdu-15-16\|ADR-005-sicurezza-cdu-15-16]]) |
+| Rate limiting / throttling        | `bucket4j` o `resilience4j-ratelimiter`                                        |
+| Audit log strutturato             | Logger applicativo JSON                                                        |
+| Quota per client                  | Tabella DB + filter                                                            |
 
 TLS termination e WAF restano sull'Ingress ECaaS / layer rete CSI.
 
@@ -52,14 +52,14 @@ TLS termination e WAF restano sull'Ingress ECaaS / layer rete CSI.
 
 ## Alternatives considered
 
-| Alternativa | Motivo scarto |
-|---|---|
-| Attraversamento APIM CSI | Modello autorizzazione per `codice_ente` non standard; dipendenza esterna su risorsa condivisa CSI; difficoltà a propagare claim custom |
-| API Gateway open-source self-hosted (Kong, Tyk) | Vincoli ECaaS impediscono install Cluster-level (vedi [[ADR-002\|ADR-002]]) |
+| Alternativa                                     | Motivo scarto                                                                                                                           |
+| ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Attraversamento APIM CSI                        | Modello autorizzazione per `codice_ente` non standard; dipendenza esterna su risorsa condivisa CSI; difficoltà a propagare claim custom |
+| API Gateway open-source self-hosted (Kong, Tyk) | Vincoli ECaaS impediscono install Cluster-level (vedi [[wiki/docs/adr/ADR-002-piattaforma-ecaas\|ADR-002-piattaforma-ecaas]])                                                    |
 
 ## References
 
 - [[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #6
 - [[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] §3.2
 - [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16 — Modello Autorizzazione per Ente]]
-- Correlato: [[ADR-005\|ADR-005]] sicurezza CDU-15/16 (decisione conseguente)
+- Correlato: [[wiki/docs/adr/ADR-005-sicurezza-cdu-15-16\|ADR-005-sicurezza-cdu-15-16]] sicurezza CDU-15/16 (decisione conseguente)

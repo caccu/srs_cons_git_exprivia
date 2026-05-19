@@ -70,4 +70,4 @@ Documentazione obbligatoria:
 - [[Sistemi Esterni Integrati\|Sistemi Esterni Integrati]] §Notificatore di Deleghe + §Notificatore UNP
 - [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] §Notifica al cittadino post-COMPLETATO
 - [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF33R31
-- Correlato: [[ADR-007\|ADR-007]] BATCH-01 5min (precondizione `COMPLETATO`)
+- Correlato: [[wiki/docs/adr/ADR-007-batch-01-5min-skip-locked\|ADR-007-batch-01-5min-skip-locked]] BATCH-01 5min (precondizione `COMPLETATO`)

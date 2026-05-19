@@ -46,7 +46,7 @@ LIMIT 1;
    - **INSERT** nuovo record storicizzato con stato `SCADUTO` (se `annulla_consensi=NO`) o `ANNULLATO` (se `annulla_consensi=SI`), puntando alla nuova informativa
 4. Se `ANNULLATO` → INSERT in `cons_t_notifica` → BATCH-01 notifica SIA
 
-Storicizzazione segue [[ADR-015\|ADR-015]] (immutabile).
+Storicizzazione segue [[wiki/docs/adr/ADR-015-storicizzazione-immutabile\|ADR-015-storicizzazione-immutabile]] (immutabile).
 
 | `annulla_consensi` | Nuovo stato | Notifica ASR? |
 |---|---|---|
@@ -91,4 +91,4 @@ Storicizzazione segue [[ADR-015\|ADR-015]] (immutabile).
 - [[wiki/concepts/informativa\|Informativa Consenso]] §Ciclo di vita
 - [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF66R65
 - [[wiki/analyses/analysis-gap-as-is-to-be\|Analisi Gap AS-IS → TO-BE]] §Stato SCADUTO meccanismo diverso
-- Correlato: [[ADR-015\|ADR-015]] storicizzazione immutabile, [[ADR-007\|ADR-007]] BATCH-01 notifica per ANNULLATO
+- Correlato: [[wiki/docs/adr/ADR-015-storicizzazione-immutabile\|ADR-015-storicizzazione-immutabile]] storicizzazione immutabile, [[wiki/docs/adr/ADR-007-batch-01-5min-skip-locked\|ADR-007-batch-01-5min-skip-locked]] BATCH-01 notifica per ANNULLATO

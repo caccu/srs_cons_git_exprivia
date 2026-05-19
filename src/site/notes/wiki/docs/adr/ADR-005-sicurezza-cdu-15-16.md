@@ -43,7 +43,7 @@ Modello di sicurezza a **3 livelli di difesa**:
 Componenti aggiuntivi:
 - Rate limit applicativo via `bucket4j` (default 60 req/min per client)
 - Audit log JSON strutturato con `client_id`, `codice_ente_requested`, `codice_ente_authorized`, `outcome`, `latency_ms`, `trace_id` (CF mai loggato in chiaro)
-- Errori RFC 7807 ([[ADR-018\|ADR-018]])
+- Errori RFC 7807 ([[wiki/docs/adr/ADR-018-rfc-7807-error-response\|ADR-018-rfc-7807-error-response]])
 
 ## Consequences
 
@@ -51,7 +51,7 @@ Componenti aggiuntivi:
 - Isolamento dati per ente garantito da 3 controlli indipendenti
 - Revoca client senza dover riemettere token (basta `data_revoca` in tabella)
 - Audit log granulare per investigazione breach
-- Pattern riusabile per [[ADR-006\|ADR-006]] CDU-17 PULL
+- Pattern riusabile per [[wiki/docs/adr/ADR-006-batch-03-pull-cdu-17\|ADR-006-batch-03-pull-cdu-17]] CDU-17 PULL
 
 ### Negative
 - Nuova tabella `cons_t_client_ente` da popolare e mantenere in onboarding SIA
@@ -64,11 +64,11 @@ Componenti aggiuntivi:
 
 ## Alternatives considered
 
-| Alternativa | Motivo scarto |
-|---|---|
+| Alternativa                               | Motivo scarto                                                                                            |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | Solo JWT con claim `codice_ente` embedded | Niente revoca senza riemissione; niente audit storico mapping; meno flessibile per ruoli speciali futuri |
-| API Manager CSI come gatekeeper | Escluso da [[ADR-004\|ADR-004]]; modello multi-tenant per ente non standard APIM |
-| mTLS per ente | Onboarding complesso (rotation certificati per ogni SIA), niente flessibilità scope OAuth |
+| API Manager CSI come gatekeeper           | Escluso da [[wiki/docs/adr/ADR-004-no-api-gateway\|ADR-004-no-api-gateway]]; modello multi-tenant per ente non standard APIM                   |
+| mTLS per ente                             | Onboarding complesso (rotation certificati per ogni SIA), niente flessibilità scope OAuth                |
 
 ## Open issues
 
@@ -85,4 +85,4 @@ Domande aperte verso CSI (tracker [[wiki/analyses/analysis-2026-05-14-punti-aper
 - [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16 — Modello Autorizzazione per Ente]] (concept completo con pseudocodice filter e matrice attacchi)
 - [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|OpenAPI CDU-15/16]]
 - [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF — Revisione SRS v3 lavorazione]] MF59-62R58
-- Correlato: [[ADR-004\|ADR-004]] no API Gateway, [[ADR-006\|ADR-006]] CDU-17 PULL riusa stesso pattern, [[ADR-018\|ADR-018]] RFC 7807
+- Correlato: [[wiki/docs/adr/ADR-004-no-api-gateway\|ADR-004-no-api-gateway]] no API Gateway, [[wiki/docs/adr/ADR-006-batch-03-pull-cdu-17\|ADR-006-batch-03-pull-cdu-17]] CDU-17 PULL riusa stesso pattern, [[wiki/docs/adr/ADR-018-rfc-7807-error-response\|ADR-018-rfc-7807-error-response]] RFC 7807

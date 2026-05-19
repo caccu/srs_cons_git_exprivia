@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-019-cdu-06-pdf-scope-ridotto/","title":"CDU-06 PDF — scope ridotto a sola informativa accettata, no firma, no valore consenso","tags":["cdu-06","pdf","informativa","mf47","scope","ux-cittadino"],"dg-note-properties":{"adr":19,"title":"CDU-06 PDF — scope ridotto a sola informativa accettata, no firma, no valore consenso","status":"accepted","date":"2026-05-14","deciders":["Marco Forneris","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["cdu-06","pdf","informativa","mf47","scope","ux-cittadino"],"related_wiki":["[[Gestione Consensi - Applicativo\|Gestione Consensi - Applicativo]]","[[wiki/concepts/informativa\|Informativa Consenso]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]]"],"sources":["[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF47R46, MF49R48, MF51R50"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-019-cdu-06-pdf-scope-ridotto/","title":"CDU-06 PDF — scope ridotto a sola informativa accettata, no firma, no valore consenso","tags":["cdu-06","pdf","informativa","mf47","scope","ux-cittadino"],"dg-note-properties":{"adr":19,"title":"CDU-06 PDF — scope ridotto a sola informativa accettata, no firma, no valore consenso","status":"accepted","date":"2026-05-14","deciders":["Marco Forneris","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["cdu-06","pdf","informativa","mf47","scope","ux-cittadino"],"related_wiki":["[[Gestione Consensi - Applicativo]]","[[wiki/concepts/informativa\|Informativa Consenso]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]]"],"sources":["[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF47R46, MF49R48, MF51R50"]}}
 ---
 
 
@@ -38,7 +38,7 @@ Lato Operatore: nessun caso d'uso analogo nel TO-BE (l'operatore non scarica PDF
 - Scope chiaro e implementabile in fase 1
 - Niente integrazione firma digitale → niente dipendenza esterna su servizi eIDAS
 - Niente disclosure valore consenso in PDF → riduce rischio data leak in caso di stampa condivisa
-- Allineamento con UX cittadino [[ADR-011\|ADR-011]] (pulsante unico Salva, no esposizione tecnicalità)
+- Allineamento con UX cittadino [[wiki/docs/adr/ADR-011-merge-cdu-04-05-cittadino\|ADR-011-merge-cdu-04-05-cittadino]] (pulsante unico Salva, no esposizione tecnicalità)
 
 ### Negative
 - "Attestazione consenso completo" (valore + informativa + firma) **non disponibile**: cittadino vuole prova legale → soluzione esterna (es. richiesta presso ASR)
@@ -62,7 +62,7 @@ Lato Operatore: nessun caso d'uso analogo nel TO-BE (l'operatore non scarica PDF
 
 ## References
 
-- [[Gestione Consensi - Applicativo\|Gestione Consensi - Applicativo]] §Area Cittadino (CDU-06)
+- [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] §Area Cittadino (CDU-06)
 - [[wiki/concepts/informativa\|Informativa Consenso]]
 - [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] tema D (MF47R46, MF49R48, MF51R50)
-- Correlato: [[ADR-011\|ADR-011]] merge CDU-04/05 (UX cittadino semplificata), [[ADR-015\|ADR-015]] storicizzazione (download non altera storico)
+- Correlato: [[wiki/docs/adr/ADR-011-merge-cdu-04-05-cittadino\|ADR-011-merge-cdu-04-05-cittadino]] merge CDU-04/05 (UX cittadino semplificata), [[wiki/docs/adr/ADR-015-storicizzazione-immutabile\|ADR-015-storicizzazione-immutabile]] storicizzazione (download non altera storico)

@@ -40,7 +40,7 @@ Macchina a stati ([[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consens
 
 ### Positive
 - UX cittadino semplificata: una sola azione esplicita
-- Coerenza con [[ADR-008\|ADR-008]] SSoT Form Renderer (pulsante unico abilitato dal renderer dinamico)
+- Coerenza con [[wiki/docs/adr/ADR-008-ssot-form-renderer\|ADR-008-ssot-form-renderer]] SSoT Form Renderer (pulsante unico abilitato dal renderer dinamico)
 - Tracciatura interna preserva la distinzione (analytics, audit)
 
 ### Negative
@@ -63,4 +63,4 @@ Macchina a stati ([[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consens
 - [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]] §Logica CDU
 - [[Gestione Consensi - Applicativo\|Gestione Consensi - Applicativo]] §Area Cittadino
 - [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF37R36, MF45R44
-- Correlato: [[ADR-008\|ADR-008]] SSoT Form Renderer (abilita pulsante unico), [[ADR-010\|ADR-010]] CDU-01 split (separazione webapp)
+- Correlato: [[ADR-008\|ADR-008]] SSoT Form Renderer (abilita pulsante unico), [[wiki/docs/adr/ADR-010-cdu-01-split\|ADR-010-cdu-01-split]] CDU-01 split (separazione webapp)

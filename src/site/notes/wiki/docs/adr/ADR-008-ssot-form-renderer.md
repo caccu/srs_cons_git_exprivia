@@ -48,7 +48,7 @@ Configurazione completamente DB-driven (`cons_d_sotto_tipo_cons` + tabelle corre
 - Coerenza UX cittadino/operatore garantita per costruzione
 - Singolo punto di evoluzione per ogni nuovo `sotto_tipo_consenso`
 - Riduzione superficie test (un solo renderer da testare per regola)
-- Architettura aperta a nuovi canali (es. mobile, kiosk LIS — vedi [[ADR-017\|ADR-017]])
+- Architettura aperta a nuovi canali (es. mobile, kiosk LIS — vedi [[wiki/docs/adr/ADR-017-lis-terzo-canale\|ADR-017-lis-terzo-canale]])
 
 ### Negative
 - Vincola le 2 webapp ad usare la stessa stack frontend (Angular + componente shared)
@@ -60,14 +60,14 @@ Configurazione completamente DB-driven (`cons_d_sotto_tipo_cons` + tabelle corre
 
 ## Alternatives considered
 
-| Alternativa | Motivo scarto |
-|---|---|
-| Due renderer separati cittadino/operatore | Drift garantito; bug doppi; rigetta MF57R56 |
-| Server-side rendering | Backend Spring Boot deve restare API-only per coerenza con stack [[ADR-001\|ADR-001]] |
-| Form schema standard (JSON Schema / RJSF) | Aggiunge dipendenza esterna; configurazione DB già presente |
+| Alternativa                               | Motivo scarto                                                                                  |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Due renderer separati cittadino/operatore | Drift garantito; bug doppi; rigetta MF57R56                                                    |
+| Server-side rendering                     | Backend Spring Boot deve restare API-only per coerenza con stack [[wiki/docs/adr/ADR-001-stack-tecnologico\|ADR-001-stack-tecnologico]] |
+| Form schema standard (JSON Schema / RJSF) | Aggiunge dipendenza esterna; configurazione DB già presente                                    |
 
 ## References
 
 - [[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]] (concept completo con regole §2-§5)
 - [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF57R56 (+ MF26R25, MF28R27, MF30R29, MF37R36)
-- Correlato: [[ADR-011\|ADR-011]] merge CDU-04/CDU-05 lato cittadino (uso pulsante unico abilitato dal renderer dinamico)
+- Correlato: [[wiki/docs/adr/ADR-011-merge-cdu-04-05-cittadino\|ADR-011-merge-cdu-04-05-cittadino]] merge CDU-04/CDU-05 lato cittadino (uso pulsante unico abilitato dal renderer dinamico)

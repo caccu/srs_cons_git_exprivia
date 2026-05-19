@@ -69,4 +69,4 @@ Dipende da [[GASP Salute\|GASP Salute]] (rischio critico aperto):
 - [[Gestione Consensi - Applicativo\|Gestione Consensi - Applicativo]] §CDU-01 split
 - [[GASP Salute\|GASP Salute]]
 - [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF16R15, MF18R17, MF7R5
-- Correlato: [[ADR-009\|ADR-009]] no SistemaTS (CDU-07 a valle CDU-01a), [[ADR-011\|ADR-011]] merge CDU-04/05 (coerenza UX cittadino)
+- Correlato: [[wiki/docs/adr/ADR-009-eliminazione-sistemats\|ADR-009-eliminazione-sistemats]] no SistemaTS (CDU-07 a valle CDU-01a), [[wiki/docs/adr/ADR-011-merge-cdu-04-05-cittadino\|ADR-011-merge-cdu-04-05-cittadino]] merge CDU-04/05 (coerenza UX cittadino)

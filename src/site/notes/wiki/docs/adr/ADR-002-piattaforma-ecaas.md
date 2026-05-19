@@ -66,4 +66,4 @@ Vincoli obbligatori per ogni Deployment:
 - [[wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native\|Linee Guida Cloud Native per Fornitori v1.0.1]]
 - [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]]
 - [[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] §3.5
-- Correlato: [[ADR-001\|ADR-001]] stack, [[ADR-003\|ADR-003]] DBaaS Nivola
+- Correlato: [[wiki/docs/adr/ADR-001-stack-tecnologico\|ADR-001-stack-tecnologico]] stack, [[wiki/docs/adr/ADR-003-dbaas-nivola\|ADR-003-dbaas-nivola]] DBaaS Nivola

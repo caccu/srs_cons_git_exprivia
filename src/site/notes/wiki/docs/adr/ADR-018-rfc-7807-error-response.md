@@ -11,7 +11,7 @@
 
 ## Context
 
-Gli endpoint REST esposti (CDU-15, CDU-16, eventuale CDU-17 da [[ADR-006\|ADR-006]]) devono produrre risposte di errore consistenti, machine-readable e auto-documentate. Senza standard:
+Gli endpoint REST esposti (CDU-15, CDU-16, eventuale CDU-17 da [[wiki/docs/adr/ADR-006-batch-03-pull-cdu-17\|ADR-006-batch-03-pull-cdu-17]]) devono produrre risposte di errore consistenti, machine-readable e auto-documentate. Senza standard:
 
 - Ogni endpoint genera payload di errore con shape diversa
 - I SIA implementano parser custom per ogni messaggio
@@ -70,4 +70,4 @@ Estensioni ammesse: campi custom (es. `params_hash`, `trace_id`) per supporto de
 - [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16]] §HTTP status codes
 - [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|OpenAPI CDU-15/16]] §Gestione errori
 - RFC 7807 — https://datatracker.ietf.org/doc/html/rfc7807
-- Correlato: [[ADR-005\|ADR-005]] sicurezza CDU-15/16 (4xx/5xx usano RFC 7807)
+- Correlato: [[wiki/docs/adr/ADR-005-sicurezza-cdu-15-16\|ADR-005-sicurezza-cdu-15-16]] sicurezza CDU-15/16 (4xx/5xx usano RFC 7807)

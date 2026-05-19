@@ -61,4 +61,4 @@ Conseguenza documentale (MF55R54):
 - [[Sistemi Esterni Integrati\|Sistemi Esterni Integrati]] §AURA
 - [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] tema E (MF53R52, MF55R54)
 - [[wiki/analyses/analysis-gap-as-is-to-be\|Analisi Gap AS-IS → TO-BE]] (stack integrazione semplificato)
-- Correlato: [[ADR-010\|ADR-010]] split CDU-01 (operatore lato CDU-07/08 coinvolge AURA)
+- Correlato: [[wiki/docs/adr/ADR-010-cdu-01-split\|ADR-010-cdu-01-split]] split CDU-01 (operatore lato CDU-07/08 coinvolge AURA)
