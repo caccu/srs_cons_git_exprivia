@@ -1,0 +1,83 @@
+{
+  "/": [
+    "wiki"
+  ],
+  "/wiki": [
+    "analyses",
+    "concepts",
+    "docs",
+    "entities",
+    "sources",
+    "index",
+    "overview"
+  ],
+  "/wiki/analyses": [
+    "analysis-2026-05-06-checklist-avvio-progetto",
+    "analysis-2026-05-06-openapi-cdu-15-16",
+    "analysis-2026-05-14-punti-aperti-csi",
+    "analysis-2026-05-14-risposte-mf-srs-v3",
+    "analysis-2026-05-14-tr34-alternativa-batch-03",
+    "analysis-gap-as-is-to-be",
+    "conspref-dmp-tracker",
+    "valutazione-qualita-srs-consensi"
+  ],
+  "/wiki/concepts": [
+    "alternativa-batch-03-pull",
+    "architettura-ecaas",
+    "batch-processes",
+    "ciclo-vita-consenso",
+    "composizione-dinamica-form-consenso",
+    "gasp-salute",
+    "gestione-consensi-applicativo",
+    "informativa",
+    "migrazione-postgres-9-17",
+    "sicurezza-cdu-15-16",
+    "sistemi-esterni-integrati",
+    "stack-tecnologico-applicativo"
+  ],
+  "/wiki/docs": [
+    "adr"
+  ],
+  "/wiki/docs/adr": [
+    "ADR-001-stack-tecnologico",
+    "ADR-002-piattaforma-ecaas",
+    "ADR-003-dbaas-nivola",
+    "ADR-004-no-api-gateway",
+    "ADR-005-sicurezza-cdu-15-16",
+    "ADR-006-batch-03-pull-cdu-17",
+    "ADR-007-batch-01-5min-skip-locked",
+    "ADR-008-ssot-form-renderer",
+    "ADR-009-eliminazione-sistemats",
+    "ADR-010-cdu-01-split",
+    "ADR-011-merge-cdu-04-05-cittadino",
+    "ADR-012-notificatore-deleghe-post-completato",
+    "ADR-013-migrazione-pg-dump-restore",
+    "ADR-014-apache-cxf-soap-client",
+    "ADR-015-storicizzazione-immutabile",
+    "ADR-016-scaduto-async-batch-02",
+    "ADR-017-lis-terzo-canale",
+    "ADR-018-rfc-7807-error-response",
+    "ADR-019-cdu-06-pdf-scope-ridotto",
+    "README"
+  ],
+  "/wiki/entities": [
+    "csi-piemonte",
+    "exprivia",
+    "notificatore-unp",
+    "regione-piemonte"
+  ],
+  "/wiki/sources": [
+    "2019-02-01-sfu-gestione-consensi-v1-7",
+    "2019-03-20-acc-del-cdu-01-servizi-acquisizione",
+    "2019-04-08-dizionario-dati-as-is",
+    "2019-06-01-linea-guida-fornitori-cloud-native",
+    "2019-06-01-webservice-consenso-regionale-v03",
+    "2023-09-01-conspref-srs-01-v03",
+    "2026-03-02-appunti-e-pianificazione",
+    "2026-03-02-conspref-srs-v1-revised",
+    "2026-03-02-domande-srs-csi-v02",
+    "2026-03-02-sommario-srs-consensi",
+    "2026-03-12-pile-tecnologiche-csi",
+    "2026-05-05-mermaid-architettura"
+  ]
+}
