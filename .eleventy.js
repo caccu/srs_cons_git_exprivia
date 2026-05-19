@@ -183,6 +183,7 @@ function decodeHrefPath(hrefPath) {
 }
 
 function sanitizeRelativePath(relPath) {
+  // Normalize and strip one or more leading "./" segments (e.g. "./file.md", ".//file.md")
   const normalized = path.normalize(relPath || "").replace(/\\/g, "/").replace(/^\.\/+/, "");
   if (!normalized || normalized === "." || normalized === ".." || normalized.startsWith("../")) {
     return null;
@@ -199,6 +200,18 @@ function getExistingRelativeNotePath(candidatePath) {
   return fs.existsSync(fullPath) ? relative : null;
 }
 
+function getSafeInputDirectory(inputPath) {
+  if (typeof inputPath !== "string" || !inputPath.trim()) {
+    return null;
+  }
+  const resolvedInputPath = path.resolve(inputPath);
+  const relativeToNotes = path.relative(notesRootPath, resolvedInputPath).replace(/\\/g, "/");
+  if (!relativeToNotes || relativeToNotes === "." || relativeToNotes.startsWith("..")) {
+    return null;
+  }
+  return path.dirname(resolvedInputPath);
+}
+
 function resolveNotePathFromMarkdownHref(hrefPath, inputPath) {
   const decodedPath = decodeHrefPath(hrefPath);
   const candidates = [];
@@ -206,8 +219,8 @@ function resolveNotePathFromMarkdownHref(hrefPath, inputPath) {
   if (decodedPath.startsWith("/")) {
     candidates.push(decodedPath.replace(/^\/+/, ""));
   } else {
-    if (inputPath) {
-      const inputDirectory = path.dirname(path.resolve(inputPath));
+    const inputDirectory = getSafeInputDirectory(inputPath);
+    if (inputDirectory) {
       const relativeToNotes = path.relative(
         notesRootPath,
         path.resolve(inputDirectory, decodedPath)
@@ -225,6 +238,11 @@ function resolveNotePathFromMarkdownHref(hrefPath, inputPath) {
   const basenameMatches = notesByFileName.get(path.basename(decodedPath).toLowerCase());
   if (basenameMatches && basenameMatches.length === 1) {
     return basenameMatches[0];
+  }
+  if (basenameMatches && basenameMatches.length > 1) {
+    console.warn(
+      `[resolve-markdown-file-links] Ambiguous markdown link basename "${decodedPath}" from "${inputPath}": ${basenameMatches.join(", ")}. Automatic resolution is skipped and unresolved fallback will be used.`
+    );
   }
   return null;
 }
@@ -568,6 +586,9 @@ module.exports = function(eleventyConfig) {
     return str && parsed.innerHTML;
   });
 
+  // Resolve internal markdown links ([...](...md)) into canonical note permalinks.
+  // Strategy: resolve by page-relative path, then by notes-root path, then by unique basename.
+  // If no unique target exists, convert to unresolved link handling (/404) to avoid broken relative URLs.
   eleventyConfig.addTransform("resolve-markdown-file-links", function(str) {
     if (!isMarkdownPage(this.page.inputPath)) {
       return str;
@@ -580,6 +601,11 @@ module.exports = function(eleventyConfig) {
       }
       const { pathPart, queryPart, hashPart } = splitHrefParts(href);
       const resolvedNotePath = resolveNotePathFromMarkdownHref(pathPart, this.page.inputPath);
+      if (!resolvedNotePath) {
+        console.warn(
+          `[resolve-markdown-file-links] Could not resolve markdown link "${pathPart}" from "${this.page.inputPath}", falling back to unresolved link handling.`
+        );
+      }
       const notePathForAnchor = resolvedNotePath || decodeHrefPath(pathPart);
       const { attributes } = getAnchorAttributes(notePathForAnchor, anchor.innerHTML);
       anchor.setAttribute("href", `${attributes.href}${queryPart}${hashPart}`);
