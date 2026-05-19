@@ -107,6 +107,13 @@ function getPermalinkMeta(note, key) {
     }    
     if (note.data.title) {
       name = note.data.title;
+      const adrNumber = note.data["dg-note-properties"]?.adr;
+      if (Number.isInteger(adrNumber)) {
+        const adrPrefix = `ADR-${String(adrNumber).padStart(3, "0")}: `;
+        if (!name.startsWith(adrPrefix)) {
+          name = `${adrPrefix}${name}`;
+        }
+      }
     }
     if (note.data.noteIcon) {
       noteIcon = note.data.noteIcon;
