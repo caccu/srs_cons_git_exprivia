@@ -1,11 +1,9 @@
 require("dotenv").config();
 const { globSync } = require("glob");
+const { getSiteInfo, withPathPrefix } = require("../../helpers/sitePath");
 
 module.exports = async (data) => {
-  let baseUrl = process.env.SITE_BASE_URL || "";
-  if (baseUrl && !baseUrl.startsWith("http")) {
-    baseUrl = "https://" + baseUrl;
-  }
+  const siteInfo = getSiteInfo();
   let themeStyle = globSync("src/site/styles/_theme.*.css")[0] || "";
 
   // Check for logo file (supports multiple image formats)
@@ -13,7 +11,7 @@ module.exports = async (data) => {
   let logoPath = "";
   if (logoFiles.length > 0) {
     // Use the first match and convert to site-relative path
-    logoPath = "/" + logoFiles[0].split("src/site/")[1];
+    logoPath = withPathPrefix("/" + logoFiles[0].split("src/site/")[1], siteInfo.pathPrefix);
   }
   if (themeStyle) {
     themeStyle = themeStyle.split("site")[1];
@@ -97,7 +95,8 @@ module.exports = async (data) => {
     siteName: process.env.SITE_NAME_HEADER || "Digital Garden",
     siteLogoPath: logoPath,
     mainLanguage: process.env.SITE_MAIN_LANGUAGE || "en",
-    siteBaseUrl: baseUrl,
+    siteBaseUrl: siteInfo.siteBaseUrl,
+    sitePathPrefix: siteInfo.pathPrefix,
     styleSettingsCss,
     uiStrings,
     buildDate: new Date(),

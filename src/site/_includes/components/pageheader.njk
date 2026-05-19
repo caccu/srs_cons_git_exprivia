@@ -39,16 +39,16 @@
 <script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
 
 {%-if meta.themeStyle%}
-    <link href="/styles/obsidian-base.css" rel="stylesheet">
-    <link href="{{meta.themeStyle}}" rel="stylesheet">
+    <link href="{{ '/styles/obsidian-base.css' | url }}" rel="stylesheet">
+    <link href="{{ meta.themeStyle | url }}" rel="stylesheet">
 {% else %}
-    <link href="/styles/style.css" rel="stylesheet">
+    <link href="{{ '/styles/style.css' | url }}" rel="stylesheet">
 {%endif%}
-<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="{{ '/styles/digital-garden-base.css' | url }}" rel="stylesheet">
 
-<link href="/styles/custom-style.css" rel="stylesheet">
+<link href="{{ '/styles/custom-style.css' | url }}" rel="stylesheet">
 {%- for style in dynamics.styles -%}
-<link href="{{style}}?v={{meta.buildDate|isoDate}}" rel="stylesheet">
+<link href="{{ style | url }}?v={{meta.buildDate|isoDate}}" rel="stylesheet">
 {%- endfor -%}
 
 {% favicons './src/site/favicon.svg', appleIconBgColor='#123' %}

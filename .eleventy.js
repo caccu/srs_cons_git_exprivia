@@ -20,6 +20,7 @@ const tocPlugin = require("eleventy-plugin-nesting-toc");
 const { parse } = require("node-html-parser");
 const htmlMinifier = require("html-minifier-terser");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
+const { getSiteInfo, withPathPrefix } = require("./src/helpers/sitePath");
 
 const { headerToId, namedHeadingsFilter } = require("./src/helpers/utils");
 const {
@@ -28,13 +29,15 @@ const {
 } = require("./src/helpers/userSetup");
 const { basesPlugin } = require("./src/helpers/basesPlugin");
 
+const siteInfo = getSiteInfo();
+
 const Image = require("@11ty/eleventy-img");
 function transformImage(src, cls, alt, sizes, widths = ["500", "700", "auto"]) {
   let options = {
     widths: widths,
     formats: ["webp", "jpeg"],
     outputDir: "./dist/img/optimized",
-    urlPath: "/img/optimized",
+    urlPath: withPathPrefix("/img/optimized", siteInfo.pathPrefix),
   };
 
   // generate images, while this is async we don’t wait
@@ -59,7 +62,7 @@ function getAnchorAttributes(filePath, linkTitle) {
 
   let noteIcon = process.env.NOTE_ICON_DEFAULT;
   const title = linkTitle ? linkTitle : fileName;
-  let permalink = `/notes/${slugify(filePath)}`;
+  let permalink = withPathPrefix(`/notes/${slugify(filePath)}`, siteInfo.pathPrefix);
   let deadLink = false;
   try {
     const startPath = "./src/site/notes/";
@@ -72,13 +75,13 @@ function getAnchorAttributes(filePath, linkTitle) {
     const file = fs.readFileSync(fullPath, "utf8");
     const frontMatter = matter(file, matterOptions);
     if (frontMatter.data.permalink) {
-      permalink = frontMatter.data.permalink;
+      permalink = withPathPrefix(frontMatter.data.permalink, siteInfo.pathPrefix);
     }
     if (
       frontMatter.data.tags &&
       frontMatter.data.tags.indexOf("gardenEntry") != -1
     ) {
-      permalink = "/";
+      permalink = withPathPrefix("/", siteInfo.pathPrefix);
     }
     if (frontMatter.data.noteIcon) {
       noteIcon = frontMatter.data.noteIcon;
@@ -91,7 +94,7 @@ function getAnchorAttributes(filePath, linkTitle) {
     return {
       attributes: {
         "class": "internal-link is-unresolved",
-        "href": "/404",
+         "href": withPathPrefix("/404", siteInfo.pathPrefix),
         "target": "",
       },
       innerHTML: title,
@@ -765,6 +768,7 @@ module.exports = function(eleventyConfig) {
   userEleventySetup(eleventyConfig);
 
   return {
+    pathPrefix: siteInfo.pathPrefix,
     dir: {
       input: "src/site",
       output: "dist",

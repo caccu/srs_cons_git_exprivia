@@ -6,6 +6,8 @@ const internalLinkRegex = /href="\/(.*?)"/g;
 const iframeSrcRegex = /<iframe[^>]*?src="(\/[^"#]*)"[^>]*?class="canvas-file-iframe"/g;
 // Match ```base code blocks to extract links from bases queries
 const basesBlockRegex = /```base\n([\s\S]*?)```/g;
+const { getSiteInfo, stripPathPrefix, withPathPrefix } = require("./sitePath");
+const siteInfo = getSiteInfo();
 
 let basesEngine = null;
 let clearRenderCache = null;
@@ -22,7 +24,7 @@ function extractLinks(content) {
   let match;
   while ((match = iframeSrcRegex.exec(content)) !== null) {
     // match[1] is the captured path like "/notes/some-page/"
-    iframeLinks.push(match[1]);
+    iframeLinks.push(stripPathPrefix(match[1], siteInfo.pathPrefix));
   }
   // Reset regex lastIndex for next use
   iframeSrcRegex.lastIndex = 0;
@@ -30,24 +32,30 @@ function extractLinks(content) {
   return [
     ...(content.match(wikiLinkRegex) || []).map(
       (link) =>
-        link
+        stripPathPrefix(
+          link
           .slice(2, -2)
           .split("|")[0]
           .replace(/\.(md|markdown)\s?$/i, "")
           .replace("\\", "")
           .trim()
-          .split("#")[0]
-    ),
+          .split("#")[0],
+          siteInfo.pathPrefix
+        )
+     ),
     ...(content.match(internalLinkRegex) || []).map(
       (link) =>
-        link
+        stripPathPrefix(
+          link
           .slice(6, -1)
           .split("|")[0]
           // Don't strip .canvas - canvas URLs actually include it
           .replace(/\.(md|markdown)\s?$/i, "")
           .replace("\\", "")
           .trim()
-          .split("#")[0]
+          .split("#")[0],
+          siteInfo.pathPrefix
+        )
     ),
     ...iframeLinks,
   ];
@@ -121,7 +129,7 @@ async function getGraph(data) {
     nodes[v.url] = {
       id: idx,
       title: v.data.title || v.fileSlug,
-      url: v.url,
+      url: withPathPrefix(v.url, siteInfo.pathPrefix),
       group,
       home:
         v.data["dg-home"] ||
@@ -133,7 +141,7 @@ async function getGraph(data) {
       noteIcon: v.data.noteIcon || process.env.NOTE_ICON_DEFAULT,
       hide: v.data.hideInGraph || false,
     };
-    stemURLs[fpath] = v.url;
+    stemURLs[fpath] = withPathPrefix(v.url, siteInfo.pathPrefix);
     if (
       v.data["dg-home"] ||
       (v.data.tags && v.data.tags.indexOf("gardenEntry") > -1)

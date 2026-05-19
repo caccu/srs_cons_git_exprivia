@@ -2,6 +2,8 @@
  * View renderers for bases query results.
  * Generates static HTML for table, cards, and list views.
  */
+const { getSiteInfo, withPathPrefix } = require("../sitePath");
+const siteInfo = getSiteInfo();
 
 // --- Metadata helpers ---
 
@@ -191,12 +193,12 @@ function formatCellValue(value, column, row) {
 				}
 				// Unresolved link — render as dead link
 				const slug = item.replace(/^\/|\/$/g, "").split("/").pop() || item;
-				return `<a href="/404" class="internal-link is-unresolved">${escapeHtml(decodeURIComponent(slug))}</a>`;
+				return `<a href="${escapeHtml(withPathPrefix("/404", siteInfo.pathPrefix))}" class="internal-link is-unresolved">${escapeHtml(decodeURIComponent(slug))}</a>`;
 			}
 			if (typeof item === "string" && !item.startsWith("/") && item.includes("/")) {
 				// Non-URL path with slashes (e.g. raw wikilink stem like "04 - PERMANENT/Note Name") — dead link
 				const slug = item.split("/").pop().replace(/\.md$/, "") || item;
-				return `<a href="/404" class="internal-link is-unresolved">${escapeHtml(slug)}</a>`;
+				return `<a href="${escapeHtml(withPathPrefix("/404", siteInfo.pathPrefix))}" class="internal-link is-unresolved">${escapeHtml(slug)}</a>`;
 			}
 			return escapeHtml(String(item));
 		}).join(", ");
@@ -358,7 +360,7 @@ function buildCardsGrid(rows, columns, cardSize, imageField, imageFit, imageAspe
 				imgValue = String(imgValue);
 				// Resolve vault image paths to published URLs
 				if (!imgValue.startsWith("http") && !imgValue.startsWith("/")) {
-					imgValue = "/img/user/" + imgValue;
+					imgValue = withPathPrefix("/img/user/" + imgValue, siteInfo.pathPrefix);
 				}
 				html += `<div class="obsidian-base-card-image"><img src="${escapeHtml(imgValue)}" style="object-fit: ${escapeHtml(imageFit)}; aspect-ratio: ${escapeHtml(String(imageAspectRatio))};" loading="lazy" /></div>`;
 			}
