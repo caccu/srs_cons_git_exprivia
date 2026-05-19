@@ -24,6 +24,8 @@ jobs:
 
       - run: npm ci
       - run: npm run build --if-present
+        env:
+          SITE_BASE_URL: https://caccu.github.io/srs_cons_git
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
