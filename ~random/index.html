@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Random Page</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script type="importmap">
+{
+  "imports": {
+    "d3-force": "https://cdn.jsdelivr.net/npm/d3-force@3.0.0/+esm",
+    "d3-selection": "https://cdn.jsdelivr.net/npm/d3-selection@3.0.0/+esm",
+    "d3-zoom": "https://cdn.jsdelivr.net/npm/d3-zoom@3.0.0/+esm",
+    "d3-drag": "https://cdn.jsdelivr.net/npm/d3-drag@3.0.0/+esm"
+  }
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/pixi.js@7.4.2/dist/pixi.min.js"></script>
+<script async type="module">import mermaid from"https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";mermaid.initialize({startOnLoad:!0})</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-sv0slik/5O0JIPdLBCR2A3XDg/1U3WuDEheZfI/DI5n8Yqc3h5kjrnr46FGBNiUAJF7rE4LHKwQ/SoSLRKAxEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>window.addEventListener("load",(()=>{document.querySelectorAll(".callout").forEach((e=>{const t=getComputedStyle(e).getPropertyValue("--callout-icon"),l=t&&t.trim().replace(/^lucide-/,"");if(l){const t=e.querySelector(".callout-title");if(t){const e=document.createElement("div"),c=document.createElement("i");e.appendChild(c),c.setAttribute("data-lucide",l),e.setAttribute("class","callout-icon"),t.insertBefore(e,t.firstChild)}}})),lucide.createIcons(),Array.from(document.querySelectorAll(".callout.is-collapsible")).forEach((e=>{e.querySelector(".callout-title").addEventListener("click",(t=>{e.classList.contains("is-collapsed")?e.classList.remove("is-collapsed"):e.classList.add("is-collapsed")}))}))}))</script>
+<script defer="defer" src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script defer="defer" src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
+<script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+<link href="/styles/obsidian-base.css" rel="stylesheet">
+<link href="/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/styles/digital-garden-base.css" rel="stylesheet">
+<link href="/styles/custom-style.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style></style>
+<script>const publishedNotes=["/wiki/sources/2019-02-01-sfu-gestione-consensi-v1-7/","/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/","/wiki/sources/2019-04-08-dizionario-dati-as-is/","/wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native/","/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/","/wiki/sources/2023-09-01-conspref-srs-01-v03/","/wiki/sources/2026-03-02-appunti-e-pianificazione/","/wiki/sources/2026-03-02-conspref-srs-v1-revised/","/wiki/sources/2026-03-02-domande-srs-csi-v02/","/wiki/sources/2026-03-02-sommario-srs-consensi/","/wiki/sources/2026-03-12-pile-tecnologiche-csi/","/wiki/sources/2026-05-05-mermaid-architettura/","/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/","/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/","/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/","/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/","/wiki/analyses/analysis-2026-05-14-tr34-alternativa-batch-03/","/wiki/analyses/analysis-gap-as-is-to-be/","/wiki/analyses/conspref-dmp-tracker/","/wiki/analyses/valutazione-qualita-srs-consensi/","/wiki/concepts/alternativa-batch-03-pull/","/wiki/concepts/architettura-ecaas/","/wiki/concepts/batch-processes/","/wiki/concepts/ciclo-vita-consenso/","/wiki/concepts/composizione-dinamica-form-consenso/","/wiki/concepts/gasp-salute/","/wiki/concepts/gestione-consensi-applicativo/","/wiki/concepts/informativa/","/wiki/concepts/migrazione-postgres-9-17/","/wiki/concepts/sicurezza-cdu-15-16/","/wiki/concepts/sistemi-esterni-integrati/","/wiki/concepts/stack-tecnologico-applicativo/","/wiki/docs/adr/adr-001-stack-tecnologico/","/wiki/docs/adr/adr-002-piattaforma-ecaas/","/wiki/docs/adr/adr-003-dbaas-nivola/","/wiki/docs/adr/adr-004-no-api-gateway/","/wiki/docs/adr/adr-005-sicurezza-cdu-15-16/","/wiki/docs/adr/adr-006-batch-03-pull-cdu-17/","/wiki/docs/adr/adr-007-batch-01-5min-skip-locked/","/wiki/docs/adr/adr-008-ssot-form-renderer/","/wiki/docs/adr/adr-009-eliminazione-sistemats/","/wiki/docs/adr/adr-010-cdu-01-split/","/wiki/docs/adr/adr-011-merge-cdu-04-05-cittadino/","/wiki/docs/adr/adr-012-notificatore-deleghe-post-completato/","/wiki/docs/adr/adr-013-migrazione-pg-dump-restore/","/wiki/docs/adr/adr-014-apache-cxf-soap-client/","/wiki/docs/adr/adr-015-storicizzazione-immutabile/","/wiki/docs/adr/adr-016-scaduto-async-batch-02/","/wiki/docs/adr/adr-017-lis-terzo-canale/","/wiki/docs/adr/adr-018-rfc-7807-error-response/","/wiki/docs/adr/adr-019-cdu-06-pdf-scope-ridotto/","/wiki/docs/adr/readme/","/wiki/entities/csi-piemonte/","/wiki/entities/exprivia/","/wiki/entities/notificatore-unp/","/wiki/entities/regione-piemonte/","/","/wiki/overview/"];if(publishedNotes.length>0){const i=publishedNotes[Math.floor(Math.random()*publishedNotes.length)];window.location.href=i}else window.location.href="/"</script>
+</head>
+<body>
+<noscript>
+<p>
+JavaScript is required for random redirect.
+<a href="/">Go home</a>.
+</p>
+</noscript>
+</body>
+</html>
