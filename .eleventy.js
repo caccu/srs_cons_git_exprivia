@@ -37,7 +37,7 @@ function transformImage(src, cls, alt, sizes, widths = ["500", "700", "auto"]) {
     widths: widths,
     formats: ["webp", "jpeg"],
     outputDir: "./dist/img/optimized",
-    urlPath: withPathPrefix("/img/optimized", siteInfo.pathPrefix),
+    urlPath: "/img/optimized",
   };
 
   // generate images, while this is async we don’t wait
@@ -62,7 +62,7 @@ function getAnchorAttributes(filePath, linkTitle) {
 
   let noteIcon = process.env.NOTE_ICON_DEFAULT;
   const title = linkTitle ? linkTitle : fileName;
-  let permalink = withPathPrefix(`/notes/${slugify(filePath)}`, siteInfo.pathPrefix);
+  let permalink = `/notes/${slugify(filePath)}`;
   let deadLink = false;
   try {
     const startPath = "./src/site/notes/";
@@ -75,13 +75,13 @@ function getAnchorAttributes(filePath, linkTitle) {
     const file = fs.readFileSync(fullPath, "utf8");
     const frontMatter = matter(file, matterOptions);
     if (frontMatter.data.permalink) {
-      permalink = withPathPrefix(frontMatter.data.permalink, siteInfo.pathPrefix);
+      permalink = frontMatter.data.permalink;
     }
     if (
       frontMatter.data.tags &&
       frontMatter.data.tags.indexOf("gardenEntry") != -1
     ) {
-      permalink = withPathPrefix("/", siteInfo.pathPrefix);
+      permalink = "/";
     }
     if (frontMatter.data.noteIcon) {
       noteIcon = frontMatter.data.noteIcon;
@@ -94,7 +94,7 @@ function getAnchorAttributes(filePath, linkTitle) {
     return {
       attributes: {
         "class": "internal-link is-unresolved",
-         "href": withPathPrefix("/404", siteInfo.pathPrefix),
+         "href": "/404",
         "target": "",
       },
       innerHTML: title,
@@ -354,6 +354,10 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addFilter("isoDate", function(date) {
     return date && date.toISOString();
+  });
+
+  eleventyConfig.addFilter("withBase", function(url) {
+    return withPathPrefix(url, siteInfo.pathPrefix);
   });
 
   eleventyConfig.addFilter("link", function(str) {

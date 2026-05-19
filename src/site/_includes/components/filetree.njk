@@ -3,7 +3,7 @@
         <div x-show="isOpen" style="display:none" class="{{'filelist' if step>0}}">
             {%if fileOrFolder.isNote and not fileOrFolder.hide %}
                 <div @click.stop class="notelink {{ 'active-note' if fileOrFolder.permalink === permalink}}">
-                    <a data-note-icon="{{fileOrFolder.noteIcon}}" style="text-decoration: none;" class="filename" href="{{ fileOrFolder.permalink | url }}">{{fileOrFolder.name}} </a>
+                    <a data-note-icon="{{fileOrFolder.noteIcon}}" style="text-decoration: none;" class="filename" href="{{fileOrFolder.permalink}}">{{fileOrFolder.name}} </a>
                 </div>
             {% elif fileOrFolder.isFolder%}
                 <div class="folder inner-folder"  x-data="{isOpen: $persist(false).as({{currentPath | dump}})}" @click.stop="isOpen=!isOpen">
@@ -37,11 +37,11 @@
             {% include imp %}
         {% endfor %}
          {% if meta.siteLogoPath %}
-         <a href="{{ '/' | url }}" style="text-decoration: none; display: flex; justify-content: center;">
+         <a href="/" style="text-decoration: none; display: flex; justify-content: center;">
                    <img class="site-logo" src="{{meta.siteLogoPath}}" alt="{{meta.siteName}}">
          </a>
          {% else %}
-         <a href="{{ '/' | url }}" style="text-decoration: none; text-align: center;">
+         <a href="/" style="text-decoration: none; text-align: center;">
                    <h1 style="text-align:center;">{{meta.siteName}}</h1>
          </a>
          {% endif %}

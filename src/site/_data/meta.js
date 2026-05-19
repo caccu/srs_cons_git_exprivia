@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { globSync } = require("glob");
-const { getSiteInfo, withPathPrefix } = require("../../helpers/sitePath");
+const { getSiteInfo } = require("../../helpers/sitePath");
 
 module.exports = async (data) => {
   const siteInfo = getSiteInfo();
@@ -11,7 +11,7 @@ module.exports = async (data) => {
   let logoPath = "";
   if (logoFiles.length > 0) {
     // Use the first match and convert to site-relative path
-    logoPath = withPathPrefix("/" + logoFiles[0].split("src/site/")[1], siteInfo.pathPrefix);
+    logoPath = "/" + logoFiles[0].split("src/site/")[1];
   }
   if (themeStyle) {
     themeStyle = themeStyle.split("site")[1];

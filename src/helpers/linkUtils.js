@@ -103,7 +103,7 @@ async function getGraph(data) {
   let nodes = {};
   let links = [];
   let stemURLs = {};
-  let homeAlias = "/";
+  let homeAlias = withPathPrefix("/", siteInfo.pathPrefix);
 
   const notes = data.collections.note || [];
 
@@ -126,10 +126,11 @@ async function getGraph(data) {
     const content = templateContent?.content || "";
     noteContents.push(content);
 
-    nodes[v.url] = {
+    const noteUrl = withPathPrefix(v.url, siteInfo.pathPrefix);
+    nodes[noteUrl] = {
       id: idx,
       title: v.data.title || v.fileSlug,
-      url: withPathPrefix(v.url, siteInfo.pathPrefix),
+      url: noteUrl,
       group,
       home:
         v.data["dg-home"] ||
@@ -141,12 +142,12 @@ async function getGraph(data) {
       noteIcon: v.data.noteIcon || process.env.NOTE_ICON_DEFAULT,
       hide: v.data.hideInGraph || false,
     };
-    stemURLs[fpath] = withPathPrefix(v.url, siteInfo.pathPrefix);
+    stemURLs[fpath] = noteUrl;
     if (
       v.data["dg-home"] ||
       (v.data.tags && v.data.tags.indexOf("gardenEntry") > -1)
     ) {
-      homeAlias = v.url;
+      homeAlias = noteUrl;
     }
   }
 
@@ -181,15 +182,16 @@ async function getGraph(data) {
   // so bases queries can access file.links and file.backlinks.
   const urlToNode = nodes;
   const basesNotes = notes.map((item) => {
-    const url = (urlToNode[item.url] || {});
+    const noteUrl = withPathPrefix(item.url, siteInfo.pathPrefix);
+    const url = (urlToNode[noteUrl] || {});
     return {
       path: item.filePathStem.replace("/notes/", ""),
       url: item.url,
       metadata: item.data,
       fileSlug: item.fileSlug,
       // Inject computed link data for bases queries
-      _links: url.outBound || [],
-      _backlinks: url.backLinks || [],
+      _links: (url.outBound || []).map((link) => stripPathPrefix(link, siteInfo.pathPrefix)),
+      _backlinks: (url.backLinks || []).map((link) => stripPathPrefix(link, siteInfo.pathPrefix)),
     };
   });
 
@@ -199,15 +201,17 @@ async function getGraph(data) {
     const content = noteContents[idx];
     const basesLinks = extractBasesLinks(content, basesNotes);
     if (basesLinks.length > 0) {
-      const node = nodes[v.url];
+      const nodeUrl = withPathPrefix(v.url, siteInfo.pathPrefix);
+      const node = nodes[nodeUrl];
       for (const blink of basesLinks) {
-        if (!node.outBound.includes(blink)) {
-          node.outBound.push(blink);
-          let n = nodes[blink];
+        const prefixedBlink = withPathPrefix(blink, siteInfo.pathPrefix);
+        if (!node.outBound.includes(prefixedBlink)) {
+          node.outBound.push(prefixedBlink);
+          let n = nodes[prefixedBlink];
           if (n) {
-            if (!n.backLinks.includes(v.url)) n.backLinks.push(v.url);
-            if (!n.neighbors.includes(v.url)) n.neighbors.push(v.url);
-            if (!node.neighbors.includes(blink)) node.neighbors.push(blink);
+            if (!n.backLinks.includes(node.url)) n.backLinks.push(node.url);
+            if (!n.neighbors.includes(node.url)) n.neighbors.push(node.url);
+            if (!node.neighbors.includes(prefixedBlink)) node.neighbors.push(prefixedBlink);
             links.push({ source: node.id, target: n.id });
           }
         }

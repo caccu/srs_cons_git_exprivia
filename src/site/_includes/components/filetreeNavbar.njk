@@ -5,11 +5,11 @@
             {% include imp %}
         {% endfor %}
         {% if meta.siteLogoPath %}
-        <a href="{{ '/' | url }}" style="text-decoration: none; flex: 1; display: flex; justify-content: center;">
+        <a href="/" style="text-decoration: none; flex: 1; display: flex; justify-content: center;">
                 <img class="site-logo" src="{{meta.siteLogoPath}}" alt="{{meta.siteName}}">
         </a>
         {% else %}
-        <a href="{{ '/' | url }}" style="text-decoration: none; text-align: center;">
+        <a href="/" style="text-decoration: none; text-align: center;">
                 <h1 style="margin: 15px !important;">{{meta.siteName}}</h1>
         </a>
         {% endif %}
