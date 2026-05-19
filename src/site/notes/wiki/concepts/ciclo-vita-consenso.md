@@ -106,6 +106,6 @@ Se anche solo **1 consenso** di un cittadino per un'ASR è SCADUTO o ANNULLATO �
 
 | ADR | Decisione |
 |---|---|
-| [ADR-015](../../docs/adr/ADR-015-storicizzazione-immutabile.md) | Storicizzazione immutabile (no sovrascrittura) |
-| [ADR-016](../../docs/adr/ADR-016-scaduto-async-batch-02.md) | Stato SCADUTO async via BATCH-02 |
-| [ADR-011](../../docs/adr/ADR-011-merge-cdu-04-05-cittadino.md) | Merge CDU-04/05 lato Cittadino (transizioni dirette ATTIVO↔NEGATO) |
+| [ADR-015](ADR-015-storicizzazione-immutabile.md) | Storicizzazione immutabile (no sovrascrittura) |
+| [ADR-016](ADR-016-scaduto-async-batch-02.md) | Stato SCADUTO async via BATCH-02 |
+| [ADR-011](ADR-011-merge-cdu-04-05-cittadino.md) | Merge CDU-04/05 lato Cittadino (transizioni dirette ATTIVO↔NEGATO) |

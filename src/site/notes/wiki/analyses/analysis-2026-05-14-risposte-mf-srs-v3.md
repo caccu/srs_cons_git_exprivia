@@ -191,17 +191,17 @@ Le risposte MF hanno generato decisioni architetturali formalizzate come ADR. Ma
 
 | Tema MF | ADR generati |
 |---|---|
-| A — Canali (MF3/MF4) | [ADR-017](../../docs/adr/ADR-017-lis-terzo-canale.md) LIS terzo canale |
-| A — CDU-01 split (MF16/MF18) | [ADR-010](../../docs/adr/ADR-010-cdu-01-split.md) Split CDU-01 |
-| B — Stati (MF11/MF14) | [ADR-011](../../docs/adr/ADR-011-merge-cdu-04-05-cittadino.md) transizioni dirette in merge CDU-04/05 |
-| C — Composizione dinamica (MF26/28/30/35/37/39/41/43) | [ADR-008](../../docs/adr/ADR-008-ssot-form-renderer.md) SSoT Form Renderer |
-| C — Merge CDU-04/05 cittadino (MF45) | [ADR-011](../../docs/adr/ADR-011-merge-cdu-04-05-cittadino.md) |
-| D — CDU-06 PDF (MF47/49/51) | [ADR-019](../../docs/adr/ADR-019-cdu-06-pdf-scope-ridotto.md) CDU-06 scope ridotto |
-| E — No SistemaTS (MF53/55) | [ADR-009](../../docs/adr/ADR-009-eliminazione-sistemats.md) Eliminazione SistemaTS |
-| F — SSoT operatore (MF57) | [ADR-008](../../docs/adr/ADR-008-ssot-form-renderer.md) |
-| G — Notificatore Deleghe (MF33) | [ADR-012](../../docs/adr/ADR-012-notificatore-deleghe-post-completato.md) |
-| H — Scheduling (MF64) | [ADR-007](../../docs/adr/ADR-007-batch-01-5min-skip-locked.md) BATCH-01 5min |
-| H — BATCH-02 SQL (MF66) | [ADR-016](../../docs/adr/ADR-016-scaduto-async-batch-02.md) SCADUTO async |
-| I — Sicurezza (MF59-62, ex TR30/TR58) | [ADR-005](../../docs/adr/ADR-005-sicurezza-cdu-15-16.md) + [ADR-004](../../docs/adr/ADR-004-no-api-gateway.md) |
-| I — BATCH-03 PULL (MF69, ex TR34/TR68) | [ADR-006](../../docs/adr/ADR-006-batch-03-pull-cdu-17.md) — **proposed** |
+| A — Canali (MF3/MF4) | [ADR-017](ADR-017-lis-terzo-canale.md) LIS terzo canale |
+| A — CDU-01 split (MF16/MF18) | [ADR-010](ADR-010-cdu-01-split.md) Split CDU-01 |
+| B — Stati (MF11/MF14) | [ADR-011](ADR-011-merge-cdu-04-05-cittadino.md) transizioni dirette in merge CDU-04/05 |
+| C — Composizione dinamica (MF26/28/30/35/37/39/41/43) | [ADR-008](ADR-008-ssot-form-renderer.md) SSoT Form Renderer |
+| C — Merge CDU-04/05 cittadino (MF45) | [ADR-011](ADR-011-merge-cdu-04-05-cittadino.md) |
+| D — CDU-06 PDF (MF47/49/51) | [ADR-019](ADR-019-cdu-06-pdf-scope-ridotto.md) CDU-06 scope ridotto |
+| E — No SistemaTS (MF53/55) | [ADR-009](ADR-009-eliminazione-sistemats.md) Eliminazione SistemaTS |
+| F — SSoT operatore (MF57) | [ADR-008](ADR-008-ssot-form-renderer.md) |
+| G — Notificatore Deleghe (MF33) | [ADR-012](ADR-012-notificatore-deleghe-post-completato.md) |
+| H — Scheduling (MF64) | [ADR-007](ADR-007-batch-01-5min-skip-locked.md) BATCH-01 5min |
+| H — BATCH-02 SQL (MF66) | [ADR-016](ADR-016-scaduto-async-batch-02.md) SCADUTO async |
+| I — Sicurezza (MF59-62, ex TR30/TR58) | [ADR-005](ADR-005-sicurezza-cdu-15-16.md) + [ADR-004](ADR-004-no-api-gateway.md) |
+| I — BATCH-03 PULL (MF69, ex TR34/TR68) | [ADR-006](ADR-006-batch-03-pull-cdu-17.md) — **proposed** |
 

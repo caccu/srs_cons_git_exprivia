@@ -1,0 +1,73 @@
+---
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-008-ssot-form-renderer/","title":"Single Source of Truth — Form Renderer dinamico unico per Cittadino e Operatore","tags":["ui","form-renderer","ssot","cdu-02","cdu-09","mf57","vincolo-architetturale","angular"],"dg-note-properties":{"adr":8,"title":"Single Source of Truth — Form Renderer dinamico unico per Cittadino e Operatore","status":"accepted","date":"2026-05-14","deciders":["Marco Forneris","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["ui","form-renderer","ssot","cdu-02","cdu-09","mf57","vincolo-architetturale","angular"],"related_wiki":["[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[Gestione Consensi - Applicativo]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]"],"sources":["[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF57R56"]}}
+---
+
+
+# ADR-008: Single Source of Truth — Form Renderer unico
+
+## Status
+
+`accepted` — vincolo architetturale dichiarato in MF57R56 sulla revisione SRS v3.
+
+## Context
+
+Il SRS prevede due webapp:
+- **app-cittadino** (CDU-02, CDU-03, CDU-04 lato cittadino)
+- **app-operatore** (CDU-09, CDU-10, CDU-11 lato operatore PUA)
+
+Entrambe rendono il form di consenso per la stessa configurazione (`tipo_consenso`, `sotto_tipo_consenso`). Senza vincolo esplicito, due implementazioni divergenti del form sono il default — con conseguenze gravi:
+
+- Bug duplicati (e diversamente diagnosticabili)
+- Drift UX: cittadino e operatore vedono validazioni o campi diversi per lo stesso consenso
+- Difficoltà di evoluzione: ogni nuovo `sotto_tipo_consenso` deve essere aggiunto due volte
+- Test moltiplicati
+
+## Decision
+
+Vincolo SSoT: **nessuna divergenza di struttura fra interfaccia Cittadino e Operatore** per lo stesso `sotto_tipo_consenso`.
+
+Implementazione:
+- Un singolo componente **Form Renderer dinamico** Angular, condiviso fra le 2 webapp
+- Input: `tipo_consenso`, `sotto_tipo_consenso`, `codice_ente` (per aziendali), `modalita` (`citt` | `operatore`)
+- Output: form renderizzato + binding bidirezionale con backend
+- Componente da aggiungere a SRS §3.3 Componenti software
+
+Differenze ammesse fra Cittadino e Operatore — **solo metadati di tracciatura sorgente** (non struttura form):
+
+| Campo | Cittadino | Operatore |
+|---|---|---|
+| `fonte_id` | da contesto webapp (es. `WEB_CITT`, `LIS`) | `'PASS'` |
+| `login_operazione` | CF cittadino autenticato | login operatore PUA |
+| `ruoloop_id` | NULL | ID ruolo operatore PUA |
+
+Configurazione completamente DB-driven (`cons_d_sotto_tipo_cons` + tabelle correlate). Nulla hardcoded a livello UI.
+
+## Consequences
+
+### Positive
+- Coerenza UX cittadino/operatore garantita per costruzione
+- Singolo punto di evoluzione per ogni nuovo `sotto_tipo_consenso`
+- Riduzione superficie test (un solo renderer da testare per regola)
+- Architettura aperta a nuovi canali (es. mobile, kiosk LIS — vedi [[ADR-017\|ADR-017]])
+
+### Negative
+- Vincola le 2 webapp ad usare la stessa stack frontend (Angular + componente shared)
+- Versioning del componente shared deve essere sincronizzato fra le webapp
+- Endpoint `GET /api/v1/config/sotto-tipo-consenso/{sotto_tipo}` da implementare
+
+### Neutral
+- Cache lato browser opportuna per ridurre fetch ripetuti
+
+## Alternatives considered
+
+| Alternativa | Motivo scarto |
+|---|---|
+| Due renderer separati cittadino/operatore | Drift garantito; bug doppi; rigetta MF57R56 |
+| Server-side rendering | Backend Spring Boot deve restare API-only per coerenza con stack [[ADR-001\|ADR-001]] |
+| Form schema standard (JSON Schema / RJSF) | Aggiunge dipendenza esterna; configurazione DB già presente |
+
+## References
+
+- [[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]] (concept completo con regole §2-§5)
+- [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF57R56 (+ MF26R25, MF28R27, MF30R29, MF37R36)
+- Correlato: [[ADR-011\|ADR-011]] merge CDU-04/CDU-05 lato cittadino (uso pulsante unico abilitato dal renderer dinamico)

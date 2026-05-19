@@ -156,9 +156,9 @@ Vedi [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]]. Nuovo componente 
 
 | ADR | Decisione |
 |---|---|
-| [ADR-001](../../docs/adr/ADR-001-stack-tecnologico.md) | Stack tecnologico |
-| [ADR-010](../../docs/adr/ADR-010-cdu-01-split.md) | Split CDU-01 in CDU-01a Operatore + CDU-01b Cittadino |
-| [ADR-011](../../docs/adr/ADR-011-merge-cdu-04-05-cittadino.md) | Merge CDU-04/05 lato Cittadino (pulsante unico) |
-| [ADR-008](../../docs/adr/ADR-008-ssot-form-renderer.md) | SSoT Form Renderer dinamico |
-| [ADR-017](../../docs/adr/ADR-017-lis-terzo-canale.md) | LIS terzo canale di acquisizione |
-| [ADR-019](../../docs/adr/ADR-019-cdu-06-pdf-scope-ridotto.md) | CDU-06 PDF scope ridotto |
+| [ADR-001](ADR-001-stack-tecnologico.md) | Stack tecnologico |
+| [ADR-010](ADR-010-cdu-01-split.md) | Split CDU-01 in CDU-01a Operatore + CDU-01b Cittadino |
+| [ADR-011](ADR-011-merge-cdu-04-05-cittadino.md) | Merge CDU-04/05 lato Cittadino (pulsante unico) |
+| [ADR-008](ADR-008-ssot-form-renderer.md) | SSoT Form Renderer dinamico |
+| [ADR-017](ADR-017-lis-terzo-canale.md) | LIS terzo canale di acquisizione |
+| [ADR-019](ADR-019-cdu-06-pdf-scope-ridotto.md) | CDU-06 PDF scope ridotto |

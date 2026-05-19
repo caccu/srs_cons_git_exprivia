@@ -156,7 +156,7 @@ Note tecniche (SRS §BATCH-02):
 
 > 🟡 **DESIGN RIVISTO — risposta MF69R68 (ex TR34/TR68):**
 >
-> BATCH-03 push viene **sostituito** dalla specifica TO-BE da modello **PULL** via CDU-17 (REST snapshot paginato, SIA pulla autonomamente). Proposta tecnica Exprivia (2026-05-14) come accoglimento del commento cliente TR68 "centro stella" — vedi [ADR-006](../../docs/adr/ADR-006-batch-03-pull-cdu-17.md), status `proposed`. Propagazione interna sulla wiki completata; **attende sign-off formale CSI Piemonte** prima di chiudere SRS e rimuovere fisicamente §7.3.
+> BATCH-03 push viene **sostituito** dalla specifica TO-BE da modello **PULL** via CDU-17 (REST snapshot paginato, SIA pulla autonomamente). Proposta tecnica Exprivia (2026-05-14) come accoglimento del commento cliente TR68 "centro stella" — vedi [ADR-006](ADR-006-batch-03-pull-cdu-17.md), status `proposed`. Propagazione interna sulla wiki completata; **attende sign-off formale CSI Piemonte** prima di chiudere SRS e rimuovere fisicamente §7.3.
 >
 > Dettaglio progettuale completo: [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]
 
@@ -215,8 +215,8 @@ Nuovo endpoint configurato (CDU-14 Back Office)
 
 | ADR | Decisione |
 |---|---|
-| [ADR-007](../../docs/adr/ADR-007-batch-01-5min-skip-locked.md) | BATCH-01 5 min con SKIP LOCKED |
-| [ADR-016](../../docs/adr/ADR-016-scaduto-async-batch-02.md) | Stato SCADUTO async via BATCH-02 |
-| [ADR-006](../../docs/adr/ADR-006-batch-03-pull-cdu-17.md) | BATCH-03 push → CDU-17 PULL (**proposed**) |
-| [ADR-012](../../docs/adr/ADR-012-notificatore-deleghe-post-completato.md) | Notifica cittadino via Notificatore di Deleghe post-COMPLETATO |
-| [ADR-014](../../docs/adr/ADR-014-apache-cxf-soap-client.md) | Apache CXF client SOAP (BATCH-01 outbound) |
+| [ADR-007](ADR-007-batch-01-5min-skip-locked.md) | BATCH-01 5 min con SKIP LOCKED |
+| [ADR-016](ADR-016-scaduto-async-batch-02.md) | Stato SCADUTO async via BATCH-02 |
+| [ADR-006](ADR-006-batch-03-pull-cdu-17.md) | BATCH-03 push → CDU-17 PULL (**proposed**) |
+| [ADR-012](ADR-012-notificatore-deleghe-post-completato.md) | Notifica cittadino via Notificatore di Deleghe post-COMPLETATO |
+| [ADR-014](ADR-014-apache-cxf-soap-client.md) | Apache CXF client SOAP (BATCH-01 outbound) |

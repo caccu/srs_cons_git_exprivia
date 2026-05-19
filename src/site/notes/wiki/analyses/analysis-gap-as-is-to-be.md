@@ -141,11 +141,11 @@ TO-BE: BATCH-01 notifica entro 5 minuti. Se SIA ha logica temporale che dipende 
 
 | ADR | Decisione |
 |---|---|
-| [ADR-007](../../docs/adr/ADR-007-batch-01-5min-skip-locked.md) | BATCH-01 5min (cambio paradigma sync → async) |
-| [ADR-009](../../docs/adr/ADR-009-eliminazione-sistemats.md) | Eliminazione SistemaTS (semplificazione stack integrazione) |
-| [ADR-010](../../docs/adr/ADR-010-cdu-01-split.md) | Split CDU-01 (separazione canali auth) |
-| [ADR-011](../../docs/adr/ADR-011-merge-cdu-04-05-cittadino.md) | Merge CDU-04/05 lato Cittadino |
-| [ADR-015](../../docs/adr/ADR-015-storicizzazione-immutabile.md) | Storicizzazione immutabile (attivazione feature `cons_s_consenso`) |
-| [ADR-016](../../docs/adr/ADR-016-scaduto-async-batch-02.md) | SCADUTO async (cambio semantica AS-IS → TO-BE) |
-| [ADR-017](../../docs/adr/ADR-017-lis-terzo-canale.md) | LIS terzo canale |
-| [ADR-006](../../docs/adr/ADR-006-batch-03-pull-cdu-17.md) | BATCH-03 push → CDU-17 PULL (**proposed**) |
+| [ADR-007](ADR-007-batch-01-5min-skip-locked.md) | BATCH-01 5min (cambio paradigma sync → async) |
+| [ADR-009](ADR-009-eliminazione-sistemats.md) | Eliminazione SistemaTS (semplificazione stack integrazione) |
+| [ADR-010](ADR-010-cdu-01-split.md) | Split CDU-01 (separazione canali auth) |
+| [ADR-011](ADR-011-merge-cdu-04-05-cittadino.md) | Merge CDU-04/05 lato Cittadino |
+| [ADR-015](ADR-015-storicizzazione-immutabile.md) | Storicizzazione immutabile (attivazione feature `cons_s_consenso`) |
+| [ADR-016](ADR-016-scaduto-async-batch-02.md) | SCADUTO async (cambio semantica AS-IS → TO-BE) |
+| [ADR-017](ADR-017-lis-terzo-canale.md) | LIS terzo canale |
+| [ADR-006](ADR-006-batch-03-pull-cdu-17.md) | BATCH-03 push → CDU-17 PULL (**proposed**) |

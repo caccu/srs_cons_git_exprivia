@@ -127,6 +127,6 @@ La **variante "export con interruzione del servizio"** citata nel commento è pr
 
 | ADR | Decisione |
 |---|---|
-| [ADR-006](../../docs/adr/ADR-006-batch-03-pull-cdu-17.md) | Sostituzione BATCH-03 push → CDU-17 PULL — **proposed** (questa analysis è la risposta cliente sintetica) |
-| [ADR-005](../../docs/adr/ADR-005-sicurezza-cdu-15-16.md) | Pattern sicurezza riusato dal PULL |
+| [ADR-006](ADR-006-batch-03-pull-cdu-17.md) | Sostituzione BATCH-03 push → CDU-17 PULL — **proposed** (questa analysis è la risposta cliente sintetica) |
+| [ADR-005](ADR-005-sicurezza-cdu-15-16.md) | Pattern sicurezza riusato dal PULL |
 

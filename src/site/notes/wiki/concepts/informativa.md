@@ -90,5 +90,5 @@ L'informativa è la **Single Source of Truth** per la composizione del form di c
 
 | ADR | Decisione |
 |---|---|
-| [ADR-015](../../docs/adr/ADR-015-storicizzazione-immutabile.md) | Storicizzazione immutabile (anche informative scadute) |
-| [ADR-016](../../docs/adr/ADR-016-scaduto-async-batch-02.md) | Scadenza informativa → stato SCADUTO async via BATCH-02 |
+| [ADR-015](ADR-015-storicizzazione-immutabile.md) | Storicizzazione immutabile (anche informative scadute) |
+| [ADR-016](ADR-016-scaduto-async-batch-02.md) | Scadenza informativa → stato SCADUTO async via BATCH-02 |

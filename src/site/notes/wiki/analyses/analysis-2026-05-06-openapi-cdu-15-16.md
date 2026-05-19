@@ -258,7 +258,7 @@ Swagger UI esposta in ambienti non produttivi su `/swagger-ui.html` tramite **Sp
 
 | ADR | Decisione |
 |---|---|
-| [ADR-004](../../docs/adr/ADR-004-no-api-gateway.md) | No API Gateway — sicurezza applicativa |
-| [ADR-005](../../docs/adr/ADR-005-sicurezza-cdu-15-16.md) | Modello sicurezza CDU-15/16 OAuth2 CC + JWT |
-| [ADR-018](../../docs/adr/ADR-018-rfc-7807-error-response.md) | RFC 7807 error response |
-| [ADR-016](../../docs/adr/ADR-016-scaduto-async-batch-02.md) | Stato SCADUTO async (semantica cambiata vs AS-IS) |
+| [ADR-004](ADR-004-no-api-gateway.md) | No API Gateway — sicurezza applicativa |
+| [ADR-005](ADR-005-sicurezza-cdu-15-16.md) | Modello sicurezza CDU-15/16 OAuth2 CC + JWT |
+| [ADR-018](ADR-018-rfc-7807-error-response.md) | RFC 7807 error response |
+| [ADR-016](ADR-016-scaduto-async-batch-02.md) | Stato SCADUTO async (semantica cambiata vs AS-IS) |

@@ -158,5 +158,5 @@ Il backend (Spring Boot 3) espone l'endpoint, il Form Renderer Angular lo consum
 
 | ADR | Decisione |
 |---|---|
-| [ADR-008](../../docs/adr/ADR-008-ssot-form-renderer.md) | SSoT Form Renderer unico (questa concept è la fonte autoritativa) |
-| [ADR-011](../../docs/adr/ADR-011-merge-cdu-04-05-cittadino.md) | Merge CDU-04/05 lato Cittadino (pulsante unico Salva) |
+| [ADR-008](ADR-008-ssot-form-renderer.md) | SSoT Form Renderer unico (questa concept è la fonte autoritativa) |
+| [ADR-011](ADR-011-merge-cdu-04-05-cittadino.md) | Merge CDU-04/05 lato Cittadino (pulsante unico Salva) |

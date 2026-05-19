@@ -97,5 +97,5 @@ Vedi [[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|Checklist Avv
 
 | ADR | Decisione |
 |---|---|
-| [ADR-013](../../docs/adr/ADR-013-migrazione-pg-dump-restore.md) | Strategia migrazione dump/restore (questo tracker monitora la formalizzazione del DMP) |
-| [ADR-003](../../docs/adr/ADR-003-dbaas-nivola.md) | DBaaS Nivola (vincolo provisioning + no-filesystem) |
+| [ADR-013](ADR-013-migrazione-pg-dump-restore.md) | Strategia migrazione dump/restore (questo tracker monitora la formalizzazione del DMP) |
+| [ADR-003](ADR-003-dbaas-nivola.md) | DBaaS Nivola (vincolo provisioning + no-filesystem) |

@@ -154,7 +154,7 @@ Per analisi dettagliata del delta vedi [[wiki/analyses/analysis-gap-as-is-to-be\
 
 | ADR | Decisione |
 |---|---|
-| [ADR-005](../../docs/adr/ADR-005-sicurezza-cdu-15-16.md) | Sicurezza CDU-15/16 (rischio MODERATO 3 mitigato) |
-| [ADR-007](../../docs/adr/ADR-007-batch-01-5min-skip-locked.md) | BATCH-01 5min (rischio AGGIUNTO 4 — ambiguità SRV-01/SRV-03 da chiudere) |
-| [ADR-013](../../docs/adr/ADR-013-migrazione-pg-dump-restore.md) | Migrazione PG (rischio CRITICO 1 — DMP non formalizzato) |
-| [ADR-016](../../docs/adr/ADR-016-scaduto-async-batch-02.md) | SCADUTO async (rischio AGGIUNTO 5 — semantica AS-IS vs TO-BE) |
+| [ADR-005](ADR-005-sicurezza-cdu-15-16.md) | Sicurezza CDU-15/16 (rischio MODERATO 3 mitigato) |
+| [ADR-007](ADR-007-batch-01-5min-skip-locked.md) | BATCH-01 5min (rischio AGGIUNTO 4 — ambiguità SRV-01/SRV-03 da chiudere) |
+| [ADR-013](ADR-013-migrazione-pg-dump-restore.md) | Migrazione PG (rischio CRITICO 1 — DMP non formalizzato) |
+| [ADR-016](ADR-016-scaduto-async-batch-02.md) | SCADUTO async (rischio AGGIUNTO 5 — semantica AS-IS vs TO-BE) |

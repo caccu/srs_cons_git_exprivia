@@ -286,7 +286,7 @@ Codice fiscale **NON** loggato in chiaro (vedi [[wiki/analyses/valutazione-quali
 
 | ADR | Decisione |
 |---|---|
-| [ADR-004](../../docs/adr/ADR-004-no-api-gateway.md) | No API Gateway — sicurezza applicativa Spring Security |
-| [ADR-005](../../docs/adr/ADR-005-sicurezza-cdu-15-16.md) | Modello sicurezza CDU-15/16 a 3 livelli (questa concept è la fonte autoritativa) |
-| [ADR-018](../../docs/adr/ADR-018-rfc-7807-error-response.md) | RFC 7807 error response |
-| [ADR-006](../../docs/adr/ADR-006-batch-03-pull-cdu-17.md) | CDU-17 PULL riusa stesso pattern sicurezza |
+| [ADR-004](ADR-004-no-api-gateway.md) | No API Gateway — sicurezza applicativa Spring Security |
+| [ADR-005](ADR-005-sicurezza-cdu-15-16.md) | Modello sicurezza CDU-15/16 a 3 livelli (questa concept è la fonte autoritativa) |
+| [ADR-018](ADR-018-rfc-7807-error-response.md) | RFC 7807 error response |
+| [ADR-006](ADR-006-batch-03-pull-cdu-17.md) | CDU-17 PULL riusa stesso pattern sicurezza |
