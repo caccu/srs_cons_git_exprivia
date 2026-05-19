@@ -29,6 +29,41 @@ const {
 const { basesPlugin } = require("./src/helpers/basesPlugin");
 
 const Image = require("@11ty/eleventy-img");
+
+function getSiteBasePath() {
+  let baseUrl = process.env.SITE_BASE_URL || "";
+  if (!baseUrl) return "";
+  if (!baseUrl.startsWith("http")) {
+    baseUrl = `https://${baseUrl}`;
+  }
+  try {
+    return new URL(baseUrl).pathname.replace(/\/$/, "");
+  } catch {
+    return "";
+  }
+}
+
+const siteBasePath = getSiteBasePath();
+
+function withSiteBasePath(url) {
+  if (typeof url !== "string") {
+    return "";
+  }
+  if (!url) {
+    return "";
+  }
+  if (!url.startsWith("/")) {
+    return url;
+  }
+  if (!siteBasePath) {
+    return url;
+  }
+  if (url === siteBasePath || url.startsWith(`${siteBasePath}/`)) {
+    return url;
+  }
+  return `${siteBasePath}${url}`;
+}
+
 function transformImage(src, cls, alt, sizes, widths = ["500", "700", "auto"]) {
   let options = {
     widths: widths,
@@ -91,18 +126,19 @@ function getAnchorAttributes(filePath, linkTitle) {
     return {
       attributes: {
         "class": "internal-link is-unresolved",
-        "href": "/404",
+        "href": withSiteBasePath("/404"),
         "target": "",
       },
       innerHTML: title,
     }
   }
+  const resolvedPermalink = withSiteBasePath(permalink || "/");
   return {
     attributes: {
       "class": "internal-link",
       "target": "",
       "data-note-icon": noteIcon,
-      "href": `${permalink}${headerLinkPath}`,
+      "href": `${resolvedPermalink}${headerLinkPath}`,
     },
     innerHTML: title,
   }
