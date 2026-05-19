@@ -20,7 +20,7 @@ I CDU-15 (stato consenso per CF) e CDU-16 (configurazione per ente) sono REST es
 - Bug nei filter applicativi
 - Credenziali compromesse
 
-Dato [[ADR-004\|ADR-004]] (no API Gateway), tutta la sicurezza è applicativa.
+Dato [[wiki/docs/adr/ADR-004-no-api-gateway\|ADR-004-no-api-gateway]] (no API Gateway), tutta la sicurezza è applicativa.
 
 ## Decision
 

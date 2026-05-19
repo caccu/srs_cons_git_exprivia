@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-017-lis-terzo-canale/","title":"LIS come terzo canale di acquisizione consenso","tags":["lis","canali-acquisizione","mf3","mf4","integrazione","diagramma-contesto"],"dg-note-properties":{"adr":17,"title":"LIS come terzo canale di acquisizione consenso","status":"accepted","date":"2026-05-14","deciders":["Marco Forneris","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["lis","canali-acquisizione","mf3","mf4","integrazione","diagramma-contesto"],"related_wiki":["[[Gestione Consensi - Applicativo\|Gestione Consensi - Applicativo]]","[[Sistemi Esterni Integrati\|Sistemi Esterni Integrati]]","[[composizione-dinamica-form-consenso|Composizione Dinamica Form Consenso]]"],"sources":["[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF3R1, MF4R1"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-017-lis-terzo-canale/","title":"LIS come terzo canale di acquisizione consenso","tags":["lis","canali-acquisizione","mf3","mf4","integrazione","diagramma-contesto"],"dg-note-properties":{"adr":17,"title":"LIS come terzo canale di acquisizione consenso","status":"accepted","date":"2026-05-14","deciders":["Marco Forneris","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["lis","canali-acquisizione","mf3","mf4","integrazione","diagramma-contesto"],"related_wiki":["[[Gestione Consensi - Applicativo]]","[[Sistemi Esterni Integrati]]","[[composizione-dinamica-form-consenso|Composizione Dinamica Form Consenso]]"],"sources":["[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF3R1, MF4R1"]}}
 ---
 
 
@@ -65,7 +65,7 @@ Composizione dinamica del form ([[wiki/docs/adr/ADR-008-ssot-form-renderer\|ADR-
 
 ## References
 
-- [[Gestione Consensi - Applicativo\|Gestione Consensi - Applicativo]] §Canali di acquisizione
-- [[Sistemi Esterni Integrati\|Sistemi Esterni Integrati]] §LIS
+- [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] §Canali di acquisizione
+- [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] §LIS
 - [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] tema A (MF3R1, MF4R1)
 - Correlato: [[wiki/docs/adr/ADR-008-ssot-form-renderer\|ADR-008-ssot-form-renderer]] SSoT Form Renderer (riuso per LIS), [[wiki/docs/adr/ADR-011-merge-cdu-04-05-cittadino\|ADR-011-merge-cdu-04-05-cittadino]] merge CDU-04/05 (UX cittadino, non LIS)

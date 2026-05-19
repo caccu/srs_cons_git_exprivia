@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-014-apache-cxf-soap-client/","title":"Apache CXF come client SOAP (compatibile Spring Boot 3)","tags":["soap","client","apache-cxf","integrazione","aura","batch-01","deleghe"],"dg-note-properties":{"adr":14,"title":"Apache CXF come client SOAP (compatibile Spring Boot 3)","status":"accepted","date":"2026-03-02","deciders":["CSI Piemonte","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["soap","client","apache-cxf","integrazione","aura","batch-01","deleghe"],"related_wiki":["[[Sistemi Esterni Integrati\|Sistemi Esterni Integrati]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico Applicativo]]"],"sources":["[[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #9"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-014-apache-cxf-soap-client/","title":"Apache CXF come client SOAP (compatibile Spring Boot 3)","tags":["soap","client","apache-cxf","integrazione","aura","batch-01","deleghe"],"dg-note-properties":{"adr":14,"title":"Apache CXF come client SOAP (compatibile Spring Boot 3)","status":"accepted","date":"2026-03-02","deciders":["CSI Piemonte","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["soap","client","apache-cxf","integrazione","aura","batch-01","deleghe"],"related_wiki":["[[Sistemi Esterni Integrati]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico Applicativo]]"],"sources":["[[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #9"]}}
 ---
 
 
@@ -58,7 +58,7 @@ Alternativa esplicitamente menzionata in Q&A CSI #9: **Spring-WS** (anch'essa co
 ## References
 
 - [[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #9
-- [[Sistemi Esterni Integrati\|Sistemi Esterni Integrati]] (AURA, Gestione Deleghe, SIA ASR outbound)
+- [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]]] (AURA, Gestione Deleghe, SIA ASR outbound)
 - [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] (BATCH-01 client SOAP)
 - [[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico Applicativo]] §Backend
 - Correlato: [[wiki/docs/adr/ADR-001-stack-tecnologico\|ADR-001-stack-tecnologico]] stack Spring Boot 3, [[wiki/docs/adr/ADR-007-batch-01-5min-skip-locked\|ADR-007-batch-01-5min-skip-locked]] BATCH-01 uso CXF

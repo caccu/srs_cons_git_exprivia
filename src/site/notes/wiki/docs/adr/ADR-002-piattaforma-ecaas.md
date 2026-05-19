@@ -45,7 +45,7 @@ Vincoli obbligatori per ogni Deployment:
 ### Negative
 - **No installazioni Cluster-level** — niente KNative, Istio, service mesh, operatori custom
 - Dipendenza totale dall'Artifactory CSI per immagini base
-- Latenza alta per provisioning DBaaS (vedi [[ADR-003\|ADR-003]])
+- Latenza alta per provisioning DBaaS (vedi [[wiki/docs/adr/ADR-003-dbaas-nivola\|ADR-003-dbaas-nivola]])
 - Vincolato a Helm chart CSI — niente Kustomize o template alternativi
 - Migrazione tooling esterno → CSI può richiedere mesi
 

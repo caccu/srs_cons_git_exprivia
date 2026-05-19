@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-012-notificatore-deleghe-post-completato/","title":"Notifica cittadino post-acquisizione via Notificatore di Deleghe (NON UNP), dopo COMPLETATO","tags":["notifica","notificatore-deleghe","unp","mf33","batch-01","timing"],"dg-note-properties":{"adr":12,"title":"Notifica cittadino post-acquisizione via Notificatore di Deleghe (NON UNP), dopo COMPLETATO","status":"accepted","date":"2026-05-14","deciders":["Marco Forneris","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["notifica","notificatore-deleghe","unp","mf33","batch-01","timing"],"related_wiki":["[[Sistemi Esterni Integrati\|Sistemi Esterni Integrati]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Gestione Consensi - Applicativo]]"],"sources":["[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF33R31"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-012-notificatore-deleghe-post-completato/","title":"Notifica cittadino post-acquisizione via Notificatore di Deleghe (NON UNP), dopo COMPLETATO","tags":["notifica","notificatore-deleghe","unp","mf33","batch-01","timing"],"dg-note-properties":{"adr":12,"title":"Notifica cittadino post-acquisizione via Notificatore di Deleghe (NON UNP), dopo COMPLETATO","status":"accepted","date":"2026-05-14","deciders":["Marco Forneris","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["notifica","notificatore-deleghe","unp","mf33","batch-01","timing"],"related_wiki":["[[Sistemi Esterni Integrati]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Gestione Consensi - Applicativo]]"],"sources":["[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF33R31"]}}
 ---
 
 
@@ -35,7 +35,7 @@ Notifica cittadino post-acquisizione:
 
 Documentazione obbligatoria:
 - Distinguere chiaramente Notificatore di Deleghe vs UNP in SRS §3 e §7 (sezione notifiche)
-- Wiki [[Sistemi Esterni Integrati\|Sistemi Esterni Integrati]] entries separate per i due servizi
+- Wiki [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] entries separate per i due servizi
 
 ## Consequences
 
@@ -67,7 +67,7 @@ Documentazione obbligatoria:
 
 ## References
 
-- [[Sistemi Esterni Integrati\|Sistemi Esterni Integrati]] §Notificatore di Deleghe + §Notificatore UNP
+- [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] §Notificatore di Deleghe + §Notificatore UNP
 - [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] §Notifica al cittadino post-COMPLETATO
 - [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF33R31
 - Correlato: [[wiki/docs/adr/ADR-007-batch-01-5min-skip-locked\|ADR-007-batch-01-5min-skip-locked]] BATCH-01 5min (precondizione `COMPLETATO`)

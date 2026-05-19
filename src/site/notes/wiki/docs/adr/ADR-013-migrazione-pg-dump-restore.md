@@ -55,7 +55,7 @@ Finestra cutover stimata: 21 giorni in Fase 6 (Sprint 9). Vincolata da volumi re
 
 ### Neutral
 - Audit DDL PG9 Sprint 0 (richiede accesso DB AS-IS — bloccato in attesa CSI)
-- Trasformazioni schema necessarie: storicizzazione, nuove tabelle ([[ADR-015\|ADR-015]]), estensioni colonne
+- Trasformazioni schema necessarie: storicizzazione, nuove tabelle ([[wiki/docs/adr/ADR-015-storicizzazione-immutabile\|ADR-015-storicizzazione-immutabile]]), estensioni colonne
 
 ## Alternatives considered
 

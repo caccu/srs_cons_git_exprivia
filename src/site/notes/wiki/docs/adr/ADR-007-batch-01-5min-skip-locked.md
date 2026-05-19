@@ -52,7 +52,7 @@ FOR UPDATE SKIP LOCKED;
 ### Negative
 - **Rischio aperto BAT-01:** ambiguità SRS §7.1 su quale operazione WSDL usare (SRV-01 inbound vs SRV-03 outbound) — vedi [[wiki/concepts/batch-processes\|Processi Batch]] §RISCHIO CRITICO. Da confermare con CSI prima implementazione
 - Tuning `batch_size` necessario per bilanciare throughput vs lock contention
-- Retry con backoff: parametri da definire ([PROPOSTA] SRS §7.1)
+- Retry con backoff: parametri da definire (PROPOSTA SRS §7.1)
 
 ### Neutral
 - Dipendenza forte da PostgreSQL ≥ 9.5 (SKIP LOCKED nativo, presente in PG17)
