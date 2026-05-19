@@ -37,7 +37,7 @@ function extractLinks(content) {
           .slice(2, -2)
           .split("|")[0]
           .replace(/\.(md|markdown)\s?$/i, "")
-          .replace("\\", "")
+          .replaceAll("\\", "")
           .trim()
           .split("#")[0],
           siteInfo.pathPrefix
@@ -51,7 +51,7 @@ function extractLinks(content) {
           .split("|")[0]
           // Don't strip .canvas - canvas URLs actually include it
           .replace(/\.(md|markdown)\s?$/i, "")
-          .replace("\\", "")
+          .replaceAll("\\", "")
           .trim()
           .split("#")[0],
           siteInfo.pathPrefix
