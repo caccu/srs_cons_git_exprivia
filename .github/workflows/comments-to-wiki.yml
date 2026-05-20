@@ -1,0 +1,101 @@
+name: Comments to Wiki
+
+  on:
+    discussion_comment:
+      types: [created]
+    schedule:
+      - cron: '0 8 * * *'   # ogni giorno alle 08:00 UTC come backup
+
+  jobs:
+    sync-comments:
+      runs-on: ubuntu-latest
+      permissions:
+        contents: write
+        discussions: read
+
+      steps:
+        - uses: actions/checkout@v4
+
+        - name: Fetch and write comment files
+          uses: actions/github-script@v7
+          with:
+            script: |
+              const fs = require('fs');
+              const path = require('path');
+
+              // Fetch all discussions with comments
+              const discussions = await github.graphql(`
+                query($owner: String!, $repo: String!) {
+                  repository(owner: $owner, name: $repo) {
+                    discussions(first: 50, orderBy: {field: UPDATED_AT, direction: DESC}) {
+                      nodes {
+                        title
+                        url
+                        body
+                        createdAt
+                        comments(first: 100) {
+                          nodes {
+                            id
+                            author { login }
+                            body
+                            createdAt
+                            url
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              `, {
+                owner: context.repo.owner,
+                repo: context.repo.repo
+              });
+
+              const dir = 'src/site/notes/comments';
+              if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
+              for (const disc of discussions.repository.discussions.nodes) {
+                for (const comment of disc.comments.nodes) {
+                  const date = comment.createdAt.split('T')[0];
+                  const slug = disc.title
+                    .toLowerCase()
+                    .replace(/[^a-z0-9\s-]/g, '')
+                    .replace(/\s+/g, '-')
+                    .slice(0, 50);
+                  const id = comment.id.slice(-8);
+                  const filename = `${dir}/${date}-${slug}-${id}.md`;
+
+                  if (fs.existsSync(filename)) continue; // già processato
+
+                  const content = `---
+  title: "Commento: ${disc.title}"
+  dg-publish: true
+  type: comment
+  tags: [commento]
+  created: ${date}
+  page: "${disc.url}"
+  author: "${comment.author?.login || 'anonimo'}"
+  ---
+
+  # Commento su: ${disc.title}
+
+  **Autore:** ${comment.author?.login || 'anonimo'}
+  **Data:** ${date}
+  **Pagina:** [link](${comment.url})
+
+  ---
+
+  ${comment.body}
+  `;
+                  fs.writeFileSync(filename, content);
+                  console.log(`Created: ${filename}`);
+                }
+              }
+
+        - name: Commit comment files
+          run: |
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add src/site/notes/comments/ || true
+            git diff --staged --quiet || git commit -m "chore: sync comments from Discussions [skip ci]"
+            git push
