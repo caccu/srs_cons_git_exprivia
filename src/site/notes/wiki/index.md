@@ -5,7 +5,7 @@
 
 # Wiki Index
 
-Master catalog di tutte le pagine. Aggiornato dopo ogni ingest.
+Master catalog di tutte le pagine. Aggiornato.
 
 ---
 
@@ -56,7 +56,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 ### Specifica TO-BE
 
 - [[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] — SRS TO-BE completo: 16 CDU, architettura, NFR, batch, modello dati 25 tabelle
-- [[wiki/sources/2026-03-02-sommario-srs-consensi\|Sommario SRS Gestione Consensi — Indice Strutturale]] — TOC/mappa strutturale SRS: 25 tabelle TO-BE, 10 [PROPOSTA] §8.4
+- [[wiki/sources/2026-03-02-sommario-srs-consensi\|Sommario SRS Gestione Consensi — Indice Strutturale]] — TOC/mappa strutturale SRS: 25 tabelle TO-BE, 10 PROPOSTA §8.4
 - [[wiki/sources/2026-03-02-appunti-e-pianificazione\|Appunti Sistema + Pianificazione Progetto Consensi]] — Sintesi architetturale + 8 fasi + 10 sprint + procedura migrazione PG9→PG17
 - [[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] — 13 Q&A Exprivia/CSI: no API Gateway, GASP Salute IdP, SOAP AS-IS, DBaaS Nivola
 
