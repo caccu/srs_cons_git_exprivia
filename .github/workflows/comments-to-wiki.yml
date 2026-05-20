@@ -1,12 +1,11 @@
 name: Comments to Wiki
 
-on:
-  workflow_dispatch:
-  discussion_comment:
-    types: [created]
-  schedule:
-    - cron: '0 8 * * *'   # ogni giorno alle 08:00 UTC come backup
-  workflow_dispatch:      # ti permette di avviarlo manualmente per testare
+  on:
+    workflow_dispatch:
+    discussion_comment:
+      types: [created]
+    schedule:
+      - cron: '0 8 * * *'
 
 jobs:
   sync-comments:
@@ -53,7 +52,7 @@ jobs:
               repo: context.repo.repo
             });
 
-            const dir = 'src/site/notes/comments';
+            const dir = 'src/site/notes/wiki/comments';
             if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
             for (const disc of discussions.repository.discussions.nodes) {
