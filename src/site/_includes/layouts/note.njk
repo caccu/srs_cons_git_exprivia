@@ -25,21 +25,6 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
     {% if settings.dgEnableSearch === true %}
       {%include "components/searchContainer.njk"%}
     {% endif %}
-<script src="https://giscus.app/client.js"
-        data-repo="caccu/srs_cons_git"
-        data-repo-id="R_kgDOSgs_Cw"
-        data-category="General"
-        data-category-id="DIC_kwDOSgs_C84C9cl-"
-        data-mapping="title"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="it"
-        crossorigin="anonymous"
-        async>
-</script>
     <main class="content cm-s-obsidian print {{contentClasses}}">
       <header>
         {% if settings.dgShowInlineTitle === true %}
@@ -88,8 +73,24 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
       {% for imp in dynamics.notes.afterContent %}
         {% include imp %}
       {% endfor %}
-    </main>
-
+<div style="margin-top: 2.5rem; width: 100%;">
+          <script src="https://giscus.app/client.js"
+                  data-repo="caccu/srs_cons_git"
+                  data-repo-id="R_kgDOSgs_Cw"
+                  data-category="General"
+                  data-category-id="DIC_kwDOSgs_C84C9cl-"
+                  data-mapping="title"
+                  data-strict="0"
+                  data-reactions-enabled="1"
+                  data-emit-metadata="0"
+                  data-input-position="bottom"
+                  data-theme="preferred_color_scheme"
+                  data-lang="it"
+                  crossorigin="anonymous"
+                  async>
+          </script>
+        </div>
+      </main> 
     {% if settings.dgShowBacklinks === true or settings.dgShowLocalGraph === true or settings.dgShowToc === true or dynamics.sidebar.top.length > 0 or dynamics.sidebar.bottom.length > 0%}
       {%include "components/sidebar.njk"%}
     {% endif %}
