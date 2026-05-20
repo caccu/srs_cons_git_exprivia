@@ -1,6 +1,7 @@
 name: Comments to Wiki
 
 on:
+  workflow_dispatch:
   discussion_comment:
     types: [created]
   schedule:
