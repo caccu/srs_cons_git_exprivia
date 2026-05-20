@@ -49,7 +49,7 @@ name: Comments to Wiki
                 repo: context.repo.repo
               });
 
-              const dir = 'src/site/notes/comments';
+              const dir = 'src/site/notes/wiki/comments';
               if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
               for (const disc of discussions.repository.discussions.nodes) {
