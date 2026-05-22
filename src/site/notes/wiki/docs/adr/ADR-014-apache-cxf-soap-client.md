@@ -58,7 +58,7 @@ Alternativa esplicitamente menzionata in Q&A CSI #9: **Spring-WS** (anch'essa co
 ## References
 
 - [[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #9
-- [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]]] (AURA, Gestione Deleghe, SIA ASR outbound)
+- [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] (AURA, Gestione Deleghe, SIA ASR outbound)
 - [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] (BATCH-01 client SOAP)
 - [[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico Applicativo]] §Backend
 - Correlato: [[wiki/docs/adr/ADR-001-stack-tecnologico\|ADR-001-stack-tecnologico]] stack Spring Boot 3, [[wiki/docs/adr/ADR-007-batch-01-5min-skip-locked\|ADR-007-batch-01-5min-skip-locked]] BATCH-01 uso CXF

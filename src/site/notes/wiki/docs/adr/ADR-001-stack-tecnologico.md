@@ -61,4 +61,4 @@ Lo stack TO-BE è:
 - [[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] — Q&A #2 (Angular), #5 (Spring Boot 3.4.10+), #10 (PostgreSQL 17 DBaaS)
 - [[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]
 - [[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico Applicativo]]
-- Correlato: [[wiki/docs/adr/ADR-002-piattaforma-ecaas\|ADR-002-piattaforma-ecaas]]] piattaforma ECaaS, [[wiki/docs/adr/ADR-013-migrazione-pg-dump-restore\|ADR-013-migrazione-pg-dump-restore]] migrazione PG
+- Correlato: [[wiki/docs/adr/ADR-002-piattaforma-ecaas\|ADR-002-piattaforma-ecaas]] piattaforma ECaaS, [[wiki/docs/adr/ADR-013-migrazione-pg-dump-restore\|ADR-013-migrazione-pg-dump-restore]] migrazione PG
