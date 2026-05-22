@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-011-merge-cdu-04-05-cittadino/","title":"Merge CDU-04/CDU-05 lato Cittadino con pulsante unico Salva","tags":["cdu-04","cdu-05","ux","cittadino","mf37","mf45","ssot"],"dg-note-properties":{"adr":11,"title":"Merge CDU-04/CDU-05 lato Cittadino con pulsante unico Salva","status":"accepted","date":"2026-05-14","deciders":["Marco Forneris","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["cdu-04","cdu-05","ux","cittadino","mf37","mf45","ssot"],"related_wiki":["[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso]]","[[Gestione Consensi - Applicativo\|Gestione Consensi - Applicativo]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]"],"sources":["[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF37R36, MF45R44"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-011-merge-cdu-04-05-cittadino/","title":"Merge CDU-04/CDU-05 lato Cittadino con pulsante unico Salva","tags":["cdu-04","cdu-05","ux","cittadino","mf37","mf45","ssot"],"dg-note-properties":{"adr":11,"title":"Merge CDU-04/CDU-05 lato Cittadino con pulsante unico Salva","status":"accepted","date":"2026-05-14","deciders":["Marco Forneris","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["cdu-04","cdu-05","ux","cittadino","mf37","mf45","ssot"],"related_wiki":["[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]"],"sources":["[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF37R36, MF45R44"]}}
 ---
 
 
@@ -61,6 +61,6 @@ Macchina a stati ([[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consens
 
 - [[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso]] §3
 - [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]] §Logica CDU
-- [[Gestione Consensi - Applicativo\|Gestione Consensi - Applicativo]] §Area Cittadino
+- [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] §Area Cittadino
 - [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF SRS v3]] MF37R36, MF45R44
 - Correlato: [[wiki/docs/adr/ADR-008-ssot-form-renderer\|ADR-008-ssot-form-renderer]] SSoT Form Renderer (abilita pulsante unico), [[wiki/docs/adr/ADR-010-cdu-01-split\|ADR-010-cdu-01-split]] CDU-01 split (separazione webapp)
