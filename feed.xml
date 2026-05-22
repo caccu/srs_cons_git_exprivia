@@ -3,10 +3,10 @@
   <title>WIKI SRS Consensi</title>
   <link href="https://caccu.github.io/srs_cons_git/feed.xml" rel="self"/>
   <link href="https://caccu.github.io/srs_cons_git"/>
-  <updated>2026-05-22T08:18:47Z</updated>
+  <updated>2026-05-22T08:24:25Z</updated>
   <id>https://caccu.github.io/srs_cons_git</id><entry>
     <title>overview</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/overview/</id>
     <content type="html">&lt;h1 id=&quot;wiki-overview-progetto-gestione-consensi&quot; tabindex=&quot;-1&quot;&gt;Wiki Overview — Progetto Gestione Consensi&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Dominio:&lt;/strong&gt; Rifacimento applicativo Gestione Consensi, Sanità Elettronica Regione Piemonte&lt;br /&gt;
@@ -118,7 +118,7 @@ Per CDU-15/16 (servizi REST verso SIA ASR): OAuth2 Client Credentials + JWT, iso
     <link href="https://caccu.github.io/srs_cons_git/wiki/overview/"/>
   </entry><entry>
     <title>regione-piemonte</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/entities/regione-piemonte/</id>
     <content type="html">&lt;h1 id=&quot;regione-piemonte&quot; tabindex=&quot;-1&quot;&gt;Regione Piemonte&lt;/h1&gt;
 &lt;p&gt;Ente committente finale del progetto &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/&quot;&gt;Gestione Consensi - Applicativo&lt;/a&gt;. Proprietaria del sistema di Sanità Elettronica Regionale di cui fa parte l&#39;applicativo.&lt;/p&gt;
@@ -170,7 +170,7 @@ Per CDU-15/16 (servizi REST verso SIA ASR): OAuth2 Client Credentials + JWT, iso
     <link href="https://caccu.github.io/srs_cons_git/wiki/entities/regione-piemonte/"/>
   </entry><entry>
     <title>notificatore-unp</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/entities/notificatore-unp/</id>
     <content type="html">&lt;h1 id=&quot;notificatore-unp&quot; tabindex=&quot;-1&quot;&gt;Notificatore UNP&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Nome esteso:&lt;/strong&gt; User Notification Platform&lt;br /&gt;
@@ -298,7 +298,7 @@ Per CDU-15/16 (servizi REST verso SIA ASR): OAuth2 Client Credentials + JWT, iso
     <link href="https://caccu.github.io/srs_cons_git/wiki/entities/notificatore-unp/"/>
   </entry><entry>
     <title>exprivia</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/entities/exprivia/</id>
     <content type="html">&lt;h1 id=&quot;exprivia-s-p-a&quot; tabindex=&quot;-1&quot;&gt;Exprivia S.p.A.&lt;/h1&gt;
 &lt;p&gt;Società fornitrice responsabile del rifacimento dell&#39;applicativo &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/&quot;&gt;Gestione Consensi - Applicativo&lt;/a&gt; per conto di &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/entities/csi-piemonte/&quot;&gt;CSI Piemonte&lt;/a&gt; / &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/entities/regione-piemonte/&quot;&gt;Regione Piemonte&lt;/a&gt;.&lt;/p&gt;
@@ -346,7 +346,7 @@ Per CDU-15/16 (servizi REST verso SIA ASR): OAuth2 Client Credentials + JWT, iso
     <link href="https://caccu.github.io/srs_cons_git/wiki/entities/exprivia/"/>
   </entry><entry>
     <title>csi-piemonte</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/entities/csi-piemonte/</id>
     <content type="html">&lt;h1 id=&quot;csi-piemonte&quot; tabindex=&quot;-1&quot;&gt;CSI Piemonte&lt;/h1&gt;
 &lt;p&gt;Centro Servizi per il sistema informativo della Pubblica Amministrazione piemontese. Committente tecnico del progetto Gestione Consensi.&lt;/p&gt;
@@ -417,7 +417,7 @@ Per CDU-15/16 (servizi REST verso SIA ASR): OAuth2 Client Credentials + JWT, iso
     <link href="https://caccu.github.io/srs_cons_git/wiki/entities/csi-piemonte/"/>
   </entry><entry>
     <title>README</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/readme/</id>
     <content type="html">&lt;h1 id=&quot;architecture-decision-records-indice&quot; tabindex=&quot;-1&quot;&gt;Architecture Decision Records — Indice&lt;/h1&gt;
 &lt;p&gt;Registry delle decisioni architetturali del progetto &lt;strong&gt;Gestione Consensi Regione Piemonte&lt;/strong&gt;. Ogni ADR cattura una decisione che chiude opzioni concrete, con conseguenze tecniche durature. Formato: Nygard-style con frontmatter YAML per machine-readability.&lt;/p&gt;
@@ -716,7 +716,7 @@ ADR-019 CDU-06 PDF scope ridotto (standalone, allineato con UX cittadino)
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/readme/"/>
   </entry><entry>
     <title>ADR-019-cdu-06-pdf-scope-ridotto</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-019-cdu-06-pdf-scope-ridotto/</id>
     <content type="html">&lt;h1 id=&quot;adr-019-cdu-06-pdf-scope-ridotto&quot; tabindex=&quot;-1&quot;&gt;ADR-019: CDU-06 PDF scope ridotto&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -799,7 +799,7 @@ ADR-019 CDU-06 PDF scope ridotto (standalone, allineato con UX cittadino)
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-019-cdu-06-pdf-scope-ridotto/"/>
   </entry><entry>
     <title>ADR-018-rfc-7807-error-response</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-018-rfc-7807-error-response/</id>
     <content type="html">&lt;h1 id=&quot;adr-018-rfc-7807-come-standard-error-response&quot; tabindex=&quot;-1&quot;&gt;ADR-018: RFC 7807 come standard error response&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -882,7 +882,7 @@ ADR-019 CDU-06 PDF scope ridotto (standalone, allineato con UX cittadino)
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-018-rfc-7807-error-response/"/>
   </entry><entry>
     <title>ADR-017-lis-terzo-canale</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-017-lis-terzo-canale/</id>
     <content type="html">&lt;h1 id=&quot;adr-017-lis-terzo-canale-di-acquisizione&quot; tabindex=&quot;-1&quot;&gt;ADR-017: LIS terzo canale di acquisizione&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -984,7 +984,7 @@ ADR-019 CDU-06 PDF scope ridotto (standalone, allineato con UX cittadino)
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-017-lis-terzo-canale/"/>
   </entry><entry>
     <title>ADR-016-scaduto-async-batch-02</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-016-scaduto-async-batch-02/</id>
     <content type="html">&lt;h1 id=&quot;adr-016-stato-scaduto-gestito-da-batch-02-asincrono&quot; tabindex=&quot;-1&quot;&gt;ADR-016: Stato SCADUTO gestito da BATCH-02 (asincrono)&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1110,7 +1110,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-016-scaduto-async-batch-02/"/>
   </entry><entry>
     <title>ADR-015-storicizzazione-immutabile</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-015-storicizzazione-immutabile/</id>
     <content type="html">&lt;h1 id=&quot;adr-015-storicizzazione-immutabile-dei-consensi&quot; tabindex=&quot;-1&quot;&gt;ADR-015: Storicizzazione immutabile dei consensi&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1194,7 +1194,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-015-storicizzazione-immutabile/"/>
   </entry><entry>
     <title>ADR-014-apache-cxf-soap-client</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-014-apache-cxf-soap-client/</id>
     <content type="html">&lt;h1 id=&quot;adr-014-apache-cxf-come-client-soap&quot; tabindex=&quot;-1&quot;&gt;ADR-014: Apache CXF come client SOAP&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1271,7 +1271,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-014-apache-cxf-soap-client/"/>
   </entry><entry>
     <title>ADR-013-migrazione-pg-dump-restore</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-013-migrazione-pg-dump-restore/</id>
     <content type="html">&lt;h1 id=&quot;adr-013-strategia-migrazione-pg-9-pg-17-dump-restore&quot; tabindex=&quot;-1&quot;&gt;ADR-013: Strategia migrazione PG9 → PG17 — dump/restore&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1366,7 +1366,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-013-migrazione-pg-dump-restore/"/>
   </entry><entry>
     <title>ADR-012-notificatore-deleghe-post-completato</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-012-notificatore-deleghe-post-completato/</id>
     <content type="html">&lt;h1 id=&quot;adr-012-notifica-cittadino-via-notificatore-di-deleghe-post-completato&quot; tabindex=&quot;-1&quot;&gt;ADR-012: Notifica cittadino via Notificatore di Deleghe post-COMPLETATO&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1466,7 +1466,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-012-notificatore-deleghe-post-completato/"/>
   </entry><entry>
     <title>ADR-011-merge-cdu-04-05-cittadino</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-011-merge-cdu-04-05-cittadino/</id>
     <content type="html">&lt;h1 id=&quot;adr-011-merge-cdu-04-cdu-05-lato-cittadino-pulsante-unico-and-quot-salva-and-quot&quot; tabindex=&quot;-1&quot;&gt;ADR-011: Merge CDU-04/CDU-05 lato Cittadino — pulsante unico &amp;quot;Salva&amp;quot;&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1547,7 +1547,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-011-merge-cdu-04-05-cittadino/"/>
   </entry><entry>
     <title>ADR-010-cdu-01-split</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-010-cdu-01-split/</id>
     <content type="html">&lt;h1 id=&quot;adr-010-split-cdu-01-cdu-01a-operatore-cdu-01b-cittadino&quot; tabindex=&quot;-1&quot;&gt;ADR-010: Split CDU-01 — CDU-01a Operatore + CDU-01b Cittadino&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1630,7 +1630,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-010-cdu-01-split/"/>
   </entry><entry>
     <title>ADR-009-eliminazione-sistemats</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-009-eliminazione-sistemats/</id>
     <content type="html">&lt;h1 id=&quot;adr-009-eliminazione-sistema-ts-dall-integrazione&quot; tabindex=&quot;-1&quot;&gt;ADR-009: Eliminazione SistemaTS dall&#39;integrazione&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1708,7 +1708,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-009-eliminazione-sistemats/"/>
   </entry><entry>
     <title>ADR-008-ssot-form-renderer</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-008-ssot-form-renderer/</id>
     <content type="html">&lt;h1 id=&quot;adr-008-single-source-of-truth-form-renderer-unico&quot; tabindex=&quot;-1&quot;&gt;ADR-008: Single Source of Truth — Form Renderer unico&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1814,7 +1814,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-008-ssot-form-renderer/"/>
   </entry><entry>
     <title>ADR-007-batch-01-5min-skip-locked</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-007-batch-01-5min-skip-locked/</id>
     <content type="html">&lt;h1 id=&quot;adr-007-batch-01-scheduling-5-min-con-skip-locked&quot; tabindex=&quot;-1&quot;&gt;ADR-007: BATCH-01 — scheduling 5 min con SKIP LOCKED&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1904,7 +1904,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-007-batch-01-5min-skip-locked/"/>
   </entry><entry>
     <title>ADR-006-batch-03-pull-cdu-17</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-006-batch-03-pull-cdu-17/</id>
     <content type="html">&lt;h1 id=&quot;adr-006-sostituzione-batch-03-push-con-cdu-17-pull&quot; tabindex=&quot;-1&quot;&gt;ADR-006: Sostituzione BATCH-03 push con CDU-17 PULL&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -2002,7 +2002,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-006-batch-03-pull-cdu-17/"/>
   </entry><entry>
     <title>ADR-005-sicurezza-cdu-15-16</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-005-sicurezza-cdu-15-16/</id>
     <content type="html">&lt;h1 id=&quot;adr-005-modello-sicurezza-cdu-15-16-autorizzazione-per-ente-a-3-livelli&quot; tabindex=&quot;-1&quot;&gt;ADR-005: Modello sicurezza CDU-15/16 — autorizzazione per ente a 3 livelli&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -2108,7 +2108,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-005-sicurezza-cdu-15-16/"/>
   </entry><entry>
     <title>ADR-004-no-api-gateway</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-004-no-api-gateway/</id>
     <content type="html">&lt;h1 id=&quot;adr-004-no-api-gateway-security-applicativa-via-spring-security&quot; tabindex=&quot;-1&quot;&gt;ADR-004: No API Gateway, security applicativa via Spring Security&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -2203,7 +2203,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-004-no-api-gateway/"/>
   </entry><entry>
     <title>ADR-003-dbaas-nivola</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-003-dbaas-nivola/</id>
     <content type="html">&lt;h1 id=&quot;adr-003-d-baa-s-nivola-esterno-al-namespace-e-caa-s&quot; tabindex=&quot;-1&quot;&gt;ADR-003: DBaaS Nivola, esterno al namespace ECaaS&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -2275,7 +2275,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-003-dbaas-nivola/"/>
   </entry><entry>
     <title>ADR-002-piattaforma-ecaas</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-002-piattaforma-ecaas/</id>
     <content type="html">&lt;h1 id=&quot;adr-002-piattaforma-e-caa-s-kubernetes-nivola&quot; tabindex=&quot;-1&quot;&gt;ADR-002: Piattaforma ECaaS Kubernetes Nivola&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -2388,7 +2388,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-002-piattaforma-ecaas/"/>
   </entry><entry>
     <title>ADR-001-stack-tecnologico</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-001-stack-tecnologico/</id>
     <content type="html">&lt;h1 id=&quot;adr-001-stack-tecnologico-applicativo&quot; tabindex=&quot;-1&quot;&gt;ADR-001: Stack tecnologico applicativo&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -2504,7 +2504,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-001-stack-tecnologico/"/>
   </entry><entry>
     <title>stack-tecnologico-applicativo</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/stack-tecnologico-applicativo/</id>
     <content type="html">&lt;h1 id=&quot;stack-tecnologico-applicativo&quot; tabindex=&quot;-1&quot;&gt;Stack Tecnologico Applicativo&lt;/h1&gt;
 &lt;p&gt;Stack TO-BE del progetto &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/&quot;&gt;Gestione Consensi - Applicativo&lt;/a&gt;. Tutte le versioni allineate alle &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/sources/2026-03-12-pile-tecnologiche-csi/&quot;&gt;Pile Tecnologiche CSI&lt;/a&gt; CURRENT (marzo 2026).&lt;/p&gt;
@@ -2717,7 +2717,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/stack-tecnologico-applicativo/"/>
   </entry><entry>
     <title>sistemi-esterni-integrati</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/</id>
     <content type="html">&lt;h1 id=&quot;sistemi-esterni-integrati&quot; tabindex=&quot;-1&quot;&gt;Sistemi Esterni Integrati&lt;/h1&gt;
 &lt;p&gt;Sistemi esterni con cui &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/&quot;&gt;Gestione Consensi - Applicativo&lt;/a&gt; si integra nel TO-BE. Tutti gestiti da &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/entities/csi-piemonte/&quot;&gt;CSI Piemonte&lt;/a&gt; o dalle ASR della Regione Piemonte.&lt;/p&gt;
@@ -3048,7 +3048,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/"/>
   </entry><entry>
     <title>sicurezza-cdu-15-16</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/</id>
     <content type="html">&lt;h1 id=&quot;sicurezza-cdu-15-16-modello-autorizzazione-per-ente&quot; tabindex=&quot;-1&quot;&gt;Sicurezza CDU-15/16 — Modello Autorizzazione per Ente&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Origine:&lt;/strong&gt; risposta tecnica al commento cliente &lt;strong&gt;TR30&lt;/strong&gt; sulla revisione SRS bozza v3 (PDF righe 4456–4459, sez. §6.16). Rinumerato come &lt;strong&gt;TR58&lt;/strong&gt; nella revisione &lt;code&gt;CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf&lt;/code&gt; (MF59-62R58). Vedi mapping in &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/&quot;&gt;analysis-2026-05-14-risposte-mf-srs-v3&lt;/a&gt;.&lt;/p&gt;
@@ -3508,7 +3508,7 @@ public class EnteAuthorizationFilter extends OncePerRequestFilter {
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/"/>
   </entry><entry>
     <title>migrazione-postgres-9-17</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/migrazione-postgres-9-17/</id>
     <content type="html">&lt;h1 id=&quot;migrazione-postgre-sql-9-17&quot; tabindex=&quot;-1&quot;&gt;Migrazione PostgreSQL 9 → 17&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Salto di 8 major release.&lt;/strong&gt; Strategia: &lt;strong&gt;dump/restore&lt;/strong&gt; (pg_dump custom format → pg_restore). Pianificata in &lt;strong&gt;Fase 6&lt;/strong&gt; (Sprint 9) del progetto.&lt;/p&gt;
@@ -3684,7 +3684,7 @@ public class EnteAuthorizationFilter extends OncePerRequestFilter {
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/migrazione-postgres-9-17/"/>
   </entry><entry>
     <title>informativa</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/informativa/</id>
     <content type="html">&lt;h1 id=&quot;informativa-consenso&quot; tabindex=&quot;-1&quot;&gt;Informativa Consenso&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Definizione:&lt;/strong&gt; Documento normativo-applicativo che descrive scopo, base giuridica, ambito ASR, decorrenza/scadenza e contenuti del consenso che il cittadino è chiamato a esprimere. È l&#39;&lt;strong&gt;oggetto dichiarativo&lt;/strong&gt; rispetto al quale il consenso (record &lt;code&gt;cons_t_consenso&lt;/code&gt;) è una posizione del cittadino.&lt;/p&gt;
@@ -3793,7 +3793,7 @@ public class EnteAuthorizationFilter extends OncePerRequestFilter {
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/informativa/"/>
   </entry><entry>
     <title>gestione-consensi-applicativo</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/</id>
     <content type="html">&lt;h1 id=&quot;gestione-consensi-applicativo&quot; tabindex=&quot;-1&quot;&gt;Gestione Consensi — Applicativo&lt;/h1&gt;
 &lt;p&gt;Sistema centrale per la raccolta, gestione e consultazione dei consensi sanitari dei cittadini piemontesi. Parte dell&#39;ecosistema Sanità Elettronica Regione Piemonte.&lt;/p&gt;
@@ -4078,7 +4078,7 @@ public class EnteAuthorizationFilter extends OncePerRequestFilter {
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/"/>
   </entry><entry>
     <title>gasp-salute</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/gasp-salute/</id>
     <content type="html">&lt;h1 id=&quot;gasp-salute&quot; tabindex=&quot;-1&quot;&gt;GASP Salute&lt;/h1&gt;
 &lt;p&gt;Identity Provider (IdP) federato gestito da &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/entities/csi-piemonte/&quot;&gt;CSI Piemonte&lt;/a&gt;. Fornisce autenticazione SSO per cittadini sulla piattaforma Sanità Elettronica Regione Piemonte tramite SPID e CIE.&lt;/p&gt;
@@ -4218,7 +4218,7 @@ public class EnteAuthorizationFilter extends OncePerRequestFilter {
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/gasp-salute/"/>
   </entry><entry>
     <title>composizione-dinamica-form-consenso</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/</id>
     <content type="html">&lt;h1 id=&quot;composizione-dinamica-form-consenso-single-source-of-truth&quot; tabindex=&quot;-1&quot;&gt;Composizione Dinamica Form Consenso — Single Source of Truth&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Origine:&lt;/strong&gt; risposte MF a revisione SRS v3 — commenti MB29, MB27, MB34, MB36, MB38, MB40, MB42, MB56 (vedi &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/&quot;&gt;analysis-2026-05-14-risposte-mf-srs-v3&lt;/a&gt; tema C e tema F).&lt;/p&gt;
@@ -4505,7 +4505,7 @@ public class EnteAuthorizationFilter extends OncePerRequestFilter {
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/"/>
   </entry><entry>
     <title>ciclo-vita-consenso</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/ciclo-vita-consenso/</id>
     <content type="html">&lt;h1 id=&quot;ciclo-di-vita-del-consenso&quot; tabindex=&quot;-1&quot;&gt;Ciclo di Vita del Consenso&lt;/h1&gt;
 &lt;p&gt;Macchina a stati che governa ogni consenso espresso nel sistema &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/&quot;&gt;Gestione Consensi - Applicativo&lt;/a&gt;.&lt;/p&gt;
@@ -4731,7 +4731,7 @@ public class EnteAuthorizationFilter extends OncePerRequestFilter {
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/ciclo-vita-consenso/"/>
   </entry><entry>
     <title>batch-processes</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/batch-processes/</id>
     <content type="html">&lt;h1 id=&quot;processi-batch&quot; tabindex=&quot;-1&quot;&gt;Processi Batch&lt;/h1&gt;
 &lt;p&gt;Processi asincroni del sistema TO-BE &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/&quot;&gt;Gestione Consensi - Applicativo&lt;/a&gt;. Assenti nell&#39;AS-IS — introdotti per disaccoppiare la logica di notifica/scadenza/allineamento dall&#39;acquisizione sincrona.&lt;/p&gt;
@@ -5036,7 +5036,7 @@ Nuovo endpoint configurato (CDU-14 Back Office)
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/batch-processes/"/>
   </entry><entry>
     <title>architettura-ecaas</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/architettura-ecaas/</id>
     <content type="html">&lt;h1 id=&quot;architettura-e-caa-s-enterprise-container-as-a-service&quot; tabindex=&quot;-1&quot;&gt;Architettura ECaaS (Enterprise Container as a Service)&lt;/h1&gt;
 &lt;p&gt;Piattaforma cloud &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/entities/csi-piemonte/&quot;&gt;CSI Piemonte&lt;/a&gt; basata su Kubernetes/Nivola. Ospita il progetto &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/&quot;&gt;Gestione Consensi - Applicativo&lt;/a&gt;.&lt;/p&gt;
@@ -5190,7 +5190,7 @@ Artifactory push → SonarQube analisi → GitOps rollout
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/architettura-ecaas/"/>
   </entry><entry>
     <title>alternativa-batch-03-pull</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/</id>
     <content type="html">&lt;h1 id=&quot;alternativa-batch-03-pull-cdu-17-centro-stella&quot; tabindex=&quot;-1&quot;&gt;Alternativa BATCH-03 — PULL CDU-17 (centro stella)&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Origine:&lt;/strong&gt; risposta tecnica al commento cliente &lt;strong&gt;TR34&lt;/strong&gt; sulla revisione SRS bozza v3 (PDF righe 4951–4956, sez. §7.3 BATCH-03). Rinumerato come &lt;strong&gt;TR68&lt;/strong&gt; nella revisione &lt;code&gt;CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf&lt;/code&gt; (MF69R68). Vedi mapping in &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/&quot;&gt;analysis-2026-05-14-risposte-mf-srs-v3&lt;/a&gt;.&lt;/p&gt;
@@ -5725,7 +5725,7 @@ Body: { &amp;quot;stato&amp;quot;: &amp;quot;COMPLETATO&amp;quot; }
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/"/>
   </entry><entry>
     <title>valutazione-qualita-srs-consensi</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/analyses/valutazione-qualita-srs-consensi/</id>
     <content type="html">&lt;h1 id=&quot;valutazione-qualita-srs-progetto-consensi&quot; tabindex=&quot;-1&quot;&gt;Valutazione Qualità SRS — Progetto Consensi&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Oggetto valutato:&lt;/strong&gt; CONSPREF-SRS-V1.0 (bozza v2) + appunti + pianificazione + Q&amp;amp;A CSI&lt;br /&gt;
@@ -5983,7 +5983,7 @@ Body: { &amp;quot;stato&amp;quot;: &amp;quot;COMPLETATO&amp;quot; }
     <link href="https://caccu.github.io/srs_cons_git/wiki/analyses/valutazione-qualita-srs-consensi/"/>
   </entry><entry>
     <title>conspref-dmp-tracker</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/analyses/conspref-dmp-tracker/</id>
     <content type="html">&lt;h1 id=&quot;conspref-dmp-tracker-piano-migrazione-dati&quot; tabindex=&quot;-1&quot;&gt;CONSPREF-DMP — Tracker Piano Migrazione Dati&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Stato:&lt;/strong&gt; 🔴 &lt;strong&gt;Non formalizzato&lt;/strong&gt; al 2026-05-15. Rischio critico per Fase 6 (Sprint 9) migrazione &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/migrazione-postgres-9-17/&quot;&gt;PG9 → PG17&lt;/a&gt;.&lt;/p&gt;
@@ -6192,7 +6192,7 @@ Body: { &amp;quot;stato&amp;quot;: &amp;quot;COMPLETATO&amp;quot; }
     <link href="https://caccu.github.io/srs_cons_git/wiki/analyses/conspref-dmp-tracker/"/>
   </entry><entry>
     <title>analysis-gap-as-is-to-be</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/analyses/analysis-gap-as-is-to-be/</id>
     <content type="html">&lt;h1 id=&quot;analisi-gap-as-is-to-be-gestione-consensi&quot; tabindex=&quot;-1&quot;&gt;Analisi Gap AS-IS → TO-BE — Gestione Consensi&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Scopo:&lt;/strong&gt; Identificare cosa cambia, cosa rimane invariato e cosa viene dismesso tra sistema AS-IS (2019) e TO-BE (SRS 2026). Input per sprint planning e gestione rischi integrazione.&lt;/p&gt;
@@ -6615,7 +6615,7 @@ TO-BE: BATCH-01 notifica entro 5 minuti. Se SIA ha logica temporale che dipende 
     <link href="https://caccu.github.io/srs_cons_git/wiki/analyses/analysis-gap-as-is-to-be/"/>
   </entry><entry>
     <title>pile-tecnologiche</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/raw/pile-tecnologiche/</id>
     <content type="html">&lt;p&gt;12/03/26, 09:33 &lt;a href=&quot;http://kbt.csi.it/csi/extwebres/frameworksvil/drilldown/topics/pilatecnologica/&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;kbt.csi.it/csi/extwebres/frameworksvil/drilldown/topics/pilatecnologica/&lt;/a&gt;&lt;br /&gt;
 torna alla home&lt;br /&gt;
@@ -7196,7 +7196,7 @@ AdoptiumTemurinOpenJDK17_centos7 - v. 1.0.0&lt;br /&gt;
     <link href="https://caccu.github.io/srs_cons_git/raw/pile-tecnologiche/"/>
   </entry><entry>
     <title>pianificazione</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/raw/pianificazione/</id>
     <content type="html">&lt;p&gt;**FASE 0 – Setup &amp;amp; Prerequisiti **&lt;em&gt;&lt;strong&gt;(Settimane 1–2 · 10gg)&lt;/strong&gt;&lt;/em&gt;&lt;br /&gt;
 Questa fase è il &lt;strong&gt;collo di bottiglia critico&lt;/strong&gt;: molte attività dipendono da risorse esterne CSI/Nivola con latenze imprevedibili&lt;/p&gt;
@@ -7889,7 +7889,7 @@ Monitoraggio ELK per 30 minuti post-cutover&lt;br /&gt;
     <link href="https://caccu.github.io/srs_cons_git/raw/pianificazione/"/>
   </entry><entry>
     <title>domande-srs-consensi_revCSI_V02</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/raw/domande-srs-consensi-rev-csi-v02/</id>
     <content type="html">&lt;h2 id=&quot;foglio1&quot; tabindex=&quot;-1&quot;&gt;Foglio1&lt;/h2&gt;
 &lt;table&gt;
@@ -7958,7 +7958,7 @@ Monitoraggio ELK per 30 minuti post-cutover&lt;br /&gt;
     <link href="https://caccu.github.io/srs_cons_git/raw/domande-srs-consensi-rev-csi-v02/"/>
   </entry><entry>
     <title>appunti</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/raw/appunti/</id>
     <content type="html">&lt;p&gt;&lt;strong&gt;1. Contesto&lt;/strong&gt;&lt;br /&gt;
 Il sistema si inserisce nell&#39;ecosistema della &lt;strong&gt;Sanità Elettronica della Regione Piemonte&lt;/strong&gt; e gestisce tre livelli di consenso: &lt;strong&gt;Nazionale&lt;/strong&gt; (FSE/INI), &lt;strong&gt;Regionale&lt;/strong&gt; (stratificazione/cronicità) e &lt;strong&gt;Aziendale ASR&lt;/strong&gt; (Dossier Clinico, ROL referti). I tre profili utente sono il &lt;strong&gt;Cittadino&lt;/strong&gt; (accesso via SPID/CIE), l&#39;&lt;strong&gt;Operatore Sanitario/Amministrativo&lt;/strong&gt; e l&#39;&lt;strong&gt;Operatore di Back Office&lt;/strong&gt; (entrambi via PUA con credenziali RUPAR/IRIDE).&lt;br /&gt;
@@ -8033,7 +8033,7 @@ Il database comprende &lt;strong&gt;25 tabelle&lt;/strong&gt; principali, tra 
     <link href="https://caccu.github.io/srs_cons_git/raw/appunti/"/>
   </entry><entry>
     <title>Specifica-WebService_ConsensoRegionaleAziendale_v03 (1)-4</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/raw/specifica-web-service-consenso-regionale-aziendale-v03-1-4/</id>
     <content type="html">&lt;p&gt;MODULO REGIONALE GESTIONE CONSENSI&lt;br /&gt;
 SPECIFICA DEI SERVIZI ACQUISIZIONE-&lt;br /&gt;
@@ -12742,7 +12742,7 @@ REVOCA E NOTIFICA CONSENSO&lt;br /&gt;
     <link href="https://caccu.github.io/srs_cons_git/raw/specifica-web-service-consenso-regionale-aziendale-v03-1-4/"/>
   </entry><entry>
     <title>P18-004-SFU-Studio-Funzionale-Gestione-Consensi-SoL-V1.7</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/raw/p18-004-sfu-studio-funzionale-gestione-consensi-so-l-v1-7/</id>
     <content type="html">&lt;p&gt;FSE – SOL REGIONE&lt;br /&gt;
 PIEMONTE&lt;br /&gt;
@@ -13352,7 +13352,7 @@ p18-004-sfu- studio funzionale - gestione consensi sol - v1.7_pb.docx USO: INTER
     <link href="https://caccu.github.io/srs_cons_git/raw/p18-004-sfu-studio-funzionale-gestione-consensi-so-l-v1-7/"/>
   </entry><entry>
     <title>Linea-Guida-Fornitori-v1.0.1_cloud</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/raw/linea-guida-fornitori-v1-0-1-cloud/</id>
     <content type="html">&lt;p&gt;&lt;a href=&quot;http://lineaguidafornitori.md/&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;LineaGuidaFornitori.md&lt;/a&gt;&lt;br /&gt;
 1 / 16&lt;br /&gt;
@@ -13827,7 +13827,7 @@ dispiegamento&lt;br /&gt;
     <link href="https://caccu.github.io/srs_cons_git/raw/linea-guida-fornitori-v1-0-1-cloud/"/>
   </entry><entry>
     <title>CSI-Progetto-Consensi-Modello-Dizionario-dati-3</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/raw/csi-progetto-consensi-modello-dizionario-dati-3/</id>
     <content type="html">&lt;p&gt;CONSENSI&lt;br /&gt;
 CODICE_DOC&lt;br /&gt;
@@ -14971,7 +14971,7 @@ Pag. 16 di 16&lt;br /&gt;
     <link href="https://caccu.github.io/srs_cons_git/raw/csi-progetto-consensi-modello-dizionario-dati-3/"/>
   </entry><entry>
     <title>CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/raw/conspref-srs-v1-0-revised-bozza-v3-csi-lavorazione/</id>
     <content type="html">&lt;p&gt;&lt;span id=&quot;_Toc224739626&quot; class=&quot;anchor&quot;&gt;&lt;/span&gt;SPECIFICA DEI REQUISITI&lt;br /&gt;
 DEL SISTEMA&lt;/p&gt;
@@ -21409,7 +21409,7 @@ sviluppo del modello dati TO-BE descritto nel Capitolo 8.&lt;/p&gt;
     <link href="https://caccu.github.io/srs_cons_git/raw/conspref-srs-v1-0-revised-bozza-v3-csi-lavorazione/"/>
   </entry><entry>
     <title>CONSPREF-SRS-V1.0-revised_bozza_v2</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/raw/conspref-srs-v1-0-revised-bozza-v2/</id>
     <content type="html">&lt;h1 id=&quot;specifica-dei-requisiti-del-sistema&quot; tabindex=&quot;-1&quot;&gt;SPECIFICA DEI REQUISITI DEL SISTEMA&lt;/h1&gt;
 &lt;p&gt;Sistema: Gestione Consensi&lt;br /&gt;
@@ -25844,7 +25844,7 @@ Questa attività deve essere completata prima dell&#39;avvio dello sviluppo de
     <link href="https://caccu.github.io/srs_cons_git/raw/conspref-srs-v1-0-revised-bozza-v2/"/>
   </entry><entry>
     <title>CONSPREF-SRS-01-V03-Requisiti-Gestione-Consensi</title>
-    <updated>2026-05-22T08:18:29Z</updated>
+    <updated>2026-05-22T08:24:06Z</updated>
     <id>https://caccu.github.io/srs_cons_git/raw/conspref-srs-01-v03-requisiti-gestione-consensi/</id>
     <content type="html">&lt;h1 id=&quot;gestione-consensi&quot; tabindex=&quot;-1&quot;&gt;Gestione Consensi&lt;/h1&gt;
 &lt;p&gt;VERIFICHE E APPROVAZIONI&lt;/p&gt;
@@ -26306,2495 +26306,6 @@ Si è deciso che in queste situazioni è necessario&lt;/p&gt;
 &lt;/ul&gt;
 </content>
     <link href="https://caccu.github.io/srs_cons_git/raw/conspref-srs-01-v03-requisiti-gestione-consensi/"/>
-  </entry><entry>
-    <title>ACC-DEL-CDU-01-V01-Servizi-Acquisizione-Consensi-2</title>
-    <updated>2026-05-22T08:18:29Z</updated>
-    <id>https://caccu.github.io/srs_cons_git/raw/acc-del-cdu-01-v01-servizi-acquisizione-consensi-2/</id>
-    <content type="html">&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 1 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-Modulo Gestione Consensi&lt;br /&gt;
-LOTTO1&lt;br /&gt;
-Servizio Gestione Consensi&lt;br /&gt;
-VERIFICHE E APPROVAZIONI&lt;br /&gt;
-CONTROLLO AUTORIZZAZIONE&lt;br /&gt;
-VERS. REDAZIONE APPROVAZIONE EMISSIONE&lt;br /&gt;
-NOME DATA NOME DATA NOME DATA&lt;br /&gt;
-01 CELORIA 20/03/2019&lt;br /&gt;
-STATO DELLE VARIAZIONI&lt;br /&gt;
-VERS. PARAGRAFO O DESCRIZIONE DELLA VARIAZIONE&lt;br /&gt;
-PAGINA&lt;br /&gt;
-01 Intero documento Versione iniziale&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;VERS.&lt;/th&gt;
-&lt;th&gt;REDAZIONE&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;CONTROLLO APPROVAZIONE&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;AUTORIZZAZIONE EMISSIONE&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;NOME&lt;/td&gt;
-&lt;td&gt;DATA&lt;/td&gt;
-&lt;td&gt;NOME&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;DATA&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;NOME&lt;/td&gt;
-&lt;td&gt;DATA&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;01&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;CELORIA&lt;/td&gt;
-&lt;td&gt;20/03/2019&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;VERS.&lt;/th&gt;
-&lt;th&gt;PARAGRAFO O PAGINA&lt;/th&gt;
-&lt;th&gt;DESCRIZIONE DELLA VARIAZIONE&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;01&lt;/td&gt;
-&lt;td&gt;Intero documento&lt;/td&gt;
-&lt;td&gt;Versione iniziale&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 2 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-INDICE&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Scopo e riferimenti del documento 3&lt;br /&gt;
-1.1 Scopo del documento 3&lt;br /&gt;
-1.2 Riferimenti 3&lt;/li&gt;
-&lt;li&gt;Servizio Gestione Consensi 4&lt;br /&gt;
-2.1 Obiettivi 4&lt;br /&gt;
-2.1.1 Descrizione del servizio 4&lt;br /&gt;
-2.2 Modalità di richiamo 4&lt;br /&gt;
-2.3 Descrizione dell’interfaccia del servizio 5&lt;br /&gt;
-2.3.1 Operazione DA01:acquisizioneConsenso (acquisizioneConsensoService) 5&lt;br /&gt;
-2.3.2 Operazione DA02:revocaConsenso (revocaConsensoService) 10&lt;br /&gt;
-2.3.3 Operazione DA03:consultazioneConsenso (consultazioneConsensoService) 15&lt;br /&gt;
-2.3.4 Operazione DA03:consultazioneInformativa (consultazioneInformativaConsensoService) 20&lt;br /&gt;
-2.4 Algoritmi e servizi per i controlli 24&lt;br /&gt;
-2.4.1 Struttura DataBase 24&lt;br /&gt;
-2.4.2 Errori 25&lt;br /&gt;
-2.4.3 Audit 26&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/li&gt;
-&lt;/ol&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 3 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Scopo e riferimenti del documento&lt;br /&gt;
-1.1 Scopo del documento&lt;br /&gt;
-Questo documento contiene il dettaglio dei requisiti che il servizio GESTIONE CONSENSI dovrà soddisfare per&lt;br /&gt;
-essere accettato dal committente.&lt;br /&gt;
-Destinatari del documento sono tutti i partecipanti al gruppo di progetto.&lt;br /&gt;
-1.2 Riferimenti&lt;br /&gt;
-Num. Riferimento Descrizione&lt;br /&gt;
-[1] FSE – SoL Regione Piemonte&lt;br /&gt;
-“GESTIONE DELEGHE&lt;br /&gt;
-E CONSENSI&lt;br /&gt;
-SANITÀ ELETTRONICA”&lt;br /&gt;
-[2] AURA--SER-01-V18-Ricerca Profilo&lt;br /&gt;
-Anagrafico&lt;br /&gt;
-[3]&lt;br /&gt;
-[4]&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/li&gt;
-&lt;/ol&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Num.&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Riferimento&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Descrizione&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;[1]&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;FSE – SoL Regione Piemonte “GESTIONE DELEGHE E CONSENSI SANITÀ ELETTRONICA”&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;[2]&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;AURA--SER-01-V18-Ricerca Profilo Anagrafico&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;[3]&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;[4]&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 4 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-2. Servizio Gestione Consensi&lt;br /&gt;
-2.1 Obiettivi&lt;br /&gt;
-2.1.1 Descrizione del servizio&lt;br /&gt;
-Il servizio consente di gestire il ciclo di vita dei consensi (Acquisizione, Revoca, etc. ) di un cittadino piemontese.&lt;br /&gt;
-La registrazione del consenso del cittadino avviene attraverso un applicativo verticale presso ASR.&lt;br /&gt;
-La totalità dei consensi deve essere raccolta all’ interno del Modulo Regionale Gestione Consensi.&lt;br /&gt;
-2.2 Modalità di richiamo&lt;br /&gt;
-Il servizio viene richiesto in modalità sincrona dai canali web app per il cittadino e per il punto assistito al modulo&lt;br /&gt;
-Regionale Gestione Consensi, mentre viene richiamato in modalità asincrona da Modulo Generale Gestione&lt;br /&gt;
-Consensi a tutte le ASR.&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 5 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-2.3 Descrizione dell’interfaccia del servizio&lt;br /&gt;
-2.3.1 Operazione DA01:acquisizioneConsenso (acquisizioneConsensoService)&lt;br /&gt;
-2.3.1.1 Descrizione dell’operazione&lt;br /&gt;
-Consente ai cittadini piemontesi di attivare un consenso permanente ROL o altro tipo di consenso o di attivare il&lt;br /&gt;
-delegato di un cittadino piemontese al servizio permanente ROL o altro.&lt;br /&gt;
-2.3.1.2 Dettaglio passi Operazione&lt;br /&gt;
-Descrizione dei passi:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Log: chiamata servizio&lt;br /&gt;
-All’attivazione del servizio vengono tracciate le informazioni di inizio elaborazione nella tabella dei log&lt;br /&gt;
-(csi_log_audit).&lt;/li&gt;
-&lt;li&gt;Controllo formale e di merito sui campi di input:&lt;br /&gt;
-Codice fiscale richiedente:&lt;br /&gt;
-il codice fiscale del cittadino richiedente deve essere valorizzato diversamente impostare esito ko e&lt;br /&gt;
-codice di errore 0001 su risposta (ved. Tabella riepilogativa errori)&lt;br /&gt;
-eseguire i controlli formali sul campo se errato esito ko e errore 0017&lt;br /&gt;
-se i controlli vengono superati con il codice fiscale del cittadino richiedente accedere ad AURA:&lt;br /&gt;
-• per trovato si acquisiscono i campi nome , cognome e id_aura (idProfiloAnagrafico) e si passa&lt;br /&gt;
-al controllo successivo&lt;br /&gt;
-• per non trovato impostare esito ko e codice di errore 0002 su risposta (ved. Tabella riepilogativa&lt;br /&gt;
-errori)&lt;br /&gt;
-Codice fiscale delegato: il campo non è obbligatorio, quindi solo se valorizzato deve essere diverso dal codice&lt;br /&gt;
-fiscale richiedente altrimenti esito ko e codice errore 0018, eseguire i controlli sintattici del campo codice&lt;br /&gt;
-fiscale se non vengono superati esito ko e codice di errore 0003 su risposta (ved. Tabella riepilogativa errori)&lt;br /&gt;
-Operatore (codice e tipo):i campi non sono obbligatori, se valorizzati però devono nessere chiave della&lt;br /&gt;
-tabella CONS_D_OPERATORE da cui acquisire il campo operatore _id, per non trovato impostare esito ko&lt;br /&gt;
-e codice di errore 0004 su risposta (ved. Tabella riepilogativa errori).&lt;br /&gt;
-Fonte: (codice tipo fonte e codice fonte) campi obbligatori:&lt;br /&gt;
-• se non valorizzati impostare esito ko e codice errore 0013&lt;br /&gt;
-• Accedere in tabella CONS_D_TIPO_FONTE con key = codiceTipoFonte per non trovato&lt;br /&gt;
-impostare esito ko e codice di errore 0007 su risposta, per trovato acquisire tipo_fonte_id.&lt;br /&gt;
-• Accedere alla tabella CONS_D_FONTE con chiave tipo_fonte_id e fonte_cod = codiceFonte&lt;br /&gt;
-per trovato acquisire il campo fonte_id per non trovato impostare esito ko e codice di errore&lt;br /&gt;
-0008 su risposta.&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/li&gt;
-&lt;/ol&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 6 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-Data acquisizione: campo obbligatorio, se non valorizzato impostare esito ko e codice di errore 0005 su&lt;br /&gt;
-risposta.&lt;br /&gt;
-Se valorizzato verificare la correttezza sintattica del campo se i controlli non vengono superati impostare&lt;br /&gt;
-esito ko e codice di errore 0006 su risposta.&lt;br /&gt;
-Codice Tipo consenso: campo obbligatorio se non valorizzato impostare esito ko e codice di errore 0009 su&lt;br /&gt;
-risposta.&lt;br /&gt;
-Verificare che il campo tipo consenso sia una chiave della tabella CONS_D_TIPO_CONS per non trovato&lt;br /&gt;
-impostare esito ko e codice di errore 0011 su risposta.&lt;br /&gt;
-Codice Sottotipo consenso: campo obbligatorio se non valorizzato impostare esito ko e codice di errore&lt;br /&gt;
-0010 su risposta.&lt;br /&gt;
-Verificare che il campo sottotipo consenso sia una chiave della tabella CONS_D_SOTTO_TIPO_CONS per&lt;br /&gt;
-non trovato impostare esito ko e codice di errore 0012 su risposta.&lt;br /&gt;
-Descrizione sotto tipo consenso il campo viene trasmesso nell’ acquisizione consenso ma su di esso non si&lt;br /&gt;
-effettua nessun controllo.&lt;br /&gt;
-A questo punto verificata la correttezza formale e di merito dei campi presenti sulla richiesta si analizzano i&lt;br /&gt;
-consensi dati, quindi scorrere la tabella ricevuta dei consensi e per ogni elemento presente nell’ array elenco&lt;br /&gt;
-consensi verifico:&lt;br /&gt;
-• che il codice ASR sia valorizzato se il codiceTipoConsenso è = ‘A’ diversamente impostare&lt;br /&gt;
-esito ko e codice di errore 0014 su risposta, nel caso di codiceTipoConsenso = ‘R’ ci sarà una&lt;br /&gt;
-sola occorrenza e il codice ASR sarà un codice di convenzione.&lt;br /&gt;
-(se il consenzo è aziendale e la fonte è un asr almeno uno dei consensi dati deve essere riferito alla&lt;br /&gt;
-stessa ASR indicata come fonte )&lt;br /&gt;
-• scandire l’ array dei consensi e verificare se almeno un codice asr(i) coincide con il codice&lt;br /&gt;
-fonte, per corrispondenza non trovata segnalare esito ko e codice errore 0015 su riposta&lt;br /&gt;
-• se il codiceTipoConsenso = ‘A’ e il codiceTipoFonte = ‘ASR’&lt;br /&gt;
-se codiceFonte è diverso da codice (n) /codice asr dell’ elemento di array trattato/&lt;br /&gt;
-impostare esito ko e codice di errore 0015 su risposta&lt;br /&gt;
-• Ricerca dei dati dell’ informativa di riferimento:&lt;br /&gt;
-accesso tabella CONS_D_INFORMATIVA con key tipo_consenso, sotto_tipo consenso e&lt;br /&gt;
-data_decorrenza maggiore per trovato acquisire i campi informativa_id e pdf_informativa&lt;br /&gt;
-per non trovato impostare esito ko e codice di errore 0016 su risposta.&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 7 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-AGGIORNAMENTO BASE DATI:&lt;br /&gt;
-N.B. se il consenso è regionale si richiede che l’ array delle asr contenga un solo elemento con il riferimento ad un asr&lt;br /&gt;
-generica.&lt;br /&gt;
-Accedere tabella consensi CONS_T_CONSENSO con informativa_id, codiceFiscaleCittadino, fonte_id e&lt;br /&gt;
-stato attivo se:&lt;br /&gt;
-• non trovato inserimento in tabella cons_t_consenso dopo aver impostato i campi come descritto&lt;br /&gt;
-nell’ interfaccia di risposta&lt;br /&gt;
-• trovato&lt;br /&gt;
-o se valoreConsenso = valore_consenso di cons_t_consenso , non si esegue nessuna&lt;br /&gt;
-azione&lt;br /&gt;
-o diversamente .&lt;br /&gt;
-▪ Se valoreConsenso = ‘NE’ ed è diverso da cons_t_consenso impostare esito&lt;br /&gt;
-ko e codice di errore E01 su risposta.&lt;br /&gt;
-▪ diversamente eseguire:&lt;br /&gt;
-o aggiornamento dell’ occorrenza trovata su tabella cons_t_consenso dopo&lt;br /&gt;
-aver impostato la data fine validità alla data del gg e tipo_stato =&lt;br /&gt;
-‘scaduto”&lt;br /&gt;
-o inserimento in tabella cons_t_consenso del nuovo consenso acquisito&lt;br /&gt;
-dopo aver impostato i campi come descritto nell’ interfaccia di risposta.&lt;br /&gt;
-3. Componi risposta&lt;br /&gt;
-Il servizio restituisce la risposta di successo in caso di esito positivo, oppure di fallimento in caso di esito&lt;br /&gt;
-negativo.&lt;br /&gt;
-4. Risposta&lt;br /&gt;
-Il servizio invia la risposta al fruitore.&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 8 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 9 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-2.3.1.3 Interfaccia di richiamo (input) acquisizione consenso&lt;br /&gt;
-Informazione di input Livello Obbligatorio Tipologia Denominazione&lt;br /&gt;
-attributo (Sì/No) Campo DB&lt;br /&gt;
-cfRichiedente 1 Si TEXT&lt;br /&gt;
-cfDelegato 1 No TEXT&lt;br /&gt;
-tipoOperatore 1 Si TEXT&lt;br /&gt;
-codiceOperatore 1 Si TEXT&lt;br /&gt;
-codiceTipoFonte 1 Sì TEXT&lt;br /&gt;
-codiceFonte 1 Sì TEXT&lt;br /&gt;
-dataAcquisizione 1 Sì TIMESTAMP&lt;br /&gt;
-codiceTipoConsenso 1 Sì TEXT&lt;br /&gt;
-codiceSottotipoConsenso 1 Sì TEXT&lt;br /&gt;
-descrizioneSottotipoConsenso 1 Sì TEXT&lt;br /&gt;
-elencoConsensi 1 Sì&lt;br /&gt;
-valoreConsenso(n) 2 Sì TEXT&lt;br /&gt;
-CodiceASR(n) 2 Sì TEXT&lt;br /&gt;
-2.3.1.4 Interfaccia di risposta (output) acquisizione consenso&lt;br /&gt;
-Informazione di output Livello Obbligatorio Tipologia Denominazione&lt;br /&gt;
-attributo (Sì/No) Campo DB&lt;br /&gt;
-Errori 1 No INTEGER err_id&lt;br /&gt;
-Esito 1 Si TEXT n.a.&lt;br /&gt;
-Errori.codice 2 No TEXT err_cod&lt;br /&gt;
-Consenso.idConsenso 2 Sì TEXT cons_id&lt;br /&gt;
-Consenso.codiceFiscale.Cittadino 2 Sì TEXT cf_cittadino&lt;br /&gt;
-Consenso.nomeCittadino 3 Sì TEXT&lt;br /&gt;
-Consenso.cognomeCittadino 3 Sì TEXT&lt;br /&gt;
-Consenso.idAURA 3 Sì TEXT&lt;br /&gt;
-Consenso.codiceFiscale.Delegato 3 No TEXT cfdelegato&lt;br /&gt;
-Consenso.dataAcquisizione 3 Sì TIMESTAMP data_acquisizione&lt;br /&gt;
-Consenso.id_operatore 3 Sì TEXT Operatore_id&lt;br /&gt;
-Consenso.codiceFonte 3 Sì TEXT&lt;br /&gt;
-Consenso.data_creazione 3 Sì TIMESTAMP data_del momento&lt;br /&gt;
-Consenso.loginOperazione 3 No TEXT Codice fiscale del&lt;br /&gt;
-richiedente&lt;br /&gt;
-Consenso.fonte_id 3 Sì INTEGER Fonte_id&lt;br /&gt;
-Consenso.audit_id 3 Si INTEGER Audit_id&lt;br /&gt;
-Consenso.tipoStato 4 Sì TEXT Tipo_stato&lt;br /&gt;
-Consenso.valoreConsenso 5 Si TEXT Valore_consenso&lt;br /&gt;
-Consenso.dataFineValidita 3 No TIMESTAMP&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Informazione di input&lt;/th&gt;
-&lt;th&gt;Livello attributo&lt;/th&gt;
-&lt;th&gt;Obbligatorio (Sì/No)&lt;/th&gt;
-&lt;th&gt;Tipologia&lt;/th&gt;
-&lt;th&gt;Denominazione Campo DB&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;cfRichiedente&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;cfDelegato&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;tipoOperatore&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceOperatore&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceTipoFonte&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceFonte&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;dataAcquisizione&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TIMESTAMP&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceTipoConsenso&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceSottotipoConsenso&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;descrizioneSottotipoConsenso&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;elencoConsensi&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;valoreConsenso(n)&lt;/td&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CodiceASR(n)&lt;/td&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Informazione di output&lt;/th&gt;
-&lt;th&gt;Livello attributo&lt;/th&gt;
-&lt;th&gt;Obbligatorio (Sì/No)&lt;/th&gt;
-&lt;th&gt;Tipologia&lt;/th&gt;
-&lt;th&gt;Denominazione Campo DB&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Errori&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;INTEGER&lt;/td&gt;
-&lt;td&gt;err_id&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Esito&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;n.a.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Errori.codice&lt;/td&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;err_cod&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.idConsenso&lt;/td&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;cons_id&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.codiceFiscale.Cittadino&lt;/td&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;cf_cittadino&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.nomeCittadino&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.cognomeCittadino&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.idAURA&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.codiceFiscale.Delegato&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;cfdelegato&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.dataAcquisizione&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TIMESTAMP&lt;/td&gt;
-&lt;td&gt;data_acquisizione&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.id_operatore&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Operatore_id&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.codiceFonte&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.data_creazione&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TIMESTAMP&lt;/td&gt;
-&lt;td&gt;data_del momento&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.loginOperazione&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Codice fiscale del richiedente&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.fonte_id&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;INTEGER&lt;/td&gt;
-&lt;td&gt;Fonte_id&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.audit_id&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;INTEGER&lt;/td&gt;
-&lt;td&gt;Audit_id&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.tipoStato&lt;/td&gt;
-&lt;td&gt;4&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Tipo_stato&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.valoreConsenso&lt;/td&gt;
-&lt;td&gt;5&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Valore_consenso&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.dataFineValidita&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;TIMESTAMP&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 10 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-2.3.2 Operazione DA02:revocaConsenso (revocaConsensoService)&lt;br /&gt;
-2.3.2.1 Descrizione dell’operazione&lt;br /&gt;
-Consente ai cittadini piemontesi di revocare un consenso permanente ROL o altro tipo di consenso. Il consenso&lt;br /&gt;
-revocato può essere a livello regionale o aziendale, in questo caso deve essere indicata l’ ASR di riferimento.&lt;br /&gt;
-2.3.2.2 Dettaglio passi Operazione&lt;br /&gt;
-Descrizione dei passi:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Log: chiamata servizio&lt;br /&gt;
-All’attivazione del servizio vengono tracciate le informazioni di inizio elaborazione nella tabella dei log&lt;br /&gt;
-(csi_log_audit).&lt;/li&gt;
-&lt;li&gt;Controllo formale e di merito sui campi di input:&lt;br /&gt;
-Codice fiscale richiedente:&lt;br /&gt;
-il codice fiscale del cittadino richiedente deve essere valorizzato diversamente impostare esito ko e&lt;br /&gt;
-codice di errore 0001 su risposta (ved. Tabella riepilogativa errori)&lt;br /&gt;
-eseguire i controlli formali sul campo se errato esito ko e errore 0017&lt;br /&gt;
-se i controlli vengono superati con il codice fiscale del cittadino richiedente accedere ad AURA:&lt;br /&gt;
-• per trovato si acquisiscono i campi nome , cognome e id_aura (idProfiloAnagrafico)e si passa&lt;br /&gt;
-al controllo successivo&lt;br /&gt;
-• per non trovato impostare esito ko e codice di errore 0002 su risposta (ved. Tabella riepilogativa&lt;br /&gt;
-errori)&lt;br /&gt;
-Codice fiscale delegato: il campo non è obbligatorio, quindi solo se valorizzato deve essere diverso dal codice&lt;br /&gt;
-fiscale richiedente, eseguire i controlli sintattici del campo codice fiscale se non vengono superati esito ko e&lt;br /&gt;
-codice di errore 0003 su risposta (ved. Tabella riepilogativa errori)&lt;br /&gt;
-Operatore (codice e tipo):i campi non sono obbligatori, se valorizzati però devono nessere chiave della&lt;br /&gt;
-tabella CONS_D_OPERATORE da cui acquisire il campo operatore _id, per non trovato impostare esito ko&lt;br /&gt;
-e codice di errore 0004 su risposta (ved. Tabella riepilogativa errori).&lt;br /&gt;
-Fonte: (codice tipo fonte e codice fonte) campi obbligatori:&lt;br /&gt;
-• se non valorizzati impostare esito ko e codice errore 0013&lt;br /&gt;
-• Accedere in tabella CONS_D_TIPO_FONTE con key = codiceTipoFonte per non trovato&lt;br /&gt;
-impostare esito ko e codice di errore 0007 su risposta, per trovato acquisire tipo_fonte_id.&lt;br /&gt;
-• Accedere alla tabella CONS_D_FONTE con chiave tipo_fonte_id e fonte_cod = codiceFonte&lt;br /&gt;
-per trovato acquisire il campo fonte_id per non trovato impostare esito ko e codice di errore&lt;br /&gt;
-0008 su risposta.&lt;br /&gt;
-Data acquisizione: campo obbligatorio, se non valorizzato impostare esito ko e codice di errore 0005 su&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/li&gt;
-&lt;/ol&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 11 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-risposta.&lt;br /&gt;
-Se valorizzato verificare la correttezza sintattica del campo se i controlli non vengono superati impostare&lt;br /&gt;
-esito ko e codice di errore 0006 su risposta.&lt;br /&gt;
-Codice Tipo consenso: campo obbligatorio se non valorizzato impostare esito ko e codice di errore 0009 su&lt;br /&gt;
-risposta.&lt;br /&gt;
-Verificare che il campo tipo consenso sia una chiave della tabella CONS_D_TIPO_CONS per non trovato&lt;br /&gt;
-impostare esito ko e codice di errore 0011 su risposta.&lt;br /&gt;
-Codice Sottotipo consenso: campo obbligatorio se non valorizzato impostare esito ko e codice di errore&lt;br /&gt;
-0010 su risposta.&lt;br /&gt;
-Verificare che il campo sottotipo consenso sia una chiave della tabella CONS_D_SOTTO_TIPO_CONS per&lt;br /&gt;
-non trovato impostare esito ko e codice di errore 0012 su risposta.&lt;br /&gt;
-Descrizione sotto tipo consenso il campo viene trasmesso nell’ acquisizione revoca consenso ma su di esso&lt;br /&gt;
-non si effettua nessun controllo.&lt;br /&gt;
-A questo punto verificata la correttezza formale e di merito dei campi presenti sulla richiesta si analizzano i&lt;br /&gt;
-consensi dati, quindi scorrere la tabella ricevuta dei consensi e per ogni elemento presente nell’ array elenco&lt;br /&gt;
-consensi verifico:&lt;br /&gt;
-• che il codice ASR sia valorizzato se il codiceTipoConsenso è = ‘A’ diversamente impostare&lt;br /&gt;
-esito ko e codice di errore 0014 su risposta, nel caso di codiceTipoConsenso = ‘R’ ci sarà una&lt;br /&gt;
-sola occorrenza e il codice ASR sarà un codice di convenzione.&lt;br /&gt;
-(se il consenzo è aziendale e la fonte è un asr il consenso deve essere riferito alla stessa ASR)&lt;br /&gt;
-• se il codiceTipoConsenso = ‘A’ e il codiceTipoFonte = ‘ASR’&lt;br /&gt;
-se codiceFonte è diverso da codice (n) /codice asr dell’ elemento di array trattato/&lt;br /&gt;
-impostare esito ko e codice di errore 0015 su risposta&lt;br /&gt;
-• Ricerca dei dati dell’ informativa di riferimento:&lt;br /&gt;
-accesso tabella CONS_D_INFORMATIVA con key tipo_consenso, sotto_tipo consenso e&lt;br /&gt;
-data_decorrenza maggiore per trovato acquisire i campi informativa_id e pdf_informativa&lt;br /&gt;
-per non trovato impostare esito ko e codice di errore 0016 su risposta.&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 12 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-AGGIORNAMENTO BASE DATI:&lt;br /&gt;
-N.B. se la revoca è regionale si richiede che l’ array delle asr contenga un solo elemento con il riferimento ad un asr&lt;br /&gt;
-generica.&lt;br /&gt;
-Accedere tabella consensi CONS_T_CONSENSO con informativa_id, codiceFiscaleCittadino, fonte_id, ,&lt;br /&gt;
-cod_asr e stato attivo&lt;br /&gt;
-per trovato:&lt;br /&gt;
-• aggiornamento dell’ occorrenza trovata su tabella cons_t_consenso dopo avere impostato la&lt;br /&gt;
-data fine validità alla data del gg e tipo stato = ‘scaduto’&lt;br /&gt;
-• inserimento in tabella cons_t_consenso dell’ occorrenza di revoca dopo aver impostato i campi&lt;br /&gt;
-come descritto nell’ interfaccia di risposta&lt;br /&gt;
-per non trovato impostare esito ko e codice di errore E10 su risposta&lt;br /&gt;
-3. Componi risposta&lt;br /&gt;
-Il servizio restituisce la risposta di successo in caso di esito positivo, oppure di fallimento in caso di esito&lt;br /&gt;
-negativo.&lt;br /&gt;
-4. Risposta&lt;br /&gt;
-Il servizio invia la risposta al fruitore.&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 13 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 14 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-2.3.2.3 Interfaccia di richiamo (input) revoca consenso&lt;br /&gt;
-Informazione di input Livello Obbligatorio Tipologia Denominazione&lt;br /&gt;
-attributo (Sì/No) Campo DB&lt;br /&gt;
-cfRichiedente 1 Si TEXT&lt;br /&gt;
-cfDelegato 1 No TEXT&lt;br /&gt;
-tipoOperatore 1 Si TEXT&lt;br /&gt;
-codiceOperatore 1 Si TEXT&lt;br /&gt;
-codiceTipoFonte 1 Sì TEXT&lt;br /&gt;
-codiceFonte 1 Sì TEXT&lt;br /&gt;
-dataAcquisizione 1 Sì TIMESTAMP&lt;br /&gt;
-codiceTipoConsenso 1 Sì TEXT&lt;br /&gt;
-codiceSottotipoConsenso 1 Sì TEXT&lt;br /&gt;
-descrizioneSottotipoConsenso 1 Sì TEXT&lt;br /&gt;
-elencoConsensi 1 Sì&lt;br /&gt;
-CodiceASR(n) 2 Sì TEXT&lt;br /&gt;
-2.3.2.4 Interfaccia di risposta (output) revoca consenso&lt;br /&gt;
-Informazione di output Livello Obbligatorio Tipologia Denominazione&lt;br /&gt;
-attributo (Sì/No) Campo DB&lt;br /&gt;
-Errori 1 No INTEGER err_id&lt;br /&gt;
-Esito 1 Si TEXT n.a.&lt;br /&gt;
-Errori.codice 2 No TEXT err_cod&lt;br /&gt;
-Consenso.idConsenso 2 Sì TEXT cons_id&lt;br /&gt;
-Consenso.codiceFiscale.Cittadino 2 Sì TEXT cf_cittadino&lt;br /&gt;
-Consenso.nomeCittadino 3 Sì TEXT&lt;br /&gt;
-Consenso.cognomeCittadino 3 Sì TEXT&lt;br /&gt;
-Consenso.idAURA 3 Sì TEXT&lt;br /&gt;
-Consenso.codiceFiscale.Delegato 3 No TEXT cfdelegato&lt;br /&gt;
-Consenso.dataAcquisizione 3 Sì TIMESTAMP data_acquisizione&lt;br /&gt;
-Consenso.id_operatore 3 Sì TEXT Operatore_id&lt;br /&gt;
-Consenso.codiceFonte 3 Sì TEXT&lt;br /&gt;
-Consenso.data_creazione 3 Sì TIMESTAMP data_del momento&lt;br /&gt;
-Consenso.loginOperazione 3 No TEXT Codice fiscale del&lt;br /&gt;
-richiedente&lt;br /&gt;
-Consenso.fonte_id 3 Sì INTEGER Fonte_id&lt;br /&gt;
-Consenso.audit_id 3 Si INTEGER Audit_id&lt;br /&gt;
-Consenso.tipoStato 4 Sì TEXT Tipo_stato&lt;br /&gt;
-Consenso.valoreConsenso 5 Si TEXT NE&lt;br /&gt;
-Consenso.dataFineValidita 3 No TIMESTAMP&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Informazione di input&lt;/th&gt;
-&lt;th&gt;Livello attributo&lt;/th&gt;
-&lt;th&gt;Obbligatorio (Sì/No)&lt;/th&gt;
-&lt;th&gt;Tipologia&lt;/th&gt;
-&lt;th&gt;Denominazione Campo DB&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;cfRichiedente&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;cfDelegato&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;tipoOperatore&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceOperatore&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceTipoFonte&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceFonte&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;dataAcquisizione&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TIMESTAMP&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceTipoConsenso&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceSottotipoConsenso&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;descrizioneSottotipoConsenso&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;elencoConsensi&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CodiceASR(n)&lt;/td&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Informazione di output&lt;/th&gt;
-&lt;th&gt;Livello attributo&lt;/th&gt;
-&lt;th&gt;Obbligatorio (Sì/No)&lt;/th&gt;
-&lt;th&gt;Tipologia&lt;/th&gt;
-&lt;th&gt;Denominazione Campo DB&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Errori&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;INTEGER&lt;/td&gt;
-&lt;td&gt;err_id&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Esito&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;n.a.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Errori.codice&lt;/td&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;err_cod&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.idConsenso&lt;/td&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;cons_id&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.codiceFiscale.Cittadino&lt;/td&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;cf_cittadino&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.nomeCittadino&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.cognomeCittadino&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.idAURA&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.codiceFiscale.Delegato&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;cfdelegato&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.dataAcquisizione&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TIMESTAMP&lt;/td&gt;
-&lt;td&gt;data_acquisizione&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.id_operatore&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Operatore_id&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.codiceFonte&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.data_creazione&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TIMESTAMP&lt;/td&gt;
-&lt;td&gt;data_del momento&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.loginOperazione&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Codice fiscale del richiedente&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.fonte_id&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;INTEGER&lt;/td&gt;
-&lt;td&gt;Fonte_id&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.audit_id&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;INTEGER&lt;/td&gt;
-&lt;td&gt;Audit_id&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.tipoStato&lt;/td&gt;
-&lt;td&gt;4&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Tipo_stato&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.valoreConsenso&lt;/td&gt;
-&lt;td&gt;5&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;NE&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Consenso.dataFineValidita&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;TIMESTAMP&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 15 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-2.3.3 Operazione DA03:consultazioneConsenso (consultazioneConsensoService)&lt;br /&gt;
-2.3.3.1 Descrizione dell’operazione&lt;br /&gt;
-Consente ai cittadini piemontesi di visualizzare la situazione attuale dei consensi che hanno dato (sia attivi che&lt;br /&gt;
-revocati).&lt;br /&gt;
-2.3.3.2 Dettaglio passi Operazione&lt;br /&gt;
-Descrizione dei passi:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Log: chiamata servizio&lt;br /&gt;
-All’attivazione del servizio vengono tracciate le informazioni di inizio elaborazione nella tabella dei log&lt;br /&gt;
-(csi_log_audit).&lt;/li&gt;
-&lt;li&gt;Controllo formale e di merito sui campi di input:&lt;br /&gt;
-Codice fiscale richiedente:&lt;br /&gt;
-il codice fiscale del cittadino richiedente deve essere valorizzato diversamente impostare esito ko e&lt;br /&gt;
-codice di errore 0001 su risposta (ved. Tabella riepilogativa errori)&lt;br /&gt;
-con il codice fiscale del cittadino richiedente accedere ad AURA:&lt;br /&gt;
-• per trovato si passa al controllo successivo&lt;br /&gt;
-• per non trovato impostare esito ko e codice di errore 0002 su risposta (ved. Tabella riepilogativa&lt;br /&gt;
-errori)&lt;br /&gt;
-Codice fiscale delegato: il campo non è obbligatorio, quindi solo se valorizzato deve essere diverso dal codice&lt;br /&gt;
-fiscale richiedente, eseguire i controlli sintattici del campo codice fiscale se non vengono superati esito ko e&lt;br /&gt;
-codice di errore 0003 su risposta (ved. Tabella riepilogativa errori)&lt;br /&gt;
-Operatore (codice e tipo):i campi non sono obbligatori, se valorizzati però devono nessere chiave della&lt;br /&gt;
-tabella CONS_D_OPERATORE per non trovato impostare esito ko e codice di errore 0004 su risposta (ved.&lt;br /&gt;
-Tabella riepilogativa errori).&lt;br /&gt;
-Fonte: (codice tipo fonte e codice fonte) campi obbligatori:&lt;br /&gt;
-• se non valorizzati impostare esito ko e codice errore 0013&lt;br /&gt;
-• Accedere in tabella CONS_D_TIPO_FONTE con key = codiceTipoFonte per non trovato impostare&lt;br /&gt;
-esito ko e codice di errore 0007 su risposta, per trovato acquisire tipo_fonte_id.&lt;br /&gt;
-• Accedere alla tabella CONS_D_FONTE con chiave tipo_fonte_id e fonte_cod = codiceFonte per&lt;br /&gt;
-trovato acquisire il campo fonte_desc per non trovato impostare esito ko e codice di errore 0008 su&lt;br /&gt;
-risposta.&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/li&gt;
-&lt;/ol&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 16 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-Data acquisizione: campo obbligatorio, se non valorizzato impostare esito ko e codice di errore 0005 su&lt;br /&gt;
-risposta.&lt;br /&gt;
-Se valorizzato verificare la correttezza sintattica del campo se i controlli non vengono superati impostare&lt;br /&gt;
-esito ko e codice di errore 0006 su risposta.&lt;br /&gt;
-Codice Tipo consenso: campo obbligatorio se non valorizzato impostare esito ko e codice di errore 0009 su&lt;br /&gt;
-risposta.&lt;br /&gt;
-Verificare che il campo tipo consenso sia una chiave della tabella CONS_D_TIPO_CONS per non trovato&lt;br /&gt;
-impostare esito ko e codice di errore 0011 su risposta.&lt;br /&gt;
-Codice Sottotipo consenso: campo obbligatorio se non valorizzato impostare esito ko e codice di errore&lt;br /&gt;
-0010 su risposta.&lt;br /&gt;
-Verificare che il campo sottotipo consenso sia una chiave della tabella CONS_D_SOTTO_TIPO_CONS per&lt;br /&gt;
-trovato acquisire il campo desc_sotto_tipo_cons , per non trovato impostare esito ko e codice di errore 0012&lt;br /&gt;
-su risposta.&lt;br /&gt;
-Descrizione sotto tipo consenso il campo viene trasmesso in fase di richiesta consultazione consenso ma su&lt;br /&gt;
-di esso non si effettua nessun controllo, il dato di output sarà il campo desc_sotto_tipo_cons della tabella&lt;br /&gt;
-CONS_D_SOTTO_TIPO_CONS.&lt;br /&gt;
-A questo punto verificata la correttezza formale e di merito dei campi presenti sulla richiesta si accede al db&lt;br /&gt;
-per acquisire tutti i consensi o le revoche e trasmetterle sul tracciato xml di output.&lt;br /&gt;
-Ricerca consensi e compilazione dell’ array elenco consensi dell’ xml:&lt;br /&gt;
-• Ricerca dei dati dell’ informativa di riferimento:&lt;br /&gt;
-accesso tabella CONS_D_INFORMATIVA con key tipo_consenso, sotto_tipo consenso e&lt;br /&gt;
-data_decorrenza maggiore per trovato acquisire i campi informativa_id e pdf_informativa,&lt;br /&gt;
-data_decorrenza, data_scadenza per non trovato impostare esito ko e codice di errore 0016 su&lt;br /&gt;
-risposta.&lt;br /&gt;
-• Accedere tabella consensi CONS_T_CONSENSO con informativa_id, codiceFiscaleCittadino,&lt;br /&gt;
-dataAcquisizione maggiore e acquisire per ogni occorrenza trovata cod_asr, valore consenso,&lt;br /&gt;
-data_acquisizione, tipo_stato, fonte_id, operatore_id, cf_delegato.&lt;br /&gt;
-• Completare i dati mancanti acquisendo le seguenti informazioni:&lt;br /&gt;
-a. Da cons_d_operatore con key operatore_id acquisire tipo_operatore e cod_operatore&lt;br /&gt;
-b. Da cons_d_fonte con key fonte_id acquisire fonte_cod, fonte_desc e tipo_fonte_id,&lt;br /&gt;
-c. con tipo_fonte_id accesso tabella cons_d_tipo_fonte per acquisire tipofonte_cod.&lt;br /&gt;
-d. da con cons_d_asr con key = cos_asr acquisire desc_asr&lt;br /&gt;
-e. da cons_d_stato con key tipo_stato acquisire desc_stato.&lt;br /&gt;
-• Per ogni occorrenza trovata e completata di tutte le sue informazioni è possibile scrivere un elemento&lt;br /&gt;
-dell’ array consensi come indicato nell’ interfaccia di risposta.&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 17 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-3. Componi risposta&lt;br /&gt;
-Il servizio restituisce la risposta di successo in caso di esito positivo, oppure di fallimento in caso di esito&lt;br /&gt;
-negativo.&lt;br /&gt;
-4. Risposta&lt;br /&gt;
-Il servizio invia la risposta al fruitore.&lt;br /&gt;
-Log chiamata di servizio&lt;br /&gt;
-Verifica parametri di input&lt;br /&gt;
-Composizione risposta&lt;br /&gt;
-negativa&lt;br /&gt;
-Composizione risposta&lt;br /&gt;
-positiva&lt;br /&gt;
-Restituzione messaggio di&lt;br /&gt;
-errore&lt;br /&gt;
-Risposta&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 18 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-1.1.1.3 Interfaccia di richiamo (input) consultazione consenso&lt;br /&gt;
-Informazione di input Livello Obbligatorio Tipologia Denominazione&lt;br /&gt;
-attributo (Sì/No) Campo DB&lt;br /&gt;
-cfRichiedente 1 Si TEXT&lt;br /&gt;
-cfDelegato 1 No TEXT&lt;br /&gt;
-tipoOperatore 1 No TEXT&lt;br /&gt;
-codiceOperatore 1 No TEXT&lt;br /&gt;
-codiceTipoFonte 1 Sì TEXT&lt;br /&gt;
-codiceFonte 1 Sì TEXT&lt;br /&gt;
-dataRichiesta 1 Sì TIMESTAMP&lt;br /&gt;
-codiceTipoConsenso 1 Sì TEXT&lt;br /&gt;
-codiceSottotipoConsenso 1 Sì TEXT&lt;br /&gt;
-descrizioneSottotipoConsenso 1 Sì TEXT&lt;br /&gt;
-1.1.1.4 Interfaccia di risposta (output) consultazione consenso&lt;br /&gt;
-Informazione di output Livello Obbligat Tipologia Denominazione Campo DB&lt;br /&gt;
-attributo orio&lt;br /&gt;
-(Sì/No)&lt;br /&gt;
-Errori 1 No INTEGER err_id&lt;br /&gt;
-Esito 1 Si TEXT n.a.&lt;br /&gt;
-Errori.codice 2 No TEXT err_cod&lt;br /&gt;
-elencoConsensi 1&lt;br /&gt;
-consenso 2&lt;br /&gt;
-ASR 3 Sì TEXT Cons_t_consenso.cod_asr&lt;br /&gt;
-Descrizione_asr 3 Sì TEXT Cons_d_asr.desc_asr&lt;br /&gt;
-codiceTipoFonte 3 Sì TEXT Cons_d_tipo_fonte.tipofonte_cod&lt;br /&gt;
-codiceFonte 3 Si TEXT Cond_d_fonte.fonte_cod&lt;br /&gt;
-descrizione 3 Sì TEXT Cons_d_fonte.fonte_desc&lt;br /&gt;
-cfDelegato 3 Sì TEXT Cons_t_consenso.cf_delegato&lt;br /&gt;
-TipoOperatore 3 Sì TEXT Cons_d_operatore.tipo_operatore&lt;br /&gt;
-codiceOperatore 3 Sì TEXT Cons_d_operatore.cod_operatore&lt;br /&gt;
-codiceSottoTipoConsenso 3 Sì TEXT Cons_d_informativa.sotto_tipo_consenso&lt;br /&gt;
-descrizioneSottoTipoConsenso 3 Sì TEXT Cons_sotto_tipo_cons&lt;br /&gt;
-DataAcquisizione 3 Sì TEXT Cons_t_consenso.data_acquisizione&lt;br /&gt;
-dataRevoca 3 Si TIMESTAMP ????&lt;br /&gt;
-dataRilascioConsensoAttivo 3 Sì TIMESTAMP ??????&lt;br /&gt;
-valoreConsenso 3 Si TEXT Cons_t_consenso.valore_consenso&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Informazione di input&lt;/th&gt;
-&lt;th&gt;Livello attributo&lt;/th&gt;
-&lt;th&gt;Obbligatorio (Sì/No)&lt;/th&gt;
-&lt;th&gt;Tipologia&lt;/th&gt;
-&lt;th&gt;Denominazione Campo DB&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;cfRichiedente&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;cfDelegato&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;tipoOperatore&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceOperatore&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceTipoFonte&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceFonte&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;dataRichiesta&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TIMESTAMP&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceTipoConsenso&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceSottotipoConsenso&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;descrizioneSottotipoConsenso&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Informazione di output&lt;/th&gt;
-&lt;th&gt;Livello attributo&lt;/th&gt;
-&lt;th&gt;Obbligat orio (Sì/No)&lt;/th&gt;
-&lt;th&gt;Tipologia&lt;/th&gt;
-&lt;th&gt;Denominazione Campo DB&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Errori&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;INTEGER&lt;/td&gt;
-&lt;td&gt;err_id&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Esito&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;n.a.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Errori.codice&lt;/td&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;err_cod&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;elencoConsensi&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;consenso&lt;/td&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ASR&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Cons_t_consenso.cod_asr&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Descrizione_asr&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Cons_d_asr.desc_asr&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceTipoFonte&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Cons_d_tipo_fonte.tipofonte_cod&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceFonte&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Cond_d_fonte.fonte_cod&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;descrizione&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Cons_d_fonte.fonte_desc&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;cfDelegato&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Cons_t_consenso.cf_delegato&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;TipoOperatore&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Cons_d_operatore.tipo_operatore&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceOperatore&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Cons_d_operatore.cod_operatore&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceSottoTipoConsenso&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Cons_d_informativa.sotto_tipo_consenso&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;descrizioneSottoTipoConsenso&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Cons_sotto_tipo_cons&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;DataAcquisizione&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Cons_t_consenso.data_acquisizione&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;dataRevoca&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TIMESTAMP&lt;/td&gt;
-&lt;td&gt;????&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;dataRilascioConsensoAttivo&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TIMESTAMP&lt;/td&gt;
-&lt;td&gt;??????&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;valoreConsenso&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Cons_t_consenso.valore_consenso&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 19 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-Informazione di output Livello Obbligat Tipologia Denominazione Campo DB&lt;br /&gt;
-attributo orio&lt;br /&gt;
-(Sì/No)&lt;br /&gt;
-statoConsenso 3 Si TEXT Cons_d_stato.desc_stato&lt;br /&gt;
-CausaleRevoca 3 Si TEXT ?????&lt;br /&gt;
-informativaPDF 3 Si TEXT Cons_d_informativa.pdf_informativa&lt;br /&gt;
-dataInizioValidità 3 Sì TIMESTAMP Cons_d_informativa.data_decorrenza&lt;br /&gt;
-dataFineValidità 3 Sì TIMESTAMP Cons_d_informativa.data_scadenza&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Informazione di output&lt;/th&gt;
-&lt;th&gt;Livello attributo&lt;/th&gt;
-&lt;th&gt;Obbligat orio (Sì/No)&lt;/th&gt;
-&lt;th&gt;Tipologia&lt;/th&gt;
-&lt;th&gt;Denominazione Campo DB&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;statoConsenso&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Cons_d_stato.desc_stato&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CausaleRevoca&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;?????&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;informativaPDF&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Cons_d_informativa.pdf_informativa&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;dataInizioValidità&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TIMESTAMP&lt;/td&gt;
-&lt;td&gt;Cons_d_informativa.data_decorrenza&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;dataFineValidità&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TIMESTAMP&lt;/td&gt;
-&lt;td&gt;Cons_d_informativa.data_scadenza&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 20 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-2.3.4 Operazione DA03:consultazioneInformativa (consultazioneInformativaConsensoService)&lt;br /&gt;
-2.3.4.1 Descrizione dell’operazione&lt;br /&gt;
-Consente ai cittadini piemontesi di visualizzare la situazione attuale dei consensi che hanno dato (sia attivi che&lt;br /&gt;
-revocati).&lt;br /&gt;
-2.3.4.2 Dettaglio passi Operazione&lt;br /&gt;
-Descrizione dei passi:&lt;br /&gt;
-3. Log: chiamata servizio&lt;br /&gt;
-All’attivazione del servizio vengono tracciate le informazioni di inizio elaborazione nella tabella dei log&lt;br /&gt;
-(csi_log_audit).&lt;br /&gt;
-4. Controllo formale e di merito sui campi di input:&lt;br /&gt;
-Data acquisizione: campo obbligatorio, se non valorizzato impostare esito ko e codice di errore 0005 su&lt;br /&gt;
-risposta.&lt;br /&gt;
-Se valorizzato verificare la correttezza sintattica del campo se i controlli non vengono superati impostare&lt;br /&gt;
-esito ko e codice di errore 0006 su risposta.&lt;br /&gt;
-Codice Tipo consenso: campo obbligatorio se non valorizzato impostare esito ko e codice di errore 0009 su&lt;br /&gt;
-risposta.&lt;br /&gt;
-Verificare che il campo tipo consenso sia una chiave della tabella CONS_D_TIPO_CONS per non trovato&lt;br /&gt;
-impostare esito ko e codice di errore 0011 su risposta.&lt;br /&gt;
-Codice Sottotipo consenso: campo obbligatorio se non valorizzato impostare esito ko e codice di errore&lt;br /&gt;
-0010 su risposta.&lt;br /&gt;
-Verificare che il campo sottotipo consenso sia una chiave della tabella CONS_D_SOTTO_TIPO_CONS per&lt;br /&gt;
-trovato acquisire il campo desc_sotto_tipo_cons , per non trovato impostare esito ko e codice di errore 0012&lt;br /&gt;
-su risposta.&lt;br /&gt;
-A questo punto verificata la correttezza formale e di merito dei campi presenti sulla richiesta si accede al db&lt;br /&gt;
-per acquisire tutti i consensi o le revoche e trasmetterle sul tracciato xml di output.&lt;br /&gt;
-Ricerca consensi e compilazione dell’ array elenco consensi dell’ xml:&lt;br /&gt;
-• Ricerca dei dati dell’ informativa di riferimento:&lt;br /&gt;
-accesso tabella CONS_D_INFORMATIVA con key tipo_consenso, sotto_tipo consenso e&lt;br /&gt;
-data_scadenza non valorizzata o con data_scadenza maggiore della data di acquisizione.&lt;br /&gt;
-Per l’ occorrenza trovata acquisire i campi pdf_informativa, data_decorrenza, data_scadenza per&lt;br /&gt;
-non trovato impostare esito ko e codice di errore E10 su risposta.&lt;br /&gt;
-• Per l’ occorrenza trovata è possibile comporre i dati di output come indicato nell’ interfaccia di risposta.&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 21 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-3. Componi risposta&lt;br /&gt;
-Il servizio restituisce la risposta di successo in caso di esito positivo, oppure di fallimento in caso di esito&lt;br /&gt;
-negativo.&lt;br /&gt;
-4. Risposta&lt;br /&gt;
-Il servizio invia la risposta al fruitore.&lt;br /&gt;
-Log chiamata di servizio&lt;br /&gt;
-Verifica parametri di input&lt;br /&gt;
-Composizione risposta&lt;br /&gt;
-negativa&lt;br /&gt;
-Composizione risposta&lt;br /&gt;
-positiva&lt;br /&gt;
-Restituzione messaggio di&lt;br /&gt;
-errore&lt;br /&gt;
-Risposta&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 22 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-1.1.1.3 Interfaccia di richiamo (input) consultazione consenso&lt;br /&gt;
-Informazione di input Livello Obbligatorio Tipologia Denominazione&lt;br /&gt;
-attributo (Sì/No) Campo DB&lt;br /&gt;
-dataRichiesta 1 Sì TIMESTAMP&lt;br /&gt;
-codiceTipoConsenso 1 Sì TEXT&lt;br /&gt;
-codiceSottotipoConsenso 1 Sì TEXT&lt;br /&gt;
-1.1.1.4 Interfaccia di risposta (output) consultazione consenso&lt;br /&gt;
-Informazione di output Livello Obbligato Tipologia Denominazione Campo DB&lt;br /&gt;
-attributo rio (Sì/No)&lt;br /&gt;
-Errori 1 No INTEGER err_id&lt;br /&gt;
-Esito 1 Si TEXT n.a.&lt;br /&gt;
-Errori.codice 2 No TEXT err_cod&lt;br /&gt;
-informativaPDF 3 Si TEXT Cons_d_informativa.pdf_informativa&lt;br /&gt;
-dataInizioValidità 3 Sì TIMESTAMP Cons_d_informativa.data_decorrenza&lt;br /&gt;
-dataFineValidità 3 Sì TIMESTAMP Cons_d_informativa.data_scadenza&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Informazione di input&lt;/th&gt;
-&lt;th&gt;Livello attributo&lt;/th&gt;
-&lt;th&gt;Obbligatorio (Sì/No)&lt;/th&gt;
-&lt;th&gt;Tipologia&lt;/th&gt;
-&lt;th&gt;Denominazione Campo DB&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;dataRichiesta&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TIMESTAMP&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceTipoConsenso&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;codiceSottotipoConsenso&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Informazione di output&lt;/th&gt;
-&lt;th&gt;Livello attributo&lt;/th&gt;
-&lt;th&gt;Obbligato rio (Sì/No)&lt;/th&gt;
-&lt;th&gt;Tipologia&lt;/th&gt;
-&lt;th&gt;Denominazione Campo DB&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Errori&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;INTEGER&lt;/td&gt;
-&lt;td&gt;err_id&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Esito&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;n.a.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Errori.codice&lt;/td&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;err_cod&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;informativaPDF&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Si&lt;/td&gt;
-&lt;td&gt;TEXT&lt;/td&gt;
-&lt;td&gt;Cons_d_informativa.pdf_informativa&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;dataInizioValidità&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TIMESTAMP&lt;/td&gt;
-&lt;td&gt;Cons_d_informativa.data_decorrenza&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;dataFineValidità&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;Sì&lt;/td&gt;
-&lt;td&gt;TIMESTAMP&lt;/td&gt;
-&lt;td&gt;Cons_d_informativa.data_scadenza&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 23 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 24 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-2.4 Algoritmi e servizi per i controlli&lt;br /&gt;
-2.4.1 Struttura DataBase&lt;br /&gt;
-Di seguito una rappresentazione della struttura del DataBase del modulo Gestione Consensi&lt;br /&gt;
-Per una migliore comprensione dello logica di composizione del DataBase, di seguito si riporta una descrizione&lt;br /&gt;
-sintetica delle relative tabelle.&lt;br /&gt;
-Tabella Descrizione&lt;br /&gt;
-Contiene tutti i possibili valori che può&lt;br /&gt;
-Cons_d_valore_cons&lt;br /&gt;
-assumere in campo consenso (SI, NO, NE)&lt;br /&gt;
-Contiene tutti i possibili valori che può&lt;br /&gt;
-Cons_d_stato assumere in campo stato del consenso&lt;br /&gt;
-(ATTIVO, REVOCATO, SCADUTO,…)&lt;br /&gt;
-Contiene la codifica dei codici e tipo&lt;br /&gt;
-operatore. Al momento contiene solo un&lt;br /&gt;
-Cons_d_operatore&lt;br /&gt;
-codice fittizio. La tabella è stata creata per&lt;br /&gt;
-eventuali sviluppi futuri del controllo della&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Tabella&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Descrizione&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Cons_d_valore_cons&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Contiene tutti i possibili valori che può assumere in campo consenso (SI, NO, NE)&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Cons_d_stato&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Contiene tutti i possibili valori che può assumere in campo stato del consenso (ATTIVO, REVOCATO, SCADUTO,…)&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Cons_d_operatore&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Contiene la codifica dei codici e tipo operatore. Al momento contiene solo un codice fittizio. La tabella è stata creata per eventuali sviluppi futuri del controllo della&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 25 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-profilatura&lt;br /&gt;
-Contiene i consensi, revoche dei cittadini&lt;br /&gt;
-Cons_t_consenso della regione Piemonte che hanno utilizzato&lt;br /&gt;
-il servizio consensi regionale.&lt;br /&gt;
-Contiene l’ abbinamento codice tipo fonte e&lt;br /&gt;
-Cons_d_fonte&lt;br /&gt;
-ASR in ambito regionale.&lt;br /&gt;
-Contiene la codifica di tutti i tipi fonte&lt;br /&gt;
-Cons_d_tipo_fonte&lt;br /&gt;
-esistenti.&lt;br /&gt;
-Contiene i dati dell’ informativa riferiti ad&lt;br /&gt;
-Cons_d_informativa&lt;br /&gt;
-ogni asr, tipo e sottotipo consenso.&lt;br /&gt;
-Contiene la codifica di tutti i sottotipi di&lt;br /&gt;
-Cons_d_sotto_tipo_cons&lt;br /&gt;
-consenso esistenti (ROL….)&lt;br /&gt;
-Contiene la codifica di tutti i tipi di&lt;br /&gt;
-Cons_d_tipo_cons&lt;br /&gt;
-consensi esistenti (A, R)&lt;br /&gt;
-Cons_d_asr Contiene tutte le codifiche delle ASR&lt;br /&gt;
-Csi_log_audit Contiene tutte informazioni di log&lt;br /&gt;
-2.4.2 Errori&lt;br /&gt;
-Di seguito una tabella riepilogativa degli errori.&lt;br /&gt;
-ID Errore Descrizione&lt;br /&gt;
-Errore restituito quando in input non è&lt;br /&gt;
-0001 Codice fiscale non valorizzato&lt;br /&gt;
-valorizzato il codice fiscale.&lt;br /&gt;
-Errore restituito quando su AURA l’&lt;br /&gt;
-Codice fiscale non presente in&lt;br /&gt;
-0002 accesso per codice fiscale ha esito&lt;br /&gt;
-anagrafica&lt;br /&gt;
-negativo.&lt;br /&gt;
-Errore restituito quando il codice fiscale&lt;br /&gt;
-Impostare correttamente il codice&lt;br /&gt;
-0003 del delegato non è presente su AURA e&lt;br /&gt;
-fiscale del delegato&lt;br /&gt;
-non ha superato i controlli sintattici&lt;br /&gt;
-Errore restituito quando il codice e il&lt;br /&gt;
-0004 Codice operatore errato tipo operatore non trova rispondenza in&lt;br /&gt;
-tabella cons_d_operatore&lt;br /&gt;
-Errore restituito quando sulla richiesta&lt;br /&gt;
-0005 Impostare data acquisizione non è valorizzato il campo data&lt;br /&gt;
-acquisizione&lt;br /&gt;
-Errore restituito quando la data&lt;br /&gt;
-Impostare correttamente data&lt;br /&gt;
-0006 acquisizione non è valorizzata in un&lt;br /&gt;
-acquisizione&lt;br /&gt;
-formato corretto&lt;br /&gt;
-Impostare correttamente Codice tipo Errore restituito quando il codice tipo&lt;br /&gt;
-0007&lt;br /&gt;
-fonte fonte non trova corrispondenza in&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;profilatura&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Cons_t_consenso&lt;/td&gt;
-&lt;td&gt;Contiene i consensi, revoche dei cittadini della regione Piemonte che hanno utilizzato il servizio consensi regionale.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Cons_d_fonte&lt;/td&gt;
-&lt;td&gt;Contiene l’ abbinamento codice tipo fonte e ASR in ambito regionale.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Cons_d_tipo_fonte&lt;/td&gt;
-&lt;td&gt;Contiene la codifica di tutti i tipi fonte esistenti.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Cons_d_informativa&lt;/td&gt;
-&lt;td&gt;Contiene i dati dell’ informativa riferiti ad ogni asr, tipo e sottotipo consenso.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Cons_d_sotto_tipo_cons&lt;/td&gt;
-&lt;td&gt;Contiene la codifica di tutti i sottotipi di consenso esistenti (ROL….)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Cons_d_tipo_cons&lt;/td&gt;
-&lt;td&gt;Contiene la codifica di tutti i tipi di consensi esistenti (A, R)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Cons_d_asr&lt;/td&gt;
-&lt;td&gt;Contiene tutte le codifiche delle ASR&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Csi_log_audit&lt;/td&gt;
-&lt;td&gt;Contiene tutte informazioni di log&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;ID&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Errore&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Descrizione&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;0001&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Codice fiscale non valorizzato&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Errore restituito quando in input non è valorizzato il codice fiscale.&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;0002&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Codice fiscale non presente in anagrafica&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Errore restituito quando su AURA l’ accesso per codice fiscale ha esito negativo.&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;0003&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Impostare correttamente il codice fiscale del delegato&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Errore restituito quando il codice fiscale del delegato non è presente su AURA e non ha superato i controlli sintattici&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;0004&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Codice operatore errato&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Errore restituito quando il codice e il tipo operatore non trova rispondenza in tabella cons_d_operatore&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;0005&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Impostare data acquisizione&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Errore restituito quando sulla richiesta non è valorizzato il campo data acquisizione&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;0006&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Impostare correttamente data acquisizione&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Errore restituito quando la data acquisizione non è valorizzata in un formato corretto&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;0007&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Impostare correttamente Codice tipo fonte&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Errore restituito quando il codice tipo fonte non trova corrispondenza in&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;p&gt;ACC-DEL-&lt;br /&gt;
-FASCICOLO SANITARIO ELETTRONICO&lt;br /&gt;
-CDU-01&lt;br /&gt;
-Modulo Gestione Consensi – Consenso permenente ROL&lt;br /&gt;
-Servizio Gestione Consensi Pag. 26 di 26&lt;br /&gt;
-DIREZIONE SVILUPPO E&lt;br /&gt;
-GESTIONE SOLUZIONI E&lt;br /&gt;
-PRODOTTI&lt;br /&gt;
-tabella codice tipo fonte&lt;br /&gt;
-Errore restituito quando la chiave&lt;br /&gt;
-0008 Impostare correttamente il codice fonte (codice fonte e il codice tipo fonte) non&lt;br /&gt;
-è presente in tabella cons_d_fonte&lt;br /&gt;
-Impostare il campo codice tipo Errore restituito quando il codice tipo&lt;br /&gt;
-0009&lt;br /&gt;
-consenso consenso non è stato valorizzato&lt;br /&gt;
-Errore restituito quando il codice&lt;br /&gt;
-Impostare il campo codice sottotipo&lt;br /&gt;
-0010 sottotipo consenso non è stato&lt;br /&gt;
-consenso&lt;br /&gt;
-valorizzato&lt;br /&gt;
-Errore restituito quando la key tipo&lt;br /&gt;
-Impostare correttamente il tipo&lt;br /&gt;
-0011 consenso non è presente in tabella&lt;br /&gt;
-consenso&lt;br /&gt;
-cons_d_tipo_cons&lt;br /&gt;
-Errore restituito quando la key sottotipo&lt;br /&gt;
-Impostare correttamente il sottotipo&lt;br /&gt;
-0012 consenso non è presente in tabella&lt;br /&gt;
-consenso&lt;br /&gt;
-cons_d_sotto_tipo_cons&lt;br /&gt;
-Impostare codice tipo fonte e codice Errore restituito quando i campi fonte e&lt;br /&gt;
-0013&lt;br /&gt;
-fonte codice fonte non sono valorizzati&lt;br /&gt;
-Errore restituito quando il codice ASR&lt;br /&gt;
-0014 Codice ASR non valorizzato&lt;br /&gt;
-non è valorizzato&lt;br /&gt;
-Errore restituito quando un consenso&lt;br /&gt;
-Consenso rifiutato azienda : codice(n)&lt;br /&gt;
-0015 aziendale con fonte ASR è riferito ad&lt;br /&gt;
-diverso da fonte : codiceTipoFonte&lt;br /&gt;
-una azienda diversa&lt;br /&gt;
-Errore restituito quando non esiste l’&lt;br /&gt;
-0016 Informativa non presente informativa per il consenso asr,&lt;br /&gt;
-tipo_consenso_sotto_tipo_consenso.&lt;br /&gt;
-Non è possibile inserire un consesnso Errore restituito quando si acquisisce un&lt;br /&gt;
-0017 con valore NE se esiste già un consenso consenso con valore NE ed esiste già un&lt;br /&gt;
-con valore SI o NO. consenso con valore SI o NO.&lt;br /&gt;
-Non è possibile inserire la revoca per l’ Errore restituito quando arriva una&lt;br /&gt;
-0018 asr = ‘asr ‘ perché non presente un revoca ma non è riferita a nesdsun&lt;br /&gt;
-consenso precedente consenso.&lt;br /&gt;
-della delega (es. il servizio di pagamento ticket online può essere delegabile dal gg/mm/aaaa al gg/mm/aaaa).&lt;br /&gt;
-2.4.3 Audit&lt;br /&gt;
-Tabella di riferimento: CSI_LOG_AUDIT&lt;br /&gt;
-Eventi da tracciare conseguentemente all’ acquisizione di un’ operazione in ambito della gestione dei consensi.&lt;br /&gt;
-ACC-DEL-CDU-01-V01 Servizi Acquisizione Consensi.docx uso: CSI-Piemonte&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;DIREZIONE SVILUPPO E&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GESTIONE SOLUZIONI E&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;tabella codice tipo fonte&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;0008&lt;/td&gt;
-&lt;td&gt;Impostare correttamente il codice fonte&lt;/td&gt;
-&lt;td&gt;Errore restituito quando la chiave (codice fonte e il codice tipo fonte) non è presente in tabella cons_d_fonte&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;0009&lt;/td&gt;
-&lt;td&gt;Impostare il campo codice tipo consenso&lt;/td&gt;
-&lt;td&gt;Errore restituito quando il codice tipo consenso non è stato valorizzato&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;0010&lt;/td&gt;
-&lt;td&gt;Impostare il campo codice sottotipo consenso&lt;/td&gt;
-&lt;td&gt;Errore restituito quando il codice sottotipo consenso non è stato valorizzato&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;0011&lt;/td&gt;
-&lt;td&gt;Impostare correttamente il tipo consenso&lt;/td&gt;
-&lt;td&gt;Errore restituito quando la key tipo consenso non è presente in tabella cons_d_tipo_cons&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;0012&lt;/td&gt;
-&lt;td&gt;Impostare correttamente il sottotipo consenso&lt;/td&gt;
-&lt;td&gt;Errore restituito quando la key sottotipo consenso non è presente in tabella cons_d_sotto_tipo_cons&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;0013&lt;/td&gt;
-&lt;td&gt;Impostare codice tipo fonte e codice fonte&lt;/td&gt;
-&lt;td&gt;Errore restituito quando i campi fonte e codice fonte non sono valorizzati&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;0014&lt;/td&gt;
-&lt;td&gt;Codice ASR non valorizzato&lt;/td&gt;
-&lt;td&gt;Errore restituito quando il codice ASR non è valorizzato&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;0015&lt;/td&gt;
-&lt;td&gt;Consenso rifiutato azienda : codice(n) diverso da fonte : codiceTipoFonte&lt;/td&gt;
-&lt;td&gt;Errore restituito quando un consenso aziendale con fonte ASR è riferito ad una azienda diversa&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;0016&lt;/td&gt;
-&lt;td&gt;Informativa non presente&lt;/td&gt;
-&lt;td&gt;Errore restituito quando non esiste l’ informativa per il consenso asr, tipo_consenso_sotto_tipo_consenso.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;0017&lt;/td&gt;
-&lt;td&gt;Non è possibile inserire un consesnso con valore NE se esiste già un consenso con valore SI o NO.&lt;/td&gt;
-&lt;td&gt;Errore restituito quando si acquisisce un consenso con valore NE ed esiste già un consenso con valore SI o NO.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;0018&lt;/td&gt;
-&lt;td&gt;Non è possibile inserire la revoca per l’ asr = ‘asr ‘ perché non presente un consenso precedente&lt;/td&gt;
-&lt;td&gt;Errore restituito quando arriva una revoca ma non è riferita a nesdsun consenso.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-</content>
-    <link href="https://caccu.github.io/srs_cons_git/raw/acc-del-cdu-01-v01-servizi-acquisizione-consensi-2/"/>
   </entry><entry>
     <title>tr34-alternativa-batch-03</title>
     <updated>2026-05-14T00:00:00Z</updated>
