@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>RFC 7807 (application/problem+json) come standard error response</title>
+<title>appunti</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script type="importmap">
@@ -277,7 +277,7 @@
 </div>
 </div>
 <div x-show="isOpen" style="display:none" class="filelist">
-<div @click.stop class="notelink active-note">
+<div @click.stop class="notelink">
 <a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-018-rfc-7807-error-response/">ADR-018: RFC 7807 (application/problem+json) come standard error response </a>
 </div>
 </div>
@@ -413,7 +413,7 @@
 <span class="foldername">raw</span>
 </div>
 <div x-show="isOpen" style="display:none" class="filelist">
-<div @click.stop class="notelink">
+<div @click.stop class="notelink active-note">
 <a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/raw/appunti/">appunti </a>
 </div>
 </div>
@@ -428,83 +428,75 @@
 <div class="header-meta">
 </div>
 </header>
-<h1 id="adr-018-rfc-7807-come-standard-error-response" tabindex="-1">ADR-018: RFC 7807 come standard error response</h1>
-<h2 id="status" tabindex="-1">Status</h2>
-<p><code>accepted</code> — adottato in SRS §4.x per tutti gli endpoint REST.</p>
-<h2 id="context" tabindex="-1">Context</h2>
-<p>Gli endpoint REST esposti (CDU-15, CDU-16, eventuale CDU-17 da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-006-batch-03-pull-cdu-17/">ADR-006-batch-03-pull-cdu-17</a>) devono produrre risposte di errore consistenti, machine-readable e auto-documentate. Senza standard:</p>
-<ul>
-<li>Ogni endpoint genera payload di errore con shape diversa</li>
-<li>I SIA implementano parser custom per ogni messaggio</li>
-<li>Mancanza di campi standard per tracciare l'errore (type URI, instance)</li>
-</ul>
-<h2 id="decision" tabindex="-1">Decision</h2>
-<p>Tutte le risposte 4xx/5xx degli endpoint REST seguono <strong>RFC 7807</strong> (Problem Details for HTTP APIs) con content-type <code>application/problem+json</code>.</p>
-<p>Schema minimo:</p>
-<pre><code class="language-json">{
-  &quot;type&quot;: &quot;https://gestioneconsensi.csi.piemonte.it/errors/not-found&quot;,
-  &quot;title&quot;: &quot;Not Found&quot;,
-  &quot;status&quot;: 404,
-  &quot;detail&quot;: &quot;Nessun consenso trovato per i parametri specificati.&quot;,
-  &quot;instance&quot;: &quot;/api/v1/consensi/stato&quot;
-}
-</code></pre>
-<p>Campi:</p>
-<ul>
-<li><code>type</code> (URI): identifica il tipo di errore (link a documentazione interna)</li>
-<li><code>title</code> (string): titolo umano, invariante per tipo</li>
-<li><code>status</code> (int): HTTP status code (duplica header per leggibilità)</li>
-<li><code>detail</code> (string): dettaglio specifico dell'istanza</li>
-<li><code>instance</code> (URI): path della request che ha generato l'errore</li>
-</ul>
-<p>Estensioni ammesse: campi custom (es. <code>params_hash</code>, <code>trace_id</code>) per supporto debug.</p>
-<h2 id="consequences" tabindex="-1">Consequences</h2>
-<h3 id="positive" tabindex="-1">Positive</h3>
-<ul>
-<li>Standard internazionale → SIA possono usare parser RFC 7807 esistenti</li>
-<li>Shape uniforme su tutti gli endpoint → documentazione OpenAPI più pulita</li>
-<li><code>type</code> URI estensibile per nuovi tipi di errore senza breaking change</li>
-</ul>
-<h3 id="negative" tabindex="-1">Negative</h3>
-<ul>
-<li>Backend Spring Boot deve mappare ogni eccezione applicativa a <code>ProblemDetail</code> (Spring 6 ha <code>ProblemDetail</code> nativo)</li>
-<li>Documentazione OpenAPI ha schema response error duplicato su ogni endpoint (può essere riusato via <code>$ref</code>)</li>
-</ul>
-<h3 id="neutral" tabindex="-1">Neutral</h3>
-<ul>
-<li>Spring Boot 3 supporta nativamente <code>ProblemDetail</code> (zero dipendenze esterne)</li>
-</ul>
-<h2 id="alternatives-considered" tabindex="-1">Alternatives considered</h2>
+<p><strong>1. Contesto</strong><br>
+Il sistema si inserisce nell'ecosistema della <strong>Sanità Elettronica della Regione Piemonte</strong> e gestisce tre livelli di consenso: <strong>Nazionale</strong> (FSE/INI), <strong>Regionale</strong> (stratificazione/cronicità) e <strong>Aziendale ASR</strong> (Dossier Clinico, ROL referti). I tre profili utente sono il <strong>Cittadino</strong> (accesso via SPID/CIE), l'<strong>Operatore Sanitario/Amministrativo</strong> e l'<strong>Operatore di Back Office</strong> (entrambi via PUA con credenziali RUPAR/IRIDE).<br>
+<strong>2. Architettura</strong><br>
+L'applicativo segue un paradigma a <strong>microservizi</strong> ospitato sull'infrastruttura cloud <strong>ECaaS</strong>** <strong><strong>Kubernetes</strong></strong> / Nivola CSI Piemonte**:<br>
+<strong>Frontend</strong>: SPA Angular 19 con componenti QUASAR<br>
+<strong>Backend</strong>: Servizi REST Spring Boot 3 / Java 17<br>
+<strong>Database</strong>: PostgreSQL 17 tramite DBaaS Nivola (no container nel namespace)<br>
+<strong>CI/CD</strong>: Pipeline GitLab + Jenkins + SonarQube con deploy GitOps tramite Helm Chart<br>
+<strong>3. Integrazioni Esterne</strong><br>
+Sei sistemi esterni si interfacciano con la piattaforma:</p>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
-<th>Alternativa</th>
-<th>Motivo scarto</th>
+<th><strong>Sistema</strong></th>
+<th><strong>Protocollo</strong></th>
+<th><strong>Autenticazione</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Shape custom <code>{ error: ..., message: ... }</code></td>
-<td>Niente standard; SIA devono parsing custom</td>
+<td>GASP Salute (IdP)</td>
+<td>OAuth2/OIDC o SAML2</td>
+<td>Federazione SPID/CIE</td>
 </tr>
 <tr>
-<td>JSON:API errors</td>
-<td>Più orientato a CRUD risorse; sovradimensionato per il caso d'uso</td>
+<td>AURA (anagrafica)</td>
+<td>SOAP</td>
+<td>WS-Security UsernameToken (IRIS)</td>
 </tr>
 <tr>
-<td>Niente formato standardizzato</td>
-<td>Inaccettabile: SRS richiede consistenza</td>
+<td>Gestione Deleghe</td>
+<td>SOAP</td>
+<td>OAuth2 Client Credentials</td>
+</tr>
+<tr>
+<td>Notificatore UNP</td>
+<td>REST</td>
+<td>Token applicativo UNP</td>
+</tr>
+<tr>
+<td>SIA ASR (CDU-15/16)</td>
+<td>REST</td>
+<td>Bearer Token JWT</td>
+</tr>
+<tr>
+<td>PUA / Config. Regionale</td>
+<td>Web</td>
+<td>RUPAR/IRIDE</td>
 </tr>
 </tbody>
 </table></div>
-<h2 id="references" tabindex="-1">References</h2>
-<ul>
-<li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2026-03-02-conspref-srs-v1-revised/">CONSPREF-SRS-V1.0 revised bozza v2</a> §4.x</li>
-<li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15/16</a> §HTTP status codes</li>
-<li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/">OpenAPI CDU-15/16</a> §Gestione errori</li>
-<li>RFC 7807 — <a href="https://datatracker.ietf.org/doc/html/rfc7807" target="_blank" class="external-link">https://datatracker.ietf.org/doc/html/rfc7807</a></li>
-<li>Correlato: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-005-sicurezza-cdu-15-16/">ADR-005-sicurezza-cdu-15-16</a> sicurezza CDU-15/16 (4xx/5xx usano RFC 7807)</li>
-</ul>
+<p><strong>4. Requisiti Business e Stati Consenso</strong><br>
+Un consenso attraversa cinque stati nel suo ciclo di vita: <strong>NON ESPRESSO → ATTIVO / NEGATO → SCADUTO / ANNULLATO</strong>. Ogni variazione <strong>non sovrascrive</strong> il record precedente: viene chiuso con datafine e creato un nuovo record, garantendo la storia completa degli atti di consenso.<br>
+<strong>5. Casi d'Uso (16 CDU)</strong><br>
+<strong>Area Cittadino (CDU-01 ÷ CDU-06)</strong>: accesso con selezione profilo/delegato, consultazione, rilascio, modifica e download PDF del consenso.<br>
+<strong>Area Operatore Sanitario/<strong><strong>Amm</strong></strong>. (CDU-07 ÷ CDU-11)</strong>: ricerca assistito su AURA/SistemaTS, consultazione e gestione consensi per conto dell'assistito.<br>
+<strong>Area Back Office (CDU-12 ÷ CDU-16)</strong>: configurazione anagrafiche (tipi consenso, informative PDF, enti/endpoint) e due API REST per i SIA delle ASR (recupero stato e configurazione).<br>
+<strong>6. Processi Batch</strong><br>
+Tre job asincroni garantiscono la coerenza del sistema:<br>
+<strong>BATCH-01</strong>: notifica le variazioni dei consensi alle ASR ogni <strong>5 minuti</strong> via SOAP<br>
+<strong>BATCH-02</strong>: gestisce la scadenza/annullamento delle informative e aggiorna lo stato dei consensi<br>
+<strong>BATCH-03</strong>: allineamento massivo dei consensi verso i nuovi endpoint configurati<br>
+<strong>7. Modello Dati</strong><br>
+Il database comprende <strong>25 tabelle</strong> principali, tra cui cons_t_consenso (record storico), cons_d_informativa, cons_d_asr, cons_t_notifica per i batch, csi_log_audit per l'audit e cons_t_traccia_servest per la tracciatura delle chiamate esterne. Il documento include anche <strong>9 proposte evolutive</strong> (nuove tabelle e estensioni).<br>
+<strong>8. Requisiti Non Funzionali</strong><br>
+<strong>Sicurezza</strong>: Spring Security senza API Gateway, JWT Bearer Token, protezione CSRF, conformità OWASP Top 10, dati personali mascherati nei log, secrets via Kubernetes Secret<br>
+<strong>Scalabilità</strong>: architettura stateless con almeno 2 repliche attive in produzione su Kubernetes<br>
+<strong>Migrazione</strong>: passaggio da PostgreSQL 9 a PostgreSQL 17 (da formalizzare nel documento CONSPREF-DMP)<br>
+<strong>Logging</strong>** multi-livello**: audit su DB (csi_log_audit), log applicativo SLF4j/Logback su stack ELK, log accesso HTTP</p>
 <div style="margin-top:2.5rem;width:100%">
 <script src="https://giscus.app/client.js" data-repo="caccu/srs_cons_git" data-repo-id="R_kgDOSgs_Cw" data-category="General" data-category-id="DIC_kwDOSgs_C84C9cl-" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="it" crossorigin="anonymous" async></script>
 </div>
