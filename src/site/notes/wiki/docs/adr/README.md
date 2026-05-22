@@ -11,7 +11,6 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 - Numerazione sequenziale `ADR-NNN` (zero-padded a 3 cifre)
 - Status: `proposed` → `accepted` → (`deprecated` | `superseded by [ADR-MMM]`)
 - ADR non si modificano post `accepted` — si aggiunge un nuovo ADR che supersede
-- Template: [TEMPLATE.md](TEMPLATE.md)
 - Cross-link wiki: ogni ADR linka concept/analysis pages in `wiki/` rilevanti; viceversa le pages elencano gli ADR pertinenti
 
 ---
