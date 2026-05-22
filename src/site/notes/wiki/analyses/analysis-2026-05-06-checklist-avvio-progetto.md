@@ -17,16 +17,16 @@ Punti validati dalla Q&A CSI V02 o esplicitamente documentati nell'SRS e negli a
 
 ### A1. Stack tecnologico
 
-| Componente | Versione | Fonte conferma |
-|---|---|---|
-| Frontend | Angular 19.x | Q&A CSI #2 |
-| UI Component Library | QUASAR CSI | Q&A CSI #3 |
-| Backend | Spring Boot 3.4.10+ / Java 17 | Q&A CSI #5 |
-| Database | PostgreSQL 17 via DBaaS Nivola | Q&A CSI #10 |
-| CI/CD | GitLab + Jenkins + SonarQube + Helm GitOps | appunti.md |
-| Runtime | ECaaS / Kubernetes Nivola | SRS §3.5 |
-| SOAP client | Apache CXF (necessario per SIA ASR AS-IS) | Q&A CSI #9 |
-| Error response standard | RFC 7807 | SRS §4.x |
+| Componente              | Versione                                   | Fonte conferma |
+| ----------------------- | ------------------------------------------ | -------------- |
+| Frontend                | Angular 19.x                               | Q&A CSI #2     |
+| UI Component Library    | QUASAR CSI                                 | Q&A CSI #3     |
+| Backend                 | Spring Boot 3.4.10+ / Java 17              | Q&A CSI #5     |
+| Database                | PostgreSQL 17 via DBaaS Nivola             | Q&A CSI #10    |
+| CI/CD                   | GitLab + Jenkins + SonarQube + Helm GitOps | [[raw/appunti\|appunti]]    |
+| Runtime                 | ECaaS / Kubernetes Nivola                  | SRS §3.5       |
+| SOAP client             | Apache CXF (necessario per SIA ASR AS-IS)  | Q&A CSI #9     |
+| Error response standard | RFC 7807                                   | SRS §4.x       |
 
 ### A2. Integrazioni esterne — protocolli confermati
 
