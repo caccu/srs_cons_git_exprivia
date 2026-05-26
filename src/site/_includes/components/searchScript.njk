@@ -3,8 +3,18 @@
     document.addEventListener('DOMContentLoaded', init, false);
     document.addEventListener('DOMContentLoaded', setCorrectShortcut, false);
 
+    const SITE_BASE_PATH = '{{ meta.siteBasePath }}';
+
     // Preview content cache
     const previewCache = new Map();
+
+    function resolveSearchUrl(url) {
+        if (!url) return url;
+        if (!url.startsWith('/')) return url;
+        if (!SITE_BASE_PATH) return url;
+        if (url === SITE_BASE_PATH || url.startsWith(`${SITE_BASE_PATH}/`)) return url;
+        return `${SITE_BASE_PATH}${url}`;
+    }
 
     window.toggleSearch = function () {
         const searchContainer = document.getElementById('globalsearch');
@@ -217,7 +227,7 @@
         placeholder.style.display = 'none';
 
         // Fetch the content
-        const htmlContent = await fetchPreviewContent(result.url);
+        const htmlContent = await fetchPreviewContent(resolveSearchUrl(result.url));
 
         const tagsHTML = result.tags && result.tags.length > 0
             ? `<div class="preview-tags">${result.tags.map(tag =>
@@ -330,7 +340,7 @@
                     const active = document.querySelector('.searchresult.active');
                     if (active) {
                         const url = active.dataset.url;
-                        if (url) window.location.href = url;
+                        if (url) window.location.href = resolveSearchUrl(url);
                     }
                 }
             }
@@ -444,7 +454,7 @@
                      data-index="${index}"
                      data-url="${r.url}"
                      onmouseenter="showPreview(${index})"
-                     onclick="window.location.href='${r.url}'">
+                     onclick="window.location.href=resolveSearchUrl('${r.url}')">
                     <span class="result-title">${highlightedTitle}</span>
                     ${tagsHTML}
                     <div class="result-excerpt">${highlightedExcerpt}</div>
