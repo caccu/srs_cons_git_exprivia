@@ -287,15 +287,27 @@
     // ===== Initialization =====
 
     async function init() {
+        const siteBasePath = "{{meta.siteBasePath | default('')}}";
+        const normalizedBasePath = siteBasePath && siteBasePath !== "/"
+            ? siteBasePath.replace(/\/$/, "")
+            : "";
+        const searchIndexUrl = `${normalizedBasePath}/searchIndex.json?v={{meta.buildDate|isoDate}}`;
+
         // Fetch search index (browser caches based on query param)
-        const docs = await fetch('/searchIndex.json?v={{meta.buildDate|isoDate}}').then(r => r.json());
-        const index = createIndex(docs);
-        window.docs = docs;
-        window.index = index;
+        try {
+            const docs = await fetch(searchIndexUrl).then(r => r.json());
+            const index = createIndex(docs);
+            window.docs = docs;
+            window.index = index;
+        } catch (error) {
+            console.error('Failed to initialize search index:', error);
+            window.docs = [];
+            window.index = null;
+        }
 
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            if ((e.ctrlKey || e.metaKey) && (e.key.toLowerCase() === 'k' || e.code === 'KeyK')) {
                 e.preventDefault();
                 toggleSearch();
             }
@@ -354,11 +366,7 @@
 
         const debouncedSearch = debounce(search, 200, false);
         window.field = document.querySelector('#term');
-        field.addEventListener('keydown', (e) => {
-            if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'Enter') {
-                debouncedSearch();
-            }
-        });
+        field.addEventListener('input', debouncedSearch);
         window.resultsDiv = document.querySelector('#search-results');
 
         const params = new URL(location.href).searchParams;
@@ -382,6 +390,13 @@
 
         if (!searchQuery) {
             resultsDiv.innerHTML = `<span><i>{{ meta.uiStrings.searchNotStarted }}</i></span>`;
+            hidePreview();
+            if (searchLayout) searchLayout.classList.add('no-preview');
+            return;
+        }
+
+        if (!window.index || !window.docs) {
+            resultsDiv.innerHTML = `<span><i>{{ meta.uiStrings.searchNoResults }} "${searchQuery}"</i></span>`;
             hidePreview();
             if (searchLayout) searchLayout.classList.add('no-preview');
             return;
