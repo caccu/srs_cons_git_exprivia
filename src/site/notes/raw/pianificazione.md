@@ -210,7 +210,7 @@ Il salto copre 8 major release: pg_upgrade non supporta upgrade diretti su di
 **  ****-U ****consappuser**** \**
 **  -d ****gestioneconsensi**** \**
 **  --no-****owner**** --no-****acl**** \**
-**  ****-f dump_conspref_pg9_$(date +%****Y%m%d****).dump**
+**  ****-f dump_conspref_pg9_(date +%****Y%m%d****).dump**
 
 Il dump non include owner/ACL per compatibilità con il nuovo schema DBaaS Nivola
 
