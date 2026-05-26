@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento</title>
+<title>pianificazione</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script type="importmap">
@@ -33,7 +33,6 @@
 <link rel="manifest" href="/manifest.webmanifest">
 <style></style>
 </head>
-<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
 <div x-init="isDesktop = (window.innerWidth>=1000) ? true: false;" x-on:resize.window="isDesktop = (window.innerWidth>=1000) ? true : false;" x-data="{isDesktop: true, showFilesMobile: false}">
 <div x-show.important="!isDesktop" style="display:none">
 <nav class="navbar">
@@ -101,7 +100,7 @@
 </div>
 </div>
 <div x-show="isOpen" style="display:none" class="filelist">
-<div @click.stop class="notelink active-note">
+<div @click.stop class="notelink">
 <a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/">OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento </a>
 </div>
 </div>
@@ -432,7 +431,7 @@
 </div>
 </div>
 <div x-show="isOpen" style="display:none" class="filelist">
-<div @click.stop class="notelink">
+<div @click.stop class="notelink active-note">
 <a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/raw/pianificazione/">pianificazione </a>
 </div>
 </div>
@@ -474,514 +473,700 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"></script>
 <script>document.addEventListener("DOMContentLoaded",init,!1),document.addEventListener("DOMContentLoaded",setCorrectShortcut,!1);const previewCache=new Map;window.toggleSearch=function(){const e=document.getElementById("globalsearch");e.classList.contains("active")?e.classList.remove("active"):(e.classList.add("active"),document.getElementById("term").focus())},window.openSearchFromSidebar=function(){const e=document.getElementById("globalsearch"),t=document.getElementById("term");e&&t&&(e.classList.contains("active")||e.classList.add("active"),t.focus(),t.select())},window.toggleTagSearch=function(e){const t=e.textContent;t&&(document.getElementById("term").value=t.trim(),window.toggleSearch(),window.search())};const loadingSvg='\n    <div style="display: flex; justify-content: center; padding: 40px;">\n        <svg width="40" height="40" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">\n            <g fill="none" fill-rule="evenodd" transform="translate(1 1)" stroke-width="2">\n                <circle cx="22" cy="22" r="6" stroke-opacity="0">\n                    <animate attributeName="r" begin="1.5s" dur="3s" values="6;22" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-opacity" begin="1.5s" dur="3s" values="1;0" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-width" begin="1.5s" dur="3s" values="2;0" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n                <circle cx="22" cy="22" r="6" stroke-opacity="0">\n                    <animate attributeName="r" begin="3s" dur="3s" values="6;22" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-opacity" begin="3s" dur="3s" values="1;0" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-width" begin="3s" dur="3s" values="2;0" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n                <circle cx="22" cy="22" r="8">\n                    <animate attributeName="r" begin="0s" dur="1.5s" values="6;1;2;3;4;5;6" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n            </g>\n        </svg>\n    </div>';function debounce(e,t,n){var r;return function(){var i=this,s=arguments,o=n&&!r;clearTimeout(r),r=setTimeout((function(){r=null,n||e.apply(i,s)}),t),o&&e.apply(i,s)}}function setCorrectShortcut(){navigator.platform.toUpperCase().indexOf("MAC")>=0&&document.querySelectorAll(".search-keys").forEach((e=>e.innerHTML="<code>⌘</code>&nbsp;+&nbsp;<code>K</code>"))}function tokenizeSearchTerms(e){const t=[],n=/"([^"]+)"|(\S+)/g;let r;for(;null!==(r=n.exec(e));){const e=(r[1]||r[2]).toLowerCase();e.length>1&&t.push(e)}return t.sort(((e,t)=>t.length-e.length))}function highlightTerms(e,t){if(!t||0===t.length||!e)return e;let n=e;return t.forEach((e=>{const t=e.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),r=new RegExp(`(${t})`,"gi");n=n.replace(r,'<span class="search-highlight">$1</span>')})),n}function getContextualExcerpt(e,t,n=150){if(!e)return"";const r=e.replace(/<[^>]*>/g,"");if(!t||0===t.length)return truncateText(r,n);let i=r.length;if(t.forEach((e=>{const t=r.toLowerCase().indexOf(e.toLowerCase());-1!==t&&t<i&&(i=t)})),i===r.length)return truncateText(r,n);const s=Math.max(0,i-50),o=Math.min(r.length,s+n);let a=r.substring(s,o);return s>0&&(a="..."+a),o<r.length&&(a+="..."),a}function truncateText(e,t){return e?(e=e.replace(/<[^>]*>/g,"")).length<=t?e:e.substring(0,t-3)+"...":""}async function fetchPreviewContent(e){if(previewCache.has(e))return previewCache.get(e);try{const t=await fetch(e),n=await t.text(),r=new DOMParser,i=r.parseFromString(n,"text/html").querySelector(".content, .cm-s-obsidian, article, main"),s=i?i.innerHTML:"";return previewCache.set(e,s),s}catch(e){return console.error("Failed to fetch preview:",e),""}}function highlightTextNodes(e,t){if(!t||0===t.length)return;const n=document.createTreeWalker(e,NodeFilter.SHOW_TEXT,null,!1),r=[];for(;n.nextNode();)r.push(n.currentNode);r.forEach((e=>{const n=e.textContent;let r=!1;if(t.forEach((e=>{n.toLowerCase().includes(e.toLowerCase())&&(r=!0)})),r){const r=document.createElement("span");r.innerHTML=highlightTerms(n,t),e.parentNode.replaceChild(r,e)}}))}async function showPreview(e){const t=window.searchResults;if(!t||!t[e])return;const n=t[e],r=document.getElementById("search-preview"),i=document.getElementById("preview-content"),s=r.querySelector(".preview-placeholder");if(!r||!i)return;document.querySelectorAll(".searchresult").forEach((e=>e.classList.remove("active")));const o=document.querySelector(`.searchresult[data-index="${e}"]`);o&&o.classList.add("active"),i.innerHTML=loadingSvg,i.classList.add("has-content"),s.style.display="none";const a=await fetchPreviewContent(n.url),c=n.tags&&n.tags.length>0?`<div class="preview-tags">${n.tags.map((e=>`<a class="tag" href="javascript:void(0);" onclick="toggleTagSearch(this)">#${e}</a>`)).join("")}</div>`:"";i.innerHTML=`\n            <div class="preview-title">${highlightTerms(n.title,window.searchTerms)}</div>\n            ${c}\n            <div class="preview-body">${a}</div>\n        `;const l=i.querySelector(".preview-body");l&&window.searchTerms&&highlightTextNodes(l,window.searchTerms),window.currentPreviewIndex=e}function hidePreview(){const e=document.getElementById("search-preview"),t=document.getElementById("preview-content"),n=e?.querySelector(".preview-placeholder");n&&(n.style.display="flex"),t&&(t.classList.remove("has-content"),t.innerHTML=""),window.currentPreviewIndex=-1}function createIndex(e){const t=e=>(e=>e.toLowerCase().normalize("NFD").replace(/n\u0303/g,"ñ").replace(/[\u0300-\u036f]/g,"").normalize("NFC"))(e).split(/([^a-z]|[^\x00-\x7F])/),n=new FlexSearch.Document({cache:!0,charset:"latin:extra",optimize:!0,index:[{field:"content",tokenize:"reverse",encode:t},{field:"title",tokenize:"forward",encode:t},{field:"tags",tokenize:"forward",encode:t}]});return e.forEach(((e,t)=>{n.add({id:t,title:e.title,content:e.content,tags:e.tags})})),n}async function init(){const e="/srs_cons_git",t=`${e?e.replace(/\/$/,""):""}/searchIndex.json?v=2026-05-26T12:52:06.444Z`;try{const e=await fetch(t).then((e=>e.json())),n=createIndex(e);window.docs=e,window.index=n}catch(e){console.error("Failed to initialize search index:",e),window.docs=[],window.index=null}function n(e){const t=document.querySelectorAll(".searchresult");if(0===t.length)return;let n,r=-1;t.forEach(((e,t)=>{e.classList.contains("active")&&(r=t)})),-1===r?n=e>0?0:t.length-1:(n=r+e,n<0&&(n=t.length-1),n>=t.length&&(n=0)),t.forEach((e=>e.classList.remove("active"))),t[n].classList.add("active"),t[n].scrollIntoView({behavior:"smooth",block:"nearest"}),showPreview(parseInt(t[n].dataset.index))}document.addEventListener("keydown",(e=>{if(!e.ctrlKey&&!e.metaKey||"k"!==e.key.toLowerCase()&&"KeyK"!==e.code||(e.preventDefault(),toggleSearch()),"Escape"===e.key&&document.getElementById("globalsearch").classList.remove("active"),document.getElementById("globalsearch").classList.contains("active")&&("ArrowDown"===e.key&&(e.preventDefault(),n(1)),"ArrowUp"===e.key&&(e.preventDefault(),n(-1)),"Enter"===e.key)){e.preventDefault();const t=document.querySelector(".searchresult.active");if(t){const e=t.dataset.url;e&&(window.location.href=e)}}}));const r=debounce(search,200,!1);window.field=document.querySelector("#term"),field.addEventListener("input",r),window.resultsDiv=document.querySelector("#search-results");const i=new URL(location.href).searchParams;i.get("q")&&(field.setAttribute("value",i.get("q")),toggleSearch(),search())}async function search(){const e=field.value.trim(),t=document.getElementById("search-layout");if(!e)return resultsDiv.innerHTML="<span><i>Enter your search text in the box above</i></span>",hidePreview(),void(t&&t.classList.add("no-preview"));if(!window.index||!window.docs)return resultsDiv.innerHTML=`<span><i>No results for "${e}"</i></span>`,hidePreview(),void(t&&t.classList.add("no-preview"));window.lastSearch=e,window.searchTerms=tokenizeSearchTerms(e),resultsDiv.innerHTML=loadingSvg,hidePreview();const n=offlineSearch(e);if(window.searchResults=n,!n.length)return t&&t.classList.add("no-preview"),void(resultsDiv.innerHTML=`\n                <div class="no-results">\n                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">\n                        <circle cx="11" cy="11" r="8"></circle>\n                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>\n                        <line x1="8" y1="11" x2="14" y2="11"></line>\n                    </svg>\n                    <p>No results for "${e}"</p>\n                </div>\n            `);t&&t.classList.remove("no-preview");let r="";n.forEach(((e,t)=>{const n=highlightTerms(getContextualExcerpt(e.content,window.searchTerms,120),window.searchTerms),i=highlightTerms(e.title,window.searchTerms),s=e.tags&&e.tags.length>0?`<div class="result-tags">${e.tags.map((e=>`<span class="tag">#${e}</span>`)).join("")}</div>`:"";r+=`\n                <div class="searchresult${0===t?" active":""}"\n                     data-index="${t}"\n                     data-url="${e.url}"\n                     onmouseenter="showPreview(${t})"\n                     onclick="window.location.href='${e.url}'">\n                    <span class="result-title">${i}</span>\n                    ${s}\n                    <div class="result-excerpt">${n}</div>\n                </div>\n            `})),resultsDiv.innerHTML=r,n.length>0&&showPreview(0),"undefined"!=typeof lucide&&lucide.createIcons()}function offlineSearch(e){const t=window.docs,n="#"===e[0]&&e.length>1?index.search(e.substring(1),[{field:"tags"}]):index.search(e,[{field:"title",limit:5},{field:"content",limit:10}]),r=e=>{const t=n.filter((t=>t.field===e));return 0===t.length?[]:[...t[0].result]};return[...new Set([...r("title"),...r("content"),...r("tags")])].map((e=>{const n={...t[e]};return n.tags=n.tags.filter((e=>"gardenEntry"!==e&&"note"!==e)),n}))}window.lastSearch="",window.searchResults=[],window.searchTerms=[],window.currentPreviewIndex=-1,window.search=search</script>
-<main class="content cm-s-obsidian print">
 <header>
 <div class="header-meta">
 </div>
 </header>
-<h1 id="open-api-cdu-15-16-descrizione-e-stato-consolidamento" tabindex="-1">OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento</h1>
-<p><strong>File spec:</strong> <code>wiki/analyses/openapi-cdu-15-16-v0.1.yaml</code><br>
-<strong>Versione corrente:</strong> <code>0.1-DRAFT</code><br>
-<strong>Stato:</strong> Bozza interna — non ancora condivisa con ASR<br>
-<strong>Fonte SRS:</strong> CONSPREF-SRS-V1.0 bozza v2, §6.15–6.16</p>
-<hr>
-<h2 id="cos-e-questo-documento" tabindex="-1">Cos'è questo documento</h2>
-<p>Specifica OpenAPI 3.0 delle due API REST esposte dal sistema Gestione Consensi verso i <strong>Sistemi Informativi Aziendali (SIA)</strong> delle ASR del Piemonte.</p>
-<p>Queste API sono il canale <strong>inbound</strong> (SIA → Regionale): i SIA le chiamano per leggere configurazioni e stato consensi. Non vanno confuse con il canale <strong>outbound</strong> (BATCH-01 → SIA via SOAP), che usa il WSDL AS-IS invariato (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a>).</p>
-<hr>
-<h2 id="endpoint-esposti" tabindex="-1">Endpoint esposti</h2>
-<h3 id="cdu-15-stato-consenso" tabindex="-1">CDU-15 — Stato consenso</h3>
-<pre><code>GET /api/v1/consensi/stato
-    ?codice_fiscale={CF}
-    &amp;codice_consenso={cod}
-    &amp;codice_ente={ente}
-</code></pre>
-<p><strong>Scopo:</strong> Un SIA verifica lo stato corrente di un consenso per un dato cittadino.</p>
-<p><strong>Fonte dati:</strong></p>
-<ul>
-<li><code>cons_t_consenso</code> — ultimo record valido</li>
-<li><code>cons_d_informativa</code> — informativa associata</li>
-</ul>
-<p><strong>Response 200 (campi):</strong></p>
-<div class="table-wrapper"><table>
+<p>**FASE 0 – Setup &amp; Prerequisiti **<em><strong>(Settimane 1–2 · 10gg)</strong></em><br>
+Questa fase è il <strong>collo di bottiglia critico</strong>: molte attività dipendono da risorse esterne CSI/Nivola con latenze imprevedibili</p>
+<table>
 <thead>
 <tr>
-<th>Campo</th>
-<th>Tipo</th>
-<th>Note</th>
+<th><strong>Attività</strong></th>
+<th><strong>Responsabile</strong></th>
+<th><strong>Note</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>codice_fiscale</code></td>
-<td>string</td>
-<td>CF assistito</td>
+<td>Provisioning DBaaS Nivola (DEV + PROD)</td>
+<td>Exprivia → CSI/Nivola</td>
+<td>Richiedere scheda formale; almeno 2 istanze PG17</td>
 </tr>
 <tr>
-<td><code>codice_consenso</code></td>
-<td>string</td>
-<td>Tipo consenso (es. ROL)</td>
+<td>Richiesta credenziali AURA (IRIS) + WSDL</td>
+<td>Exprivia → CSI</td>
+<td>Specificare lista servizi (ricerca per CF, dati anagrafici)</td>
 </tr>
 <tr>
-<td><code>codice_ente</code></td>
-<td>string</td>
-<td>Codice ASR richiedente</td>
+<td>Documentazione tecnica GASP Salute</td>
+<td>Exprivia → CSI</td>
+<td>Protocollo OIDC/SAML2 da definire con referente CSI</td>
 </tr>
 <tr>
-<td><code>stato_consenso</code></td>
-<td>enum</td>
-<td>Vedi stati sotto</td>
+<td>Accesso repository componenti QUASAR CSI</td>
+<td>Exprivia → CSI</td>
+<td>Prerequisito per avvio sviluppo UI</td>
 </tr>
 <tr>
-<td><code>valore_consenso</code></td>
-<td>enum SI/NO/null</td>
-<td>null se NON_ESPRESSO</td>
-</tr>
-<tr>
-<td><code>data_espressione</code></td>
-<td>datetime UTC</td>
-<td>Quando il cittadino ha scelto</td>
-</tr>
-<tr>
-<td><code>data_inizio_validita_consenso</code></td>
-<td>date/null</td>
-<td>Inizio validità</td>
-</tr>
-<tr>
-<td><code>data_fine_validita_consenso</code></td>
-<td>date/null</td>
-<td>Fine validità (null = attivo)</td>
-</tr>
-<tr>
-<td><code>informativa.id</code></td>
-<td>long</td>
-<td>ID informativa corrente</td>
-</tr>
-<tr>
-<td><code>informativa.versione</code></td>
-<td>string</td>
-<td>Versione informativa</td>
-</tr>
-<tr>
-<td><code>informativa.data_decorrenza</code></td>
-<td>date</td>
-<td>Decorrenza informativa</td>
-</tr>
-<tr>
-<td><code>informativa.data_scadenza</code></td>
-<td>date/null</td>
-<td>Scadenza informativa (null = attiva)</td>
+<td>Registrazione app su Configuratore Regionale (PUA)</td>
+<td>Exprivia → CSI</td>
+<td>2 profili: Operatore Sanitario-Amm. e Back Office</td>
 </tr>
 </tbody>
-</table></div>
-<p><strong>HTTP status:</strong> 200, 400, 401, 403, 404, 500</p>
-<hr>
-<h3 id="cdu-16-configurazione-ente" tabindex="-1">CDU-16 — Configurazione ente</h3>
-<pre><code>GET /api/v1/configurazione/{codice_ente}
-</code></pre>
-<p><strong>Scopo:</strong> Un SIA scarica la configurazione completa dei consensi per il proprio ente — tipi attivi, informative correnti, endpoint SOAP di notifica.</p>
-<p><strong>Fonte dati:</strong></p>
-<ul>
-<li><code>cons_d_sotto_tipo_cons</code> — tipi consenso</li>
-<li><code>cons_d_informativa</code> — informative attive</li>
-<li><code>cons_r_asr_endpoint</code> + <code>cons_t_endpoint</code> — endpoint notifica</li>
-<li><code>cons_r_sotto_tipo_cons_asr_endpoint</code> — join tipo-ente-endpoint</li>
-</ul>
-<p><strong>Response 200 (struttura):</strong></p>
-<pre><code>consensi_attivi[]
-  ├── codice_consenso
-  ├── descrizione
-  ├── tipo (AZIENDALE | REGIONALE | NAZIONALE)
-  ├── informativa
-  │   ├── id
-  │   └── data_decorrenza
-  └── endpoints_notifica[]
-      ├── endp_id
-      └── endp_url  ← stessi URL che usa BATCH-01 per notifiche SOAP
-</code></pre>
-<p><strong>HTTP status:</strong> 200, 401, 403, 404, 500</p>
-<hr>
-<h2 id="sicurezza" tabindex="-1">Sicurezza</h2>
-<p><strong>Schema:</strong> Bearer JWT — OAuth2 Client Credentials flow. <strong>Niente API Gateway/Manager CSI</strong> (decisione §3.2 SRS v3): security gestita interamente a livello applicativo (Spring Security).</p>
-<p>Il SIA chiamante ottiene un token JWT dall'Authorization Server CSI Piemonte, incluso nell'header:</p>
-<pre><code>Authorization: Bearer &lt;token&gt;
-</code></pre>
-<p>Il token contiene il claim <code>client_id</code> del SIA chiamante. L'autorizzazione per ente non si poggia sul claim ma su tabella applicativa <code>cons_t_client_ente</code> che lega <code>client_id</code> → <code>codice_ente</code>. Difesa in profondità a 3 livelli (firma JWT + filter Spring Security + WHERE clause repository).</p>
-<blockquote>
-<p>Modello completo, claim minimi, pseudocodice filter, schema tabella, matrice attacchi/mitigazioni, audit log, testo proposto per SRS: <strong><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a></strong> (risposta tecnica al commento cliente TR30).</p>
-</blockquote>
-<hr>
-<h2 id="gestione-errori" tabindex="-1">Gestione errori</h2>
-<p>Tutti gli endpoint usano <strong>RFC 7807</strong> (Problem Details for HTTP APIs):</p>
-<pre><code class="language-json">{
-  &quot;type&quot;: &quot;https://gestioneconsensi.csi.piemonte.it/errors/not-found&quot;,
-  &quot;title&quot;: &quot;Not Found&quot;,
-  &quot;status&quot;: 404,
-  &quot;detail&quot;: &quot;Nessun consenso trovato per i parametri specificati.&quot;,
-  &quot;instance&quot;: &quot;/api/v1/consensi/stato&quot;
-}
-</code></pre>
-<p>Content-type: <code>application/problem+json</code></p>
-<hr>
-<h2 id="nota-semantica-critica-per-integratori-sia" tabindex="-1">Nota semantica critica per integratori SIA</h2>
-<blockquote>
-<p>⚠️ <strong>Stato SCADUTO — comportamento cambiato tra AS-IS e TO-BE</strong></p>
-</blockquote>
-<div class="table-wrapper"><table>
+</table>
+<p>**FASE 1 – Design Tecnico *<em><em><strong>(Settimane 2–3 · 10gg)</strong></em><br>
+Le attività di design possono partire in parallelo alle richieste della Fase 0.<br>
+<strong>Audit compatibilità PG9→PG17</strong> (obbligatorio per sez. 9.4): analisi sequence/SERIAL, funzioni deprecate (to_timestamp, date_part), comportamento NULLS FIRST/LAST in PG15, sintassi SQL ritirata<br>
+<strong>Design DDL Schema TO-BE</strong>: 25+ tabelle documentate nel cap. 8, incluse le proposte evolutive obbligatorie (8.4.1–8.4.10) — es. consttracciaservest, constbatcherrori, estensioni constnotifica e consrasrendpoint<br>
+<strong>Specifica <strong><strong>OpenAPI</strong></strong> 3.x (CDU-15 &amp; CDU-16)</strong>: da produrre a cura di Exprivia, con endpoint, schemi dati, Bearer Token JWT OAuth2 CC, gestione errori RFC 7807<br>
+<strong>Setup scheletro progetti</strong> Angular 19 + Spring Boot 3.4.10 (minimo) con pipeline CI/CD GitLab → Jenkins → SonarQube<br>
+<strong>Redazione CONSPREF-DMP</strong> (Data Migration Plan): documento separato, da assegnare formalmente al team<br>
+<strong>FASE 2 – Data Layer TO-BE <strong><em><strong>(Settimane 3–5 · 14gg)</strong></em><br>
+Implementazione completa del modello dati PostgreSQL 17 su istanza DBaaS Nivola.<br>
+Esecuzione DDL TO-BE (schema gestioneconsensi, utenza applicativa separata da DBA)<br>
+Applicazione di tutte le proposte evolutive obbligatorie: consttracciaservest (req. CDU-09/10/11), estensione constnotifica (BATCH-01/02/03), statoallineamento su consrasrendpoint (CDU-03, BATCH-03)<br>
+Configurazione connessione sicura: credenziali <strong>mai</strong> nel codice sorgente, iniettate via <strong>Kubernetes</strong></strong> Secret</strong> come variabili d'ambiente SPRING_DATASOURCE_</em><br>
+Configurazione pool HikariCP: maximum-pool-size ≤ 40 per replica (su istanza da 100 connessioni max, 2 repliche)<br>
+**FASE 3 – Backend Spring Boot 3 **<em><strong>(<strong><strong><strong>Settimane</strong></strong></strong> 4–11 · 49gg)</strong></em><br>
+Il backend è il componente più articolato, con 16 CDU, 3 batch e 4 integrazioni esterne.<br>
+<strong>Integrazioni esterne (parallele, sett. 4–7):</strong></p>
+<table>
 <thead>
 <tr>
-<th></th>
-<th>AS-IS</th>
-<th>TO-BE</th>
+<th><strong>Servizio</strong></th>
+<th><strong>Protocollo</strong></th>
+<th><strong>Autenticazione</strong></th>
+<th><strong>Stima</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Chi imposta SCADUTO</td>
-<td>Logica acquisizione durante SRV-01</td>
-<td>BATCH-02 su scadenza informativa</td>
+<td>AURA</td>
+<td>SOAP</td>
+<td>WS-Security UsernameToken (IRIS)</td>
+<td>5gg</td>
 </tr>
 <tr>
-<td>Quando</td>
-<td>Durante acquisizione (sincrono)</td>
-<td>A scadenza informativa (asincrono, notturno)</td>
+<td>Gestione Deleghe</td>
+<td>SOAP</td>
+<td>OAuth2 Client Credentials</td>
+<td>4gg</td>
 </tr>
 <tr>
-<td>Notifica ASR</td>
-<td>Sincrona durante acquisizione</td>
-<td>Nessuna notifica per SCADUTO — solo per ANNULLATO</td>
+<td>Notificatore UNP</td>
+<td>REST</td>
+<td>Token applicativo UNP</td>
+<td>3gg</td>
+</tr>
+<tr>
+<td>SIA ASR (BATCH-01 uscente)</td>
+<td>SOAP</td>
+<td>Contratto AS-IS invariato</td>
+<td>2gg</td>
 </tr>
 </tbody>
-</table></div>
-<p>I SIA che hanno logica basata sul vecchio comportamento devono aggiornare i propri processi interni. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a> §Cambiamenti semantici critici.</p>
-<hr>
-<h2 id="enum-stato-consenso" tabindex="-1">Enum StatoConsenso</h2>
-<div class="table-wrapper"><table>
+</table>
+<p><strong>CDU per area:</strong><br>
+<strong>Cittadino</strong> (CDU-01..06, sett. 5–8): accesso GASP Salute, consultazione, rilascio, modifica e PDF consenso · 20gg<br>
+<strong>Operatore Sanitario</strong> (CDU-07..11, sett. 7–9): ricerca assistito su AURA/SistemaTS, gestione consenso per conto · 14gg<br>
+<strong>Back Office</strong> (CDU-12..14, sett. 8–10): gestione tipi consenso, informative, enti/endpoint · 14gg<br>
+<strong>Servizi esposti SIA</strong> (CDU-15..16, sett. 9–11): REST con OpenAPI 3.x + SpringDoc UI · 10gg<br>
+<strong>BATCH-01/02/03</strong> + csilogaudit (sett. 8–11): notifiche SOAP, scadenza informative, allineamento nuovi endpoint · 21gg<br>
+**FASE 4 – <strong><strong>Frontend</strong></strong> <strong><strong>Angular</strong></strong> 19 **<em><strong>(Settimane 5–12 · 49gg, parallelo al Backend)</strong></em><br>
+SPA Angular sviluppata con i componenti <strong>QUASAR CSI</strong> come riferimento UI.<br>
+Web App <strong>Cittadino</strong>: autenticazione via redirect GASP Salute (SPID/CIE), cruscotto consensi, flusso rilascio/modifica/PDF<br>
+Web App <strong>Operatore</strong>: ricerca assistito, gestione consensi per conto<br>
+Web App <strong>Back Office</strong>: maschere configurazione tipi consenso, informative (upload PDF), enti/endpoint<br>
+Collaudo accessibilità <strong>AgID WCAG 2.1 livello AA</strong> (obbligatorio per go-live)<br>
+**FASE 5 – Testing &amp; QA **<em><strong>(Settimane 11–15 · 28gg)</strong></em><br>
+<strong>Unit + Integration Test</strong> (Spring Boot + Angular): copertura dei casi d'uso e degli algoritmi ALG01/ALG02 dei CDU<br>
+<strong>Security Test</strong>: OWASP Top 10, protezione CSRF su tutti i POST/PUT, TLS 1.2+, mascheramento CF nei log<br>
+<strong>UAT</strong> con referenti CSI/Regione Piemonte: validazione funzionale, test stati consenso (ATTIVO, NEGATO, SCADUTO, ANNULLATO) e cicli batch<br>
+**FASE 6 – Migrazione Dati PG9→PG17 **<em><strong>(Settimane 13–16 · 21gg)</strong></em><br>
+Il salto è di <strong>8 major release</strong>: non è possibile un upgrade in-place diretto.<br>
+<strong>Strategia</strong>: da scegliere nel CONSPREF-DMP tra pg_dump/restore (finestra manutenzione) o upgrade a step intermedi PG9→PG12→PG14→PG17 via pg_upgrade<br>
+Esecuzione della migrazione dati: DDL/DML, verifica integrità referenziale, conteggio record, test funzionali<br>
+Piano di <strong>rollback</strong> documentato e validato prima del go-live<br>
+<strong>FASE 7 – Go-Live <strong><em><strong>(Settimane 15–17 · 14gg)</strong></em><br>
+Deploy PROD tramite <strong>GitOps</strong></strong> ECaaS</strong> (tag GitLab → immagini Artifactory docker-projects → rollout Kubernetes)<br>
+Verifica livenessProbe / readinessProbe su tutti i Deployment, con requests/limits specificati<br>
+Consegna formale <strong>specifica <strong><strong>OpenAPI</strong></strong> Swagger</strong> per i sistemi SIA/ASR (CDU-15/16)<br>
+Attivazione monitoraggio: <strong>Prometheus</strong> per metriche, stack <strong>ELK</strong> per log centralizzati<br>
+<strong>Riepilogo Timeline</strong></p>
+<table>
 <thead>
 <tr>
-<th>Valore</th>
-<th>Significato</th>
-<th>Notifica BATCH-01 inviata?</th>
+<th><strong>Fase</strong></th>
+<th><strong>Settimane</strong></th>
+<th><strong>Durata stimata</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>NON_ESPRESSO</code></td>
-<td>Cittadino non ha mai scelto</td>
-<td>No</td>
+<td>FASE 0 – Setup &amp; Prerequisiti</td>
+<td>1–2</td>
+<td>10gg</td>
 </tr>
 <tr>
-<td><code>ATTIVO</code></td>
-<td>Consenso valido, informativa corrente</td>
-<td>Sì (su variazione)</td>
+<td>FASE 1 – Design Tecnico</td>
+<td>2–3</td>
+<td>10gg</td>
 </tr>
 <tr>
-<td><code>NEGATO</code></td>
-<td>Rifiuto esplicito, informativa corrente</td>
-<td>Sì (su variazione)</td>
+<td>FASE 2 – Data Layer TO-BE</td>
+<td>3–5</td>
+<td>14gg</td>
 </tr>
 <tr>
-<td><code>SCADUTO</code></td>
-<td>Informativa cambiata, <code>annulla_consensi=NO</code></td>
-<td><strong>No</strong></td>
+<td>FASE 3 – Backend API (Spring Boot)</td>
+<td>4–11</td>
+<td>49gg</td>
 </tr>
 <tr>
-<td><code>ANNULLATO</code></td>
-<td>Informativa cambiata, <code>annulla_consensi=SI</code></td>
-<td><strong>Sì</strong></td>
+<td>FASE 4 – Frontend (Angular 19)</td>
+<td>5–12</td>
+<td>49gg (parallelo)</td>
+</tr>
+<tr>
+<td>FASE 5 – Testing &amp; QA</td>
+<td>11–15</td>
+<td>28gg</td>
+</tr>
+<tr>
+<td>FASE 6 – Migrazione PG9→PG17</td>
+<td>13–16</td>
+<td>21gg</td>
+</tr>
+<tr>
+<td>FASE 7 – Go-Live</td>
+<td>15–17</td>
+<td>14gg</td>
+</tr>
+<tr>
+<td><strong>TOTALE (<strong><strong>elapsed</strong></strong>)</strong></td>
+<td><strong>17 sett.</strong></td>
+<td><strong>120gg lavorativi</strong></td>
 </tr>
 </tbody>
-</table></div>
-<hr>
-<h2 id="integrazione-con-spring-boot-note-sviluppatori" tabindex="-1">Integrazione con Spring Boot (note sviluppatori)</h2>
-<p>L'SRS raccomanda generazione automatica degli stub dal YAML:</p>
-<pre><code class="language-xml">&lt;!-- pom.xml --&gt;
-&lt;plugin&gt;
-  &lt;groupId&gt;org.openapitools&lt;/groupId&gt;
-  &lt;artifactId&gt;openapi-generator-maven-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;inputSpec&gt;${project.basedir}/src/main/resources/openapi-cdu-15-16.yaml&lt;/inputSpec&gt;
-    &lt;generatorName&gt;spring&lt;/generatorName&gt;
-    &lt;configOptions&gt;
-      &lt;useSpringBoot3&gt;true&lt;/useSpringBoot3&gt;
-      &lt;interfaceOnly&gt;true&lt;/interfaceOnly&gt;
-    &lt;/configOptions&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;
-</code></pre>
-<p>Swagger UI esposta in ambienti non produttivi su <code>/swagger-ui.html</code> tramite <strong>SpringDoc OpenAPI</strong>:</p>
-<pre><code class="language-xml">&lt;dependency&gt;
-  &lt;groupId&gt;org.springdoc&lt;/groupId&gt;
-  &lt;artifactId&gt;springdoc-openapi-starter-webmvc-ui&lt;/artifactId&gt;
-&lt;/dependency&gt;
-</code></pre>
-<hr>
-<h2 id="stato-consolidamento" tabindex="-1">Stato consolidamento</h2>
-<h3 id="consolidato-ricavato-da-srs" tabindex="-1">✅ Consolidato — ricavato da SRS</h3>
-<div class="table-wrapper"><table>
+</table>
+<p><strong>S****tima per i singoli sprint Agile</strong><br>
+**Note: **Piano Sprint Agile (10 sprint × 2 settimane)<br>
+Ogni sprint copre backend + frontend in parallelo. La stima in Story Points (SP) adotta una scala dove 1 SP = 4 ore di lavoro di un singolo sviluppatore.<br>
+**Sprint 0 – Setup &amp; Prerequisiti **<em><strong>(Sett. 1–2 | 13 SP)</strong></em></p>
+<table>
 <thead>
 <tr>
-<th>#</th>
-<th>Elemento</th>
-<th>Fonte</th>
+<th><strong>Attività</strong></th>
+<th><strong>Area</strong></th>
+<th><strong>SP</strong></th>
+<th><strong>Output</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>C01</td>
-<td>Endpoint CDU-15: <code>GET /api/v1/consensi/stato</code></td>
-<td>SRS §6.15</td>
+<td>Richiesta scheda provisioning DBaaS Nivola DEV+PROD</td>
+<td>Infra</td>
+<td>2</td>
+<td>Ticket formale Nivola</td>
 </tr>
 <tr>
-<td>C02</td>
-<td>Endpoint CDU-16: <code>GET /api/v1/configurazione/{codice_ente}</code></td>
-<td>SRS §6.16</td>
+<td>Richiesta credenziali AURA (IRIS) + lista servizi</td>
+<td>Infra</td>
+<td>1</td>
+<td>Email formale CSI</td>
 </tr>
 <tr>
-<td>C03</td>
-<td>Query params CDU-15: <code>codice_fiscale</code>, <code>codice_consenso</code>, <code>codice_ente</code></td>
-<td>SRS §6.15 scenario principale</td>
+<td>Richiesta doc GASP Salute (protocollo OIDC/SAML2)</td>
+<td>Infra</td>
+<td>1</td>
+<td>Documentazione tecnica</td>
 </tr>
 <tr>
-<td>C04</td>
-<td>Path param CDU-16: <code>codice_ente</code></td>
-<td>SRS §6.16 scenario principale</td>
+<td>Accesso repo componenti QUASAR CSI</td>
+<td>Infra</td>
+<td>1</td>
+<td>Accesso repository</td>
 </tr>
 <tr>
-<td>C05</td>
-<td>Tutti i campi response CDU-15 (9 campi + nested informativa)</td>
-<td>SRS §6.15 response 200</td>
+<td>Registrazione app PUA (2 profili Back Office)</td>
+<td>Infra</td>
+<td>2</td>
+<td>Configuratore Regionale</td>
 </tr>
 <tr>
-<td>C06</td>
-<td>Struttura response CDU-16 (consensi_attivi + informativa + endpoints_notifica)</td>
-<td>SRS §6.16 response 200</td>
+<td>Audit PG9→PG17 (sez. 9.4) – analisi DDL AS-IS</td>
+<td>DB</td>
+<td>3</td>
+<td>Report compatibilità</td>
 </tr>
 <tr>
-<td>C07</td>
-<td>Auth: Bearer JWT OAuth2 Client Credentials</td>
-<td>SRS §6.15–6.16 + Q&amp;A CSI <a class="tag" onclick="toggleTagSearch(this)" data-content="#6">#6</a></td>
-</tr>
-<tr>
-<td>C08</td>
-<td>Errori RFC 7807 su tutti gli endpoint</td>
-<td>SRS §4.x</td>
-</tr>
-<tr>
-<td>C09</td>
-<td>HTTP status codes CDU-15: 200/400/401/403/404/500</td>
-<td>SRS §6.15</td>
-</tr>
-<tr>
-<td>C10</td>
-<td>HTTP status codes CDU-16: 200/401/403/404/500</td>
-<td>SRS §6.16</td>
-</tr>
-<tr>
-<td>C11</td>
-<td>Enum StatoConsenso: 5 valori (NON_ESPRESSO/ATTIVO/NEGATO/SCADUTO/ANNULLATO)</td>
-<td>SRS §5 macchina a stati</td>
-</tr>
-<tr>
-<td>C12</td>
-<td>Enum ValoreConsenso: SI/NO/null</td>
-<td>SRS §5</td>
-</tr>
-<tr>
-<td>C13</td>
-<td>Enum tipo consenso: AZIENDALE/REGIONALE/NAZIONALE</td>
-<td>SRS §5 + CONSPREF-SRS-01-V03</td>
-</tr>
-<tr>
-<td>C14</td>
-<td>Base path <code>/api/v1/</code></td>
-<td>SRS §6.15 (esplicito)</td>
-</tr>
-<tr>
-<td>C15</td>
-<td>Pattern CF: regex <code>^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$</code></td>
-<td>standard italiano</td>
-</tr>
-<tr>
-<td>C16</td>
-<td>Tabelle DB sorgente per ogni endpoint</td>
-<td>SRS §6.15–6.16 + §8</td>
-</tr>
-<tr>
-<td>C17</td>
-<td><code>endp_url</code> in CDU-16 = stessi URL usati da BATCH-01</td>
-<td>SRS §7.1 + §6.16</td>
-</tr>
-<tr>
-<td>C18</td>
-<td>Generazione stub via <code>openapi-generator-maven-plugin</code></td>
-<td>SRS §4 prerequisiti OpenAPI</td>
-</tr>
-<tr>
-<td>C19</td>
-<td>Swagger UI via SpringDoc su <code>/swagger-ui.html</code> (non-prod)</td>
-<td>SRS §4</td>
+<td>Redazione CONSPREF-DMP (documento migrazione)</td>
+<td>DB</td>
+<td>3</td>
+<td>DMP bozza v1</td>
 </tr>
 </tbody>
-</table></div>
-<hr>
-<h3 id="da-consolidare-con-csi-piemonte" tabindex="-1">❌ Da consolidare con CSI Piemonte</h3>
-<div class="table-wrapper"><table>
+</table>
+<p>**Note: **DBaaS Nivola e credenziali IRIS/AURA hanno latenze esterne imprevedibili. Vanno avviate nel giorno 1.<br>
+**Sprint 1 – Foundation **<em><strong>(Sett. 3–4 | 19 SP)</strong></em></p>
+<table>
 <thead>
 <tr>
-<th>ID</th>
-<th>Informazione mancante</th>
-<th>Impatto sul YAML</th>
-<th>Priorità</th>
+<th><strong>Attività</strong></th>
+<th><strong>Area</strong></th>
+<th><strong>SP</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>TODO-M1</td>
-<td>URL Authorization Server CSI + JWKS endpoint</td>
-<td><code>securitySchemes.bearerAuth</code> — ora placeholder</td>
-<td>🔴 Pre go-live</td>
+<td>Setup scheletro Angular 19 + QUASAR CSI + pipeline CI/CD</td>
+<td>Infra/FE</td>
+<td>3</td>
 </tr>
 <tr>
-<td>TODO-M2</td>
-<td>Scope OAuth2 richiesto per client SIA (es. <code>consensi:read</code>)</td>
-<td>Documentazione integrazione SIA</td>
-<td>🔴 Pre go-live</td>
+<td>Setup Spring Boot 3.4.10 + SpringDoc + Helm Chart</td>
+<td>Infra/BE</td>
+<td>3</td>
 </tr>
 <tr>
-<td>TODO-M3</td>
-<td>Paginazione su CDU-16 richiesta?</td>
-<td>Aggiunta <code>page</code>/<code>size</code> query params + <code>PaginatedResponse</code> schema</td>
-<td>🟠 Sprint 2</td>
+<td>DDL TO-BE base: 12 tabelle lookup (consd*, consdf*)</td>
+<td>DB</td>
+<td>5</td>
 </tr>
 <tr>
-<td>TODO-M4</td>
-<td>SLA: rate limit per client, timeout massimo risposta</td>
-<td>Header <code>X-RateLimit-*</code>, note NFR</td>
-<td>🟡 Pre UAT</td>
+<td>Kubernetes Secret per credenziali DBaaS + HikariCP config</td>
+<td>DB</td>
+<td>2</td>
 </tr>
 <tr>
-<td>TODO-M5</td>
-<td>Lista ASR coinvolte + <code>client_id</code> per env DEV/PROD</td>
-<td>Env-specific server URLs, test setup</td>
-<td>🟡 Sprint 3</td>
+<td>Integrazione GASP Salute (backend: validazione token/asserzione)</td>
+<td>BE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Setup SLF4j/Logback + struttura csilogaudit</td>
+<td>BE</td>
+<td>2</td>
 </tr>
 </tbody>
-</table></div>
-<hr>
-<h3 id="da-produrre-internamente-exprivia" tabindex="-1">🔧 Da produrre internamente (Exprivia)</h3>
-<div class="table-wrapper"><table>
+</table>
+<p>**Sprint 2 – Autenticazione &amp; Integrazioni **<em><strong>(Sett. 5–6 | 23 SP)</strong></em></p>
+<table>
 <thead>
 <tr>
-<th>ID</th>
-<th>Attività</th>
-<th>Scadenza raccomandata</th>
+<th><strong>Attività</strong></th>
+<th><strong>Area</strong></th>
+<th><strong>SP</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>P01</td>
-<td>Validazione YAML con Swagger Editor / <code>swagger-codegen validate</code></td>
-<td>Immediato</td>
+<td>Frontend CDU-01: pagina login, redirect GASP Salute, selezione profilo</td>
+<td>FE</td>
+<td>5</td>
 </tr>
 <tr>
-<td>P02</td>
-<td>Aggiornare versione da <code>0.1-DRAFT</code> a <code>0.1</code> dopo validazione CSI bozza</td>
-<td>Post prima review CSI</td>
+<td>Backend CDU-01: lettura deleghe, getTokenInformation2 PUA</td>
+<td>BE</td>
+<td>4</td>
 </tr>
 <tr>
-<td>P03</td>
-<td>Copia YAML in <code>src/main/resources/</code> del progetto Spring Boot</td>
-<td>Sprint 1</td>
+<td>Client SOAP AURA (Apache CXF): WS-Security UsernameToken su IRIS</td>
+<td>BE</td>
+<td>5</td>
 </tr>
 <tr>
-<td>P04</td>
-<td>Configurare <code>openapi-generator-maven-plugin</code> per generazione stub</td>
-<td>Sprint 1</td>
+<td>Client SOAP Gestione Deleghe (OAuth2 Client Credentials)</td>
+<td>BE</td>
+<td>4</td>
 </tr>
 <tr>
-<td>P05</td>
-<td>Implementare endpoint CDU-15 e CDU-16 (Sprint 6 nel piano)</td>
-<td>Sprint 6</td>
-</tr>
-<tr>
-<td>P06</td>
-<td>Condividere bozza con referenti tecnici ASR per feedback</td>
-<td><strong>Anticipare a Sprint 2</strong> (non Sprint 6)</td>
-</tr>
-<tr>
-<td>P07</td>
-<td>Compilare TODO-M1÷M5 e rimuovere <code>-DRAFT</code> dalla versione</td>
-<td>Prima di Sprint 6</td>
-</tr>
-<tr>
-<td>P08</td>
-<td>Test integrazione con SIA DEV (mock → reale)</td>
-<td>Sprint 8</td>
+<td>DDL TO-BE esteso: tabelle cons_t_consenso, cons_s_consenso, cons_r_asr_endpoint + proposte 8.4.x</td>
+<td>DB</td>
+<td>5</td>
 </tr>
 </tbody>
-</table></div>
-<hr>
-<h2 id="cronologia-versioni" tabindex="-1">Cronologia versioni</h2>
-<div class="table-wrapper"><table>
+</table>
+<p>**Sprint 3 – CDU-03/04/05 Cittadino **<em><strong>(Sett. 7–8 | 27 SP)</strong></em><br>
+Questo è lo sprint più complesso per la macchina a stati del consenso (ATTIVO / NEGATO / SCADUTO / ANNULLATO).</p>
+<table>
 <thead>
 <tr>
-<th>Versione</th>
-<th>Data</th>
-<th>Autore</th>
-<th>Modifiche</th>
+<th><strong>Attività</strong></th>
+<th><strong>Area</strong></th>
+<th><strong>SP</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>0.1-DRAFT</td>
-<td>2026-05-06</td>
-<td>Exprivia (wiki LLM)</td>
-<td>Prima bozza da SRS §6.15–6.16</td>
+<td>BE CDU-03: ALG01 caricamento consensi esprimibili (flag online), ALG02 salvataggio constconsenso + constnotifica</td>
+<td>BE</td>
+<td>6</td>
+</tr>
+<tr>
+<td>FE CDU-02: cruscotto consensi, card per stato, raggruppamento per tipo</td>
+<td>FE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>FE CDU-03: lista tipologie, viewer PDF informativa, checkbox presa visione, radio SI/NO</td>
+<td>FE</td>
+<td>5</td>
+</tr>
+<tr>
+<td>BE CDU-04: macchina a stati (SCADUTO→riaccetta informativa, ANNULLATO→flusso ex-novo), storicizzazione constconsenso UPDATE+INSERT</td>
+<td>BE</td>
+<td>6</td>
+</tr>
+<tr>
+<td>BE CDU-05: modifica valore consenso ATTIVO/NEGATO (senza riaccettazione informativa)</td>
+<td>BE</td>
+<td>3</td>
+</tr>
+<tr>
+<td>FE CDU-04/05: due bottoni distinti <em>Modifica Consenso</em> / <em>Cambia Valore</em>, maschera adattiva per stato</td>
+<td>FE</td>
+<td>3</td>
 </tr>
 </tbody>
-</table></div>
-<hr>
-<h2 id="prossimi-passi" tabindex="-1">Prossimi passi</h2>
-<ol>
-<li><strong>Subito:</strong> validare il YAML con Swagger Editor (incolla <code>openapi-cdu-15-16-v0.1.yaml</code>)</li>
-<li><strong>Sprint 0:</strong> richiedere a CSI URL Auth Server (TODO-M1) e scope (TODO-M2)</li>
-<li><strong>Sprint 1:</strong> copiare YAML nel progetto, configurare plugin Maven</li>
-<li><strong>Sprint 2:</strong> condividere bozza con ASR + raccogliere feedback su TODO-M3/M4/M5</li>
-<li><strong>Prima di Sprint 6:</strong> compilare tutti i TBD, rilasciare versione <code>1.0</code></li>
-</ol>
-<hr>
-<h2 id="adr-correlati" tabindex="-1">ADR correlati</h2>
-<div class="table-wrapper"><table>
+</table>
+<p>**Sprint 4 – CDU-06/07/08 **<em><strong>(Sett. 9–10 | 24 SP)</strong></em></p>
+<table>
 <thead>
 <tr>
-<th>ADR</th>
-<th>Decisione</th>
+<th><strong>Attività</strong></th>
+<th><strong>Area</strong></th>
+<th><strong>SP</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="/srs_cons_git/wiki/docs/adr/adr-004-no-api-gateway/" class="internal-link" target>ADR-004</a></td>
-<td>No API Gateway — sicurezza applicativa</td>
+<td>BE CDU-06: generazione PDF (iText7 o PDFBox), streaming binario con Content-Disposition attachment</td>
+<td>BE</td>
+<td>5</td>
 </tr>
 <tr>
-<td><a href="/srs_cons_git/wiki/docs/adr/adr-005-sicurezza-cdu-15-16/" class="internal-link" target>ADR-005</a></td>
-<td>Modello sicurezza CDU-15/16 OAuth2 CC + JWT</td>
+<td>FE CDU-06: pulsante download PDF, preview inline</td>
+<td>FE</td>
+<td>3</td>
 </tr>
 <tr>
-<td><a href="/srs_cons_git/wiki/docs/adr/adr-018-rfc-7807-error-response/" class="internal-link" target>ADR-018</a></td>
-<td>RFC 7807 error response</td>
+<td>BE CDU-07: ALG01 ricerca assistito su AURA → fallback SistemaTS, tracciatura cons_t_traccia_servest</td>
+<td>BE</td>
+<td>6</td>
 </tr>
 <tr>
-<td><a href="/srs_cons_git/wiki/docs/adr/adr-016-scaduto-async-batch-02/" class="internal-link" target>ADR-016</a></td>
-<td>Stato SCADUTO async (semantica cambiata vs AS-IS)</td>
+<td>FE CDU-07: maschera ricerca (CF oppure nome+cognome+data), tabella risultati con dati AURA</td>
+<td>FE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>BE CDU-08: caricamento lista consensi assistito (logica identica CDU-02, fonte diversa)</td>
+<td>BE</td>
+<td>3</td>
+</tr>
+<tr>
+<td>FE CDU-08: visualizzazione consensi assistito da operatore</td>
+<td>FE</td>
+<td>3</td>
 </tr>
 </tbody>
-</table></div>
+</table>
+<p>**Sprint 5 – CDU-09/10/11/12 **<em><strong>(Sett. 11–12 | 26 SP)</strong></em></p>
+<table>
+<thead>
+<tr>
+<th><strong>Attività</strong></th>
+<th><strong>Area</strong></th>
+<th><strong>SP</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BE CDU-09/10/11: ALG02 – gestione consenso per conto, valorizzazione fonteid=PASS, loginoperazione, ruoloopid</td>
+<td>BE</td>
+<td>6</td>
+</tr>
+<tr>
+<td>FE CDU-09/10/11: re-uso componenti CDU-03/04/05 con contesto operatore</td>
+<td>FE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Integrazione Notificatore UNP (REST, token applicativo)</td>
+<td>BE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>BE CDU-12: ALG01 popolamento dinamico EntiAziende per tipo (Nazionale/Regionale/Aziendale), ALG02 salvataggio cons_d_sotto_tipo_cons + cons_r_consenso_parametro + cons_r_consenso_valore</td>
+<td>BE</td>
+<td>6</td>
+</tr>
+<tr>
+<td>FE CDU-12: form multi-sezione (Dati Generali, Parametri, EntiAziende), logica Regionale → espansione su tutte le ASR</td>
+<td>FE</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>**Sprint 6 – CDU-13/14/15/16 **<em><strong>(Sett. 13–14 | 27 SP)</strong></em></p>
+<table>
+<thead>
+<tr>
+<th><strong>Attività</strong></th>
+<th><strong>Area</strong></th>
+<th><strong>SP</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BE CDU-13: upload PDF informativa, gestione versioning, flag annullaconsensi, online, scadenza</td>
+<td>BE</td>
+<td>5</td>
+</tr>
+<tr>
+<td>FE CDU-13: maschera upload PDF, date-picker validità, flag checkbox</td>
+<td>FE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>BE CDU-14: CRUD enti cons_d_asr + endpoint cons_t_endpoint + relazioni cons_r_sotto_tipo_cons_asr_endpoint</td>
+<td>BE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>FE CDU-14: gestione enti/endpoint con associazione tipologie consenso</td>
+<td>FE</td>
+<td>3</td>
+</tr>
+<tr>
+<td>BE CDU-15: GET /api/v1/consensi/stato – Bearer JWT OAuth2 CC, response RFC 7807</td>
+<td>BE</td>
+<td>5</td>
+</tr>
+<tr>
+<td>BE CDU-16: GET /api/v1/configurazione/{codiceEnte} – risposta JSON configurazioni attive</td>
+<td>BE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Specifica OpenAPI 3.x CDU-15/16 + validazione swagger-parser + stub openapi-generator-maven-plugin</td>
+<td>BE</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>**Sprint 7 – BATCH &amp; Audit **<em><strong>(Sett. 15–16 | 15 SP)</strong></em></p>
+<table>
+<thead>
+<tr>
+<th><strong>Attività</strong></th>
+<th><strong>Area</strong></th>
+<th><strong>SP</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BATCH-01: notifica consensi verso ASR (SOAP AS-IS), lettura cons_t_notifica, invio, aggiornamento stato</td>
+<td>BE</td>
+<td>5</td>
+</tr>
+<tr>
+<td>BATCH-02: notifica scadenza/annullamento informativa → aggiornamento stati + inserimento cons_t_notifica + chiamata UNP</td>
+<td>BE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>BATCH-03: allineamento consensi per nuovi endpoint (statoallineamento=INCORSO → COMPLETATO), gestione cons_t_batch_errori</td>
+<td>BE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Completamento audit log csilogaudit + cons_t_traccia_servest su tutti i CDU</td>
+<td>BE</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>**Sprint 8 – Testing &amp; Security **<em><strong>(Sett. 17–18 | 24 SP)</strong></em></p>
+<table>
+<thead>
+<tr>
+<th><strong>Attività</strong></th>
+<th><strong>SP</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unit test Spring Boot (JUnit 5/Mockito): copertura CDU, algoritmi ALG01/ALG02</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Integration test con DB PG17 DEV (Testcontainers)</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Test Angular (Jasmine/Karma): componenti UI, form validation</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Security test OWASP Top 10, CSRF (POST/PUT), TLS 1.2+, mascheramento CF nei log</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Test stati consenso: cicli completi macchina a stati su tutti i path</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>**Sprint 9 – UAT, <strong><strong>Migrazione</strong></strong>, Go-Live **<em><strong>(Sett. 19–20 | 19 SP)</strong></em></p>
+<table>
+<thead>
+<tr>
+<th><strong>Attività</strong></th>
+<th><strong>SP</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UAT con CSI / Regione Piemonte: scenari funzionali su ambiente TEST</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Esecuzione migrazione PG9→PG17 (dettaglio sotto)</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Verifica post-migrazione + rollback check</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Deploy PROD GitOps (tag GitLab → Artifactory → Kubernetes rollout)</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Consegna Swagger SIA + monitoraggio ELK/Prometheus</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Migrazione PG9 → PG17 (CONSPREF-DMP)</strong><br>
+Il salto copre 8 major release: pg_upgrade non supporta upgrade diretti su distanze così grandi, quindi la strategia raccomandata per il contesto DBaaS Nivola è il dump &amp; restore logico.<br>
+<strong>Punti critici da ispezionare sul DDL AS-IS di PG9:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Categoria</strong></th>
+<th><strong>Rischio PG9→PG17</strong></th>
+<th><strong>Azione</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Autenticazione</td>
+<td>pg_hba.conf usa md5 → PG17 default è scram-sha-256</td>
+<td>Aggiornare connessioni JDBC + Spring datasource</td>
+</tr>
+<tr>
+<td>Tipi deprecati</td>
+<td>SERIAL/BIGSERIAL ancora supportati ma sconsigliati</td>
+<td>Migrare a GENERATED ALWAYS AS IDENTITY nel TO-BE</td>
+</tr>
+<tr>
+<td>recovery.conf</td>
+<td>Rimosso in PG12, integrato in postgresql.conf</td>
+<td>Non rilevante per DBaaS (gestito da Nivola)</td>
+</tr>
+<tr>
+<td>default_with_oids</td>
+<td>Rimosso in PG12</td>
+<td>Verificare tabelle AS-IS con WITH OIDS</td>
+</tr>
+<tr>
+<td>JSON/JSONB</td>
+<td>json_* in PG9 limitato → PG17 ricco di funzioni</td>
+<td>Rivalutare query che usano operatori -&gt;, -&gt;&gt;</td>
+</tr>
+<tr>
+<td>Sequenze orfane</td>
+<td>Sequenze associate a oggetti droppati rimangono</td>
+<td>Eseguire SELECT * FROM pg_sequences e pulire</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>Comportamento AT TIME ZONE cambiato in PG15</td>
+<td>Test espliciti su campi dataacquisizione, datafine</td>
+</tr>
+<tr>
+<td>to_char con TZ</td>
+<td>Comportamento lievemente diverso</td>
+<td>Test su tutte le query con formattazione date</td>
+</tr>
+</tbody>
+</table>
+<em>Step 2 – Dump <strong><strong>dell'istanza</strong></strong> AS-IS <strong><em><strong>(Sprint 9)</strong></em><br>
+<strong># <strong><strong>Dump</strong></strong> schema + dati (formato custom, compresso)</strong><br>
+<strong>pg_dump</strong></strong> -Fc -v *</em><br>
+** -h -p 5432 *<br>
+** *<em><em><em>-U <strong><strong>consappuser</strong></strong> *</em><br>
+** -d <strong><strong>gestioneconsensi</strong></strong> *</em><br>
+** --no-<strong><strong>owner</strong></strong> --no-<strong><strong>acl</strong></strong> *</em><br>
+** **<strong>-f dump_conspref_pg9_<mjx-container class="MathJax" jax="SVG" style="direction:ltr;position:relative"><svg style="overflow:visible;min-height:1px;min-width:1px;vertical-align:-.452ex" xmlns="http://www.w3.org/2000/svg" width="834.842ex" height="2.149ex" role="img" focusable="false" viewBox="0 -750 369000 950" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="merror" data-mjx-error="You can't use 'macro parameter character #' in math mode" title="You can't use 'macro parameter character #' in math mode"><rect data-background="true" width="369000" height="950" y="-200" style="fill:yellow;stroke:none"></rect><title>You can't use 'macro parameter character #' in math mode</title><g data-mml-node="mtext" style="fill:red;stroke:red;font-family:serif"><text data-variant="-explicitFont" transform="scale(1,-1)" font-size="884px">(date +%****Y%m%d****).dump** Il dump non include owner/ACL per compatibilità con il nuovo schema DBaaS Nivola**.** **Step 3 – ****Restore**** su PG17 DEV *****(Sprint 9)*** **# Crea schema vuoto sul ****DBaaS**** PG17** **psql**** -h &lt;host-pg17-dev&gt; -U ****consappuser**** \** ** ****-d ****gestioneconsensi**** \** ** -c "CREATE SCHEMA IF NOT EXISTS ****conspref****;"** **# ****Restore** **pg_restore**** -****Fc**** -v \** ** ****-h &lt;host-pg17-dev&gt; -p 5432 \** ** ****-U ****consappuser**** \** ** -d ****gestioneconsensi**** \** ** --no-****owner**** --no-****acl**** \** ** ****dump_conspref_pg9_</text></g></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline" style="top:0;left:0;clip:rect(1px,1px,1px,1px);-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;position:absolute;padding:1px 0 0 0;border:0;display:block;width:auto;overflow:hidden"><math xmlns="http://www.w3.org/1998/Math/MathML"><merror data-mjx-error="You can't use 'macro parameter character #' in math mode" title="You can't use 'macro parameter character #' in math mode"><mtext>(date +%****Y%m%d****).dump** Il dump non include owner/ACL per compatibilità con il nuovo schema DBaaS Nivola**.** **Step 3 – ****Restore**** su PG17 DEV *****(Sprint 9)*** **# Crea schema vuoto sul ****DBaaS**** PG17** **psql**** -h &lt;host-pg17-dev&gt; -U ****consappuser**** \** ** ****-d ****gestioneconsensi**** \** ** -c "CREATE SCHEMA IF NOT EXISTS ****conspref****;"** **# ****Restore** **pg_restore**** -****Fc**** -v \** ** ****-h &lt;host-pg17-dev&gt; -p 5432 \** ** ****-U ****consappuser**** \** ** -d ****gestioneconsensi**** \** ** --no-****owner**** --no-****acl**** \** ** ****dump_conspref_pg9_</mtext></merror></math></mjx-assistive-mml></mjx-container>(date +%<strong><strong>Y%m%d</strong></strong>).dump</strong><br>
+**Step 4 – Validazione Post-**<strong>Restore</strong>
+<table>
+<thead>
+<tr>
+<th><strong>Check</strong></th>
+<th><strong>Query / Metodo</strong></th>
+<th><strong>Atteso</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conteggio record per tabella</td>
+<td>SELECT relname, n_live_tup FROM pg_stat_user_tables ORDER BY 1</td>
+<td>Uguale a AS-IS</td>
+</tr>
+<tr>
+<td>Integrità FK</td>
+<td>SELECT conname FROM pg_constraint WHERE contype='f' + test insert</td>
+<td>Nessun errore</td>
+</tr>
+<tr>
+<td>Sequenze correnti</td>
+<td>SELECT * FROM pg_sequences</td>
+<td>Valori &gt; MAX(id) di ogni tabella</td>
+</tr>
+<tr>
+<td>Funzioni custom</td>
+<td>\df in psql</td>
+<td>Tutte presenti</td>
+</tr>
+<tr>
+<td>Test stati consenso</td>
+<td>Script SQL che percorre la macchina a stati (ATTIVO→SCADUTO→ANNULLATO)</td>
+<td>Transizioni corrette</td>
+</tr>
+<tr>
+<td>Performance query critiche</td>
+<td>EXPLAIN ANALYZE sulle query principali di CDU-02, CDU-07, BATCH-01</td>
+<td>Piani ragionevoli, no Seq Scan su tabelle grandi</td>
+</tr>
+</tbody>
+</table>
+<p>**Step 5 – <strong><strong>Cutover</strong></strong> PROD **<em><strong>(Sprint 9, finestra manutenzione)</strong></em><br>
+Stop applicazione (Kubernetes: kubectl scale deploy/gestione-consensi-backend --replicas=0)<br>
+Dump finale dell'istanza PG9 PROD (delta dall'ultimo dump)<br>
+Restore incrementale su PG17 PROD<br>
+Aggiornamento Kubernetes Secret con nuova stringa JDBC PG17<br>
+Restart (--replicas=2), verifica readinessProbe<br>
+Smoke test: login Cittadino, rilascio consenso, verifica constnotifica<br>
+Monitoraggio ELK per 30 minuti post-cutover<br>
+**Piano di <strong><strong>rollback</strong></strong>: **se entro 30 minuti si rilevano anomalie critiche, ripristino dei Kubernetes Secret con stringa JDBC PG9 e restart. L'istanza PG9 rimane attiva in standby per almeno 48 ore dopo il go-live</p>
 <div style="margin-top:2.5rem;width:100%">
 <script src="https://giscus.app/client.js" data-repo="caccu/srs_cons_git" data-repo-id="R_kgDOSgs_Cw" data-category="General" data-category-id="DIC_kwDOSgs_C84C9cl-" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="it" crossorigin="anonymous" async></script>
 </div>
-</main>
 <aside>
 <div class="sidebar">
 <div class="sidebar-container">
@@ -1011,5 +1196,4 @@
 <script defer="defer" src="https://unpkg.com/lucide@latest"></script>
 <script defer="defer">document.addEventListener("DOMContentLoaded",(()=>{lucide.createIcons({attrs:{class:["svg-icon"]}})}))</script>
 <script>document.addEventListener("DOMContentLoaded",(function(){document.querySelectorAll(".obsidian-bases-views").forEach((function(e){var t=e.querySelector(".obsidian-bases-active-view"),a=e.querySelector(".obsidian-bases-dropdown"),i=e.querySelectorAll(".obsidian-bases-dropdown-item"),n=e.querySelectorAll(".obsidian-bases-view-panel"),o=e.querySelector(".obsidian-bases-active-view-name"),r=e.querySelector(".obsidian-bases-count-value");t&&a&&(t.addEventListener("click",(function(e){e.stopPropagation();var i="none"!==a.style.display;a.style.display=i?"none":"block",t.setAttribute("aria-expanded",!i)})),document.addEventListener("click",(function(){a.style.display="none",t.setAttribute("aria-expanded","false")})),i.forEach((function(s){s.addEventListener("click",(function(s){s.stopPropagation();var d=this.getAttribute("data-view-index");i.forEach((function(e){e.classList.remove("active")})),this.classList.add("active"),n.forEach((function(e){e.style.display="none"}));var l=e.querySelector('.obsidian-bases-view-panel[data-view-index="'+d+'"]');l&&(l.style.display="block");var c=this.querySelector(".obsidian-bases-view-icon"),u=t.querySelector(".obsidian-bases-view-icon");if(c&&u&&u.replaceWith(c.cloneNode(!0)),o&&(o.textContent=this.textContent.trim()),r&&l){var b=l.querySelectorAll("tbody tr:not(.obsidian-base-group-row), .obsidian-base-card, .obsidian-base-list li");r.textContent=b.length}a.style.display="none",t.setAttribute("aria-expanded","false")}))})))})),document.querySelectorAll(".bases-dynamic-date").forEach((function(e){var t=e.getAttribute("data-type"),a=new Date;if("today"===t){var i=a.getFullYear(),n=String(a.getMonth()+1).padStart(2,"0"),o=String(a.getDate()).padStart(2,"0");e.textContent=i+"-"+n+"-"+o}else if("now"===t){i=a.getFullYear(),n=String(a.getMonth()+1).padStart(2,"0"),o=String(a.getDate()).padStart(2,"0");var r=String(a.getHours()).padStart(2,"0"),s=String(a.getMinutes()).padStart(2,"0");e.textContent=i+"-"+n+"-"+o+" "+r+":"+s}}))}))</script>
-</body>
 </html>
