@@ -16,6 +16,17 @@
         }
     }
 
+    window.openSearchFromSidebar = function () {
+        const searchContainer = document.getElementById('globalsearch');
+        const searchInput = document.getElementById('term');
+        if (!searchContainer || !searchInput) return;
+        if (!searchContainer.classList.contains('active')) {
+            searchContainer.classList.add('active');
+        }
+        searchInput.focus();
+        searchInput.select();
+    }
+
     window.toggleTagSearch = function (evt) {
         const term = evt.textContent;
         if (term) {
