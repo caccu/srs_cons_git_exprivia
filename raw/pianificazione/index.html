@@ -33,7 +33,6 @@
 <link rel="manifest" href="/manifest.webmanifest">
 <style></style>
 </head>
-<body class="theme-dark markdown-preview-view markdown-rendered markdown-preview-section">
 <div x-init="isDesktop = (window.innerWidth>=1000) ? true: false;" x-on:resize.window="isDesktop = (window.innerWidth>=1000) ? true : false;" x-data="{isDesktop: true, showFilesMobile: false}">
 <div x-show.important="!isDesktop" style="display:none">
 <nav class="navbar">
@@ -473,15 +472,14 @@
 </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"></script>
-<script>document.addEventListener("DOMContentLoaded",init,!1),document.addEventListener("DOMContentLoaded",setCorrectShortcut,!1);const previewCache=new Map;window.toggleSearch=function(){const e=document.getElementById("globalsearch");e.classList.contains("active")?e.classList.remove("active"):(e.classList.add("active"),document.getElementById("term").focus())},window.openSearchFromSidebar=function(){const e=document.getElementById("globalsearch"),t=document.getElementById("term");e&&t&&(e.classList.contains("active")||e.classList.add("active"),t.focus(),t.select())},window.toggleTagSearch=function(e){const t=e.textContent;t&&(document.getElementById("term").value=t.trim(),window.toggleSearch(),window.search())};const loadingSvg='\n    <div style="display: flex; justify-content: center; padding: 40px;">\n        <svg width="40" height="40" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">\n            <g fill="none" fill-rule="evenodd" transform="translate(1 1)" stroke-width="2">\n                <circle cx="22" cy="22" r="6" stroke-opacity="0">\n                    <animate attributeName="r" begin="1.5s" dur="3s" values="6;22" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-opacity" begin="1.5s" dur="3s" values="1;0" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-width" begin="1.5s" dur="3s" values="2;0" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n                <circle cx="22" cy="22" r="6" stroke-opacity="0">\n                    <animate attributeName="r" begin="3s" dur="3s" values="6;22" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-opacity" begin="3s" dur="3s" values="1;0" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-width" begin="3s" dur="3s" values="2;0" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n                <circle cx="22" cy="22" r="8">\n                    <animate attributeName="r" begin="0s" dur="1.5s" values="6;1;2;3;4;5;6" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n            </g>\n        </svg>\n    </div>';function debounce(e,t,n){var r;return function(){var i=this,s=arguments,o=n&&!r;clearTimeout(r),r=setTimeout((function(){r=null,n||e.apply(i,s)}),t),o&&e.apply(i,s)}}function setCorrectShortcut(){navigator.platform.toUpperCase().indexOf("MAC")>=0&&document.querySelectorAll(".search-keys").forEach((e=>e.innerHTML="<code>⌘</code>&nbsp;+&nbsp;<code>K</code>"))}function tokenizeSearchTerms(e){const t=[],n=/"([^"]+)"|(\S+)/g;let r;for(;null!==(r=n.exec(e));){const e=(r[1]||r[2]).toLowerCase();e.length>1&&t.push(e)}return t.sort(((e,t)=>t.length-e.length))}function highlightTerms(e,t){if(!t||0===t.length||!e)return e;let n=e;return t.forEach((e=>{const t=e.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),r=new RegExp(`(${t})`,"gi");n=n.replace(r,'<span class="search-highlight">$1</span>')})),n}function getContextualExcerpt(e,t,n=150){if(!e)return"";const r=e.replace(/<[^>]*>/g,"");if(!t||0===t.length)return truncateText(r,n);let i=r.length;if(t.forEach((e=>{const t=r.toLowerCase().indexOf(e.toLowerCase());-1!==t&&t<i&&(i=t)})),i===r.length)return truncateText(r,n);const s=Math.max(0,i-50),o=Math.min(r.length,s+n);let a=r.substring(s,o);return s>0&&(a="..."+a),o<r.length&&(a+="..."),a}function truncateText(e,t){return e?(e=e.replace(/<[^>]*>/g,"")).length<=t?e:e.substring(0,t-3)+"...":""}async function fetchPreviewContent(e){if(previewCache.has(e))return previewCache.get(e);try{const t=await fetch(e),n=await t.text(),r=new DOMParser,i=r.parseFromString(n,"text/html").querySelector(".content, .cm-s-obsidian, article, main"),s=i?i.innerHTML:"";return previewCache.set(e,s),s}catch(e){return console.error("Failed to fetch preview:",e),""}}function highlightTextNodes(e,t){if(!t||0===t.length)return;const n=document.createTreeWalker(e,NodeFilter.SHOW_TEXT,null,!1),r=[];for(;n.nextNode();)r.push(n.currentNode);r.forEach((e=>{const n=e.textContent;let r=!1;if(t.forEach((e=>{n.toLowerCase().includes(e.toLowerCase())&&(r=!0)})),r){const r=document.createElement("span");r.innerHTML=highlightTerms(n,t),e.parentNode.replaceChild(r,e)}}))}async function showPreview(e){const t=window.searchResults;if(!t||!t[e])return;const n=t[e],r=document.getElementById("search-preview"),i=document.getElementById("preview-content"),s=r.querySelector(".preview-placeholder");if(!r||!i)return;document.querySelectorAll(".searchresult").forEach((e=>e.classList.remove("active")));const o=document.querySelector(`.searchresult[data-index="${e}"]`);o&&o.classList.add("active"),i.innerHTML=loadingSvg,i.classList.add("has-content"),s.style.display="none";const a=await fetchPreviewContent(n.url),c=n.tags&&n.tags.length>0?`<div class="preview-tags">${n.tags.map((e=>`<a class="tag" href="javascript:void(0);" onclick="toggleTagSearch(this)">#${e}</a>`)).join("")}</div>`:"";i.innerHTML=`\n            <div class="preview-title">${highlightTerms(n.title,window.searchTerms)}</div>\n            ${c}\n            <div class="preview-body">${a}</div>\n        `;const l=i.querySelector(".preview-body");l&&window.searchTerms&&highlightTextNodes(l,window.searchTerms),window.currentPreviewIndex=e}function hidePreview(){const e=document.getElementById("search-preview"),t=document.getElementById("preview-content"),n=e?.querySelector(".preview-placeholder");n&&(n.style.display="flex"),t&&(t.classList.remove("has-content"),t.innerHTML=""),window.currentPreviewIndex=-1}function createIndex(e){const t=e=>(e=>e.toLowerCase().normalize("NFD").replace(/n\u0303/g,"ñ").replace(/[\u0300-\u036f]/g,"").normalize("NFC"))(e).split(/([^a-z]|[^\x00-\x7F])/),n=new FlexSearch.Document({cache:!0,charset:"latin:extra",optimize:!0,index:[{field:"content",tokenize:"reverse",encode:t},{field:"title",tokenize:"forward",encode:t},{field:"tags",tokenize:"forward",encode:t}]});return e.forEach(((e,t)=>{n.add({id:t,title:e.title,content:e.content,tags:e.tags})})),n}async function init(){const e="/srs_cons_git",t=`${e?e.replace(/\/$/,""):""}/searchIndex.json?v=2026-05-26T13:14:53.336Z`;try{const e=await fetch(t).then((e=>e.json())),n=createIndex(e);window.docs=e,window.index=n}catch(e){console.error("Failed to initialize search index:",e),window.docs=[],window.index=null}function n(e){const t=document.querySelectorAll(".searchresult");if(0===t.length)return;let n,r=-1;t.forEach(((e,t)=>{e.classList.contains("active")&&(r=t)})),-1===r?n=e>0?0:t.length-1:(n=r+e,n<0&&(n=t.length-1),n>=t.length&&(n=0)),t.forEach((e=>e.classList.remove("active"))),t[n].classList.add("active"),t[n].scrollIntoView({behavior:"smooth",block:"nearest"}),showPreview(parseInt(t[n].dataset.index))}document.addEventListener("keydown",(e=>{if(!e.ctrlKey&&!e.metaKey||"k"!==e.key.toLowerCase()&&"KeyK"!==e.code||(e.preventDefault(),toggleSearch()),"Escape"===e.key&&document.getElementById("globalsearch").classList.remove("active"),document.getElementById("globalsearch").classList.contains("active")&&("ArrowDown"===e.key&&(e.preventDefault(),n(1)),"ArrowUp"===e.key&&(e.preventDefault(),n(-1)),"Enter"===e.key)){e.preventDefault();const t=document.querySelector(".searchresult.active");if(t){const e=t.dataset.url;e&&(window.location.href=e)}}}));const r=debounce(search,200,!1);window.field=document.querySelector("#term"),field.addEventListener("input",r),window.resultsDiv=document.querySelector("#search-results");const i=new URL(location.href).searchParams;i.get("q")&&(field.setAttribute("value",i.get("q")),toggleSearch(),search())}async function search(){const e=field.value.trim(),t=document.getElementById("search-layout");if(!e)return resultsDiv.innerHTML="<span><i>Enter your search text in the box above</i></span>",hidePreview(),void(t&&t.classList.add("no-preview"));if(!window.index||!window.docs)return resultsDiv.innerHTML=`<span><i>No results for "${e}"</i></span>`,hidePreview(),void(t&&t.classList.add("no-preview"));window.lastSearch=e,window.searchTerms=tokenizeSearchTerms(e),resultsDiv.innerHTML=loadingSvg,hidePreview();const n=offlineSearch(e);if(window.searchResults=n,!n.length)return t&&t.classList.add("no-preview"),void(resultsDiv.innerHTML=`\n                <div class="no-results">\n                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">\n                        <circle cx="11" cy="11" r="8"></circle>\n                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>\n                        <line x1="8" y1="11" x2="14" y2="11"></line>\n                    </svg>\n                    <p>No results for "${e}"</p>\n                </div>\n            `);t&&t.classList.remove("no-preview");let r="";n.forEach(((e,t)=>{const n=highlightTerms(getContextualExcerpt(e.content,window.searchTerms,120),window.searchTerms),i=highlightTerms(e.title,window.searchTerms),s=e.tags&&e.tags.length>0?`<div class="result-tags">${e.tags.map((e=>`<span class="tag">#${e}</span>`)).join("")}</div>`:"";r+=`\n                <div class="searchresult${0===t?" active":""}"\n                     data-index="${t}"\n                     data-url="${e.url}"\n                     onmouseenter="showPreview(${t})"\n                     onclick="window.location.href='${e.url}'">\n                    <span class="result-title">${i}</span>\n                    ${s}\n                    <div class="result-excerpt">${n}</div>\n                </div>\n            `})),resultsDiv.innerHTML=r,n.length>0&&showPreview(0),"undefined"!=typeof lucide&&lucide.createIcons()}function offlineSearch(e){const t=window.docs,n="#"===e[0]&&e.length>1?index.search(e.substring(1),[{field:"tags"}]):index.search(e,[{field:"title",limit:5},{field:"content",limit:10}]),r=e=>{const t=n.filter((t=>t.field===e));return 0===t.length?[]:[...t[0].result]};return[...new Set([...r("title"),...r("content"),...r("tags")])].map((e=>{const n={...t[e]};return n.tags=n.tags.filter((e=>"gardenEntry"!==e&&"note"!==e)),n}))}window.lastSearch="",window.searchResults=[],window.searchTerms=[],window.currentPreviewIndex=-1,window.search=search</script>
-<main class="content cm-s-obsidian print">
+<script>document.addEventListener("DOMContentLoaded",init,!1),document.addEventListener("DOMContentLoaded",setCorrectShortcut,!1);const previewCache=new Map;window.toggleSearch=function(){const e=document.getElementById("globalsearch");e.classList.contains("active")?e.classList.remove("active"):(e.classList.add("active"),document.getElementById("term").focus())},window.openSearchFromSidebar=function(){const e=document.getElementById("globalsearch"),t=document.getElementById("term");e&&t&&(e.classList.contains("active")||e.classList.add("active"),t.focus(),t.select())},window.toggleTagSearch=function(e){const t=e.textContent;t&&(document.getElementById("term").value=t.trim(),window.toggleSearch(),window.search())};const loadingSvg='\n    <div style="display: flex; justify-content: center; padding: 40px;">\n        <svg width="40" height="40" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">\n            <g fill="none" fill-rule="evenodd" transform="translate(1 1)" stroke-width="2">\n                <circle cx="22" cy="22" r="6" stroke-opacity="0">\n                    <animate attributeName="r" begin="1.5s" dur="3s" values="6;22" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-opacity" begin="1.5s" dur="3s" values="1;0" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-width" begin="1.5s" dur="3s" values="2;0" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n                <circle cx="22" cy="22" r="6" stroke-opacity="0">\n                    <animate attributeName="r" begin="3s" dur="3s" values="6;22" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-opacity" begin="3s" dur="3s" values="1;0" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-width" begin="3s" dur="3s" values="2;0" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n                <circle cx="22" cy="22" r="8">\n                    <animate attributeName="r" begin="0s" dur="1.5s" values="6;1;2;3;4;5;6" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n            </g>\n        </svg>\n    </div>';function debounce(e,t,n){var r;return function(){var i=this,s=arguments,o=n&&!r;clearTimeout(r),r=setTimeout((function(){r=null,n||e.apply(i,s)}),t),o&&e.apply(i,s)}}function setCorrectShortcut(){navigator.platform.toUpperCase().indexOf("MAC")>=0&&document.querySelectorAll(".search-keys").forEach((e=>e.innerHTML="<code>⌘</code>&nbsp;+&nbsp;<code>K</code>"))}function tokenizeSearchTerms(e){const t=[],n=/"([^"]+)"|(\S+)/g;let r;for(;null!==(r=n.exec(e));){const e=(r[1]||r[2]).toLowerCase();e.length>1&&t.push(e)}return t.sort(((e,t)=>t.length-e.length))}function highlightTerms(e,t){if(!t||0===t.length||!e)return e;let n=e;return t.forEach((e=>{const t=e.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),r=new RegExp(`(${t})`,"gi");n=n.replace(r,'<span class="search-highlight">$1</span>')})),n}function getContextualExcerpt(e,t,n=150){if(!e)return"";const r=e.replace(/<[^>]*>/g,"");if(!t||0===t.length)return truncateText(r,n);let i=r.length;if(t.forEach((e=>{const t=r.toLowerCase().indexOf(e.toLowerCase());-1!==t&&t<i&&(i=t)})),i===r.length)return truncateText(r,n);const s=Math.max(0,i-50),o=Math.min(r.length,s+n);let a=r.substring(s,o);return s>0&&(a="..."+a),o<r.length&&(a+="..."),a}function truncateText(e,t){return e?(e=e.replace(/<[^>]*>/g,"")).length<=t?e:e.substring(0,t-3)+"...":""}async function fetchPreviewContent(e){if(previewCache.has(e))return previewCache.get(e);try{const t=await fetch(e),n=await t.text(),r=new DOMParser,i=r.parseFromString(n,"text/html").querySelector(".content, .cm-s-obsidian, article, main"),s=i?i.innerHTML:"";return previewCache.set(e,s),s}catch(e){return console.error("Failed to fetch preview:",e),""}}function highlightTextNodes(e,t){if(!t||0===t.length)return;const n=document.createTreeWalker(e,NodeFilter.SHOW_TEXT,null,!1),r=[];for(;n.nextNode();)r.push(n.currentNode);r.forEach((e=>{const n=e.textContent;let r=!1;if(t.forEach((e=>{n.toLowerCase().includes(e.toLowerCase())&&(r=!0)})),r){const r=document.createElement("span");r.innerHTML=highlightTerms(n,t),e.parentNode.replaceChild(r,e)}}))}async function showPreview(e){const t=window.searchResults;if(!t||!t[e])return;const n=t[e],r=document.getElementById("search-preview"),i=document.getElementById("preview-content"),s=r.querySelector(".preview-placeholder");if(!r||!i)return;document.querySelectorAll(".searchresult").forEach((e=>e.classList.remove("active")));const o=document.querySelector(`.searchresult[data-index="${e}"]`);o&&o.classList.add("active"),i.innerHTML=loadingSvg,i.classList.add("has-content"),s.style.display="none";const a=await fetchPreviewContent(n.url),c=n.tags&&n.tags.length>0?`<div class="preview-tags">${n.tags.map((e=>`<a class="tag" href="javascript:void(0);" onclick="toggleTagSearch(this)">#${e}</a>`)).join("")}</div>`:"";i.innerHTML=`\n            <div class="preview-title">${highlightTerms(n.title,window.searchTerms)}</div>\n            ${c}\n            <div class="preview-body">${a}</div>\n        `;const l=i.querySelector(".preview-body");l&&window.searchTerms&&highlightTextNodes(l,window.searchTerms),window.currentPreviewIndex=e}function hidePreview(){const e=document.getElementById("search-preview"),t=document.getElementById("preview-content"),n=e?.querySelector(".preview-placeholder");n&&(n.style.display="flex"),t&&(t.classList.remove("has-content"),t.innerHTML=""),window.currentPreviewIndex=-1}function createIndex(e){const t=e=>(e=>e.toLowerCase().normalize("NFD").replace(/n\u0303/g,"ñ").replace(/[\u0300-\u036f]/g,"").normalize("NFC"))(e).split(/([^a-z]|[^\x00-\x7F])/),n=new FlexSearch.Document({cache:!0,charset:"latin:extra",optimize:!0,index:[{field:"content",tokenize:"reverse",encode:t},{field:"title",tokenize:"forward",encode:t},{field:"tags",tokenize:"forward",encode:t}]});return e.forEach(((e,t)=>{n.add({id:t,title:e.title,content:e.content,tags:e.tags})})),n}async function init(){const e="/srs_cons_git",t=`${e?e.replace(/\/$/,""):""}/searchIndex.json?v=2026-05-26T13:19:16.426Z`;try{const e=await fetch(t).then((e=>e.json())),n=createIndex(e);window.docs=e,window.index=n}catch(e){console.error("Failed to initialize search index:",e),window.docs=[],window.index=null}function n(e){const t=document.querySelectorAll(".searchresult");if(0===t.length)return;let n,r=-1;t.forEach(((e,t)=>{e.classList.contains("active")&&(r=t)})),-1===r?n=e>0?0:t.length-1:(n=r+e,n<0&&(n=t.length-1),n>=t.length&&(n=0)),t.forEach((e=>e.classList.remove("active"))),t[n].classList.add("active"),t[n].scrollIntoView({behavior:"smooth",block:"nearest"}),showPreview(parseInt(t[n].dataset.index))}document.addEventListener("keydown",(e=>{if(!e.ctrlKey&&!e.metaKey||"k"!==e.key.toLowerCase()&&"KeyK"!==e.code||(e.preventDefault(),toggleSearch()),"Escape"===e.key&&document.getElementById("globalsearch").classList.remove("active"),document.getElementById("globalsearch").classList.contains("active")&&("ArrowDown"===e.key&&(e.preventDefault(),n(1)),"ArrowUp"===e.key&&(e.preventDefault(),n(-1)),"Enter"===e.key)){e.preventDefault();const t=document.querySelector(".searchresult.active");if(t){const e=t.dataset.url;e&&(window.location.href=e)}}}));const r=debounce(search,200,!1);window.field=document.querySelector("#term"),field.addEventListener("input",r),window.resultsDiv=document.querySelector("#search-results");const i=new URL(location.href).searchParams;i.get("q")&&(field.setAttribute("value",i.get("q")),toggleSearch(),search())}async function search(){const e=field.value.trim(),t=document.getElementById("search-layout");if(!e)return resultsDiv.innerHTML="<span><i>Enter your search text in the box above</i></span>",hidePreview(),void(t&&t.classList.add("no-preview"));if(!window.index||!window.docs)return resultsDiv.innerHTML=`<span><i>No results for "${e}"</i></span>`,hidePreview(),void(t&&t.classList.add("no-preview"));window.lastSearch=e,window.searchTerms=tokenizeSearchTerms(e),resultsDiv.innerHTML=loadingSvg,hidePreview();const n=offlineSearch(e);if(window.searchResults=n,!n.length)return t&&t.classList.add("no-preview"),void(resultsDiv.innerHTML=`\n                <div class="no-results">\n                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">\n                        <circle cx="11" cy="11" r="8"></circle>\n                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>\n                        <line x1="8" y1="11" x2="14" y2="11"></line>\n                    </svg>\n                    <p>No results for "${e}"</p>\n                </div>\n            `);t&&t.classList.remove("no-preview");let r="";n.forEach(((e,t)=>{const n=highlightTerms(getContextualExcerpt(e.content,window.searchTerms,120),window.searchTerms),i=highlightTerms(e.title,window.searchTerms),s=e.tags&&e.tags.length>0?`<div class="result-tags">${e.tags.map((e=>`<span class="tag">#${e}</span>`)).join("")}</div>`:"";r+=`\n                <div class="searchresult${0===t?" active":""}"\n                     data-index="${t}"\n                     data-url="${e.url}"\n                     onmouseenter="showPreview(${t})"\n                     onclick="window.location.href='${e.url}'">\n                    <span class="result-title">${i}</span>\n                    ${s}\n                    <div class="result-excerpt">${n}</div>\n                </div>\n            `})),resultsDiv.innerHTML=r,n.length>0&&showPreview(0),"undefined"!=typeof lucide&&lucide.createIcons()}function offlineSearch(e){const t=window.docs,n="#"===e[0]&&e.length>1?index.search(e.substring(1),[{field:"tags"}]):index.search(e,[{field:"title",limit:5},{field:"content",limit:10}]),r=e=>{const t=n.filter((t=>t.field===e));return 0===t.length?[]:[...t[0].result]};return[...new Set([...r("title"),...r("content"),...r("tags")])].map((e=>{const n={...t[e]};return n.tags=n.tags.filter((e=>"gardenEntry"!==e&&"note"!==e)),n}))}window.lastSearch="",window.searchResults=[],window.searchTerms=[],window.currentPreviewIndex=-1,window.search=search</script>
 <header>
 <div class="header-meta">
 </div>
 </header>
 <p>**FASE 0 – Setup &amp; Prerequisiti **<em><strong>(Settimane 1–2 · 10gg)</strong></em><br>
 Questa fase è il <strong>collo di bottiglia critico</strong>: molte attività dipendono da risorse esterne CSI/Nivola con latenze imprevedibili</p>
-<div class="table-wrapper"><table>
+<table>
 <thead>
 <tr>
 <th><strong>Attività</strong></th>
@@ -516,7 +514,7 @@ Questa fase è il <strong>collo di bottiglia critico</strong>: molte attività 
 <td>2 profili: Operatore Sanitario-Amm. e Back Office</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p>**FASE 1 – Design Tecnico *<em><em><strong>(Settimane 2–3 · 10gg)</strong></em><br>
 Le attività di design possono partire in parallelo alle richieste della Fase 0.<br>
 <strong>Audit compatibilità PG9→PG17</strong> (obbligatorio per sez. 9.4): analisi sequence/SERIAL, funzioni deprecate (to_timestamp, date_part), comportamento NULLS FIRST/LAST in PG15, sintassi SQL ritirata<br>
@@ -533,7 +531,7 @@ Configurazione pool HikariCP: maximum-pool-size ≤ 40 per replica (su istanza
 **FASE 3 – Backend Spring Boot 3 **<em><strong>(<strong><strong><strong>Settimane</strong></strong></strong> 4–11 · 49gg)</strong></em><br>
 Il backend è il componente più articolato, con 16 CDU, 3 batch e 4 integrazioni esterne.<br>
 <strong>Integrazioni esterne (parallele, sett. 4–7):</strong></p>
-<div class="table-wrapper"><table>
+<table>
 <thead>
 <tr>
 <th><strong>Servizio</strong></th>
@@ -568,7 +566,7 @@ Il backend è il componente più articolato, con 16 CDU, 3 batch e 4 integrazion
 <td>2gg</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p><strong>CDU per area:</strong><br>
 <strong>Cittadino</strong> (CDU-01..06, sett. 5–8): accesso GASP Salute, consultazione, rilascio, modifica e PDF consenso · 20gg<br>
 <strong>Operatore Sanitario</strong> (CDU-07..11, sett. 7–9): ricerca assistito su AURA/SistemaTS, gestione consenso per conto · 14gg<br>
@@ -596,7 +594,7 @@ Verifica livenessProbe / readinessProbe su tutti i Deployment, con requests
 Consegna formale <strong>specifica <strong><strong>OpenAPI</strong></strong> Swagger</strong> per i sistemi SIA/ASR (CDU-15/16)<br>
 Attivazione monitoraggio: <strong>Prometheus</strong> per metriche, stack <strong>ELK</strong> per log centralizzati<br>
 <strong>Riepilogo Timeline</strong></p>
-<div class="table-wrapper"><table>
+<table>
 <thead>
 <tr>
 <th><strong>Fase</strong></th>
@@ -651,12 +649,12 @@ Attivazione monitoraggio: <strong>Prometheus</strong> per metriche, stack <st
 <td><strong>120gg lavorativi</strong></td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p><strong>S****tima per i singoli sprint Agile</strong><br>
 **Note: **Piano Sprint Agile (10 sprint × 2 settimane)<br>
 Ogni sprint copre backend + frontend in parallelo. La stima in Story Points (SP) adotta una scala dove 1 SP = 4 ore di lavoro di un singolo sviluppatore.<br>
 **Sprint 0 – Setup &amp; Prerequisiti **<em><strong>(Sett. 1–2 | 13 SP)</strong></em></p>
-<div class="table-wrapper"><table>
+<table>
 <thead>
 <tr>
 <th><strong>Attività</strong></th>
@@ -709,10 +707,10 @@ Ogni sprint copre backend + frontend in parallelo. La stima in Story Points (SP
 <td>DMP bozza v1</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p>**Note: **DBaaS Nivola e credenziali IRIS/AURA hanno latenze esterne imprevedibili. Vanno avviate nel giorno 1.<br>
 **Sprint 1 – Foundation **<em><strong>(Sett. 3–4 | 19 SP)</strong></em></p>
-<div class="table-wrapper"><table>
+<table>
 <thead>
 <tr>
 <th><strong>Attività</strong></th>
@@ -752,9 +750,9 @@ Ogni sprint copre backend + frontend in parallelo. La stima in Story Points (SP
 <td>2</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p>**Sprint 2 – Autenticazione &amp; Integrazioni **<em><strong>(Sett. 5–6 | 23 SP)</strong></em></p>
-<div class="table-wrapper"><table>
+<table>
 <thead>
 <tr>
 <th><strong>Attività</strong></th>
@@ -789,10 +787,10 @@ Ogni sprint copre backend + frontend in parallelo. La stima in Story Points (SP
 <td>5</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p>**Sprint 3 – CDU-03/04/05 Cittadino **<em><strong>(Sett. 7–8 | 27 SP)</strong></em><br>
 Questo è lo sprint più complesso per la macchina a stati del consenso (ATTIVO / NEGATO / SCADUTO / ANNULLATO).</p>
-<div class="table-wrapper"><table>
+<table>
 <thead>
 <tr>
 <th><strong>Attività</strong></th>
@@ -832,9 +830,9 @@ Questo è lo sprint più complesso per la macchina a stati del consenso (ATTIV
 <td>3</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p>**Sprint 4 – CDU-06/07/08 **<em><strong>(Sett. 9–10 | 24 SP)</strong></em></p>
-<div class="table-wrapper"><table>
+<table>
 <thead>
 <tr>
 <th><strong>Attività</strong></th>
@@ -874,9 +872,9 @@ Questo è lo sprint più complesso per la macchina a stati del consenso (ATTIV
 <td>3</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p>**Sprint 5 – CDU-09/10/11/12 **<em><strong>(Sett. 11–12 | 26 SP)</strong></em></p>
-<div class="table-wrapper"><table>
+<table>
 <thead>
 <tr>
 <th><strong>Attività</strong></th>
@@ -911,9 +909,9 @@ Questo è lo sprint più complesso per la macchina a stati del consenso (ATTIV
 <td>6</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p>**Sprint 6 – CDU-13/14/15/16 **<em><strong>(Sett. 13–14 | 27 SP)</strong></em></p>
-<div class="table-wrapper"><table>
+<table>
 <thead>
 <tr>
 <th><strong>Attività</strong></th>
@@ -958,9 +956,9 @@ Questo è lo sprint più complesso per la macchina a stati del consenso (ATTIV
 <td>2</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p>**Sprint 7 – BATCH &amp; Audit **<em><strong>(Sett. 15–16 | 15 SP)</strong></em></p>
-<div class="table-wrapper"><table>
+<table>
 <thead>
 <tr>
 <th><strong>Attività</strong></th>
@@ -990,9 +988,9 @@ Questo è lo sprint più complesso per la macchina a stati del consenso (ATTIV
 <td>2</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p>**Sprint 8 – Testing &amp; Security **<em><strong>(Sett. 17–18 | 24 SP)</strong></em></p>
-<div class="table-wrapper"><table>
+<table>
 <thead>
 <tr>
 <th><strong>Attività</strong></th>
@@ -1021,9 +1019,9 @@ Questo è lo sprint più complesso per la macchina a stati del consenso (ATTIV
 <td>4</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p>**Sprint 9 – UAT, <strong><strong>Migrazione</strong></strong>, Go-Live **<em><strong>(Sett. 19–20 | 19 SP)</strong></em></p>
-<div class="table-wrapper"><table>
+<table>
 <thead>
 <tr>
 <th><strong>Attività</strong></th>
@@ -1052,11 +1050,11 @@ Questo è lo sprint più complesso per la macchina a stati del consenso (ATTIV
 <td>2</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p><strong>Migrazione PG9 → PG17 (CONSPREF-DMP)</strong><br>
 Il salto copre 8 major release: pg_upgrade non supporta upgrade diretti su distanze così grandi, quindi la strategia raccomandata per il contesto DBaaS Nivola è il dump &amp; restore logico.<br>
 <strong>Punti critici da ispezionare sul DDL AS-IS di PG9:</strong></p>
-<div class="table-wrapper"><table>
+<table>
 <thead>
 <tr>
 <th><strong>Categoria</strong></th>
@@ -1106,17 +1104,30 @@ Il salto copre 8 major release: pg_upgrade non supporta upgrade diretti su di
 <td>Test su tutte le query con formattazione date</td>
 </tr>
 </tbody>
-</table></div>
-<p><em><em>Step 2 – Dump <strong><strong>dell'istanza</strong></strong> AS-IS <strong><em><strong>(Sprint 9)</strong></em><br>
+</table>
+<em>Step 2 – Dump <strong><strong>dell'istanza</strong></strong> AS-IS <strong><em><strong>(Sprint 9)</strong></em><br>
 <strong># <strong><strong>Dump</strong></strong> schema + dati (formato custom, compresso)</strong><br>
 <strong>pg_dump</strong></strong> -Fc -v *</em><br>
-** -h &lt;host-pg9&gt; -p 5432 *</em><br>
+** -h -p 5432 *<br>
 ** *<em><em><em>-U <strong><strong>consappuser</strong></strong> *</em><br>
 ** -d <strong><strong>gestioneconsensi</strong></strong> *</em><br>
 ** --no-<strong><strong>owner</strong></strong> --no-<strong><strong>acl</strong></strong> *</em><br>
-** **<strong>-f dump_conspref_pg9_<mjx-container class="MathJax" jax="SVG" style="direction:ltr;position:relative"><svg style="overflow:visible;min-height:1px;min-width:1px;vertical-align:-.452ex" xmlns="http://www.w3.org/2000/svg" width="851.131ex" height="2.149ex" role="img" focusable="false" viewBox="0 -750 376200 950" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="merror" data-mjx-error="You can't use 'macro parameter character #' in math mode" title="You can't use 'macro parameter character #' in math mode"><rect data-background="true" width="376200" height="950" y="-200" style="fill:yellow;stroke:none"></rect><title>You can't use 'macro parameter character #' in math mode</title><g data-mml-node="mtext" style="fill:red;stroke:red;font-family:serif"><text data-variant="-explicitFont" transform="scale(1,-1)" font-size="884px">(date +%****Y%m%d****).dump** Il dump non include owner/ACL per compatibilità con il nuovo schema DBaaS Nivola**.** **Step 3 – ****Restore**** su PG17 DEV *****(Sprint 9)*** **# Crea schema vuoto sul ****DBaaS**** PG17** **psql**** -h &amp;lt;host-pg17-dev&amp;gt; -U ****consappuser**** \** ** ****-d ****gestioneconsensi**** \** ** -c "CREATE SCHEMA IF NOT EXISTS ****conspref****;"** **# ****Restore** **pg_restore**** -****Fc**** -v \** ** ****-h &amp;lt;host-pg17-dev&amp;gt; -p 5432 \** ** ****-U ****consappuser**** \** ** -d ****gestioneconsensi**** \** ** --no-****owner**** --no-****acl**** \** ** ****dump_conspref_pg9_</text></g></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline" style="top:0;left:0;clip:rect(1px,1px,1px,1px);-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;position:absolute;padding:1px 0 0 0;border:0;display:block;width:auto;overflow:hidden"><math xmlns="http://www.w3.org/1998/Math/MathML"><merror data-mjx-error="You can't use 'macro parameter character #' in math mode" title="You can't use 'macro parameter character #' in math mode"><mtext>(date +%****Y%m%d****).dump** Il dump non include owner/ACL per compatibilità con il nuovo schema DBaaS Nivola**.** **Step 3 – ****Restore**** su PG17 DEV *****(Sprint 9)*** **# Crea schema vuoto sul ****DBaaS**** PG17** **psql**** -h &amp;lt;host-pg17-dev&amp;gt; -U ****consappuser**** \** ** ****-d ****gestioneconsensi**** \** ** -c "CREATE SCHEMA IF NOT EXISTS ****conspref****;"** **# ****Restore** **pg_restore**** -****Fc**** -v \** ** ****-h &amp;lt;host-pg17-dev&amp;gt; -p 5432 \** ** ****-U ****consappuser**** \** ** -d ****gestioneconsensi**** \** ** --no-****owner**** --no-****acl**** \** ** ****dump_conspref_pg9_</mtext></merror></math></mjx-assistive-mml></mjx-container>(date +%<strong><strong>Y%m%d</strong></strong>).dump</strong><br>
-**Step 4 – Validazione Post-**<strong>Restore</strong></p>
-<div class="table-wrapper"><table>
+** **<strong>-f dump_conspref_pg9_$(date +%<strong><strong>Y%m%d</strong></strong>).dump</strong>
+<p>Il dump non include owner/ACL per compatibilità con il nuovo schema DBaaS Nivola</p>
+*Step 3 – <strong><strong>Restore</strong></strong> su PG17 DEV <strong><em><strong>(Sprint 9)</strong></em><br>
+<strong># Crea schema vuoto sul <strong><strong>DBaaS</strong></strong> PG17</strong><br>
+<strong>psql</strong></strong> -h -U <strong><strong>consappuser</strong></strong> *<br>
+** *<strong><em>-d <strong><strong>gestioneconsensi</strong></strong> *</em><br>
+** -c &quot;CREATE SCHEMA IF NOT EXISTS <strong><strong>conspref</strong></strong>;&quot;</strong><br>
+*<em># <strong><strong>Restore</strong><br>
+<strong>pg_restore</strong></strong> -<strong><strong>Fc</strong></strong> -v *</em><br>
+** ***-h -p 5432 *<br>
+** *<em><em><em>-U <strong><strong>consappuser</strong></strong> *</em><br>
+** -d <strong><strong>gestioneconsensi</strong></strong> *</em><br>
+** --no-<strong><strong>owner</strong></strong> --no-<strong><strong>acl</strong></strong> *</em><br>
+** **<strong>dump_conspref_pg9_$(date +%<strong><strong>Y%m%d</strong></strong>).dump</strong><br>
+**Step 4 – Validazione Post-**<strong>Restore</strong>
+<table>
 <thead>
 <tr>
 <th><strong>Check</strong></th>
@@ -1156,7 +1167,7 @@ Il salto copre 8 major release: pg_upgrade non supporta upgrade diretti su di
 <td>Piani ragionevoli, no Seq Scan su tabelle grandi</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p>**Step 5 – <strong><strong>Cutover</strong></strong> PROD **<em><strong>(Sprint 9, finestra manutenzione)</strong></em><br>
 Stop applicazione (Kubernetes: kubectl scale deploy/gestione-consensi-backend --replicas=0)<br>
 Dump finale dell'istanza PG9 PROD (delta dall'ultimo dump)<br>
@@ -1169,7 +1180,6 @@ Monitoraggio ELK per 30 minuti post-cutover<br>
 <div style="margin-top:2.5rem;width:100%">
 <script src="https://giscus.app/client.js" data-repo="caccu/srs_cons_git" data-repo-id="R_kgDOSgs_Cw" data-category="General" data-category-id="DIC_kwDOSgs_C84C9cl-" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="it" crossorigin="anonymous" async></script>
 </div>
-</main>
 <aside>
 <div class="sidebar">
 <div class="sidebar-container">
@@ -1199,5 +1209,4 @@ Monitoraggio ELK per 30 minuti post-cutover<br>
 <script defer="defer" src="https://unpkg.com/lucide@latest"></script>
 <script defer="defer">document.addEventListener("DOMContentLoaded",(()=>{lucide.createIcons({attrs:{class:["svg-icon"]}})}))</script>
 <script>document.addEventListener("DOMContentLoaded",(function(){document.querySelectorAll(".obsidian-bases-views").forEach((function(e){var t=e.querySelector(".obsidian-bases-active-view"),a=e.querySelector(".obsidian-bases-dropdown"),i=e.querySelectorAll(".obsidian-bases-dropdown-item"),n=e.querySelectorAll(".obsidian-bases-view-panel"),o=e.querySelector(".obsidian-bases-active-view-name"),r=e.querySelector(".obsidian-bases-count-value");t&&a&&(t.addEventListener("click",(function(e){e.stopPropagation();var i="none"!==a.style.display;a.style.display=i?"none":"block",t.setAttribute("aria-expanded",!i)})),document.addEventListener("click",(function(){a.style.display="none",t.setAttribute("aria-expanded","false")})),i.forEach((function(s){s.addEventListener("click",(function(s){s.stopPropagation();var d=this.getAttribute("data-view-index");i.forEach((function(e){e.classList.remove("active")})),this.classList.add("active"),n.forEach((function(e){e.style.display="none"}));var l=e.querySelector('.obsidian-bases-view-panel[data-view-index="'+d+'"]');l&&(l.style.display="block");var c=this.querySelector(".obsidian-bases-view-icon"),u=t.querySelector(".obsidian-bases-view-icon");if(c&&u&&u.replaceWith(c.cloneNode(!0)),o&&(o.textContent=this.textContent.trim()),r&&l){var b=l.querySelectorAll("tbody tr:not(.obsidian-base-group-row), .obsidian-base-card, .obsidian-base-list li");r.textContent=b.length}a.style.display="none",t.setAttribute("aria-expanded","false")}))})))})),document.querySelectorAll(".bases-dynamic-date").forEach((function(e){var t=e.getAttribute("data-type"),a=new Date;if("today"===t){var i=a.getFullYear(),n=String(a.getMonth()+1).padStart(2,"0"),o=String(a.getDate()).padStart(2,"0");e.textContent=i+"-"+n+"-"+o}else if("now"===t){i=a.getFullYear(),n=String(a.getMonth()+1).padStart(2,"0"),o=String(a.getDate()).padStart(2,"0");var r=String(a.getHours()).padStart(2,"0"),s=String(a.getMinutes()).padStart(2,"0");e.textContent=i+"-"+n+"-"+o+" "+r+":"+s}}))}))</script>
-</body>
 </html>
