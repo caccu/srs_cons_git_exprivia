@@ -10,7 +10,7 @@
 
 ---
 
-## Sintesi Architetturale (da file appunti)
+## Sintesi Architetturale (da file [[raw/appunti\|appunti]])
 
 Documento di sintesi rapida dell'intero sistema. Conferma e integra l'SRS:
 
