@@ -3,11 +3,67 @@ body {
       ADD YOUR CUSTOM STYLING HERE. (INSIDE THE body {...} section.)
       IT WILL TAKE PRECEDENCE OVER THE STYLING IN THE STYLE.CSS FILE.
    ***/
-    //  background-color: white;
-    //  .content {
-    //   font-size: 14px;
-    //  }
-    //  h1 {
-    //   color: black;
-    //  }
+    --dg-filetree-width: 320px;
+    --dg-filetree-min-width: 320px;
+
+    .filetree-searchbar {
+        width: 100%;
+        margin: 10px 0;
+        background-color: var(--background-primary);
+        border: 1px solid var(--background-modifier-border, rgba(255, 255, 255, 0.1));
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        cursor: pointer;
+        color: var(--text-muted);
+    }
+
+    .filetree-searchbar:hover {
+        border-color: var(--text-muted);
+    }
+
+    .filetree-searchbar .search-icon {
+        display: flex;
+        align-items: center;
+    }
+
+    .filetree-searchbar .search-icon svg,
+    .filetree-searchbar .search-icon i {
+        width: 14px;
+        height: 14px;
+        opacity: 0.7;
+    }
+
+    .filetree-search-input {
+        border: none;
+        background: transparent;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        flex: 1;
+        pointer-events: none;
+    }
+
+    .filetree-search-input::placeholder {
+        color: var(--text-muted);
+    }
+
+    .filetree-search-input:focus {
+        outline: none;
+    }
+
+    .filetree-searchbar .search-keys {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+        border-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.08);
+        color: var(--text-faint);
+    }
+
+    @media (max-width: 800px) {
+        .filetree-searchbar .search-keys {
+            display: none;
+        }
+    }
 }

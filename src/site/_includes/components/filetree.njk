@@ -49,7 +49,7 @@
             {% include imp %}
         {% endfor %}
         {% if settings.dgEnableSearch === true%}
-            {% include "components/searchButton.njk" %}
+            {% include "components/filetreeSearchBar.njk" %}
         {%endif%}
          <div class="folder" x-data="{isOpen: true}">
                {%- for fileOrFolderName, fileOrFolder in filetree -%}
