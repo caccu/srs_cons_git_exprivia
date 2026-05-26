@@ -67,3 +67,14 @@ body {
         }
     }
 }
+
+/* Fix sidebar/graph overlap at medium screen widths.
+   The base stylesheet uses a hardcoded margin-left: 270px which is less than
+   the 320px filetree width defined above, causing the graph to slide under
+   the filetree panel. Override to use the actual filetree width. */
+@media (max-width: 1400px) {
+    .sidebar {
+        margin-left: calc(var(--dg-filetree-width) + 20px) !important;
+        max-width: calc(100vw - var(--dg-filetree-width) - 20px) !important;
+    }
+}
