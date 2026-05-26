@@ -38,7 +38,7 @@ Documento di sintesi rapida dell'intero sistema. Conferma e integra l'SRS:
 
 ---
 
-## Pianificazione (da pianificazione.md)
+## Pianificazione (da file pianificazione)
 
 ### Timeline 8 fasi — 120gg lavorativi / 17 settimane
 
