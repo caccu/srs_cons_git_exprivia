@@ -206,7 +206,7 @@ Il salto copre 8 major release: pg_upgrade non supporta upgrade diretti su di
 **Step 2 – Dump ****dell'istanza**** AS-IS *****(Sprint 9)***
 **# ****Dump**** schema + dati (formato custom, compresso)**
 **pg_dump**** -Fc -v \**
-**  -h <host-pg9> -p 5432 \**
+**  -h &lt;host-pg9&gt; -p 5432 \**
 **  ****-U ****consappuser**** \**
 **  -d ****gestioneconsensi**** \**
 **  --no-****owner**** --no-****acl**** \**
@@ -214,12 +214,12 @@ Il salto copre 8 major release: pg_upgrade non supporta upgrade diretti su di
 Il dump non include owner/ACL per compatibilità con il nuovo schema DBaaS Nivola**.**
 **Step 3 – ****Restore**** su PG17 DEV *****(Sprint 9)***
 **# Crea schema vuoto sul ****DBaaS**** PG17**
-**psql**** -h <host-pg17-dev> -U ****consappuser**** \**
+**psql**** -h &lt;host-pg17-dev&gt; -U ****consappuser**** \**
 **     ****-d ****gestioneconsensi**** \**
 **     -c "CREATE SCHEMA IF NOT EXISTS ****conspref****;"**
 **# ****Restore**
 **pg_restore**** -****Fc**** -v \**
-**  ****-h <host-pg17-dev> -p 5432 \**
+**  ****-h &lt;host-pg17-dev&gt; -p 5432 \**
 **  ****-U ****consappuser**** \**
 **  -d ****gestioneconsensi**** \**
 **  --no-****owner**** --no-****acl**** \**
