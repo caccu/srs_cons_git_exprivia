@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>Notifica cittadino post-acquisizione via Notificatore di Deleghe (NON UNP), dopo COMPLETATO</title>
+<title>pianificazione</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script type="importmap">
@@ -266,7 +266,7 @@
 </div>
 </div>
 <div x-show="isOpen" style="display:none" class="filelist">
-<div @click.stop class="notelink active-note">
+<div @click.stop class="notelink">
 <a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-012-notificatore-deleghe-post-completato/">ADR-012: Notifica cittadino post-acquisizione via Notificatore di Deleghe (NON UNP), dopo COMPLETATO </a>
 </div>
 </div>
@@ -437,7 +437,7 @@
 </div>
 </div>
 <div x-show="isOpen" style="display:none" class="filelist">
-<div @click.stop class="notelink">
+<div @click.stop class="notelink active-note">
 <a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/raw/pianificazione/">pianificazione </a>
 </div>
 </div>
@@ -484,100 +484,727 @@
 <div class="header-meta">
 </div>
 </header>
-<h1 id="adr-012-notifica-cittadino-via-notificatore-di-deleghe-post-completato" tabindex="-1">ADR-012: Notifica cittadino via Notificatore di Deleghe post-COMPLETATO</h1>
-<h2 id="status" tabindex="-1">Status</h2>
-<p><code>accepted</code> — decisione MF33R31 sulla revisione SRS v3.</p>
-<h2 id="context" tabindex="-1">Context</h2>
-<p>A valle di un atto di consenso del cittadino (CDU-03 rilascio o CDU-04/05 modifica/cambio valore), il sistema deve notificare al cittadino/delegato l'avvenuta acquisizione.</p>
-<p>CSI Piemonte dispone di due servizi di notifica distinti:</p>
+<h1 id="pianificazione-progetto-gestione-consensi" tabindex="-1">Pianificazione Progetto Gestione Consensi</h1>
+<h2 id="fase-0-setup-and-amp-prerequisiti-settimane-1-2-10gg" tabindex="-1">FASE 0 — Setup &amp; Prerequisiti (Settimane 1–2 · 10gg)</h2>
+<p>Questa fase è il collo di bottiglia critico: molte attività dipendono da risorse esterne CSI/Nivola con latenze imprevedibili.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Attività</th>
+<th>Responsabile</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Provisioning DBaaS Nivola (DEV + PROD)</td>
+<td>Exprivia → CSI/Nivola</td>
+<td>Richiedere scheda formale; almeno 2 istanze PG17</td>
+</tr>
+<tr>
+<td>Richiesta credenziali AURA (IRIS) + WSDL</td>
+<td>Exprivia → CSI</td>
+<td>Specificare lista servizi (ricerca per CF, dati anagrafici)</td>
+</tr>
+<tr>
+<td>Documentazione tecnica GASP Salute</td>
+<td>Exprivia → CSI</td>
+<td>Protocollo OIDC/SAML2 da definire con referente CSI</td>
+</tr>
+<tr>
+<td>Accesso repository componenti QUASAR CSI</td>
+<td>Exprivia → CSI</td>
+<td>Prerequisito per avvio sviluppo UI</td>
+</tr>
+<tr>
+<td>Registrazione app su Configuratore Regionale (PUA)</td>
+<td>Exprivia → CSI</td>
+<td>2 profili: Operatore Sanitario-Amm. e Back Office</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="fase-1-design-tecnico-settimane-2-3-10gg" tabindex="-1">FASE 1 — Design Tecnico (Settimane 2–3 · 10gg)</h2>
+<p>Le attività di design possono partire in parallelo alle richieste della Fase 0.</p>
+<ul>
+<li>Audit compatibilità PG9→PG17 (obbligatorio per sez. 9.4): analisi sequence/SERIAL, funzioni deprecate (<code>to_timestamp</code>, <code>date_part</code>), comportamento NULLS FIRST/LAST in PG15, sintassi SQL ritirata</li>
+<li>Design DDL Schema TO-BE: 25+ tabelle documentate nel cap. 8, incluse le proposte evolutive obbligatorie (8.4.1–8.4.10) — es. <code>cons_t_traccia_servest</code>, <code>cons_t_batch_errori</code>, estensioni <code>cons_t_notifica</code> e <code>cons_r_asr_endpoint</code></li>
+<li>Specifica OpenAPI 3.x (CDU-15 &amp; CDU-16): da produrre a cura di Exprivia, con endpoint, schemi dati, Bearer Token JWT OAuth2 CC, gestione errori RFC 7807</li>
+<li>Setup scheletro progetti Angular 19 + Spring Boot 3.4.10 (minimo) con pipeline CI/CD GitLab → Jenkins → SonarQube</li>
+<li>Redazione CONSPREF-DMP (Data Migration Plan): documento separato, da assegnare formalmente al team</li>
+</ul>
+<h2 id="fase-2-data-layer-to-be-settimane-3-5-14gg" tabindex="-1">FASE 2 — Data Layer TO-BE (Settimane 3–5 · 14gg)</h2>
+<p>Implementazione completa del modello dati PostgreSQL 17 su istanza DBaaS Nivola.</p>
+<ul>
+<li>Esecuzione DDL TO-BE (schema <code>gestioneconsensi</code>, utenza applicativa separata da DBA)</li>
+<li>Applicazione di tutte le proposte evolutive obbligatorie: <code>cons_t_traccia_servest</code> (req. CDU-09/10/11), estensione <code>cons_t_notifica</code> (BATCH-01/02/03), <code>statoallineamento</code> su <code>cons_r_asr_endpoint</code> (CDU-03, BATCH-03)</li>
+<li>Configurazione connessione sicura: credenziali mai nel codice sorgente, iniettate via Kubernetes Secret come variabili d'ambiente <code>SPRING_DATASOURCE_*</code></li>
+<li>Configurazione pool HikariCP: maximum-pool-size ≤ 40 per replica (su istanza da 100 connessioni max, 2 repliche)</li>
+</ul>
+<h2 id="fase-3-backend-spring-boot-3-settimane-4-11-49gg" tabindex="-1">FASE 3 — Backend Spring Boot 3 (Settimane 4–11 · 49gg)</h2>
+<p>Il backend è il componente più articolato, con 16 CDU, 3 batch e 4 integrazioni esterne.</p>
+<h3 id="integrazioni-esterne-parallele-sett-4-7" tabindex="-1">Integrazioni esterne (parallele, sett. 4–7)</h3>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Servizio</th>
-<th>Scopo principale</th>
+<th>Protocollo</th>
+<th>Autenticazione</th>
+<th>Stima</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Notificatore UNP</strong> (User Notification Platform)</td>
-<td>Notifiche applicative generiche multi-canale (email, push, AppIO). Documentato su <code>gitlab.csi.it/user-notification-platform/unpdocumentazione</code></td>
+<td>AURA</td>
+<td>SOAP</td>
+<td>WS-Security UsernameToken (IRIS)</td>
+<td>5gg</td>
 </tr>
 <tr>
-<td><strong>Notificatore di Deleghe</strong></td>
-<td>Servizio dedicato alle conferme nell'ambito atti formali (rilascio/modifica consensi e deleghe)</td>
+<td>Gestione Deleghe</td>
+<td>SOAP</td>
+<td>OAuth2 Client Credentials</td>
+<td>4gg</td>
+</tr>
+<tr>
+<td>Notificatore UNP</td>
+<td>REST</td>
+<td>Token applicativo UNP</td>
+<td>3gg</td>
+</tr>
+<tr>
+<td>SIA ASR (BATCH-01 uscente)</td>
+<td>SOAP</td>
+<td>Contratto AS-IS invariato</td>
+<td>2gg</td>
 </tr>
 </tbody>
 </table></div>
-<p>Confondere i due porta a:</p>
+<h3 id="cdu-per-area" tabindex="-1">CDU per area</h3>
 <ul>
-<li>Onboarding del servizio sbagliato (credenziali, spec, ticket di accesso)</li>
-<li>Documentazione SRS ambigua sul canale (sezioni §3 e §7 ne risentono)</li>
-<li>Implementazione client REST verso endpoint non corretti</li>
+<li>Cittadino (CDU-01..06, sett. 5–8): accesso GASP Salute, consultazione, rilascio, modifica e PDF consenso · 20gg</li>
+<li>Operatore Sanitario (CDU-07..11, sett. 7–9): ricerca assistito su AURA/SistemaTS, gestione consenso per conto · 14gg</li>
+<li>Back Office (CDU-12..14, sett. 8–10): gestione tipi consenso, informative, enti/endpoint · 14gg</li>
+<li>Servizi esposti SIA (CDU-15..16, sett. 9–11): REST con OpenAPI 3.x + SpringDoc UI · 10gg</li>
+<li>BATCH-01/02/03 + <code>csilogaudit</code> (sett. 8–11): notifiche SOAP, scadenza informative, allineamento nuovi endpoint · 21gg</li>
 </ul>
-<p>Inoltre, il <strong>timing</strong> della notifica al cittadino è critico: non deve partire prima che le notifiche alle ASR (BATCH-01) siano confermate <code>COMPLETATO</code>, altrimenti il cittadino potrebbe ricevere conferma di un atto che il SIA della propria ASR non ha ancora ricevuto.</p>
-<h2 id="decision" tabindex="-1">Decision</h2>
-<p>Notifica cittadino post-acquisizione:</p>
+<h2 id="fase-4-frontend-angular-19-settimane-5-12-49gg-parallelo-al-backend" tabindex="-1">FASE 4 — Frontend Angular 19 (Settimane 5–12 · 49gg, parallelo al Backend)</h2>
+<p>SPA Angular sviluppata con i componenti QUASAR CSI come riferimento UI.</p>
 <ul>
-<li><strong>Canale: Notificatore di Deleghe</strong> (NON Notificatore UNP)</li>
-<li><strong>Timing: parte SOLO dopo conferma notifica alle aziende</strong> — quando tutti i record <code>cons_t_notifica</code> per la variazione raggiungono <code>INVIATO</code>/<code>COMPLETATO</code> lato BATCH-01</li>
+<li>Web App Cittadino: autenticazione via redirect GASP Salute (SPID/CIE), cruscotto consensi, flusso rilascio/modifica/PDF</li>
+<li>Web App Operatore: ricerca assistito, gestione consensi per conto</li>
+<li>Web App Back Office: maschere configurazione tipi consenso, informative (upload PDF), enti/endpoint</li>
+<li>Collaudo accessibilità AgID WCAG 2.1 livello AA (obbligatorio per go-live)</li>
 </ul>
-<p>Documentazione obbligatoria:</p>
+<h2 id="fase-5-testing-and-amp-qa-settimane-11-15-28gg" tabindex="-1">FASE 5 — Testing &amp; QA (Settimane 11–15 · 28gg)</h2>
 <ul>
-<li>Distinguere chiaramente Notificatore di Deleghe vs UNP in SRS §3 e §7 (sezione notifiche)</li>
-<li>Wiki <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> entries separate per i due servizi</li>
+<li>Unit + Integration Test (Spring Boot + Angular): copertura dei casi d'uso e degli algoritmi ALG01/ALG02 dei CDU</li>
+<li>Security Test: OWASP Top 10, protezione CSRF su tutti i POST/PUT, TLS 1.2+, mascheramento CF nei log</li>
+<li>UAT con referenti CSI/Regione Piemonte: validazione funzionale, test stati consenso (ATTIVO, NEGATO, SCADUTO, ANNULLATO) e cicli batch</li>
 </ul>
-<h2 id="consequences" tabindex="-1">Consequences</h2>
-<h3 id="positive" tabindex="-1">Positive</h3>
+<h2 id="fase-6-migrazione-dati-pg-9-pg-17-settimane-13-16-21gg" tabindex="-1">FASE 6 — Migrazione Dati PG9→PG17 (Settimane 13–16 · 21gg)</h2>
+<p>Il salto è di 8 major release: non è possibile un upgrade in-place diretto.</p>
 <ul>
-<li>Cittadino riceve conferma solo quando l'atto è effettivamente propagato (no race condition percepita)</li>
-<li>Allineamento con altri servizi sanità che usano Notificatore di Deleghe per atti formali</li>
-<li>Notificatore UNP riservato a notifiche generiche (es. promemoria, comunicazioni)</li>
+<li>Strategia: da scegliere nel CONSPREF-DMP tra <code>pg_dump</code>/<code>restore</code> (finestra manutenzione) o upgrade a step intermedi PG9→PG12→PG14→PG17 via <code>pg_upgrade</code></li>
+<li>Esecuzione della migrazione dati: DDL/DML, verifica integrità referenziale, conteggio record, test funzionali</li>
+<li>Piano di rollback documentato e validato prima del go-live</li>
 </ul>
-<h3 id="negative" tabindex="-1">Negative</h3>
+<h2 id="fase-7-go-live-settimane-15-17-14gg" tabindex="-1">FASE 7 — Go-Live (Settimane 15–17 · 14gg)</h2>
 <ul>
-<li><strong>Dipendenza temporale stretta</strong> fra BATCH-01 e notifica cittadino — se BATCH-01 ritarda/fallisce, anche la notifica cittadino è ritardata</li>
-<li>Necessario monitoraggio orchestrazione (quando tutti i record <code>cons_t_notifica</code> per una variazione sono COMPLETATO → trigger notifica)</li>
-<li>Approvvigionamento Notificatore di Deleghe da richiedere a CSI (Sprint 0, ❌ Punti Aperti INT)</li>
+<li>Deploy PROD tramite GitOps ECaaS (tag GitLab → immagini Artifactory <code>docker-projects</code> → rollout Kubernetes)</li>
+<li>Verifica livenessProbe / readinessProbe su tutti i Deployment, con requests/limits specificati</li>
+<li>Consegna formale specifica OpenAPI Swagger per i sistemi SIA/ASR (CDU-15/16)</li>
+<li>Attivazione monitoraggio: Prometheus per metriche, stack ELK per log centralizzati</li>
 </ul>
-<h3 id="neutral" tabindex="-1">Neutral</h3>
-<ul>
-<li>Notificatore UNP resta disponibile per altre notifiche applicative</li>
-</ul>
-<h2 id="alternatives-considered" tabindex="-1">Alternatives considered</h2>
+<h2 id="riepilogo-timeline" tabindex="-1">Riepilogo Timeline</h2>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
-<th>Alternativa</th>
-<th>Motivo scarto</th>
+<th>Fase</th>
+<th>Settimane</th>
+<th>Durata stimata</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Notificatore UNP (canale unico generico)</td>
-<td>Errato per natura dell'atto: rilascio consenso è atto formale, non notifica generica</td>
+<td>FASE 0 — Setup &amp; Prerequisiti</td>
+<td>1–2</td>
+<td>10gg</td>
 </tr>
 <tr>
-<td>Notifica sincrona al cittadino al click &quot;Salva&quot;</td>
-<td>Risk race condition: cittadino confermato ma BATCH-01 in errore → divergenza percepita</td>
+<td>FASE 1 — Design Tecnico</td>
+<td>2–3</td>
+<td>10gg</td>
 </tr>
 <tr>
-<td>Notifica indipendente (fire-and-forget al click)</td>
-<td>Stesso problema</td>
+<td>FASE 2 — Data Layer TO-BE</td>
+<td>3–5</td>
+<td>14gg</td>
+</tr>
+<tr>
+<td>FASE 3 — Backend API (Spring Boot)</td>
+<td>4–11</td>
+<td>49gg</td>
+</tr>
+<tr>
+<td>FASE 4 — Frontend (Angular 19)</td>
+<td>5–12</td>
+<td>49gg (parallelo)</td>
+</tr>
+<tr>
+<td>FASE 5 — Testing &amp; QA</td>
+<td>11–15</td>
+<td>28gg</td>
+</tr>
+<tr>
+<td>FASE 6 — Migrazione PG9→PG17</td>
+<td>13–16</td>
+<td>21gg</td>
+</tr>
+<tr>
+<td>FASE 7 — Go-Live</td>
+<td>15–17</td>
+<td>14gg</td>
+</tr>
+<tr>
+<td>TOTALE (elapsed)</td>
+<td>17 sett.</td>
+<td>120gg lavorativi</td>
 </tr>
 </tbody>
 </table></div>
-<h2 id="open-issues" tabindex="-1">Open issues</h2>
-<ul>
-<li>INT-05: distinzione formalizzata in SRS — Notificatore di Deleghe ≠ Notificatore UNP (tracker <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/">Punti Aperti CSI</a> §6)</li>
-<li>Approvvigionamento spec/API Notificatore di Deleghe da CSI</li>
-</ul>
-<h2 id="references" tabindex="-1">References</h2>
-<ul>
-<li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> §Notificatore di Deleghe + §Notificatore UNP</li>
-<li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a> §Notifica al cittadino post-COMPLETATO</li>
-<li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/">Risposte MF SRS v3</a> MF33R31</li>
-<li>Correlato: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-007-batch-01-5min-skip-locked/">ADR-007-batch-01-5min-skip-locked</a> BATCH-01 5min (precondizione <code>COMPLETATO</code>)</li>
-</ul>
+<hr>
+<h1 id="stima-per-i-singoli-sprint-agile" tabindex="-1">Stima per i singoli sprint Agile</h1>
+<p>Piano Sprint Agile (10 sprint × 2 settimane). Ogni sprint copre backend + frontend in parallelo. La stima in Story Points (SP) adotta una scala dove 1 SP = 4 ore di lavoro di un singolo sviluppatore.</p>
+<h2 id="sprint-0-setup-and-amp-prerequisiti-sett-1-2-13-sp" tabindex="-1">Sprint 0 — Setup &amp; Prerequisiti (Sett. 1–2 | 13 SP)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Attività</th>
+<th>Area</th>
+<th>SP</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Richiesta scheda provisioning DBaaS Nivola DEV+PROD</td>
+<td>Infra</td>
+<td>2</td>
+<td>Ticket formale Nivola</td>
+</tr>
+<tr>
+<td>Richiesta credenziali AURA (IRIS) + lista servizi</td>
+<td>Infra</td>
+<td>1</td>
+<td>Email formale CSI</td>
+</tr>
+<tr>
+<td>Richiesta doc GASP Salute (protocollo OIDC/SAML2)</td>
+<td>Infra</td>
+<td>1</td>
+<td>Documentazione tecnica</td>
+</tr>
+<tr>
+<td>Accesso repo componenti QUASAR CSI</td>
+<td>Infra</td>
+<td>1</td>
+<td>Accesso repository</td>
+</tr>
+<tr>
+<td>Registrazione app PUA (2 profili Back Office)</td>
+<td>Infra</td>
+<td>2</td>
+<td>Configuratore Regionale</td>
+</tr>
+<tr>
+<td>Audit PG9→PG17 (sez. 9.4) — analisi DDL AS-IS</td>
+<td>DB</td>
+<td>3</td>
+<td>Report compatibilità</td>
+</tr>
+<tr>
+<td>Redazione CONSPREF-DMP (documento migrazione)</td>
+<td>DB</td>
+<td>3</td>
+<td>DMP bozza v1</td>
+</tr>
+</tbody>
+</table></div>
+<p>Nota: DBaaS Nivola e credenziali IRIS/AURA hanno latenze esterne imprevedibili. Vanno avviate nel giorno 1.</p>
+<h2 id="sprint-1-foundation-sett-3-4-19-sp" tabindex="-1">Sprint 1 — Foundation (Sett. 3–4 | 19 SP)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Attività</th>
+<th>Area</th>
+<th>SP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Setup scheletro Angular 19 + QUASAR CSI + pipeline CI/CD</td>
+<td>Infra/FE</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Setup Spring Boot 3.4.10 + SpringDoc + Helm Chart</td>
+<td>Infra/BE</td>
+<td>3</td>
+</tr>
+<tr>
+<td>DDL TO-BE base: 12 tabelle lookup (<code>consd_</code>, <code>consdf_</code>)</td>
+<td>DB</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Kubernetes Secret per credenziali DBaaS + HikariCP config</td>
+<td>DB</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Integrazione GASP Salute (backend: validazione token/asserzione)</td>
+<td>BE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Setup SLF4j/Logback + struttura <code>csilogaudit</code></td>
+<td>BE</td>
+<td>2</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sprint-2-autenticazione-and-amp-integrazioni-sett-5-6-23-sp" tabindex="-1">Sprint 2 — Autenticazione &amp; Integrazioni (Sett. 5–6 | 23 SP)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Attività</th>
+<th>Area</th>
+<th>SP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frontend CDU-01: pagina login, redirect GASP Salute, selezione profilo</td>
+<td>FE</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Backend CDU-01: lettura deleghe, <code>getTokenInformation2</code> PUA</td>
+<td>BE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Client SOAP AURA (Apache CXF): WS-Security UsernameToken su IRIS</td>
+<td>BE</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Client SOAP Gestione Deleghe (OAuth2 Client Credentials)</td>
+<td>BE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>DDL TO-BE esteso: tabelle <code>cons_t_consenso</code>, <code>cons_s_consenso</code>, <code>cons_r_asr_endpoint</code> + proposte 8.4.x</td>
+<td>DB</td>
+<td>5</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sprint-3-cdu-03-04-05-cittadino-sett-7-8-27-sp" tabindex="-1">Sprint 3 — CDU-03/04/05 Cittadino (Sett. 7–8 | 27 SP)</h2>
+<p>Questo è lo sprint più complesso per la macchina a stati del consenso (ATTIVO / NEGATO / SCADUTO / ANNULLATO).</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Attività</th>
+<th>Area</th>
+<th>SP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BE CDU-03: ALG01 caricamento consensi esprimibili (flag online), ALG02 salvataggio <code>constconsenso</code> + <code>constnotifica</code></td>
+<td>BE</td>
+<td>6</td>
+</tr>
+<tr>
+<td>FE CDU-02: cruscotto consensi, card per stato, raggruppamento per tipo</td>
+<td>FE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>FE CDU-03: lista tipologie, viewer PDF informativa, checkbox presa visione, radio SI/NO</td>
+<td>FE</td>
+<td>5</td>
+</tr>
+<tr>
+<td>BE CDU-04: macchina a stati (SCADUTO→riaccetta informativa, ANNULLATO→flusso ex-novo), storicizzazione <code>constconsenso</code> UPDATE+INSERT</td>
+<td>BE</td>
+<td>6</td>
+</tr>
+<tr>
+<td>BE CDU-05: modifica valore consenso ATTIVO/NEGATO (senza riaccettazione informativa)</td>
+<td>BE</td>
+<td>3</td>
+</tr>
+<tr>
+<td>FE CDU-04/05: due bottoni distinti &quot;Modifica Consenso&quot; / &quot;Cambia Valore&quot;, maschera adattiva per stato</td>
+<td>FE</td>
+<td>3</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sprint-4-cdu-06-07-08-sett-9-10-24-sp" tabindex="-1">Sprint 4 — CDU-06/07/08 (Sett. 9–10 | 24 SP)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Attività</th>
+<th>Area</th>
+<th>SP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BE CDU-06: generazione PDF (iText7 o PDFBox), streaming binario con Content-Disposition attachment</td>
+<td>BE</td>
+<td>5</td>
+</tr>
+<tr>
+<td>FE CDU-06: pulsante download PDF, preview inline</td>
+<td>FE</td>
+<td>3</td>
+</tr>
+<tr>
+<td>BE CDU-07: ALG01 ricerca assistito su AURA → fallback SistemaTS, tracciatura <code>cons_t_traccia_servest</code></td>
+<td>BE</td>
+<td>6</td>
+</tr>
+<tr>
+<td>FE CDU-07: maschera ricerca (CF oppure nome+cognome+data), tabella risultati con dati AURA</td>
+<td>FE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>BE CDU-08: caricamento lista consensi assistito (logica identica CDU-02, fonte diversa)</td>
+<td>BE</td>
+<td>3</td>
+</tr>
+<tr>
+<td>FE CDU-08: visualizzazione consensi assistito da operatore</td>
+<td>FE</td>
+<td>3</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sprint-5-cdu-09-10-11-12-sett-11-12-26-sp" tabindex="-1">Sprint 5 — CDU-09/10/11/12 (Sett. 11–12 | 26 SP)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Attività</th>
+<th>Area</th>
+<th>SP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BE CDU-09/10/11: ALG02 — gestione consenso per conto, valorizzazione <code>fonteid=PASS</code>, <code>loginoperazione</code>, <code>ruoloopid</code></td>
+<td>BE</td>
+<td>6</td>
+</tr>
+<tr>
+<td>FE CDU-09/10/11: re-uso componenti CDU-03/04/05 con contesto operatore</td>
+<td>FE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Integrazione Notificatore UNP (REST, token applicativo)</td>
+<td>BE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>BE CDU-12: ALG01 popolamento dinamico EntiAziende per tipo (Nazionale/Regionale/Aziendale), ALG02 salvataggio <code>cons_d_sotto_tipo_cons</code> + <code>cons_r_consenso_parametro</code> + <code>cons_r_consenso_valore</code></td>
+<td>BE</td>
+<td>6</td>
+</tr>
+<tr>
+<td>FE CDU-12: form multi-sezione (Dati Generali, Parametri, EntiAziende), logica Regionale → espansione su tutte le ASR</td>
+<td>FE</td>
+<td>6</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sprint-6-cdu-13-14-15-16-sett-13-14-27-sp" tabindex="-1">Sprint 6 — CDU-13/14/15/16 (Sett. 13–14 | 27 SP)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Attività</th>
+<th>Area</th>
+<th>SP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BE CDU-13: upload PDF informativa, gestione versioning, flag <code>annullaconsensi</code>, <code>online</code>, scadenza</td>
+<td>BE</td>
+<td>5</td>
+</tr>
+<tr>
+<td>FE CDU-13: maschera upload PDF, date-picker validità, flag checkbox</td>
+<td>FE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>BE CDU-14: CRUD enti <code>cons_d_asr</code> + endpoint <code>cons_t_endpoint</code> + relazioni <code>cons_r_sotto_tipo_cons_asr_endpoint</code></td>
+<td>BE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>FE CDU-14: gestione enti/endpoint con associazione tipologie consenso</td>
+<td>FE</td>
+<td>3</td>
+</tr>
+<tr>
+<td>BE CDU-15: GET /api/v1/consensi/stato — Bearer JWT OAuth2 CC, response RFC 7807</td>
+<td>BE</td>
+<td>5</td>
+</tr>
+<tr>
+<td>BE CDU-16: GET /api/v1/configurazione/{codiceEnte} — risposta JSON configurazioni attive</td>
+<td>BE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Specifica OpenAPI 3.x CDU-15/16 + validazione swagger-parser + stub openapi-generator-maven-plugin</td>
+<td>BE</td>
+<td>2</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sprint-7-batch-and-amp-audit-sett-15-16-15-sp" tabindex="-1">Sprint 7 — BATCH &amp; Audit (Sett. 15–16 | 15 SP)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Attività</th>
+<th>Area</th>
+<th>SP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BATCH-01: notifica consensi verso ASR (SOAP AS-IS), lettura <code>cons_t_notifica</code>, invio, aggiornamento stato</td>
+<td>BE</td>
+<td>5</td>
+</tr>
+<tr>
+<td>BATCH-02: notifica scadenza/annullamento informativa → aggiornamento stati + inserimento <code>cons_t_notifica</code> + chiamata UNP</td>
+<td>BE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>BATCH-03: allineamento consensi per nuovi endpoint (<code>statoallineamento</code>=INCORSO → COMPLETATO), gestione <code>cons_t_batch_errori</code></td>
+<td>BE</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Completamento audit log <code>csilogaudit</code> + <code>cons_t_traccia_servest</code> su tutti i CDU</td>
+<td>BE</td>
+<td>2</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sprint-8-testing-and-amp-security-sett-17-18-24-sp" tabindex="-1">Sprint 8 — Testing &amp; Security (Sett. 17–18 | 24 SP)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Attività</th>
+<th>SP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unit test Spring Boot (JUnit 5/Mockito): copertura CDU, algoritmi ALG01/ALG02</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Integration test con DB PG17 DEV (Testcontainers)</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Test Angular (Jasmine/Karma): componenti UI, form validation</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Security test OWASP Top 10, CSRF (POST/PUT), TLS 1.2+, mascheramento CF nei log</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Test stati consenso: cicli completi macchina a stati su tutti i path</td>
+<td>4</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sprint-9-uat-migrazione-go-live-sett-19-20-19-sp" tabindex="-1">Sprint 9 — UAT, Migrazione, Go-Live (Sett. 19–20 | 19 SP)</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Attività</th>
+<th>SP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UAT con CSI / Regione Piemonte: scenari funzionali su ambiente TEST</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Esecuzione migrazione PG9→PG17 (dettaglio sotto)</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Verifica post-migrazione + rollback check</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Deploy PROD GitOps (tag GitLab → Artifactory → Kubernetes rollout)</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Consegna Swagger SIA + monitoraggio ELK/Prometheus</td>
+<td>2</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h1 id="migrazione-pg-9-pg-17-conspref-dmp" tabindex="-1">Migrazione PG9 → PG17 (CONSPREF-DMP)</h1>
+<p>Il salto copre 8 major release: <code>pg_upgrade</code> non supporta upgrade diretti su distanze così grandi, quindi la strategia raccomandata per il contesto DBaaS Nivola è il dump &amp; restore logico.</p>
+<h2 id="punti-critici-da-ispezionare-sul-ddl-as-is-di-pg-9" tabindex="-1">Punti critici da ispezionare sul DDL AS-IS di PG9</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Categoria</th>
+<th>Rischio PG9→PG17</th>
+<th>Azione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Autenticazione</td>
+<td>pg_hba.conf usa md5 → PG17 default è scram-sha-256</td>
+<td>Aggiornare connessioni JDBC + Spring datasource</td>
+</tr>
+<tr>
+<td>Tipi deprecati</td>
+<td>SERIAL/BIGSERIAL ancora supportati ma sconsigliati</td>
+<td>Migrare a GENERATED ALWAYS AS IDENTITY nel TO-BE</td>
+</tr>
+<tr>
+<td>recovery.conf</td>
+<td>Rimosso in PG12, integrato in postgresql.conf</td>
+<td>Non rilevante per DBaaS (gestito da Nivola)</td>
+</tr>
+<tr>
+<td>default_with_oids</td>
+<td>Rimosso in PG12</td>
+<td>Verificare tabelle AS-IS con WITH OIDS</td>
+</tr>
+<tr>
+<td>JSON/JSONB</td>
+<td>json in PG9 limitato → PG17 ricco di funzioni</td>
+<td>Rivalutare query che usano operatori <code>-&gt;</code>, <code>-&gt;&gt;</code></td>
+</tr>
+<tr>
+<td>Sequenze orfane</td>
+<td>Sequenze associate a oggetti droppati rimangono</td>
+<td>Eseguire <code>SELECT * FROM pg_sequences</code> e pulire</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>Comportamento AT TIME ZONE cambiato in PG15</td>
+<td>Test espliciti su campi <code>dataacquisizione</code>, <code>datafine</code></td>
+</tr>
+<tr>
+<td>to_char con TZ</td>
+<td>Comportamento lievemente diverso</td>
+<td>Test su tutte le query con formattazione date</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="step-2-dump-dell-istanza-as-is-sprint-9" tabindex="-1">Step 2 — Dump dell'istanza AS-IS (Sprint 9)</h2>
+<pre><code class="language-bash"># Dump schema + dati (formato custom, compresso)
+pg_dump -Fc -v \
+  -h &lt;host-pg9&gt; -p 5432 \
+  -U consappuser \
+  -d gestioneconsensi \
+  --no-owner --no-acl \
+  -f dump_conspref_pg9_$(date +%Y%m%d).dump
+</code></pre>
+<p>Il dump non include owner/ACL per compatibilità con il nuovo schema DBaaS Nivola.</p>
+<h2 id="step-3-restore-su-pg-17-dev-sprint-9" tabindex="-1">Step 3 — Restore su PG17 DEV (Sprint 9)</h2>
+<pre><code class="language-bash"># Crea schema vuoto sul DBaaS PG17
+psql -h &lt;host-pg17-dev&gt; -U consappuser \
+     -d gestioneconsensi \
+     -c &quot;CREATE SCHEMA IF NOT EXISTS conspref;&quot;
+
+# Restore
+pg_restore -Fc -v \
+  -h &lt;host-pg17-dev&gt; -p 5432 \
+  -U consappuser \
+  -d gestioneconsensi \
+  --no-owner --no-acl \
+  dump_conspref_pg9_$(date +%Y%m%d).dump
+</code></pre>
+<h2 id="step-4-validazione-post-restore" tabindex="-1">Step 4 — Validazione Post-Restore</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Query / Metodo</th>
+<th>Atteso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conteggio record per tabella</td>
+<td><code>SELECT relname, n_live_tup FROM pg_stat_user_tables ORDER BY 1</code></td>
+<td>Uguale a AS-IS</td>
+</tr>
+<tr>
+<td>Integrità FK</td>
+<td><code>SELECT conname FROM pg_constraint WHERE contype='f'</code> + test insert</td>
+<td>Nessun errore</td>
+</tr>
+<tr>
+<td>Sequenze correnti</td>
+<td><code>SELECT * FROM pg_sequences</code></td>
+<td>Valori &gt; MAX(id) di ogni tabella</td>
+</tr>
+<tr>
+<td>Funzioni custom</td>
+<td><code>\df</code> in psql</td>
+<td>Tutte presenti</td>
+</tr>
+<tr>
+<td>Test stati consenso</td>
+<td>Script SQL che percorre la macchina a stati (ATTIVO→SCADUTO→ANNULLATO)</td>
+<td>Transizioni corrette</td>
+</tr>
+<tr>
+<td>Performance query critiche</td>
+<td><code>EXPLAIN ANALYZE</code> sulle query principali di CDU-02, CDU-07, BATCH-01</td>
+<td>Piani ragionevoli, no Seq Scan su tabelle grandi</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="step-5-cutover-prod-sprint-9-finestra-manutenzione" tabindex="-1">Step 5 — Cutover PROD (Sprint 9, finestra manutenzione)</h2>
+<ol>
+<li>Stop applicazione (Kubernetes: <code>kubectl scale deploy/gestione-consensi-backend --replicas=0</code>)</li>
+<li>Dump finale dell'istanza PG9 PROD (delta dall'ultimo dump)</li>
+<li>Restore incrementale su PG17 PROD</li>
+<li>Aggiornamento Kubernetes Secret con nuova stringa JDBC PG17</li>
+<li>Restart (<code>--replicas=2</code>), verifica readinessProbe</li>
+<li>Smoke test: login Cittadino, rilascio consenso, verifica <code>cons_t_notifica</code></li>
+<li>Monitoraggio ELK per 30 minuti post-cutover</li>
+</ol>
+<p>Piano di rollback: se entro 30 minuti si rilevano anomalie critiche, ripristino dei Kubernetes Secret con stringa JDBC PG9 e restart. L'istanza PG9 rimane attiva in standby per almeno 48 ore dopo il go-live.</p>
 <div style="margin-top:2.5rem;width:100%">
 <script src="https://giscus.app/client.js" data-repo="caccu/srs_cons_git" data-repo-id="R_kgDOSgs_Cw" data-category="General" data-category-id="DIC_kwDOSgs_C84C9cl-" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="it" crossorigin="anonymous" async></script>
 </div>

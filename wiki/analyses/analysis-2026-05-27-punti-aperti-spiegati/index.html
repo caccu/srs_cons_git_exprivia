@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>Notifica cittadino post-acquisizione via Notificatore di Deleghe (NON UNP), dopo COMPLETATO</title>
+<title>Punti Aperti — Spiegati in Modo Semplice</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script type="importmap">
@@ -111,7 +111,7 @@
 </div>
 </div>
 <div x-show="isOpen" style="display:none" class="filelist">
-<div @click.stop class="notelink">
+<div @click.stop class="notelink active-note">
 <a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/analyses/analysis-2026-05-27-punti-aperti-spiegati/">Punti Aperti — Spiegati in Modo Semplice </a>
 </div>
 </div>
@@ -266,7 +266,7 @@
 </div>
 </div>
 <div x-show="isOpen" style="display:none" class="filelist">
-<div @click.stop class="notelink active-note">
+<div @click.stop class="notelink">
 <a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/docs/adr/adr-012-notificatore-deleghe-post-completato/">ADR-012: Notifica cittadino post-acquisizione via Notificatore di Deleghe (NON UNP), dopo COMPLETATO </a>
 </div>
 </div>
@@ -484,100 +484,152 @@
 <div class="header-meta">
 </div>
 </header>
-<h1 id="adr-012-notifica-cittadino-via-notificatore-di-deleghe-post-completato" tabindex="-1">ADR-012: Notifica cittadino via Notificatore di Deleghe post-COMPLETATO</h1>
-<h2 id="status" tabindex="-1">Status</h2>
-<p><code>accepted</code> — decisione MF33R31 sulla revisione SRS v3.</p>
-<h2 id="context" tabindex="-1">Context</h2>
-<p>A valle di un atto di consenso del cittadino (CDU-03 rilascio o CDU-04/05 modifica/cambio valore), il sistema deve notificare al cittadino/delegato l'avvenuta acquisizione.</p>
-<p>CSI Piemonte dispone di due servizi di notifica distinti:</p>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>Servizio</th>
-<th>Scopo principale</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Notificatore UNP</strong> (User Notification Platform)</td>
-<td>Notifiche applicative generiche multi-canale (email, push, AppIO). Documentato su <code>gitlab.csi.it/user-notification-platform/unpdocumentazione</code></td>
-</tr>
-<tr>
-<td><strong>Notificatore di Deleghe</strong></td>
-<td>Servizio dedicato alle conferme nell'ambito atti formali (rilascio/modifica consensi e deleghe)</td>
-</tr>
-</tbody>
-</table></div>
-<p>Confondere i due porta a:</p>
+<h1 id="punti-aperti-spiegati-in-modo-semplice" tabindex="-1">Punti Aperti — Spiegati in Modo Semplice</h1>
+<p>Questa è la versione &quot;in parole povere&quot; del <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/">tracker tecnico dei punti aperti</a>. Per ogni domanda ancora senza risposta spiega: <strong>cosa significa</strong>, <strong>perché blocca</strong>, <strong>come si chiude</strong>.</p>
+<p>I punti aperti sono 38 in totale. Quasi tutti dipendono da una risposta o da un accesso che deve dare <strong>CSI Piemonte</strong>. Finché non arrivano, certe parti dello sviluppo non possono partire.</p>
+<p><strong>Cosa vuol dire la priorità:</strong></p>
 <ul>
-<li>Onboarding del servizio sbagliato (credenziali, spec, ticket di accesso)</li>
-<li>Documentazione SRS ambigua sul canale (sezioni §3 e §7 ne risentono)</li>
-<li>Implementazione client REST verso endpoint non corretti</li>
+<li>🔴 <strong>Critico</strong> — serve subito, blocca la partenza (Giorno 1 / Sprint 0)</li>
+<li>🟠 <strong>Alto</strong> — blocca gli sprint 2–3</li>
+<li>🟡 <strong>Moderato</strong> — serve prima del collaudo o del go-live</li>
+<li>⚪ <strong>Aperto</strong> — utile ma non blocca</li>
 </ul>
-<p>Inoltre, il <strong>timing</strong> della notifica al cittadino è critico: non deve partire prima che le notifiche alle ASR (BATCH-01) siano confermate <code>COMPLETATO</code>, altrimenti il cittadino potrebbe ricevere conferma di un atto che il SIA della propria ASR non ha ancora ricevuto.</p>
-<h2 id="decision" tabindex="-1">Decision</h2>
-<p>Notifica cittadino post-acquisizione:</p>
-<ul>
-<li><strong>Canale: Notificatore di Deleghe</strong> (NON Notificatore UNP)</li>
-<li><strong>Timing: parte SOLO dopo conferma notifica alle aziende</strong> — quando tutti i record <code>cons_t_notifica</code> per la variazione raggiungono <code>INVIATO</code>/<code>COMPLETATO</code> lato BATCH-01</li>
-</ul>
-<p>Documentazione obbligatoria:</p>
-<ul>
-<li>Distinguere chiaramente Notificatore di Deleghe vs UNP in SRS §3 e §7 (sezione notifiche)</li>
-<li>Wiki <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> entries separate per i due servizi</li>
-</ul>
-<h2 id="consequences" tabindex="-1">Consequences</h2>
-<h3 id="positive" tabindex="-1">Positive</h3>
-<ul>
-<li>Cittadino riceve conferma solo quando l'atto è effettivamente propagato (no race condition percepita)</li>
-<li>Allineamento con altri servizi sanità che usano Notificatore di Deleghe per atti formali</li>
-<li>Notificatore UNP riservato a notifiche generiche (es. promemoria, comunicazioni)</li>
-</ul>
-<h3 id="negative" tabindex="-1">Negative</h3>
-<ul>
-<li><strong>Dipendenza temporale stretta</strong> fra BATCH-01 e notifica cittadino — se BATCH-01 ritarda/fallisce, anche la notifica cittadino è ritardata</li>
-<li>Necessario monitoraggio orchestrazione (quando tutti i record <code>cons_t_notifica</code> per una variazione sono COMPLETATO → trigger notifica)</li>
-<li>Approvvigionamento Notificatore di Deleghe da richiedere a CSI (Sprint 0, ❌ Punti Aperti INT)</li>
-</ul>
-<h3 id="neutral" tabindex="-1">Neutral</h3>
-<ul>
-<li>Notificatore UNP resta disponibile per altre notifiche applicative</li>
-</ul>
-<h2 id="alternatives-considered" tabindex="-1">Alternatives considered</h2>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>Alternativa</th>
-<th>Motivo scarto</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Notificatore UNP (canale unico generico)</td>
-<td>Errato per natura dell'atto: rilascio consenso è atto formale, non notifica generica</td>
-</tr>
-<tr>
-<td>Notifica sincrona al cittadino al click &quot;Salva&quot;</td>
-<td>Risk race condition: cittadino confermato ma BATCH-01 in errore → divergenza percepita</td>
-</tr>
-<tr>
-<td>Notifica indipendente (fire-and-forget al click)</td>
-<td>Stesso problema</td>
-</tr>
-</tbody>
-</table></div>
-<h2 id="open-issues" tabindex="-1">Open issues</h2>
-<ul>
-<li>INT-05: distinzione formalizzata in SRS — Notificatore di Deleghe ≠ Notificatore UNP (tracker <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/">Punti Aperti CSI</a> §6)</li>
-<li>Approvvigionamento spec/API Notificatore di Deleghe da CSI</li>
-</ul>
-<h2 id="references" tabindex="-1">References</h2>
-<ul>
-<li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> §Notificatore di Deleghe + §Notificatore UNP</li>
-<li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a> §Notifica al cittadino post-COMPLETATO</li>
-<li><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/">Risposte MF SRS v3</a> MF33R31</li>
-<li>Correlato: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-007-batch-01-5min-skip-locked/">ADR-007-batch-01-5min-skip-locked</a> BATCH-01 5min (precondizione <code>COMPLETATO</code>)</li>
-</ul>
+<hr>
+<h2 id="i-10-punti-critici-da-sbloccare-per-primi" tabindex="-1">I 10 punti critici (da sbloccare per primi)</h2>
+<p>Questi sono i &quot;tappi&quot; iniziali. Senza, lo sviluppo vero non parte.</p>
+<h3 id="come-fanno-login-i-cittadini-e-gli-operatori-gasp-salute-id-01" tabindex="-1">🔴 Come fanno login i cittadini e gli operatori? (GASP Salute — ID-01)</h3>
+<p><strong>Cosa significa:</strong> GASP Salute è il sistema regionale che gestisce l'accesso con SPID/CIE. Per integrarlo dobbiamo sapere con che &quot;linguaggio&quot; parla: due standard possibili, <strong>OIDC</strong> oppure <strong>SAML2</strong>. Sono diversi e richiedono codice diverso.<br>
+<strong>Perché blocca:</strong> senza saperlo non possiamo scrivere la pagina di login, che è il punto d'ingresso di tutta l'applicazione.<br>
+<strong>Come si chiude:</strong> CSI ci dà la documentazione tecnica di GASP Salute (protocollo, indirizzi degli endpoint, esempio di flusso).</p>
+<h3 id="dove-sta-il-database-d-baa-s-nivola-dev-inf-01" tabindex="-1">🔴 Dove sta il database? (DBaaS Nivola DEV — INF-01)</h3>
+<p><strong>Cosa significa:</strong> Nivola è il cloud regionale; il database non ce lo creiamo noi, lo fornisce CSI tramite una richiesta formale (&quot;scheda di provisioning&quot;). DEV = ambiente di sviluppo.<br>
+<strong>Perché blocca:</strong> senza database non si può sviluppare né testare niente.<br>
+<strong>Come si chiude:</strong> Exprivia compila e invia la scheda di provisioning; CSI/Nivola crea l'istanza PostgreSQL 17.</p>
+<h3 id="database-di-produzione-d-baa-s-nivola-prod-inf-02" tabindex="-1">🔴 Database di produzione (DBaaS Nivola PROD — INF-02)</h3>
+<p><strong>Cosa significa:</strong> stessa cosa di sopra, ma per l'ambiente reale dove gireranno gli utenti veri.<br>
+<strong>Perché blocca:</strong> serve per il go-live; ha tempi di consegna lunghi, meglio chiederlo presto.<br>
+<strong>Come si chiude:</strong> seconda scheda di provisioning a CSI/Nivola.</p>
+<h3 id="chi-ci-crea-lo-scheletro-del-progetto-automation-csi-inf-03" tabindex="-1">🔴 Chi ci crea lo scheletro del progetto? (Automation CSI — INF-03)</h3>
+<p><strong>Cosa significa:</strong> CSI ha regole obbligatorie su come va impacchettato il software (immagini Docker, Helm chart, pipeline). Esiste un sistema automatico che genera lo scheletro già conforme.<br>
+<strong>Perché blocca:</strong> senza, dovremmo indovinare gli standard CSI e rischiare di rifare tutto.<br>
+<strong>Come si chiude:</strong> CSI ci dà accesso al loro strumento di automation per generare la struttura iniziale o provvedono loro tramite referance implementation.</p>
+<h3 id="chi-e-responsabile-della-migrazione-del-database-conspref-dmp-gov-03" tabindex="-1">🔴 Chi è responsabile della migrazione del database? (CONSPREF-DMP — GOV-03)</h3>
+<p><strong>Cosa significa:</strong> il vecchio sistema gira su PostgreSQL 9, il nuovo su PostgreSQL 17 — 8 versioni di salto. Serve un piano scritto di migrazione dati (il &quot;DMP&quot;). Oggi non esiste e non si sa chi lo deve scrivere lato CSI.<br>
+<strong>Perché blocca:</strong> è un'attività rischiosa; senza un responsabile chiaro resta in sospeso fino alla fine, quando è troppo tardi.<br>
+<strong>Come si chiude:</strong> CSI nomina un referente; si concorda chi redige il CONSPREF-DMP.</p>
+<h3 id="indirizzo-del-server-che-rilascia-i-and-quot-permessi-and-quot-per-i-servizi-sec-01-api-01" tabindex="-1">🔴 Indirizzo del server che rilascia i &quot;permessi&quot; per i servizi (SEC-01 / API-01)</h3>
+<p><strong>Cosa significa:</strong> i servizi esterni (le ASR) che chiamano le nostre API devono prima farsi dare un token. Questo token lo rilascia un &quot;Authorization Server&quot; di CSI. Ci serve il suo indirizzo (test e produzione).<br>
+<strong>Perché blocca:</strong> senza, nessun test di integrazione con i sistemi esterni è possibile.<br>
+<strong>Come si chiude:</strong> CSI comunica gli URL dell'Authorization Server.</p>
+<h3 id="come-e-firmato-il-token-sec-02" tabindex="-1">🔴 Come è firmato il token? (SEC-02)</h3>
+<p><strong>Cosa significa:</strong> il token va verificato controllandone la firma digitale. Dobbiamo sapere con quale algoritmo è firmato (es. RS256 o ES256) e dove scaricare le chiavi pubbliche per verificarlo (l'URL &quot;JWKS&quot;).<br>
+<strong>Perché blocca:</strong> senza non possiamo validare i token in arrivo, quindi non possiamo proteggere le API.<br>
+<strong>Come si chiude:</strong> CSI indica algoritmo di firma + URL del JWKS.</p>
+<h3 id="lo-snapshot-blocca-o-no-le-scritture-cdu-17-pull-01" tabindex="-1">🔴 Lo snapshot blocca o no le scritture? (CDU-17 — PULL-01)</h3>
+<p><strong>Cosa significa:</strong> per allineare un nuovo ente serve una &quot;foto&quot; coerente dei consensi. Due modi: <strong>6.A</strong> ferma un attimo le acquisizioni mentre fa la foto (più semplice, ma c'è un microstop); <strong>6.B</strong> non ferma niente e usa una marca temporale (più complesso, zero stop).<br>
+<strong>Perché blocca:</strong> è una scelta di architettura: cambia come scriviamo il codice del recupero dati.<br>
+<strong>Come si chiude:</strong> CSI/Regione sceglie la variante preferita.</p>
+<h3 id="come-avvisiamo-il-sistema-esterno-quando-la-foto-e-pronta-cdu-17-pull-02" tabindex="-1">🔴 Come avvisiamo il sistema esterno quando la foto è pronta? (CDU-17 — PULL-02)</h3>
+<p><strong>Cosa significa:</strong> finito lo snapshot bisogna avvisare il sistema esterno (SIA) che può venirsi a prendere i dati. Solo email? Oppure anche un &quot;webhook&quot; (chiamata automatica) configurabile per ogni ASR?<br>
+<strong>Perché blocca:</strong> definisce un pezzo dell'interfaccia con gli enti esterni.<br>
+<strong>Come si chiude:</strong> CSI dice quale canale di notifica vuole.</p>
+<hr>
+<h2 id="sicurezza-delle-api-chi-puo-chiamarci-e-cosa" tabindex="-1">Sicurezza delle API (chi può chiamarci e cosa)</h2>
+<h3 id="chi-crea-le-credenziali-dei-nuovi-sistemi-sec-03" tabindex="-1">🟠 Chi crea le credenziali dei nuovi sistemi? (SEC-03)</h3>
+<p><strong>Cosa significa:</strong> ogni sistema esterno autorizzato ha un suo <code>client_id</code>. Va deciso chi lo crea e chi riempie la tabella che collega quel client all'ente che rappresenta.<br>
+<strong>Come si chiude:</strong> si concorda con CSI la procedura di &quot;onboarding&quot; di un nuovo SIA.</p>
+<h3 id="quanto-dura-un-token-sec-04" tabindex="-1">🟠 Quanto dura un token? (SEC-04)</h3>
+<p><strong>Cosa significa:</strong> il token d'accesso scade dopo un po'. Quanto? (proposta nostra: 1 ora) E come si rinnova?<br>
+<strong>Come si chiude:</strong> CSI conferma la durata e la politica di rinnovo.</p>
+<h3 id="quali-and-quot-permessi-and-quot-esistono-sec-05-api-02-pull-03" tabindex="-1">🟠 Quali &quot;permessi&quot; esistono? (SEC-05 / API-02 / PULL-03)</h3>
+<p><strong>Cosa significa:</strong> uno &quot;scope&quot; è l'etichetta che dice cosa un token può fare (es. <code>consensi:read</code> = solo lettura, <code>consensi:snapshot</code> = recupero massivo). Li definisce CSI o li scegliamo noi?<br>
+<strong>Come si chiude:</strong> si concorda la lista degli scope in un'unica chiacchierata (questi tre punti sono lo stesso tema).</p>
+<h3 id="cosa-succede-se-una-credenziale-viene-rubata-sec-06" tabindex="-1">🟡 Cosa succede se una credenziale viene rubata? (SEC-06)</h3>
+<p><strong>Cosa significa:</strong> serve una procedura per disattivare credenziali compromesse (lista nera? rotazione periodica?).<br>
+<strong>Come si chiude:</strong> CSI definisce la politica di revoca.</p>
+<hr>
+<h2 id="recupero-dati-massivo-per-i-nuovi-enti-cdu-17-sostituisce-batch-03" tabindex="-1">Recupero dati massivo per i nuovi enti (CDU-17, sostituisce BATCH-03)</h2>
+<h3 id="quanti-record-per-pagina-pull-04-api-03" tabindex="-1">🟡 Quanti record per pagina? (PULL-04 / API-03)</h3>
+<p><strong>Cosa significa:</strong> i dati si scaricano &quot;a pagine&quot;. Quanto grande può essere una pagina? Si può regolare per ogni ASR?<br>
+<strong>Come si chiude:</strong> CSI indica il valore massimo accettabile.</p>
+<h3 id="teniamo-la-vecchia-modalita-come-riserva-pull-05" tabindex="-1">🟡 Teniamo la vecchia modalità come riserva? (PULL-05)</h3>
+<p><strong>Cosa significa:</strong> la vecchia idea (export con un po' di downtime) va tenuta come fallback retrocompatibile?<br>
+<strong>Come si chiude:</strong> decisione condivisa CSI/Exprivia.</p>
+<h3 id="batch-03-si-cancella-o-si-segna-come-superato-pull-06" tabindex="-1">🟠 BATCH-03 si cancella o si segna come superato? (PULL-06)</h3>
+<p><strong>Cosa significa:</strong> dato che CDU-17 sostituisce BATCH-03, nel documento SRS lo togliamo del tutto o lo lasciamo marcato come &quot;deprecato&quot;?<br>
+<strong>Come si chiude:</strong> decisione editoriale sul SRS, da confermare con CSI.</p>
+<h3 id="come-si-conferma-che-l-allineamento-e-finito-pull-07" tabindex="-1">🟡 Come si conferma che l'allineamento è finito? (PULL-07)</h3>
+<p><strong>Cosa significa:</strong> quando il sistema esterno ha finito di scaricare, ce lo dice con una chiamata di conferma? Oppure lo capiamo da soli con un timeout?<br>
+<strong>Come si chiude:</strong> si concorda il meccanismo di conferma.</p>
+<hr>
+<h2 id="documenti-open-api-il-and-quot-contratto-and-quot-delle-api-verso-le-asr" tabindex="-1">Documenti OpenAPI (il &quot;contratto&quot; delle API verso le ASR)</h2>
+<h3 id="quanto-devono-essere-veloci-le-api-api-04" tabindex="-1">🟡 Quanto devono essere veloci le API? (API-04)</h3>
+<p><strong>Cosa significa:</strong> servono target di prestazione (tempo di risposta, quante richieste al secondo) per i servizi CDU-15/16.<br>
+<strong>Come si chiude:</strong> CSI fornisce gli SLA; serve prima del collaudo.</p>
+<h3 id="quali-asr-sono-coinvolte-e-chi-sono-i-referenti-api-05-gov-05" tabindex="-1">🟠 Quali ASR sono coinvolte e chi sono i referenti? (API-05 / GOV-05)</h3>
+<p><strong>Cosa significa:</strong> dobbiamo sapere l'elenco delle aziende sanitarie che useranno le API e con chi parlare tecnicamente in ognuna.<br>
+<strong>Come si chiude:</strong> CSI fornisce lista ASR + nomi dei referenti tecnici.</p>
+<hr>
+<h2 id="batch-e-servizi-soap-notifiche-verso-le-asr" tabindex="-1">Batch e servizi SOAP (notifiche verso le ASR)</h2>
+<h3 id="quale-operazione-del-wsdl-usa-batch-01-bat-01" tabindex="-1">🟡 Quale operazione del WSDL usa BATCH-01? (BAT-01)</h3>
+<p><strong>Cosa significa:</strong> BATCH-01 notifica i consensi alle ASR via SOAP. C'è ambiguità su quale operazione del contratto WSDL chiamare (una in ingresso o una in uscita). Sbagliarla è un errore implementativo grave.<br>
+<strong>Come si chiude:</strong> CSI conferma l'operazione WSDL corretta.</p>
+<h3 id="come-storicizza-i-consensi-batch-02-bat-02-sc-67" tabindex="-1">🟠 Come storicizza i consensi BATCH-02? (BAT-02 / SC67)</h3>
+<p><strong>Cosa significa:</strong> quando un'informativa scade/viene annullata, BATCH-02 deve registrare lo storico dei consensi. La logica esatta nel SRS è ancora segnata &quot;da verificare meglio&quot;.<br>
+<strong>Come si chiude:</strong> approfondimento tecnico interno + verifica con CSI prima di chiudere il SRS.</p>
+<h3 id="le-asr-sanno-che-and-quot-scaduto-and-quot-cambia-significato-bat-03" tabindex="-1">🟠 Le ASR sanno che &quot;SCADUTO&quot; cambia significato? (BAT-03)</h3>
+<p><strong>Cosa significa:</strong> nel nuovo sistema lo stato SCADUTO scatta in un momento diverso rispetto al vecchio. Le ASR che leggono questi dati devono adeguare la loro logica.<br>
+<strong>Come si chiude:</strong> confermare che CSI comunica il cambiamento alle ASR.</p>
+<hr>
+<h2 id="integrazioni-con-altri-sistemi" tabindex="-1">Integrazioni con altri sistemi</h2>
+<h3 id="documentazione-tecnica-di-aura-int-01" tabindex="-1">🟠 Documentazione tecnica di AURA (INT-01)</h3>
+<p><strong>Cosa significa:</strong> AURA è l'anagrafe regionale per cercare i pazienti. Ci serve il suo WSDL (l'elenco dei servizi disponibili).<br>
+<strong>Come si chiude:</strong> CSI consegna il WSDL di AURA.</p>
+<h3 id="documentazione-tecnica-di-gestione-deleghe-int-02" tabindex="-1">🟠 Documentazione tecnica di Gestione Deleghe (INT-02)</h3>
+<p><strong>Cosa significa:</strong> serve il WSDL del servizio che gestisce le deleghe (chi può agire per conto di chi).<br>
+<strong>Come si chiude:</strong> CSI consegna il WSDL di Gestione Deleghe.</p>
+<h3 id="cos-e-and-quot-lis-and-quot-e-come-ci-si-integra-int-03" tabindex="-1">🟠 Cos'è &quot;LIS&quot; e come ci si integra? (INT-03)</h3>
+<p><strong>Cosa significa:</strong> nei documenti compare &quot;LIS&quot; come terzo canale di acquisizione consensi, ma non è chiaro cosa sia l'acronimo né come funziona l'integrazione.<br>
+<strong>Come si chiude:</strong> CSI scioglie l'acronimo e fornisce le specifiche.</p>
+<h3 id="accesso-ai-componenti-grafici-quasar-int-04" tabindex="-1">🟠 Accesso ai componenti grafici QUASAR (INT-04)</h3>
+<p><strong>Cosa significa:</strong> QUASAR è la libreria di componenti UI di CSI da usare come riferimento per il frontend.<br>
+<strong>Come si chiude:</strong> CSI dà accesso al repository QUASAR.</p>
+<h3 id="due-and-quot-notificatori-and-quot-diversi-int-05" tabindex="-1">🟡 Due &quot;notificatori&quot; diversi (INT-05)</h3>
+<p><strong>Cosa significa:</strong> nel SRS vanno distinti chiaramente il &quot;Notificatore di Deleghe&quot; e il &quot;Notificatore UNP&quot; — sono due cose diverse, oggi si rischia di confonderle.<br>
+<strong>Come si chiude:</strong> correzione formale nel testo del SRS.</p>
+<hr>
+<h2 id="infrastruttura-e-architettura" tabindex="-1">Infrastruttura e architettura</h2>
+<h3 id="il-diagramma-dell-architettura-e-quello-giusto-inf-04" tabindex="-1">🟠 Il diagramma dell'architettura è quello giusto? (INF-04)</h3>
+<p><strong>Cosa significa:</strong> esiste un diagramma con un nodo &quot;API Gateway&quot;, ma CSI ha confermato che NON si usa un API Gateway. Va allineato.<br>
+<strong>Come si chiude:</strong> concordare con CSI la versione definitiva del diagramma e togliere il nodo in conflitto.</p>
+<hr>
+<h2 id="governance-e-approvazioni" tabindex="-1">Governance e approvazioni</h2>
+<h3 id="approvazione-formale-del-srs-v1-0-gov-01" tabindex="-1">🟠 Approvazione formale del SRS V1.0 (GOV-01)</h3>
+<p><strong>Cosa significa:</strong> dopo aver recepito tutte le risposte di CSI, il documento dei requisiti (SRS) va approvato ufficialmente.<br>
+<strong>Come si chiude:</strong> CSI firma/approva la bozza v2 del SRS.</p>
+<h3 id="validazione-delle-nostre-proposte-proposta-gov-02" tabindex="-1">🟠 Validazione delle nostre proposte [PROPOSTA] (GOV-02)</h3>
+<p><strong>Cosa significa:</strong> nel SRS abbiamo inserito alcune proposte nostre (gestione tentativi BATCH-01, scope PDF del CDU-06, le 10 proposte evolutive del cap. 8.4). Vanno validate da CSI.<br>
+<strong>Come si chiude:</strong> CSI conferma o corregge le proposte marcate [PROPOSTA].</p>
+<h3 id="prestazioni-e-affidabilita-richieste-gov-04" tabindex="-1">🟡 Prestazioni e affidabilità richieste (GOV-04)</h3>
+<p><strong>Cosa significa:</strong> servono i requisiti non-funzionali: tempo di risposta massimo, capacità di carico, percentuale di disponibilità (es. 99,x%).<br>
+<strong>Come si chiude:</strong> CSI fornisce gli SLA/NFR; serve prima del collaudo.</p>
+<hr>
+<h2 id="identita-e-profili-resto" tabindex="-1">Identità e profili (resto)</h2>
+<h3 id="registrazione-dei-profili-operatore-su-pua-id-02" tabindex="-1">🟠 Registrazione dei profili operatore su PUA (ID-02)</h3>
+<p><strong>Cosa significa:</strong> l'app va registrata sul Configuratore Regionale (PUA) con due profili: Operatore Sanitario-Amm. e Back Office.<br>
+<strong>Come si chiude:</strong> CSI esegue/abilita la registrazione.</p>
+<h3 id="credenziali-iris-per-aura-in-dev-id-03" tabindex="-1">🟠 Credenziali IRIS per AURA in DEV (ID-03)</h3>
+<p><strong>Cosa significa:</strong> per chiamare AURA in sviluppo servono credenziali IRIS dedicate.<br>
+<strong>Come si chiude:</strong> CSI fornisce le credenziali per l'ambiente DEV.</p>
+<hr>
+<h2 id="in-sintesi-come-si-chiudono" tabindex="-1">In sintesi: come si chiudono</h2>
+<p>Quasi tutti i punti si chiudono in <strong>tre modi</strong>:</p>
+<ol>
+<li><strong>CSI ci dà un accesso o una risorsa</strong> (database, repository, credenziali, automation) → si chiude con una richiesta formale.</li>
+<li><strong>CSI ci dà una documentazione tecnica</strong> (GASP Salute, WSDL AURA/Deleghe, URL e firma dei token) → si chiude con consegna documenti.</li>
+<li><strong>CSI/Regione prende una decisione</strong> (variante snapshot, scope, scelte sul SRS) → si chiude in riunione e si verbalizza nel SRS.</li>
+</ol>
+<p><strong>Prossimo passo concreto:</strong> usare la lista dei 10 punti critici qui sopra come ordine del giorno della prossima riunione con CSI. Vedi anche la <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/">Checklist Avvio Progetto</a> per le azioni operative del Giorno 1.</p>
 <div style="margin-top:2.5rem;width:100%">
 <script src="https://giscus.app/client.js" data-repo="caccu/srs_cons_git" data-repo-id="R_kgDOSgs_Cw" data-category="General" data-category-id="DIC_kwDOSgs_C84C9cl-" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="it" crossorigin="anonymous" async></script>
 </div>
