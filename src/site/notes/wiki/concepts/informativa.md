@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/informativa/","title":"Informativa Consenso","tags":["consenso","informativa","modello-dati","core-domain","gdpr"],"dg-note-properties":{"title":"Informativa Consenso","aliases":["Informativa Consenso","Informativa"],"type":"concept","tags":["consenso","informativa","modello-dati","core-domain","gdpr"],"created":"2026-05-15","updated":"2026-05-15","sources":["2026-03-02-conspref-srs-v1-revised","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2026-03-02-sommario-srs-consensi"],"related":["[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/informativa/","title":"Informativa Consenso","tags":["consenso","informativa","modello-dati","core-domain","gdpr"],"dg-note-properties":{"title":"Informativa Consenso","aliases":["Informativa Consenso","Informativa"],"type":"concept","tags":["consenso","informativa","modello-dati","core-domain","gdpr"],"created":"2026-05-15","updated":"2026-05-29","sources":["2026-03-02-conspref-srs-v1-revised","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2026-03-02-sommario-srs-consensi"],"related":["[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]"]}}
 ---
 
 
@@ -41,7 +41,7 @@ Estensione di `cons_d_informativa` con campi aggiuntivi per gestione versionamen
 
 - **Attivazione:** una nuova informativa con `data_decorrenza` futura entra in vigore al raggiungimento della data.
 - **Scadenza implicita:** quando viene attivata una nuova informativa per la stessa coppia (tipo, sotto-tipo), la precedente diventa SCADUTA e i consensi attivi su di essa sono propagati a stato SCADUTO.
-- **Trigger di scadenza:** [[wiki/concepts/batch-processes\|BATCH-02]] ogni notte verifica le informative scadute e applica la transizione di stato sui consensi (storicizzazione in `cons_s_consenso`).
+- **Trigger di scadenza:** [[wiki/concepts/batch-processes\|BATCH-02]] verifica periodicamente le informative scadute e applica la transizione di stato sui consensi (storicizzazione in `cons_s_consenso`). Frequenza da definire con [[wiki/entities/csi-piemonte\|CSI Piemonte]] — non specificata nell'SRS.
 
 ---
 
