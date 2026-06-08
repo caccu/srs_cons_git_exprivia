@@ -478,7 +478,7 @@
 </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"></script>
-<script>document.addEventListener("DOMContentLoaded",init,!1),document.addEventListener("DOMContentLoaded",setCorrectShortcut,!1);const SITE_BASE_PATH="/srs_cons_git",previewCache=new Map;function resolveSearchUrl(e){return e&&e.startsWith("/")&&SITE_BASE_PATH?e===SITE_BASE_PATH||e.startsWith(`${SITE_BASE_PATH}/`)?e:`${SITE_BASE_PATH}${e}`:e}window.toggleSearch=function(){const e=document.getElementById("globalsearch");e.classList.contains("active")?e.classList.remove("active"):(e.classList.add("active"),document.getElementById("term").focus())},window.openSearchFromSidebar=function(){const e=document.getElementById("globalsearch"),t=document.getElementById("term");e&&t&&(e.classList.contains("active")||e.classList.add("active"),t.focus(),t.select())},window.toggleTagSearch=function(e){const t=e.textContent;t&&(document.getElementById("term").value=t.trim(),window.toggleSearch(),window.search())};const loadingSvg='\n    <div style="display: flex; justify-content: center; padding: 40px;">\n        <svg width="40" height="40" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">\n            <g fill="none" fill-rule="evenodd" transform="translate(1 1)" stroke-width="2">\n                <circle cx="22" cy="22" r="6" stroke-opacity="0">\n                    <animate attributeName="r" begin="1.5s" dur="3s" values="6;22" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-opacity" begin="1.5s" dur="3s" values="1;0" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-width" begin="1.5s" dur="3s" values="2;0" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n                <circle cx="22" cy="22" r="6" stroke-opacity="0">\n                    <animate attributeName="r" begin="3s" dur="3s" values="6;22" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-opacity" begin="3s" dur="3s" values="1;0" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-width" begin="3s" dur="3s" values="2;0" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n                <circle cx="22" cy="22" r="8">\n                    <animate attributeName="r" begin="0s" dur="1.5s" values="6;1;2;3;4;5;6" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n            </g>\n        </svg>\n    </div>';function debounce(e,t,n){var r;return function(){var i=this,s=arguments,o=n&&!r;clearTimeout(r),r=setTimeout((function(){r=null,n||e.apply(i,s)}),t),o&&e.apply(i,s)}}function setCorrectShortcut(){navigator.platform.toUpperCase().indexOf("MAC")>=0&&document.querySelectorAll(".search-keys").forEach((e=>e.innerHTML="<code>⌘</code>&nbsp;+&nbsp;<code>K</code>"))}function tokenizeSearchTerms(e){const t=[],n=/"([^"]+)"|(\S+)/g;let r;for(;null!==(r=n.exec(e));){const e=(r[1]||r[2]).toLowerCase();e.length>1&&t.push(e)}return t.sort(((e,t)=>t.length-e.length))}function highlightTerms(e,t){if(!t||0===t.length||!e)return e;let n=e;return t.forEach((e=>{const t=e.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),r=new RegExp(`(${t})`,"gi");n=n.replace(r,'<span class="search-highlight">$1</span>')})),n}function getContextualExcerpt(e,t,n=150){if(!e)return"";const r=e.replace(/<[^>]*>/g,"");if(!t||0===t.length)return truncateText(r,n);let i=r.length;if(t.forEach((e=>{const t=r.toLowerCase().indexOf(e.toLowerCase());-1!==t&&t<i&&(i=t)})),i===r.length)return truncateText(r,n);const s=Math.max(0,i-50),o=Math.min(r.length,s+n);let a=r.substring(s,o);return s>0&&(a="..."+a),o<r.length&&(a+="..."),a}function truncateText(e,t){return e?(e=e.replace(/<[^>]*>/g,"")).length<=t?e:e.substring(0,t-3)+"...":""}async function fetchPreviewContent(e){if(previewCache.has(e))return previewCache.get(e);try{const t=await fetch(e),n=await t.text(),r=new DOMParser,i=r.parseFromString(n,"text/html").querySelector(".content, .cm-s-obsidian, article, main"),s=i?i.innerHTML:"";return previewCache.set(e,s),s}catch(e){return console.error("Failed to fetch preview:",e),""}}function highlightTextNodes(e,t){if(!t||0===t.length)return;const n=document.createTreeWalker(e,NodeFilter.SHOW_TEXT,null,!1),r=[];for(;n.nextNode();)r.push(n.currentNode);r.forEach((e=>{const n=e.textContent;let r=!1;if(t.forEach((e=>{n.toLowerCase().includes(e.toLowerCase())&&(r=!0)})),r){const r=document.createElement("span");r.innerHTML=highlightTerms(n,t),e.parentNode.replaceChild(r,e)}}))}async function showPreview(e){const t=window.searchResults;if(!t||!t[e])return;const n=t[e],r=document.getElementById("search-preview"),i=document.getElementById("preview-content"),s=r.querySelector(".preview-placeholder");if(!r||!i)return;document.querySelectorAll(".searchresult").forEach((e=>e.classList.remove("active")));const o=document.querySelector(`.searchresult[data-index="${e}"]`);o&&o.classList.add("active"),i.innerHTML=loadingSvg,i.classList.add("has-content"),s.style.display="none";const a=await fetchPreviewContent(resolveSearchUrl(n.url)),c=n.tags&&n.tags.length>0?`<div class="preview-tags">${n.tags.map((e=>`<a class="tag" href="javascript:void(0);" onclick="toggleTagSearch(this)">#${e}</a>`)).join("")}</div>`:"";i.innerHTML=`\n            <div class="preview-title">${highlightTerms(n.title,window.searchTerms)}</div>\n            ${c}\n            <div class="preview-body">${a}</div>\n        `;const l=i.querySelector(".preview-body");l&&window.searchTerms&&highlightTextNodes(l,window.searchTerms),window.currentPreviewIndex=e}function hidePreview(){const e=document.getElementById("search-preview"),t=document.getElementById("preview-content"),n=e?.querySelector(".preview-placeholder");n&&(n.style.display="flex"),t&&(t.classList.remove("has-content"),t.innerHTML=""),window.currentPreviewIndex=-1}function createIndex(e){const t=e=>(e=>e.toLowerCase().normalize("NFD").replace(/n\u0303/g,"ñ").replace(/[\u0300-\u036f]/g,"").normalize("NFC"))(e).split(/([^a-z]|[^\x00-\x7F])/),n=new FlexSearch.Document({cache:!0,charset:"latin:extra",optimize:!0,index:[{field:"content",tokenize:"reverse",encode:t},{field:"title",tokenize:"forward",encode:t},{field:"tags",tokenize:"forward",encode:t}]});return e.forEach(((e,t)=>{n.add({id:t,title:e.title,content:e.content,tags:e.tags})})),n}async function init(){const e="/srs_cons_git",t=`${e?e.replace(/\/$/,""):""}/searchIndex.json?v=2026-05-29T14:09:09.891Z`;try{const e=await fetch(t).then((e=>e.json())),n=createIndex(e);window.docs=e,window.index=n}catch(e){console.error("Failed to initialize search index:",e),window.docs=[],window.index=null}function n(e){const t=document.querySelectorAll(".searchresult");if(0===t.length)return;let n,r=-1;t.forEach(((e,t)=>{e.classList.contains("active")&&(r=t)})),-1===r?n=e>0?0:t.length-1:(n=r+e,n<0&&(n=t.length-1),n>=t.length&&(n=0)),t.forEach((e=>e.classList.remove("active"))),t[n].classList.add("active"),t[n].scrollIntoView({behavior:"smooth",block:"nearest"}),showPreview(parseInt(t[n].dataset.index))}document.addEventListener("keydown",(e=>{if(!e.ctrlKey&&!e.metaKey||"k"!==e.key.toLowerCase()&&"KeyK"!==e.code||(e.preventDefault(),toggleSearch()),"Escape"===e.key&&document.getElementById("globalsearch").classList.remove("active"),document.getElementById("globalsearch").classList.contains("active")&&("ArrowDown"===e.key&&(e.preventDefault(),n(1)),"ArrowUp"===e.key&&(e.preventDefault(),n(-1)),"Enter"===e.key)){e.preventDefault();const t=document.querySelector(".searchresult.active");if(t){const e=t.dataset.url;e&&(window.location.href=resolveSearchUrl(e))}}}));const r=debounce(search,200,!1);window.field=document.querySelector("#term"),field.addEventListener("input",r),window.resultsDiv=document.querySelector("#search-results");const i=new URL(location.href).searchParams;i.get("q")&&(field.setAttribute("value",i.get("q")),toggleSearch(),search())}async function search(){const e=field.value.trim(),t=document.getElementById("search-layout");if(!e)return resultsDiv.innerHTML="<span><i>Enter your search text in the box above</i></span>",hidePreview(),void(t&&t.classList.add("no-preview"));if(!window.index||!window.docs)return resultsDiv.innerHTML=`<span><i>No results for "${e}"</i></span>`,hidePreview(),void(t&&t.classList.add("no-preview"));window.lastSearch=e,window.searchTerms=tokenizeSearchTerms(e),resultsDiv.innerHTML=loadingSvg,hidePreview();const n=offlineSearch(e);if(window.searchResults=n,!n.length)return t&&t.classList.add("no-preview"),void(resultsDiv.innerHTML=`\n                <div class="no-results">\n                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">\n                        <circle cx="11" cy="11" r="8"></circle>\n                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>\n                        <line x1="8" y1="11" x2="14" y2="11"></line>\n                    </svg>\n                    <p>No results for "${e}"</p>\n                </div>\n            `);t&&t.classList.remove("no-preview");let r="";n.forEach(((e,t)=>{const n=highlightTerms(getContextualExcerpt(e.content,window.searchTerms,120),window.searchTerms),i=highlightTerms(e.title,window.searchTerms),s=e.tags&&e.tags.length>0?`<div class="result-tags">${e.tags.map((e=>`<span class="tag">#${e}</span>`)).join("")}</div>`:"";r+=`\n                <div class="searchresult${0===t?" active":""}"\n                     data-index="${t}"\n                     data-url="${e.url}"\n                     onmouseenter="showPreview(${t})"\n                     onclick="window.location.href=resolveSearchUrl('${e.url}')">\n                    <span class="result-title">${i}</span>\n                    ${s}\n                    <div class="result-excerpt">${n}</div>\n                </div>\n            `})),resultsDiv.innerHTML=r,n.length>0&&showPreview(0),"undefined"!=typeof lucide&&lucide.createIcons()}function offlineSearch(e){const t=window.docs,n="#"===e[0]&&e.length>1?index.search(e.substring(1),[{field:"tags"}]):index.search(e,[{field:"title",limit:5},{field:"content",limit:10}]),r=e=>{const t=n.filter((t=>t.field===e));return 0===t.length?[]:[...t[0].result]};return[...new Set([...r("title"),...r("content"),...r("tags")])].map((e=>{const n={...t[e]};return n.tags=n.tags.filter((e=>"gardenEntry"!==e&&"note"!==e)),n}))}window.lastSearch="",window.searchResults=[],window.searchTerms=[],window.currentPreviewIndex=-1,window.search=search</script>
+<script>document.addEventListener("DOMContentLoaded",init,!1),document.addEventListener("DOMContentLoaded",setCorrectShortcut,!1);const SITE_BASE_PATH="/srs_cons_git",previewCache=new Map;function resolveSearchUrl(e){return e&&e.startsWith("/")&&SITE_BASE_PATH?e===SITE_BASE_PATH||e.startsWith(`${SITE_BASE_PATH}/`)?e:`${SITE_BASE_PATH}${e}`:e}window.toggleSearch=function(){const e=document.getElementById("globalsearch");e.classList.contains("active")?e.classList.remove("active"):(e.classList.add("active"),document.getElementById("term").focus())},window.openSearchFromSidebar=function(){const e=document.getElementById("globalsearch"),t=document.getElementById("term");e&&t&&(e.classList.contains("active")||e.classList.add("active"),t.focus(),t.select())},window.toggleTagSearch=function(e){const t=e.textContent;t&&(document.getElementById("term").value=t.trim(),window.toggleSearch(),window.search())};const loadingSvg='\n    <div style="display: flex; justify-content: center; padding: 40px;">\n        <svg width="40" height="40" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">\n            <g fill="none" fill-rule="evenodd" transform="translate(1 1)" stroke-width="2">\n                <circle cx="22" cy="22" r="6" stroke-opacity="0">\n                    <animate attributeName="r" begin="1.5s" dur="3s" values="6;22" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-opacity" begin="1.5s" dur="3s" values="1;0" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-width" begin="1.5s" dur="3s" values="2;0" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n                <circle cx="22" cy="22" r="6" stroke-opacity="0">\n                    <animate attributeName="r" begin="3s" dur="3s" values="6;22" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-opacity" begin="3s" dur="3s" values="1;0" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-width" begin="3s" dur="3s" values="2;0" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n                <circle cx="22" cy="22" r="8">\n                    <animate attributeName="r" begin="0s" dur="1.5s" values="6;1;2;3;4;5;6" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n            </g>\n        </svg>\n    </div>';function debounce(e,t,n){var r;return function(){var i=this,s=arguments,o=n&&!r;clearTimeout(r),r=setTimeout((function(){r=null,n||e.apply(i,s)}),t),o&&e.apply(i,s)}}function setCorrectShortcut(){navigator.platform.toUpperCase().indexOf("MAC")>=0&&document.querySelectorAll(".search-keys").forEach((e=>e.innerHTML="<code>⌘</code>&nbsp;+&nbsp;<code>K</code>"))}function tokenizeSearchTerms(e){const t=[],n=/"([^"]+)"|(\S+)/g;let r;for(;null!==(r=n.exec(e));){const e=(r[1]||r[2]).toLowerCase();e.length>1&&t.push(e)}return t.sort(((e,t)=>t.length-e.length))}function highlightTerms(e,t){if(!t||0===t.length||!e)return e;let n=e;return t.forEach((e=>{const t=e.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),r=new RegExp(`(${t})`,"gi");n=n.replace(r,'<span class="search-highlight">$1</span>')})),n}function getContextualExcerpt(e,t,n=150){if(!e)return"";const r=e.replace(/<[^>]*>/g,"");if(!t||0===t.length)return truncateText(r,n);let i=r.length;if(t.forEach((e=>{const t=r.toLowerCase().indexOf(e.toLowerCase());-1!==t&&t<i&&(i=t)})),i===r.length)return truncateText(r,n);const s=Math.max(0,i-50),o=Math.min(r.length,s+n);let a=r.substring(s,o);return s>0&&(a="..."+a),o<r.length&&(a+="..."),a}function truncateText(e,t){return e?(e=e.replace(/<[^>]*>/g,"")).length<=t?e:e.substring(0,t-3)+"...":""}async function fetchPreviewContent(e){if(previewCache.has(e))return previewCache.get(e);try{const t=await fetch(e),n=await t.text(),r=new DOMParser,i=r.parseFromString(n,"text/html").querySelector(".content, .cm-s-obsidian, article, main"),s=i?i.innerHTML:"";return previewCache.set(e,s),s}catch(e){return console.error("Failed to fetch preview:",e),""}}function highlightTextNodes(e,t){if(!t||0===t.length)return;const n=document.createTreeWalker(e,NodeFilter.SHOW_TEXT,null,!1),r=[];for(;n.nextNode();)r.push(n.currentNode);r.forEach((e=>{const n=e.textContent;let r=!1;if(t.forEach((e=>{n.toLowerCase().includes(e.toLowerCase())&&(r=!0)})),r){const r=document.createElement("span");r.innerHTML=highlightTerms(n,t),e.parentNode.replaceChild(r,e)}}))}async function showPreview(e){const t=window.searchResults;if(!t||!t[e])return;const n=t[e],r=document.getElementById("search-preview"),i=document.getElementById("preview-content"),s=r.querySelector(".preview-placeholder");if(!r||!i)return;document.querySelectorAll(".searchresult").forEach((e=>e.classList.remove("active")));const o=document.querySelector(`.searchresult[data-index="${e}"]`);o&&o.classList.add("active"),i.innerHTML=loadingSvg,i.classList.add("has-content"),s.style.display="none";const a=await fetchPreviewContent(resolveSearchUrl(n.url)),c=n.tags&&n.tags.length>0?`<div class="preview-tags">${n.tags.map((e=>`<a class="tag" href="javascript:void(0);" onclick="toggleTagSearch(this)">#${e}</a>`)).join("")}</div>`:"";i.innerHTML=`\n            <div class="preview-title">${highlightTerms(n.title,window.searchTerms)}</div>\n            ${c}\n            <div class="preview-body">${a}</div>\n        `;const l=i.querySelector(".preview-body");l&&window.searchTerms&&highlightTextNodes(l,window.searchTerms),window.currentPreviewIndex=e}function hidePreview(){const e=document.getElementById("search-preview"),t=document.getElementById("preview-content"),n=e?.querySelector(".preview-placeholder");n&&(n.style.display="flex"),t&&(t.classList.remove("has-content"),t.innerHTML=""),window.currentPreviewIndex=-1}function createIndex(e){const t=e=>(e=>e.toLowerCase().normalize("NFD").replace(/n\u0303/g,"ñ").replace(/[\u0300-\u036f]/g,"").normalize("NFC"))(e).split(/([^a-z]|[^\x00-\x7F])/),n=new FlexSearch.Document({cache:!0,charset:"latin:extra",optimize:!0,index:[{field:"content",tokenize:"reverse",encode:t},{field:"title",tokenize:"forward",encode:t},{field:"tags",tokenize:"forward",encode:t}]});return e.forEach(((e,t)=>{n.add({id:t,title:e.title,content:e.content,tags:e.tags})})),n}async function init(){const e="/srs_cons_git",t=`${e?e.replace(/\/$/,""):""}/searchIndex.json?v=2026-06-08T14:19:24.176Z`;try{const e=await fetch(t).then((e=>e.json())),n=createIndex(e);window.docs=e,window.index=n}catch(e){console.error("Failed to initialize search index:",e),window.docs=[],window.index=null}function n(e){const t=document.querySelectorAll(".searchresult");if(0===t.length)return;let n,r=-1;t.forEach(((e,t)=>{e.classList.contains("active")&&(r=t)})),-1===r?n=e>0?0:t.length-1:(n=r+e,n<0&&(n=t.length-1),n>=t.length&&(n=0)),t.forEach((e=>e.classList.remove("active"))),t[n].classList.add("active"),t[n].scrollIntoView({behavior:"smooth",block:"nearest"}),showPreview(parseInt(t[n].dataset.index))}document.addEventListener("keydown",(e=>{if(!e.ctrlKey&&!e.metaKey||"k"!==e.key.toLowerCase()&&"KeyK"!==e.code||(e.preventDefault(),toggleSearch()),"Escape"===e.key&&document.getElementById("globalsearch").classList.remove("active"),document.getElementById("globalsearch").classList.contains("active")&&("ArrowDown"===e.key&&(e.preventDefault(),n(1)),"ArrowUp"===e.key&&(e.preventDefault(),n(-1)),"Enter"===e.key)){e.preventDefault();const t=document.querySelector(".searchresult.active");if(t){const e=t.dataset.url;e&&(window.location.href=resolveSearchUrl(e))}}}));const r=debounce(search,200,!1);window.field=document.querySelector("#term"),field.addEventListener("input",r),window.resultsDiv=document.querySelector("#search-results");const i=new URL(location.href).searchParams;i.get("q")&&(field.setAttribute("value",i.get("q")),toggleSearch(),search())}async function search(){const e=field.value.trim(),t=document.getElementById("search-layout");if(!e)return resultsDiv.innerHTML="<span><i>Enter your search text in the box above</i></span>",hidePreview(),void(t&&t.classList.add("no-preview"));if(!window.index||!window.docs)return resultsDiv.innerHTML=`<span><i>No results for "${e}"</i></span>`,hidePreview(),void(t&&t.classList.add("no-preview"));window.lastSearch=e,window.searchTerms=tokenizeSearchTerms(e),resultsDiv.innerHTML=loadingSvg,hidePreview();const n=offlineSearch(e);if(window.searchResults=n,!n.length)return t&&t.classList.add("no-preview"),void(resultsDiv.innerHTML=`\n                <div class="no-results">\n                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">\n                        <circle cx="11" cy="11" r="8"></circle>\n                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>\n                        <line x1="8" y1="11" x2="14" y2="11"></line>\n                    </svg>\n                    <p>No results for "${e}"</p>\n                </div>\n            `);t&&t.classList.remove("no-preview");let r="";n.forEach(((e,t)=>{const n=highlightTerms(getContextualExcerpt(e.content,window.searchTerms,120),window.searchTerms),i=highlightTerms(e.title,window.searchTerms),s=e.tags&&e.tags.length>0?`<div class="result-tags">${e.tags.map((e=>`<span class="tag">#${e}</span>`)).join("")}</div>`:"";r+=`\n                <div class="searchresult${0===t?" active":""}"\n                     data-index="${t}"\n                     data-url="${e.url}"\n                     onmouseenter="showPreview(${t})"\n                     onclick="window.location.href=resolveSearchUrl('${e.url}')">\n                    <span class="result-title">${i}</span>\n                    ${s}\n                    <div class="result-excerpt">${n}</div>\n                </div>\n            `})),resultsDiv.innerHTML=r,n.length>0&&showPreview(0),"undefined"!=typeof lucide&&lucide.createIcons()}function offlineSearch(e){const t=window.docs,n="#"===e[0]&&e.length>1?index.search(e.substring(1),[{field:"tags"}]):index.search(e,[{field:"title",limit:5},{field:"content",limit:10}]),r=e=>{const t=n.filter((t=>t.field===e));return 0===t.length?[]:[...t[0].result]};return[...new Set([...r("title"),...r("content"),...r("tags")])].map((e=>{const n={...t[e]};return n.tags=n.tags.filter((e=>"gardenEntry"!==e&&"note"!==e)),n}))}window.lastSearch="",window.searchResults=[],window.searchTerms=[],window.currentPreviewIndex=-1,window.search=search</script>
 <main class="content cm-s-obsidian print">
 <header>
 <div class="header-meta">
@@ -565,6 +565,128 @@
 <p><strong>Sicurezza outbound SOAP (BATCH-01):</strong> WS-Security X509, un certificato per ASR — richiederli in Sprint 0.<br>
 <strong>Sicurezza inbound REST:</strong> OAuth2 Client Credentials + tabella <code>cons_t_client_ente</code>. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a>.</p>
 <p><strong>Rischi aperti:</strong> ambiguità BATCH-01 WSDL + semantica SCADUTO AS-IS≠TO-BE. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03</a>.</p>
+<h3 id="cdu-17-contratto-sia-come-caller-modello-pull" tabindex="-1">CDU-17 — Contratto SIA come Caller (modello PULL)</h3>
+<blockquote>
+<p>⚠️ <strong>Inversione del contratto:</strong> nel modello PULL, SIA non è più destinatario passivo ma <strong>chiamante attivo</strong>. Il sistema Gestione Consensi espone un endpoint REST che SIA invoca periodicamente per ottenere uno snapshot dei consensi aggiornati.</p>
+</blockquote>
+<p><strong>Flusso PULL:</strong></p>
+<pre><code>SIA ASR  →  GET /cdu-17/snapshot?ente={codice_ente}&amp;from={timestamp}
+                        ↓
+         [EnteAuthorizationFilter — 3 livelli]
+                        ↓
+         Gestione Consensi  →  risponde con payload consensi
+</code></pre>
+<p><strong>Parametri attesi nella chiamata SIA→Regionale:</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Parametro</th>
+<th>Tipo</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codice_ente</code></td>
+<td>string</td>
+<td>Codice ASR richiedente — validato contro <code>cons_t_client_ente</code></td>
+</tr>
+<tr>
+<td><code>from</code></td>
+<td>ISO 8601 timestamp</td>
+<td>Data di inizio finestra snapshot (delta, non full dump)</td>
+</tr>
+<tr>
+<td>Authorization header</td>
+<td>Bearer JWT</td>
+<td>OAuth2 Client Credentials — stesso schema CDU-15/16</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Applicazione <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">EnteAuthorizationFilter</a> su chiamata inbound:</strong></p>
+<p>Il filtro opera a 3 livelli su ogni richiesta SIA:</p>
+<ol>
+<li><strong>Livello client:</strong> JWT validato → <code>client_id</code> mappato a <code>codice_ente</code> in <code>cons_t_client_ente</code></li>
+<li><strong>Livello ente:</strong> la risposta include <strong>solo</strong> i consensi dell'ente corrispondente al <code>client_id</code> — SIA non può richiedere dati di enti diversi dal proprio</li>
+<li><strong>Livello dato:</strong> eventuali consensi di assistiti senza ASR di riferimento non vengono esposti</li>
+</ol>
+<blockquote>
+<p>⚠️ <strong>Gap critico:</strong> il filtro è progettato per richieste interne/webapp. La sua applicazione su chiamate entranti da sistema terzo (SIA) non è documentata nella spec <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">CDU-15-16</a> né nello YAML <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/">OpenAPI v0.1</a>. La spec CDU-17 non esiste ancora.</p>
+</blockquote>
+<p><strong>Differenze rispetto al modello PUSH (BATCH-03 AS-IS):</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>PUSH (AS-IS)</th>
+<th>PULL (TO-BE CDU-17)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Iniziatore</td>
+<td>Gestione Consensi (batch scheduler)</td>
+<td>SIA ASR</td>
+</tr>
+<tr>
+<td>Frequenza</td>
+<td>Schedulata internamente</td>
+<td>Definita da SIA (TBD con CSI)</td>
+</tr>
+<tr>
+<td>Scope dati</td>
+<td>Tutti i delta dal batch precedente</td>
+<td>Delta da <code>from</code> timestamp</td>
+</tr>
+<tr>
+<td>Autorizzazione</td>
+<td>Interna — decidiamo noi cosa spedire</td>
+<td>SIA chiede → noi filtriamo</td>
+</tr>
+<tr>
+<td>Spec contratto</td>
+<td>WSDL AS-IS disponibile ✅</td>
+<td><strong>Spec REST CDU-17 non scritta ❌</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Gap aperti prima di andare in produzione:</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Gap</th>
+<th>Responsabile</th>
+<th>Stato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spec REST CDU-17 (endpoint, payload, error codes)</td>
+<td>Exprivia + CSI</td>
+<td>❌ Non scritta</td>
+</tr>
+<tr>
+<td>Conferma CSI che SIA supporta chiamate PULL attive</td>
+<td>CSI Piemonte</td>
+<td>❌ Punto aperto (vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/">Punti Aperti CSI</a>)</td>
+</tr>
+<tr>
+<td>Estensione <code>EnteAuthorizationFilter</code> per caller esterno</td>
+<td>Exprivia</td>
+<td>❌ Non documentata</td>
+</tr>
+<tr>
+<td>Aggiunta security scheme CDU-17 nello YAML OpenAPI</td>
+<td>Exprivia</td>
+<td>❌ YAML attuale copre solo CDU-15/16</td>
+</tr>
+<tr>
+<td>Frequenza di polling SIA (SLA snapshot)</td>
+<td>CSI Piemonte</td>
+<td>❌ TBD</td>
+</tr>
+</tbody>
+</table></div>
 <hr>
 <h2 id="notificatore-unp-user-notification-platform" tabindex="-1">Notificatore UNP — User Notification Platform</h2>
 <div class="table-wrapper"><table>
@@ -722,7 +844,8 @@
         ├─ Notificatore Deleghe (REST?) — conferma post-acquisizione al cittadino
         ├─ Notificatore UNP  (REST) — notifiche applicative generiche
         ├─ SIA ASR           (SOAP outbound) ← BATCH-01 notifiche puntuali
-        └─ SIA ASR           (REST inbound) ← CDU-15, CDU-16, CDU-17 PULL
+        ├─ SIA ASR           (REST inbound) ← CDU-15, CDU-16 [spec v0.1-DRAFT]
+        └─ SIA ASR           (REST inbound) ← CDU-17 PULL snapshot [⚠️ spec mancante — SIA come caller]
 </code></pre>
 <hr>
 <h2 id="stato-approvvigionamento-sprint-0" tabindex="-1">Stato approvvigionamento Sprint 0</h2>

@@ -3,10 +3,10 @@
   <title>WIKI SRS Consensi</title>
   <link href="https://caccu.github.io/srs_cons_git/feed.xml" rel="self"/>
   <link href="https://caccu.github.io/srs_cons_git"/>
-  <updated>2026-05-29T14:09:10Z</updated>
+  <updated>2026-06-08T14:19:25Z</updated>
   <id>https://caccu.github.io/srs_cons_git</id><entry>
     <title>overview</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/overview/</id>
     <content type="html">&lt;h1 id=&quot;wiki-overview-progetto-gestione-consensi&quot; tabindex=&quot;-1&quot;&gt;Wiki Overview — Progetto Gestione Consensi&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Dominio:&lt;/strong&gt; Rifacimento applicativo Gestione Consensi, Sanità Elettronica Regione Piemonte&lt;br /&gt;
@@ -118,7 +118,7 @@ Per CDU-15/16 (servizi REST verso SIA ASR): OAuth2 Client Credentials + JWT, iso
     <link href="https://caccu.github.io/srs_cons_git/wiki/overview/"/>
   </entry><entry>
     <title>regione-piemonte</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/entities/regione-piemonte/</id>
     <content type="html">&lt;h1 id=&quot;regione-piemonte&quot; tabindex=&quot;-1&quot;&gt;Regione Piemonte&lt;/h1&gt;
 &lt;p&gt;Ente committente finale del progetto &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/&quot;&gt;Gestione Consensi - Applicativo&lt;/a&gt;. Proprietaria del sistema di Sanità Elettronica Regionale di cui fa parte l&#39;applicativo.&lt;/p&gt;
@@ -170,7 +170,7 @@ Per CDU-15/16 (servizi REST verso SIA ASR): OAuth2 Client Credentials + JWT, iso
     <link href="https://caccu.github.io/srs_cons_git/wiki/entities/regione-piemonte/"/>
   </entry><entry>
     <title>notificatore-unp</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/entities/notificatore-unp/</id>
     <content type="html">&lt;h1 id=&quot;notificatore-unp&quot; tabindex=&quot;-1&quot;&gt;Notificatore UNP&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Nome esteso:&lt;/strong&gt; User Notification Platform&lt;br /&gt;
@@ -298,7 +298,7 @@ Per CDU-15/16 (servizi REST verso SIA ASR): OAuth2 Client Credentials + JWT, iso
     <link href="https://caccu.github.io/srs_cons_git/wiki/entities/notificatore-unp/"/>
   </entry><entry>
     <title>exprivia</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/entities/exprivia/</id>
     <content type="html">&lt;h1 id=&quot;exprivia-s-p-a&quot; tabindex=&quot;-1&quot;&gt;Exprivia S.p.A.&lt;/h1&gt;
 &lt;p&gt;Società fornitrice responsabile del rifacimento dell&#39;applicativo &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/&quot;&gt;Gestione Consensi - Applicativo&lt;/a&gt; per conto di &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/entities/csi-piemonte/&quot;&gt;CSI Piemonte&lt;/a&gt; / &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/entities/regione-piemonte/&quot;&gt;Regione Piemonte&lt;/a&gt;.&lt;/p&gt;
@@ -346,7 +346,7 @@ Per CDU-15/16 (servizi REST verso SIA ASR): OAuth2 Client Credentials + JWT, iso
     <link href="https://caccu.github.io/srs_cons_git/wiki/entities/exprivia/"/>
   </entry><entry>
     <title>csi-piemonte</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/entities/csi-piemonte/</id>
     <content type="html">&lt;h1 id=&quot;csi-piemonte&quot; tabindex=&quot;-1&quot;&gt;CSI Piemonte&lt;/h1&gt;
 &lt;p&gt;Centro Servizi per il sistema informativo della Pubblica Amministrazione piemontese. Committente tecnico del progetto Gestione Consensi.&lt;/p&gt;
@@ -417,7 +417,7 @@ Per CDU-15/16 (servizi REST verso SIA ASR): OAuth2 Client Credentials + JWT, iso
     <link href="https://caccu.github.io/srs_cons_git/wiki/entities/csi-piemonte/"/>
   </entry><entry>
     <title>README</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/readme/</id>
     <content type="html">&lt;h1 id=&quot;architecture-decision-records-indice&quot; tabindex=&quot;-1&quot;&gt;Architecture Decision Records — Indice&lt;/h1&gt;
 &lt;p&gt;Registry delle decisioni architetturali del progetto &lt;strong&gt;Gestione Consensi Regione Piemonte&lt;/strong&gt;. Ogni ADR cattura una decisione che chiude opzioni concrete, con conseguenze tecniche durature. Formato: Nygard-style con frontmatter YAML per machine-readability.&lt;/p&gt;
@@ -715,7 +715,7 @@ ADR-019 CDU-06 PDF scope ridotto (standalone, allineato con UX cittadino)
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/readme/"/>
   </entry><entry>
     <title>ADR-019-cdu-06-pdf-scope-ridotto</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-019-cdu-06-pdf-scope-ridotto/</id>
     <content type="html">&lt;h1 id=&quot;adr-019-cdu-06-pdf-scope-ridotto&quot; tabindex=&quot;-1&quot;&gt;ADR-019: CDU-06 PDF scope ridotto&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -798,7 +798,7 @@ ADR-019 CDU-06 PDF scope ridotto (standalone, allineato con UX cittadino)
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-019-cdu-06-pdf-scope-ridotto/"/>
   </entry><entry>
     <title>ADR-018-rfc-7807-error-response</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-018-rfc-7807-error-response/</id>
     <content type="html">&lt;h1 id=&quot;adr-018-rfc-7807-come-standard-error-response&quot; tabindex=&quot;-1&quot;&gt;ADR-018: RFC 7807 come standard error response&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -881,7 +881,7 @@ ADR-019 CDU-06 PDF scope ridotto (standalone, allineato con UX cittadino)
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-018-rfc-7807-error-response/"/>
   </entry><entry>
     <title>ADR-017-lis-terzo-canale</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-017-lis-terzo-canale/</id>
     <content type="html">&lt;h1 id=&quot;adr-017-lis-terzo-canale-di-acquisizione&quot; tabindex=&quot;-1&quot;&gt;ADR-017: LIS terzo canale di acquisizione&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -983,7 +983,7 @@ ADR-019 CDU-06 PDF scope ridotto (standalone, allineato con UX cittadino)
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-017-lis-terzo-canale/"/>
   </entry><entry>
     <title>ADR-016-scaduto-async-batch-02</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-016-scaduto-async-batch-02/</id>
     <content type="html">&lt;h1 id=&quot;adr-016-stato-scaduto-gestito-da-batch-02-asincrono&quot; tabindex=&quot;-1&quot;&gt;ADR-016: Stato SCADUTO gestito da BATCH-02 (asincrono)&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1109,7 +1109,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-016-scaduto-async-batch-02/"/>
   </entry><entry>
     <title>ADR-015-storicizzazione-immutabile</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-015-storicizzazione-immutabile/</id>
     <content type="html">&lt;h1 id=&quot;adr-015-storicizzazione-immutabile-dei-consensi&quot; tabindex=&quot;-1&quot;&gt;ADR-015: Storicizzazione immutabile dei consensi&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1193,7 +1193,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-015-storicizzazione-immutabile/"/>
   </entry><entry>
     <title>ADR-014-apache-cxf-soap-client</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-014-apache-cxf-soap-client/</id>
     <content type="html">&lt;h1 id=&quot;adr-014-apache-cxf-come-client-soap&quot; tabindex=&quot;-1&quot;&gt;ADR-014: Apache CXF come client SOAP&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1270,7 +1270,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-014-apache-cxf-soap-client/"/>
   </entry><entry>
     <title>ADR-013-migrazione-pg-dump-restore</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-013-migrazione-pg-dump-restore/</id>
     <content type="html">&lt;h1 id=&quot;adr-013-strategia-migrazione-pg-9-pg-17-dump-restore&quot; tabindex=&quot;-1&quot;&gt;ADR-013: Strategia migrazione PG9 → PG17 — dump/restore&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1365,7 +1365,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-013-migrazione-pg-dump-restore/"/>
   </entry><entry>
     <title>ADR-012-notificatore-deleghe-post-completato</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-012-notificatore-deleghe-post-completato/</id>
     <content type="html">&lt;h1 id=&quot;adr-012-notifica-cittadino-via-notificatore-di-deleghe-post-completato&quot; tabindex=&quot;-1&quot;&gt;ADR-012: Notifica cittadino via Notificatore di Deleghe post-COMPLETATO&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1465,7 +1465,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-012-notificatore-deleghe-post-completato/"/>
   </entry><entry>
     <title>ADR-011-merge-cdu-04-05-cittadino</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-011-merge-cdu-04-05-cittadino/</id>
     <content type="html">&lt;h1 id=&quot;adr-011-merge-cdu-04-cdu-05-lato-cittadino-pulsante-unico-and-quot-salva-and-quot&quot; tabindex=&quot;-1&quot;&gt;ADR-011: Merge CDU-04/CDU-05 lato Cittadino — pulsante unico &amp;quot;Salva&amp;quot;&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1546,7 +1546,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-011-merge-cdu-04-05-cittadino/"/>
   </entry><entry>
     <title>ADR-010-cdu-01-split</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-010-cdu-01-split/</id>
     <content type="html">&lt;h1 id=&quot;adr-010-split-cdu-01-cdu-01a-operatore-cdu-01b-cittadino&quot; tabindex=&quot;-1&quot;&gt;ADR-010: Split CDU-01 — CDU-01a Operatore + CDU-01b Cittadino&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1629,7 +1629,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-010-cdu-01-split/"/>
   </entry><entry>
     <title>ADR-009-eliminazione-sistemats</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-009-eliminazione-sistemats/</id>
     <content type="html">&lt;h1 id=&quot;adr-009-eliminazione-sistema-ts-dall-integrazione&quot; tabindex=&quot;-1&quot;&gt;ADR-009: Eliminazione SistemaTS dall&#39;integrazione&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1707,7 +1707,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-009-eliminazione-sistemats/"/>
   </entry><entry>
     <title>ADR-008-ssot-form-renderer</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-008-ssot-form-renderer/</id>
     <content type="html">&lt;h1 id=&quot;adr-008-single-source-of-truth-form-renderer-unico&quot; tabindex=&quot;-1&quot;&gt;ADR-008: Single Source of Truth — Form Renderer unico&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1813,7 +1813,7 @@ LIMIT 1;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-008-ssot-form-renderer/"/>
   </entry><entry>
     <title>ADR-007-batch-01-5min-skip-locked</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-007-batch-01-5min-skip-locked/</id>
     <content type="html">&lt;h1 id=&quot;adr-007-batch-01-scheduling-5-min-con-skip-locked&quot; tabindex=&quot;-1&quot;&gt;ADR-007: BATCH-01 — scheduling 5 min con SKIP LOCKED&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -1903,7 +1903,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-007-batch-01-5min-skip-locked/"/>
   </entry><entry>
     <title>ADR-006-batch-03-pull-cdu-17</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-006-batch-03-pull-cdu-17/</id>
     <content type="html">&lt;h1 id=&quot;adr-006-sostituzione-batch-03-push-con-cdu-17-pull&quot; tabindex=&quot;-1&quot;&gt;ADR-006: Sostituzione BATCH-03 push con CDU-17 PULL&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -2001,7 +2001,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-006-batch-03-pull-cdu-17/"/>
   </entry><entry>
     <title>ADR-005-sicurezza-cdu-15-16</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-005-sicurezza-cdu-15-16/</id>
     <content type="html">&lt;h1 id=&quot;adr-005-modello-sicurezza-cdu-15-16-autorizzazione-per-ente-a-3-livelli&quot; tabindex=&quot;-1&quot;&gt;ADR-005: Modello sicurezza CDU-15/16 — autorizzazione per ente a 3 livelli&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -2107,7 +2107,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-005-sicurezza-cdu-15-16/"/>
   </entry><entry>
     <title>ADR-004-no-api-gateway</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-004-no-api-gateway/</id>
     <content type="html">&lt;h1 id=&quot;adr-004-no-api-gateway-security-applicativa-via-spring-security&quot; tabindex=&quot;-1&quot;&gt;ADR-004: No API Gateway, security applicativa via Spring Security&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -2202,7 +2202,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-004-no-api-gateway/"/>
   </entry><entry>
     <title>ADR-003-dbaas-nivola</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-003-dbaas-nivola/</id>
     <content type="html">&lt;h1 id=&quot;adr-003-d-baa-s-nivola-esterno-al-namespace-e-caa-s&quot; tabindex=&quot;-1&quot;&gt;ADR-003: DBaaS Nivola, esterno al namespace ECaaS&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -2274,7 +2274,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-003-dbaas-nivola/"/>
   </entry><entry>
     <title>ADR-002-piattaforma-ecaas</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-002-piattaforma-ecaas/</id>
     <content type="html">&lt;h1 id=&quot;adr-002-piattaforma-e-caa-s-kubernetes-nivola&quot; tabindex=&quot;-1&quot;&gt;ADR-002: Piattaforma ECaaS Kubernetes Nivola&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -2387,7 +2387,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-002-piattaforma-ecaas/"/>
   </entry><entry>
     <title>ADR-001-stack-tecnologico</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-001-stack-tecnologico/</id>
     <content type="html">&lt;h1 id=&quot;adr-001-stack-tecnologico-applicativo&quot; tabindex=&quot;-1&quot;&gt;ADR-001: Stack tecnologico applicativo&lt;/h1&gt;
 &lt;h2 id=&quot;status&quot; tabindex=&quot;-1&quot;&gt;Status&lt;/h2&gt;
@@ -2503,7 +2503,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/docs/adr/adr-001-stack-tecnologico/"/>
   </entry><entry>
     <title>stack-tecnologico-applicativo</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/stack-tecnologico-applicativo/</id>
     <content type="html">&lt;h1 id=&quot;stack-tecnologico-applicativo&quot; tabindex=&quot;-1&quot;&gt;Stack Tecnologico Applicativo&lt;/h1&gt;
 &lt;p&gt;Stack TO-BE del progetto &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/&quot;&gt;Gestione Consensi - Applicativo&lt;/a&gt;. Tutte le versioni allineate alle &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/sources/2026-03-12-pile-tecnologiche-csi/&quot;&gt;Pile Tecnologiche CSI&lt;/a&gt; CURRENT (marzo 2026).&lt;/p&gt;
@@ -2716,7 +2716,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/stack-tecnologico-applicativo/"/>
   </entry><entry>
     <title>sistemi-esterni-integrati</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/</id>
     <content type="html">&lt;h1 id=&quot;sistemi-esterni-integrati&quot; tabindex=&quot;-1&quot;&gt;Sistemi Esterni Integrati&lt;/h1&gt;
 &lt;p&gt;Sistemi esterni con cui &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/&quot;&gt;Gestione Consensi - Applicativo&lt;/a&gt; si integra nel TO-BE. Tutti gestiti da &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/entities/csi-piemonte/&quot;&gt;CSI Piemonte&lt;/a&gt; o dalle ASR della Regione Piemonte.&lt;/p&gt;
@@ -2799,6 +2799,128 @@ FOR UPDATE SKIP LOCKED;
 &lt;p&gt;&lt;strong&gt;Sicurezza outbound SOAP (BATCH-01):&lt;/strong&gt; WS-Security X509, un certificato per ASR — richiederli in Sprint 0.&lt;br /&gt;
 &lt;strong&gt;Sicurezza inbound REST:&lt;/strong&gt; OAuth2 Client Credentials + tabella &lt;code&gt;cons_t_client_ente&lt;/code&gt;. Vedi &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/&quot;&gt;Sicurezza CDU-15-16 — Modello Autorizzazione per Ente&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Rischi aperti:&lt;/strong&gt; ambiguità BATCH-01 WSDL + semantica SCADUTO AS-IS≠TO-BE. Vedi &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/batch-processes/&quot;&gt;Processi Batch — BATCH-01, BATCH-02, BATCH-03&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;cdu-17-contratto-sia-come-caller-modello-pull&quot; tabindex=&quot;-1&quot;&gt;CDU-17 — Contratto SIA come Caller (modello PULL)&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;⚠️ &lt;strong&gt;Inversione del contratto:&lt;/strong&gt; nel modello PULL, SIA non è più destinatario passivo ma &lt;strong&gt;chiamante attivo&lt;/strong&gt;. Il sistema Gestione Consensi espone un endpoint REST che SIA invoca periodicamente per ottenere uno snapshot dei consensi aggiornati.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Flusso PULL:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SIA ASR  →  GET /cdu-17/snapshot?ente={codice_ente}&amp;amp;from={timestamp}
+                        ↓
+         [EnteAuthorizationFilter — 3 livelli]
+                        ↓
+         Gestione Consensi  →  risponde con payload consensi
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Parametri attesi nella chiamata SIA→Regionale:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Parametro&lt;/th&gt;
+&lt;th&gt;Tipo&lt;/th&gt;
+&lt;th&gt;Note&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;codice_ente&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;Codice ASR richiedente — validato contro &lt;code&gt;cons_t_client_ente&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;from&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;ISO 8601 timestamp&lt;/td&gt;
+&lt;td&gt;Data di inizio finestra snapshot (delta, non full dump)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Authorization header&lt;/td&gt;
+&lt;td&gt;Bearer JWT&lt;/td&gt;
+&lt;td&gt;OAuth2 Client Credentials — stesso schema CDU-15/16&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Applicazione &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/&quot;&gt;EnteAuthorizationFilter&lt;/a&gt; su chiamata inbound:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Il filtro opera a 3 livelli su ogni richiesta SIA:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Livello client:&lt;/strong&gt; JWT validato → &lt;code&gt;client_id&lt;/code&gt; mappato a &lt;code&gt;codice_ente&lt;/code&gt; in &lt;code&gt;cons_t_client_ente&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Livello ente:&lt;/strong&gt; la risposta include &lt;strong&gt;solo&lt;/strong&gt; i consensi dell&#39;ente corrispondente al &lt;code&gt;client_id&lt;/code&gt; — SIA non può richiedere dati di enti diversi dal proprio&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Livello dato:&lt;/strong&gt; eventuali consensi di assistiti senza ASR di riferimento non vengono esposti&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;⚠️ &lt;strong&gt;Gap critico:&lt;/strong&gt; il filtro è progettato per richieste interne/webapp. La sua applicazione su chiamate entranti da sistema terzo (SIA) non è documentata nella spec &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/&quot;&gt;CDU-15-16&lt;/a&gt; né nello YAML &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/&quot;&gt;OpenAPI v0.1&lt;/a&gt;. La spec CDU-17 non esiste ancora.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Differenze rispetto al modello PUSH (BATCH-03 AS-IS):&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Aspetto&lt;/th&gt;
+&lt;th&gt;PUSH (AS-IS)&lt;/th&gt;
+&lt;th&gt;PULL (TO-BE CDU-17)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Iniziatore&lt;/td&gt;
+&lt;td&gt;Gestione Consensi (batch scheduler)&lt;/td&gt;
+&lt;td&gt;SIA ASR&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Frequenza&lt;/td&gt;
+&lt;td&gt;Schedulata internamente&lt;/td&gt;
+&lt;td&gt;Definita da SIA (TBD con CSI)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Scope dati&lt;/td&gt;
+&lt;td&gt;Tutti i delta dal batch precedente&lt;/td&gt;
+&lt;td&gt;Delta da &lt;code&gt;from&lt;/code&gt; timestamp&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Autorizzazione&lt;/td&gt;
+&lt;td&gt;Interna — decidiamo noi cosa spedire&lt;/td&gt;
+&lt;td&gt;SIA chiede → noi filtriamo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Spec contratto&lt;/td&gt;
+&lt;td&gt;WSDL AS-IS disponibile ✅&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;Spec REST CDU-17 non scritta ❌&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Gap aperti prima di andare in produzione:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Gap&lt;/th&gt;
+&lt;th&gt;Responsabile&lt;/th&gt;
+&lt;th&gt;Stato&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Spec REST CDU-17 (endpoint, payload, error codes)&lt;/td&gt;
+&lt;td&gt;Exprivia + CSI&lt;/td&gt;
+&lt;td&gt;❌ Non scritta&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Conferma CSI che SIA supporta chiamate PULL attive&lt;/td&gt;
+&lt;td&gt;CSI Piemonte&lt;/td&gt;
+&lt;td&gt;❌ Punto aperto (vedi &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/&quot;&gt;Punti Aperti CSI&lt;/a&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Estensione &lt;code&gt;EnteAuthorizationFilter&lt;/code&gt; per caller esterno&lt;/td&gt;
+&lt;td&gt;Exprivia&lt;/td&gt;
+&lt;td&gt;❌ Non documentata&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Aggiunta security scheme CDU-17 nello YAML OpenAPI&lt;/td&gt;
+&lt;td&gt;Exprivia&lt;/td&gt;
+&lt;td&gt;❌ YAML attuale copre solo CDU-15/16&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Frequenza di polling SIA (SLA snapshot)&lt;/td&gt;
+&lt;td&gt;CSI Piemonte&lt;/td&gt;
+&lt;td&gt;❌ TBD&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;hr /&gt;
 &lt;h2 id=&quot;notificatore-unp-user-notification-platform&quot; tabindex=&quot;-1&quot;&gt;Notificatore UNP — User Notification Platform&lt;/h2&gt;
 &lt;table&gt;
@@ -2956,7 +3078,8 @@ FOR UPDATE SKIP LOCKED;
         ├─ Notificatore Deleghe (REST?) — conferma post-acquisizione al cittadino
         ├─ Notificatore UNP  (REST) — notifiche applicative generiche
         ├─ SIA ASR           (SOAP outbound) ← BATCH-01 notifiche puntuali
-        └─ SIA ASR           (REST inbound) ← CDU-15, CDU-16, CDU-17 PULL
+        ├─ SIA ASR           (REST inbound) ← CDU-15, CDU-16 [spec v0.1-DRAFT]
+        └─ SIA ASR           (REST inbound) ← CDU-17 PULL snapshot [⚠️ spec mancante — SIA come caller]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
 &lt;h2 id=&quot;stato-approvvigionamento-sprint-0&quot; tabindex=&quot;-1&quot;&gt;Stato approvvigionamento Sprint 0&lt;/h2&gt;
@@ -3048,7 +3171,7 @@ FOR UPDATE SKIP LOCKED;
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/"/>
   </entry><entry>
     <title>sicurezza-cdu-15-16</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/</id>
     <content type="html">&lt;h1 id=&quot;sicurezza-cdu-15-16-modello-autorizzazione-per-ente&quot; tabindex=&quot;-1&quot;&gt;Sicurezza CDU-15/16 — Modello Autorizzazione per Ente&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Origine:&lt;/strong&gt; risposta tecnica al commento cliente &lt;strong&gt;TR30&lt;/strong&gt; sulla revisione SRS bozza v3 (PDF righe 4456–4459, sez. §6.16). Rinumerato come &lt;strong&gt;TR58&lt;/strong&gt; nella revisione &lt;code&gt;CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf&lt;/code&gt; (MF59-62R58). Vedi mapping in &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/&quot;&gt;analysis-2026-05-14-risposte-mf-srs-v3&lt;/a&gt;.&lt;/p&gt;
@@ -3508,7 +3631,7 @@ public class EnteAuthorizationFilter extends OncePerRequestFilter {
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/"/>
   </entry><entry>
     <title>migrazione-postgres-9-17</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/migrazione-postgres-9-17/</id>
     <content type="html">&lt;h1 id=&quot;migrazione-postgre-sql-9-17&quot; tabindex=&quot;-1&quot;&gt;Migrazione PostgreSQL 9 → 17&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Salto di 8 major release.&lt;/strong&gt; Strategia: &lt;strong&gt;dump/restore&lt;/strong&gt; (pg_dump custom format → pg_restore). Pianificata in &lt;strong&gt;Fase 6&lt;/strong&gt; (Sprint 9) del progetto.&lt;/p&gt;
@@ -3684,7 +3807,7 @@ public class EnteAuthorizationFilter extends OncePerRequestFilter {
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/migrazione-postgres-9-17/"/>
   </entry><entry>
     <title>informativa</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/informativa/</id>
     <content type="html">&lt;h1 id=&quot;informativa-consenso&quot; tabindex=&quot;-1&quot;&gt;Informativa Consenso&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Definizione:&lt;/strong&gt; Documento normativo-applicativo che descrive scopo, base giuridica, ambito ASR, decorrenza/scadenza e contenuti del consenso che il cittadino è chiamato a esprimere. È l&#39;&lt;strong&gt;oggetto dichiarativo&lt;/strong&gt; rispetto al quale il consenso (record &lt;code&gt;cons_t_consenso&lt;/code&gt;) è una posizione del cittadino.&lt;/p&gt;
@@ -3793,7 +3916,7 @@ public class EnteAuthorizationFilter extends OncePerRequestFilter {
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/informativa/"/>
   </entry><entry>
     <title>gestione-consensi-applicativo</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/</id>
     <content type="html">&lt;h1 id=&quot;gestione-consensi-applicativo&quot; tabindex=&quot;-1&quot;&gt;Gestione Consensi — Applicativo&lt;/h1&gt;
 &lt;p&gt;Sistema centrale per la raccolta, gestione e consultazione dei consensi sanitari dei cittadini piemontesi. Parte dell&#39;ecosistema Sanità Elettronica Regione Piemonte.&lt;/p&gt;
@@ -4078,7 +4201,7 @@ public class EnteAuthorizationFilter extends OncePerRequestFilter {
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/"/>
   </entry><entry>
     <title>gasp-salute</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/gasp-salute/</id>
     <content type="html">&lt;h1 id=&quot;gasp-salute&quot; tabindex=&quot;-1&quot;&gt;GASP Salute&lt;/h1&gt;
 &lt;p&gt;Identity Provider (IdP) federato gestito da &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/entities/csi-piemonte/&quot;&gt;CSI Piemonte&lt;/a&gt;. Fornisce autenticazione SSO per cittadini sulla piattaforma Sanità Elettronica Regione Piemonte tramite SPID e CIE.&lt;/p&gt;
@@ -4218,7 +4341,7 @@ public class EnteAuthorizationFilter extends OncePerRequestFilter {
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/gasp-salute/"/>
   </entry><entry>
     <title>composizione-dinamica-form-consenso</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/</id>
     <content type="html">&lt;h1 id=&quot;composizione-dinamica-form-consenso-single-source-of-truth&quot; tabindex=&quot;-1&quot;&gt;Composizione Dinamica Form Consenso — Single Source of Truth&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Origine:&lt;/strong&gt; risposte MF a revisione SRS v3 — commenti MB29, MB27, MB34, MB36, MB38, MB40, MB42, MB56 (vedi &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/&quot;&gt;analysis-2026-05-14-risposte-mf-srs-v3&lt;/a&gt; tema C e tema F).&lt;/p&gt;
@@ -4505,7 +4628,7 @@ public class EnteAuthorizationFilter extends OncePerRequestFilter {
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/"/>
   </entry><entry>
     <title>ciclo-vita-consenso</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/ciclo-vita-consenso/</id>
     <content type="html">&lt;h1 id=&quot;ciclo-di-vita-del-consenso&quot; tabindex=&quot;-1&quot;&gt;Ciclo di Vita del Consenso&lt;/h1&gt;
 &lt;p&gt;Macchina a stati che governa ogni consenso espresso nel sistema &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/&quot;&gt;Gestione Consensi - Applicativo&lt;/a&gt;.&lt;/p&gt;
@@ -4731,7 +4854,7 @@ public class EnteAuthorizationFilter extends OncePerRequestFilter {
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/ciclo-vita-consenso/"/>
   </entry><entry>
     <title>batch-processes</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/batch-processes/</id>
     <content type="html">&lt;h1 id=&quot;processi-batch&quot; tabindex=&quot;-1&quot;&gt;Processi Batch&lt;/h1&gt;
 &lt;p&gt;Processi asincroni del sistema TO-BE &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/&quot;&gt;Gestione Consensi - Applicativo&lt;/a&gt;. Assenti nell&#39;AS-IS — introdotti per disaccoppiare la logica di notifica/scadenza/allineamento dall&#39;acquisizione sincrona.&lt;/p&gt;
@@ -5036,7 +5159,7 @@ Nuovo endpoint configurato (CDU-14 Back Office)
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/batch-processes/"/>
   </entry><entry>
     <title>architettura-ecaas</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/architettura-ecaas/</id>
     <content type="html">&lt;h1 id=&quot;architettura-e-caa-s-enterprise-container-as-a-service&quot; tabindex=&quot;-1&quot;&gt;Architettura ECaaS (Enterprise Container as a Service)&lt;/h1&gt;
 &lt;p&gt;Piattaforma cloud &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/entities/csi-piemonte/&quot;&gt;CSI Piemonte&lt;/a&gt; basata su Kubernetes/Nivola. Ospita il progetto &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/&quot;&gt;Gestione Consensi - Applicativo&lt;/a&gt;.&lt;/p&gt;
@@ -5190,7 +5313,7 @@ Artifactory push → SonarQube analisi → GitOps rollout
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/architettura-ecaas/"/>
   </entry><entry>
     <title>alternativa-batch-03-pull</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/</id>
     <content type="html">&lt;h1 id=&quot;alternativa-batch-03-pull-cdu-17-centro-stella&quot; tabindex=&quot;-1&quot;&gt;Alternativa BATCH-03 — PULL CDU-17 (centro stella)&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Origine:&lt;/strong&gt; risposta tecnica al commento cliente &lt;strong&gt;TR34&lt;/strong&gt; sulla revisione SRS bozza v3 (PDF righe 4951–4956, sez. §7.3 BATCH-03). Rinumerato come &lt;strong&gt;TR68&lt;/strong&gt; nella revisione &lt;code&gt;CONSPREF-SRS-V1.0-revised_bozza_v3_CSI_lavorazione.pdf&lt;/code&gt; (MF69R68). Vedi mapping in &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3/&quot;&gt;analysis-2026-05-14-risposte-mf-srs-v3&lt;/a&gt;.&lt;/p&gt;
@@ -5725,7 +5848,7 @@ Body: { &amp;quot;stato&amp;quot;: &amp;quot;COMPLETATO&amp;quot; }
     <link href="https://caccu.github.io/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/"/>
   </entry><entry>
     <title>valutazione-qualita-srs-consensi</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/analyses/valutazione-qualita-srs-consensi/</id>
     <content type="html">&lt;h1 id=&quot;valutazione-qualita-srs-progetto-consensi&quot; tabindex=&quot;-1&quot;&gt;Valutazione Qualità SRS — Progetto Consensi&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Oggetto valutato:&lt;/strong&gt; CONSPREF-SRS-V1.0 (bozza v2) + appunti + pianificazione + Q&amp;amp;A CSI&lt;br /&gt;
@@ -5983,7 +6106,7 @@ Body: { &amp;quot;stato&amp;quot;: &amp;quot;COMPLETATO&amp;quot; }
     <link href="https://caccu.github.io/srs_cons_git/wiki/analyses/valutazione-qualita-srs-consensi/"/>
   </entry><entry>
     <title>conspref-dmp-tracker</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/analyses/conspref-dmp-tracker/</id>
     <content type="html">&lt;h1 id=&quot;conspref-dmp-tracker-piano-migrazione-dati&quot; tabindex=&quot;-1&quot;&gt;CONSPREF-DMP — Tracker Piano Migrazione Dati&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Stato:&lt;/strong&gt; 🔴 &lt;strong&gt;Non formalizzato&lt;/strong&gt; al 2026-05-15. Rischio critico per Fase 6 (Sprint 9) migrazione &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/concepts/migrazione-postgres-9-17/&quot;&gt;PG9 → PG17&lt;/a&gt;.&lt;/p&gt;
@@ -6192,7 +6315,7 @@ Body: { &amp;quot;stato&amp;quot;: &amp;quot;COMPLETATO&amp;quot; }
     <link href="https://caccu.github.io/srs_cons_git/wiki/analyses/conspref-dmp-tracker/"/>
   </entry><entry>
     <title>analysis-gap-as-is-to-be</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/wiki/analyses/analysis-gap-as-is-to-be/</id>
     <content type="html">&lt;h1 id=&quot;analisi-gap-as-is-to-be-gestione-consensi&quot; tabindex=&quot;-1&quot;&gt;Analisi Gap AS-IS → TO-BE — Gestione Consensi&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Scopo:&lt;/strong&gt; Identificare cosa cambia, cosa rimane invariato e cosa viene dismesso tra sistema AS-IS (2019) e TO-BE (SRS 2026). Input per sprint planning e gestione rischi integrazione.&lt;/p&gt;
@@ -6610,7 +6733,7 @@ TO-BE: BATCH-01 notifica entro 5 minuti. Se SIA ha logica temporale che dipende 
     <link href="https://caccu.github.io/srs_cons_git/wiki/analyses/analysis-gap-as-is-to-be/"/>
   </entry><entry>
     <title>pianificazione</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/raw/pianificazione/</id>
     <content type="html">&lt;h1 id=&quot;pianificazione-progetto-gestione-consensi&quot; tabindex=&quot;-1&quot;&gt;Pianificazione Progetto Gestione Consensi&lt;/h1&gt;
 &lt;h2 id=&quot;fase-0-setup-and-amp-prerequisiti-settimane-1-2-10gg&quot; tabindex=&quot;-1&quot;&gt;FASE 0 — Setup &amp;amp; Prerequisiti (Settimane 1–2 · 10gg)&lt;/h2&gt;
@@ -7337,7 +7460,7 @@ pg_restore -Fc -v &#92;
     <link href="https://caccu.github.io/srs_cons_git/raw/pianificazione/"/>
   </entry><entry>
     <title>appunti</title>
-    <updated>2026-05-29T14:08:58Z</updated>
+    <updated>2026-06-08T14:19:12Z</updated>
     <id>https://caccu.github.io/srs_cons_git/raw/appunti/</id>
     <content type="html">&lt;p&gt;&lt;strong&gt;1. Contesto&lt;/strong&gt;&lt;br /&gt;
 Il sistema si inserisce nell&#39;ecosistema della &lt;strong&gt;Sanità Elettronica della Regione Piemonte&lt;/strong&gt; e gestisce tre livelli di consenso: &lt;strong&gt;Nazionale&lt;/strong&gt; (FSE/INI), &lt;strong&gt;Regionale&lt;/strong&gt; (stratificazione/cronicità) e &lt;strong&gt;Aziendale ASR&lt;/strong&gt; (Dossier Clinico, ROL referti). I tre profili utente sono il &lt;strong&gt;Cittadino&lt;/strong&gt; (accesso via SPID/CIE), l&#39;&lt;strong&gt;Operatore Sanitario/Amministrativo&lt;/strong&gt; e l&#39;&lt;strong&gt;Operatore di Back Office&lt;/strong&gt; (entrambi via PUA con credenziali RUPAR/IRIDE).&lt;br /&gt;
@@ -8426,6 +8549,18 @@ LIMIT 1
 &lt;td&gt;🟡&lt;/td&gt;
 &lt;td&gt;Sprint 2&lt;/td&gt;
 &lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;PULL-08&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;SIA ha capacità tecnica di fare chiamate REST attive verso il sistema Gestione Consensi?&lt;/strong&gt; Nel modello PULL il ruolo di SIA si inverte: da destinatario passivo a caller. Verificare se l&#39;infrastruttura SIA supporta chiamate outbound verso endpoint CSI/Exprivia (firewall, mTLS, scheduling interno SIA).&lt;/td&gt;
+&lt;td&gt;🔴&lt;/td&gt;
+&lt;td&gt;Sprint 0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;PULL-09&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;Spec REST CDU-17 da scrivere end-to-end:&lt;/strong&gt; path, parametri (&lt;code&gt;codice_ente&lt;/code&gt;, &lt;code&gt;from&lt;/code&gt;, &lt;code&gt;page&lt;/code&gt;), schema risposta, error codes (401/403 per ente non autorizzato, 429 throttling), SLA polling. Prerequisito per implementare &lt;code&gt;EnteAuthorizationFilter&lt;/code&gt; su chiamata inbound e per estendere lo YAML OpenAPI CDU-15/16. Dipende da conferma PULL-08.&lt;/td&gt;
+&lt;td&gt;🔴&lt;/td&gt;
+&lt;td&gt;Sprint 0 → Sprint 1&lt;/td&gt;
+&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;hr /&gt;
@@ -8671,7 +8806,7 @@ LIMIT 1
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;td&gt;Giorno 1 / Sprint 0 critico&lt;/td&gt;
-&lt;td&gt;ID-01, INF-01, INF-02, INF-03, GOV-03, SEC-01, SEC-02, PULL-01, PULL-02, API-01 → &lt;strong&gt;10 punti&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;ID-01, INF-01, INF-02, INF-03, GOV-03, SEC-01, SEC-02, PULL-01, PULL-02, PULL-08, PULL-09, API-01 → &lt;strong&gt;12 punti&lt;/strong&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Sprint 0 alto&lt;/td&gt;
@@ -8691,7 +8826,7 @@ LIMIT 1
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;Totale&lt;/strong&gt;&lt;/td&gt;
-&lt;td&gt;&lt;strong&gt;38 punti aperti&lt;/strong&gt; (dedupli: PULL-03↔SEC-05, API-01↔SEC-01, API-02↔SEC-05, API-05↔GOV-05 → ~34 distinti)&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;40 punti aperti&lt;/strong&gt; (dedupli: PULL-03↔SEC-05, API-01↔SEC-01, API-02↔SEC-05, API-05↔GOV-05 → ~36 distinti)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -8706,6 +8841,8 @@ LIMIT 1
 &lt;li&gt;SEC-05/PULL-03/API-02 (scope) → da chiarire in singolo round&lt;/li&gt;
 &lt;li&gt;INT-01/INT-02 (WSDL AURA/Deleghe) → bloccano CDU-07/08&lt;/li&gt;
 &lt;li&gt;INF-01/INF-03 (DBaaS + automation) → bloccano partenza Sprint 1 tout court&lt;/li&gt;
+&lt;li&gt;PULL-08 (SIA caller capability) → bloccante per PULL-09 (spec CDU-17) e per estensione &lt;code&gt;EnteAuthorizationFilter&lt;/code&gt; su chiamata inbound&lt;/li&gt;
+&lt;li&gt;PULL-09 (spec CDU-17) → bloccante per implementazione endpoint, per aggiornamento YAML OpenAPI e per test integrazione SIA&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Riferimenti operativi:&lt;/strong&gt; &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://caccu.github.io/srs_cons_git/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/&quot;&gt;Checklist Avvio Progetto — Gestione Consensi&lt;/a&gt; resta lo strumento day-1 operativo; questo tracker è la versione consolidata e tematicamente raggruppata.&lt;/li&gt;
