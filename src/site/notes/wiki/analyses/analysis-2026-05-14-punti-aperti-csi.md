@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/","title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"dg-note-properties":{"title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","aliases":["Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato"],"type":"analysis","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"created":"2026-05-14","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02"],"related":["[[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|Checklist Avvio Progetto — Gestione Consensi]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]","[[GASP Salute]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[wiki/sources/2026-05-05-mermaid-architettura\|Diagramma Architettura Sistema — Mermaid]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/","title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"dg-note-properties":{"title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","aliases":["Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato"],"type":"analysis","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"created":"2026-05-14","updated":"2026-06-08","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02"],"related":["[[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|Checklist Avvio Progetto — Gestione Consensi]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]","[[GASP Salute]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[wiki/sources/2026-05-05-mermaid-architettura\|Diagramma Architettura Sistema — Mermaid]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]"]}}
 ---
 
 
@@ -55,6 +55,8 @@ Tutte da [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PUL
 | PULL-05 | Variante export-with-downtime da formalizzare come opzione retrocompatibile (fallback)?                  | 🟡   | Sprint 2 |
 | PULL-06 | **BATCH-03: eliminazione totale dal SRS o deprecation marker?**                                          | 🟠   | Sprint 1 |
 | PULL-07 | Conferma completamento allineamento via PATCH idempotente accettabile? Alternativa: auto-detect timeout? | 🟡   | Sprint 2 |
+| PULL-08 | **SIA ha capacità tecnica di fare chiamate REST attive verso il sistema Gestione Consensi?** Nel modello PULL il ruolo di SIA si inverte: da destinatario passivo a caller. Verificare se l'infrastruttura SIA supporta chiamate outbound verso endpoint CSI/Exprivia (firewall, mTLS, scheduling interno SIA). | 🔴   | Sprint 0 |
+| PULL-09 | **Spec REST CDU-17 da scrivere end-to-end:** path, parametri (`codice_ente`, `from`, `page`), schema risposta, error codes (401/403 per ente non autorizzato, 429 throttling), SLA polling. Prerequisito per implementare `EnteAuthorizationFilter` su chiamata inbound e per estendere lo YAML OpenAPI CDU-15/16. Dipende da conferma PULL-08. | 🔴   | Sprint 0 → Sprint 1 |
 
 ---
 
@@ -122,12 +124,12 @@ Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-op
 
 | Sprint        | Numero punti aperti                                                                                                                          |
 |---------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| Giorno 1 / Sprint 0 critico | ID-01, INF-01, INF-02, INF-03, GOV-03, SEC-01, SEC-02, PULL-01, PULL-02, API-01 → **10 punti** |
+| Giorno 1 / Sprint 0 critico | ID-01, INF-01, INF-02, INF-03, GOV-03, SEC-01, SEC-02, PULL-01, PULL-02, PULL-08, PULL-09, API-01 → **12 punti** |
 | Sprint 0 alto             | INT-01, INT-02, INF-04 → **3 punti**                                                                                                            |
 | Sprint 1                  | ID-03, SEC-03÷05, PULL-03, PULL-06, API-02, BAT-03, INT-03, INT-04, GOV-01 → **11 punti**                                                       |
 | Sprint 2+                 | ID-02, SEC-06, PULL-04, PULL-05, PULL-07, API-03, API-05, BAT-01, BAT-02, INT-05, GOV-02, GOV-05 → **12 punti**                                |
 | Prima UAT                 | API-04, GOV-04 → **2 punti**                                                                                                                  |
-| **Totale**                | **38 punti aperti** (dedupli: PULL-03↔SEC-05, API-01↔SEC-01, API-02↔SEC-05, API-05↔GOV-05 → ~34 distinti)                                       |
+| **Totale**                | **40 punti aperti** (dedupli: PULL-03↔SEC-05, API-01↔SEC-01, API-02↔SEC-05, API-05↔GOV-05 → ~36 distinti)                                       |
 
 ---
 
@@ -140,4 +142,6 @@ Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-op
    - SEC-05/PULL-03/API-02 (scope) → da chiarire in singolo round
    - INT-01/INT-02 (WSDL AURA/Deleghe) → bloccano CDU-07/08
    - INF-01/INF-03 (DBaaS + automation) → bloccano partenza Sprint 1 tout court
+   - PULL-08 (SIA caller capability) → bloccante per PULL-09 (spec CDU-17) e per estensione `EnteAuthorizationFilter` su chiamata inbound
+   - PULL-09 (spec CDU-17) → bloccante per implementazione endpoint, per aggiornamento YAML OpenAPI e per test integrazione SIA
 1. **Riferimenti operativi:** [[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|Checklist Avvio Progetto — Gestione Consensi]] resta lo strumento day-1 operativo; questo tracker è la versione consolidata e tematicamente raggruppata.

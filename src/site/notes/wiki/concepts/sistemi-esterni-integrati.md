@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-05-29","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura ECaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-06-08","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura ECaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -46,6 +46,57 @@ Sistema bidirezionale — consumatore API REST e destinatario notifiche SOAP.
 **Sicurezza inbound REST:** OAuth2 Client Credentials + tabella `cons_t_client_ente`. Vedi [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]].
 
 **Rischi aperti:** ambiguità BATCH-01 WSDL + semantica SCADUTO AS-IS≠TO-BE. Vedi [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]].
+
+### CDU-17 — Contratto SIA come Caller (modello PULL)
+
+> ⚠️ **Inversione del contratto:** nel modello PULL, SIA non è più destinatario passivo ma **chiamante attivo**. Il sistema Gestione Consensi espone un endpoint REST che SIA invoca periodicamente per ottenere uno snapshot dei consensi aggiornati.
+
+**Flusso PULL:**
+
+```
+SIA ASR  →  GET /cdu-17/snapshot?ente={codice_ente}&from={timestamp}
+                        ↓
+         [EnteAuthorizationFilter — 3 livelli]
+                        ↓
+         Gestione Consensi  →  risponde con payload consensi
+```
+
+**Parametri attesi nella chiamata SIA→Regionale:**
+
+| Parametro | Tipo | Note |
+|---|---|---|
+| `codice_ente` | string | Codice ASR richiedente — validato contro `cons_t_client_ente` |
+| `from` | ISO 8601 timestamp | Data di inizio finestra snapshot (delta, non full dump) |
+| Authorization header | Bearer JWT | OAuth2 Client Credentials — stesso schema CDU-15/16 |
+
+**Applicazione [[wiki/concepts/sicurezza-cdu-15-16\|EnteAuthorizationFilter]] su chiamata inbound:**
+
+Il filtro opera a 3 livelli su ogni richiesta SIA:
+1. **Livello client:** JWT validato → `client_id` mappato a `codice_ente` in `cons_t_client_ente`
+2. **Livello ente:** la risposta include **solo** i consensi dell'ente corrispondente al `client_id` — SIA non può richiedere dati di enti diversi dal proprio
+3. **Livello dato:** eventuali consensi di assistiti senza ASR di riferimento non vengono esposti
+
+> ⚠️ **Gap critico:** il filtro è progettato per richieste interne/webapp. La sua applicazione su chiamate entranti da sistema terzo (SIA) non è documentata nella spec [[wiki/concepts/sicurezza-cdu-15-16\|CDU-15-16]] né nello YAML [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|OpenAPI v0.1]]. La spec CDU-17 non esiste ancora.
+
+**Differenze rispetto al modello PUSH (BATCH-03 AS-IS):**
+
+| Aspetto | PUSH (AS-IS) | PULL (TO-BE CDU-17) |
+|---|---|---|
+| Iniziatore | Gestione Consensi (batch scheduler) | SIA ASR |
+| Frequenza | Schedulata internamente | Definita da SIA (TBD con CSI) |
+| Scope dati | Tutti i delta dal batch precedente | Delta da `from` timestamp |
+| Autorizzazione | Interna — decidiamo noi cosa spedire | SIA chiede → noi filtriamo |
+| Spec contratto | WSDL AS-IS disponibile ✅ | **Spec REST CDU-17 non scritta ❌** |
+
+**Gap aperti prima di andare in produzione:**
+
+| Gap | Responsabile | Stato |
+|---|---|---|
+| Spec REST CDU-17 (endpoint, payload, error codes) | Exprivia + CSI | ❌ Non scritta |
+| Conferma CSI che SIA supporta chiamate PULL attive | CSI Piemonte | ❌ Punto aperto (vedi [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punti Aperti CSI]]) |
+| Estensione `EnteAuthorizationFilter` per caller esterno | Exprivia | ❌ Non documentata |
+| Aggiunta security scheme CDU-17 nello YAML OpenAPI | Exprivia | ❌ YAML attuale copre solo CDU-15/16 |
+| Frequenza di polling SIA (SLA snapshot) | CSI Piemonte | ❌ TBD |
 
 ---
 
@@ -127,7 +178,8 @@ Registrazione app PUA (2 profili operatore) da richiedere a [[wiki/entities/csi-
         ├─ Notificatore Deleghe (REST?) — conferma post-acquisizione al cittadino
         ├─ Notificatore UNP  (REST) — notifiche applicative generiche
         ├─ SIA ASR           (SOAP outbound) ← BATCH-01 notifiche puntuali
-        └─ SIA ASR           (REST inbound) ← CDU-15, CDU-16, CDU-17 PULL
+        ├─ SIA ASR           (REST inbound) ← CDU-15, CDU-16 [spec v0.1-DRAFT]
+        └─ SIA ASR           (REST inbound) ← CDU-17 PULL snapshot [⚠️ spec mancante — SIA come caller]
 ```
 
 ---
