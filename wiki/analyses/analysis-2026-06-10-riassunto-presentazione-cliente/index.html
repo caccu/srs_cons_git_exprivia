@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>Processi Batch — BATCH-01, BATCH-02, BATCH-03</title>
+<title>Riassunto Esecutivo — Presentazione Progetto Gestione Consensi</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script type="importmap">
@@ -116,7 +116,7 @@
 </div>
 </div>
 <div x-show="isOpen" style="display:none" class="filelist">
-<div @click.stop class="notelink">
+<div @click.stop class="notelink active-note">
 <a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/analyses/analysis-2026-06-10-riassunto-presentazione-cliente/">Riassunto Esecutivo — Presentazione Progetto Gestione Consensi </a>
 </div>
 </div>
@@ -150,7 +150,7 @@
 </div>
 </div>
 <div x-show="isOpen" style="display:none" class="filelist">
-<div @click.stop class="notelink active-note">
+<div @click.stop class="notelink">
 <a data-note-icon="" style="text-decoration:none" class="filename" href="/srs_cons_git/wiki/concepts/batch-processes/">Processi Batch — BATCH-01, BATCH-02, BATCH-03 </a>
 </div>
 </div>
@@ -489,305 +489,352 @@
 <div class="header-meta">
 </div>
 </header>
-<h1 id="processi-batch" tabindex="-1">Processi Batch</h1>
-<p>Processi asincroni del sistema TO-BE <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a>. Assenti nell'AS-IS — introdotti per disaccoppiare la logica di notifica/scadenza/allineamento dall'acquisizione sincrona.</p>
-<blockquote>
-<p><strong>Aggiornamento revisione SRS v3 (2026-05-14):</strong></p>
-<ul>
-<li>BATCH-01: scheduling <strong>5 minuti</strong> con <code>SELECT FOR UPDATE SKIP LOCKED</code> (MF64R63) — sostituisce AS-IS 30 minuti</li>
-<li>BATCH-02: SQL canonico per nuova informativa (MF66R65)</li>
-<li>BATCH-03 push: <strong>rimosso</strong> — sostituito da PULL CDU-17 (MF69R68, ex TR34/TR68). Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a></li>
-<li>Notifica cittadino: via <strong>Notificatore di Deleghe</strong> (NON UNP), parte solo post-COMPLETATO (MF33R31)</li>
-</ul>
-</blockquote>
+<h1 id="riassunto-esecutivo-progetto-gestione-consensi" tabindex="-1">Riassunto Esecutivo — Progetto Gestione Consensi</h1>
+<p><strong>Documento di sintesi per presentazione al cliente</strong> — preparato il 10/06/2026.<br>
+Sintetizza l'intera base di conoscenza del progetto: contesto, funzionalità, architettura, decisioni prese, pianificazione e punti ancora aperti.</p>
 <hr>
-<h2 id="batch-01-notifica-acquisizione-consensi" tabindex="-1">BATCH-01 — Notifica acquisizione consensi</h2>
-<p><strong>Trigger:</strong> Ogni CDU che modifica un consenso inserisce record in <code>cons_t_notifica</code><br>
-<strong>Frequenza:</strong> <strong>Ogni 5 minuti</strong> (MF64R63 — sostituisce AS-IS 30 min)<br>
-<strong>Concorrenza:</strong> <code>SELECT FOR UPDATE SKIP LOCKED</code> su <code>cons_t_notifica</code> per prevenire sovrapposizioni fra esecuzioni successive (MF64R63)<br>
-<strong>Azione:</strong> Chiama WebService SOAP verso ogni ASR coinvolta per notificare acquisizione/modifica consenso<br>
-<strong>Contratto WSDL:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a> — invariato nel TO-BE (confermato da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a>)</p>
-<h3 id="pattern-di-lock-concorrenza-mf-64-r63" tabindex="-1">Pattern di lock concorrenza (MF64R63)</h3>
-<pre><code class="language-sql">-- Lettura batch di notifiche da inviare, con lock skip-locked per parallelismo sicuro
-SELECT n.not_id, n.cf_cittadino, n.codice_consenso, n.endp_url, ...
-FROM cons_t_notifica n
-WHERE n.not_stato = 'DA_INVIARE'
-  AND n.data_cancellazione IS NULL
-ORDER BY n.data_creazione
-LIMIT :batch_size
-FOR UPDATE SKIP LOCKED;
-</code></pre>
-<p>Conseguenze:</p>
+<h2 id="1-di-cosa-si-tratta" tabindex="-1">1. Di cosa si tratta</h2>
+<p>La Regione Piemonte dispone di un applicativo che raccoglie e gestisce i <strong>consensi sanitari dei cittadini</strong> (ad esempio: il consenso all'apertura del Fascicolo Sanitario, al Dossier Clinico aziendale, alla telemedicina). L'applicativo attuale risale al 2019 e va completamente rifatto.</p>
 <ul>
-<li>Più istanze pod (Kubernetes) di BATCH-01 possono girare in parallelo senza collisioni</li>
-<li>Notifiche non duplicate</li>
-<li>Notifiche in stato di lock da una run non sono prese da run successive — evitando sovrapposizione AS-IS che aveva motivato il 30 min</li>
+<li><strong>Committente:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/regione-piemonte/">Regione Piemonte</a>, tramite <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a> (gestore tecnico dell'infrastruttura)</li>
+<li><strong>Fornitore:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/exprivia/">Exprivia S.p.A.</a> — analisi, specifica e sviluppo del nuovo sistema</li>
+<li><strong>Fase attuale:</strong> analisi completata, specifica dei requisiti (SRS) in revisione finale con CSI, pre-sviluppo</li>
+<li><strong>Documento centrale:</strong> CONSPREF-SRS-V1.0 (bozza v2, rivista con i 69 commenti CSI della v3 — 30 risposte già consolidate)</li>
 </ul>
-<h3 id="payload-notifica" tabindex="-1">Payload notifica</h3>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>Campo payload</th>
-<th>Fonte</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>codFiscale</code></td>
-<td>Consenso espresso</td>
-</tr>
-<tr>
-<td><code>codAsr</code></td>
-<td>Endpoint destinatario</td>
-</tr>
-<tr>
-<td><code>codConsenso</code>, <code>valConsenso</code></td>
-<td>Consenso espresso</td>
-</tr>
-<tr>
-<td><code>dataAcquisizione</code></td>
-<td>Timestamp acquisizione</td>
-</tr>
-<tr>
-<td><code>codOperatore</code>, <code>fonte</code></td>
-<td>Tracciatura origine CDU</td>
-</tr>
-</tbody>
-</table></div>
-<h3 id="selezione-endpoint-mf-24-r23" tabindex="-1">Selezione endpoint (MF24R23)</h3>
-<p>Vedi 6.14 CDU-14 (Gestione ente ed endpoint) e ALG01 (Selezione nuovi endpoint) per la logica di selezione degli endpoint in base alla configurazione dell'ente.</p>
-<h3 id="tabella-transizioni-stato-code-cons-t-notifica-code-mf-64-r63-da-aggiungere-srs" tabindex="-1">Tabella transizioni stato <code>cons_t_notifica</code> (MF64R63 — da aggiungere SRS)</h3>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>Da</th>
-<th>A</th>
-<th>Trigger</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>(creazione record)</td>
-<td><code>DA_INVIARE</code></td>
-<td>INSERT da CDU che acquisisce/modifica consenso</td>
-</tr>
-<tr>
-<td><code>DA_INVIARE</code></td>
-<td><code>IN_INVIO</code></td>
-<td>BATCH-01 lock + invio in corso</td>
-</tr>
-<tr>
-<td><code>IN_INVIO</code></td>
-<td><code>INVIATO</code></td>
-<td>Response 2xx da SIA</td>
-</tr>
-<tr>
-<td><code>IN_INVIO</code></td>
-<td><code>ERRORE</code></td>
-<td>Response 4xx/5xx o timeout</td>
-</tr>
-<tr>
-<td><code>ERRORE</code></td>
-<td><code>IN_INVIO</code></td>
-<td>Retry da BATCH-01 (con backoff)</td>
-</tr>
-<tr>
-<td><code>ERRORE</code></td>
-<td><code>FALLITO_DEFINITIVO</code></td>
-<td>Max retry superato → archiviazione <code>cons_t_notifica_errore_dett</code></td>
-</tr>
-</tbody>
-</table></div>
-<h3 id="gestione-errori" tabindex="-1">Gestione errori</h3>
-<p>Retry con backoff (numero tentativi = [PROPOSTA] §7.1). Errori persistenti → <code>cons_t_notifica_errore_dett</code>.</p>
-<h3 id="notifica-al-cittadino-post-completato-mf-33-r31" tabindex="-1">Notifica al cittadino post-COMPLETATO (MF33R31)</h3>
-<blockquote>
-<p>Notifica cittadino/delegato via <strong>Notificatore di Deleghe</strong> parte <strong>SOLO dopo conferma notifica alle aziende</strong> (stato = COMPLETATO).</p>
-</blockquote>
-<p>Implicazione: dipendenza temporale stretta. Quando tutti i record <code>cons_t_notifica</code> per una variazione raggiungono <code>INVIATO</code>/<code>COMPLETATO</code>, viene innescata la notifica al cittadino. Se BATCH-01 ritarda o fallisce, anche la notifica al cittadino è ritardata.</p>
-<p>Distinzione canale:</p>
-<ul>
-<li><strong>Notificatore di Deleghe</strong>: conferma post-acquisizione al cittadino/delegato (questo caso)</li>
-<li><strong>Notificatore UNP</strong>: altre notifiche applicative generiche (vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a>)</li>
-</ul>
-<h3 id="rischio-critico-ambiguita-operazione-wsdl" tabindex="-1">⚠️ RISCHIO CRITICO — Ambiguità operazione WSDL</h3>
-<blockquote>
-<p><strong>Problema:</strong> SRS §7.1 nomina &quot;operazione Acquisizione&quot; per BATCH-01. Nella <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-06-01-webservice-consenso-regionale-v03/">Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)</a>, i servizi <strong>uscenti</strong> dal Regionale verso le ASR sono <strong>SRV-03 NotificaAcquisizioneConsenso</strong> — non SRV-01 AcquisizioneConsenso (che è inbound ASR→Regionale).</p>
-<p>Implementare BATCH-01 chiamando SRV-01 invece di SRV-03 = contratto WSDL sbagliato = errore grave di integrazione.</p>
-<p><strong>Azione:</strong> Conferma scritta da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a> prima di implementare BATCH-01. Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/valutazione-qualita-srs-consensi/">Valutazione Qualità SRS — Gestione Consensi</a> §RISCHIO AGGIUNTO 4.</p>
-</blockquote>
 <hr>
-<h2 id="batch-02-scadenza-informative" tabindex="-1">BATCH-02 — Scadenza informative</h2>
-<p><strong>Trigger:</strong> Schedulato (frequenza non specificata nell'SRS — da definire)<br>
-<strong>Azione:</strong> Quando un'informativa scade, aggiorna i consensi collegati in base al parametro <code>annulla_consensi</code>:</p>
+<h2 id="2-cosa-fa-il-sistema" tabindex="-1">2. Cosa fa il sistema</h2>
+<h3 id="i-tre-livelli-di-consenso" tabindex="-1">I tre livelli di consenso</h3>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
-<th><code>annulla_consensi</code></th>
-<th>Nuovo stato</th>
-<th>Notifica ASR?</th>
+<th>Livello</th>
+<th>Ambito</th>
+<th>Esempio</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>NO</td>
-<td>SCADUTO</td>
-<td>No</td>
+<td><strong>Nazionale</strong></td>
+<td>Tutto il territorio</td>
+<td>Fascicolo Sanitario Elettronico (FSE/INI)</td>
 </tr>
 <tr>
-<td>SI</td>
-<td>ANNULLATO</td>
-<td>Sì → INSERT <code>cons_t_notifica</code> → BATCH-01</td>
+<td><strong>Regionale</strong></td>
+<td>Regione Piemonte</td>
+<td>Telemedicina, stratificazione, reti di patologia</td>
+</tr>
+<tr>
+<td><strong>Aziendale</strong></td>
+<td>Singola azienda sanitaria (ASR)</td>
+<td>Dossier Clinico, referti online</td>
 </tr>
 </tbody>
 </table></div>
-<p>Vedi <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/ciclo-vita-consenso/">Ciclo di Vita del Consenso</a> per semantica completa degli stati.</p>
-<h3 id="sql-canonico-determinazione-nuova-informativa-mf-66-r65" tabindex="-1">SQL canonico — determinazione nuova informativa (MF66R65)</h3>
-<p>Per ogni informativa scaduta, BATCH-02 deve determinare la <strong>nuova informativa corrente</strong> (quella ancora valida) per il medesimo <code>sotto_tipo_consenso</code>:</p>
-<pre><code class="language-sql">SELECT d_informativa_id AS nuova_d_informativa_id
-FROM cons_d_informativa
-WHERE sotto_tipo_consenso = :sotto_tipo_consenso_scaduta
-  AND (data_scadenza IS NULL OR data_scadenza &gt; NOW())
-  AND data_decorrenza &lt;= NOW()
-  AND data_cancellazione IS NULL
-ORDER BY data_decorrenza DESC
-LIMIT 1;
-</code></pre>
-<p>Quindi seleziona tutti i consensi collegati all'informativa scaduta in stato <code>ATTIVO</code> o <code>NEGATO</code>:</p>
-<pre><code class="language-sql">SELECT cons_id, tipo_stato
-FROM cons_t_consenso
-WHERE d_informativa_id = :id_informativa_scaduta
-  AND tipo_stato IN ('ATTIVO', 'NEGATO');
-</code></pre>
-<h3 id="alg-02-aggiornamento-storicizzato-sc-67-aperto" tabindex="-1">ALG02 — Aggiornamento storicizzato (SC67 aperto)</h3>
-<blockquote>
-<p>🟠 <strong>APERTO — SC67:</strong> &quot;da approfondire e verificare meglio&quot; su INSERT cons_t_consenso da batch (logica storicizzazione)</p>
-</blockquote>
-<p>Per ogni <code>cons_id</code> individuato:</p>
+<p>Regola chiave: il consenso regionale si esprime <strong>una volta sola</strong> e vale per tutte le aziende; quello aziendale si esprime <strong>azienda per azienda</strong>.</p>
+<h3 id="chi-lo-usa-e-come" tabindex="-1">Chi lo usa e come</h3>
+<p>Il consenso si può esprimere attraverso <strong>tre canali</strong>:</p>
 <ol>
-<li><strong>Chiudere il record corrente:</strong> <code>UPDATE cons_t_consenso SET data_fine = NOW(), data_modifica = NOW(), login_operazione = 'BATCH_SCADENZA_INF' WHERE cons_id = :id AND data_fine IS NULL;</code></li>
-<li><strong>Inserire nuovo record storicizzato</strong> con il nuovo stato (<code>SCADUTO</code> o <code>ANNULLATO</code>) puntando alla nuova informativa (<code>d_informativa_id = :nuova_d_informativa_id</code>).</li>
+<li><strong>Webapp Cittadino</strong> — il cittadino accede con SPID/CIE e gestisce i propri consensi (o quelli di un suo delegante, tramite il pulsante &quot;Deleghe&quot;)</li>
+<li><strong>Webapp Operatore</strong> — l'operatore sanitario o amministrativo opera per conto dell'assistito, accedendo tramite PUA con credenziali RUPAR/IRIDE</li>
+<li><strong>LIS</strong> — acquisizione presso il laboratorio (canale di front-office)</li>
 </ol>
-<p>Note tecniche (SRS §BATCH-02):</p>
+<p>A questi si aggiungono il <strong>Back Office</strong> (configurazione dei tipi di consenso, delle informative e degli enti) e le <strong>API per i sistemi informativi aziendali (SIA)</strong> delle ASR, che interrogano lo stato dei consensi in modalità applicativa (machine-to-machine).</p>
+<h3 id="le-funzionalita-in-numeri" tabindex="-1">Le funzionalità in numeri</h3>
 <ul>
-<li><code>sotto_tipo_consenso</code> copiato direttamente dal record originale</li>
-<li><code>d_informativa_id</code> → nuova informativa, non vecchia</li>
-<li><code>endp_id = NULL</code> — consensi inseriti/aggiornati da batch non hanno endpoint origine</li>
-<li><code>gen_random_uuid()</code> (PostgreSQL 17 nativa) per UUID nuovo record</li>
+<li><strong>16 casi d'uso (CDU)</strong> — dall'autenticazione (CDU-01, diviso in 01a Operatore e 01b Cittadino) alla consultazione del cruscotto (CDU-02), al rilascio e modifica del consenso (CDU-03/04), al download PDF dell'informativa (CDU-06), fino alle funzioni operatore (CDU-07÷11), back office (CDU-12÷14) e API per i SIA (CDU-15/16, più il proposto CDU-17)</li>
+<li><strong>3 processi batch</strong> per le elaborazioni asincrone (notifiche, scadenze, allineamenti)</li>
+<li><strong>25 tabelle</strong> nel nuovo modello dati (erano 12 nel sistema attuale)</li>
+<li><strong>6 sistemi esterni integrati</strong></li>
 </ul>
-<h3 id="differenza-semantica-as-is-vs-to-be-stato-scaduto" tabindex="-1">⚠️ Differenza semantica AS-IS vs TO-BE — stato SCADUTO</h3>
-<blockquote>
-<p><strong>AS-IS:</strong> stato SCADUTO impostato durante l'operazione di acquisizione stessa, se il consenso è già presente (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione/">ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)</a>).</p>
-<p><strong>TO-BE:</strong> SCADUTO gestito <strong>esclusivamente</strong> da BATCH-02 alla scadenza dell'informativa.</p>
-<p>Paradigmi diversi. Se i <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> SIA ASR si aspettano comportamento AS-IS (scadenza sincrona durante acquisizione), il TO-BE potrebbe rompere l'integrazione.</p>
-<p><strong>Azione:</strong> Documentare la differenza nella specifica OpenAPI CDU-15/16 e verificare con tutti i SIA coinvolti.</p>
-</blockquote>
-<hr>
-<h2 id="s-batch-03-s-sostituito-da-pull-cdu-17-strong-proposed-strong-attende-sign-off-csi" tabindex="-1"><s>BATCH-03</s> — sostituito da PULL CDU-17 (<strong>proposed</strong>, attende sign-off CSI)</h2>
-<blockquote>
-<p>🟡 <strong>DESIGN RIVISTO — risposta MF69R68 (ex TR34/TR68):</strong></p>
-<p>BATCH-03 push viene <strong>sostituito</strong> dalla specifica TO-BE da modello <strong>PULL</strong> via CDU-17 (REST snapshot paginato, SIA pulla autonomamente). Proposta tecnica Exprivia (2026-05-14) come accoglimento del commento cliente TR68 &quot;centro stella&quot; — vedi <a href="/srs_cons_git/wiki/docs/adr/adr-006-batch-03-pull-cdu-17/" class="internal-link" target>ADR-006</a>, status <code>proposed</code>. Propagazione interna sulla wiki completata; <strong>attende sign-off formale CSI Piemonte</strong> prima di chiudere SRS e rimuovere fisicamente §7.3.</p>
-<p>Dettaglio progettuale completo: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a></p>
-</blockquote>
-<p>Design storico (push, deprecato):</p>
-<ul>
-<li>Trigger: nuovo endpoint ASR (<code>cons_t_endpoint</code> con <code>stato_allineamento=DA_ALLINEARE</code>)</li>
-<li>Azione: invia consensi esistenti al nuovo endpoint via SOAP &quot;allineamento massivo&quot;</li>
-</ul>
-<hr>
-<h2 id="sequenza-nel-ciclo-di-vita-del-consenso" tabindex="-1">Sequenza nel ciclo di vita del consenso</h2>
-<pre><code>CDU-03 (rilascio) o CDU-04/05/10/11 (modifica)
-  → INSERT cons_t_consenso
-  → INSERT cons_t_notifica
-  → [5 min, SKIP LOCKED] BATCH-01 → SRV-03 SOAP → SIA ASR
-  → al completamento di tutte le notifiche aziende (stato=COMPLETATO)
-     → Notificatore di Deleghe → notifica cittadino/delegato
-
-Informativa scade
-  → BATCH-02 → SELECT nuova informativa corrente (MF66)
-              → UPDATE cons_t_consenso (chiude record)
-              → INSERT cons_t_consenso (SCADUTO o ANNULLATO, nuova informativa)
-              → [se ANNULLATO] INSERT cons_t_notifica → BATCH-01 → SIA ASR
-
-Nuovo endpoint configurato (CDU-14 Back Office)
-  → notifica out-of-band al SIA
-  → SIA chiama CDU-17 GET /api/v1/consensi/snapshot (PULL paginato)
-  → SIA conferma PATCH /endpoints/{id}/stato-allineamento → COMPLETATO
+<h3 id="il-ciclo-di-vita-del-consenso" tabindex="-1">Il ciclo di vita del consenso</h3>
+<p>Ogni consenso segue una macchina a stati semplice e tracciabile (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/ciclo-vita-consenso/">Ciclo di Vita del Consenso</a>):</p>
+<pre><code>NON ESPRESSO → ATTIVO / NEGATO → SCADUTO / ANNULLATO
 </code></pre>
+<p>Principio fondamentale: <strong>nessuna sovrascrittura</strong>. Ogni cambiamento crea un nuovo record e il precedente viene storicizzato — la storia completa delle scelte del cittadino è sempre ricostruibile (decisione <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-015-storicizzazione-immutabile/">ADR-015</a>).</p>
 <hr>
-<h2 id="implicazioni-tecniche" tabindex="-1">Implicazioni tecniche</h2>
-<ul>
-<li>Spring Boot 3: <code>@Scheduled</code> o Spring Batch per esecuzione periodica</li>
-<li>BATCH-01: client SOAP Apache CXF o Spring-WS</li>
-<li>BATCH-01 concorrenza: <code>SELECT FOR UPDATE SKIP LOCKED</code> (PostgreSQL 17 nativa) — più istanze pod sicure</li>
-<li>BATCH-02: usa <code>gen_random_uuid()</code> PostgreSQL 17 per UUID nuovi record storicizzati</li>
-<li>Certificati X509 WS-Security: richiederli a <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/csi-piemonte/">CSI Piemonte</a> in Sprint 0</li>
-<li><code>cons_t_batch_errori</code>: tabella TO-BE per tracciatura anomalie (non presente AS-IS)</li>
-</ul>
-<hr>
-<h2 id="punti-aperti" tabindex="-1">Punti aperti</h2>
+<h2 id="3-architettura-e-tecnologie" tabindex="-1">3. Architettura e tecnologie</h2>
+<pre><code>Cittadino (SPID/CIE) → GASP Salute → Webapp Angular → Spring Boot → PostgreSQL 17
+Operatore (RUPAR/IRIDE) → PUA → Webapp Angular → Spring Boot
+SIA aziendali → API REST (OAuth2 + JWT) → Spring Boot
+</code></pre>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
-<th>ID</th>
-<th>Origine</th>
-<th>Argomento</th>
+<th>Componente</th>
+<th>Tecnologia</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frontend</td>
+<td><strong>Angular 19</strong> + componenti QUASAR CSI</td>
+<td>Form Renderer unico condiviso tra webapp Cittadino e Operatore</td>
+</tr>
+<tr>
+<td>Backend</td>
+<td><strong>Spring Boot 3.4.10+ / Java 17</strong></td>
+<td>Client SOAP con Apache CXF per i sistemi legacy</td>
+</tr>
+<tr>
+<td>Database</td>
+<td><strong>PostgreSQL 17</strong> su DBaaS Nivola</td>
+<td>Esterno al namespace applicativo</td>
+</tr>
+<tr>
+<td>Infrastruttura</td>
+<td><strong>ECaaS</strong> — Kubernetes su cloud Nivola CSI</td>
+<td>Vincoli CSI: TRAEFIK, Artifactory, CI/CD GitLab+Jenkins, Helm</td>
+</tr>
+</tbody>
+</table></div>
+<p>Due scelte architetturali da evidenziare:</p>
+<ul>
+<li><strong>Nessun API Gateway</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-004-no-api-gateway/">ADR-004</a>, confermato da CSI): la sicurezza è gestita direttamente a livello applicativo con Spring Security.</li>
+<li><strong>Form Renderer unico</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-008-ssot-form-renderer/">ADR-008</a>): la pagina di espressione del consenso è composta dinamicamente da un unico motore, usato sia dal cittadino sia dall'operatore — una sola fonte, zero divergenze tra i due canali.</li>
+</ul>
+<h3 id="sistemi-esterni-integrati" tabindex="-1">Sistemi esterni integrati</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Sistema</th>
+<th>Ruolo</th>
+<th>Protocollo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gasp-salute/">GASP Salute</a></td>
+<td>Identity Provider per il cittadino (SPID/CIE)</td>
+<td>OIDC o SAML2 — <strong>da definire</strong></td>
+</tr>
+<tr>
+<td>AURA</td>
+<td>Anagrafe regionale: ricerca assistito</td>
+<td>SOAP</td>
+</tr>
+<tr>
+<td>Gestione Deleghe</td>
+<td>Elenco deleganti del cittadino</td>
+<td>SOAP</td>
+</tr>
+<tr>
+<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/entities/notificatore-unp/">Notificatore UNP</a></td>
+<td>Notifiche al cittadino (email/push/app IO)</td>
+<td>REST</td>
+</tr>
+<tr>
+<td>SIA ASR</td>
+<td>Sistemi informativi delle aziende sanitarie</td>
+<td>REST (CDU-15/16/17)</td>
+</tr>
+<tr>
+<td>PUA / Configuratore</td>
+<td>Accesso e profilazione operatori</td>
+<td>Web</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="4-sicurezza" tabindex="-1">4. Sicurezza</h2>
+<ul>
+<li>Autenticazione cittadino via <strong>SPID/CIE</strong> (GASP Salute); operatori via <strong>RUPAR/IRIDE</strong> (PUA)</li>
+<li>Per le API verso i SIA (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16</a>): <strong>OAuth2 Client Credentials + token JWT</strong>, con isolamento per ente garantito da una <strong>difesa a tre livelli</strong> — validazione del token, tabella di mapping client→ente (<code>cons_t_client_ente</code>), filtro applicativo sulle query. Ogni azienda vede <strong>solo i propri dati</strong>, per costruzione.</li>
+<li>Errori delle API in formato standard <strong>RFC 7807</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-018-rfc-7807-error-response/">ADR-018</a>)</li>
+<li>OWASP Top 10, codice fiscale mascherato nei log, credenziali in K8s Secret</li>
+</ul>
+<hr>
+<h2 id="5-processi-batch-e-la-proposta-cdu-17" tabindex="-1">5. Processi batch e la proposta CDU-17</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Batch</th>
+<th>Funzione</th>
 <th>Stato</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>SC67</td>
-<td>Revisione SRS v3 lavorazione</td>
-<td>Logica INSERT cons_t_consenso da batch storicizzazione &quot;da approfondire e verificare meglio&quot;</td>
-<td>🟠 Aperto — discutere con CSI</td>
+<td><strong>BATCH-01</strong></td>
+<td>Notifica alle aziende dei consensi acquisiti — ogni 5 minuti, con SKIP LOCKED (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-007-batch-01-5min-skip-locked/">ADR-007</a>)</td>
+<td>Confermato</td>
 </tr>
 <tr>
-<td>BATCH-01 SRV-01 vs SRV-03</td>
-<td>Rischio interno</td>
-<td>Ambiguità contratto WSDL outbound</td>
-<td>🔴 Critico — conferma CSI prima implementazione</td>
+<td><strong>BATCH-02</strong></td>
+<td>Gestione scadenze: porta i consensi a SCADUTO in modo asincrono (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-016-scaduto-async-batch-02/">ADR-016</a>)</td>
+<td>Confermato (un punto da approfondire: SC67)</td>
 </tr>
 <tr>
-<td>BATCH-02 frequenza</td>
-<td>SRS non specifica</td>
-<td>Schedulazione precisa BATCH-02</td>
-<td>🟠 Da definire con CSI</td>
+<td><strong>BATCH-03</strong></td>
+<td>Allineamento massivo push verso le aziende</td>
+<td><strong>In sostituzione</strong></td>
 </tr>
 </tbody>
 </table></div>
+<p><strong>Proposta CDU-17 — modello PULL &quot;centro stella&quot;</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-006-batch-03-pull-cdu-17/">ADR-006</a>, stato: proposta in attesa di approvazione CSI): invece di spingere i dati verso ogni azienda (push), il sistema regionale espone un endpoint REST paginato e sono le aziende a <strong>scaricare</strong> lo snapshot quando serve. Vantaggi: nessun onere infrastrutturale push sul sistema regionale, zero downtime, riuso integrale della sicurezza già progettata per CDU-15/16.</p>
 <hr>
-<h2 id="adr-correlati" tabindex="-1">ADR correlati</h2>
+<h2 id="6-migrazione-dati-postgre-sql-9-17" tabindex="-1">6. Migrazione dati PostgreSQL 9 → 17</h2>
+<p>Il database attuale è su PostgreSQL 9: il salto è di <strong>8 versioni major</strong>. Strategia scelta: <strong>dump &amp; restore logico</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/adr-013-migrazione-pg-dump-restore/">ADR-013</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/migrazione-postgres-9-17/">Migrazione PostgreSQL 9 → 17</a>), con procedura di cutover completa e piano di rollback (istanza PG9 in standby per 48 ore).</p>
+<p>Rischi tecnici già censiti: cambio autenticazione (md5→scram), tipi deprecati (SERIAL), comportamento timestamp, sequenze orfane. Punto aperto: il <strong>piano di migrazione formale (CONSPREF-DMP)</strong> non è ancora stato formalizzato — serve un responsabile lato CSI.</p>
+<hr>
+<h2 id="7-pianificazione" tabindex="-1">7. Pianificazione</h2>
+<p><strong>8 fasi, 120 giorni lavorativi (~17 settimane), 10 sprint da 2 settimane:</strong></p>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
-<th>ADR</th>
-<th>Decisione</th>
+<th>Fase</th>
+<th>Contenuto</th>
+<th>Settimane</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="/srs_cons_git/wiki/docs/adr/adr-007-batch-01-5min-skip-locked/" class="internal-link" target>ADR-007</a></td>
-<td>BATCH-01 5 min con SKIP LOCKED</td>
+<td>0</td>
+<td>Setup e prerequisiti (provisioning, accessi)</td>
+<td>1–2</td>
 </tr>
 <tr>
-<td><a href="/srs_cons_git/wiki/docs/adr/adr-016-scaduto-async-batch-02/" class="internal-link" target>ADR-016</a></td>
-<td>Stato SCADUTO async via BATCH-02</td>
+<td>1</td>
+<td>Design tecnico</td>
+<td>2–3</td>
 </tr>
 <tr>
-<td><a href="/srs_cons_git/wiki/docs/adr/adr-006-batch-03-pull-cdu-17/" class="internal-link" target>ADR-006</a></td>
-<td>BATCH-03 push → CDU-17 PULL (<strong>proposed</strong>)</td>
+<td>2</td>
+<td>Data layer TO-BE</td>
+<td>3–5</td>
 </tr>
 <tr>
-<td><a href="/srs_cons_git/wiki/docs/adr/adr-012-notificatore-deleghe-post-completato/" class="internal-link" target>ADR-012</a></td>
-<td>Notifica cittadino via Notificatore di Deleghe post-COMPLETATO</td>
+<td>3</td>
+<td>Backend Spring Boot</td>
+<td>4–11</td>
 </tr>
 <tr>
-<td><a href="/srs_cons_git/wiki/docs/adr/adr-014-apache-cxf-soap-client/" class="internal-link" target>ADR-014</a></td>
-<td>Apache CXF client SOAP (BATCH-01 outbound)</td>
+<td>4</td>
+<td>Frontend Angular (in parallelo al backend)</td>
+<td>5–12</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Testing &amp; QA</td>
+<td>11–15</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Migrazione PG9→PG17</td>
+<td>13–16</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Go-Live</td>
+<td>15–17</td>
 </tr>
 </tbody>
 </table></div>
+<p>Attenzione alle <strong>latenze esterne</strong>: provisioning DBaaS Nivola, credenziali IRIS/AURA e documentazione GASP vanno richiesti <strong>dal giorno 1</strong> perché non dipendono da Exprivia.</p>
+<hr>
+<h2 id="8-decisioni-architetturali-registrate-adr" tabindex="-1">8. Decisioni architetturali registrate (ADR)</h2>
+<p>Il progetto mantiene un registro formale di <strong>19 decisioni architetturali</strong> (18 approvate + 1 proposta). Le principali:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Decisione</th>
+<th>Sintesi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stack tecnologico</td>
+<td>Spring Boot 3 + Java 17 + Angular 19 + PostgreSQL 17</td>
+</tr>
+<tr>
+<td>No API Gateway</td>
+<td>Sicurezza applicativa diretta (Spring Security)</td>
+</tr>
+<tr>
+<td>Sicurezza API SIA</td>
+<td>OAuth2 Client Credentials + JWT + isolamento per ente</td>
+</tr>
+<tr>
+<td><strong>CDU-17 PULL</strong></td>
+<td>Sostituzione BATCH-03 push — <strong>unica decisione ancora in stato &quot;proposta&quot;</strong></td>
+</tr>
+<tr>
+<td>Storicizzazione immutabile</td>
+<td>Nessuna sovrascrittura dei consensi</td>
+</tr>
+<tr>
+<td>Split CDU-01</td>
+<td>Accesso Operatore (01a) e Cittadino (01b) separati</td>
+</tr>
+<tr>
+<td>Form Renderer SSoT</td>
+<td>Motore unico di composizione form Cittadino + Operatore</td>
+</tr>
+<tr>
+<td>Migrazione dump/restore</td>
+<td>PG9 → PG17 senza pg_upgrade diretto</td>
+</tr>
+</tbody>
+</table></div>
+<p>Elenco completo: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/docs/adr/readme/">Indice ADR</a></p>
+<hr>
+<h2 id="9-punti-aperti" tabindex="-1">9. Punti aperti</h2>
+<p>Il tracker unificato (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/">Punti Aperti da Chiedere a CSI Piemonte</a>) censisce <strong>40 punti aperti</strong> (~36 al netto dei duplicati), raggruppati per area e priorità. I <strong>più critici</strong> — quelli che bloccano la partenza:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Punto</th>
+<th>Perché è critico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GASP Salute: OIDC o SAML2?</strong></td>
+<td>Senza il protocollo non si implementa l'autenticazione del cittadino — blocca CDU-01 e tutti i casi d'uso cittadino</td>
+</tr>
+<tr>
+<td><strong>Provisioning DBaaS Nivola (DEV e PROD)</strong></td>
+<td>Senza database non parte lo Sprint 1</td>
+</tr>
+<tr>
+<td><strong>Accesso automation CSI</strong></td>
+<td>Serve per generare lo skeleton di progetto (pipeline, Helm)</td>
+</tr>
+<tr>
+<td><strong>CONSPREF-DMP senza responsabile</strong></td>
+<td>Rischio slittamento della Fase 6 di migrazione</td>
+</tr>
+<tr>
+<td><strong>URL Authorization Server + algoritmo firma JWT</strong></td>
+<td>Bloccano qualsiasi test di integrazione con i SIA</td>
+</tr>
+<tr>
+<td><strong>CDU-17: conferma modello PULL</strong></td>
+<td>I SIA sanno fare chiamate REST attive? (PULL-08) Va scritta la specifica end-to-end (PULL-09)</td>
+</tr>
+<tr>
+<td><strong>OpenAPI CDU-15/16: 5 TBD</strong></td>
+<td>Da confermare prima di condividere la specifica con le ASR</td>
+</tr>
+<tr>
+<td><strong>BATCH-01: ambiguità WSDL (SRV-01 vs SRV-03)</strong></td>
+<td>Rischio di errore implementativo sull'integrazione</td>
+</tr>
+</tbody>
+</table></div>
+<p>Versione divulgativa punto per punto: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-2026-05-27-punti-aperti-spiegati/">Punti Aperti — Spiegati in Modo Semplice</a>.</p>
+<hr>
+<h2 id="10-stato-della-base-di-conoscenza" tabindex="-1">10. Stato della base di conoscenza</h2>
+<p>Questa wiki raccoglie e mantiene allineata tutta la conoscenza di progetto:</p>
+<ul>
+<li><strong>12 documenti sorgente</strong> ingestionati e sintetizzati (SRS TO-BE, requisiti CSI 2023, baseline AS-IS 2019, linee guida cloud CSI, specifiche WSDL, dizionario dati)</li>
+<li><strong>12 pagine concettuali</strong> (architettura, ciclo di vita, sicurezza, batch, migrazione, …)</li>
+<li><strong>9 analisi</strong> (valutazione qualità SRS, gap AS-IS→TO-BE, tracker punti aperti, specifica OpenAPI CDU-15/16 in bozza)</li>
+<li><strong>19 ADR</strong> con ciclo di vita gestito</li>
+<li>Audit di coerenza completo contro l'SRS v3 (29/05/2026): zero disallineamenti residui</li>
+<li>Analisi strutturale a grafo (08/06/2026): da qui sono emersi i due punti critici PULL-08 e PULL-09 sul CDU-17</li>
+</ul>
+<p><strong>Giudizio complessivo sull'analisi</strong> (<a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/valutazione-qualita-srs-consensi/">Valutazione Qualità SRS</a>): documento di alta qualità per una bozza — 7 punti di forza, 5 rischi censiti e tracciati, checklist operativa pre-sprint pronta.</p>
 <div style="margin-top:2.5rem;width:100%">
 <script src="https://giscus.app/client.js" data-repo="caccu/srs_cons_git" data-repo-id="R_kgDOSgs_Cw" data-category="General" data-category-id="DIC_kwDOSgs_C84C9cl-" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="it" crossorigin="anonymous" async></script>
 </div>
