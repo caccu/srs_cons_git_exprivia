@@ -90,6 +90,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 - [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] — Tracker master 69 commenti SRS v3 lavorazione + 30 risposte MF; mappatura per tema (A–J) e propagazione wiki
 - [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato]] — Consolidato 38 punti aperti aggregati da 8 pagine, raggruppati per area (auth, security, pull, openapi, batch, integrazioni, infra, gov) e sprint
 - [[wiki/analyses/analysis-2026-05-27-punti-aperti-spiegati\|Punti Aperti — Spiegati in Modo Semplice]] — Versione in linguaggio piano del tracker: per ogni punto cosa significa, perché blocca, come si chiude
+- [[wiki/analyses/analysis-2026-06-10-riassunto-presentazione-cliente\|Riassunto Esecutivo — Presentazione Progetto Gestione Consensi]] — Sintesi completa per presentazione cliente: contesto, funzionalità, architettura, sicurezza, batch, migrazione, pianificazione, ADR, punti aperti
 - [[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]] — Tracker stato Data Migration Plan PG9→PG17; 7 sezioni con owner, 4 decision-point aperti, RACI CSI mancante.
 
 ---
