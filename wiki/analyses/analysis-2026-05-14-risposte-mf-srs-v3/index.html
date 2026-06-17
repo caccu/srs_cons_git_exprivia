@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async>
 <script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
 <link href="/srs_cons_git/styles/obsidian-base.css" rel="stylesheet">
-<link href="/srs_cons_git/styles/_theme.d92311c2.css" rel="stylesheet">
+<link href="/srs_cons_git/styles/_theme.15b26ced.css" rel="stylesheet">
 <link href="/srs_cons_git/styles/digital-garden-base.css" rel="stylesheet">
 <link href="/srs_cons_git/styles/custom-style.css" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -40,7 +40,7 @@
 <div class="navbar-inner">
 <span style="font-size:1.5rem;margin-right:10px" @click="showFilesMobile=!showFilesMobile"><i data-lucide="menu"></i></span>
 <a href="/srs_cons_git/" style="text-decoration:none;text-align:center">
-<h1 style="margin:15px!important">WIKI SRS Consensi</h1>
+<h1 style="margin:15px!important">SRS Consensi</h1>
 </a>
 </div>
 <div class="search-button align-icon" onclick="toggleSearch()">
@@ -56,7 +56,7 @@
 <div class="filetree-wrapper" x-show.important="isDesktop || showFilesMobile" style="display:none">
 <nav class="filetree-sidebar">
 <a href="/srs_cons_git/" style="text-decoration:none;text-align:center">
-<h1 style="text-align:center">WIKI SRS Consensi</h1>
+<h1 style="text-align:center">SRS Consensi</h1>
 </a>
 <div class="filetree-searchbar align-icon" onclick="openSearchFromSidebar()">
 <span class="search-icon">
@@ -483,10 +483,34 @@
 </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"></script>
-<script>document.addEventListener("DOMContentLoaded",init,!1),document.addEventListener("DOMContentLoaded",setCorrectShortcut,!1);const SITE_BASE_PATH="/srs_cons_git",previewCache=new Map;function resolveSearchUrl(e){return e&&e.startsWith("/")&&SITE_BASE_PATH?e===SITE_BASE_PATH||e.startsWith(`${SITE_BASE_PATH}/`)?e:`${SITE_BASE_PATH}${e}`:e}window.toggleSearch=function(){const e=document.getElementById("globalsearch");e.classList.contains("active")?e.classList.remove("active"):(e.classList.add("active"),document.getElementById("term").focus())},window.openSearchFromSidebar=function(){const e=document.getElementById("globalsearch"),t=document.getElementById("term");e&&t&&(e.classList.contains("active")||e.classList.add("active"),t.focus(),t.select())},window.toggleTagSearch=function(e){const t=e.textContent;t&&(document.getElementById("term").value=t.trim(),window.toggleSearch(),window.search())};const loadingSvg='\n    <div style="display: flex; justify-content: center; padding: 40px;">\n        <svg width="40" height="40" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">\n            <g fill="none" fill-rule="evenodd" transform="translate(1 1)" stroke-width="2">\n                <circle cx="22" cy="22" r="6" stroke-opacity="0">\n                    <animate attributeName="r" begin="1.5s" dur="3s" values="6;22" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-opacity" begin="1.5s" dur="3s" values="1;0" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-width" begin="1.5s" dur="3s" values="2;0" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n                <circle cx="22" cy="22" r="6" stroke-opacity="0">\n                    <animate attributeName="r" begin="3s" dur="3s" values="6;22" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-opacity" begin="3s" dur="3s" values="1;0" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-width" begin="3s" dur="3s" values="2;0" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n                <circle cx="22" cy="22" r="8">\n                    <animate attributeName="r" begin="0s" dur="1.5s" values="6;1;2;3;4;5;6" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n            </g>\n        </svg>\n    </div>';function debounce(e,t,n){var r;return function(){var i=this,s=arguments,o=n&&!r;clearTimeout(r),r=setTimeout((function(){r=null,n||e.apply(i,s)}),t),o&&e.apply(i,s)}}function setCorrectShortcut(){navigator.platform.toUpperCase().indexOf("MAC")>=0&&document.querySelectorAll(".search-keys").forEach((e=>e.innerHTML="<code>⌘</code>&nbsp;+&nbsp;<code>K</code>"))}function tokenizeSearchTerms(e){const t=[],n=/"([^"]+)"|(\S+)/g;let r;for(;null!==(r=n.exec(e));){const e=(r[1]||r[2]).toLowerCase();e.length>1&&t.push(e)}return t.sort(((e,t)=>t.length-e.length))}function highlightTerms(e,t){if(!t||0===t.length||!e)return e;let n=e;return t.forEach((e=>{const t=e.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),r=new RegExp(`(${t})`,"gi");n=n.replace(r,'<span class="search-highlight">$1</span>')})),n}function getContextualExcerpt(e,t,n=150){if(!e)return"";const r=e.replace(/<[^>]*>/g,"");if(!t||0===t.length)return truncateText(r,n);let i=r.length;if(t.forEach((e=>{const t=r.toLowerCase().indexOf(e.toLowerCase());-1!==t&&t<i&&(i=t)})),i===r.length)return truncateText(r,n);const s=Math.max(0,i-50),o=Math.min(r.length,s+n);let a=r.substring(s,o);return s>0&&(a="..."+a),o<r.length&&(a+="..."),a}function truncateText(e,t){return e?(e=e.replace(/<[^>]*>/g,"")).length<=t?e:e.substring(0,t-3)+"...":""}async function fetchPreviewContent(e){if(previewCache.has(e))return previewCache.get(e);try{const t=await fetch(e),n=await t.text(),r=new DOMParser,i=r.parseFromString(n,"text/html").querySelector(".content, .cm-s-obsidian, article, main"),s=i?i.innerHTML:"";return previewCache.set(e,s),s}catch(e){return console.error("Failed to fetch preview:",e),""}}function highlightTextNodes(e,t){if(!t||0===t.length)return;const n=document.createTreeWalker(e,NodeFilter.SHOW_TEXT,null,!1),r=[];for(;n.nextNode();)r.push(n.currentNode);r.forEach((e=>{const n=e.textContent;let r=!1;if(t.forEach((e=>{n.toLowerCase().includes(e.toLowerCase())&&(r=!0)})),r){const r=document.createElement("span");r.innerHTML=highlightTerms(n,t),e.parentNode.replaceChild(r,e)}}))}async function showPreview(e){const t=window.searchResults;if(!t||!t[e])return;const n=t[e],r=document.getElementById("search-preview"),i=document.getElementById("preview-content"),s=r.querySelector(".preview-placeholder");if(!r||!i)return;document.querySelectorAll(".searchresult").forEach((e=>e.classList.remove("active")));const o=document.querySelector(`.searchresult[data-index="${e}"]`);o&&o.classList.add("active"),i.innerHTML=loadingSvg,i.classList.add("has-content"),s.style.display="none";const a=await fetchPreviewContent(resolveSearchUrl(n.url)),c=n.tags&&n.tags.length>0?`<div class="preview-tags">${n.tags.map((e=>`<a class="tag" href="javascript:void(0);" onclick="toggleTagSearch(this)">#${e}</a>`)).join("")}</div>`:"";i.innerHTML=`\n            <div class="preview-title">${highlightTerms(n.title,window.searchTerms)}</div>\n            ${c}\n            <div class="preview-body">${a}</div>\n        `;const l=i.querySelector(".preview-body");l&&window.searchTerms&&highlightTextNodes(l,window.searchTerms),window.currentPreviewIndex=e}function hidePreview(){const e=document.getElementById("search-preview"),t=document.getElementById("preview-content"),n=e?.querySelector(".preview-placeholder");n&&(n.style.display="flex"),t&&(t.classList.remove("has-content"),t.innerHTML=""),window.currentPreviewIndex=-1}function createIndex(e){const t=e=>(e=>e.toLowerCase().normalize("NFD").replace(/n\u0303/g,"ñ").replace(/[\u0300-\u036f]/g,"").normalize("NFC"))(e).split(/([^a-z]|[^\x00-\x7F])/),n=new FlexSearch.Document({cache:!0,charset:"latin:extra",optimize:!0,index:[{field:"content",tokenize:"reverse",encode:t},{field:"title",tokenize:"forward",encode:t},{field:"tags",tokenize:"forward",encode:t}]});return e.forEach(((e,t)=>{n.add({id:t,title:e.title,content:e.content,tags:e.tags})})),n}async function init(){const e="/srs_cons_git",t=`${e?e.replace(/\/$/,""):""}/searchIndex.json?v=2026-06-10T13:23:30.571Z`;try{const e=await fetch(t).then((e=>e.json())),n=createIndex(e);window.docs=e,window.index=n}catch(e){console.error("Failed to initialize search index:",e),window.docs=[],window.index=null}function n(e){const t=document.querySelectorAll(".searchresult");if(0===t.length)return;let n,r=-1;t.forEach(((e,t)=>{e.classList.contains("active")&&(r=t)})),-1===r?n=e>0?0:t.length-1:(n=r+e,n<0&&(n=t.length-1),n>=t.length&&(n=0)),t.forEach((e=>e.classList.remove("active"))),t[n].classList.add("active"),t[n].scrollIntoView({behavior:"smooth",block:"nearest"}),showPreview(parseInt(t[n].dataset.index))}document.addEventListener("keydown",(e=>{if(!e.ctrlKey&&!e.metaKey||"k"!==e.key.toLowerCase()&&"KeyK"!==e.code||(e.preventDefault(),toggleSearch()),"Escape"===e.key&&document.getElementById("globalsearch").classList.remove("active"),document.getElementById("globalsearch").classList.contains("active")&&("ArrowDown"===e.key&&(e.preventDefault(),n(1)),"ArrowUp"===e.key&&(e.preventDefault(),n(-1)),"Enter"===e.key)){e.preventDefault();const t=document.querySelector(".searchresult.active");if(t){const e=t.dataset.url;e&&(window.location.href=resolveSearchUrl(e))}}}));const r=debounce(search,200,!1);window.field=document.querySelector("#term"),field.addEventListener("input",r),window.resultsDiv=document.querySelector("#search-results");const i=new URL(location.href).searchParams;i.get("q")&&(field.setAttribute("value",i.get("q")),toggleSearch(),search())}async function search(){const e=field.value.trim(),t=document.getElementById("search-layout");if(!e)return resultsDiv.innerHTML="<span><i>Enter your search text in the box above</i></span>",hidePreview(),void(t&&t.classList.add("no-preview"));if(!window.index||!window.docs)return resultsDiv.innerHTML=`<span><i>No results for "${e}"</i></span>`,hidePreview(),void(t&&t.classList.add("no-preview"));window.lastSearch=e,window.searchTerms=tokenizeSearchTerms(e),resultsDiv.innerHTML=loadingSvg,hidePreview();const n=offlineSearch(e);if(window.searchResults=n,!n.length)return t&&t.classList.add("no-preview"),void(resultsDiv.innerHTML=`\n                <div class="no-results">\n                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">\n                        <circle cx="11" cy="11" r="8"></circle>\n                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>\n                        <line x1="8" y1="11" x2="14" y2="11"></line>\n                    </svg>\n                    <p>No results for "${e}"</p>\n                </div>\n            `);t&&t.classList.remove("no-preview");let r="";n.forEach(((e,t)=>{const n=highlightTerms(getContextualExcerpt(e.content,window.searchTerms,120),window.searchTerms),i=highlightTerms(e.title,window.searchTerms),s=e.tags&&e.tags.length>0?`<div class="result-tags">${e.tags.map((e=>`<span class="tag">#${e}</span>`)).join("")}</div>`:"";r+=`\n                <div class="searchresult${0===t?" active":""}"\n                     data-index="${t}"\n                     data-url="${e.url}"\n                     onmouseenter="showPreview(${t})"\n                     onclick="window.location.href=resolveSearchUrl('${e.url}')">\n                    <span class="result-title">${i}</span>\n                    ${s}\n                    <div class="result-excerpt">${n}</div>\n                </div>\n            `})),resultsDiv.innerHTML=r,n.length>0&&showPreview(0),"undefined"!=typeof lucide&&lucide.createIcons()}function offlineSearch(e){const t=window.docs,n="#"===e[0]&&e.length>1?index.search(e.substring(1),[{field:"tags"}]):index.search(e,[{field:"title",limit:5},{field:"content",limit:10}]),r=e=>{const t=n.filter((t=>t.field===e));return 0===t.length?[]:[...t[0].result]};return[...new Set([...r("title"),...r("content"),...r("tags")])].map((e=>{const n={...t[e]};return n.tags=n.tags.filter((e=>"gardenEntry"!==e&&"note"!==e)),n}))}window.lastSearch="",window.searchResults=[],window.searchTerms=[],window.currentPreviewIndex=-1,window.search=search</script>
+<script>document.addEventListener("DOMContentLoaded",init,!1),document.addEventListener("DOMContentLoaded",setCorrectShortcut,!1);const SITE_BASE_PATH="/srs_cons_git",previewCache=new Map;function resolveSearchUrl(e){return e&&e.startsWith("/")&&SITE_BASE_PATH?e===SITE_BASE_PATH||e.startsWith(`${SITE_BASE_PATH}/`)?e:`${SITE_BASE_PATH}${e}`:e}window.toggleSearch=function(){const e=document.getElementById("globalsearch");e.classList.contains("active")?e.classList.remove("active"):(e.classList.add("active"),document.getElementById("term").focus())},window.openSearchFromSidebar=function(){const e=document.getElementById("globalsearch"),t=document.getElementById("term");e&&t&&(e.classList.contains("active")||e.classList.add("active"),t.focus(),t.select())},window.toggleTagSearch=function(e){const t=e.textContent;t&&(document.getElementById("term").value=t.trim(),window.toggleSearch(),window.search())};const loadingSvg='\n    <div style="display: flex; justify-content: center; padding: 40px;">\n        <svg width="40" height="40" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">\n            <g fill="none" fill-rule="evenodd" transform="translate(1 1)" stroke-width="2">\n                <circle cx="22" cy="22" r="6" stroke-opacity="0">\n                    <animate attributeName="r" begin="1.5s" dur="3s" values="6;22" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-opacity" begin="1.5s" dur="3s" values="1;0" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-width" begin="1.5s" dur="3s" values="2;0" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n                <circle cx="22" cy="22" r="6" stroke-opacity="0">\n                    <animate attributeName="r" begin="3s" dur="3s" values="6;22" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-opacity" begin="3s" dur="3s" values="1;0" calcMode="linear" repeatCount="indefinite" />\n                    <animate attributeName="stroke-width" begin="3s" dur="3s" values="2;0" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n                <circle cx="22" cy="22" r="8">\n                    <animate attributeName="r" begin="0s" dur="1.5s" values="6;1;2;3;4;5;6" calcMode="linear" repeatCount="indefinite" />\n                </circle>\n            </g>\n        </svg>\n    </div>';function debounce(e,t,n){var r;return function(){var i=this,s=arguments,o=n&&!r;clearTimeout(r),r=setTimeout((function(){r=null,n||e.apply(i,s)}),t),o&&e.apply(i,s)}}function setCorrectShortcut(){navigator.platform.toUpperCase().indexOf("MAC")>=0&&document.querySelectorAll(".search-keys").forEach((e=>e.innerHTML="<code>⌘</code>&nbsp;+&nbsp;<code>K</code>"))}function tokenizeSearchTerms(e){const t=[],n=/"([^"]+)"|(\S+)/g;let r;for(;null!==(r=n.exec(e));){const e=(r[1]||r[2]).toLowerCase();e.length>1&&t.push(e)}return t.sort(((e,t)=>t.length-e.length))}function highlightTerms(e,t){if(!t||0===t.length||!e)return e;let n=e;return t.forEach((e=>{const t=e.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),r=new RegExp(`(${t})`,"gi");n=n.replace(r,'<span class="search-highlight">$1</span>')})),n}function getContextualExcerpt(e,t,n=150){if(!e)return"";const r=e.replace(/<[^>]*>/g,"");if(!t||0===t.length)return truncateText(r,n);let i=r.length;if(t.forEach((e=>{const t=r.toLowerCase().indexOf(e.toLowerCase());-1!==t&&t<i&&(i=t)})),i===r.length)return truncateText(r,n);const s=Math.max(0,i-50),o=Math.min(r.length,s+n);let a=r.substring(s,o);return s>0&&(a="..."+a),o<r.length&&(a+="..."),a}function truncateText(e,t){return e?(e=e.replace(/<[^>]*>/g,"")).length<=t?e:e.substring(0,t-3)+"...":""}async function fetchPreviewContent(e){if(previewCache.has(e))return previewCache.get(e);try{const t=await fetch(e),n=await t.text(),r=new DOMParser,i=r.parseFromString(n,"text/html").querySelector(".content, .cm-s-obsidian, article, main"),s=i?i.innerHTML:"";return previewCache.set(e,s),s}catch(e){return console.error("Failed to fetch preview:",e),""}}function highlightTextNodes(e,t){if(!t||0===t.length)return;const n=document.createTreeWalker(e,NodeFilter.SHOW_TEXT,null,!1),r=[];for(;n.nextNode();)r.push(n.currentNode);r.forEach((e=>{const n=e.textContent;let r=!1;if(t.forEach((e=>{n.toLowerCase().includes(e.toLowerCase())&&(r=!0)})),r){const r=document.createElement("span");r.innerHTML=highlightTerms(n,t),e.parentNode.replaceChild(r,e)}}))}async function showPreview(e){const t=window.searchResults;if(!t||!t[e])return;const n=t[e],r=document.getElementById("search-preview"),i=document.getElementById("preview-content"),s=r.querySelector(".preview-placeholder");if(!r||!i)return;document.querySelectorAll(".searchresult").forEach((e=>e.classList.remove("active")));const o=document.querySelector(`.searchresult[data-index="${e}"]`);o&&o.classList.add("active"),i.innerHTML=loadingSvg,i.classList.add("has-content"),s.style.display="none";const a=await fetchPreviewContent(resolveSearchUrl(n.url)),c=n.tags&&n.tags.length>0?`<div class="preview-tags">${n.tags.map((e=>`<a class="tag" href="javascript:void(0);" onclick="toggleTagSearch(this)">#${e}</a>`)).join("")}</div>`:"";i.innerHTML=`\n            <div class="preview-title">${highlightTerms(n.title,window.searchTerms)}</div>\n            ${c}\n            <div class="preview-body">${a}</div>\n        `;const l=i.querySelector(".preview-body");l&&window.searchTerms&&highlightTextNodes(l,window.searchTerms),window.currentPreviewIndex=e}function hidePreview(){const e=document.getElementById("search-preview"),t=document.getElementById("preview-content"),n=e?.querySelector(".preview-placeholder");n&&(n.style.display="flex"),t&&(t.classList.remove("has-content"),t.innerHTML=""),window.currentPreviewIndex=-1}function createIndex(e){const t=e=>(e=>e.toLowerCase().normalize("NFD").replace(/n\u0303/g,"ñ").replace(/[\u0300-\u036f]/g,"").normalize("NFC"))(e).split(/([^a-z]|[^\x00-\x7F])/),n=new FlexSearch.Document({cache:!0,charset:"latin:extra",optimize:!0,index:[{field:"content",tokenize:"reverse",encode:t},{field:"title",tokenize:"forward",encode:t},{field:"tags",tokenize:"forward",encode:t}]});return e.forEach(((e,t)=>{n.add({id:t,title:e.title,content:e.content,tags:e.tags})})),n}async function init(){const e="/srs_cons_git",t=`${e?e.replace(/\/$/,""):""}/searchIndex.json?v=2026-06-17T10:05:08.491Z`;try{const e=await fetch(t).then((e=>e.json())),n=createIndex(e);window.docs=e,window.index=n}catch(e){console.error("Failed to initialize search index:",e),window.docs=[],window.index=null}function n(e){const t=document.querySelectorAll(".searchresult");if(0===t.length)return;let n,r=-1;t.forEach(((e,t)=>{e.classList.contains("active")&&(r=t)})),-1===r?n=e>0?0:t.length-1:(n=r+e,n<0&&(n=t.length-1),n>=t.length&&(n=0)),t.forEach((e=>e.classList.remove("active"))),t[n].classList.add("active"),t[n].scrollIntoView({behavior:"smooth",block:"nearest"}),showPreview(parseInt(t[n].dataset.index))}document.addEventListener("keydown",(e=>{if(!e.ctrlKey&&!e.metaKey||"k"!==e.key.toLowerCase()&&"KeyK"!==e.code||(e.preventDefault(),toggleSearch()),"Escape"===e.key&&document.getElementById("globalsearch").classList.remove("active"),document.getElementById("globalsearch").classList.contains("active")&&("ArrowDown"===e.key&&(e.preventDefault(),n(1)),"ArrowUp"===e.key&&(e.preventDefault(),n(-1)),"Enter"===e.key)){e.preventDefault();const t=document.querySelector(".searchresult.active");if(t){const e=t.dataset.url;e&&(window.location.href=resolveSearchUrl(e))}}}));const r=debounce(search,200,!1);window.field=document.querySelector("#term"),field.addEventListener("input",r),window.resultsDiv=document.querySelector("#search-results");const i=new URL(location.href).searchParams;i.get("q")&&(field.setAttribute("value",i.get("q")),toggleSearch(),search())}async function search(){const e=field.value.trim(),t=document.getElementById("search-layout");if(!e)return resultsDiv.innerHTML="<span><i>Enter your search text in the box above</i></span>",hidePreview(),void(t&&t.classList.add("no-preview"));if(!window.index||!window.docs)return resultsDiv.innerHTML=`<span><i>No results for "${e}"</i></span>`,hidePreview(),void(t&&t.classList.add("no-preview"));window.lastSearch=e,window.searchTerms=tokenizeSearchTerms(e),resultsDiv.innerHTML=loadingSvg,hidePreview();const n=offlineSearch(e);if(window.searchResults=n,!n.length)return t&&t.classList.add("no-preview"),void(resultsDiv.innerHTML=`\n                <div class="no-results">\n                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">\n                        <circle cx="11" cy="11" r="8"></circle>\n                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>\n                        <line x1="8" y1="11" x2="14" y2="11"></line>\n                    </svg>\n                    <p>No results for "${e}"</p>\n                </div>\n            `);t&&t.classList.remove("no-preview");let r="";n.forEach(((e,t)=>{const n=highlightTerms(getContextualExcerpt(e.content,window.searchTerms,120),window.searchTerms),i=highlightTerms(e.title,window.searchTerms),s=e.tags&&e.tags.length>0?`<div class="result-tags">${e.tags.map((e=>`<span class="tag">#${e}</span>`)).join("")}</div>`:"";r+=`\n                <div class="searchresult${0===t?" active":""}"\n                     data-index="${t}"\n                     data-url="${e.url}"\n                     onmouseenter="showPreview(${t})"\n                     onclick="window.location.href=resolveSearchUrl('${e.url}')">\n                    <span class="result-title">${i}</span>\n                    ${s}\n                    <div class="result-excerpt">${n}</div>\n                </div>\n            `})),resultsDiv.innerHTML=r,n.length>0&&showPreview(0),"undefined"!=typeof lucide&&lucide.createIcons()}function offlineSearch(e){const t=window.docs,n="#"===e[0]&&e.length>1?index.search(e.substring(1),[{field:"tags"}]):index.search(e,[{field:"title",limit:5},{field:"content",limit:10}]),r=e=>{const t=n.filter((t=>t.field===e));return 0===t.length?[]:[...t[0].result]};return[...new Set([...r("title"),...r("content"),...r("tags")])].map((e=>{const n={...t[e]};return n.tags=n.tags.filter((e=>"gardenEntry"!==e&&"note"!==e)),n}))}window.lastSearch="",window.searchResults=[],window.searchTerms=[],window.currentPreviewIndex=-1,window.search=search</script>
 <main class="content cm-s-obsidian print">
 <header>
+<h1 data-note-icon="">Risposte MF — Revisione SRS v3 lavorazione (69 commenti)</h1>
 <div class="header-meta">
+<div class="header-tags">
+<a class="tag" onclick="toggleTagSearch(this)">
+#revisione
+</a>
+<a class="tag" onclick="toggleTagSearch(this)">
+#srs-v3
+</a>
+<a class="tag" onclick="toggleTagSearch(this)">
+#risposte-mf
+</a>
+<a class="tag" onclick="toggleTagSearch(this)">
+#marco-forneris
+</a>
+<a class="tag" onclick="toggleTagSearch(this)">
+#tracker
+</a>
+<a class="tag" onclick="toggleTagSearch(this)">
+#decisioni
+</a>
+<a class="tag" onclick="toggleTagSearch(this)">
+#propagazione-wiki
+</a>
+</div>
 </div>
 </header>
 <h1 id="risposte-mf-revisione-srs-v3-lavorazione" tabindex="-1">Risposte MF — Revisione SRS v3 lavorazione</h1>
@@ -515,210 +539,210 @@
 <td>MF3R1, MF4R1</td>
 <td>A — Canali acquisizione</td>
 <td>Cittadino può esprimere consenso anche presso <strong>LIS</strong> (oltre webapp citt + operatore). Aggiungere didascalia diagramma</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a>, <a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF7R5</td>
 <td>A — Profili</td>
 <td>Cittadino NON è profilo applicativo del Configuratore. Accede webapp dedicata SPID/CIE. Profilo logico interno solo per «sé stesso» vs «delegante»</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF9R8</td>
 <td>A — UI termini</td>
 <td>Sostituire &quot;Accettato/Negato&quot; con <strong>&quot;acconsento/nego&quot;</strong> in tutta la nota tecnica 5.2. Mantenere mapping tecnico ATTIVO/NEGATO invariato</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/ciclo-vita-consenso/">ciclo-vita-consenso</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/ciclo-vita-consenso/">ciclo-vita-consenso</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF11R10</td>
 <td>B — Stati</td>
 <td>Aggiungere transizione <strong>ATTIVO → NEGATO</strong> (via webapp citt o operatore) senza richiedere nuova informativa</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/ciclo-vita-consenso/">ciclo-vita-consenso</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/ciclo-vita-consenso/">ciclo-vita-consenso</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF14R12</td>
 <td>B — Stati</td>
 <td>Aggiungere transizione <strong>NEGATO → ATTIVO</strong> (via webapp citt o operatore) senza richiedere nuova informativa</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/ciclo-vita-consenso/">ciclo-vita-consenso</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/ciclo-vita-consenso/">ciclo-vita-consenso</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF16R15</td>
 <td>A — CDU-01</td>
 <td>Dividere CDU-01: <strong>CDU-01a Operatore</strong> (RUPAR/IRIDE/SPID + profilazione) e <strong>CDU-01b Cittadino</strong> (SPID/CIE webapp separata, no profilazione)</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gasp-salute/">GASP Salute</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a>, <a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/gasp-salute/">GASP Salute</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF18R17</td>
 <td>A — CDU-01</td>
 <td>Dividere precondizioni CDU-01 per scenario (a/b)</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF20R19</td>
 <td>A — Deleghe</td>
 <td>Webapp cittadino mostra sempre utente autenticato. Pulsante &quot;Deleghe&quot; → elenco deleganti → selezione carica cruscotto del delegante</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a>, <a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF22R21</td>
 <td>A — Deleghe</td>
 <td>Nota implementativa: scenario deleghe già attivo in produzione</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF24R23</td>
 <td>H — Riferimenti CDU-14</td>
 <td>Aggiungere riferimento esplicito a 6.14 CDU-14 e ALG01 per la logica di selezione endpoint nel flusso flag_online check</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">batch-processes</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/batch-processes/">batch-processes</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF26R25</td>
 <td>C — CDU-02</td>
 <td>Sistema mostra TUTTI i tipi configurati. Regionale=1 record con stato globale. Aziendale=1 record per azienda con stato relativo</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF28R27</td>
 <td>C — Informativa</td>
 <td>Consensi aziendali: visualizzare informativa singola azienda <strong>prima</strong> di raccogliere consenso per quell'azienda</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF30R29</td>
 <td>C — Dinamica pagina</td>
 <td>Pagina espressione consenso composta dinamicamente: valori ammessi, domande opzionali, flag richiesto — letti da config DB</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF33R31</td>
 <td>G — Notifica</td>
 <td>Notifica cittadino/delegato via <strong>Notificatore di Deleghe</strong> (NON UNP). Parte SOLO dopo conferma notifica aziende (stato=COMPLETATO)</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">batch-processes</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/batch-processes/">batch-processes</a>, <a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF35R34</td>
 <td>C — Valori dinamici</td>
 <td>Valori consenso letti dinamicamente da DB per tipo. Composizione pagina dinamica come §6.2</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF37R36</td>
 <td>C — UI cittadino</td>
 <td>Webapp cittadino: pulsante unico <strong>«Salva»</strong>. Operazioni distinte (rilascio vs modifica) gestite internamente, non esposte UI</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF39R38</td>
 <td>C — Modifica</td>
 <td>Pagina modifica consenso CDU-04 segue stesse regole composizione dinamica §6.2</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF41R40</td>
 <td>C — Modifica</td>
 <td>Idem (rinforzo MF39)</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF43R42</td>
 <td>C — Modifica valori</td>
 <td>Valori consenso letti dinamicamente da DB per tipo (rinforzo)</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF45R44</td>
 <td>C — CDU-04/05 merge</td>
 <td>Webapp Cittadino: CDU-05 NON caso d'uso separato → inglobato in CDU-04. Distinzione CDU-04/05 rilevante solo per Operatore e logica interna</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a>, <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a>, <a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF47R46</td>
 <td>D — CDU-06 PDF</td>
 <td>Scope ridotto: Cittadino stampa PDF <strong>solo informativa accettata</strong>, senza firma digitale, senza valore consenso espresso</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF49R48</td>
 <td>D — CDU-06 PDF</td>
 <td>Struttura PDF era proposta implementativa: marcata [PROPOSTA] da concordare</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF51R50</td>
 <td>D — CDU-06 PDF</td>
 <td>[PROPOSTA] da concordare</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/gestione-consensi-applicativo/">Gestione Consensi - Applicativo</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF53R52</td>
 <td>E — CDU-07 AURA</td>
 <td>Sistema invoca FindProfiliAnagrafici + getProfiloSanitario di AURA. Se CF non trovato → &quot;La ricerca con il filtro fornito non ha prodotto risultati&quot;. <strong>Nessuna chiamata SistemaTS</strong></td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF55R54</td>
 <td>E — CDU-07 cleanup</td>
 <td><strong>ELIMINARE tutti i riferimenti fallback SistemaTS</strong> in 6.7</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF57R56</td>
 <td>F — SSoT operatore</td>
 <td>Pagina operatore (CDU-09/10/11) composizione dinamica IDENTICA al cittadino. Single Source of Truth. <strong>Form Renderer unico</strong> condiviso fra le 2 webapp. Differenze solo <code>fonte_id='PASS'</code>, <code>login_operazione</code>, <code>ruoloop_id</code></td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">composizione-dinamica-form-consenso</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF59-62R58</td>
 <td>I — Sicurezza (ex TR30)</td>
 <td><strong>TR58 = ex TR30.</strong> CDU-15/16: no API Manager, JWT + tabella <code>cons_t_client_ente</code> + filter Spring Security. Già in wiki</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">sicurezza-cdu-15-16</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">sicurezza-cdu-15-16</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF64R63</td>
 <td>H — Scheduling</td>
 <td>Aggiungere tabella transizioni stato <code>cons_t_notifica</code>/<code>cons_t_batch</code>. BATCH-01 <strong>5 minuti</strong> con <code>SELECT FOR UPDATE SKIP LOCKED</code> su <code>cons_t_notifica</code>. Sostituisce AS-IS 30 minuti</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">batch-processes</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/batch-processes/">batch-processes</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF66R65</td>
 <td>H — BATCH-02 SQL</td>
 <td>SQL per determinare <code>nuova_d_informativa_id</code>: SELECT informativa corrente non scaduta con ORDER BY data_decorrenza DESC LIMIT 1</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/batch-processes/">batch-processes</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/batch-processes/">batch-processes</a></td>
 <td>✅</td>
 </tr>
 <tr>
 <td>MF69R68</td>
 <td>I — BATCH-03 PULL (ex TR34)</td>
 <td><strong>TR68 = ex TR34.</strong> Sostituzione BATCH-03 push con PULL CDU-17. Già in wiki</td>
-<td><a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">alternativa-batch-03-pull</a></td>
+<td><a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">alternativa-batch-03-pull</a></td>
 <td>✅ propagato internamente · ⏳ attende sign-off CSI ([ADR-006] <strong>proposed</strong>)</td>
 </tr>
 </tbody>
@@ -793,7 +817,7 @@ Precondizioni separate per scenario.</li>
 <li>Modifica = stesse regole (MF39, MF41, MF43)</li>
 <li>CDU-04/05 merge cittadino (MF45): CDU-05 separato solo per Operatore</li>
 </ul>
-<p><strong>Concept dedicato:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a></p>
+<p><strong>Concept dedicato:</strong> <a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a></p>
 <h3 id="tema-d-cdu-06-pdf" tabindex="-1">Tema D — CDU-06 PDF</h3>
 <p><strong>Decisioni chiave (MF47, MF49, MF51):</strong></p>
 <ul>
@@ -813,12 +837,12 @@ Precondizioni separate per scenario.</li>
 <li>Se il CF non viene trovato: messaggio fisso &quot;La ricerca con il filtro fornito non ha prodotto risultati&quot;</li>
 <li><strong>SistemaTS NON viene chiamato</strong> — né come fallback né come supporto. Eliminare ogni riferimento a SistemaTS dal §6.7.</li>
 </ul>
-<p>Wiki: rimuovere &quot;Fallback SistemaTS&quot; da <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> AURA. Aggiornare <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a>.</p>
+<p>Wiki: rimuovere &quot;Fallback SistemaTS&quot; da <a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> AURA. Aggiornare <a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/analyses/analysis-gap-as-is-to-be/">Analisi Gap AS-IS → TO-BE — Gestione Consensi</a>.</p>
 <h3 id="tema-f-operatore-composizione-dinamica-s-so-t" tabindex="-1">Tema F — Operatore composizione dinamica SSoT</h3>
 <p><strong>Decisione chiave (MF57R56):</strong> vincolo di unicità UI fra Cittadino e Operatore. Form Renderer unico. CDU-09/10/11 devono avere paragrafo &quot;Composizione dinamica pagina operatore&quot; che rimanda esplicitamente a §6.2 e §6.4 lato cittadino.</p>
 <p>Differenze ammesse solo a livello metadati di tracciatura sorgente (<code>fonte_id</code>, <code>login_operazione</code>, <code>ruoloop_id</code>).</p>
 <p>Architetturalmente: aggiungere componente &quot;Form Renderer dinamico&quot; in SRS §3.3.</p>
-<p><strong>Concept dedicato:</strong> <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a></p>
+<p><strong>Concept dedicato:</strong> <a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/composizione-dinamica-form-consenso/">Composizione Dinamica Form Consenso — Single Source of Truth</a></p>
 <h3 id="tema-g-notifica-cittadino-post-completato" tabindex="-1">Tema G — Notifica cittadino post-COMPLETATO</h3>
 <p><strong>Decisione chiave (MF33R31):</strong></p>
 <ul>
@@ -826,7 +850,7 @@ Precondizioni separate per scenario.</li>
 <li>Timing: notifica al cittadino/delegato parte <strong>SOLO dopo</strong> che le notifiche alle aziende risultano <code>COMPLETATO</code></li>
 </ul>
 <p>Implicazione: dipendenza temporale stretta fra BATCH-01 (notifica aziende) e notifica cittadino. Se BATCH-01 fallisce/ritarda, anche la notifica cittadino è ritardata.</p>
-<p>Wiki: distinguere chiaramente <strong>Notificatore di Deleghe</strong> vs <strong>UNP (User Notification Platform)</strong> in <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> — sono due servizi diversi.</p>
+<p>Wiki: distinguere chiaramente <strong>Notificatore di Deleghe</strong> vs <strong>UNP (User Notification Platform)</strong> in <a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/sistemi-esterni-integrati/">Sistemi Esterni Integrati</a> — sono due servizi diversi.</p>
 <h3 id="tema-h-batch-sql-scheduling" tabindex="-1">Tema H — Batch SQL/scheduling</h3>
 <p><strong>Decisioni chiave:</strong></p>
 <ul>
@@ -845,8 +869,8 @@ LIMIT 1
 </ul>
 <h3 id="tema-i-gia-consolidato-ex-tr-30-ex-tr-34" tabindex="-1">Tema I — Già consolidato (ex TR30, ex TR34)</h3>
 <ul>
-<li><strong>TR58 = TR30</strong> (MF59-62R58): security CDU-15/16. Wiki: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a>. Aggiornare cross-ref ID.</li>
-<li><strong>TR68 = TR34</strong> (MF69R68): alternativa BATCH-03 PULL. Wiki: <a class="internal-link" target="" data-note-icon="undefined" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a>. Aggiornare cross-ref ID.</li>
+<li><strong>TR58 = TR30</strong> (MF59-62R58): security CDU-15/16. Wiki: <a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/sicurezza-cdu-15-16/">Sicurezza CDU-15-16 — Modello Autorizzazione per Ente</a>. Aggiornare cross-ref ID.</li>
+<li><strong>TR68 = TR34</strong> (MF69R68): alternativa BATCH-03 PULL. Wiki: <a class="internal-link" target="" data-note-icon="" href="/srs_cons_git/wiki/concepts/alternativa-batch-03-pull/">Alternativa BATCH-03 — PULL CDU-17 (centro stella)</a>. Aggiornare cross-ref ID.</li>
 </ul>
 <h3 id="tema-j-aperto" tabindex="-1">Tema J — Aperto</h3>
 <ul>
@@ -1009,9 +1033,73 @@ LIMIT 1
 <div id="full-graph-container"></div>
 </div>
 </div>
+<div class="toc">
+<div class="toc-title-container">
+<div class="toc-title">
+Risposte MF — Revisione SRS v3 lavorazione (69 commenti)
+</div>
+</div>
+<div class="toc-container">
+<nav class="toc">
+<ol>
+<li><a href="#risposte-mf-revisione-srs-v3-lavorazione">Risposte MF — Revisione SRS v3 lavorazione</a>
+<ol>
+<li><a href="#tabella-maestra-30-risposte-mf">Tabella maestra — 30 risposte MF</a>
+</li>
+<li><a href="#commenti-senza-risposta-mf">Commenti senza risposta MF</a>
+</li>
+<li><a href="#dettaglio-per-tema">Dettaglio per tema</a>
+<ol>
+<li><a href="#tema-a-ui-terminologia-and-amp-profili-cittadino">Tema A — UI terminologia & profili Cittadino</a>
+</li>
+<li><a href="#tema-b-ciclo-vita-consenso">Tema B — Ciclo vita consenso</a>
+</li>
+<li><a href="#tema-c-cdu-02-03-04-05-dinamica-cittadino">Tema C — CDU-02/03/04/05 dinamica cittadino</a>
+</li>
+<li><a href="#tema-d-cdu-06-pdf">Tema D — CDU-06 PDF</a>
+</li>
+<li><a href="#tema-e-cdu-07-aura-no-sistema-ts">Tema E — CDU-07 AURA / no SistemaTS</a>
+</li>
+<li><a href="#tema-f-operatore-composizione-dinamica-s-so-t">Tema F — Operatore composizione dinamica SSoT</a>
+</li>
+<li><a href="#tema-g-notifica-cittadino-post-completato">Tema G — Notifica cittadino post-COMPLETATO</a>
+</li>
+<li><a href="#tema-h-batch-sql-scheduling">Tema H — Batch SQL/scheduling</a>
+</li>
+<li><a href="#tema-i-gia-consolidato-ex-tr-30-ex-tr-34">Tema I — Già consolidato (ex TR30, ex TR34)</a>
+</li>
+<li><a href="#tema-j-aperto">Tema J — Aperto</a>
+</li>
+</ol>
+</li>
+<li><a href="#propagazione-wiki-riepilogo-file-impattati">Propagazione wiki — riepilogo file impattati</a>
+</li>
+<li><a href="#adr-correlati">ADR correlati</a>
+</li>
+</ol>
+</li>
+</ol>
+</nav>
+</div>
+</div>
+<script>!function(){const t=document.querySelectorAll('.toc-container a[href^="#"]');if(!t.length)return;const e=Array.from(t).map((t=>{const e=decodeURIComponent(t.getAttribute("href").slice(1));return{link:t,target:document.getElementById(e)}})).filter((t=>t.target));function n(){let n=e[0];for(const t of e)t.target.getBoundingClientRect().top<=100&&(n=t);t.forEach((t=>t.classList.remove("toc-active"))),n&&n.link.classList.add("toc-active")}window.addEventListener("scroll",n,{passive:!0}),n()}()</script>
+<div class="backlinks">
+<div class="backlink-title">Pages mentioning this page</div>
+<div class="backlink-list"><div class="backlink-card">
+<span class="no-backlinks-message">No other pages mentions this page</span>
+</div></div>
+</div>
 </div>
 </div>
 </aside>
+<style>#tooltip-wrapper{background:var(--background-primary);padding:1em;border-radius:4px;overflow:hidden;position:fixed;width:80%;max-width:400px;height:auto;max-height:300px;font-size:.8em;box-shadow:0 5px 10px rgba(0,0,0,.1);opacity:0;transition:opacity .1s;unicode-bidi:plaintext;overflow-y:scroll;z-index:10}#tooltip-wrapper:after{content:"";position:absolute;z-index:1;bottom:0;left:0;pointer-events:none;width:100%;unicode-bidi:plaintext;height:75px}.tooltip-pdf{width:100%;height:260px;border:0}</style>
+<div style="opacity:0;display:none" id="tooltip-wrapper">
+<div id="tooltip-content">
+</div>
+</div>
+<iframe style="display:none;height:0;width:0" id="link-preview-iframe" src="">
+</iframe>
+<script>var opacityTimeout,contentTimeout,transitionDurationMs=100,iframe=document.getElementById("link-preview-iframe"),tooltipWrapper=document.getElementById("tooltip-wrapper"),tooltipContent=document.getElementById("tooltip-content"),linkHistories={};function hideTooltip(){opacityTimeout=setTimeout((function(){tooltipWrapper.style.opacity=0,contentTimeout=setTimeout((function(){tooltipContent.innerHTML="",tooltipWrapper.style.display="none"}),transitionDurationMs+1)}),transitionDurationMs)}function positionTooltip(t){var o=t.getClientRects()[t.getClientRects().length-1],e=document.documentElement.clientWidth,i=window.innerHeight,p=12,n=10,l=(o.top,i-(o.top+o.height)),r=(o.left,e-(o.left+o.width)),s=l>=tooltipWrapper.offsetHeight+p?"bottom":"top",a=r>=tooltipWrapper.offsetWidth+p?"right":"left";tooltipWrapper.style.top="bottom"===s?o.top+o.height+p+"px":o.top-tooltipWrapper.offsetHeight-p+"px",tooltipWrapper.style.left="right"===a?o.left+o.width+p+"px":o.left-tooltipWrapper.offsetWidth-p+"px";var c=parseFloat(tooltipWrapper.style.top),f=parseFloat(tooltipWrapper.style.left);c<n?tooltipWrapper.style.top="10px":c+tooltipWrapper.offsetHeight+n>i&&(tooltipWrapper.style.top=i-tooltipWrapper.offsetHeight-n+"px"),f<n?tooltipWrapper.style.left="10px":f+tooltipWrapper.offsetWidth+n>e&&(tooltipWrapper.style.left=e-tooltipWrapper.offsetWidth-n+"px")}function showTooltip(t){var o=t.currentTarget||t.target;if(o){var e=o.getAttribute("href");if(-1===e.indexOf("http")||-1!==e.indexOf(window.location.host)){tooltipWrapper.style.display="block",tooltipWrapper.style.opacity=0,positionTooltip(o);let t=e.split("#")[0];if(t.toLowerCase().endsWith(".pdf"))return tooltipContent.innerHTML='<iframe class="tooltip-pdf" src="'+t+'"></iframe>',tooltipWrapper.scrollTop=0,void setTimeout((function(){positionTooltip(o),tooltipWrapper.style.opacity=1}),1);if(/\.(png|jpg|jpeg|gif|webp|svg)$/i.test(t))return tooltipContent.innerHTML='<img src="'+t+'" style="max-width:100%;height:auto;" />',tooltipWrapper.scrollTop=0,void setTimeout((function(){positionTooltip(o),tooltipWrapper.style.opacity=1}),1);linkHistories[t]?(tooltipContent.innerHTML=linkHistories[t],setTimeout((function(){if(positionTooltip(o),tooltipWrapper.style.opacity=1,-1!=e.indexOf("#")){let t=e.split("#")[1];const o=tooltipWrapper.querySelector(`[id='${t}']`);o.classList.add("referred"),o.scrollIntoView({behavior:"smooth"},!0)}else tooltipWrapper.scroll(0,0)}),1)):(iframe.src=t,iframe.onload=function(){let i,p;try{i=iframe.contentWindow,p=i?i.document:null}catch(t){return tooltipContent.innerHTML="<div>Preview not available for this file.</div>",tooltipWrapper.scrollTop=0,void setTimeout((function(){positionTooltip(o),tooltipWrapper.style.opacity=1}),1)}if(!p)return;const n=p.querySelector("h1"),l=p.querySelector(".content");if(tooltipContentHtml="",n&&(tooltipContentHtml+='<div style="font-weight: bold; unicode-bidi: plaintext;">'+n.innerHTML+"</div>"),l)tooltipContentHtml+=l.innerHTML;else if(p.body)tooltipContentHtml+=p.body.innerHTML;else{if(!p.documentElement)return;tooltipContentHtml+=p.documentElement.innerHTML}tooltipContent.innerHTML=tooltipContentHtml,linkHistories[t]=tooltipContentHtml,tooltipWrapper.scrollTop=0,setTimeout((function(){if(positionTooltip(o),tooltipWrapper.style.opacity=1,-1!=e.indexOf("#")){let t=e.split("#")[1];const o=tooltipWrapper.querySelector(`[id='${t}']`);o.classList.add("referred"),console.log(o),o.scrollIntoView({behavior:"smooth"},!0)}else tooltipWrapper.scroll(0,0)}),1)}),positionTooltip(o)}}}function setupListeners(t){t.addEventListener("mouseleave",(function(t){hideTooltip()})),tooltipWrapper.addEventListener("mouseleave",(function(t){hideTooltip()})),t.addEventListener("mouseenter",(function(t){clearTimeout(opacityTimeout),clearTimeout(contentTimeout),showTooltip(t)})),tooltipWrapper.addEventListener("mouseenter",(function(t){clearTimeout(opacityTimeout),clearTimeout(contentTimeout)}))}window.addEventListener("load",(function(t){document.querySelectorAll(".internal-link").forEach(setupListeners),document.querySelectorAll(".backlink-card a").forEach(setupListeners)}))</script>
 <script>window.location.hash&&document.getElementById(window.location.hash.slice(1)).classList.add("referred"),window.addEventListener("hashchange",(e=>{const t=e.oldURL.split("#");t[1]&&document.getElementById(t[1]).classList.remove("referred");const n=e.newURL.split("#");n[1]&&document.getElementById(n[1]).classList.add("referred")}),!1);const url_parts=window.location.href.split("#"),url=url_parts[0],referrence=url_parts[1];document.querySelectorAll(".cm-s-obsidian > *[id]").forEach((function(e){e.ondblclick=function(e){const t=url+"#"+e.target.id;navigator.clipboard.writeText(t)}}))</script>
 <script src="https://fastly.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
 <script defer="defer">TIMESTAMP_FORMAT="MMM dd, yyyy h:mm a",document.querySelectorAll(".human-date").forEach((function(e){date=e.getAttribute("data-date")||e.innerText,parsed_date=luxon.DateTime.fromISO(date),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromSQL(date)),null!=parsed_date.invalid&&(parsed_date=luxon.DateTime.fromHTML(date)),e.innerHTML=parsed_date.toFormat(TIMESTAMP_FORMAT)}))</script>
