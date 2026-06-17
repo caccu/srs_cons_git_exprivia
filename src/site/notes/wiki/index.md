@@ -5,7 +5,7 @@
 
 # Wiki Index
 
-Master catalog di tutte le pagine. Aggiornato.
+Master catalogo di tutte le pagine. Aggiornato.
 
 ---
 
