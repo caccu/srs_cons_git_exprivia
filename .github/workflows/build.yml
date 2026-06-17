@@ -27,7 +27,7 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
         env:
-          SITE_BASE_URL: https://caccu.github.io/srs_cons_git
+          SITE_BASE_URL: https://caccu.github.io/srs_cons_git_exprivia
 
       - name: Deploy
         if: github.ref == 'refs/heads/main'
