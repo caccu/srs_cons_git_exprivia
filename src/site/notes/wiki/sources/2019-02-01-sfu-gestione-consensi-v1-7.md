@@ -38,7 +38,7 @@ Specifica funzionale dell'applicativo AS-IS "Gestione Consensi" pubblicato come 
 | CDU                 | 6                         | **16** (+10)                                       |               |
 | Generazione PDF     | Non prevista              | **CDU-06 — NUOVA**                                 |               |
 | Stack DB            | PostgreSQL 9              | **PostgreSQL 17**                                  |               |
-| Architettura        | Legacy/monolitica         | **Microservizi [[Architettura ECaaS                \| ECaaS]]/K8s** |
+| Architettura        | Legacy/monolitica         | **Microservizi [[Architettura IaaS                \| ECaaS]]/K8s** |
 | Autenticazione      | Non specificata (vecchia) | [[wiki/concepts/gasp-salute\|GASP Salute]] (SPID/CIE), PUA/IRIDE |               |
 | Notifiche cittadino | Non documentate           | UNP (email, push, IO, mex)                         |               |
 | API per SIA         | SOAP AS-IS                | SOAP invariato + **REST CDU-15/16 NUOVI**          |               |

@@ -130,7 +130,7 @@ TO-BE: BATCH-01 notifica entro 5 minuti. Se SIA ha logica temporale che dipende 
 | Componente                                            | Motivo                                                                |
 | ----------------------------------------------------- | --------------------------------------------------------------------- |
 | PostgreSQL 9                                          | RETIRED da [[wiki/entities/csi-piemonte\|CSI Piemonte]] — obbligo migrazione a PG17 |
-| Stack legacy applicativo                              | Rifacimento completo su [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]]    |
+| Stack legacy applicativo                              | Rifacimento completo su [[wiki/concepts/architettura-iaas\|Architettura IaaS]]    |
 | Acquisizione sincrona SIA→Regionale come unico canale | Sostituito da CDU-15/16 REST + BATCH-01 asincrono                     |
 | Assenza tracciatura storico (`cons_s_consenso` vuota) | TO-BE attiva storicizzazione immutabile                               |
 

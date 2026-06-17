@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native/","title":"Linee Guida Cloud Native per Fornitori v1.0.1","tags":["infrastruttura","ecaas","docker","helm","kubernetes","csi-piemonte","vincoli"],"dg-note-properties":{"title":"Linee Guida Cloud Native per Fornitori v1.0.1","aliases":["Linee Guida Cloud Native per Fornitori v1.0.1"],"type":"source","tags":["infrastruttura","ecaas","docker","helm","kubernetes","csi-piemonte","vincoli"],"created":"2026-05-05","updated":"2026-05-05","sources":[],"related":["[[Architettura ECaaS]]","[[CSI Piemonte]]","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]"]}}
+{"dg-publish":true,"permalink":"/wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native/","title":"Linee Guida Cloud Native per Fornitori v1.0.1","tags":["infrastruttura","ecaas","docker","helm","kubernetes","csi-piemonte","vincoli"],"dg-note-properties":{"title":"Linee Guida Cloud Native per Fornitori v1.0.1","aliases":["Linee Guida Cloud Native per Fornitori v1.0.1"],"type":"source","tags":["infrastruttura","ecaas","docker","helm","kubernetes","csi-piemonte","vincoli"],"created":"2026-05-05","updated":"2026-05-05","sources":[],"related":["[[Architettura IaaS]]","[[CSI Piemonte]]","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]"]}}
 ---
 
 
@@ -17,7 +17,7 @@
 
 ---
 
-## Infrastruttura [[wiki/concepts/architettura-ecaas\|ECaaS]] — Riepilogo vincoli
+## Infrastruttura [[wiki/concepts/architettura-iaas\|ECaaS]] — Riepilogo vincoli
 
 Tutti i vincoli confermano il §3.5 dell'SRS:
 

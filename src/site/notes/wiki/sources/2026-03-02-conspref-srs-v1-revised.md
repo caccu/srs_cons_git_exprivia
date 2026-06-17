@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/sources/2026-03-02-conspref-srs-v1-revised/","title":"CONSPREF-SRS-V1.0 revised bozza v2","tags":["srs","requisiti","gestione-consensi","exprivia","csi-piemonte"],"dg-note-properties":{"title":"CONSPREF-SRS-V1.0 revised bozza v2","aliases":["CONSPREF-SRS-V1.0 revised bozza v2"],"type":"source","tags":["srs","requisiti","gestione-consensi","exprivia","csi-piemonte"],"created":"2026-05-05","updated":"2026-05-18","sources":[],"related":["[[2023-09-01-conspref-srs-01-v03|CONSPREF-SRS-01-V03 Requisiti Gestione Consensi]]","[[2026-03-02-appunti-e-pianificazione|Appunti Sistema + Pianificazione Progetto Consensi]]","[[Gestione Consensi - Applicativo]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[Architettura ECaaS]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/sources/2026-03-02-conspref-srs-v1-revised/","title":"CONSPREF-SRS-V1.0 revised bozza v2","tags":["srs","requisiti","gestione-consensi","exprivia","csi-piemonte"],"dg-note-properties":{"title":"CONSPREF-SRS-V1.0 revised bozza v2","aliases":["CONSPREF-SRS-V1.0 revised bozza v2"],"type":"source","tags":["srs","requisiti","gestione-consensi","exprivia","csi-piemonte"],"created":"2026-05-05","updated":"2026-05-18","sources":[],"related":["[[2023-09-01-conspref-srs-01-v03|CONSPREF-SRS-01-V03 Requisiti Gestione Consensi]]","[[2026-03-02-appunti-e-pianificazione|Appunti Sistema + Pianificazione Progetto Consensi]]","[[Gestione Consensi - Applicativo]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[Architettura IaaS]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -38,7 +38,7 @@ Tre profili utente:
 
 ## Architettura (cap. 3)
 
-**Paradigma:** microservizi su [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]] (Kubernetes/Nivola CSI Piemonte)
+**Paradigma:** microservizi su [[wiki/concepts/architettura-iaas\|Architettura IaaS]] (Kubernetes/Nivola CSI Piemonte)
 
 | Layer | Tecnologia |
 |---|---|

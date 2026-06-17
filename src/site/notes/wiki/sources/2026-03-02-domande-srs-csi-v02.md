@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/sources/2026-03-02-domande-srs-csi-v02/","title":"Domande SRS Consensi — Revisione CSI V02","tags":["q-and-a","csi-piemonte","exprivia","chiarimenti-tecnici","gestione-consensi"],"dg-note-properties":{"title":"Domande SRS Consensi — Revisione CSI V02","aliases":["Domande SRS Consensi — Revisione CSI V02"],"type":"source","tags":["q-and-a","csi-piemonte","exprivia","chiarimenti-tecnici","gestione-consensi"],"created":"2026-05-05","updated":"2026-05-05","sources":[],"related":["[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]","[[CSI Piemonte]]","[[Architettura ECaaS]]"]}}
+{"dg-publish":true,"permalink":"/wiki/sources/2026-03-02-domande-srs-csi-v02/","title":"Domande SRS Consensi — Revisione CSI V02","tags":["q-and-a","csi-piemonte","exprivia","chiarimenti-tecnici","gestione-consensi"],"dg-note-properties":{"title":"Domande SRS Consensi — Revisione CSI V02","aliases":["Domande SRS Consensi — Revisione CSI V02"],"type":"source","tags":["q-and-a","csi-piemonte","exprivia","chiarimenti-tecnici","gestione-consensi"],"created":"2026-05-05","updated":"2026-05-05","sources":[],"related":["[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]","[[CSI Piemonte]]","[[Architettura IaaS]]"]}}
 ---
 
 

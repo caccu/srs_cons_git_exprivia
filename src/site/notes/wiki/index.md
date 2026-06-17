@@ -38,7 +38,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 
 - [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] — Sistema centrale consensi sanitari Regione Piemonte: 3 livelli, 4 profili, 16 CDU, 3 batch
 - [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]] — Macchina a stati: NON_ESPRESSO → ATTIVO/NEGATO → SCADUTO/ANNULLATO; no sovrascrittura
-- [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]] — Infrastruttura Kubernetes/Nivola CSI con vincoli vincolanti per Exprivia
+- [[wiki/concepts/architettura-iaas\|Architettura IaaS]] — Infrastruttura Kubernetes/Nivola CSI con vincoli vincolanti per Exprivia
 - [[wiki/concepts/gasp-salute\|GASP Salute]] — Identity Provider federato SPID/CIE; ⚠️ rischio critico #1: protocollo OIDC/SAML2 non definito
 - [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] — Notifica/scadenza/allineamento asincrono; ⚠️ BATCH-01 ambiguità WSDL SRV-01 vs SRV-03
 - [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] — AURA, SIA ASR, Notificatore UNP, Gestione Deleghe, PUA/Configuratore; stato approvvigionamento Sprint 0

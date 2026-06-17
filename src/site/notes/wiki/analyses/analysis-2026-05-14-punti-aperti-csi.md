@@ -21,7 +21,7 @@
 
 | #     | Domanda                                                                                | Prio | Sprint   | Fonte wiki                                                                         |
 | ----- | -------------------------------------------------------------------------------------- | ---- | -------- | ---------------------------------------------------------------------------------- |
-| ID-01 | **GASP Salute: protocollo OIDC o SAML2?** Endpoint AS + metadata + flow autenticazione | 🔴   | Giorno 1 | [[wiki/concepts/gasp-salute\|GASP Salute]], [[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|analysis-2026-05-06-checklist-avvio-progetto]] §B1 |
+| ID-01 | ~~GASP Salute: protocollo OIDC o SAML2?~~ ✅ **CHIUSO** — **SAML2** confermato (verbale 11/06/2026). Documentazione tecnica GASP (endpoint, metadata XML) da acquisire. | ✅   | Giorno 1 | [[wiki/concepts/gasp-salute\|GASP Salute]], [[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|analysis-2026-05-06-checklist-avvio-progetto]] §B1 |
 | ID-02 | Registrazione app PUA — 2 profili (Operatore, Amministratore)                          | 🟠   | Sprint 2 | Checklist §B9                                                                      |
 | ID-03 | Credenziali IRIS per autenticazione AURA (ambiente DEV)                                | 🟠   | Sprint 1 | Checklist §B7                                                                      |
 
@@ -103,8 +103,8 @@ Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-op
 |-------|------------------------------------------------------------------------------------------------------------|------|----------|---------------|
 | INF-01 | **Provisioning DBaaS Nivola DEV** — scheda provisioning standard                                          | 🔴   | Giorno 1 | Checklist §B2 |
 | INF-02 | **Provisioning DBaaS Nivola PROD**                                                                       | 🔴   | Sprint 0 | Checklist §B3 |
-| INF-03 | **Accesso automation CSI** per generazione skeleton progetto (struttura + pipeline + Helm)               | 🔴   | Giorno 1 | Checklist §B4 |
-| INF-04 | **Diagramma architetturale** (`Mermaid.txt`) — versione concordata con CSI o proposta Exprivia? Risolvere conflitto nodo "API Gateway" (CSI ha confermato no-API-GW) | 🟠 | Sprint 0 | [[wiki/sources/2026-05-05-mermaid-architettura\|Diagramma Architettura Sistema — Mermaid]] §Conflict, Checklist §B14 |
+| INF-03 | ~~Accesso automation CSI~~ ✅ **CHIUSO** — Skeleton in carico a **Exprivia** (IaaS, non ECaaS). Confronto su POM con CSI (verbale 11/06/2026). | ✅   | Giorno 1 | Checklist §B4 |
+| INF-04 | **Diagramma architetturale** — correzioni confermate dal verbale 11/06/2026: (1) cittadini via SPID/CIE diretto, non transitano dal configuratore; (2) SIA relazione **1 a n**. Aggiornamento diagramma in carico a Exprivia. | 🟠 | Sprint 0 | [[wiki/sources/2026-05-05-mermaid-architettura\|Diagramma Architettura Sistema — Mermaid]] §Conflict, Checklist §B14 |
 
 ---
 

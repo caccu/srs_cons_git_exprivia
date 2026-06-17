@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/","title":"Checklist Avvio Progetto — Gestione Consensi","tags":["checklist","avvio","sprint-0","cliente","csi-piemonte","exprivia","rischi","prerequisiti"],"dg-note-properties":{"title":"Checklist Avvio Progetto — Gestione Consensi","aliases":["Checklist Avvio Progetto — Gestione Consensi"],"type":"analysis","tags":["checklist","avvio","sprint-0","cliente","csi-piemonte","exprivia","rischi","prerequisiti"],"created":"2026-05-06","updated":"2026-05-15","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-03-02-appunti-e-pianificazione","2023-09-01-conspref-srs-01-v03","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione"],"related":["[[analysis-gap-as-is-to-be|Analisi Gap AS-IS → TO-BE — Gestione Consensi]]","[[Architettura ECaaS]]","[[CSI Piemonte]]","[[wiki/entities/exprivia\|Exprivia S.p.A.]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[GASP Salute\|GASP Salute]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/","title":"Checklist Avvio Progetto — Gestione Consensi","tags":["checklist","avvio","sprint-0","cliente","csi-piemonte","exprivia","rischi","prerequisiti"],"dg-note-properties":{"title":"Checklist Avvio Progetto — Gestione Consensi","aliases":["Checklist Avvio Progetto — Gestione Consensi"],"type":"analysis","tags":["checklist","avvio","sprint-0","cliente","csi-piemonte","exprivia","rischi","prerequisiti"],"created":"2026-05-06","updated":"2026-05-15","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-03-02-appunti-e-pianificazione","2023-09-01-conspref-srs-01-v03","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione"],"related":["[[analysis-gap-as-is-to-be|Analisi Gap AS-IS → TO-BE — Gestione Consensi]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/entities/exprivia\|Exprivia S.p.A.]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[GASP Salute\|GASP Salute]]"]}}
 ---
 
 
@@ -24,7 +24,7 @@ Punti validati dalla Q&A CSI V02 o esplicitamente documentati nell'SRS e negli a
 | Backend                 | Spring Boot 3.4.10+ / Java 17              | Q&A CSI #5     |
 | Database                | PostgreSQL 17 via DBaaS Nivola             | Q&A CSI #10    |
 | CI/CD                   | GitLab + Jenkins + SonarQube + Helm GitOps | [[wiki/sources/2026-03-02-appunti-e-pianificazione\|appunti]] |
-| Runtime                 | ECaaS / Kubernetes Nivola                  | SRS §3.5       |
+| Runtime                 | **IaaS Nivola** (DEV/TEST/PROD) — provisioning CSI | Verbale 11/06/2026 ⚠️ |
 | SOAP client             | Apache CXF (necessario per SIA ASR AS-IS)  | Q&A CSI #9     |
 | Error response standard | RFC 7807                                   | SRS §4.x       |
 
@@ -42,7 +42,7 @@ Punti validati dalla Q&A CSI V02 o esplicitamente documentati nell'SRS e negli a
 ### A3. Architettura applicativa
 
 - No API Gateway CSI — integrazione diretta, sicurezza gestita da Spring Security ([[wiki/sources/2026-03-02-domande-srs-csi-v02\|Q&A CSI #6]])
-- No skeleton ex-novo — CSI fornisce automation per struttura + pipeline + Helm ([[wiki/sources/2026-03-02-domande-srs-csi-v02\|Q&A CSI #1]])
+- Skeleton progetto in carico a **Exprivia** (IaaS); confronto su POM con CSI — verbale 11/06/2026. ~~CSI fornisce automation per struttura + pipeline + Helm~~ (superato)
 - DBaaS Nivola per PostgreSQL — non PG nel pod K8s ([[wiki/sources/2026-03-02-domande-srs-csi-v02\|Q&A CSI #10]])
 - K8s Secret per tutte le credenziali — nessun segreto nel codice sorgente
 - Scheletro progetto generato da automation CSI (già attivato o da richiedere → vedi B4)
@@ -77,10 +77,10 @@ Punti validati dalla Q&A CSI V02 o esplicitamente documentati nell'SRS e negli a
 
 | #   | Richiesta                                                                                                              | Impatto se non ottenuto                          | Urgenza                 |
 | --- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | ----------------------- |
-| B1  | **Documentazione tecnica [[wiki/concepts/gasp-salute\|GASP Salute]]** — protocollo (OIDC vs SAML2), endpoint, flow di autenticazione | CDU-01 bloccato → tutti i CDU cittadino bloccati | **Giorno 1 Sprint 0**   |
+| B1  | ~~Documentazione tecnica GASP Salute — protocollo (OIDC vs SAML2)~~ ✅ **CHIUSO** — Protocollo **SAML2** confermato (verbale 11/06/2026). Da acquisire: documentazione tecnica GASP (endpoint, metadata XML). | CDU-01 può procedere | ✅ Sprint 0 |
 | B2  | **Provisioning DBaaS Nivola DEV** — scheda provisioning standard                                                       | Impossibile fare Sprint 2 (DDL TO-BE)            | **Giorno 1 Sprint 0**   |
 | B3  | **Provisioning DBaaS Nivola PROD**                                                                                     | Fase 6 migrazione bloccata                       | **Avviare in Sprint 0** |
-| B4  | **Accesso automation CSI** per generazione skeleton progetto (struttura + pipeline + Helm)                             | Sprint 1 parte senza struttura — debito tecnico  | **Giorno 1 Sprint 0**   |
+| B4  | ~~Accesso automation CSI — skeleton progetto~~ ✅ **CHIUSO** — Skeleton in carico a **Exprivia** (IaaS). Confronto su POM con CSI (verbale 11/06/2026). | — | ✅ |
 
 ### 🟠 ALTO — Bloccante per Sprint 2-3
 
@@ -119,7 +119,7 @@ Punti validati dalla Q&A CSI V02 o esplicitamente documentati nell'SRS e negli a
 
 | #   | Rischio                                                                                                              | Probabilità | Impatto  | Azione                                                 |
 | --- | -------------------------------------------------------------------------------------------------------------------- | ----------- | -------- | ------------------------------------------------------ |
-| R1  | [[wiki/concepts/gasp-salute\|GASP Salute]] protocollo non definito → CDU-01 bloccato                                               | Alta        | Critico  | B1 — richiedere documentazione giorno 1                |
+| R1  | ~~GASP Salute protocollo non definito → CDU-01 bloccato~~ ✅ **RISOLTO** — SAML2 confermato (verbale 11/06/2026) | — | — | — |
 | R2  | DBaaS Nivola provisioning lento → Sprint 2 slittamento                                                               | Alta        | Alto     | B2/B3 — avviare giorno 1, latenza imprevedibile        |
 | R3  | BATCH-01 usa operazione WSDL sbagliata (SRV-01 vs SRV-03)                                                            | Media       | Critico  | B10 — conferma scritta da CSI prima di implementare    |
 | R4  | Semantica SCADUTO AS-IS ≠ TO-BE — SIA ASR non allineati                                                              | Media       | Alto     | B11 + C2 — documentare in OpenAPI + verificare con ASR |

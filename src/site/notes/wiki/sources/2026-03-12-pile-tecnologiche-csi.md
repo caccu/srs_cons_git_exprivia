@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/sources/2026-03-12-pile-tecnologiche-csi/","title":"Pile Tecnologiche CSI Piemonte","tags":["tecnologia","csi-piemonte","stack","kubernetes","postgresql","springboot"],"dg-note-properties":{"title":"Pile Tecnologiche CSI Piemonte","aliases":["Pile Tecnologiche CSI Piemonte"],"type":"source","tags":["tecnologia","csi-piemonte","stack","kubernetes","postgresql","springboot"],"created":"2026-05-05","updated":"2026-05-05","sources":[],"related":["[[CSI Piemonte]]","[[Architettura ECaaS]]","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]"]}}
+{"dg-publish":true,"permalink":"/wiki/sources/2026-03-12-pile-tecnologiche-csi/","title":"Pile Tecnologiche CSI Piemonte","tags":["tecnologia","csi-piemonte","stack","kubernetes","postgresql","springboot"],"dg-note-properties":{"title":"Pile Tecnologiche CSI Piemonte","aliases":["Pile Tecnologiche CSI Piemonte"],"type":"source","tags":["tecnologia","csi-piemonte","stack","kubernetes","postgresql","springboot"],"created":"2026-05-05","updated":"2026-05-05","sources":[],"related":["[[CSI Piemonte]]","[[Architettura IaaS]]","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]"]}}
 ---
 
 

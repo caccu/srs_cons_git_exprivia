@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/gasp-salute/","title":"GASP Salute","tags":["autenticazione","idp","spid","cie","sso","csi-piemonte","rischio-critico"],"dg-note-properties":{"title":"GASP Salute","aliases":["GASP Salute"],"type":"concept","tags":["autenticazione","idp","spid","cie","sso","csi-piemonte","rischio-critico"],"created":"2026-05-05","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-03-12-pile-tecnologiche-csi"],"related":["[[CSI Piemonte]]","[[Gestione Consensi - Applicativo]]","[[Architettura ECaaS]]","[[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/gasp-salute/","title":"GASP Salute","tags":["autenticazione","idp","spid","cie","sso","saml2","csi-piemonte"],"dg-note-properties":{"title":"GASP Salute","aliases":["GASP Salute"],"type":"concept","tags":["autenticazione","idp","spid","cie","sso","saml2","csi-piemonte"],"created":"2026-05-05","updated":"2026-06-17","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-03-12-pile-tecnologiche-csi"],"related":["[[CSI Piemonte]]","[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]"]}}
 ---
 
 
@@ -15,18 +15,17 @@ Tutti i CDU Cittadino (CDU-01 ÷ CDU-06) in [[wiki/concepts/gestione-consensi-ap
 
 ---
 
-## Rischio critico aperto — protocollo non definito
+## Protocollo confermato: SAML2 ✅
 
-| Aspetto               | Stato                                                                                     |
-| --------------------- | ----------------------------------------------------------------------------------------- |
-| Protocollo            | **OIDC o SAML2 — non ancora scelto**                                                      |
-| Responsabilità scelta | [[wiki/entities/csi-piemonte\|CSI Piemonte]] (referente GASP)                                           |
-| Impatto se SAML2      | Libreria aggiuntiva Spring Security SAML2, configurazione keystores, maggiore complessità |
-| Impatto se OIDC       | Più semplice — Spring Security OAuth2/OIDC nativo, nessuna dipendenza aggiuntiva          |
-| Azione richiesta      | Documentazione tecnica GASP da richiedere **Sprint 0 giorno 1**                           |
-|                       |                                                                                           |
+**Risolto — verbale CSI/Exprivia 11/06/2026.**
 
-> ⚠️ GASP Salute è il **Blocco critico #1** prima del lancio sprint. Senza protocollo definito, CDU-01 non può essere progettato né implementato. Vedi [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]] §RISCHIO CRITICO 2.
+| Aspetto               | Stato                                                                                           |
+| --------------------- | ----------------------------------------------------------------------------------------------- |
+| Protocollo            | **SAML2** (confermato verbale 11/06/2026)                                                       |
+| Responsabilità scelta | [[wiki/entities/csi-piemonte\|CSI Piemonte]] (referente GASP)                                                 |
+| Impatto implementativo | `spring-security-saml2-service-provider`, configurazione keystores, metadata IdP XML           |
+| Azione rimanente      | Acquisire documentazione tecnica GASP (endpoint, metadata XML) — da richiedere a CSI Sprint 0  |
+| Stato                 | ✅ Protocollo definito — CDU-01 può essere progettato                                           |
 
 ---
 
@@ -39,15 +38,15 @@ Tutti i CDU Cittadino (CDU-01 ÷ CDU-06) in [[wiki/concepts/gestione-consensi-ap
 
 ---
 
-## Integrazione tecnica (scenari possibili)
+## Integrazione tecnica — SAML2 (confermato)
 
-| Aspetto | Scenario OIDC | Scenario SAML2 |
-|---|---|---|
-| Dipendenza Spring | `spring-boot-starter-oauth2-client` | `spring-security-saml2-service-provider` |
-| Flow | Authorization Code PKCE | SAML2 POST binding |
-| Token | JWT / access_token | SAML Assertion XML |
-| Configurazione | `spring.security.oauth2.client.*` | Keystore + IdP metadata XML |
-| Complessità | Bassa | Media-Alta |
+| Aspetto | Dettaglio |
+|---|---|
+| Dipendenza Spring | `spring-security-saml2-service-provider` |
+| Flow | SAML2 POST binding |
+| Token | SAML Assertion XML |
+| Configurazione | Keystore + IdP metadata XML |
+| Complessità | Media-Alta |
 
 ---
 
@@ -55,7 +54,7 @@ Tutti i CDU Cittadino (CDU-01 ÷ CDU-06) in [[wiki/concepts/gestione-consensi-ap
 
 | Sistema             | Profilo                            | IdP                                                  |
 | ------------------- | ---------------------------------- | ---------------------------------------------------- |
-| GASP Salute         | Cittadino (SPID/CIE)               | Esterno a [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]] |
+| GASP Salute         | Cittadino (SPID/CIE)               | Esterno a [[wiki/concepts/architettura-iaas\|Architettura IaaS]] |
 | PUA / RUPAR / IRIDE | Operatore Sanitario/Amministrativo | Gestito da [[wiki/entities/csi-piemonte\|CSI Piemonte]]            |
 | OAuth2 Bearer JWT   | SIA Aziendale (CDU-15/16)          | Gestito internamente                                 |
 

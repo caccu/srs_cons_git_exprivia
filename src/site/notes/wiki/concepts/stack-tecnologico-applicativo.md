@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/stack-tecnologico-applicativo/","title":"Stack Tecnologico Applicativo","tags":["stack","tecnologia","spring-boot","angular","postgresql","java"],"dg-note-properties":{"title":"Stack Tecnologico Applicativo","aliases":["Stack Tecnologico Applicativo","Stack Tecnologico","Stack Applicativo"],"type":"concept","tags":["stack","tecnologia","spring-boot","angular","postgresql","java"],"created":"2026-05-15","updated":"2026-05-29","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-12-pile-tecnologiche-csi","2026-03-02-domande-srs-csi-v02"],"related":["[[Architettura ECaaS]]","[[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]","[[Gestione Consensi - Applicativo]]","[[wiki/concepts/migrazione-postgres-9-17\|Migrazione PostgreSQL 9 → 17]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/stack-tecnologico-applicativo/","title":"Stack Tecnologico Applicativo","tags":["stack","tecnologia","spring-boot","angular","postgresql","java"],"dg-note-properties":{"title":"Stack Tecnologico Applicativo","aliases":["Stack Tecnologico Applicativo","Stack Tecnologico","Stack Applicativo"],"type":"concept","tags":["stack","tecnologia","spring-boot","angular","postgresql","java"],"created":"2026-05-15","updated":"2026-05-29","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-12-pile-tecnologiche-csi","2026-03-02-domande-srs-csi-v02"],"related":["[[Architettura IaaS]]","[[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]","[[Gestione Consensi - Applicativo]]","[[wiki/concepts/migrazione-postgres-9-17\|Migrazione PostgreSQL 9 → 17]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16]]"]}}
 ---
 
 
@@ -20,7 +20,7 @@ Stack TO-BE del progetto [[wiki/concepts/gestione-consensi-applicativo\|Gestione
 | Linguaggio | Java | 17 LTS | CURRENT |
 | Sicurezza | Spring Security | 6.x (Spring Boot 3 default) | CURRENT |
 | Database | PostgreSQL | 17 (DBaaS Nivola) | CURRENT |
-| Infrastruttura | Kubernetes / [[Architettura ECaaS\|ECaaS]] | Nivola | CURRENT |
+| Infrastruttura | Kubernetes / [[Architettura IaaS\|ECaaS]] | Nivola | CURRENT |
 
 ---
 
@@ -74,7 +74,7 @@ Vincoli vincolanti da [[wiki/sources/2019-06-01-linea-guida-fornitori-cloud-nati
 | Deploy | Helm + GitOps |
 | Registry | Artifactory CSI (`docker-trusted`, `docker-base`, `docker-projects`) |
 
-Dettaglio: [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]].
+Dettaglio: [[wiki/concepts/architettura-iaas\|Architettura IaaS]].
 
 ---
 

@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-003-dbaas-nivola/","title":"Database PostgreSQL su DBaaS Nivola, esterno al namespace ECaaS","tags":["database","postgresql","dbaas","nivola","infrastruttura"],"dg-note-properties":{"adr":3,"title":"Database PostgreSQL su DBaaS Nivola, esterno al namespace ECaaS","status":"accepted","date":"2026-03-02","deciders":["CSI Piemonte"],"supersedes":[],"superseded-by":[],"tags":["database","postgresql","dbaas","nivola","infrastruttura"],"related_wiki":["[[wiki/concepts/architettura-ecaas\|Architettura ECaaS]]","[[stack-tecnologico-applicativo|Stack Tecnologico Applicativo]]","[[migrazione-postgres-9-17|Migrazione PostgreSQL 9 → 17]]"],"sources":["[[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #10"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-003-dbaas-nivola/","title":"Database PostgreSQL su DBaaS Nivola, esterno al namespace ECaaS","tags":["database","postgresql","dbaas","nivola","infrastruttura"],"dg-note-properties":{"adr":3,"title":"Database PostgreSQL su DBaaS Nivola, esterno al namespace ECaaS","status":"accepted","date":"2026-03-02","deciders":["CSI Piemonte"],"supersedes":[],"superseded-by":[],"tags":["database","postgresql","dbaas","nivola","infrastruttura"],"related_wiki":["[[wiki/concepts/architettura-iaas\|Architettura IaaS]]","[[stack-tecnologico-applicativo|Stack Tecnologico Applicativo]]","[[migrazione-postgres-9-17|Migrazione PostgreSQL 9 → 17]]"],"sources":["[[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #10"]}}
 ---
 
 
@@ -54,5 +54,5 @@ PostgreSQL 17 viene erogato da **DBaaS Nivola** (servizio gestito CSI), esterno 
 ## References
 
 - [[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #10
-- [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]] §DBaaS Nivola
+- [[wiki/concepts/architettura-iaas\|Architettura IaaS]] §DBaaS Nivola
 - Correlato: [[wiki/docs/adr/ADR-002-piattaforma-ecaas\|ADR-002-piattaforma-ecaas]] piattaforma ECaaS, [[wiki/docs/adr/ADR-013-migrazione-pg-dump-restore\|ADR-013-migrazione-pg-dump-restore]] migrazione, [[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]]

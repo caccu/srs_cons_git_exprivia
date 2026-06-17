@@ -15,7 +15,7 @@
 
 [[wiki/entities/exprivia\|Exprivia S.p.A.]] sta analizzando il rifacimento completo dell'applicativo [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] della Regione Piemonte. Il sistema gestisce i consensi sanitari dei cittadini piemontesi (tre livelli: nazionale, regionale, aziendale) attraverso 16 casi d'uso, 3 processi batch e 6 sistemi esterni.
 
-Il documento centrale è **CONSPREF-SRS-V1.0** (bozza v2), redatto da Marco Forneris/Exprivia il 02/03/2026, che specifica il sistema TO-BE con stack tecnologico Angular 19 + Spring Boot 3 + PostgreSQL 17 su infrastruttura cloud [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]] (Kubernetes/Nivola).
+Il documento centrale è **CONSPREF-SRS-V1.0** (bozza v2), redatto da Marco Forneris/Exprivia il 02/03/2026, che specifica il sistema TO-BE con stack tecnologico Angular 19 + Spring Boot 3 + PostgreSQL 17 su infrastruttura cloud [[wiki/concepts/architettura-iaas\|Architettura IaaS]] (Kubernetes/Nivola).
 
 ---
 

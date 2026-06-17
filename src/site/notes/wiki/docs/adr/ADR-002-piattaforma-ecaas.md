@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-002-piattaforma-ecaas/","title":"Piattaforma ECaaS Kubernetes Nivola con vincoli operativi","tags":["infrastruttura","kubernetes","ecaas","nivola","traefik","cilium","vincoli"],"dg-note-properties":{"adr":2,"title":"Piattaforma ECaaS Kubernetes Nivola con vincoli operativi","status":"accepted","date":"2026-03-02","deciders":["CSI Piemonte"],"supersedes":[],"superseded-by":[],"tags":["infrastruttura","kubernetes","ecaas","nivola","traefik","cilium","vincoli"],"related_wiki":["[[wiki/concepts/architettura-ecaas\|Architettura ECaaS]]","[[wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native\|Linee Guida Cloud Native per Fornitori v1.0.1]]","[[stack-tecnologico-applicativo|Stack Tecnologico Applicativo]]"],"sources":["[[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] §3.5","[[2019-06-01-linea-guida-fornitori-cloud-native|Linee Guida Cloud Native v1.0.1]]"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-002-piattaforma-ecaas/","title":"Piattaforma ECaaS Kubernetes Nivola con vincoli operativi","tags":["infrastruttura","kubernetes","ecaas","nivola","traefik","cilium","vincoli"],"dg-note-properties":{"adr":2,"title":"Piattaforma ECaaS Kubernetes Nivola con vincoli operativi","status":"accepted","date":"2026-03-02","deciders":["CSI Piemonte"],"supersedes":[],"superseded-by":[],"tags":["infrastruttura","kubernetes","ecaas","nivola","traefik","cilium","vincoli"],"related_wiki":["[[wiki/concepts/architettura-iaas\|Architettura IaaS]]","[[wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native\|Linee Guida Cloud Native per Fornitori v1.0.1]]","[[stack-tecnologico-applicativo|Stack Tecnologico Applicativo]]"],"sources":["[[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] §3.5","[[2019-06-01-linea-guida-fornitori-cloud-native|Linee Guida Cloud Native v1.0.1]]"]}}
 ---
 
 
@@ -64,6 +64,6 @@ Vincoli obbligatori per ogni Deployment:
 ## References
 
 - [[wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native\|Linee Guida Cloud Native per Fornitori v1.0.1]]
-- [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]]
+- [[wiki/concepts/architettura-iaas\|Architettura IaaS]]
 - [[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] §3.5
 - Correlato: [[wiki/docs/adr/ADR-001-stack-tecnologico\|ADR-001-stack-tecnologico]] stack, [[wiki/docs/adr/ADR-003-dbaas-nivola\|ADR-003-dbaas-nivola]] DBaaS Nivola

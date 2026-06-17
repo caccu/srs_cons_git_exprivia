@@ -152,6 +152,38 @@ Note tecniche (SRS §BATCH-02):
 
 ---
 
+## Gestione Manutenzione ASR — Start/Stop Invio (verbale 11/06/2026)
+
+Meccanismo concordato per gestire interruzioni programmate dei sistemi ASR, in particolare durante l'allineamento di nuovi dipartimentali aziendali.
+
+### Logica di interruzione invio
+
+| Scenario | Comportamento CSI |
+|---|---|
+| ASR segnala manutenzione programmata | CSI interrompe l'invio verso quel sistema |
+| Un sistema di un'azienda non funziona | CSI interrompe l'invio verso **tutti i sistemi** della stessa azienda |
+| Manutenzione completata | ASR segnala fine → CSI riprende l'invio |
+
+### Servizi start/stop esposti dal sistema
+
+Il sistema Gestione Consensi espone servizi che permettono alle ASR di segnalare:
+- **Start manutenzione**: inizio periodo di interruzione programmata
+- **Stop manutenzione**: fine periodo, sistema tornato operativo
+
+**Onere in capo all'ASR**: è l'ASR che trasmette l'avviso di manutenzione via i servizi messi a disposizione — non è CSI a rilevare il problema proattivamente.
+
+> ⚠️ **Gap aperto:** Questi servizi start/stop non sono ancora documentati nell'SRS né nella specifica OpenAPI. Da aggiungere come nuovi endpoint.
+
+### Impatto su webapp cittadini
+
+Quando un'azienda ASR è in manutenzione, la **web application cittadini** mostra messaggio esplicito di impossibilità a esprimere il consenso per quella specifica azienda.
+
+### Allineamento nuovo dipartimentale
+
+Alla nascita di un nuovo sistema dipartimentale aziendale, il processo di allineamento tra i dipartimentali aziendali **resta in capo all'azienda**. CSI interrompe l'invio fino al completamento.
+
+---
+
 ## ~~BATCH-03~~ — sostituito da PULL CDU-17 (**proposed**, attende sign-off CSI)
 
 > 🟡 **DESIGN RIVISTO — risposta MF69R68 (ex TR34/TR68):**

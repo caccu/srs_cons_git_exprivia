@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/sicurezza-cdu-15-16/","title":"Sicurezza CDU-15-16 — Modello Autorizzazione per Ente","tags":["sicurezza","cdu-15","cdu-16","oauth2","jwt","multi-tenancy","spring-security","tr30"],"dg-note-properties":{"title":"Sicurezza CDU-15-16 — Modello Autorizzazione per Ente","aliases":["Sicurezza CDU-15-16 — Modello Autorizzazione per Ente"],"type":"concept","tags":["sicurezza","cdu-15","cdu-16","oauth2","jwt","multi-tenancy","spring-security","tr30"],"created":"2026-05-14","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02"],"related":["[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]","[[Sistemi Esterni Integrati]]","[[Architettura ECaaS]]","[[CSI Piemonte]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]","[[Gestione Consensi - Applicativo]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/sicurezza-cdu-15-16/","title":"Sicurezza CDU-15-16 — Modello Autorizzazione per Ente","tags":["sicurezza","cdu-15","cdu-16","oauth2","jwt","multi-tenancy","spring-security","tr30"],"dg-note-properties":{"title":"Sicurezza CDU-15-16 — Modello Autorizzazione per Ente","aliases":["Sicurezza CDU-15-16 — Modello Autorizzazione per Ente"],"type":"concept","tags":["sicurezza","cdu-15","cdu-16","oauth2","jwt","multi-tenancy","spring-security","tr30"],"created":"2026-05-14","updated":"2026-06-17","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02"],"related":["[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]","[[Sistemi Esterni Integrati]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]","[[Gestione Consensi - Applicativo]]"]}}
 ---
 
 
@@ -12,13 +12,36 @@
 
 ---
 
-## 1. Risposta diretta — niente API Manager
+## 1. Modello di sicurezza AS-IS / TO-BE — API Manager
 
-**No.** Il progetto **non attraversa l'API Gateway/Manager centralizzato del CSI Piemonte**.
+> ⚠️ **Aggiornamento verbale 11/06/2026:** Il modello è stato chiarito in riunione. La decisione "No API Manager" da Q&A CSI #6 vale per i **fruitori AS-IS esistenti**. Il TO-BE introduce **doppia esposizione** con API Manager per nuovi fruitori esterni.
+
+### 1.1 AS-IS — Certificati firmati (invariato)
+
+Le richieste provenienti dalle ASR esistenti sono firmate tramite **certificato** (non token), risultando **non ripudiabili**. Questo schema rimane invariato per i fruitori AS-IS.
+
+### 1.2 TO-BE — Doppia esposizione
+
+**Per nuovi fruitori esterni:** API esposte tramite **API Manager CSI Piemonte**; sicurezza demandata all'API Manager con **token JWS**.
+
+| Canale | Auth | Fruitori |
+|---|---|---|
+| Certificato (AS-IS) | Firma certificato X.509 — non ripudiabile | SIA ASR esistenti |
+| API Manager (TO-BE) | Token JWS via API Manager | Nuovi fruitori esterni |
+
+CSI Piemonte fornirà componente bridge tra API Manager e prodotto. Forneris abilitato come guest su "deleghe API" per consultare l'esempio.
+
+> ⚠️ **Firma token JWS: punto aperto.** CSI invierà esempio di deleghe API per approfondimento tecnico.
+
+---
+
+### 1.3 Riferimento storico — Decisione SRS v3 §3.2 (valida AS-IS)
 
 Decisione confermata da CSI ([[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] §Q&A #6) e formalizzata in SRS v3 §3.2:
 
 > "il progetto non adotterà l'API Gateway centralizzato del CSI Piemonte come punto d'ingresso esterno. L'architettura adotta un modello di integrazione diretta: le chiamate HTTP [...] vengono instradate direttamente ai Servizi Backend Spring Boot 3, senza intermediari gateway esterni al progetto. La sicurezza delle API (autenticazione e autorizzazione) è interamente gestita a livello applicativo tramite Spring Security"
+
+*(Applicabile ai soli fruitori AS-IS — superato per TO-BE dal verbale 11/06/2026)*
 
 ### Implicazioni operative
 
@@ -277,7 +300,7 @@ Codice fiscale **NON** loggato in chiaro (vedi [[wiki/analyses/valutazione-quali
 - Decisione architetturale "no API Gateway": [[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #6, [[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] §3.2
 - Specifica OpenAPI dei due endpoint: [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]
 - Stack tecnologico Spring Boot 3 + Spring Security: [[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]
-- Vincoli ECaaS / Ingress / TLS: [[wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native\|Linee Guida Cloud Native per Fornitori v1.0.1]], [[wiki/concepts/architettura-ecaas\|Architettura ECaaS]]
+- Vincoli ECaaS / Ingress / TLS: [[wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native\|Linee Guida Cloud Native per Fornitori v1.0.1]], [[wiki/concepts/architettura-iaas\|Architettura IaaS]]
 - Inventario sistemi consumer (SIA ASR): [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]]
 
 ---
