@@ -31,7 +31,18 @@ Le richieste provenienti dalle ASR esistenti sono firmate tramite **certificato*
 
 CSI Piemonte fornirà componente bridge tra API Manager e prodotto. Forneris abilitato come guest su "deleghe API" per consultare l'esempio.
 
-> ⚠️ **Firma token JWS: punto aperto.** CSI invierà esempio di deleghe API per approfondimento tecnico.
+**Pattern confermato dall'esempio DelegheApi (immagine verbale 11/06/2026):**
+
+```
+Consumer (es. Telemedicina / Gestione Consensi)
+    → getDelegantiService
+    → API-Piemonte  (accreditamento tramite portale)
+    → DelegheApi
+```
+
+Gestione Consensi seguirà lo stesso schema: accreditamento sul portale API-Piemonte, chiamate instradate via API Manager. Vedi [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] §Gestione Deleghe.
+
+> ⚠️ **Firma token JWS: punto ancora aperto.** L'immagine conferma la topologia (API-Piemonte come intermediario) ma non il meccanismo di firma del token. Da chiarire con CSI.
 
 ---
 
@@ -50,7 +61,7 @@ Decisione confermata da CSI ([[wiki/sources/2026-03-02-domande-srs-csi-v02\|Doma
 | Autenticazione (token validation) | Backend applicativo | Spring Security + nimbus-jose-jwt |
 | Autorizzazione granulare | Backend applicativo | Filter custom `EnteAuthorizationFilter` |
 | Rate limiting / throttling | Backend applicativo | `bucket4j` o `resilience4j-ratelimiter` |
-| TLS termination | Piattaforma | Ingress Kubernetes ECaaS |
+| TLS termination | Piattaforma | Layer rete IaaS CSI/Nivola |
 | WAF | Piattaforma | Layer di rete CSI/Nivola |
 | Audit log centralizzato | Backend applicativo | Logger applicativo strutturato JSON |
 | Quota per client | Backend applicativo | Tabella DB + filter |
@@ -67,7 +78,7 @@ Decisione confermata da CSI ([[wiki/sources/2026-03-02-domande-srs-csi-v02\|Doma
    │
    │ 2. GET /api/v1/...  +  Header: Authorization: Bearer <JWT>
    ▼
-[Ingress Kubernetes ECaaS]  ──► TLS termination, instradamento al Service
+[Layer rete IaaS CSI/Nivola]  ──► TLS termination, instradamento al Service
    │
    ▼
 [Spring Boot Backend Gestione Consensi]

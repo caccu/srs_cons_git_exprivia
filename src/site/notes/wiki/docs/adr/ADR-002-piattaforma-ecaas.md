@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-002-piattaforma-ecaas/","title":"Piattaforma ECaaS Kubernetes Nivola con vincoli operativi","tags":["infrastruttura","kubernetes","ecaas","nivola","traefik","cilium","vincoli"],"dg-note-properties":{"adr":2,"title":"Piattaforma ECaaS Kubernetes Nivola con vincoli operativi","status":"accepted","date":"2026-03-02","deciders":["CSI Piemonte"],"supersedes":[],"superseded-by":[],"tags":["infrastruttura","kubernetes","ecaas","nivola","traefik","cilium","vincoli"],"related_wiki":["[[wiki/concepts/architettura-iaas\|Architettura IaaS]]","[[wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native\|Linee Guida Cloud Native per Fornitori v1.0.1]]","[[stack-tecnologico-applicativo|Stack Tecnologico Applicativo]]"],"sources":["[[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] §3.5","[[2019-06-01-linea-guida-fornitori-cloud-native|Linee Guida Cloud Native v1.0.1]]"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-002-piattaforma-ecaas/","title":"Piattaforma ECaaS Kubernetes Nivola con vincoli operativi","tags":["infrastruttura","kubernetes","ecaas","nivola","traefik","cilium","vincoli"],"dg-note-properties":{"adr":2,"title":"Piattaforma ECaaS Kubernetes Nivola con vincoli operativi","status":"superseded","date":"2026-03-02","deciders":["CSI Piemonte"],"supersedes":[],"superseded-by":[],"tags":["infrastruttura","kubernetes","ecaas","nivola","traefik","cilium","vincoli"],"related_wiki":["[[wiki/concepts/architettura-iaas\|Architettura IaaS]]","[[wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native\|Linee Guida Cloud Native per Fornitori v1.0.1]]","[[stack-tecnologico-applicativo|Stack Tecnologico Applicativo]]"],"sources":["[[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] §3.5","[[2019-06-01-linea-guida-fornitori-cloud-native|Linee Guida Cloud Native v1.0.1]]"]}}
 ---
 
 
@@ -7,7 +7,7 @@
 
 ## Status
 
-`accepted` — vincoli formalizzati da CSI nelle Linee Guida Cloud Native v1.0.1; SRS §3.5 pienamente conforme.
+`superseded` — **verbale CSI/Exprivia 11/06/2026**: l'ambiente scelto per CONSPREF è **IaaS Nivola** (non ECaaS/Kubernetes) per tutti gli ambienti DEV/TEST/PROD, con provisioning CSI. I vincoli ECaaS/Kubernetes qui documentati non si applicano al progetto. Documento mantenuto come riferimento storico della piattaforma ECaaS standard CSI. Vedi [[wiki/concepts/architettura-iaas\|Architettura IaaS]] per lo stato aggiornato.
 
 ## Context
 

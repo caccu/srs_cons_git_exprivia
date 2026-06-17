@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-05-15"}}
+{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-06-17"}}
 ---
 
 
@@ -27,7 +27,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 
 ## Entities
 
-- [[wiki/entities/csi-piemonte\|CSI Piemonte]] — Committente tecnico, gestore infrastruttura ECaaS/Nivola, fornitore componenti (GASP, AURA, PUA, IRIS, UNP)
+- [[wiki/entities/csi-piemonte\|CSI Piemonte]] — Committente tecnico, gestore infrastruttura IaaS/Nivola, fornitore componenti (GASP, AURA, PUA, IRIS, UNP)
 - [[wiki/entities/exprivia\|Exprivia S.p.A.]] — Fornitore sviluppo, redattore SRS, team analisi e sviluppo TO-BE
 - [[wiki/entities/notificatore-unp\|Notificatore UNP]] — User Notification Platform CSI (REST); distinto da Notificatore di Deleghe; canali email/push/IO/mex
 - [[wiki/entities/regione-piemonte\|Regione Piemonte]] — Committente finale, proprietaria Sanità Elettronica Regionale
@@ -38,16 +38,16 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 
 - [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] — Sistema centrale consensi sanitari Regione Piemonte: 3 livelli, 4 profili, 16 CDU, 3 batch
 - [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]] — Macchina a stati: NON_ESPRESSO → ATTIVO/NEGATO → SCADUTO/ANNULLATO; no sovrascrittura
-- [[wiki/concepts/architettura-iaas\|Architettura IaaS]] — Infrastruttura Kubernetes/Nivola CSI con vincoli vincolanti per Exprivia
-- [[wiki/concepts/gasp-salute\|GASP Salute]] — Identity Provider federato SPID/CIE; ⚠️ rischio critico #1: protocollo OIDC/SAML2 non definito
+- [[wiki/concepts/architettura-iaas\|Architettura IaaS]] — Infrastruttura IaaS Nivola CSI (non ECaaS/Kubernetes) — DEV/TEST/PROD, provisioning CSI (verbale 11/06/2026)
+- [[wiki/concepts/gasp-salute\|GASP Salute]] — Identity Provider federato SPID/CIE; protocollo **SAML2** confermato (verbale 11/06/2026)
 - [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] — Notifica/scadenza/allineamento asincrono; ⚠️ BATCH-01 ambiguità WSDL SRV-01 vs SRV-03
 - [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] — AURA, SIA ASR, Notificatore UNP, Gestione Deleghe, PUA/Configuratore; stato approvvigionamento Sprint 0
-- [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]] — Risposta TR30: OAuth2 Client Credentials + JWT + tabella client_ente + filter Spring Security; **no API Manager**, difesa a 3 livelli
+- [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]] — Risposta TR30: OAuth2 Client Credentials + JWT + tabella client_ente + filter Spring Security; AS-IS **no API Manager**, difesa a 3 livelli; TO-BE API Manager CSI per nuovi fruitori
 - [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]] — Risposta TR34: sostituzione BATCH-03 push con PULL REST paginato cursor-based; **hub-and-spoke**, zero push, zero downtime, riusa security CDU-15/16
 - [[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]] — Pattern SSoT Form Renderer unico Citt+Op (CDU-02/03/04/09/10/11); MF26/28/30/35/37/39/41/43/45/57
 - [[wiki/concepts/informativa\|Informativa Consenso]] — Oggetto dichiarativo del consenso: modello `cons_d_informativa`, ciclo di vita, lookup CDU-03, base Form Renderer
 - [[wiki/concepts/migrazione-postgres-9-17\|Migrazione PostgreSQL 9 → 17]] — Strategia dump/restore Fase 6 Sprint 9; rischi tipi/auth scram/timestamp; audit DDL prerequisito Sprint 0
-- [[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico Applicativo]] — Angular 19 + Spring Boot 3.4.10+ / Java 17 + PostgreSQL 17 su ECaaS Nivola; vincoli docker-base CSI
+- [[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico Applicativo]] — Angular 19 + Spring Boot 3.4.10+ / Java 17 + PostgreSQL 17 su IaaS Nivola; vincoli docker-base CSI
 
 ---
 

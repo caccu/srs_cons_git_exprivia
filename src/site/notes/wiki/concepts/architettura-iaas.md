@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/architettura-iaas/","title":"Architettura IaaS","tags":["infrastruttura","kubernetes","cloud","ecaas","nivola","csi-piemonte"],"dg-note-properties":{"title":"Architettura IaaS","aliases":["Architettura IaaS"],"type":"concept","tags":["infrastruttura","kubernetes","cloud","ecaas","nivola","csi-piemonte"],"created":"2026-05-05","updated":"2026-06-17","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-12-pile-tecnologiche-csi"],"related":["[[CSI Piemonte]]","[[2026-03-12-pile-tecnologiche-csi|Pile Tecnologiche CSI Piemonte]]","[[Gestione Consensi - Applicativo]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/architettura-iaas/","title":"Architettura IaaS","tags":["infrastruttura","iaas","cloud","nivola","csi-piemonte"],"dg-note-properties":{"title":"Architettura IaaS","aliases":["Architettura IaaS"],"type":"concept","tags":["infrastruttura","iaas","cloud","nivola","csi-piemonte"],"created":"2026-05-05","updated":"2026-06-17","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-12-pile-tecnologiche-csi"],"related":["[[CSI Piemonte]]","[[2026-03-12-pile-tecnologiche-csi|Pile Tecnologiche CSI Piemonte]]","[[Gestione Consensi - Applicativo]]"]}}
 ---
 
 
@@ -15,7 +15,7 @@ Infrastruttura cloud [[wiki/entities/csi-piemonte\|CSI Piemonte]] su Nivola per 
 
 | Componente | Tecnologia | Note |
 |---|---|---|
-| Orchestrazione | Kubernetes (ECaaS) | Ogni progetto in namespace isolato |
+| Orchestrazione | **(da definire per IaaS — era ECaaS/Kubernetes)** | Verificare con CSI prima del provisioning |
 | IngressController | **TRAEFIK** (solo questo) | No altri IngressController |
 | Storage | NFS via StorageClass CSI Trident (NetApp) | No host volumes |
 | Monitoraggio | Prometheus | Metriche e alert |
@@ -63,10 +63,10 @@ Artifactory push → SonarQube analisi → GitOps rollout
 
 ## DBaaS Nivola (database)
 
-Il DB è **esterno al namespace ECaaS** — erogato come servizio gestito da Nivola.
+Il DB è **esterno all'applicativo** — erogato come servizio gestito da Nivola (DBaaS).
 - Provisioning via scheda formale a Nivola (alta latenza)
 - Backup, patching, HA: gestiti da Nivola
-- Credenziali: mai nel codice → K8s Secret → variabili env Spring
+- Credenziali: mai nel codice → gestite lato infrastruttura IaaS CSI → variabili env Spring
 - HikariCP: max-pool-size ≤ 40/replica (istanza 100 conn max, 2 repliche)
 
 ---

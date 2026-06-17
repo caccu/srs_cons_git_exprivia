@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-06-10-riassunto-presentazione-cliente/","title":"Riassunto Esecutivo — Presentazione Progetto Gestione Consensi","tags":["presentazione","riassunto","executive-summary","gestione-consensi","cliente"],"dg-note-properties":{"title":"Riassunto Esecutivo — Presentazione Progetto Gestione Consensi","aliases":["Riassunto Esecutivo — Presentazione Progetto Gestione Consensi"],"type":"analysis","tags":["presentazione","riassunto","executive-summary","gestione-consensi","cliente"],"created":"2026-06-10","updated":"2026-06-10","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-appunti-e-pianificazione","2026-03-02-domande-srs-csi-v02","2023-09-01-conspref-srs-01-v03"],"related":["[[overview|Overview]]","[[gestione-consensi-applicativo|Gestione Consensi - Applicativo]]","[[analysis-2026-05-14-punti-aperti-csi|Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/analyses/analysis-2026-05-27-punti-aperti-spiegati\|Punti Aperti — Spiegati in Modo Semplice]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-06-10-riassunto-presentazione-cliente/","title":"Riassunto Esecutivo — Presentazione Progetto Gestione Consensi","tags":["presentazione","riassunto","executive-summary","gestione-consensi","cliente"],"dg-note-properties":{"title":"Riassunto Esecutivo — Presentazione Progetto Gestione Consensi","aliases":["Riassunto Esecutivo — Presentazione Progetto Gestione Consensi"],"type":"analysis","tags":["presentazione","riassunto","executive-summary","gestione-consensi","cliente"],"created":"2026-06-10","updated":"2026-06-17","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-appunti-e-pianificazione","2026-03-02-domande-srs-csi-v02","2023-09-01-conspref-srs-01-v03"],"related":["[[overview|Overview]]","[[gestione-consensi-applicativo|Gestione Consensi - Applicativo]]","[[analysis-2026-05-14-punti-aperti-csi|Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/analyses/analysis-2026-05-27-punti-aperti-spiegati\|Punti Aperti — Spiegati in Modo Semplice]]"]}}
 ---
 
 
@@ -75,18 +75,18 @@ SIA aziendali → API REST (OAuth2 + JWT) → Spring Boot
 | Frontend | **Angular 19** + componenti QUASAR CSI | Form Renderer unico condiviso tra webapp Cittadino e Operatore |
 | Backend | **Spring Boot 3.4.10+ / Java 17** | Client SOAP con Apache CXF per i sistemi legacy |
 | Database | **PostgreSQL 17** su DBaaS Nivola | Esterno al namespace applicativo |
-| Infrastruttura | **ECaaS** — Kubernetes su cloud Nivola CSI | Vincoli CSI: TRAEFIK, Artifactory, CI/CD GitLab+Jenkins, Helm |
+| Infrastruttura | **IaaS Nivola** (DEV/TEST/PROD) — provisioning CSI | Verbale 11/06/2026 — non ECaaS/Kubernetes come da SRS §3.5 |
 
 Due scelte architetturali da evidenziare:
 
-- **Nessun API Gateway** ([[wiki/docs/adr/ADR-004-no-api-gateway\|ADR-004]], confermato da CSI): la sicurezza è gestita direttamente a livello applicativo con Spring Security.
+- **Sicurezza API — doppia esposizione** ([[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16]], [[wiki/docs/adr/ADR-004-no-api-gateway\|ADR-004]]): **AS-IS** (fruitori esistenti): Spring Security applicativa diretta, no API Gateway; **TO-BE** (nuovi fruitori esterni, es. Telemedicina): API Manager CSI Piemonte + token JWS (verbale 11/06/2026).
 - **Form Renderer unico** ([[wiki/docs/adr/ADR-008-ssot-form-renderer\|ADR-008]]): la pagina di espressione del consenso è composta dinamicamente da un unico motore, usato sia dal cittadino sia dall'operatore — una sola fonte, zero divergenze tra i due canali.
 
 ### Sistemi esterni integrati
 
 | Sistema | Ruolo | Protocollo |
 |---|---|---|
-| [[wiki/concepts/gasp-salute\|GASP Salute]] | Identity Provider per il cittadino (SPID/CIE) | OIDC o SAML2 — **da definire** |
+| [[wiki/concepts/gasp-salute\|GASP Salute]] | Identity Provider per il cittadino (SPID/CIE) | **SAML2** (confermato verbale 11/06/2026) |
 | AURA | Anagrafe regionale: ricerca assistito | SOAP |
 | Gestione Deleghe | Elenco deleganti del cittadino | SOAP |
 | [[wiki/entities/notificatore-unp\|Notificatore UNP]] | Notifiche al cittadino (email/push/app IO) | REST |
@@ -100,7 +100,7 @@ Due scelte architetturali da evidenziare:
 - Autenticazione cittadino via **SPID/CIE** (GASP Salute); operatori via **RUPAR/IRIDE** (PUA)
 - Per le API verso i SIA ([[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16]]): **OAuth2 Client Credentials + token JWT**, con isolamento per ente garantito da una **difesa a tre livelli** — validazione del token, tabella di mapping client→ente (`cons_t_client_ente`), filtro applicativo sulle query. Ogni azienda vede **solo i propri dati**, per costruzione.
 - Errori delle API in formato standard **RFC 7807** ([[wiki/docs/adr/ADR-018-rfc-7807-error-response\|ADR-018]])
-- OWASP Top 10, codice fiscale mascherato nei log, credenziali in K8s Secret
+- OWASP Top 10, codice fiscale mascherato nei log, credenziali gestite lato infrastruttura IaaS CSI
 
 ---
 
@@ -150,7 +150,7 @@ Il progetto mantiene un registro formale di **19 decisioni architetturali** (18 
 | Decisione | Sintesi |
 |---|---|
 | Stack tecnologico | Spring Boot 3 + Java 17 + Angular 19 + PostgreSQL 17 |
-| No API Gateway | Sicurezza applicativa diretta (Spring Security) |
+| Sicurezza API | AS-IS: Spring Security diretta (no API Gateway); TO-BE: API Manager CSI per nuovi fruitori (verbale 11/06/2026) |
 | Sicurezza API SIA | OAuth2 Client Credentials + JWT + isolamento per ente |
 | **CDU-17 PULL** | Sostituzione BATCH-03 push — **unica decisione ancora in stato "proposta"** |
 | Storicizzazione immutabile | Nessuna sovrascrittura dei consensi |
@@ -168,9 +168,9 @@ Il tracker unificato ([[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punt
 
 | Punto | Perché è critico |
 |---|---|
-| **GASP Salute: OIDC o SAML2?** | Senza il protocollo non si implementa l'autenticazione del cittadino — blocca CDU-01 e tutti i casi d'uso cittadino |
+| ✅ ~~GASP Salute: OIDC o SAML2?~~ | **CHIUSO** — SAML2 confermato (verbale 11/06/2026). Richiedere metadata XML IdP in Sprint 0. |
 | **Provisioning DBaaS Nivola (DEV e PROD)** | Senza database non parte lo Sprint 1 |
-| **Accesso automation CSI** | Serve per generare lo skeleton di progetto (pipeline, Helm) |
+| ✅ ~~Accesso automation CSI~~ | **CHIUSO** — Skeleton in carico a Exprivia (IaaS; verbale 11/06/2026) |
 | **CONSPREF-DMP senza responsabile** | Rischio slittamento della Fase 6 di migrazione |
 | **URL Authorization Server + algoritmo firma JWT** | Bloccano qualsiasi test di integrazione con i SIA |
 | **CDU-17: conferma modello PULL** | I SIA sanno fare chiamate REST attive? (PULL-08) Va scritta la specifica end-to-end (PULL-09) |

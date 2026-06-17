@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/overview/","title":"Overview","tags":["gestione-consensi","sanita-piemonte","srs","exprivia"],"dg-note-properties":{"title":"Overview","aliases":["Overview"],"type":"overview","tags":["gestione-consensi","sanita-piemonte","srs","exprivia"],"created":"2026-05-05","updated":"2026-05-29","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-appunti-e-pianificazione","2026-03-02-domande-srs-csi-v02","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7","2026-03-12-pile-tecnologiche-csi"]}}
+{"dg-publish":true,"permalink":"/wiki/overview/","title":"Overview","tags":["gestione-consensi","sanita-piemonte","srs","exprivia"],"dg-note-properties":{"title":"Overview","aliases":["Overview"],"type":"overview","tags":["gestione-consensi","sanita-piemonte","srs","exprivia"],"created":"2026-05-05","updated":"2026-06-17","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-appunti-e-pianificazione","2026-03-02-domande-srs-csi-v02","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7","2026-03-12-pile-tecnologiche-csi"]}}
 ---
 
 
@@ -15,7 +15,7 @@
 
 [[wiki/entities/exprivia\|Exprivia S.p.A.]] sta analizzando il rifacimento completo dell'applicativo [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] della Regione Piemonte. Il sistema gestisce i consensi sanitari dei cittadini piemontesi (tre livelli: nazionale, regionale, aziendale) attraverso 16 casi d'uso, 3 processi batch e 6 sistemi esterni.
 
-Il documento centrale è **CONSPREF-SRS-V1.0** (bozza v2), redatto da Marco Forneris/Exprivia il 02/03/2026, che specifica il sistema TO-BE con stack tecnologico Angular 19 + Spring Boot 3 + PostgreSQL 17 su infrastruttura cloud [[wiki/concepts/architettura-iaas\|Architettura IaaS]] (Kubernetes/Nivola).
+Il documento centrale è **CONSPREF-SRS-V1.0** (bozza v2), redatto da Marco Forneris/Exprivia il 02/03/2026, che specifica il sistema TO-BE con stack tecnologico Angular 19 + Spring Boot 3 + PostgreSQL 17 su infrastruttura cloud [[wiki/concepts/architettura-iaas\|Architettura IaaS]] (IaaS Nivola — ambienti DEV/TEST/PROD, provisioning CSI).
 
 ---
 
@@ -23,7 +23,7 @@ Il documento centrale è **CONSPREF-SRS-V1.0** (bozza v2), redatto da Marco Forn
 
 **Giudizio:** alta qualità per un documento in bozza. Il lavoro è stato fatto bene. Le lacune principali sono:
 1. **CONSPREF-DMP non formalizzato** — rischio critico per Fase 6 migrazione PG9→PG17
-2. **Protocollo [[wiki/concepts/gasp-salute\|GASP Salute]] (OIDC vs SAML2)** — aperto, blocca CDU-01
+2. ✅ ~~Protocollo GASP Salute (OIDC vs SAML2) — aperto, blocca CDU-01~~ → **SAML2 confermato** da CSI (verbale 11/06/2026) — CDU-01 può procedere alla progettazione
 3. **OpenAPI CDU-15/16** — [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|v0.1-DRAFT prodotta]]; 5 TBD da confermare con CSI prima di condividere con [[wiki/concepts/sistemi-esterni-integrati\|SIA ASR]]
 
 Vedi [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]] per analisi completa.
@@ -50,7 +50,7 @@ Spring Boot → AURA (SOAP), Deleghe (SOAP), UNP (REST), SIA-ASR (SOAP+REST)
 8 major release di salto. Strategia dump/restore. CONSPREF-DMP da redigere. Rischi documentati: autenticazione (md5→scram), tipi deprecati, comportamento timestamp.
 
 ### Sicurezza
-No API Gateway, Spring Security diretto. K8s Secret per credenziali. OWASP Top 10. CF mascherato nei log.
+**AS-IS:** sicurezza applicativa Spring Security diretta (no API Gateway esterno). **TO-BE (nuovi fruitori):** doppia esposizione — certificati firmati (AS-IS invariato) + **API Manager CSI Piemonte** con token JWS (verbale 11/06/2026). Credenziali gestite lato infrastruttura IaaS CSI. OWASP Top 10. CF mascherato nei log.
 Per CDU-15/16 (servizi REST verso SIA ASR): OAuth2 Client Credentials + JWT, isolamento per ente via tabella `cons_t_client_ente` + filter custom + WHERE clause repository (difesa a 3 livelli). Dettaglio: [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]].
 
 ---

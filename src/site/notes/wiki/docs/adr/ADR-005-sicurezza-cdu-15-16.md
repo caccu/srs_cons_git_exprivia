@@ -20,7 +20,7 @@ I CDU-15 (stato consenso per CF) e CDU-16 (configurazione per ente) sono REST es
 - Bug nei filter applicativi
 - Credenziali compromesse
 
-Dato [[wiki/docs/adr/ADR-004-no-api-gateway\|ADR-004-no-api-gateway]] (no API Gateway), tutta la sicurezza è applicativa.
+Dato [[wiki/docs/adr/ADR-004-no-api-gateway\|ADR-004-no-api-gateway]] (no API Gateway per fruitori AS-IS), la sicurezza per i fruitori esistenti è interamente applicativa. Per il TO-BE (nuovi fruitori esterni), l'API Manager CSI Piemonte gestisce il primo livello di autenticazione (verbale 11/06/2026 — vedi [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16]] §1.2).
 
 ## Decision
 

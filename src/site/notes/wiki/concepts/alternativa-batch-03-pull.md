@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/alternativa-batch-03-pull/","title":"Alternativa BATCH-03 — PULL CDU-17 (centro stella)","tags":["batch-03","cdu-17","pull","centro-stella","allineamento","sia","openapi","tr34","proposta"],"dg-note-properties":{"title":"Alternativa BATCH-03 — PULL CDU-17 (centro stella)","aliases":["Alternativa BATCH-03 — PULL CDU-17 (centro stella)"],"type":"concept","tags":["batch-03","cdu-17","pull","centro-stella","allineamento","sia","openapi","tr34","proposta"],"created":"2026-05-14","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised"],"related":["[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]","[[Sistemi Esterni Integrati]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/alternativa-batch-03-pull/","title":"Alternativa BATCH-03 — PULL CDU-17 (centro stella)","tags":["batch-03","cdu-17","pull","centro-stella","allineamento","sia","openapi","tr34","proposta"],"dg-note-properties":{"title":"Alternativa BATCH-03 — PULL CDU-17 (centro stella)","aliases":["Alternativa BATCH-03 — PULL CDU-17 (centro stella)"],"type":"concept","tags":["batch-03","cdu-17","pull","centro-stella","allineamento","sia","openapi","tr34","proposta"],"created":"2026-05-14","updated":"2026-06-17","sources":["2026-03-02-conspref-srs-v1-revised"],"related":["[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]","[[Sistemi Esterni Integrati]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -324,7 +324,7 @@ Raccomandazione: **CDU-17 PULL** come primaria. Export disponibile come fallback
 
 ## 12. Riferimenti
 
-- Decisione "no API Gateway": [[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] §3.2
+- Decisione sicurezza: [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16]] — AS-IS: Spring Security diretta (no API Gateway per fruitori esistenti); TO-BE: API Manager CSI Piemonte per nuovi fruitori (verbale 11/06/2026; vedi [[wiki/docs/adr/ADR-004-no-api-gateway\|ADR-004]])
 - Pattern sicurezza riusato: [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]
 - Specifica OpenAPI fratelli CDU-15/16: [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]
 - Inventario consumer (SIA ASR): [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]]

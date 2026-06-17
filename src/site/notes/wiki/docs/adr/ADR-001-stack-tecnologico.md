@@ -45,7 +45,7 @@ Lo stack TO-BE è:
 - QUASAR CSI library richiede accesso repo CSI (dipendenza esterna)
 
 ### Neutral
-- Build/deploy gestiti da automation CSI (no skeleton ex-novo richiesto)
+- ~~Build/deploy gestiti da automation CSI (no skeleton ex-novo richiesto)~~ → Skeleton in carico a **Exprivia** (IaaS); confronto su POM con CSI (verbale 11/06/2026)
 
 ## Alternatives considered
 

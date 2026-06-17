@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/","title":"Checklist Avvio Progetto — Gestione Consensi","tags":["checklist","avvio","sprint-0","cliente","csi-piemonte","exprivia","rischi","prerequisiti"],"dg-note-properties":{"title":"Checklist Avvio Progetto — Gestione Consensi","aliases":["Checklist Avvio Progetto — Gestione Consensi"],"type":"analysis","tags":["checklist","avvio","sprint-0","cliente","csi-piemonte","exprivia","rischi","prerequisiti"],"created":"2026-05-06","updated":"2026-05-15","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-03-02-appunti-e-pianificazione","2023-09-01-conspref-srs-01-v03","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione"],"related":["[[analysis-gap-as-is-to-be|Analisi Gap AS-IS → TO-BE — Gestione Consensi]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/entities/exprivia\|Exprivia S.p.A.]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[GASP Salute\|GASP Salute]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/","title":"Checklist Avvio Progetto — Gestione Consensi","tags":["checklist","avvio","sprint-0","cliente","csi-piemonte","exprivia","rischi","prerequisiti"],"dg-note-properties":{"title":"Checklist Avvio Progetto — Gestione Consensi","aliases":["Checklist Avvio Progetto — Gestione Consensi"],"type":"analysis","tags":["checklist","avvio","sprint-0","cliente","csi-piemonte","exprivia","rischi","prerequisiti"],"created":"2026-05-06","updated":"2026-06-17","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-03-02-appunti-e-pianificazione","2023-09-01-conspref-srs-01-v03","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione"],"related":["[[analysis-gap-as-is-to-be|Analisi Gap AS-IS → TO-BE — Gestione Consensi]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/entities/exprivia\|Exprivia S.p.A.]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[GASP Salute]]"]}}
 ---
 
 
@@ -37,15 +37,15 @@ Punti validati dalla Q&A CSI V02 o esplicitamente documentati nell'SRS e negli a
 | Notificatore UNP            | REST                 | Token UNP                        | ✅ confermato Q&A #8                |
 | SIA ASR (outbound BATCH)    | SOAP AS-IS invariato | —                                | ✅ confermato Q&A #9                |
 | SIA ASR (inbound CDU-15/16) | REST OpenAPI 3.x     | Bearer JWT                       | ✅ architettura, spec ❌ da produrre |
-| [[GASP Salute\|GASP Salute]]             | OIDC o SAML2         | SPID/CIE                         | ⚠️ **protocollo non definito**     |
+| [[wiki/concepts/gasp-salute\|GASP Salute]] | **SAML2**            | SPID/CIE                         | ✅ **confermato** — verbale 11/06/2026; metadata XML IdP da acquisire Sprint 0 |
 
 ### A3. Architettura applicativa
 
 - No API Gateway CSI — integrazione diretta, sicurezza gestita da Spring Security ([[wiki/sources/2026-03-02-domande-srs-csi-v02\|Q&A CSI #6]])
 - Skeleton progetto in carico a **Exprivia** (IaaS); confronto su POM con CSI — verbale 11/06/2026. ~~CSI fornisce automation per struttura + pipeline + Helm~~ (superato)
 - DBaaS Nivola per PostgreSQL — non PG nel pod K8s ([[wiki/sources/2026-03-02-domande-srs-csi-v02\|Q&A CSI #10]])
-- K8s Secret per tutte le credenziali — nessun segreto nel codice sorgente
-- Scheletro progetto generato da automation CSI (già attivato o da richiedere → vedi B4)
+- Credenziali gestite lato infrastruttura **IaaS CSI** — nessun segreto nel codice sorgente (no K8s Secret: ambiente IaaS non Kubernetes)
+- ~~Scheletro progetto generato da automation CSI~~ → Skeleton in carico a **Exprivia** (IaaS, non automation CSI) — vedi B4 ✅
 
 ### A4. Funzionalità — scope confermato
 

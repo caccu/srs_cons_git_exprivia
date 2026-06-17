@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-004-no-api-gateway/","title":"No API Gateway/Manager CSI — sicurezza interamente applicativa via Spring Security","tags":["sicurezza","api-gateway","spring-security","architettura","no-apim"],"dg-note-properties":{"adr":4,"title":"No API Gateway/Manager CSI — sicurezza interamente applicativa via Spring Security","status":"accepted","date":"2026-03-02","deciders":["CSI Piemonte","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["sicurezza","api-gateway","spring-security","architettura","no-apim"],"related_wiki":["[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16 — Modello Autorizzazione per Ente]]","[[architettura-iaas|Architettura IaaS]]","[[analysis-2026-05-06-openapi-cdu-15-16|OpenAPI CDU-15/16]]"],"sources":["[[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #6","[[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] §3.2"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-004-no-api-gateway/","title":"No API Gateway/Manager CSI — sicurezza interamente applicativa via Spring Security","tags":["sicurezza","api-gateway","spring-security","architettura","no-apim"],"dg-note-properties":{"adr":4,"title":"No API Gateway/Manager CSI — sicurezza interamente applicativa via Spring Security","status":"partially-superseded","date":"2026-03-02","deciders":["CSI Piemonte","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["sicurezza","api-gateway","spring-security","architettura","no-apim"],"related_wiki":["[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16 — Modello Autorizzazione per Ente]]","[[architettura-iaas|Architettura IaaS]]","[[analysis-2026-05-06-openapi-cdu-15-16|OpenAPI CDU-15/16]]"],"sources":["[[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #6","[[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] §3.2"]}}
 ---
 
 
@@ -7,7 +7,7 @@
 
 ## Status
 
-`accepted` — confermato in Q&A V02 #6, formalizzato in SRS v3 §3.2.
+`partially-superseded` — **verbale CSI/Exprivia 11/06/2026**: valido per fruitori **AS-IS esistenti** (sicurezza Spring Security applicativa). Per **nuovi fruitori TO-BE** (es. Telemedicina): doppia esposizione tramite **API Manager CSI Piemonte** (token JWS). Vedi [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16]] §1 per modello aggiornato.
 
 ## Context
 
@@ -20,7 +20,7 @@ Forze in campo:
 
 ## Decision
 
-L'applicativo **non attraversa l'API Gateway/Manager centralizzato del CSI Piemonte**. Le chiamate HTTP sono instradate direttamente ai Servizi Backend Spring Boot 3 dall'Ingress Kubernetes ECaaS. La sicurezza (autenticazione + autorizzazione) è interamente gestita a livello applicativo tramite Spring Security.
+**AS-IS (fruitori esistenti):** L'applicativo non attraversa l'API Gateway/Manager centralizzato del CSI Piemonte. Le chiamate HTTP sono instradate direttamente ai Servizi Backend Spring Boot 3. La sicurezza è interamente gestita a livello applicativo tramite Spring Security. **TO-BE (nuovi fruitori esterni):** doppia esposizione tramite API Manager CSI Piemonte con token JWS (verbale 11/06/2026 — vedi [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16]] §1.2).
 
 Conseguenza diretta: tutte le funzioni tipicamente APIM vengono ripiegate nell'app:
 

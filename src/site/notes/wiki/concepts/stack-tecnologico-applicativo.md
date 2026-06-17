@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/stack-tecnologico-applicativo/","title":"Stack Tecnologico Applicativo","tags":["stack","tecnologia","spring-boot","angular","postgresql","java"],"dg-note-properties":{"title":"Stack Tecnologico Applicativo","aliases":["Stack Tecnologico Applicativo","Stack Tecnologico","Stack Applicativo"],"type":"concept","tags":["stack","tecnologia","spring-boot","angular","postgresql","java"],"created":"2026-05-15","updated":"2026-05-29","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-12-pile-tecnologiche-csi","2026-03-02-domande-srs-csi-v02"],"related":["[[Architettura IaaS]]","[[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]","[[Gestione Consensi - Applicativo]]","[[wiki/concepts/migrazione-postgres-9-17\|Migrazione PostgreSQL 9 → 17]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/stack-tecnologico-applicativo/","title":"Stack Tecnologico Applicativo","tags":["stack","tecnologia","spring-boot","angular","postgresql","java"],"dg-note-properties":{"title":"Stack Tecnologico Applicativo","aliases":["Stack Tecnologico Applicativo","Stack Tecnologico","Stack Applicativo"],"type":"concept","tags":["stack","tecnologia","spring-boot","angular","postgresql","java"],"created":"2026-05-15","updated":"2026-06-17","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-12-pile-tecnologiche-csi","2026-03-02-domande-srs-csi-v02"],"related":["[[Architettura IaaS]]","[[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]","[[Gestione Consensi - Applicativo]]","[[wiki/concepts/migrazione-postgres-9-17\|Migrazione PostgreSQL 9 → 17]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16]]"]}}
 ---
 
 
@@ -20,7 +20,7 @@ Stack TO-BE del progetto [[wiki/concepts/gestione-consensi-applicativo\|Gestione
 | Linguaggio | Java | 17 LTS | CURRENT |
 | Sicurezza | Spring Security | 6.x (Spring Boot 3 default) | CURRENT |
 | Database | PostgreSQL | 17 (DBaaS Nivola) | CURRENT |
-| Infrastruttura | Kubernetes / [[Architettura IaaS\|ECaaS]] | Nivola | CURRENT |
+| Infrastruttura | [[wiki/concepts/architettura-iaas\|IaaS Nivola]] (DEV/TEST/PROD) — provisioning CSI | Nivola | CURRENT (verbale 11/06/2026) |
 
 ---
 
@@ -54,13 +54,13 @@ Stack TO-BE del progetto [[wiki/concepts/gestione-consensi-applicativo\|Gestione
 ## Database — PostgreSQL 17
 
 - **DBaaS Nivola** ([[wiki/entities/csi-piemonte\|CSI Piemonte]]) — non PG nel pod Kubernetes
-- Connessione via K8s Secret (no chart Helm dedicata al DB)
+- Credenziali: gestite lato infrastruttura **IaaS CSI** (no K8s Secret — ambiente non Kubernetes)
 - Funzionalità sfruttate: `SELECT FOR UPDATE SKIP LOCKED`, `gen_random_uuid()` nativa, MERGE
 - Migrazione da PG9: vedi [[wiki/concepts/migrazione-postgres-9-17\|Migrazione PostgreSQL 9 → 17]] e [[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]]
 
 ---
 
-## Infrastruttura — ECaaS Nivola
+## Infrastruttura — IaaS Nivola
 
 Vincoli vincolanti da [[wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native\|Linee Guida Cloud Native per Fornitori v1.0.1]]:
 
@@ -84,7 +84,7 @@ Dettaglio: [[wiki/concepts/architettura-iaas\|Architettura IaaS]].
 - **Multi-stage Dockerfile:** build Maven in stage build, JAR copiato in stage finale
 - **Label OpenContainers obbligatorie** su ogni immagine
 - **Helm chart obbligatori:** `springboot` (backend) + `httpd` (web server) da `helm-base` CSI
-- **No API Gateway esterno:** [[wiki/concepts/sicurezza-cdu-15-16\|Spring Security gestisce auth direttamente]]
+- **Sicurezza API:** [[wiki/concepts/sicurezza-cdu-15-16\|AS-IS: Spring Security diretta (no API Gateway esterno); TO-BE: API Manager CSI Piemonte per nuovi fruitori esterni]] (verbale 11/06/2026)
 
 ---
 

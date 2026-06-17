@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/valutazione-qualita-srs-consensi/","title":"Valutazione Qualità SRS — Gestione Consensi","tags":["valutazione","qualita","srs","analisi-critica","gestione-consensi"],"dg-note-properties":{"title":"Valutazione Qualità SRS — Gestione Consensi","aliases":["Valutazione Qualità SRS — Gestione Consensi"],"type":"analysis","tags":["valutazione","qualita","srs","analisi-critica","gestione-consensi"],"created":"2026-05-05","updated":"2026-05-18","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-appunti-e-pianificazione","2026-03-02-domande-srs-csi-v02","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7"],"related":["[[Gestione Consensi - Applicativo]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[Architettura IaaS]]","[[exprivia|Exprivia S.p.A.]]","[[CSI Piemonte]]","[[analysis-2026-05-14-risposte-mf-srs-v3|Risposte MF — Revisione SRS v3 lavorazione (69 commenti)]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/valutazione-qualita-srs-consensi/","title":"Valutazione Qualità SRS — Gestione Consensi","tags":["valutazione","qualita","srs","analisi-critica","gestione-consensi"],"dg-note-properties":{"title":"Valutazione Qualità SRS — Gestione Consensi","aliases":["Valutazione Qualità SRS — Gestione Consensi"],"type":"analysis","tags":["valutazione","qualita","srs","analisi-critica","gestione-consensi"],"created":"2026-05-05","updated":"2026-06-17","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-appunti-e-pianificazione","2026-03-02-domande-srs-csi-v02","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7"],"related":["[[Gestione Consensi - Applicativo]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[Architettura IaaS]]","[[exprivia|Exprivia S.p.A.]]","[[CSI Piemonte]]","[[analysis-2026-05-14-risposte-mf-srs-v3|Risposte MF — Revisione SRS v3 lavorazione (69 commenti)]]"]}}
 ---
 
 
@@ -68,10 +68,10 @@ L'AS-IS aveva 6 CDU (2019). Il TO-BE ne specifica 16, con espansione logica e be
 **Impatto:** Sprint 0 include la bozza v1, ma se il provisioning DBaaS è lento (alta latenza), la Fase 6 Migrazione (sett. 13-16) rischia di slittare.
 **Azione raccomandata:** Avviare la redazione DMP in parallelo all'SRS. Assegnare responsabile formale al team.
 
-### RISCHIO CRITICO 2 — Protocollo GASP Salute non definito
-**Problema:** OIDC vs SAML2 non ancora scelto. L'SRS dice "a seconda del protocollo esposto da [[wiki/concepts/gasp-salute\|GASP Salute]] — dettaglio da definire con referente CSI in fase di design tecnico."
-**Impatto:** CDU-01 (autenticazione) è prerequisito di tutti gli altri CDU Cittadino. Se [[wiki/concepts/gasp-salute\|GASP Salute]] usa SAML2, l'integrazione è più complessa e richiede librerie specifiche.
-**Azione raccomandata:** Richiesta formale documentazione [[wiki/concepts/gasp-salute\|GASP Salute]] in Sprint 0, giorni 1-2.
+### ✅ RISCHIO CRITICO 2 — Protocollo GASP Salute — CHIUSO (verbale 11/06/2026)
+**Protocollo confermato: SAML2.** Dipendenza Spring: `spring-security-saml2-service-provider`.
+**Residuo:** Documentazione tecnica [[wiki/concepts/gasp-salute\|GASP Salute]] (metadata XML IdP, endpoint, entity ID) ancora da acquisire — richiedere in Sprint 0 giorno 1.
+**Impatto residuo:** SAML2 richiede configurazione metadata XML lato SP e librerie dedicate. Più complesso di OIDC ma protocollo noto. CDU-01 può procedere alla progettazione.
 
 ### ✅ RISCHIO MODERATO 3 — OpenAPI CDU-15/16 — PARZIALMENTE MITIGATO
 **Stato:** [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|v0.1-DRAFT prodotta]] (2026-05-06) — 19 punti consolidati, 5 TBD da confermare con CSI.

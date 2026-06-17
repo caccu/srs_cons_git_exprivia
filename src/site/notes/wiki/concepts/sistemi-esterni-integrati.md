@@ -129,12 +129,24 @@ Il filtro opera a 3 livelli su ogni richiesta SIA:
 
 ## Gestione Deleghe
 
-| Aspetto          | Dettaglio                                                                                                       |
-| ---------------- | --------------------------------------------------------------------------------------------------------------- |
-| Protocollo       | SOAP + OAuth2 Client Credentials                                                                                |
-| Uso              | Verifica deleghe familiari — cittadino che opera per conto di un delegante (pulsante "Deleghe" webapp, MF20R19) |
-| WSDL             | Da richiedere a [[wiki/entities/csi-piemonte\|CSI Piemonte]] Sprint 0 ❌                                                       |
-| Stato produzione | Scenario delegante già attivo in produzione (MF22R21)                                                           |
+| Aspetto            | Dettaglio                                                                                                       |
+| ------------------ | --------------------------------------------------------------------------------------------------------------- |
+| Protocollo         | SOAP                                                                                                            |
+| Operazione SOAP    | **`getDelegantiService`**                                                                                       |
+| Routing            | **via API-Piemonte** (API Manager) — non chiamata diretta                                                       |
+| Accreditamento     | Tramite **portale API-Piemonte** (richiesto da Exprivia a CSI)                                                  |
+| Uso                | Verifica deleghe familiari — cittadino che opera per conto di un delegante (pulsante "Deleghe" webapp, MF20R19) |
+| WSDL               | Da richiedere a [[wiki/entities/csi-piemonte\|CSI Piemonte]] Sprint 0 ❌                                                       |
+| Stato produzione   | Scenario delegante già attivo in produzione (MF22R21)                                                           |
+
+**Flusso di integrazione (da immagine DelegheApi — verbale 11/06/2026):**
+
+```
+Gestione Consensi  →  getDelegantiService  →  API-Piemonte  →  DelegheApi
+                                              (accred. portale)
+```
+
+> Questo è il pattern "bridge API Manager" menzionato nel verbale 11/06/2026. Gestione Consensi sarà accreditata sul portale API-Piemonte; la chiamata transita per l'API Manager che poi raggiunge DelegheApi. Il meccanismo di firma del token usato da API-Piemonte è ancora punto aperto (vedi [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16]] §1.2).
 
 Variante errore [PROPOSTA]: se il servizio non risponde, il sistema impedisce la selezione del delegante e mostra avviso. Il cittadino opera solo per sé stesso.
 

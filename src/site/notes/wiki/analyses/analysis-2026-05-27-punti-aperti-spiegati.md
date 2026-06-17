@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-27-punti-aperti-spiegati/","title":"Punti Aperti — Spiegati in Modo Semplice","tags":["punti-aperti","csi-piemonte","guida-semplice","sprint-0","da-chiedere"],"dg-note-properties":{"title":"Punti Aperti — Spiegati in Modo Semplice","type":"analysis","tags":["punti-aperti","csi-piemonte","guida-semplice","sprint-0","da-chiedere"],"created":"2026-05-27","updated":"2026-05-27","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02"],"related":["[[analysis-2026-05-14-punti-aperti-csi|Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato]]","[[analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]]","[[gasp-salute|GASP Salute]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-27-punti-aperti-spiegati/","title":"Punti Aperti — Spiegati in Modo Semplice","tags":["punti-aperti","csi-piemonte","guida-semplice","sprint-0","da-chiedere"],"dg-note-properties":{"title":"Punti Aperti — Spiegati in Modo Semplice","type":"analysis","tags":["punti-aperti","csi-piemonte","guida-semplice","sprint-0","da-chiedere"],"created":"2026-05-27","updated":"2026-06-17","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02"],"related":["[[analysis-2026-05-14-punti-aperti-csi|Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato]]","[[analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]]","[[gasp-salute|GASP Salute]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]"]}}
 ---
 
 
@@ -36,10 +36,9 @@ Questi sono i "tappi" iniziali. Senza, lo sviluppo vero non parte.
 **Perché blocca:** serve per il go-live; ha tempi di consegna lunghi, meglio chiederlo presto.
 **Come si chiude:** seconda scheda di provisioning a CSI/Nivola.
 
-### 🔴 Chi ci crea lo scheletro del progetto? (Automation CSI — INF-03)
-**Cosa significa:** CSI ha regole obbligatorie su come va impacchettato il software (immagini Docker, Helm chart, pipeline). Esiste un sistema automatico che genera lo scheletro già conforme.
-**Perché blocca:** senza, dovremmo indovinare gli standard CSI e rischiare di rifare tutto.
-**Come si chiude:** CSI ci dà accesso al loro strumento di automation per generare la struttura iniziale o provvedono loro tramite referance implementation.
+### ✅ Chi ci crea lo scheletro del progetto? (Automation CSI — INF-03) — CHIUSO (verbale 11/06/2026)
+**Risposta:** Skeleton in carico a **Exprivia** (ambiente IaaS, non ECaaS). Exprivia crea autonomamente la struttura di progetto; confronto sul POM con CSI per allineamento su standard maven/Helm.
+**Come si chiude:** ✅ Già definito — INF-03 chiuso.
 
 ### 🔴 Chi è responsabile della migrazione del database? (CONSPREF-DMP — GOV-03)
 **Cosa significa:** il vecchio sistema gira su PostgreSQL 9, il nuovo su PostgreSQL 17 — 8 versioni di salto. Serve un piano scritto di migrazione dati (il "DMP"). Oggi non esiste e non si sa chi lo deve scrivere lato CSI.
