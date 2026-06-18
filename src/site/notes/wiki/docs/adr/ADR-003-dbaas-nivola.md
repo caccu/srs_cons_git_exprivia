@@ -1,13 +1,13 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-003-dbaas-nivola/","title":"Database PostgreSQL su DBaaS Nivola, esterno al namespace ECaaS","tags":["database","postgresql","dbaas","nivola","infrastruttura"],"dg-note-properties":{"adr":3,"title":"Database PostgreSQL su DBaaS Nivola, esterno al namespace ECaaS","status":"accepted","date":"2026-03-02","deciders":["CSI Piemonte"],"supersedes":[],"superseded-by":[],"tags":["database","postgresql","dbaas","nivola","infrastruttura"],"related_wiki":["[[wiki/concepts/architettura-iaas\|Architettura IaaS]]","[[stack-tecnologico-applicativo|Stack Tecnologico Applicativo]]","[[migrazione-postgres-9-17|Migrazione PostgreSQL 9 → 17]]"],"sources":["[[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #10"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-003-dbaas-nivola/","title":"Database PostgreSQL su DBaaS Nivola, esterno all'infrastruttura IaaS","tags":["database","postgresql","dbaas","nivola","infrastruttura"],"dg-note-properties":{"adr":3,"title":"Database PostgreSQL su DBaaS Nivola, esterno all'infrastruttura IaaS","status":"accepted","date":"2026-03-02","deciders":["CSI Piemonte"],"supersedes":[],"superseded-by":[],"tags":["database","postgresql","dbaas","nivola","infrastruttura"],"related_wiki":["[[wiki/concepts/architettura-iaas\|Architettura IaaS]]","[[stack-tecnologico-applicativo|Stack Tecnologico Applicativo]]","[[migrazione-postgres-9-17|Migrazione PostgreSQL 9 → 17]]"],"sources":["[[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #10"]}}
 ---
 
 
-# ADR-003: DBaaS Nivola, esterno al namespace ECaaS
+# ADR-003: DBaaS Nivola, esterno all'infrastruttura IaaS
 
 ## Status
 
-`accepted` — confermato da CSI in Q&A V02 #10.
+`accepted` — confermato da CSI in Q&A V02 #10. DB esterno all'infrastruttura IaaS Nivola.
 
 ## Context
 
@@ -20,11 +20,11 @@ Decisione su dove erogare PostgreSQL: dentro il pod K8s del namespace applicativ
 
 ## Decision
 
-PostgreSQL 17 viene erogato da **DBaaS Nivola** (servizio gestito CSI), esterno al namespace ECaaS dell'applicativo.
+PostgreSQL 17 viene erogato da **DBaaS Nivola** (servizio gestito CSI), esterno all'infrastruttura IaaS Nivola dell'applicativo.
 
 - Provisioning via scheda formale a Nivola (alta latenza)
 - Backup, patching, HA gestiti da Nivola
-- Credenziali consegnate via K8s Secret → variabili env Spring; **mai nel codice sorgente**
+- Credenziali: gestite lato infrastruttura **IaaS CSI** → variabili env Spring; **mai nel codice sorgente** (no K8s Secret — ambiente non Kubernetes)
 - HikariCP pool: `max-pool-size ≤ 40/replica` (istanza 100 conn max, 2 repliche)
 
 ## Consequences
@@ -48,7 +48,7 @@ PostgreSQL 17 viene erogato da **DBaaS Nivola** (servizio gestito CSI), esterno 
 | Alternativa | Motivo scarto |
 |---|---|
 | PostgreSQL in pod K8s | Persistenza problematica, no HA out-of-box, backup non garantiti |
-| StatefulSet con PVC | Vincoli ECaaS impediscono storage non-NFS per dati critici |
+| StatefulSet con PVC | Vincoli IaaS/Nivola impediscono storage non-NFS per dati critici |
 | Cloud RDS esterno | Fuori policy CSI sanità (dati devono restare in Nivola) |
 
 ## References

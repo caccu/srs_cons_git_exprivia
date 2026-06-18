@@ -102,4 +102,4 @@ graph TD
 | ADR | Decisione |
 |---|---|
 | [ADR-002](ADR-002-piattaforma-ecaas.md) | Piattaforma ECaaS Kubernetes Nivola + vincoli |
-| [ADR-003](ADR-003-dbaas-nivola.md) | DBaaS Nivola esterno al namespace ECaaS |
+| [ADR-003](ADR-003-dbaas-nivola.md) | DBaaS Nivola esterno all'infrastruttura IaaS |
