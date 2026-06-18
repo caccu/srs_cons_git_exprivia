@@ -7,7 +7,7 @@
 
 ## Status
 
-`partially-superseded` — **verbale CSI/Exprivia 11/06/2026**: valido per fruitori **AS-IS esistenti** (sicurezza Spring Security applicativa). Per **nuovi fruitori TO-BE** (es. Telemedicina): doppia esposizione tramite **API Manager CSI Piemonte** (token JWS). Vedi [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16]] §1 per modello aggiornato.
+`partially-superseded` — **verbale CSI/Exprivia 11/06/2026**: valido per fruitori **AS-IS esistenti** (sicurezza Spring Security applicativa). Per **nuovi fruitori TO-BE**: doppia esposizione tramite **API Manager CSI Piemonte** (token JWS). Vedi [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16]] §1 per modello aggiornato.
 
 ## Context
 
