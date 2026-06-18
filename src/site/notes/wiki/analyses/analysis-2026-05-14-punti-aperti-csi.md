@@ -136,6 +136,7 @@ Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-op
 ## Note di gestione
 
 1. **Ownership tracker:** Marco Forneris (Exprivia) propone questo file come agenda per la prossima riunione CSI/Exprivia.
+   - 📋 **2026-06-18:** da questo tracker è stata derivata un'agenda formale per la riunione — deliverable `Agenda-riunione-CSI-CONSPREF_2026-06-18.docx`/`.pdf` (root repo), con in più i punti emersi dall'audit del 18/06: dettagli operativi infrastruttura **IaaS** (modello deploy/ingress/segreti/CI-CD + pila CSI di riferimento al posto degli identificativi «k8s») e l'evidenza su **BAT-01** (operazione WSDL attesa SRV-03 NotificaAcquisizioneConsenso).
 2. **Workflow proposto:** ogni voce avrà un campo `risposta_csi` da popolare in revisione successiva del SRS; alla chiusura del punto, la voce si trasforma in entry permanente in [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] o nella relativa concept page.
 3. **Dipendenze incrociate evidenti:**
    - SEC-01/API-01 (URL AS) → bloccante per qualsiasi test integrazione SIA
