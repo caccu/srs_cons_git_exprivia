@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-06-17"}}
+{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-06-19"}}
 ---
 
 
@@ -13,7 +13,7 @@ Master catalogo di tutte le pagine. Aggiornato.
 
 | Rischio                                                                             | Impatto                                              | Azione                                                                                        |
 | ----------------------------------------------------------------------------------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| GASP Salute: OIDC vs SAML2 non scelto                                               | Blocca CDU-01 e tutti i CDU Cittadino                | Richiedere doc Sprint 0 giorno 1                                                              |
+| ~~GASP Salute: OIDC vs SAML2~~ — ✅ **CHIUSO** SAML2 confermato (verbale 11/06/2026) | CDU-01 può procedere alla progettazione              | —                                                                                             |
 | [[wiki/analyses/conspref-dmp-tracker\|conspref-dmp-tracker]] non formalizzato                                           | Slittamento Fase 6 migrazione PG9→PG17               | Assegnare responsabile formale                                                                |
 | OpenAPI CDU-15/16 — [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]], 5 TBD aperti con CSI | Blocca go-live integrazione SIA ASR                  | Condividere bozza con ASR, confermare 5 TBD Sprint 1-2                                        |
 | BATCH-01: SRV-01 vs SRV-03?                                                         | Errore implementativo WSDL                           | Conferma scritta da CSI                                                                       |
@@ -92,6 +92,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 - [[wiki/analyses/analysis-2026-05-27-punti-aperti-spiegati\|Punti Aperti — Spiegati in Modo Semplice]] — Versione in linguaggio piano del tracker: per ogni punto cosa significa, perché blocca, come si chiude
 - [[wiki/analyses/analysis-2026-06-10-riassunto-presentazione-cliente\|Riassunto Esecutivo — Presentazione Progetto Gestione Consensi]] — Sintesi completa per presentazione cliente: contesto, funzionalità, architettura, sicurezza, batch, migrazione, pianificazione, ADR, punti aperti
 - [[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]] — Tracker stato Data Migration Plan PG9→PG17; 7 sezioni con owner, 4 decision-point aperti, RACI CSI mancante.
+- [[wiki/analyses/proposte-allineamento-SRS-vs-wiki\|Proposte di allineamento SRS CONSPREF v1.0 ↔ Wiki]] — 8 proposte applicate al deliverable `CONSPREF-SRS-V1.0_allineato-wiki_2026-06-18.docx`; esiti audit multi-agente: 4 discrepanze vs decisioni chiuse (A1-A4), 8 incongruenze interne (B1-B8), 3 note punti aperti verso CSI (C1-C3)
 
 ---
 
@@ -104,7 +105,7 @@ Indice completo: [docs/adr/README.md](wiki/docs/adr/README.md)
 | ADR | Titolo | Status |
 |---|---|---|
 | [ADR-001](ADR-001-stack-tecnologico.md) | Stack tecnologico (Spring Boot 3 + Java 17 + Angular 19 + PG17) | accepted |
-| [ADR-002](ADR-002-piattaforma-ecaas.md) | Piattaforma ECaaS Kubernetes Nivola + vincoli | accepted |
+| [ADR-002](ADR-002-piattaforma-ecaas.md) | Piattaforma ECaaS Kubernetes Nivola + vincoli | **superseded** |
 | [ADR-003](ADR-003-dbaas-nivola.md) | DBaaS Nivola esterno al namespace | accepted |
 | [ADR-004](ADR-004-no-api-gateway.md) | No API Gateway — sicurezza applicativa Spring Security | accepted |
 | [ADR-005](ADR-005-sicurezza-cdu-15-16.md) | Sicurezza CDU-15/16 OAuth2 CC + JWT + per-ente | accepted |
