@@ -82,17 +82,17 @@ NON_ESPRESSO → ATTIVO | NEGATO → SCADUTO | ANNULLATO
 
 ---
 
-## Casi d'Uso — 16 CDU (cap. 6)
+## Casi d'Uso — 17 CDU (cap. 6)
 
-**Area Cittadino (CDU-01÷CDU-06):**
+**Area Cittadino (CDU-01÷04, CDU-06):**
 - CDU-01: Accesso/selezione profilo (GASP Salute, deleghe)
 - CDU-02: Consultazione consensi (cruscotto con card per stato)
 - CDU-03: Rilascio nuovo consenso (ALG01 caricamento, ALG02 salvataggio+notifica)
-- CDU-04: Modifica consenso (logica differenziata per stato ATTIVO/NEGATO/SCADUTO/ANNULLATO)
-- CDU-05: Modifica valore consenso (solo ATTIVO/NEGATO, senza riaccettazione informativa)
-- CDU-06: Download/stampa PDF (**NUOVA funzionalità TO-BE**, iText7 o PDFBox lato backend)
+- CDU-04: Modifica consenso (logica differenziata per stato ATTIVO/NEGATO/SCADUTO/ANNULLATO; lato cittadino il cambio valore è inglobato qui con unico "Salva" — ADR-011)
+- CDU-06: Download/stampa PDF (**NUOVA funzionalità TO-BE**, iText7 o PDFBox lato backend; solo informativa, no valore, no firma — ADR-019)
 
-**Area Operatore Sanitario/Amministrativo (CDU-07÷CDU-11):**
+**Area Operatore Sanitario/Amministrativo (CDU-05, CDU-07÷CDU-11):**
+- CDU-05: Modifica valore consenso (solo ATTIVO/NEGATO, senza riaccettazione informativa) — **caso d'uso solo Operatore** (per il cittadino è inglobato in CDU-04, ADR-011)
 - CDU-07: Ricerca assistito (AURA: FindProfiliAnagrafici + getProfiloSanitario; **nessun fallback SistemaTS** — MF55R54; tracciatura cons_t_traccia_serv_est)
 - CDU-08: Consultazione consensi assistito
 - CDU-09: Rilascio consenso per conto (fonte_id='PASS')
@@ -102,11 +102,12 @@ NON_ESPRESSO → ATTIVO | NEGATO → SCADUTO | ANNULLATO
 **Area Back Office (CDU-12÷CDU-14):**
 - CDU-12: Gestione tipo consenso (parametri dinamici da cons_d_parametro, ALG01 popolamento enti, ALG02 salvataggio multi-tabella)
 - CDU-13: Gestione informativa (upload PDF, trigger asincrono BATCH-02)
-- CDU-14: Gestione ente ed endpoint (stato_allineamento, trigger BATCH-03)
+- CDU-14: Gestione ente ed endpoint (stato_allineamento DA_ALLINEARE → notifica out-of-band al SIA → allineamento PULL via CDU-17; BATCH-03 rimosso)
 
-**Servizi per SIA (CDU-15÷CDU-16):**
-- CDU-15: GET /api/v1/consensi/stato — Bearer JWT OAuth2 CC, RFC 7807 errori
+**Servizi per SIA (CDU-15÷CDU-17):**
+- CDU-15: GET /api/v1/consensi/stato — Bearer JWT OAuth2 CC, RFC 7807 errori, 429 rate limit
 - CDU-16: GET /api/v1/configurazione/{codiceEnte} — configurazioni attive per ente
+- CDU-17: GET /api/v1/consensi/snapshot — snapshot PULL paginato per allineamento endpoint (**proposta tecnica** TR34/TR68, sostituisce BATCH-03)
 
 ---
 
@@ -132,8 +133,11 @@ NON_ESPRESSO → ATTIVO | NEGATO → SCADUTO | ANNULLATO
 - `cons_t_notifica` — coda notifiche BATCH-01
 - `csi_log_audit` — audit DB
 - `cons_t_traccia_serv_est` — tracciatura chiamate esterne
+- `cons_t_client_ente` — mappatura client_id→codice_ente (isolamento per ente CDU-15/16/17, §8.4.11)
 
-**9 proposte evolutive** incluse nel documento (nuove tabelle e estensioni).
+**25 tabelle core (§8.3) + `cons_t_client_ente` (§8.4.11) = 26 TO-BE.**
+
+**11 proposte evolutive** (§8.4.1÷8.4.11) incluse nel documento (nuove tabelle e estensioni). NB: §8.4 introduce anche il modello di sicurezza CDU-15/16/17 (`EnteAuthorizationFilter`, Snapshot Service, rate limit `bucket4j`).
 
 ---
 

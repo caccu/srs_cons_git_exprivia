@@ -22,47 +22,52 @@ graph TD
 
     subgraph INFRA["Cloud CSI Nivola (IaaS)"]
         subgraph FL["Frontend Layer"]
-            AW["Apache Web Server\n(immagine: httpd_csi · docker-base)"]
+            AW["Apache Web Server"]
         end
-        subgraph BL["Backend Layer"]
-            AG["API Gateway"]
-            subgraph SB["Servizi Backend (Spring Boot 3)"]
-                SGC["Servizio Gestione Consensi"]
-                SC["Servizio Configurazione"]
-            end
+        subgraph BL["Backend Layer (Spring Boot 3)"]
+            EAF["EnteAuthorizationFilter\n(isolamento dati per ente)"]
+            SGC["Servizio Gestione Consensi"]
+            SC["Servizio Configurazione"]
+            SNAP["Snapshot Service\n(CDU-17 PULL — proposta)"]
         end
         subgraph DL["Data Layer"]
-            PG[("PostgreSQL DB")]
+            PG[("PostgreSQL — DBaaS Nivola")]
         end
     end
 
     subgraph SE["Sistemi Esterni"]
-        GASP["GASP Salute\n(SPID/CIE)"]
+        GASP["GASP Salute\n(SPID/CIE — SAML2)"]
         AURA["AURA"]
-        GD["Gestione Deleghe"]
-        NOT["Notificatore"]
+        GD["Gestione Deleghe\n(via API-Piemonte)"]
+        NOT["Notificatore\n(UNP / Deleghe)"]
         SIA["SIA ASR\n(1 azienda : n sistemi)"]
         CR["Configuratore Regionale\n(PUA / IRIDE)"]
+        APIM["API Manager CSI\n(TO-BE — solo nuovi fruitori esterni)"]
     end
 
     WC --> AW
     WO --> AW
-    AW --> AG
-    AG --> SGC
-    AG --> SC
+    AW --> SGC
+    AW --> SC
     SGC --> PG
     SC --> PG
+    SNAP --> PG
     SGC --> AURA
     SGC --> GD
     SGC --> NOT
     SGC --> SIA
-    WC -. "Autenticazione SPID/CIE" .-> GASP
+    SIA -. "CDU-15/16/17 (REST, OAuth2 JWT)" .-> EAF
+    APIM -. "nuovi fruitori esterni TO-BE" .-> EAF
+    EAF --> SGC
+    EAF --> SNAP
+    WC -. "Autenticazione SPID/CIE (SAML2)" .-> GASP
     WO -. "Profilazione gestita da PUA / Configuratore" .-> CR
 
     style AW fill:#e8f4f8,stroke:#2c6e9e,color:#000
     style PG fill:#e8f4f8,stroke:#2c6e9e,color:#000
     style CR fill:#f0f0f0,stroke:#555,color:#000
     style GASP fill:#f0f0f0,stroke:#555,color:#000
+    style APIM fill:#f0f0f0,stroke:#555,color:#000
     style INFRA fill:#f5f9ff,stroke:#2c6e9e
     style SE fill:#f9f9f9,stroke:#888
     style BROWSER fill:#fff,stroke:#333
@@ -78,4 +83,7 @@ graph TD
 - **SIA ASR** — relazione **1 azienda : n sistemi** (verbale 11/06/2026). Un'ASR può avere più sistemi SIA; se uno è in manutenzione, CSI interrompe l'invio verso tutti. Vedi [[wiki/concepts/batch-processes\|Processi Batch]] §Gestione Manutenzione ASR.
 - **Infrastruttura [[wiki/concepts/architettura-iaas\|Architettura IaaS]]:** ambiente IaaS Nivola (non ECaaS/Kubernetes) per tutti gli ambienti (verbale 11/06/2026).
 
-> ⚠️ **Conflict — API Gateway:** Il diagramma mantiene il nodo "AG" tra Apache e Spring Boot. L'SRS §3.4 (confermato da CSI nel Q&A #6) specifica che **non è previsto un API Gateway separato** per l'AS-IS — Spring Security gestisce autenticazione/autorizzazione. Per il TO-BE, il verbale 11/06/2026 introduce **API Manager CSI** per nuovi fruitori esterni. Il nodo AG potrebbe rappresentare questo API Manager TO-BE. Da chiarire con [[wiki/entities/csi-piemonte\|CSI Piemonte]] nella prossima revisione architetturale.
+- **EnteAuthorizationFilter + Snapshot Service** — aggiunti al Backend Layer per recepire il modello di sicurezza CDU-15/16 e il CDU-17 PULL (proposta tecnica) del documento SRS §3.3/§6.17.
+- **API Manager CSI** — nodo separato, **solo TO-BE per nuovi fruitori esterni** (verbale 11/06/2026); NON è sul percorso AS-IS Frontend→Backend.
+
+> ✅ **Aggiornamento 2026-06-18:** il nodo "API Gateway" sul percorso AS-IS (Apache→Backend) è stato **rimosso** per allineamento all'SRS §3.2 (integrazione diretta, nessun gateway per i fruitori AS-IS; Spring Security a livello applicativo). L'esposizione via **API Manager CSI** resta come canale TO-BE per i soli nuovi fruitori esterni. Rimosso anche il riferimento all'immagine ECaaS `httpd_csi · docker-base` (modello ECaaS superato → IaaS). Restano da definire con CSI i dettagli operativi IaaS (deploy/ingress/TLS).

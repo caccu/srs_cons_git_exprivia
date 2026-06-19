@@ -19,8 +19,10 @@
 |---|---|
 | Protocollo | **REST** |
 | Auth | Token applicativo UNP |
-| Canali | Email, push, IO (notifiche app IO), mex Salute Piemonte |
+| Canali | Email, push, IO (notifiche app IO), mex Salute Piemonte, SMS (disponibile ma non utilizzato per policy — da non implementare) |
 | Conferma | Q&A CSI #8 |
+
+> Nota: nel documento SRS il servizio è denominato **"Notificatore Regionale (UNP)"**.
 
 ---
 
@@ -33,8 +35,10 @@ Spring Boot → UNP (REST) → email/push/IO/mex
 ```
 
 Casi d'uso applicativi (non BATCH-01):
-- Notifica scadenza imminente informativa al cittadino (futuro, non in scope SRS attuale)
+- **Notifica al cittadino di consenso ANNULLATO per scadenza informativa — IN SCOPE V1.0**: inviata direttamente da **BATCH-02** (SRS §7.2) tramite UNP, con flag `flag_notifica_cittadino = TRUE`. (Il consenso che diventa SCADUTO, `annulla_consensi=NO`, non genera notifica.)
 - Notifica eventi applicativi generici (audit, reset, comunicazioni operative)
+
+> ⚠️ **Correzione 2026-06-18:** la notifica di annullamento al cittadino era erroneamente marcata "futuro / non in scope"; il documento SRS la specifica come **in scope** in BATCH-02. Resta valido che la *conferma di rilascio* (CDU-03) vada via Notificatore di Deleghe, non UNP.
 
 ---
 

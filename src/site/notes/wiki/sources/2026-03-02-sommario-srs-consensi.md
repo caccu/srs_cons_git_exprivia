@@ -20,9 +20,9 @@
 | §3      | Architettura: sintesi, modello, componenti, GASP, framework, ECaaS           | §3.3.1 specifica [[wiki/concepts/gasp-salute\|GASP Salute]]; §3.5.1-3.5.6 infrastruttura [[wiki/concepts/architettura-iaas\|Architettura IaaS]] |                                                 |
 | §4      | Logging: tracciatura servizi esterni, spec integrazioni                      | —                                                                                                                     |                                                 |
 | §5      | Requisiti di business: stati consenso + diagramma                            | §5.1-5.2 macchina a stati — vedi [[wiki/concepts/ciclo-vita-consenso\|ciclo-vita-consenso]]                                                              |                                                 |
-| §6      | Modello Casi d'Uso: CDU-01÷16                                                | 16 sezioni, una per CDU                                                                                               |                                                 |
-| §7      | Processi batch: BATCH-01÷03                                                  | vedi [[wiki/concepts/batch-processes\|batch-processes]]                                                                                              | Processi Batch — BATCH-01, BATCH-02, BATCH-03]] |
-| §8      | Modello dati: ER AS-IS, ER TO-BE, dizionario 25 tabelle, 10 PROPOSTA         | §8.3.1-8.3.25 + §8.4.1-8.4.10                                                                                         |                                                 |
+| §6      | Modello Casi d'Uso: CDU-01÷17 (CDU-17 = proposta tecnica)                    | 17 sezioni, una per CDU                                                                                               |                                                 |
+| §7      | Processi batch: BATCH-01, BATCH-02 (BATCH-03 RIMOSSO → CDU-17 PULL)          | vedi [[wiki/concepts/batch-processes\|batch-processes]]                                                                                              | Processi Batch — BATCH-01, BATCH-02, BATCH-03]] |
+| §8      | Modello dati: ER AS-IS, ER TO-BE, dizionario 25 tabelle + 1 nuova, 11 PROPOSTA | §8.3.1-8.3.25 + §8.4.1-8.4.11                                                                                       |                                                 |
 | §9      | Requisiti Non Funzionali: sicurezza, scalabilità, migrazione, audit PG9→PG17 | —                                                                                                                     |                                                 |
 
 ---
@@ -45,11 +45,11 @@
 | 8.3.12 | `cons_s_consenso` | 8.3.25 | `cons_r_consenso_parametro` |
 | 8.3.13 | `cons_t_notifica` | | |
 
-**Totale confermato: 25 tabelle TO-BE** (vs 12 AS-IS)
+**Totale: 25 tabelle core (§8.3) + 1 nuova tabella applicativa `cons_t_client_ente` (§8.4.11) = 26 TO-BE** (vs 12 AS-IS)
 
 ---
 
-## Proposte evolutive — 10 [PROPOSTA] in §8.4
+## Proposte evolutive — 11 [PROPOSTA] in §8.4
 
 | § | Oggetto |
 |---|---|
@@ -63,6 +63,7 @@
 | 8.4.8 | Estensione: `cons_d_informativa` |
 | 8.4.9 | Nuova tabella: `cons_t_batch_errori` |
 | 8.4.10 | Estensione: `cons_s_consenso` e `cons_t_consenso` |
+| 8.4.11 | Nuova tabella: `cons_t_client_ente` (isolamento dati per ente — CDU-15/16/17; con `EnteAuthorizationFilter`, Snapshot Service, rate limit bucket4j) |
 
 Dettagli di ogni PROPOSTA nel documento principale [[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]].
 
@@ -70,6 +71,6 @@ Dettagli di ogni PROPOSTA nel documento principale [[wiki/sources/2026-03-02-con
 
 ## Utilità per la wiki
 
-- **Audit DDL:** lista completa 25 tabelle TO-BE — usare per Sprint 0 audit PG9→PG17
+- **Audit DDL:** lista completa 26 tabelle TO-BE (25 §8.3 + `cons_t_client_ente` §8.4.11) — usare per Sprint 0 audit PG9→PG17
 - **Navigazione SRS:** mappa sezioni per query rapide
-- **PROPOSTA tracking:** 10 proposte da validare con CSI prima degli sprint
+- **PROPOSTA tracking:** 11 proposte da validare con CSI prima degli sprint
