@@ -9,6 +9,8 @@
 
 **Stato corpus alla data:** 31 pagine, 30/30 risposte MF da SRS v3_lavorazione propagate, 0 dead-link.
 
+> 🔄 **Aggiornamento 18/06/2026 (allineato all'agenda riunione):** chiusi/recepiti nel documento — **ID-01** (GASP=SAML2, restano solo metadata), **INF-03** (skeleton Exprivia/IaaS), **INT-05** (Notificatore di Deleghe ≠ UNP), **INF-04** (diagramma aggiornato). Nuovi/raffinati — **INF-05** (dettagli operativi IaaS: deploy/ingress/segreti/CI-CD + pila «k8s»), **BAT-01** (SRV-03 + SRV-04), **BAT-02/SC67** (sorgente `annulla_consensi`: informativa scaduta vs nuova), **GOV-02** (deroga V03 su `online`/`annulla_consensi`). L'ordine del giorno operativo è in `Agenda-riunione-CSI-CONSPREF_2026-06-18`.
+
 **Legenda priorità:**
 - 🔴 **CRITICO** — blocca Sprint 0/1, da chiarire **Giorno 1**
 - 🟠 **ALTO** — blocca Sprint 2-3
@@ -78,8 +80,8 @@ Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-op
 
 | #     | Domanda                                                                                                    | Prio | Sprint   | Fonte                                                              |
 |-------|------------------------------------------------------------------------------------------------------------|------|----------|--------------------------------------------------------------------|
-| BAT-01 | **Operazione WSDL per BATCH-01: SRV-01 (AcquisizioneConsenso inbound) o SRV-03 (NotificaAcquisizioneConsenso outbound)?** | 🟡 (rischio implementativo grave) | Sprint 1 | [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] §RISCHIO, Checklist §B10 |
-| BAT-02 | **SC67 — Logica INSERT cons_t_consenso da BATCH-02 (ALG02 storicizzazione): "da approfondire e verificare meglio"** | 🟠   | Prima di chiudere SRS | [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] §ALG02, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] §Tema J |
+| BAT-01 | **Operazioni WSDL per BATCH-01: confermare SRV-03 NotificaAcquisizioneConsenso (acquisizioni, in uscita) e SRV-04 NotificaRevocaConsenso (revoche/annullamenti), distinte da SRV-01 (in ingresso); + nomi esatti dei campi del tracciato.** Recepito in SRS §7.1 come nota; resta da confermare con CSI. | 🟡 (rischio implementativo grave) | Sprint 1 | [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] §RISCHIO, Checklist §B10 |
+| BAT-02 | **SC67 — Storicizzazione BATCH-02 (ALG02). Punto concreto: il flag `annulla_consensi` va letto dall'informativa SCADUTA o dalla NUOVA? L'SRS §6.13 (scaduta) e §7.2 SQL (nuova) divergono → riconciliare con CSI.** | 🟠   | Prima di chiudere SRS | [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] §ALG02, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] §Tema J |
 | BAT-03 | Stato SCADUTO — semantica cambiata AS-IS vs TO-BE: SIA ASR devono aggiornare logica business. Conferma comunicazione ASR? | 🟠   | Sprint 1 | [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] §Differenza semantica, [[wiki/analyses/analysis-gap-as-is-to-be\|Analisi Gap AS-IS → TO-BE — Gestione Consensi]] |
 
 ---
@@ -92,7 +94,7 @@ Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-op
 | INT-02 | **WSDL Gestione Deleghe** — operazione SOAP: `getDelegantiService`; routing via **API-Piemonte** (accreditamento portale). Accreditamento Exprivia su portale API-Piemonte da richiedere a CSI. | 🟠   | Sprint 0 | Checklist §B6, [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] §Gestione Deleghe |
 | INT-03 | **LIS — acronimo + spec integrazione canale acquisizione consensi** (MF3R1, MF4R1)        | 🟠   | Sprint 1 | [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] §LIS, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] §Tema A |
 | INT-04 | Accesso repo **QUASAR CSI** (componenti UI)                                               | 🟠   | Sprint 1 | Checklist §B8                                                                                                     |
-| INT-05 | Distinzione formalizzata in SRS: **Notificatore di Deleghe ≠ Notificatore UNP** (MF33R31) | 🟡   | Sprint 2 | [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] §Notificatore                                            |
+| INT-05 | ~~Distinzione Notificatore di Deleghe ≠ Notificatore UNP in SRS~~ ✅ **RECEPITO** in SRS §4.2/§7 (Deleghe = conferma rilascio post-COMPLETATO; UNP = annullamento/scadenza e notifiche generiche) | ✅   | — | [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] §Notificatore                                            |
 |        |                                                                                           |      |          |                                                                                                                   |
 
 ---
@@ -104,7 +106,8 @@ Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-op
 | INF-01 | **Provisioning DBaaS Nivola DEV** — scheda provisioning standard                                          | 🔴   | Giorno 1 | Checklist §B2 |
 | INF-02 | **Provisioning DBaaS Nivola PROD**                                                                       | 🔴   | Sprint 0 | Checklist §B3 |
 | INF-03 | ~~Accesso automation CSI~~ ✅ **CHIUSO** — Skeleton in carico a **Exprivia** (IaaS, non ECaaS). Confronto su POM con CSI (verbale 11/06/2026). | ✅   | Giorno 1 | Checklist §B4 |
-| INF-04 | **Diagramma architetturale** — correzioni confermate dal verbale 11/06/2026: (1) cittadini via SPID/CIE diretto, non transitano dal configuratore; (2) SIA relazione **1 a n**. Aggiornamento diagramma in carico a Exprivia. | 🟠 | Sprint 0 | [[wiki/sources/2026-05-05-mermaid-architettura\|Diagramma Architettura Sistema — Mermaid]] §Conflict, Checklist §B14 |
+| INF-04 | ~~Diagramma architetturale~~ ✅ **AGGIORNATO** (Exprivia, 18/06/2026): rimosso il nodo API Gateway dal percorso AS-IS, infra IaaS, SIA 1:n, cittadini via SPID/CIE diretto, aggiunti EnteAuthorizationFilter/Snapshot Service/CDU-17. | ✅ | — | [[wiki/sources/2026-05-05-mermaid-architettura\|Diagramma Architettura Sistema — Mermaid]], Checklist §B14 |
+| INF-05 | **Dettagli operativi ambiente IaaS Nivola** — modello di deploy/rilascio, ingress/TLS, gestione segreti applicativi, pipeline CI/CD, e quale «pila» CSI usare per IaaS (le pile di riferimento hanno label «k8s»/ECaaS). | 🔴 | Sprint 0 | [[wiki/concepts/architettura-iaas\|Architettura IaaS]], SRS §3.5.6 |
 
 ---
 
@@ -113,7 +116,7 @@ Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-op
 | #      | Domanda                                                                                                                   | Prio | Sprint         | Fonte                                                                        |
 | ------ | ------------------------------------------------------------------------------------------------------------------------- | ---- | -------------- | ---------------------------------------------------------------------------- |
 | GOV-01 | **Approvazione formale SRS V1.0 bozza v2** da CSI (post-recepimento risposte MF v3_lavorazione)                           | 🟠   | Prima Sprint 1 | Checklist §B12, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]                   |
-| GOV-02 | **Validazione [PROPOSTA] nell'SRS** — ALG02 BATCH-01 (gestione tentativi), CDU-06 PDF (MF49R48 MF51R50), 10 proposte §8.4 | 🟠   | Prima Sprint 2 | Checklist §B13, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] §Tema D           |
+| GOV-02 | **Validazione [PROPOSTA] nell'SRS** — ALG02 BATCH-01 (gestione tentativi), CDU-06 PDF (MF49R48 MF51R50), 11 proposte §8.4, e in particolare la **deroga al requisito V03** su `online`/`annulla_consensi` mantenuti su `cons_d_informativa` in V1.0 (SRS §8.4.5) | 🟠   | Prima Sprint 2 | Checklist §B13, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] §Tema D           |
 | GOV-03 | **CONSPREF-DMP** — Piano migrazione PG9→PG17 non ancora formalizzato: chi è responsabile lato CSI?                        | 🔴   | Sprint 0       | [[wiki/sources/2026-03-02-domande-srs-csi-v02\|2026-03-02-domande-srs-csi-v02]], Q11,[[wiki/analyses/valutazione-qualita-srs-consensi\|valutazione-qualita-srs-consensi]] |
 | GOV-04 | **SLA e NFR performance** — tempo risposta max CDU-02, throughput BATCH-01, disponibilità (99.x%)                         | 🟡   | Prima UAT      | Checklist §B15                                                               |
 | GOV-05 | **Lista ASR coinvolte** + referenti tecnici (confluisce con API-05)                                                       | 🟠   | Sprint 2       | Checklist §B11                                                               |
