@@ -9,6 +9,8 @@
 
 Infrastruttura cloud [[wiki/entities/csi-piemonte\|CSI Piemonte]] su Nivola per il progetto [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]]. Ambiente **IaaS** (non ECaaS/Kubernetes) per tutti gli ambienti.
 
+> ⚠️ **Nota di allineamento (2026-06-18):** l'SRS è stato riscritto in chiave IaaS (§3.5). I componenti e i vincoli elencati sotto (IngressController Traefik, CNI Cilium, deploy Helm/GitOps, namespace isolato, registry Artifactory, livenessProbe/readinessProbe) **derivano dal modello ECaaS/Kubernetes** e **non si applicano automaticamente all'ambiente IaaS**: vanno ridefiniti con CSI. Sono mantenuti qui come riferimento storico/transitorio finché CSI non fornisce i dettagli IaaS (deploy, ingress/TLS, gestione segreti, CI/CD). Cfr. SRS §3.5 e i punti aperti infrastrutturali §3.5.6.
+
 ---
 
 ## Componenti infrastrutturali
