@@ -37,7 +37,7 @@ FOR UPDATE SKIP LOCKED;
 ```
 
 Conseguenze:
-- Più istanze pod (Kubernetes) di BATCH-01 possono girare in parallelo senza collisioni
+- Più istanze (backend) di BATCH-01 possono girare in parallelo senza collisioni
 - Notifiche non duplicate
 - Notifiche in stato di lock da una run non sono prese da run successive — evitando sovrapposizione AS-IS che aveva motivato il 30 min
 
@@ -64,7 +64,7 @@ Vedi 6.14 CDU-14 (Gestione ente ed endpoint) e ALG01 (Selezione nuovi endpoint) 
 | `IN_INVIO` | `INVIATO` | Response 2xx da SIA |
 | `IN_INVIO` | `ERRORE` | Response 4xx/5xx o timeout |
 | `ERRORE` | `IN_INVIO` | Retry da BATCH-01 (con backoff) |
-| `ERRORE` | `FALLITO_DEFINITIVO` | Max retry superato → archiviazione `cons_t_notifica_errore_dett` |
+| `ERRORE` | `ERRORE_PERMANENTE` | Dopo 3 tentativi falliti (SRS §7.1 ALG02 / §8.4.2) → `cons_t_notifica_errore_dett` |
 
 ### Gestione errori
 
@@ -86,19 +86,23 @@ Distinzione canale:
 >
 > Implementare BATCH-01 chiamando SRV-01 invece di SRV-03 = contratto WSDL sbagliato = errore grave di integrazione.
 >
+> Per le notifiche di **revoca/annullamento** l'operazione corretta è **SRV-04 NotificaRevocaConsenso** (anch'essa in uscita). L'SRS §7.1 recepisce SRV-03/SRV-04 come nota; operazione e tag esatti da confermare con CSI.
+>
 > **Azione:** Conferma scritta da [[wiki/entities/csi-piemonte\|CSI Piemonte]] prima di implementare BATCH-01. Vedi [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]] §RISCHIO AGGIUNTO 4.
 
 ---
 
 ## BATCH-02 — Scadenza informative
 
-**Trigger:** Schedulato (frequenza non specificata nell'SRS — da definire)
+**Trigger:** Schedulato — **giornaliero notturno (SRS §7.2)**; cadenza esatta da confermare con CSI
 **Azione:** Quando un'informativa scade, aggiorna i consensi collegati in base al parametro `annulla_consensi`:
 
 | `annulla_consensi` | Nuovo stato | Notifica ASR? |
 |---|---|---|
 | NO | SCADUTO | No |
 | SI | ANNULLATO | Sì → INSERT `cons_t_notifica` → BATCH-01 |
+
+> **Notifica al cittadino su ANNULLATO (SRS §7.2):** inviata **direttamente da BATCH-02** tramite **Notificatore Regionale (UNP)** con `flag_notifica_cittadino = TRUE` (distinta dalla conferma di rilascio, che va via Notificatore di Deleghe). Lo stato SCADUTO non genera notifica.
 
 Vedi [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]] per semantica completa degli stati.
 

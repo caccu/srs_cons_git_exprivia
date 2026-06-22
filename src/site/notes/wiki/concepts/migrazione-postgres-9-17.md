@@ -67,7 +67,7 @@ Step:
 
 ## Modello dati TO-BE post-migrazione
 
-25 tabelle (§8.3 SRS) + 10 [PROPOSTA] (§8.4) — vs 12 tabelle AS-IS. Vedi [[wiki/sources/2026-03-02-sommario-srs-consensi\|Sommario SRS Gestione Consensi — Indice Strutturale]] per elenco completo.
+25 tabelle (§8.3 SRS) + 11 [PROPOSTA] (§8.4, incl. cons_t_client_ente) — vs 12 tabelle AS-IS. Vedi [[wiki/sources/2026-03-02-sommario-srs-consensi\|Sommario SRS Gestione Consensi — Indice Strutturale]] per elenco completo.
 
 Trasformazioni schema PG9 → PG17:
 - Conversione struttura storicizzazione (UPDATE+INSERT vs trigger storico AS-IS)

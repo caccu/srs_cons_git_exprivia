@@ -38,20 +38,16 @@ Tre profili utente:
 
 ## Architettura (cap. 3)
 
-**Paradigma:** microservizi su [[wiki/concepts/architettura-iaas\|Architettura IaaS]] (Kubernetes/Nivola CSI Piemonte)
+**Paradigma:** microservizi su [[wiki/concepts/architettura-iaas\|Architettura IaaS]] (IaaS Nivola CSI Piemonte)
 
 | Layer | Tecnologia |
 |---|---|
 | Frontend | SPA Angular 19, componenti QUASAR CSI, Apache WS k8s |
 | Backend | Spring Boot 3.4.10+, Java 17, Spring Security (no API Gateway) |
-| Database | PostgreSQL 17 via DBaaS Nivola (esterno al namespace ECaaS) |
+| Database | PostgreSQL 17 via DBaaS Nivola (esterno all'ambiente applicativo) |
 | CI/CD | GitLab + Jenkins + SonarQube, deploy GitOps Helm |
 
-**Vincoli infrastrutturali rilevanti:**
-- IngressController: solo TRAEFIK
-- Registry immagini: solo Artifactory CSI (docker-trusted, docker-base, docker-projects)
-- No KNative, Istio, network mesh
-- Ogni Deployment: resources requests/limits + livenessProbe + readinessProbe obbligatori
+**Vincoli infrastrutturali (NB):** i vincoli elencati nella versione precedente (IngressController TRAEFIK, registry Artifactory, no KNative/Istio, livenessProbe/readinessProbe) derivavano dal modello **ECaaS/Kubernetes** e **non si applicano** all'ambiente **IaaS Nivola** adottato (verbale 11/06/2026). I dettagli operativi IaaS (deploy, ingress/TLS, gestione segreti, CI/CD) restano da concordare con CSI (punto aperto INF-05).
 
 **No API Gateway CSI** — confermato. Integrazione diretta frontend→backend via Spring Security.
 
@@ -61,7 +57,7 @@ Tre profili utente:
 
 | Sistema | Protocollo | Autenticazione |
 |---|---|---|
-| GASP Salute (IdP) | OAuth2/OIDC o SAML2 | Federazione SPID/CIE |
+| GASP Salute (IdP) | SAML2 (confermato verbale 11/06/2026) | Federazione SPID/CIE |
 | AURA (anagrafica) | SOAP | WS-Security UsernameToken (IRIS) |
 | Gestione Deleghe | SOAP | OAuth2 Client Credentials |
 | Notificatore UNP | REST | Token applicativo UNP — notifiche generiche |
@@ -164,6 +160,6 @@ I requisiti sono etichettati con:
 
 - Specifica OpenAPI 3.x CDU-15/16: da produrre a cura Exprivia **prima** dello sprint di sviluppo
 - CONSPREF-DMP (migration plan): **non ancora formalizzato** al momento della stesura
-- GASP Salute: protocollo OIDC vs SAML2 ancora da definire con referente CSI
+- GASP Salute: protocollo SAML2 confermato (verbale 11/06/2026); restano da acquisire metadata XML/endpoint
 - WSDL AURA e Deleghe: disponibili su richiesta, lista servizi da specificare
 - CDU-06 (PDF): funzionalità nuova — firma digitale eIDAS **non richiesta**

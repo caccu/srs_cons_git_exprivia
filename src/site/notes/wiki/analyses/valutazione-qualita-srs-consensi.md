@@ -32,8 +32,8 @@ L'AS-IS aveva 6 CDU (2019). Il TO-BE ne specifica 16, con espansione logica e be
 - PostgreSQL 17 ✅ (CURRENT da dic 2025)
 - Java 17 ✅ (CURRENT)
 - Angular 19 ✅ (CURRENT stack SPA v2.1.0)
-- ECaaS/Kubernetes ✅ con tutti i vincoli infrastrutturali documentati
-- Gestione DBaaS Nivola: schema connessione sicura (K8s Secret), HikariCP config, escluso dal namespace
+- Infrastruttura IaaS Nivola ✅ (ECaaS/Kubernetes superato — verbale 11/06/2026)
+- Gestione DBaaS Nivola: connessione sicura (segreti via meccanismo dell'ambiente IaaS, da concordare con CSI), HikariCP config, DB esterno all'ambiente applicativo
 
 ### 4. Integrazioni esterne
 - AURA: SOAP + WS-Security UsernameToken (IRIS) — protocollo preciso
@@ -43,7 +43,7 @@ L'AS-IS aveva 6 CDU (2019). Il TO-BE ne specifica 16, con espansione logica e be
 - RFC 7807 adottato per error response — standard corretto
 
 ### 5. Sicurezza
-- No segreti nel codice sorgente (K8s Secret)
+- No segreti nel codice sorgente (gestione segreti dell'ambiente IaaS)
 - OWASP Top 10, CSRF su POST/PUT
 - CF mascherato nei log
 - Spring Security senza API Gateway (scelta confermata da CSI)
@@ -79,7 +79,7 @@ L'AS-IS aveva 6 CDU (2019). Il TO-BE ne specifica 16, con espansione logica e be
 **Azione raccomandata:** Portare bozza v0.1 a riunione Sprint 0, chiudere TBD con CSI, condividere v0.2 con referenti ASR.
 
 ### ✅ LACUNA 4 — CHIUSA: Linee Guida Cloud Native verificate
-**Risultato:** `Linea-Guida-Fornitori-v1.0.1_cloud.md` ingestionata. La sezione 3.5 dell'SRS recepisce correttamente **tutti** i vincoli ECaaS. Nessun gap identificato. L'SRS è conforme alla guida.
+**Risultato:** `Linea-Guida-Fornitori-v1.0.1_cloud.md` ingestionata. La sezione 3.5 dell'SRS è stata riscritta in chiave **IaaS Nivola** (ECaaS/Kubernetes superato — verbale 11/06/2026); i vincoli ECaaS della guida non si applicano e i dettagli operativi IaaS restano da concordare con CSI (INF-05).
 
 ### RISCHIO AGGIUNTO 4 — Ambiguità BATCH-01 / WebService spec
 **Problema:** L'SRS §7.1 dice che BATCH-01 usa "operazione Acquisizione" per il contratto WSDL AS-IS. Ma dalla WebService spec v03, i servizi **uscenti** dal Regionale verso le ASR sono **SRV-03 NotificaAcquisizioneConsenso** e **SRV-04 NotificaRevocaConsenso** — non SRV-01 (AcquisizioneConsenso) che è inbound.
@@ -116,7 +116,7 @@ Per analisi dettagliata del delta vedi [[wiki/analyses/analysis-gap-as-is-to-be\
 | Download PDF | Non previsto | CDU-06 NUOVO | Aggiunta valore |
 | API per SIA | Solo SOAP outbound | SOAP + REST CDU-15/16 | Apertura moderna |
 | Stack DB | PostgreSQL 9 (RETIRED) | PostgreSQL 17 (CURRENT) | Obbligo tecnico |
-| Architettura | Legacy | ECaaS/K8s microservizi | Allineamento CSI |
+| Architettura | Legacy | IaaS Nivola, microservizi Spring Boot | Allineamento CSI |
 | Autenticazione | Non documentata | GASP Salute SPID/CIE | Modernizzazione |
 
 ---

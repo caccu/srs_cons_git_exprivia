@@ -36,7 +36,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 
 ## Concepts
 
-- [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] — Sistema centrale consensi sanitari Regione Piemonte: 3 livelli, 4 profili, 16 CDU, 3 batch
+- [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] — Sistema centrale consensi sanitari Regione Piemonte: 3 livelli, 4 profili, 17 CDU, 2 batch (BATCH-03 rimosso → CDU-17 PULL)
 - [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]] — Macchina a stati: NON_ESPRESSO → ATTIVO/NEGATO → SCADUTO/ANNULLATO; no sovrascrittura
 - [[wiki/concepts/architettura-iaas\|Architettura IaaS]] — Infrastruttura IaaS Nivola CSI (non ECaaS/Kubernetes) — DEV/TEST/PROD, provisioning CSI (verbale 11/06/2026)
 - [[wiki/concepts/gasp-salute\|GASP Salute]] — Identity Provider federato SPID/CIE; protocollo **SAML2** confermato (verbale 11/06/2026)
@@ -55,8 +55,8 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 
 ### Specifica TO-BE
 
-- [[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] — SRS TO-BE completo: 16 CDU, architettura, NFR, batch, modello dati 25 tabelle
-- [[wiki/sources/2026-03-02-sommario-srs-consensi\|Sommario SRS Gestione Consensi — Indice Strutturale]] — TOC/mappa strutturale SRS: 25 tabelle TO-BE, 10 PROPOSTA §8.4
+- [[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] — SRS TO-BE completo: 17 CDU, architettura, NFR, batch, modello dati 26 tabelle (25 §8.3 + cons_t_client_ente §8.4.11)
+- [[wiki/sources/2026-03-02-sommario-srs-consensi\|Sommario SRS Gestione Consensi — Indice Strutturale]] — TOC/mappa strutturale SRS: 26 tabelle TO-BE, 11 proposte §8.4
 - [[wiki/sources/2026-03-02-appunti-e-pianificazione\|Appunti Sistema + Pianificazione Progetto Consensi]] — Sintesi architetturale + 8 fasi + 10 sprint + procedura migrazione PG9→PG17
 - [[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] — 13 Q&A Exprivia/CSI: no API Gateway, GASP Salute IdP, SOAP AS-IS, DBaaS Nivola
 
@@ -82,7 +82,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 ## Analyses
 
 - [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]] — Analisi critica SRS: 7 punti forza, 5 rischi (3 critici + 2 moderati), checklist pre-sprint 12 item
-- [[wiki/analyses/analysis-gap-as-is-to-be\|Analisi Gap AS-IS → TO-BE — Gestione Consensi]] — Delta 6→16 CDU, 12→25+ entità DB, 3 cambiamenti semantici critici per integrazione SIA ASR
+- [[wiki/analyses/analysis-gap-as-is-to-be\|Analisi Gap AS-IS → TO-BE — Gestione Consensi]] — Delta 6→17 CDU, 12→26 entità DB, 3 cambiamenti semantici critici per integrazione SIA ASR
 - [[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|Checklist Avvio Progetto — Gestione Consensi]] — Quadro completo per sviluppatori: 6 sezioni (confermato/da chiedere CSI/da produrre/rischi/azioni giorno 1)
 - `openapi-cdu-15-16-v0.1.yaml` — Specifica OpenAPI 3.0 DRAFT: CDU-15 (stato consenso) + CDU-16 (configurazione ente), Bearer JWT, RFC 7807, 5 TBD da confermare con CSI (file YAML in `wiki/analyses/`, vedi [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]])
 - [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]] — Descrizione OpenAPI CDU-15/16: 19 punti consolidati, 5 TBD CSI, 8 attività interne, cronologia versioni, prossimi passi
@@ -92,6 +92,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 - [[wiki/analyses/analysis-2026-05-27-punti-aperti-spiegati\|Punti Aperti — Spiegati in Modo Semplice]] — Versione in linguaggio piano del tracker: per ogni punto cosa significa, perché blocca, come si chiude
 - [[wiki/analyses/analysis-2026-06-10-riassunto-presentazione-cliente\|Riassunto Esecutivo — Presentazione Progetto Gestione Consensi]] — Sintesi completa per presentazione cliente: contesto, funzionalità, architettura, sicurezza, batch, migrazione, pianificazione, ADR, punti aperti
 - [[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]] — Tracker stato Data Migration Plan PG9→PG17; 7 sezioni con owner.
+- [[wiki/analyses/proposte-allineamento-SRS-vs-wiki\|Proposte di allineamento SRS ↔ Wiki]] — esiti audit A/B/C, deliverable SRS allineato 2026-06-18 (APPLICATO)
 
 ---
 

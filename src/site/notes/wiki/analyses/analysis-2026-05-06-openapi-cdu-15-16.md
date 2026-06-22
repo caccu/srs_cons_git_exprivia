@@ -195,8 +195,8 @@ Swagger UI esposta in ambienti non produttivi su `/swagger-ui.html` tramite **Sp
 | C06 | Struttura response CDU-16 (consensi_attivi + informativa + endpoints_notifica) | SRS §6.16 response 200 |
 | C07 | Auth: Bearer JWT OAuth2 Client Credentials | SRS §6.15–6.16 + Q&A CSI #6 |
 | C08 | Errori RFC 7807 su tutti gli endpoint | SRS §4.x |
-| C09 | HTTP status codes CDU-15: 200/400/401/403/404/500 | SRS §6.15 |
-| C10 | HTTP status codes CDU-16: 200/401/403/404/500 | SRS §6.16 |
+| C09 | HTTP status codes CDU-15: 200/400/401/403/404/429/500 | SRS §6.15 |
+| C10 | HTTP status codes CDU-16: 200/401/403/404/429/500 | SRS §6.16 |
 | C11 | Enum StatoConsenso: 5 valori (NON_ESPRESSO/ATTIVO/NEGATO/SCADUTO/ANNULLATO) | SRS §5 macchina a stati |
 | C12 | Enum ValoreConsenso: SI/NO/null | SRS §5 |
 | C13 | Enum tipo consenso: AZIENDALE/REGIONALE/NAZIONALE | SRS §5 + CONSPREF-SRS-01-V03 |

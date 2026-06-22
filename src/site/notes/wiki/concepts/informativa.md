@@ -41,7 +41,7 @@ Estensione di `cons_d_informativa` con campi aggiuntivi per gestione versionamen
 
 - **Attivazione:** una nuova informativa con `data_decorrenza` futura entra in vigore al raggiungimento della data.
 - **Scadenza implicita:** quando viene attivata una nuova informativa per la stessa coppia (tipo, sotto-tipo), la precedente diventa SCADUTA e i consensi attivi su di essa sono propagati a stato SCADUTO.
-- **Trigger di scadenza:** [[wiki/concepts/batch-processes\|BATCH-02]] verifica periodicamente le informative scadute e applica la transizione di stato sui consensi (storicizzazione in `cons_s_consenso`). Frequenza da definire con [[wiki/entities/csi-piemonte\|CSI Piemonte]] — non specificata nell'SRS.
+- **Trigger di scadenza:** [[wiki/concepts/batch-processes\|BATCH-02]] verifica periodicamente le informative scadute e applica la transizione di stato sui consensi (storicizzazione in `cons_s_consenso`). Frequenza: **giornaliera notturna (SRS §7.2)**; da confermare con [[wiki/entities/csi-piemonte\|CSI Piemonte]].
 
 ---
 

@@ -20,9 +20,9 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | # | Titolo | Status | Data | Tema |
 |---|---|---|---|---|
 | [ADR-001](ADR-001-stack-tecnologico.md) | Stack tecnologico (Spring Boot 3 + Java 17 + Angular 19 + PG17) | accepted | 2026-03-02 | Stack |
-| [ADR-002](ADR-002-piattaforma-ecaas.md) | Piattaforma ECaaS Kubernetes Nivola + vincoli | accepted | 2026-03-02 | Infrastruttura |
+| [ADR-002](ADR-002-piattaforma-ecaas.md) | Piattaforma ECaaS Kubernetes Nivola + vincoli | superseded | 2026-03-02 | Infrastruttura |
 | [ADR-003](ADR-003-dbaas-nivola.md) | DBaaS Nivola esterno al namespace | accepted | 2026-03-02 | Infrastruttura |
-| [ADR-004](ADR-004-no-api-gateway.md) | No API Gateway — sicurezza applicativa via Spring Security | accepted | 2026-03-02 | Sicurezza |
+| [ADR-004](ADR-004-no-api-gateway.md) | No API Gateway — sicurezza applicativa via Spring Security | partially-superseded | 2026-03-02 | Sicurezza |
 | [ADR-005](ADR-005-sicurezza-cdu-15-16.md) | Sicurezza CDU-15/16 — OAuth2 CC + JWT + autorizzazione per ente | accepted | 2026-05-14 | Sicurezza |
 | [ADR-006](ADR-006-batch-03-pull-cdu-17.md) | Sostituzione BATCH-03 push → CDU-17 PULL (centro stella) | **proposed** | 2026-05-14 | Batch / Integrazione |
 | [ADR-007](ADR-007-batch-01-5min-skip-locked.md) | BATCH-01 5 min con SKIP LOCKED | accepted | 2026-05-14 | Batch |
@@ -46,8 +46,8 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | Categoria | Accepted | Proposed | Deprecated/Superseded |
 |---|---|---|---|
 | Stack | 1 | 0 | 0 |
-| Infrastruttura | 2 | 0 | 0 |
-| Sicurezza | 2 | 0 | 0 |
+| Infrastruttura | 1 | 0 | 1 |
+| Sicurezza | 1 | 0 | 1 |
 | Batch | 2 | 1 | 0 |
 | Integrazione | 3 | 0 | 0 |
 | Modello dati | 2 | 0 | 0 |
@@ -55,7 +55,7 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | API | 1 | 0 | 0 |
 | Notifica | 1 | 0 | 0 |
 | Canali | 1 | 0 | 0 |
-| **Totale** | **18** | **1** | **0** |
+| **Totale** | **16** | **1** | **2** |
 
 L'unico `proposed` (ADR-006 CDU-17 PULL) attende formale sign-off CSI Piemonte; decisione propagata internamente sulla wiki ma non ancora confermata cliente.
 

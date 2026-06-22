@@ -42,6 +42,6 @@ Stack approvato e vincolante per tutti i fornitori. Aggiornato periodicamente su
 ## Contatti tecnici menzionati
 
 - Referente anagrafiche: fornitore credenziali IRIS per AURA
-- Referente GASP Salute: protocollo OIDC/SAML2 da definire
+- Referente GASP Salute: protocollo SAML2 confermato (verbale 11/06/2026); metadata/endpoint da acquisire
 - Referente CI/CD: architetture_ai@csi.it (per nuove immagini Docker)
 - Referente Nivola: provisioning DBaaS (scheda formale)
