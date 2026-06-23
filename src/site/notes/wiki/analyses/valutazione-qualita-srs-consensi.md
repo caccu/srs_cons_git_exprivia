@@ -50,11 +50,7 @@ L'AS-IS aveva 6 CDU (2019). Il TO-BE ne specifica 16, con espansione logica e be
 - TLS 1.2+
 - Librerie open source (conformità Developers Italia)
 
-### 6. Tag di classificazione requisiti [DOC]/[DEDOTTO]/[PROPOSTA]
-- Sistema molto utile per distinguere requisiti da committente vs interpretazioni vs proposte
-- Consente al team CSI di validare solo i [DEDOTTO] e [PROPOSTA] senza rivedere tutto
-
-### 7. Pianificazione dettagliata
+### 6. Pianificazione dettagliata
 - 8 fasi, 10 sprint, stima in Story Points (1SP=4h) per ogni attività
 - Identificazione dipendenze critiche (DBaaS Nivola, AURA WSDL, GASP Salute doc)
 - Piano migrazione PG9→PG17 con analisi rischi specifica e procedura cutover dettagliata
