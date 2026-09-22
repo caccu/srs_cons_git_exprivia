@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-020-lis-integrazione-be-esistente/","title":"LIS/RIS — integrazione BE esistente, non terzo canale di acquisizione","tags":["lis","ris","canali-acquisizione","int-03","integrazione"],"dg-note-properties":{"adr":20,"title":"LIS/RIS — integrazione BE esistente, non terzo canale di acquisizione","status":"accepted","date":"2026-08-06","deciders":["CSI Piemonte","Exprivia"],"supersedes":[17],"superseded-by":[],"tags":["lis","ris","canali-acquisizione","int-03","integrazione"],"related_wiki":["[[Gestione Consensi - Applicativo]]","[[Sistemi Esterni Integrati]]","[[wiki/docs/adr/ADR-017-lis-terzo-canale\|ADR-017-lis-terzo-canale]]"],"sources":["Call CSI 06/08/2026"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-020-lis-integrazione-be-esistente/","title":"LIS/RIS — integrazione BE esistente, non terzo canale di acquisizione","tags":["lis","ris","canali-acquisizione","int-03","integrazione"],"dg-note-properties":{"adr":20,"title":"LIS/RIS — integrazione BE esistente, non terzo canale di acquisizione","status":"accepted","date":"2026-08-06","deciders":["CSI Piemonte","Exprivia"],"supersedes":[17],"superseded-by":[],"tags":["lis","ris","canali-acquisizione","int-03","integrazione"],"related_wiki":["[[Gestione Consensi - Applicativo]]","[[Sistemi Esterni Integrati]]","[[wiki/docs/adr/ADR-017-lis-terzo-canale\|ADR-017-lis-terzo-canale]]","[[ADR-021-perimetro-solo-operatore]]","[[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|Ricognizione endpoint AS-IS — riscontro sviluppo]]","[[2019-06-01-webservice-consenso-regionale-v03|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]"],"sources":["Call CSI 06/08/2026","2026-09-22-ricognizione-endpoint-as-is"]}}
 ---
 
 
@@ -42,6 +42,33 @@ Questo ribalta l'assunzione architetturale di ADR-017: LIS non è un nuovo punto
 ### Neutral
 - Il diagramma di contesto SRS mostrerà comunque LIS come sistema esterno integrato (analogamente a SIA ASR), ma **non** come canale di acquisizione UI
 
+## Riscontro AS-IS (22/09/2026) — integrazione non rilevata
+
+La ricognizione del team di sviluppo Exprivia sul sorgente AS-IS consegnato (`consprefbe`, `consprefboweb`, `consprefbowcl`, `consprefdb`, `consprefnotifica`), dichiarata **esaustiva e non limitata ai soli endpoint REST**, **non riporta alcuna integrazione riconducibile a LIS/RIS**. Dettaglio in [[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|Ricognizione endpoint AS-IS — riscontro sviluppo]].
+
+Le uniche interfacce segnalate sono `CittadiniApi` e `InformativaApi` (REST, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|Webapp Operatore]]); `consprefnotifica` risulta solo client SOAP in uscita; `consprefbe` conterrebbe un solo WAR e un solo EJB jar.
+
+> ⚠️ **Due lacune, non una sola conclusione.** Il riscontro è in tensione con questo ADR, ma **non lo smentisce ancora**: la stessa ricognizione omette anche i servizi SOAP che sappiamo esposti da `consprefbe`, il che indebolisce l'inferenza "non riportato ⇒ non esiste".
+
+| # | Lacuna | Perché è rilevante qui |
+|---|---|---|
+| **L1** | **Nessun endpoint SOAP esposto segnalato.** La [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03]] documenta cinque servizi SOAP (SRV-01÷05) esposti dal modulo regionale verso i SIA delle ASR, con namespace `http://consprefbe.csi.it/` — **proprio l'artefatto esaminato**. Le [[wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione\|specifiche ACC-DEL-CDU-01]] descrivono i corrispondenti servizi di acquisizione inbound (DA01÷DA03) | Se quei servizi non sono stati rilevati pur esistendo, la ricognizione ha un **punto cieco sul lato SOAP inbound** — che è esattamente dove ci aspettiamo di trovare l'integrazione LIS |
+| **L2** | **Nessuna integrazione LIS/RIS rilevata**, contro quanto CSI ha dichiarato in call il 06/08/2026 | O l'integrazione non esiste nel materiale consegnato (e CSI va riaperto), o non è stata cercata nella forma giusta (vedi ipotesi sotto) |
+
+### Ipotesi di lavoro: L1 e L2 sono lo stesso punto cieco
+
+Questo ADR ipotizzava che l'acquisizione LIS avvenga tramite un servizio *«analogo nello spirito a SIA ASR»*. Se i servizi SOAP inbound **SRV-01 `AcquisizioneConsenso`** e **SRV-02 `RevocaConsenso`** sono effettivamente esposti da `consprefbe`, l'ipotesi più economica è che **LIS e RIS siano fruitori di quello stesso canale**, non titolari di un'integrazione dedicata — distinti a valle dal solo `fonte_id`, non da un endpoint proprio.
+
+Sotto questa lettura il mancato rilevamento non contraddice ADR-020: cercando un'*integrazione LIS* non si trova nulla, perché non esiste come componente a sé — esiste come **uso del canale SOAP ASR da parte di un fruitore diverso**.
+
+**Verifica che discrimina l'ipotesi:** interrogare il DB AS-IS (`consprefdb`) sui valori distinti di `fonte_id` effettivamente presenti sui consensi storici. Un valore riconducibile a laboratorio/reparto, distinto da quelli di webapp e SIA ASR, conferma il canale e ne identifica il fruitore senza bisogno di trovare codice dedicato.
+
+### Stato
+
+`accepted` **confermato, con verifica pendente.** Il riscontro non è sufficiente a superare la dichiarazione esplicita di CSI del 06/08/2026. Nessuna revisione della decisione finché le due domande di §Open issues non sono evase.
+
+> 📌 Per scelta dell'utente, entrambe le lacune **non sono state incluse nella risposta al fornitore del 22/09/2026** — materiale per la call o per una comunicazione successiva.
+
 ## Alternatives considered
 
 | Alternativa | Motivo scarto |
@@ -52,6 +79,11 @@ Questo ribalta l'assunzione architetturale di ADR-017: LIS non è un nuovo punto
 ## Open issues
 
 - Individuare nel codice sorgente AS-IS il punto di integrazione LIS (protocollo, payload, `fonte_id`) — dipende da accesso repo/DB AS-IS (vedi [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punti Aperti CSI]] INT-04, TECH-01)
+  ⚠️ **Non rilevata dalla ricognizione del 22/09/2026** — vedi §Riscontro AS-IS. Attività ora articolata nei tre punti seguenti
+- 🆕 **[Exprivia] L1 — chiedere conferma sull'assenza di endpoint SOAP esposti** in `consprefbe`: né JAX-WS né WSDL pubblicati per SRV-01÷05, a fronte della [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|specifica v03]] che li documenta sullo stesso namespace `http://consprefbe.csi.it/`. **Domanda dirimente**, perché è il punto cieco più probabile della ricognizione
+- 🆕 **[Exprivia] L2 — chiedere conferma sull'assenza di acquisizione da sistemi di reparto**: endpoint, job schedulato, lettura su tabella di appoggio, o valore di `fonte_id` diverso da quelli della webapp
+- 🆕 **[Exprivia/DB] Verifica che discrimina l'ipotesi:** estrarre da `consprefdb` i valori distinti di `fonte_id` sui consensi storici. Identifica i fruitori reali del canale di acquisizione senza dipendere dal ritrovamento di codice dedicato
+- 🆕 **[CSI] Se L1 e L2 tornano entrambe negative:** riaprire il punto con CSI: l'integrazione dichiarata il 06/08/2026 non è nel materiale consegnato. In quel caso decadrebbe il presupposto di questo ADR e l'acquisizione LIS tornerebbe **sviluppo nuovo**, con impatto su stime e perimetro
 - Verificare se sistemi analoghi (es. RIS) usano lo stesso meccanismo di integrazione o uno distinto
 - Correggere SRS §1/§2 diagramma di contesto: 2 canali di acquisizione UI, non 3 — **allineamento SRS da fare solo dopo conferma esplicita utente** (vedi log)
 

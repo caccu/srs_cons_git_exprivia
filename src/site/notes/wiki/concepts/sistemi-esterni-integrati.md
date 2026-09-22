@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-09-22","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-09-22","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02","2026-09-22-ricognizione-endpoint-as-is"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -159,6 +159,19 @@ SIA ASR  →  PATCH /api/v1/endpoints/{endp_id}/stato-allineamento { IN_CORSO } 
 > ✅ **Riconfermato (call CSI 06/08/2026):** componente **AS-IS legacy, riciclato integralmente** — nessun nuovo sviluppo richiesto, indipendentemente dal perimetro di scope.
 >
 > 🔴 **Precisato 22/09/2026:** "riciclato integralmente" va letto come **da riportare funzionante sul nuovo stack**, non come "non ci riguarda". Il consumatore (Webapp Cittadino) resta attivo sul backend nuovo. Vedi banner di sezione.
+
+> ⚠️ **Conflict — aperto 22/09/2026. Integrazione dichiarata esistente dal committente, non trovata nel sorgente.**
+>
+> - **[[wiki/entities/csi-piemonte\|CSI Piemonte]]** (call 20/07/2026, INT-02; riconfermato 06/08/2026): l'integrazione con Gestione Deleghe via API-Piemonte è **«già integrata, non c'è nulla da fare»**, componente legacy da riciclare.
+> - **Riscontro sviluppo Exprivia** ([[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|ricognizione AS-IS 22/09/2026]]): nel repo `consprefboweb` è presente il **contratto WSDL** `DelegheCittadiniService` (`getDeleganti`, `getDelegati`, `saveDelegati`, …), ma **nessuna classe lo implementa — non esiste un client verso quel servizio**.
+>
+> **Se il riscontro è confermato, il flusso Deleghe non ha comportamento AS-IS da preservare: è sviluppo nuovo, non migrazione a iso-funzionalità.** Impatto diretto su stime e piano di test.
+>
+> **Stato:** da verificare con CSI. Richiesto al fornitore un dettaglio dirimente: se il WSDL sia accompagnato da **classi stub generate (JAX-WS) rimaste inutilizzate** — integrazione sviluppata e poi dismessa — oppure sia un **file di contratto isolato** senza codice intorno — integrazione mai realizzata.
+>
+> **Indicazione data al fornitore il 22/09/2026:** nessuno sviluppo su questo flusso fino a chiarimento.
+>
+> Non modifica il perimetro: il pulsante "Deleghe" resta frontend cittadino (fuori scope), `getDelegantiService` resta chiamata server-side (in scope). Cambia solo la **natura dell'attività**: costruzione anziché migrazione.
 
 **Flusso di integrazione (da immagine DelegheApi — verbale 11/06/2026):**
 

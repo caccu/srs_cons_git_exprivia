@@ -118,7 +118,7 @@ ADR con open issues:
 - **ADR-016**: SC67 (logica INSERT storicizzazione BATCH-02), BAT-03 (comunicazione ASR cambio semantica)
 - **ADR-017**: ~~INT-03 (acronimo LIS + spec integrazione)~~ ✅ chiuso 06/08/2026 (superseded by ADR-020)
 - **ADR-019**: ~~GOV-02 (validazione `[PROPOSTA]` struttura PDF)~~ non più bloccante — **frontend** CDU-06 fuori scope (ADR-021, 06/08/2026). ⚠️ Se la generazione PDF è server-side, l'endpoint rientra nel vincolo di compatibilità (precisazione 22/09/2026)
-- **ADR-020**: individuare integrazione LIS/RIS nel sorgente AS-IS (dipende da INT-04 accesso repo, TECH-01 audit)
+- **ADR-020**: individuare integrazione LIS/RIS nel sorgente AS-IS (dipende da INT-04 accesso repo, TECH-01 audit) — ⚠️ **non rilevata dalla ricognizione Exprivia del 22/09/2026**; ADR confermato `accepted` con verifica pendente, punto articolato in L1 (endpoint SOAP esposti non segnalati) + L2 (acquisizione da sistemi di reparto) + verifica `fonte_id` su `consprefdb`
 - **ADR-021**: correggere SRS §1/§2/§3 e catalogo CDU per riflettere il perimetro (solo dopo conferma utente) — **recependo la precisazione FE/BE del 22/09/2026**; ~~verificare compatibilità dati/API con Webapp Cittadino esistente~~ ✅ chiuso 22/09/2026 (**sì, deve restare compatibile**); nuovo aperto: elenco endpoint AS-IS invocati dalla Webapp Cittadino come riferimento di non-regressione
 
 ---

@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-021-perimetro-solo-operatore/","title":"Perimetro progetto ridotto a Webapp Operatore — Webapp Cittadino esclusa","tags":["perimetro","scope","webapp-operatore","webapp-cittadino"],"dg-note-properties":{"adr":21,"title":"Perimetro progetto ridotto a Webapp Operatore — Webapp Cittadino esclusa","status":"accepted","date":"2026-08-06","deciders":["CSI Piemonte","Exprivia"],"supersedes":[11,19],"superseded-by":[],"tags":["perimetro","scope","webapp-operatore","webapp-cittadino"],"related_wiki":["[[Gestione Consensi - Applicativo]]","[[GASP Salute]]","[[composizione-dinamica-form-consenso|Composizione Dinamica Form Consenso]]","[[wiki/docs/adr/ADR-010-cdu-01-split\|ADR-010-cdu-01-split]]","[[wiki/docs/adr/ADR-008-ssot-form-renderer\|ADR-008-ssot-form-renderer]]"],"sources":["Call CSI 06/08/2026"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-021-perimetro-solo-operatore/","title":"Perimetro progetto ridotto a Webapp Operatore — Webapp Cittadino esclusa","tags":["perimetro","scope","webapp-operatore","webapp-cittadino"],"dg-note-properties":{"adr":21,"title":"Perimetro progetto ridotto a Webapp Operatore — Webapp Cittadino esclusa","status":"accepted","date":"2026-08-06","deciders":["CSI Piemonte","Exprivia"],"supersedes":[11,19],"superseded-by":[],"tags":["perimetro","scope","webapp-operatore","webapp-cittadino"],"related_wiki":["[[Gestione Consensi - Applicativo]]","[[GASP Salute]]","[[composizione-dinamica-form-consenso|Composizione Dinamica Form Consenso]]","[[wiki/docs/adr/ADR-010-cdu-01-split\|ADR-010-cdu-01-split]]","[[wiki/docs/adr/ADR-008-ssot-form-renderer\|ADR-008-ssot-form-renderer]]","[[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|Ricognizione endpoint AS-IS — riscontro sviluppo]]"],"sources":["Call CSI 06/08/2026","2026-09-22-ricognizione-endpoint-as-is"]}}
 ---
 
 
@@ -60,6 +60,23 @@ In call CSI del 06/08/2026, il cliente ha chiarito che **i progetti in gestione 
 ### Neutral
 - Nessun impatto sul modello dati backend (`cons_t_consenso`, storicizzazione, batch) — channel-agnostic, resta valido per entrambe le webapp indipendentemente da chi costruisce i frontend
 
+## Riscontro AS-IS (22/09/2026)
+
+Ricognizione del team di sviluppo Exprivia sul sorgente AS-IS consegnato (`consprefbe`, `consprefboweb`, `consprefbowcl`, `consprefdb`, `consprefnotifica`), dichiarata esaustiva e non limitata ai soli endpoint REST. Dettaglio in [[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|Ricognizione endpoint AS-IS — riscontro sviluppo]].
+
+**Esito:**
+
+| Riscontro | Conseguenza su questo ADR |
+|---|---|
+| Le uniche interfacce REST sono `CittadiniApi` e `InformativaApi`, esposte da `consprefboweb` e consumate dal frontend Angular `consprefbowcl` | Quel contratto è **interamente al servizio della Webapp Operatore**. Diventa la **baseline di iso-funzionalità** per l'unico frontend in perimetro |
+| `CittadiniApiServiceImpl.login()` verifica il profilo e restituisce `403` a chi non è operatore; le route (`cittadino/:fiscalCode/consensi`) e la UI ("Cerca il dichiarante tramite Codice Fiscale") descrivono un operatore che cerca un assistito | Conferma indipendente della premessa di questo ADR: **`consprefbowcl` è la Webapp Operatore**, non quella del Cittadino |
+| `consprefbe` (EAR) contiene un solo WAR e un solo EJB jar, senza altre webapp incluse | Nel materiale consegnato **non è presente la Webapp Cittadino**. Coerente con il perimetro: l'applicazione è in carico a CSI e non è un deliverable di questo progetto |
+| `consprefnotifica` non espone endpoint in ingresso — è solo client SOAP verso un servizio esterno | Nessun contratto in ingresso da preservare su questo modulo |
+
+> ✅ **Nessuna anomalia.** L'assenza del sorgente cittadino conferma il perimetro, non lo contraddice. Sposta però l'onere: il contratto di non-regressione verso la Webapp Cittadino **non è ricavabile dal sorgente in nostro possesso** e va richiesto a CSI (vedi §Open issues).
+
+> 🔴 **Conseguenza sul protocollo dei servizi lato cittadino (CDU-02).** La ricognizione **non ha rilevato endpoint SOAP in ingresso** sul perimetro esaminato: non esiste quindi un "contratto SOAP AS-IS" associato ai flussi cittadino da mantenere. Si aggiunga che [[wiki/concepts/gasp-salute\|GASP Salute]] è un IdP e **non effettua chiamate applicative al backend** — il chiamante è la Webapp Cittadino, a sessione già stabilita. **Indirizzo dato al fornitore il 22/09/2026: esporre i servizi come REST**, coerentemente con il nuovo stack; SOAP solo dove imposto da contratto esterno già scritto. Un eventuale adapter di compatibilità si valuta solo se l'elenco richiesto a CSI rivelasse un'interfaccia diversa.
+
 ## Alternatives considered
 
 | Alternativa | Motivo scarto |
@@ -72,8 +89,11 @@ In call CSI del 06/08/2026, il cliente ha chiarito che **i progetti in gestione 
 - Correggere SRS §1/§2/§3 e catalogo CDU per riflettere il perimetro (solo dopo conferma utente). **Da recepire anche la precisazione FE/BE del 22/09/2026**: le note di scope inserite nell'SRS il 06/08/2026 dicono "fuori dal perimetro di sviluppo" senza distinguere frontend da backend, ed è esattamente l'ambiguità che ha generato la domanda dello sviluppatore
 - ~~Verificare se il modello dati/API esposto dal backend Operatore/SIA deve restare compatibile con la Webapp Cittadino esistente (proprietà/contratto non chiarito in questa call)~~
   ✅ **Chiuso 22/09/2026:** **sì, deve restare compatibile.** La Webapp Cittadino continua a girare sul backend nuovo senza modifiche funzionali. Il contratto che consuma oggi va preservato.
-- 🆕 **Aperto:** produrre dall'AS-IS l'elenco degli endpoint invocati dalla Webapp Cittadino, come riferimento di non-regressione per design e collaudo del nuovo BE. Richiesto al team di sviluppo il 22/09/2026
-- 🆕 **Da verificare:** perimetro esatto delle integrazioni BE che la Webapp Cittadino attiva indirettamente — [[wiki/concepts/gasp-salute\|GASP Salute]] (autenticazione SPID/CIE) e [[wiki/concepts/sistemi-esterni-integrati\|Gestione Deleghe]] (`getDelegantiService`). Entrambe risultano lato backend, quindi coperte dal vincolo di compatibilità; da confermare sul sorgente AS-IS
+- 🔄 **Aperto — riassegnato a CSI (22/09/2026):** produrre l'elenco delle interfacce che la Webapp Cittadino invoca oggi sul backend (path, metodo, protocollo, formato richiesta/risposta), come riferimento di non-regressione per design e collaudo del nuovo BE.
+  Originariamente richiesto al team di sviluppo Exprivia. **Riassegnato al committente** dopo il riscontro del 22/09/2026 (vedi §Riscontro AS-IS): il sorgente della Webapp Cittadino **non fa parte della consegna**, ed è coerente che non ne faccia parte — l'applicazione è in carico a CSI e non è un deliverable di questo progetto. Il contratto che essa consuma non è quindi ricavabile per reverse engineering dal materiale in possesso del fornitore: va richiesto a chi la gestisce.
+  ⚠️ **Rischio se non evaso:** il backend nuovo può essere consegnato a iso-funzionalità **verificata solo rispetto alla Webapp Operatore**; la compatibilità verso la Webapp Cittadino resta un rischio non coperto da collaudo.
+- 🆕 **Da verificare:** perimetro esatto delle integrazioni BE che la Webapp Cittadino attiva indirettamente — [[wiki/concepts/gasp-salute\|GASP Salute]] (autenticazione SPID/CIE) e [[wiki/concepts/sistemi-esterni-integrati\|Gestione Deleghe]] (`getDelegantiService`). Entrambe risultano lato backend, quindi coperte dal vincolo di compatibilità; da confermare sul sorgente AS-IS.
+  ⚠️ **Parzialmente smentito dal riscontro 22/09/2026** per Gestione Deleghe: il WSDL è presente ma **nessun client lo implementa**. Vedi [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] §Gestione Deleghe
 
 ## References
 
