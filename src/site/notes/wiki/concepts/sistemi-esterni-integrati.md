@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-08-06","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-09-22","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -138,9 +138,11 @@ SIA ASR  →  PATCH /api/v1/endpoints/{endp_id}/stato-allineamento { IN_CORSO } 
 
 ---
 
-## Gestione Deleghe ❌ OUT scope
+## Gestione Deleghe ⚠️ FE OUT / BE IN
 
-> 🔴 **Fuori dal perimetro di sviluppo** (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]) — l'uso documentato è dal pulsante "Deleghe" della Webapp Cittadino (MF20R19), non un deliverable di questo progetto. Sezione mantenuta come contesto storico.
+> 🔴 **Frontend fuori perimetro** (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]) — l'uso documentato parte dal pulsante "Deleghe" della Webapp Cittadino (MF20R19), interfaccia che non sviluppiamo.
+>
+> ⚠️ **Integrazione in perimetro** (precisato 22/09/2026): `getDelegantiService` è una chiamata **server-side**, servita dal backend che questo progetto rifà. Va quindi **migrata a iso-funzionalità**. Componente AS-IS legacy già integrato — nessun nuovo sviluppo, ma è un vincolo di non-regressione, non una sezione storica.
 
 | Aspetto            | Dettaglio                                                                                                       |
 | ------------------ | --------------------------------------------------------------------------------------------------------------- |
@@ -154,7 +156,9 @@ SIA ASR  →  PATCH /api/v1/endpoints/{endp_id}/stato-allineamento { IN_CORSO } 
 
 > ✅ **Chiuso (call CSI 20/07/2026 — INT-02):** l'integrazione con Gestione Deleghe (`getDelegantiService` via API-Piemonte) è **già integrata, non c'è nulla da fare**. Cadono l'accreditamento portale e la firma del token come punti aperti.
 >
-> ✅ **Riconfermato (call CSI 06/08/2026):** componente **AS-IS legacy, riciclato integralmente** — nessun nuovo sviluppo richiesto, indipendentemente dal perimetro di scope. Resta comunque fuori dal perimetro di sviluppo di questo progetto perché l'unico uso documentato è dal pulsante "Deleghe" della Webapp Cittadino (vedi banner sopra).
+> ✅ **Riconfermato (call CSI 06/08/2026):** componente **AS-IS legacy, riciclato integralmente** — nessun nuovo sviluppo richiesto, indipendentemente dal perimetro di scope.
+>
+> 🔴 **Precisato 22/09/2026:** "riciclato integralmente" va letto come **da riportare funzionante sul nuovo stack**, non come "non ci riguarda". Il consumatore (Webapp Cittadino) resta attivo sul backend nuovo. Vedi banner di sezione.
 
 **Flusso di integrazione (da immagine DelegheApi — verbale 11/06/2026):**
 
@@ -203,12 +207,12 @@ Registrazione app PUA (**1 profilo Operatore** — non 2, call CSI 06/08/2026) d
 ## Mappa integrazioni sintetica (aggiornata)
 
 ```
-[Cittadino] → GASP Salute (SAML2 via Shibboleth SP) → Webapp Citt   ❌ OUT scope (ADR-021, 06/08/2026)
-[Operatore] → PUA/Configuratore Regionale → Webapp Operatore
+[Cittadino] → GASP Salute (SAML2 via Shibboleth SP) → Webapp Citt   ⚠️ FE OUT / BE IN (ADR-021, prec. 22/09/2026)
+[Operatore] → PUA/Configuratore Regionale → Webapp Operatore        ✅ IN — unico FE sviluppato
                               ↓
-[Applicativo Gestione Consensi]
+[Applicativo Gestione Consensi]  ← backend UNICO: serve entrambe le webapp, interamente in perimetro
         ├─ AURA              (SOAP/IRIS) — FindProfiliAnagrafici, getProfiloSanitario
-        ├─ Gestione Deleghe  (SOAP/OAuth2) — verifica deleghe familiari [❌ OUT scope, uso solo Webapp Citt — ADR-021]
+        ├─ Gestione Deleghe  (SOAP/OAuth2) — verifica deleghe familiari [⚠️ BE IN — da migrare iso-funz., consumatore = Webapp Citt]
         ├─ Notificatore Deleghe (REST?) — conferma post-acquisizione al cittadino
         ├─ Notificatore UNP  (REST) — notifiche applicative generiche
         ├─ SIA ASR           (SOAP outbound) ← BATCH-01 notifiche puntuali

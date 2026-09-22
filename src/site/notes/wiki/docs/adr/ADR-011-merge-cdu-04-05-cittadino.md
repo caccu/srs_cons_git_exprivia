@@ -9,7 +9,9 @@
 
 `superseded by [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]` — decisione originaria MF37R36 + MF45R44 sulla revisione SRS v3.
 
-> ⚠️ **Superata (call CSI 06/08/2026):** la Webapp Cittadino è **fuori dal perimetro di sviluppo** di questo progetto (vedi [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]). Questa decisione, interamente sull'UX cittadino, resta come registro storico ma non guida più lo sviluppo.
+> ⚠️ **Superata (call CSI 06/08/2026):** il **frontend** della Webapp Cittadino è fuori dal perimetro di questo progetto (vedi [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]). Questa decisione, interamente sull'UX cittadino, resta come registro storico ma non guida più lo sviluppo.
+>
+> Nota (22/09/2026): qui il superamento è **pieno** — si tratta di una scelta di interfaccia. La distinzione rilascio/modifica lato backend resta invece viva e va preservata nella migrazione.
 
 ## Context
 

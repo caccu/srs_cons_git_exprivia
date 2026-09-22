@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/gestione-consensi-applicativo/","title":"Gestione Consensi - Applicativo","tags":["applicativo","gestione-consensi","sanita-piemonte","to-be"],"dg-note-properties":{"title":"Gestione Consensi - Applicativo","aliases":["Gestione Consensi - Applicativo"],"type":"concept","tags":["applicativo","gestione-consensi","sanita-piemonte","to-be"],"created":"2026-05-05","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7"],"related":["[[CSI Piemonte]]","[[exprivia|Exprivia S.p.A.]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Architettura IaaS]]","[[2026-03-12-pile-tecnologiche-csi|Pile Tecnologiche CSI Piemonte]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/gestione-consensi-applicativo/","title":"Gestione Consensi - Applicativo","tags":["applicativo","gestione-consensi","sanita-piemonte","to-be"],"dg-note-properties":{"title":"Gestione Consensi - Applicativo","aliases":["Gestione Consensi - Applicativo"],"type":"concept","tags":["applicativo","gestione-consensi","sanita-piemonte","to-be"],"created":"2026-05-05","updated":"2026-09-22","sources":["2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7"],"related":["[[CSI Piemonte]]","[[exprivia|Exprivia S.p.A.]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Architettura IaaS]]","[[2026-03-12-pile-tecnologiche-csi|Pile Tecnologiche CSI Piemonte]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -7,7 +7,11 @@
 
 Sistema centrale per la raccolta, gestione e consultazione dei consensi sanitari dei cittadini piemontesi. Parte dell'ecosistema Sanità Elettronica Regione Piemonte.
 
-> 🔴 **Perimetro progetto (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]):** questo progetto sviluppa **solo la Webapp Operatore**. La Webapp Cittadino esiste ma è **fuori dal perimetro di sviluppo** — non è un deliverable di questo progetto. Le sezioni marcate ❌ **OUT** sotto descrivono funzionalità cittadino non costruite da questo progetto (mantenute come contesto/storia, non come backlog).
+> 🔴 **Perimetro progetto (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]] — precisato 22/09/2026):** questo progetto sviluppa **un solo frontend, la Webapp Operatore**. La Webapp Cittadino è un'applicazione **separata** (link distinto), esiste già e non viene costruita né modificata da noi.
+>
+> ⚠️ **L'esclusione riguarda il solo frontend.** Il **backend è unico e serve entrambe le webapp**: viene rifatto da questo progetto e deve restare **compatibile a iso-funzionalità** con la Webapp Cittadino esistente, che continua a girare invariata sul backend nuovo.
+>
+> Le sezioni marcate ❌ **OUT** sotto descrivono funzionalità **di interfaccia** cittadino non costruite da questo progetto (contesto/storia, non backlog). I **servizi backend** che le servono restano in perimetro come migrazione a contratto invariato.
 
 ---
 
@@ -29,12 +33,12 @@ Il consenso è esprimibile attraverso **due canali** UI a livello di sistema:
 
 | Canale | Descrizione | Profilo accesso | Scope di sviluppo |
 |---|---|---|---|
-| Webapp Cittadino | Webapp dedicata SPID/CIE | Cittadino autenticato | ❌ **OUT** — esiste ma fuori dal perimetro di questo progetto ([[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]) |
-| Webapp Operatore | Operatore opera per conto dell'assistito | Operatore PUA (RUPAR/IRIDE) | ✅ **IN** — unico deliverable di questo progetto |
+| Webapp Cittadino | App **separata** (link distinto), SPID/CIE | Cittadino autenticato | ⚠️ **FE OUT / BE IN** — il frontend esiste già e non si tocca; il backend che lo serve va migrato a iso-funzionalità ([[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]], precisato 22/09/2026) |
+| Webapp Operatore | Operatore opera per conto dell'assistito | Operatore PUA (RUPAR/IRIDE) | ✅ **IN** — unico frontend sviluppato da questo progetto |
 
 > ⚠️ **Rivisto (call CSI 06/08/2026, chiude INT-03):** LIS **non è un terzo canale di acquisizione UI**. La decisione MF4R1 ("Consensi esprimibili anche presso LIS") si riferisce a un'**integrazione BE già presente nel codice sorgente AS-IS** ([[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] §LIS), non a un nuovo canale da progettare. Attività TO-BE: verificare e migrare l'integrazione esistente al nuovo stack. Vedi [[wiki/docs/adr/ADR-020-lis-integrazione-be-esistente\|ADR-020]] (supersede [[wiki/docs/adr/ADR-017-lis-terzo-canale\|ADR-017]]).
 >
-> 🔴 **Perimetro (call CSI 06/08/2026):** di questi due canali, solo la **Webapp Operatore** è in scope di sviluppo di questo progetto. Vedi [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]].
+> 🔴 **Perimetro (call CSI 06/08/2026, precisato 22/09/2026):** di questi due canali, solo la **Webapp Operatore** è sviluppata da questo progetto — **come frontend**. Il backend che serve il canale Cittadino resta in perimetro e va migrato a contratto invariato. Vedi [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]] §Precisazione.
 
 ---
 
@@ -44,7 +48,7 @@ Il consenso è esprimibile attraverso **due canali** UI a livello di sistema:
 
 | Profilo             | Accesso                                                          | CDU                              | Profilo applicativo Configuratore?      | Scope sviluppo |
 | -------------------- | ---------------------------------------------------------------- | --------------------------------- | --------------------------------------- | --- |
-| **Cittadino**         | SPID/CIE via [[wiki/concepts/gasp-salute\|GASP Salute]] su **webapp dedicata** | CDU-01b, CDU-02÷CDU-06            | ❌ **NO** — non gestito da Configuratore | ❌ **OUT** — [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]] |
+| **Cittadino**         | SPID/CIE via [[wiki/concepts/gasp-salute\|GASP Salute]] su **webapp separata** | CDU-01b, CDU-02÷CDU-06            | ❌ **NO** — non gestito da Configuratore | ⚠️ **FE OUT / BE IN** — [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]] (22/09/2026) |
 | **Operatore** (unico) | PUA / RUPAR/IRIDE                                                | CDU-01a, CDU-05, CDU-07÷CDU-14    | Sì — **1 solo profilo**                 | ✅ IN — unico deliverable |
 | SIA Aziendale         | API REST (OAuth2 Bearer JWT)                                     | CDU-15, CDU-16, CDU-17            | N/A — autenticazione machine-to-machine | ✅ IN |
 
@@ -68,9 +72,11 @@ Il caso d'uso di autenticazione viene diviso in due sotto-scenari espliciti:
 | Selezione profilo | ❌ No — **un solo profilo Operatore** (call CSI 06/08/2026), niente selezione multipla |
 | Precondizioni | Operatore censito in Configuratore Regionale |
 
-### CDU-01b — Accesso Cittadino ❌ OUT scope
+### CDU-01b — Accesso Cittadino ⚠️ FE OUT / BE IN
 
-> 🔴 **Fuori dal perimetro di sviluppo** (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]) — la Webapp Cittadino esiste ma non è un deliverable di questo progetto.
+> 🔴 **Frontend fuori perimetro** (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]) — la Webapp Cittadino è un'app separata, esiste già e non la sviluppiamo.
+>
+> ⚠️ **Backend in perimetro** (precisato 22/09/2026): quella webapp continua ad autenticarsi contro il backend nuovo. La gestione lato BE della sessione cittadino (SPID/CIE via [[wiki/concepts/gasp-salute\|GASP Salute]]) va migrata **a iso-funzionalità**. Nessuna nuova progettazione; vincolo di non-regressione.
 
 | Aspetto | Dettaglio |
 |---|---|
@@ -80,9 +86,11 @@ Il caso d'uso di autenticazione viene diviso in due sotto-scenari espliciti:
 
 ---
 
-## Flusso Deleghe (MF20R19, MF22R21) ❌ OUT scope
+## Flusso Deleghe (MF20R19, MF22R21) ⚠️ FE OUT / BE IN
 
-> 🔴 **Fuori dal perimetro di sviluppo** (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]) — scenario interamente sulla Webapp Cittadino, non un deliverable di questo progetto. Mantenuto come contesto storico.
+> 🔴 **Frontend fuori perimetro** (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]) — lo scenario si svolge interamente sull'interfaccia della Webapp Cittadino, che non sviluppiamo.
+>
+> ⚠️ **Backend in perimetro** (precisato 22/09/2026): la chiamata a [[wiki/concepts/sistemi-esterni-integrati\|Gestione Deleghe]] (`getDelegantiService` via API-Piemonte) è server-side e viene servita dal backend che stiamo rifacendo. Va migrata **a iso-funzionalità**. Componente AS-IS legacy già integrato: nessun nuovo sviluppo, ma non va persa nella migrazione.
 
 > La webapp del cittadino mostra **sempre** il cruscotto dell'utente autenticato. Se il cittadino vuole operare per conto di un delegante, clicca il pulsante **"Deleghe"**, che mostra l'elenco dei deleganti attivi. Selezionando un delegante, il sistema carica il cruscotto consensi di quel soggetto.
 
@@ -98,9 +106,11 @@ Variante 6.1.3 [PROPOSTA]: se il servizio Gestione Deleghe non risponde o restit
 
 ## Funzionalità principali TO-BE
 
-### Area Cittadino (webapp dedicata) ❌ OUT scope
+### Area Cittadino (webapp separata) ⚠️ FE OUT / BE IN
 
-> 🔴 **Fuori dal perimetro di sviluppo** (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]). La Webapp Cittadino esiste ma questi CDU non sono un deliverable di questo progetto. Sezione mantenuta come contesto/storia.
+> 🔴 **Frontend fuori perimetro** (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]). Nessuna schermata cittadino da disegnare o implementare: l'app è separata ed esiste già.
+>
+> ⚠️ **Backend in perimetro** (precisato 22/09/2026): i servizi ed endpoint dietro CDU-02, CDU-03, CDU-04, CDU-06 vanno **migrati sul nuovo stack a contratto invariato**. Le descrizioni funzionali qui sotto restano quindi la specifica del comportamento che il BE deve continuare a garantire — non sono backlog di frontend.
 
 - **CDU-02** Consultazione cruscotto consensi: mostra **tutti i tipi configurati** (regionale=1 record, aziendale=N record per azienda) anche quelli non ancora espressi (MF26R25). Vedi [[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]].
 - **CDU-03** Rilascio nuovo consenso (con visualizzazione informativa PDF)

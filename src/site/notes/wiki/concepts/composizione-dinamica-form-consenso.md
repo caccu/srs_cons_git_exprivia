@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/composizione-dinamica-form-consenso/","title":"Composizione Dinamica Form Consenso — Single Source of Truth","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"dg-note-properties":{"title":"Composizione Dinamica Form Consenso — Single Source of Truth","aliases":["Composizione Dinamica Form Consenso — Single Source of Truth"],"type":"concept","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"created":"2026-05-14","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised"],"related":["[[Gestione Consensi - Applicativo]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Sistemi Esterni Integrati]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/composizione-dinamica-form-consenso/","title":"Composizione Dinamica Form Consenso — Single Source of Truth","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"dg-note-properties":{"title":"Composizione Dinamica Form Consenso — Single Source of Truth","aliases":["Composizione Dinamica Form Consenso — Single Source of Truth"],"type":"concept","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"created":"2026-05-14","updated":"2026-09-22","sources":["2026-03-02-conspref-srs-v1-revised"],"related":["[[Gestione Consensi - Applicativo]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Sistemi Esterni Integrati]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -7,7 +7,9 @@
 
 **Origine:** risposte MF a revisione SRS v3 — commenti MB29, MB27, MB34, MB36, MB38, MB40, MB42, MB56 (vedi [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] tema C e tema F).
 
-> 🔴 **Perimetro progetto (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]):** questo progetto sviluppa **solo la Webapp Operatore**. Il pattern SSoT sotto descritto nasce per un riuso Cittadino+Operatore, ma in questo progetto **si applica solo lato Operatore** (§4). Le sezioni su CDU-02/03/04 cittadino (§3) restano come contesto storico — la Webapp Cittadino non è un deliverable di questo progetto.
+> 🔴 **Perimetro progetto (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]] — precisato 22/09/2026):** questo progetto sviluppa **un solo frontend, la Webapp Operatore**. Il pattern SSoT sotto descritto nasce per un riuso Cittadino+Operatore; qui il **Form Renderer si costruisce solo per l'Operatore** (§4).
+>
+> ⚠️ Attenzione a non estendere l'esclusione al backend: la Webapp Cittadino esistente continua a girare sul backend che rifacciamo, quindi **gli endpoint di configurazione form e di salvataggio consenso che essa consuma vanno migrati a iso-funzionalità**. Le regole di composizione in §2 descrivono comportamento che il BE deve continuare a garantire per entrambi i consumatori.
 
 Pattern architetturale per il rendering delle pagine di consenso lato **Operatore** (CDU-09, CDU-10, CDU-11 — ✅ in scope). Nato come pattern unico condiviso anche con **Cittadino** (CDU-02, CDU-03, CDU-04 — ❌ fuori scope di sviluppo, vedi banner sopra). Vincolo originario: nessuna divergenza di struttura fra le due interfacce — resta valido come principio, ma solo la Webapp Operatore è costruita da questo progetto.
 
@@ -54,9 +56,11 @@ Implementazione: dropdown o tab per azienda; alla selezione, fetch dell'informat
 
 ---
 
-## 3. Pulsante unico "Salva" lato cittadino (MF37R36) ❌ OUT scope
+## 3. Pulsante unico "Salva" lato cittadino (MF37R36) ❌ OUT scope (FE)
 
-> 🔴 **Fuori dal perimetro di sviluppo** (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]) — decisione [[wiki/docs/adr/ADR-011-merge-cdu-04-05-cittadino\|ADR-011]] superseded. Sezione mantenuta come contesto storico.
+> 🔴 **Fuori perimetro** (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]) — decisione [[wiki/docs/adr/ADR-011-merge-cdu-04-05-cittadino\|ADR-011]] superseded. Sezione mantenuta come contesto storico.
+>
+> Qui l'esclusione è **piena**: si tratta di una scelta di UX sull'interfaccia cittadino, che non sviluppiamo. A differenza di altre sezioni marcate OUT, non c'è un corrispettivo backend da preservare — la distinzione rilascio/modifica lato BE esiste già ed è descritta sotto.
 
 > Web app cittadino: pulsante unico **«Salva»**. Operazioni tecniche distinte (rilascio CDU-03 vs modifica CDU-04) gestite internamente, non esposte UI.
 

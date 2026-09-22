@@ -39,7 +39,7 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | [ADR-018](ADR-018-rfc-7807-error-response.md) | RFC 7807 error response | accepted | 2026-03-02 | API |
 | [ADR-019](ADR-019-cdu-06-pdf-scope-ridotto.md) | CDU-06 PDF — scope ridotto, no firma | superseded | 2026-05-14 | CDU |
 | [ADR-020](ADR-020-lis-integrazione-be-esistente.md) | LIS/RIS — integrazione BE esistente, non terzo canale | accepted | 2026-08-06 | Integrazione |
-| [ADR-021](ADR-021-perimetro-solo-operatore.md) | Perimetro progetto ridotto a Webapp Operatore | accepted | 2026-08-06 | Perimetro |
+| [ADR-021](ADR-021-perimetro-solo-operatore.md) | Perimetro progetto ridotto a Webapp Operatore — **solo FE; BE unico in perimetro** (prec. 22/09/2026) | accepted | 2026-08-06 | Perimetro |
 
 ---
 
@@ -113,13 +113,13 @@ ADR con open issues:
 - **ADR-005**: SEC-01÷06 (URL AS, JWT, onboarding SIA, TTL, scope, revoca)
 - **ADR-006**: ✅ PULL-01 (blocco), PULL-02 (email+webhook), PULL-05/06/08 chiusi (call 20/07/2026); residui non bloccanti PULL-03/04/07 + swagger CDU-17
 - **ADR-007**: BAT-01 (WSDL SRV-01 vs SRV-03)
-- **ADR-010**: ~~ID-01 (GASP Salute protocollo)~~ non più bloccante — CDU-01b fuori scope (ADR-021, 06/08/2026)
+- **ADR-010**: ~~ID-01 (GASP Salute protocollo)~~ non più bloccante — **frontend** CDU-01b fuori scope (ADR-021, 06/08/2026). ⚠️ L'integrazione GASP **lato BE** resta da migrare a iso-funzionalità (precisazione 22/09/2026)
 - **ADR-013**: ~~GOV-03 (responsabile CSI migrazione)~~ ✅ chiuso 16/07/2026 (CSI Piemonte), TECH-01 (audit DDL PG9, target ora PG18)
 - **ADR-016**: SC67 (logica INSERT storicizzazione BATCH-02), BAT-03 (comunicazione ASR cambio semantica)
 - **ADR-017**: ~~INT-03 (acronimo LIS + spec integrazione)~~ ✅ chiuso 06/08/2026 (superseded by ADR-020)
-- **ADR-019**: ~~GOV-02 (validazione `[PROPOSTA]` struttura PDF)~~ non più bloccante — CDU-06 fuori scope (ADR-021, 06/08/2026)
+- **ADR-019**: ~~GOV-02 (validazione `[PROPOSTA]` struttura PDF)~~ non più bloccante — **frontend** CDU-06 fuori scope (ADR-021, 06/08/2026). ⚠️ Se la generazione PDF è server-side, l'endpoint rientra nel vincolo di compatibilità (precisazione 22/09/2026)
 - **ADR-020**: individuare integrazione LIS/RIS nel sorgente AS-IS (dipende da INT-04 accesso repo, TECH-01 audit)
-- **ADR-021**: correggere SRS §1/§2/§3 e catalogo CDU per riflettere il perimetro (solo dopo conferma utente); verificare compatibilità dati/API con Webapp Cittadino esistente
+- **ADR-021**: correggere SRS §1/§2/§3 e catalogo CDU per riflettere il perimetro (solo dopo conferma utente) — **recependo la precisazione FE/BE del 22/09/2026**; ~~verificare compatibilità dati/API con Webapp Cittadino esistente~~ ✅ chiuso 22/09/2026 (**sì, deve restare compatibile**); nuovo aperto: elenco endpoint AS-IS invocati dalla Webapp Cittadino come riferimento di non-regressione
 
 ---
 

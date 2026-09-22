@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/valutazione-qualita-srs-consensi/","title":"Valutazione Qualità SRS — Gestione Consensi","tags":["valutazione","qualita","srs","analisi-critica","gestione-consensi"],"dg-note-properties":{"title":"Valutazione Qualità SRS — Gestione Consensi","aliases":["Valutazione Qualità SRS — Gestione Consensi"],"type":"analysis","tags":["valutazione","qualita","srs","analisi-critica","gestione-consensi"],"created":"2026-05-05","updated":"2026-07-16","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-appunti-e-pianificazione","2026-03-02-domande-srs-csi-v02","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7"],"related":["[[Gestione Consensi - Applicativo]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[Architettura IaaS]]","[[exprivia|Exprivia S.p.A.]]","[[CSI Piemonte]]","[[analysis-2026-05-14-risposte-mf-srs-v3|Risposte MF — Revisione SRS v3 lavorazione (69 commenti)]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/valutazione-qualita-srs-consensi/","title":"Valutazione Qualità SRS — Gestione Consensi","tags":["valutazione","qualita","srs","analisi-critica","gestione-consensi"],"dg-note-properties":{"title":"Valutazione Qualità SRS — Gestione Consensi","aliases":["Valutazione Qualità SRS — Gestione Consensi"],"type":"analysis","tags":["valutazione","qualita","srs","analisi-critica","gestione-consensi"],"created":"2026-05-05","updated":"2026-09-22","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-appunti-e-pianificazione","2026-03-02-domande-srs-csi-v02","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7"],"related":["[[Gestione Consensi - Applicativo]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[Architettura IaaS]]","[[exprivia|Exprivia S.p.A.]]","[[CSI Piemonte]]","[[analysis-2026-05-14-risposte-mf-srs-v3|Risposte MF — Revisione SRS v3 lavorazione (69 commenti)]]"]}}
 ---
 
 
@@ -68,7 +68,7 @@ L'AS-IS aveva 6 CDU (2019). Il TO-BE ne specifica 16, con espansione logica e be
 
 ### ✅ RISCHIO CRITICO 2 — Protocollo GASP Salute — CHIUSO (verbale 11/06/2026); ❌ ORA FUORI SCOPE (06/08/2026)
 **Protocollo confermato: SAML2.** Dipendenza Spring: `spring-security-saml2-service-provider`.
-**Aggiornamento 06/08/2026:** [[wiki/concepts/gasp-salute\|GASP Salute]] serviva solo CDU-01b (accesso cittadino), **fuori dal perimetro di sviluppo** di questo progetto ([[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]). Rischio non più applicabile: nessuna integrazione GASP da progettare in questo progetto.
+**Aggiornamento 06/08/2026, corretto 22/09/2026:** [[wiki/concepts/gasp-salute\|GASP Salute]] serve CDU-01b (accesso cittadino), il cui **frontend** è fuori perimetro ([[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]). Il rischio si **riduce** ma non sparisce: nessuna nuova integrazione GASP da progettare, però la Webapp Cittadino continua ad autenticarsi via GASP contro il backend che rifacciamo, quindi l'integrazione **lato BE va migrata a iso-funzionalità**. Rischio residuo: regressione sull'autenticazione cittadino, non blocco di progettazione.
 
 ### ✅ RISCHIO MODERATO 3 — OpenAPI CDU-15/16 — PARZIALMENTE MITIGATO
 **Stato:** [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|v0.1-DRAFT prodotta]] (2026-05-06) — 19 punti consolidati, 5 TBD da confermare con CSI.
@@ -125,7 +125,7 @@ Per analisi dettagliata del delta vedi [[wiki/analyses/analysis-gap-as-is-to-be\
 | SRS V1.0 approvata da CSI | ⏳ In revisione | Bozza v2 |
 | Documentazione GASP Salute ricevuta | ⚪ Non più necessaria | Fuori scope (ADR-021, 06/08/2026) — CDU-01b non è un deliverable |
 | WSDL AURA ricevuti | ❌ Da richiedere | Lista servizi da specificare |
-| WSDL Gestione Deleghe ricevuti | ✅ Già integrato (call 20/07/2026, riconfermato AS-IS legacy riciclato 06/08/2026) | ❌ OUT scope di sviluppo — ADR-021 |
+| WSDL Gestione Deleghe ricevuti | ✅ Già integrato (call 20/07/2026, riconfermato AS-IS legacy riciclato 06/08/2026) | ⚠️ FE OUT / **BE IN** — integrazione server-side da migrare a iso-funzionalità (ADR-021, precisato 22/09/2026) |
 | DBaaS Nivola DEV provisioned | ❌ Da richiedere | Alta latenza |
 | DBaaS Nivola PROD provisioned | ❌ Da richiedere | Alta latenza |
 | Accesso repo QUASAR CSI | ❌ Da richiedere | Prerequisito UI |

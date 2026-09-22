@@ -9,7 +9,9 @@
 
 `superseded by [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]` — decisione originaria MF47R46 sulla revisione SRS v3.
 
-> ⚠️ **Superata (call CSI 06/08/2026):** CDU-06 è un caso d'uso esclusivamente cittadino, e la Webapp Cittadino è **fuori dal perimetro di sviluppo** di questo progetto (vedi [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]). Questa decisione resta come registro storico ma non guida più lo sviluppo.
+> ⚠️ **Superata (call CSI 06/08/2026):** CDU-06 è un caso d'uso esclusivamente cittadino, e il **frontend** della Webapp Cittadino è fuori dal perimetro di questo progetto (vedi [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]). Questa decisione resta come registro storico ma non guida più lo sviluppo.
+>
+> 🔴 **Precisato 22/09/2026:** se la generazione del PDF avviene **lato backend**, il relativo endpoint rientra nel vincolo di compatibilità con la Webapp Cittadino esistente (ADR-021 §Precisazione) e va migrato a iso-funzionalità. Da verificare sul sorgente AS-IS: qui è superseded la *decisione di scope funzionale* (cosa contiene il PDF), non l'esistenza del servizio.
 
 ## Context
 

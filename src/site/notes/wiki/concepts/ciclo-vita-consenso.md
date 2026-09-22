@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/ciclo-vita-consenso/","title":"Ciclo di Vita del Consenso","tags":["macchina-a-stati","consenso","business-logic","gestione-consensi","terminologia-ui","mf9","mf11","mf14"],"dg-note-properties":{"title":"Ciclo di Vita del Consenso","aliases":["Ciclo di Vita del Consenso"],"type":"concept","tags":["macchina-a-stati","consenso","business-logic","gestione-consensi","terminologia-ui","mf9","mf11","mf14"],"created":"2026-05-05","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03"],"related":["[[Gestione Consensi - Applicativo]]","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/ciclo-vita-consenso/","title":"Ciclo di Vita del Consenso","tags":["macchina-a-stati","consenso","business-logic","gestione-consensi","terminologia-ui","mf9","mf11","mf14"],"dg-note-properties":{"title":"Ciclo di Vita del Consenso","aliases":["Ciclo di Vita del Consenso"],"type":"concept","tags":["macchina-a-stati","consenso","business-logic","gestione-consensi","terminologia-ui","mf9","mf11","mf14"],"created":"2026-05-05","updated":"2026-09-22","sources":["2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03"],"related":["[[Gestione Consensi - Applicativo]]","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -84,7 +84,7 @@ Garantisce storia completa degli atti di consenso. Vale anche per le transizioni
 
 > **Nota MF45R44 (storico):** lato **webapp Cittadino**, CDU-05 NON è caso d'uso separato — il flusso "cambio valore" è inglobato in CDU-04 (pulsante unico "Salva", decisione [[wiki/docs/adr/ADR-011-merge-cdu-04-05-cittadino\|ADR-011]], **superseded**). La distinzione CDU-04/CDU-05 è rilevante solo lato **Operatore** (in scope) e per la logica interna di tracciatura.
 >
-> 🔴 **Perimetro (06/08/2026):** righe "Citt" fuori dal perimetro di sviluppo — [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]. Solo CDU-09/10/11 (Operatore) sono deliverable di questo progetto.
+> 🔴 **Perimetro (06/08/2026, precisato 22/09/2026):** le righe "Citt" sono fuori perimetro **come frontend** — [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]. Solo CDU-09/10/11 (Operatore) producono interfaccia da costruire. La **logica di ciclo di vita descritta in quelle righe resta in perimetro lato backend**: il BE è unico, serve anche la Webapp Cittadino, e va migrato a iso-funzionalità.
 
 ---
 

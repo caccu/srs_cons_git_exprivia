@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-08-06"}}
+{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-09-22"}}
 ---
 
 
@@ -7,7 +7,9 @@
 
 Master catalogo di tutte le pagine. Aggiornato.
 
-> 🔴 **Perimetro progetto (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]):** questo progetto sviluppa **solo la Webapp Operatore**. La Webapp Cittadino esiste ma è fuori dal perimetro di sviluppo. Pagine/CDU marcati ❌ OUT sotto restano come contesto storico.
+> 🔴 **Perimetro progetto (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]] — precisato 22/09/2026):** questo progetto sviluppa **un solo frontend, la Webapp Operatore**. La Webapp Cittadino è un'app separata (link distinto) che esiste già e non tocchiamo.
+>
+> ⚠️ **L'esclusione è solo frontend.** Il backend è unico, serve entrambe le webapp, lo rifacciamo noi e deve restare **compatibile a iso-funzionalità** con la Webapp Cittadino esistente. Le marcature qui sotto vanno lette come: ❌ **OUT** = niente lavoro di interfaccia · ⚠️ **FE OUT / BE IN** = niente interfaccia, ma backend da migrare a contratto invariato.
 
 ---
 
@@ -38,7 +40,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 
 ## Concepts
 
-- [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] — Sistema centrale consensi sanitari Regione Piemonte: 3 livelli, 3 profili (Cittadino OUT, **Operatore unico** — non più 2, corretto 06/08/2026 —, SIA), 17 CDU, 2 batch (BATCH-03 rimosso → CDU-17 PULL); 2 canali di acquisizione (LIS non è un terzo canale — ADR-020, 06/08/2026); **solo Webapp Operatore in scope di sviluppo — ADR-021, 06/08/2026**
+- [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] — Sistema centrale consensi sanitari Regione Piemonte: 3 livelli, 3 profili (Cittadino FE OUT / BE IN, **Operatore unico** — non più 2, corretto 06/08/2026 —, SIA), 17 CDU, 2 batch (BATCH-03 rimosso → CDU-17 PULL); 2 canali di acquisizione (LIS non è un terzo canale — ADR-020, 06/08/2026); **un solo frontend sviluppato (Webapp Operatore); backend unico per entrambe le webapp, compatibilità iso-funzionalità con la Webapp Cittadino — ADR-021, precisato 22/09/2026**
 - [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]] — Macchina a stati: NON_ESPRESSO → ATTIVO/NEGATO → SCADUTO/ANNULLATO; no sovrascrittura
 - [[wiki/concepts/architettura-iaas\|Architettura IaaS]] — Infrastruttura IaaS Nivola CSI (non ECaaS/Kubernetes), provisioning CSI; deploy ADA/Chef; 07/2026: ambienti DEV + pre-prod (PROD in fase successiva)
 - [[wiki/concepts/gasp-salute\|GASP Salute]] — Identity Provider federato SPID/CIE; protocollo **SAML2** confermato (verbale 11/06/2026); ❌ **fuori scope di sviluppo dal 06/08/2026** (serviva solo Webapp Cittadino — ADR-021)
@@ -46,7 +48,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 - [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] — AURA, SIA ASR, Notificatore UNP, Gestione Deleghe, PUA/Configuratore, LIS/RIS (integrazione BE esistente, non canale — ADR-020); stato approvvigionamento Sprint 0
 - [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]] — Risposta TR30: OAuth2 Client Credentials + JWT + tabella client_ente + filter Spring Security; AS-IS **no API Manager**, difesa a 3 livelli; TO-BE API Manager CSI per nuovi fruitori
 - [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]] — Sostituzione BATCH-03 push con PULL REST paginato cursor-based; **hub-and-spoke**, zero push, blocco obbligatorio, riusa security CDU-15/16. **Rielaborato e confermato 20/07/2026** (Variante B eliminata, passo 5, endpoint CRUD via APIM, scenario manutenzione)
-- [[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]] — Pattern SSoT Form Renderer, nato per Citt+Op (CDU-02/03/04/09/10/11); MF26/28/30/35/37/39/41/43/45/57 — **in questo progetto si applica solo a Operatore (CDU-09/10/11) — ADR-021, 06/08/2026**
+- [[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]] — Pattern SSoT Form Renderer, nato per Citt+Op (CDU-02/03/04/09/10/11); MF26/28/30/35/37/39/41/43/45/57 — **frontend costruito solo per Operatore (CDU-09/10/11); endpoint BE consumati dalla webapp Citt. da migrare a iso-funzionalità — ADR-021, precisato 22/09/2026**
 - [[wiki/concepts/informativa\|Informativa Consenso]] — Oggetto dichiarativo del consenso: modello `cons_d_informativa`, ciclo di vita, lookup CDU-03, base Form Renderer
 - [[wiki/concepts/migrazione-postgres-9-17\|Migrazione PostgreSQL 9 → 18]] — Strategia dump/restore Fase 6 Sprint 9; target aggiornato da PG17 a PG18 (06/08/2026); rischi tipi/auth scram/timestamp; audit DDL prerequisito Sprint 0
 - [[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico Applicativo]] — Angular 19 + Spring Boot 3.4.10+ / Java 17 + PostgreSQL 18 su IaaS Nivola; vincoli docker-base CSI

@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/gasp-salute/","title":"GASP Salute","tags":["autenticazione","idp","spid","cie","sso","saml2","csi-piemonte"],"dg-note-properties":{"title":"GASP Salute","aliases":["GASP Salute"],"type":"concept","tags":["autenticazione","idp","spid","cie","sso","saml2","csi-piemonte"],"created":"2026-05-05","updated":"2026-07-20","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-03-12-pile-tecnologiche-csi"],"related":["[[CSI Piemonte]]","[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/gasp-salute/","title":"GASP Salute","tags":["autenticazione","idp","spid","cie","sso","saml2","csi-piemonte"],"dg-note-properties":{"title":"GASP Salute","aliases":["GASP Salute"],"type":"concept","tags":["autenticazione","idp","spid","cie","sso","saml2","csi-piemonte"],"created":"2026-05-05","updated":"2026-09-22","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-03-12-pile-tecnologiche-csi"],"related":["[[CSI Piemonte]]","[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]"]}}
 ---
 
 
@@ -7,13 +7,21 @@
 
 Identity Provider (IdP) federato gestito da [[wiki/entities/csi-piemonte\|CSI Piemonte]]. Fornisce autenticazione SSO per cittadini sulla piattaforma Sanità Elettronica Regione Piemonte tramite SPID e CIE.
 
-> 🔴 **Fuori dal perimetro di sviluppo (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]):** GASP Salute serviva esclusivamente l'accesso diretto del cittadino (CDU-01b e a valle). Questo progetto sviluppa **solo la Webapp Operatore** (autenticazione PUA/RUPAR/IRIDE) — nessuna integrazione GASP Salute è da progettare in questo progetto. Pagina mantenuta come contesto storico e come riferimento se il perimetro dovesse cambiare in futuro.
+> ⚠️ **Conflict risolto — la formulazione precedente era troppo netta.**
+>
+> ~~🔴 **Fuori dal perimetro di sviluppo (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]):** GASP Salute serviva esclusivamente l'accesso diretto del cittadino (CDU-01b e a valle). Questo progetto sviluppa **solo la Webapp Operatore** (autenticazione PUA/RUPAR/IRIDE) — nessuna integrazione GASP Salute è da progettare in questo progetto.~~
+>
+> 🔴 **Perimetro corretto (22/09/2026):** **nessuna progettazione GASP da fare, ma l'integrazione resta viva lato backend.** La Webapp Cittadino è un'app separata che non sviluppiamo, però continua a funzionare **sul backend rifatto da questo progetto** e continua ad autenticare i suoi utenti via GASP Salute. La gestione server-side di quella sessione (SAML2 via Shibboleth SP) va quindi **migrata a iso-funzionalità**, non eliminata.
+>
+> In sintesi: ❌ niente nuovo design GASP, niente frontend cittadino · ✅ vincolo di non-regressione sull'autenticazione cittadino lato BE. Vedi [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]] §Precisazione 22/09/2026.
 
 ---
 
-## Ruolo nel progetto (storico — pre-ADR-021)
+## Ruolo nel progetto
 
-Tutti i CDU Cittadino (CDU-01 ÷ CDU-06) in [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] dipendono da GASP Salute per l'autenticazione. Nessuna autenticazione diretta nell'applicativo — tutto delegato a GASP. Blocco di CDU-01 equivale a blocco dell'intera area Cittadino. **Questi CDU sono fuori scope di sviluppo dal 06/08/2026 — vedi banner sopra.**
+Tutti i CDU Cittadino (CDU-01 ÷ CDU-06) in [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] dipendono da GASP Salute per l'autenticazione. Nessuna autenticazione diretta nell'applicativo — tutto delegato a GASP. Blocco di CDU-01 equivale a blocco dell'intera area Cittadino.
+
+**Scope (22/09/2026):** nessuno di questi CDU produce lavoro di **frontend** per noi (app cittadino separata, fuori perimetro dal 06/08/2026). La dipendenza da GASP però **non decade**: resta nel backend che stiamo rifacendo, quindi questa pagina descrive un'integrazione **attiva e da preservare**, non solo storia.
 
 ---
 
