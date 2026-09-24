@@ -83,10 +83,10 @@ Rispetto alle 12 entità AS-IS documentate in [[wiki/sources/2019-04-08-dizionar
 
 | Tabella AS-IS | Colonna nuova | Riferimento SRS | Serve a |
 |---|---|---|---|
-| `cons_d_asr` | `tipo_ente` (NAZIONALE / REGIONALE / AZIENDALE) | §8.4.6 | CDU-12 — filtro enti per tipo consenso; CDU-14 |
+| `cons_d_asr` | `tipo_ente` (NAZIONALE / REGIONALE / AZIENDALE) | §8.4.6 | CDU-12 — filtro enti per tipo consenso; CDU-14 — ✅ adottata con decisione interna di progetto (24/09/2026) per chiudere il CDU-12 |
 | `cons_d_informativa` | `online`, `annulla_consensi` | §8.3.5, §8.4.5 | CDU-12/13, BATCH-02 (SCADUTO vs ANNULLATO) — collocazione approvata da CSI con la deroga GOV-02 (20/07/2026) |
 
-> ⚠️ **Conflict:** l'SRS v7 §8.3.5 motiva la deroga GOV-02 dicendo che `online`/`annulla_consensi` *«rimangono»* in `cons_d_informativa` *«per retrocompatibilità con il codice AS-IS che li legge direttamente»*. Sul DB AS-IS migrato le colonne **non esistono**, e il DTO `Informativa` della [[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|ricognizione AS-IS]] non le espone. La collocazione approvata resta valida; la motivazione va corretta nell'SRS (colonne nuove, non preesistenti).
+> ⚠️ **Conflict:** l'SRS v7 §8.3.5 motiva la deroga GOV-02 dicendo che `online`/`annulla_consensi` *«rimangono»* in `cons_d_informativa` *«per retrocompatibilità con il codice AS-IS che li legge direttamente»*. Sul DB AS-IS migrato le colonne **non esistono**, e il DTO `Informativa` della [[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|ricognizione AS-IS]] non le espone. La collocazione approvata resta valida; la motivazione va corretta nell'SRS (colonne nuove, non preesistenti). ✅ **Corretto in SRS v8 (rev. 1.7, 24/09/2026)** — §8.3.5, §8.4.5, §8.4.6, §8.3.8, CDU-12.
 
 ---
 
