@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-gap-as-is-to-be/","title":"Analisi Gap AS-IS → TO-BE — Gestione Consensi","tags":["gap-analysis","as-is","to-be","migrazione","delta","dismissione"],"dg-note-properties":{"title":"Analisi Gap AS-IS → TO-BE — Gestione Consensi","aliases":["Analisi Gap AS-IS → TO-BE — Gestione Consensi"],"type":"analysis","tags":["gap-analysis","as-is","to-be","migrazione","delta","dismissione"],"created":"2026-05-05","updated":"2026-09-22","sources":["2019-02-01-sfu-gestione-consensi-v1-7","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2019-04-08-dizionario-dati-as-is","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03"],"related":["[[Gestione Consensi - Applicativo]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[2019-04-08-dizionario-dati-as-is|Modello Dizionario Dati AS-IS (2019)]]","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]","[[2019-02-01-sfu-gestione-consensi-v1-7|Studio Funzionale Gestione Consensi SoL V1.7 (AS-IS 2019)]]","[[alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[composizione-dinamica-form-consenso|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-gap-as-is-to-be/","title":"Analisi Gap AS-IS → TO-BE — Gestione Consensi","tags":["gap-analysis","as-is","to-be","migrazione","delta","dismissione"],"dg-note-properties":{"title":"Analisi Gap AS-IS → TO-BE — Gestione Consensi","aliases":["Analisi Gap AS-IS → TO-BE — Gestione Consensi"],"type":"analysis","tags":["gap-analysis","as-is","to-be","migrazione","delta","dismissione"],"created":"2026-05-05","updated":"2026-09-24","sources":["2019-02-01-sfu-gestione-consensi-v1-7","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2019-04-08-dizionario-dati-as-is","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03"],"related":["[[Gestione Consensi - Applicativo]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[2019-04-08-dizionario-dati-as-is|Modello Dizionario Dati AS-IS (2019)]]","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]","[[2019-02-01-sfu-gestione-consensi-v1-7|Studio Funzionale Gestione Consensi SoL V1.7 (AS-IS 2019)]]","[[alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[composizione-dinamica-form-consenso|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -78,6 +78,15 @@ Rispetto alle 12 entità AS-IS documentate in [[wiki/sources/2019-04-08-dizionar
 | Relazioni n:m nuove | `cons_r_sotto_tipo_cons_asr_endpoint`, `cons_r_consenso_valore`, `cons_r_informativa_asr` |
 
 **Entità attivata (esistente ma non usata AS-IS):** `cons_s_consenso` — storico pre-modifica, usata attivamente nel [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]] TO-BE per garantire no-sovrascrittura. Struttura da verificare nell'audit DDL Sprint 0.
+
+**Colonne nuove su tabelle AS-IS** (confermato 24/09/2026: il DB AS-IS è già migrato e le colonne mancano — vanno aggiunte con migrazione negli sviluppi TO-BE):
+
+| Tabella AS-IS | Colonna nuova | Riferimento SRS | Serve a |
+|---|---|---|---|
+| `cons_d_asr` | `tipo_ente` (NAZIONALE / REGIONALE / AZIENDALE) | §8.4.6 | CDU-12 — filtro enti per tipo consenso; CDU-14 |
+| `cons_d_informativa` | `online`, `annulla_consensi` | §8.3.5, §8.4.5 | CDU-12/13, BATCH-02 (SCADUTO vs ANNULLATO) — collocazione approvata da CSI con la deroga GOV-02 (20/07/2026) |
+
+> ⚠️ **Conflict:** l'SRS v7 §8.3.5 motiva la deroga GOV-02 dicendo che `online`/`annulla_consensi` *«rimangono»* in `cons_d_informativa` *«per retrocompatibilità con il codice AS-IS che li legge direttamente»*. Sul DB AS-IS migrato le colonne **non esistono**, e il DTO `Informativa` della [[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|ricognizione AS-IS]] non le espone. La collocazione approvata resta valida; la motivazione va corretta nell'SRS (colonne nuove, non preesistenti).
 
 ---
 
