@@ -50,7 +50,7 @@ Risposta CSI del 25/09/2026:
 
 ## Open issues
 
-- Collocazione nell'SRS: CDU-06 esteso a due attori oppure funzione dentro CDU-09/10. Allineamento SRS solo dopo conferma utente.
+- ~~Collocazione nell'SRS: CDU-06 esteso a due attori oppure funzione dentro CDU-09/10.~~ ✅ **Recepito in SRS v9 (rev. 1.8, 25/09/2026):** CDU-06 resta un unico caso d'uso con due attori; lato Operatore vi si accede dalla consultazione dei consensi dell'assistito (CDU-08). La struttura del passo 4 (attestazione) è marcata [PROPOSTA] da riallineare.
 - Verificare che `pdf_informativa` sia valorizzato per tutte le informative attive; in caso contrario serve una regola di fallback.
 - Scarico dell'informativa in vigore o anche di versioni storiche/scadute? Da chiarire se l'operatore consulta consensi espressi su informative non più attive.
 - Voce di backlog FE Operatore da creare in `Backlog-Funzionalita-FE-BE_CONSPREF`.
