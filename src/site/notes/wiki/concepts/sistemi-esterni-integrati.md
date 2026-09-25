@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-09-22","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02","2026-09-22-ricognizione-endpoint-as-is"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-09-25","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02","2026-09-22-ricognizione-endpoint-as-is","2026-09-25-riscontro-csi-domande-sviluppo"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -138,7 +138,11 @@ SIA ASR  →  PATCH /api/v1/endpoints/{endp_id}/stato-allineamento { IN_CORSO } 
 
 ---
 
-## Gestione Deleghe ⚠️ FE OUT / BE IN
+## Gestione Deleghe ❌ OUT (FE e BE)
+
+> ✅ **Chiuso (mail CSI 25/09/2026, DEV-02):** la gestione delle Deleghe **non è in questo perimetro**. Il backend **non interroga** Gestione Deleghe: riceve in input il **CF del delegato** che opera per il cittadino. Nessuna integrazione da migrare né da costruire. Supera il banner "BE IN" del 22/09/2026 e chiude il conflict sotto. Fonte: [[wiki/sources/2026-09-25-riscontro-csi-domande-sviluppo\|Riscontro CSI 25/09/2026]].
+>
+> Residuo non bloccante: quale servizio riceve il CF del delegato, con quale nome di campo, e se va persistito.
 
 > 🔴 **Frontend fuori perimetro** (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]) — l'uso documentato parte dal pulsante "Deleghe" della Webapp Cittadino (MF20R19), interfaccia che non sviluppiamo.
 >
@@ -160,7 +164,9 @@ SIA ASR  →  PATCH /api/v1/endpoints/{endp_id}/stato-allineamento { IN_CORSO } 
 >
 > 🔴 **Precisato 22/09/2026:** "riciclato integralmente" va letto come **da riportare funzionante sul nuovo stack**, non come "non ci riguarda". Il consumatore (Webapp Cittadino) resta attivo sul backend nuovo. Vedi banner di sezione.
 
-> ⚠️ **Conflict — aperto 22/09/2026. Integrazione dichiarata esistente dal committente, non trovata nel sorgente.**
+> ✅ **Conflict risolto 25/09/2026.** Il WSDL era un file isolato nella cartella `docs`, senza classi generate né riferimenti nel build: integrazione mai realizzata. CSI ha poi dichiarato Deleghe fuori perimetro (DEV-02). Il testo sotto resta come registro.
+>
+> ~~⚠️ **Conflict — aperto 22/09/2026. Integrazione dichiarata esistente dal committente, non trovata nel sorgente.**~~
 >
 > - **[[wiki/entities/csi-piemonte\|CSI Piemonte]]** (call 20/07/2026, INT-02; riconfermato 06/08/2026): l'integrazione con Gestione Deleghe via API-Piemonte è **«già integrata, non c'è nulla da fare»**, componente legacy da riciclare.
 > - **Riscontro sviluppo Exprivia** ([[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|ricognizione AS-IS 22/09/2026]]): nel repo `consprefboweb` è presente il **contratto WSDL** `DelegheCittadiniService` (`getDeleganti`, `getDelegati`, `saveDelegati`, …), ma **nessuna classe lo implementa — non esiste un client verso quel servizio**.
@@ -225,7 +231,8 @@ Registrazione app PUA (**1 profilo Operatore** — non 2, call CSI 06/08/2026) d
                               ↓
 [Applicativo Gestione Consensi]  ← backend UNICO: serve entrambe le webapp, interamente in perimetro
         ├─ AURA              (SOAP/IRIS) — FindProfiliAnagrafici, getProfiloSanitario
-        ├─ Gestione Deleghe  (SOAP/OAuth2) — verifica deleghe familiari [⚠️ BE IN — da migrare iso-funz., consumatore = Webapp Citt]
+        ├─ Gestione Deleghe  ❌ OUT — nessuna chiamata dal BE; il BE riceve il CF del delegato (CSI 25/09/2026)
+        ├─ SIA ASR / aziende federate (SOAP inbound /services/ConsprefService) — mantenuto, canalità esistente (CSI 25/09/2026)
         ├─ Notificatore Deleghe (REST?) — conferma post-acquisizione al cittadino
         ├─ Notificatore UNP  (REST) — notifiche applicative generiche
         ├─ SIA ASR           (SOAP outbound) ← BATCH-01 notifiche puntuali
@@ -244,7 +251,7 @@ Registrazione app PUA (**1 profilo Operatore** — non 2, call CSI 06/08/2026) d
 | ------------------------ | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | AURA                     | Credenziali IRIS + WSDL (FindProfiliAnagrafici, getProfiloSanitario)              | ✅ Nei properties (call 20/07/2026) — nessun servizio nuovo                                                                               |
 | SIA ASR                  | Certificati X509 per ogni ASR (AS-IS) / credenziali OAuth via APIMBBONE (TO-BE)   | ❌ Da richiedere (AS-IS) · TO-BE gestito da APIM                                                                                          |
-| Gestione Deleghe ❌ OUT   | WSDL                                                                              | ✅ Già integrato (call 20/07/2026) — fuori scope di sviluppo (ADR-021, 06/08/2026), uso solo Webapp Cittadino                             |
+| Gestione Deleghe ❌ OUT   | WSDL                                                                              | ⚪ Non necessario — **fuori perimetro FE e BE** (CSI 25/09/2026, DEV-02): il BE riceve solo il CF del delegato                             |
 | Notificatore di Deleghe  | API + integration spec                                                            | ✅ **AS-IS legacy, riciclato — nessun nuovo sviluppo** (call CSI 06/08/2026; era "❌ Da richiedere" prima di questa call, distinta da UNP) |
 | Notificatore UNP         | Già documentato — gitlab.csi.it                                                   | ✅ Riferimento disponibile                                                                                                                |
 | PUA                      | Registrazione **1 profilo Operatore** (era "2 profili", corretto call CSI 06/08/2026) | ❌ Da richiedere                                                                                                                      |

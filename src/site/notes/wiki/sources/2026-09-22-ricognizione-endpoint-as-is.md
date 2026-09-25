@@ -98,8 +98,10 @@ Il fornitore ha chiesto se la chiamata in ingresso *"da GASP Salute"* debba arri
 
 ## Punti aperti generati
 
+> 🔄 **Aggiornamento 25/09/2026** ([[wiki/sources/2026-09-25-riscontro-csi-domande-sviluppo\|Riscontro CSI]]): evasi i punti Deleghe e L1. Per i servizi `/informativa/*` CSI accetta di adeguare il FE Operatore ai servizi del nuovo BE, se compatibile con i requisiti. In quel caso la tabella del contratto REST sopra smette di essere il vincolo di iso-funzionalità per il FE Operatore e resta come riferimento del comportamento AS-IS. L'esclusione dell'ASR 904 (San Luigi) presente nel codice AS-IS **non va replicata** (DEV-01).
+
 - **[CSI]** Elenco delle interfacce invocate dalla Webapp Cittadino sul backend — path, metodo, protocollo, formato richiesta/risposta. Riferimento di non-regressione. Senza, la iso-funzionalità è verificabile **solo verso la Webapp Operatore**
-- **[Exprivia]** Il WSDL `DelegheCittadiniService` è accompagnato da classi stub JAX-WS inutilizzate (integrazione dismessa) o è file isolato (mai realizzata)?
-- **[Exprivia] L1** — Conferma sull'assenza di endpoint SOAP esposti verso i SIA delle ASR in `consprefbe` — cfr. [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|specifica v03]], namespace `http://consprefbe.csi.it/`
+- ~~**[Exprivia]** Il WSDL `DelegheCittadiniService` è accompagnato da classi stub JAX-WS inutilizzate (integrazione dismessa) o è file isolato (mai realizzata)?~~ ✅ File isolato in `docs`, mai realizzata (24/09). Deleghe fuori perimetro (CSI 25/09, DEV-02)
+- ~~**[Exprivia] L1** — Conferma sull'assenza di endpoint SOAP esposti verso i SIA delle ASR in `consprefbe` — cfr. [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|specifica v03]], namespace `http://consprefbe.csi.it/`~~ ✅ Esiste `/services/ConsprefService`, da mantenere (CSI 25/09, DEV-03)
 - **[Exprivia] L2** — Conferma sull'assenza dell'integrazione LIS/RIS — cfr. [[wiki/docs/adr/ADR-020-lis-integrazione-be-esistente\|ADR-020]]
 - **[Exprivia/DB]** Valori distinti di `fonte_id` sui consensi storici in `consprefdb` — identifica i fruitori reali del canale di acquisizione senza dipendere dal ritrovamento di codice dedicato. Verifica che discrimina l'ipotesi "L1 e L2 sono lo stesso punto cieco" ([[wiki/docs/adr/ADR-020-lis-integrazione-be-esistente\|ADR-020]] §Riscontro AS-IS)

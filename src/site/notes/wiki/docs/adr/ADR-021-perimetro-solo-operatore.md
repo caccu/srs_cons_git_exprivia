@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-021-perimetro-solo-operatore/","title":"Perimetro progetto ridotto a Webapp Operatore — Webapp Cittadino esclusa","tags":["perimetro","scope","webapp-operatore","webapp-cittadino"],"dg-note-properties":{"adr":21,"title":"Perimetro progetto ridotto a Webapp Operatore — Webapp Cittadino esclusa","status":"accepted","date":"2026-08-06","deciders":["CSI Piemonte","Exprivia"],"supersedes":[11,19],"superseded-by":[],"tags":["perimetro","scope","webapp-operatore","webapp-cittadino"],"related_wiki":["[[Gestione Consensi - Applicativo]]","[[GASP Salute]]","[[composizione-dinamica-form-consenso|Composizione Dinamica Form Consenso]]","[[wiki/docs/adr/ADR-010-cdu-01-split\|ADR-010-cdu-01-split]]","[[wiki/docs/adr/ADR-008-ssot-form-renderer\|ADR-008-ssot-form-renderer]]","[[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|Ricognizione endpoint AS-IS — riscontro sviluppo]]"],"sources":["Call CSI 06/08/2026","2026-09-22-ricognizione-endpoint-as-is"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-021-perimetro-solo-operatore/","title":"Perimetro progetto ridotto a Webapp Operatore — Webapp Cittadino esclusa","tags":["perimetro","scope","webapp-operatore","webapp-cittadino"],"dg-note-properties":{"adr":21,"title":"Perimetro progetto ridotto a Webapp Operatore — Webapp Cittadino esclusa","status":"accepted","date":"2026-08-06","deciders":["CSI Piemonte","Exprivia"],"supersedes":[11,19],"superseded-by":[],"tags":["perimetro","scope","webapp-operatore","webapp-cittadino"],"related_wiki":["[[Gestione Consensi - Applicativo]]","[[GASP Salute]]","[[composizione-dinamica-form-consenso|Composizione Dinamica Form Consenso]]","[[wiki/docs/adr/ADR-010-cdu-01-split\|ADR-010-cdu-01-split]]","[[wiki/docs/adr/ADR-008-ssot-form-renderer\|ADR-008-ssot-form-renderer]]","[[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|Ricognizione endpoint AS-IS — riscontro sviluppo]]","[[ADR-022-cdu-06-scarico-informativa-operatore]]"],"sources":["Call CSI 06/08/2026","2026-09-22-ricognizione-endpoint-as-is","2026-09-25-riscontro-csi-domande-sviluppo"]}}
 ---
 
 
@@ -19,6 +19,8 @@
 > - La Webapp Cittadino non subisce interventi funzionali da parte nostra.
 >
 > **Lettura corretta di "fuori dal perimetro di sviluppo" in questo ADR e in tutte le pagine che lo citano:** *fuori perimetro il frontend; il backend corrispondente resta in perimetro come migrazione a **iso-funzionalità** (stesso contratto, stesso comportamento).*
+>
+> 🔄 **Eccezione CDU-06 (mail CSI 25/09/2026):** lo scarico dell'informativa va previsto **anche per l'Operatore**. Per questa parte il CDU-06 **produce lavoro di frontend** nella Webapp Operatore. Vedi [[wiki/docs/adr/ADR-022-cdu-06-scarico-informativa-operatore\|ADR-022]].
 >
 > Conseguenza operativa: i CDU marcati ❌ OUT (CDU-01b, CDU-02, CDU-03, CDU-04, CDU-06) **non producono lavoro di frontend**, ma i servizi ed endpoint backend che li servono **vanno migrati sul nuovo stack senza alterarne il contratto**.
 
@@ -94,6 +96,7 @@ Ricognizione del team di sviluppo Exprivia sul sorgente AS-IS consegnato (`consp
   ⚠️ **Rischio se non evaso:** il backend nuovo può essere consegnato a iso-funzionalità **verificata solo rispetto alla Webapp Operatore**; la compatibilità verso la Webapp Cittadino resta un rischio non coperto da collaudo.
 - 🆕 **Da verificare:** perimetro esatto delle integrazioni BE che la Webapp Cittadino attiva indirettamente — [[wiki/concepts/gasp-salute\|GASP Salute]] (autenticazione SPID/CIE) e [[wiki/concepts/sistemi-esterni-integrati\|Gestione Deleghe]] (`getDelegantiService`). Entrambe risultano lato backend, quindi coperte dal vincolo di compatibilità; da confermare sul sorgente AS-IS.
   ⚠️ **Parzialmente smentito dal riscontro 22/09/2026** per Gestione Deleghe: il WSDL è presente ma **nessun client lo implementa**. Vedi [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] §Gestione Deleghe
+  ✅ **Deleghe chiuso 25/09/2026 (DEV-02):** Gestione Deleghe è **fuori perimetro anche lato BE**. Il backend riceve solo il CF del delegato, quindi non c'è integrazione da preservare. Resta aperto solo il versante GASP Salute.
 
 ## References
 

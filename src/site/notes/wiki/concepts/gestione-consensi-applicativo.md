@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/gestione-consensi-applicativo/","title":"Gestione Consensi - Applicativo","tags":["applicativo","gestione-consensi","sanita-piemonte","to-be"],"dg-note-properties":{"title":"Gestione Consensi - Applicativo","aliases":["Gestione Consensi - Applicativo"],"type":"concept","tags":["applicativo","gestione-consensi","sanita-piemonte","to-be"],"created":"2026-05-05","updated":"2026-09-22","sources":["2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7"],"related":["[[CSI Piemonte]]","[[exprivia|Exprivia S.p.A.]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Architettura IaaS]]","[[2026-03-12-pile-tecnologiche-csi|Pile Tecnologiche CSI Piemonte]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/gestione-consensi-applicativo/","title":"Gestione Consensi - Applicativo","tags":["applicativo","gestione-consensi","sanita-piemonte","to-be"],"dg-note-properties":{"title":"Gestione Consensi - Applicativo","aliases":["Gestione Consensi - Applicativo"],"type":"concept","tags":["applicativo","gestione-consensi","sanita-piemonte","to-be"],"created":"2026-05-05","updated":"2026-09-25","sources":["2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7","2026-09-25-riscontro-csi-domande-sviluppo"],"related":["[[CSI Piemonte]]","[[exprivia|Exprivia S.p.A.]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Architettura IaaS]]","[[2026-03-12-pile-tecnologiche-csi|Pile Tecnologiche CSI Piemonte]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -120,12 +120,15 @@ Variante 6.1.3 [PROPOSTA]: se il servizio Gestione Deleghe non risponde o restit
   - **Senza** firma digitale
   - **Senza** valore consenso espresso
   - Struttura ulteriore: `[PROPOSTA]` da concordare (MF49R48, MF51R50)
+  - 🔄 **Esteso all'Operatore (mail CSI 25/09/2026):** lo scarico dell'informativa va previsto anche nella Webapp Operatore. Vedi §Area Operatore e [[wiki/docs/adr/ADR-022-cdu-06-scarico-informativa-operatore\|ADR-022]]
 
 ### Area Operatore ✅ IN scope
 
 - Ricerca assistito via **AURA** (FindProfiliAnagrafici + getProfiloSanitario). Se CF non trovato → messaggio "La ricerca con il filtro fornito non ha prodotto risultati". **Nessuna chiamata a SistemaTS** (MF53R52, MF55R54).
 - Gestione consensi per conto dell'assistito — CDU-09 (rilascio), CDU-10 (modifica), CDU-11 (cambio valore). Motore Form Renderer ([[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]]) — in questo progetto usato **solo dalla Webapp Operatore** (vedi [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]; il riuso con la Webapp Cittadino non è più in scope).
 - Tracciatura: `fonte_id='PASS'`, `login_operazione`, `ruoloop_id` valorizzati con dati operatore.
+- **Scarico/stampa informativa** per conto dell'assistito (CDU-06 esteso all'Operatore, mail CSI 25/09/2026): sola informativa, niente firma né valore del consenso. Servizio BE unico condiviso con la Webapp Cittadino. Collocazione nell'SRS da decidere. Vedi [[wiki/docs/adr/ADR-022-cdu-06-scarico-informativa-operatore\|ADR-022]].
+- Elenco ASR: l'esclusione hard-coded dell'ASR 904 (San Luigi) presente nell'AS-IS **non va replicata**. L'esclusione va basata sulle aziende con endpoint dismessi, regola da definire ([[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punti Aperti CSI]] DEV-01).
 
 ### Area Back Office ✅ IN scope
 

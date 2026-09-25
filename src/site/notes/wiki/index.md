@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-09-22"}}
+{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-09-25"}}
 ---
 
 
@@ -81,6 +81,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 - [[wiki/sources/2019-04-08-dizionario-dati-as-is\|Modello Dizionario Dati AS-IS (2019)]] — 12 entità AS-IS (2 business + 1 log + 9 dominio); cons_s_consenso non popolata
 - [[wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione\|ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)]] — Specifiche SOAP inbound: DA01-DA03, upsert logic, 18 codici errore
 - [[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|Ricognizione endpoint AS-IS — riscontro sviluppo]] — 8 endpoint REST `CittadiniApi`/`InformativaApi` = baseline iso-funzionalità Webapp Operatore; Webapp Cittadino assente dalla consegna (coerente col perimetro); WSDL Deleghe senza client ⚠️
+- [[wiki/sources/2026-09-25-riscontro-csi-domande-sviluppo\|Riscontro CSI alle domande di sviluppo (mail 24-25/09/2026)]] — DEV-01÷06: Deleghe fuori perimetro, `ConsprefService` SOAP mantenuto, CDU-06 scarico informativa anche per l'Operatore, ASR 904 da ripristinare; codici errore e trust gateway in verifica CSI (11 pagine toccate)
 
 ---
 
@@ -105,7 +106,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 
 ## Architecture Decision Records
 
-Registry decisioni architetturali in `docs/adr/`. Lifecycle gestito (proposed/accepted/superseded), cross-link bidirezionale con concept/analysis pages. 21 ADR (19 materializzati il 2026-05-19 + ADR-020/ADR-021 il 06/08/2026 — ADR-020 supersede ADR-017, ADR-021 supersede ADR-011 e ADR-019).
+Registry decisioni architetturali in `docs/adr/`. Lifecycle gestito (proposed/accepted/superseded), cross-link bidirezionale con concept/analysis pages. 22 ADR (19 materializzati il 2026-05-19 + ADR-020/ADR-021 il 06/08/2026 — ADR-020 supersede ADR-017, ADR-021 supersede ADR-011 e ADR-019).
 
 Indice completo: [docs/adr/README.md](wiki/docs/adr/README.md)
 
@@ -132,4 +133,5 @@ Indice completo: [docs/adr/README.md](wiki/docs/adr/README.md)
 | [ADR-019](ADR-019-cdu-06-pdf-scope-ridotto.md) | CDU-06 PDF scope ridotto | **superseded** |
 | [ADR-020](ADR-020-lis-integrazione-be-esistente.md) | LIS/RIS integrazione BE esistente (supersede ADR-017) — ⚠️ integrazione non rilevata dalla ricognizione AS-IS 22/09/2026, verifica L1/L2 pendente | accepted |
 | [ADR-021](ADR-021-perimetro-solo-operatore.md) | Perimetro progetto: solo Webapp Operatore (supersede ADR-011, ADR-019) | accepted |
+| [ADR-022](ADR-022-cdu-06-scarico-informativa-operatore.md) | CDU-06 scarico informativa anche per l'Operatore (FE Operatore) | accepted |
 

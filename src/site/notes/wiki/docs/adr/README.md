@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/readme/","title":"Architecture Decision Records — Gestione Consensi","dg-note-properties":{"title":"Architecture Decision Records — Gestione Consensi","type":"index","created":"2026-05-19","updated":"2026-08-06"}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/readme/","title":"Architecture Decision Records — Gestione Consensi","dg-note-properties":{"title":"Architecture Decision Records — Gestione Consensi","type":"index","created":"2026-05-19","updated":"2026-09-25"}}
 ---
 
 
@@ -40,6 +40,7 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | [ADR-019](ADR-019-cdu-06-pdf-scope-ridotto.md) | CDU-06 PDF — scope ridotto, no firma | superseded | 2026-05-14 | CDU |
 | [ADR-020](ADR-020-lis-integrazione-be-esistente.md) | LIS/RIS — integrazione BE esistente, non terzo canale | accepted | 2026-08-06 | Integrazione |
 | [ADR-021](ADR-021-perimetro-solo-operatore.md) | Perimetro progetto ridotto a Webapp Operatore — **solo FE; BE unico in perimetro** (prec. 22/09/2026) | accepted | 2026-08-06 | Perimetro |
+| [ADR-022](ADR-022-cdu-06-scarico-informativa-operatore.md) | CDU-06 — scarico informativa anche per l'Operatore (FE Operatore) | accepted | 2026-09-25 | UX / CDU |
 
 ---
 
@@ -53,14 +54,14 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | Batch | 3 | 0 | 0 |
 | Integrazione | 4 | 0 | 0 |
 | Modello dati | 2 | 0 | 0 |
-| UX / CDU | 2 | 0 | 2 |
+| UX / CDU | 3 | 0 | 2 |
 | API | 1 | 0 | 0 |
 | Notifica | 1 | 0 | 0 |
 | Canali | 0 | 0 | 1 |
 | Perimetro | 1 | 0 | 0 |
-| **Totale** | **16** | **0** | **5** |
+| **Totale** | **17** | **0** | **5** |
 
-ADR-006 (CDU-17 PULL) è stato **confermato dal committente nella call CSI del 20/07/2026** (rifacimento completo del caso d'uso) e portato a `accepted`. ADR-017 (LIS terzo canale) è stato **superato dalla call CSI del 06/08/2026** → [ADR-020](ADR-020-lis-integrazione-be-esistente.md). ADR-011 e ADR-019 (funzionalità cittadino) sono stati **superati dalla call CSI del 06/08/2026** → [ADR-021](ADR-021-perimetro-solo-operatore.md) (perimetro ridotto a Webapp Operatore). Non restano ADR in stato `proposed`.
+ADR-006 (CDU-17 PULL) è stato **confermato dal committente nella call CSI del 20/07/2026** (rifacimento completo del caso d'uso) e portato a `accepted`. ADR-017 (LIS terzo canale) è stato **superato dalla call CSI del 06/08/2026** → [ADR-020](ADR-020-lis-integrazione-be-esistente.md). ADR-011 e ADR-019 (funzionalità cittadino) sono stati **superati dalla call CSI del 06/08/2026** → [ADR-021](ADR-021-perimetro-solo-operatore.md) (perimetro ridotto a Webapp Operatore). ADR-022 (25/09/2026) riprende lo scope funzionale di ADR-019 e lo estende all'Operatore, su risposta CSI. Non restano ADR in stato `proposed`.
 
 ---
 
@@ -86,7 +87,8 @@ ADR-017 LIS terzo canale (superseded)
 
 ADR-021 perimetro solo Operatore
   ├── supersede ADR-011 (merge CDU-04/05 cittadino)
-  └── supersede ADR-019 (CDU-06 PDF cittadino)
+  ├── supersede ADR-019 (CDU-06 PDF cittadino)
+  └── ADR-022 CDU-06 scarico informativa anche Operatore (eccezione FE, riprende scope ADR-019)
 
 ADR-015 storicizzazione immutabile
   └── ADR-016 SCADUTO async via BATCH-02 (storicizzato)
@@ -117,9 +119,10 @@ ADR con open issues:
 - **ADR-013**: ~~GOV-03 (responsabile CSI migrazione)~~ ✅ chiuso 16/07/2026 (CSI Piemonte), TECH-01 (audit DDL PG9, target ora PG18)
 - **ADR-016**: SC67 (logica INSERT storicizzazione BATCH-02), BAT-03 (comunicazione ASR cambio semantica)
 - **ADR-017**: ~~INT-03 (acronimo LIS + spec integrazione)~~ ✅ chiuso 06/08/2026 (superseded by ADR-020)
-- **ADR-019**: ~~GOV-02 (validazione `[PROPOSTA]` struttura PDF)~~ non più bloccante — **frontend** CDU-06 fuori scope (ADR-021, 06/08/2026). ⚠️ Se la generazione PDF è server-side, l'endpoint rientra nel vincolo di compatibilità (precisazione 22/09/2026)
-- **ADR-020**: individuare integrazione LIS/RIS nel sorgente AS-IS (dipende da INT-04 accesso repo, TECH-01 audit) — ⚠️ **non rilevata dalla ricognizione Exprivia del 22/09/2026**; ADR confermato `accepted` con verifica pendente, punto articolato in L1 (endpoint SOAP esposti non segnalati) + L2 (acquisizione da sistemi di reparto) + verifica `fonte_id` su `consprefdb`
-- **ADR-021**: correggere SRS §1/§2/§3 e catalogo CDU per riflettere il perimetro (solo dopo conferma utente) — **recependo la precisazione FE/BE del 22/09/2026**; ~~verificare compatibilità dati/API con Webapp Cittadino esistente~~ ✅ chiuso 22/09/2026 (**sì, deve restare compatibile**); nuovo aperto: elenco endpoint AS-IS invocati dalla Webapp Cittadino come riferimento di non-regressione
+- **ADR-019**: ~~GOV-02 (validazione `[PROPOSTA]` struttura PDF)~~ non più bloccante — **frontend** CDU-06 fuori scope (ADR-021, 06/08/2026). ⚠️ Se la generazione PDF è server-side, l'endpoint rientra nel vincolo di compatibilità (precisazione 22/09/2026). 🔄 Ripreso da ADR-022 (25/09/2026)
+- **ADR-020**: individuare integrazione LIS/RIS nel sorgente AS-IS (dipende da INT-04 accesso repo, TECH-01 audit) — ⚠️ **non rilevata dalla ricognizione Exprivia del 22/09/2026**; ADR confermato `accepted` con verifica pendente, punto articolato in ~~L1 (endpoint SOAP esposti non segnalati)~~ ✅ chiusa 25/09/2026: `/services/ConsprefService` esiste e va mantenuto, + L2 (acquisizione da sistemi di reparto) + verifica `fonte_id` su `consprefdb`
+- **ADR-021**: correggere SRS §1/§2/§3 e catalogo CDU per riflettere il perimetro (solo dopo conferma utente) — **recependo la precisazione FE/BE del 22/09/2026**; ~~verificare compatibilità dati/API con Webapp Cittadino esistente~~ ✅ chiuso 22/09/2026 (**sì, deve restare compatibile**); nuovo aperto: elenco endpoint AS-IS invocati dalla Webapp Cittadino come riferimento di non-regressione; ✅ Deleghe fuori perimetro anche lato BE (25/09/2026)
+- **ADR-022**: collocazione nell'SRS (CDU-06 a due attori o CDU-09/10), verifica `pdf_informativa` valorizzato, informative storiche sì/no, voce backlog FE
 
 ---
 
