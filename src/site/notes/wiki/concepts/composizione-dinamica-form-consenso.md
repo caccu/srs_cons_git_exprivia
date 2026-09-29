@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/composizione-dinamica-form-consenso/","title":"Composizione Dinamica Form Consenso — Single Source of Truth","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"dg-note-properties":{"title":"Composizione Dinamica Form Consenso — Single Source of Truth","aliases":["Composizione Dinamica Form Consenso — Single Source of Truth"],"type":"concept","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"created":"2026-05-14","updated":"2026-09-22","sources":["2026-03-02-conspref-srs-v1-revised"],"related":["[[Gestione Consensi - Applicativo]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Sistemi Esterni Integrati]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/composizione-dinamica-form-consenso/","title":"Composizione Dinamica Form Consenso — Single Source of Truth","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"dg-note-properties":{"title":"Composizione Dinamica Form Consenso — Single Source of Truth","aliases":["Composizione Dinamica Form Consenso — Single Source of Truth"],"type":"concept","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"created":"2026-05-14","updated":"2026-09-29","sources":["2026-03-02-conspref-srs-v1-revised"],"related":["[[Gestione Consensi - Applicativo]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Sistemi Esterni Integrati]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -104,7 +104,7 @@ Aggiungere componente **"Form Renderer dinamico"** nei componenti software:
 
 ### 5.2 Schema configurazione DB
 Tabella principale: `cons_d_sotto_tipo_cons` con campi configurativi:
-- `valori_ammessi_json` o tabella correlata `cons_d_valore_consenso`
+- ~~`valori_ammessi_json` o tabella correlata `cons_d_valore_consenso`~~ → **deciso 29/09/2026 ([[wiki/docs/adr/ADR-023-cdu-11-contratto-rest-valori-ammessi\|ADR-023]]):** relazione `cons_r_consenso_valore` (sotto-tipo ↔ valore, con validità), descrizioni in `cons_d_valore_cons`; esposti al FE nel campo `valori_ammessi: [{valore, descrizione}]` della risposta che carica il consenso. Tabella nuova, creata e popolata dal team BE in migrazione (SI/NO per i sotto-tipi esistenti)
 - `domande_opzionali_json` o tabella correlata
 - `flag_informativa_per_ente` (boolean)
 - `flag_richiesto` (boolean per campo)

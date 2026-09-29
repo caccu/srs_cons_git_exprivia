@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-09-25"}}
+{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-09-29"}}
 ---
 
 
@@ -106,7 +106,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 
 ## Architecture Decision Records
 
-Registry decisioni architetturali in `docs/adr/`. Lifecycle gestito (proposed/accepted/superseded), cross-link bidirezionale con concept/analysis pages. 22 ADR (19 materializzati il 2026-05-19 + ADR-020/ADR-021 il 06/08/2026 — ADR-020 supersede ADR-017, ADR-021 supersede ADR-011 e ADR-019).
+Registry decisioni architetturali in `docs/adr/`. Lifecycle gestito (proposed/accepted/superseded), cross-link bidirezionale con concept/analysis pages. 23 ADR (19 materializzati il 2026-05-19 + ADR-020/ADR-021 il 06/08/2026 + ADR-022 il 25/09/2026 + ADR-023 il 29/09/2026 — ADR-020 supersede ADR-017, ADR-021 supersede ADR-011 e ADR-019).
 
 Indice completo: [docs/adr/README.md](wiki/docs/adr/README.md)
 
@@ -134,4 +134,5 @@ Indice completo: [docs/adr/README.md](wiki/docs/adr/README.md)
 | [ADR-020](ADR-020-lis-integrazione-be-esistente.md) | LIS/RIS integrazione BE esistente (supersede ADR-017) — ⚠️ integrazione non rilevata dalla ricognizione AS-IS 22/09/2026, verifica L1/L2 pendente | accepted |
 | [ADR-021](ADR-021-perimetro-solo-operatore.md) | Perimetro progetto: solo Webapp Operatore (supersede ADR-011, ADR-019) | accepted |
 | [ADR-022](ADR-022-cdu-06-scarico-informativa-operatore.md) | CDU-06 scarico informativa anche per l'Operatore (FE Operatore) | accepted |
+| [ADR-023](ADR-023-cdu-11-contratto-rest-valori-ammessi.md) | CDU-11 contratto REST dedicato (`PUT /consensi/{cfAssistito}/valore`) e valori ammessi da `cons_r_consenso_valore` | accepted |
 
