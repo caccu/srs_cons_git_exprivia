@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/overview/","title":"Overview","tags":["gestione-consensi","sanita-piemonte","srs","exprivia"],"dg-note-properties":{"title":"Overview","aliases":["Overview"],"type":"overview","tags":["gestione-consensi","sanita-piemonte","srs","exprivia"],"created":"2026-05-05","updated":"2026-09-25","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-appunti-e-pianificazione","2026-03-02-domande-srs-csi-v02","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7","2026-03-12-pile-tecnologiche-csi"]}}
+{"dg-publish":true,"permalink":"/wiki/overview/","title":"Overview","tags":["gestione-consensi","sanita-piemonte","srs","exprivia"],"dg-note-properties":{"title":"Overview","aliases":["Overview"],"type":"overview","tags":["gestione-consensi","sanita-piemonte","srs","exprivia"],"created":"2026-05-05","updated":"2026-10-05","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-appunti-e-pianificazione","2026-03-02-domande-srs-csi-v02","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7","2026-03-12-pile-tecnologiche-csi"]}}
 ---
 
 
@@ -19,7 +19,7 @@
 
 [[wiki/entities/exprivia\|Exprivia S.p.A.]] sta analizzando il rifacimento completo dell'applicativo [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] della Regione Piemonte. Il sistema gestisce i consensi sanitari dei cittadini piemontesi (tre livelli: nazionale, regionale, aziendale) attraverso 17 casi d'uso, 2 processi batch (più il CDU-17 PULL) e 6 sistemi esterni.
 
-Il documento centrale è **CONSPREF-SRS-V1.0**, redatto da Marco Forneris/Exprivia il 02/03/2026, che specifica il sistema TO-BE con stack tecnologico Angular 19 + Spring Boot 3 + PostgreSQL 18 (target aggiornato da PG17, call CSI 06/08/2026) su infrastruttura cloud [[wiki/concepts/architettura-iaas\|Architettura IaaS]] (IaaS Nivola, provisioning CSI). Ultima revisione recepita: **`CONSPREF-SRS-V1.0-revised_v6`** (rev 1.1, 15/07/2026 — GASP Shibboleth SP, sicurezza API Manager APIMBBONE, DBaaS DEV/pre-prod, toolchain ADA/Chef, §7.4 Manutenzione ASR). Chiarimenti sicurezza/integrazioni recepiti dalla **call CSI 20/07/2026** (header CF+`codice_ente`, Q1–Q6 delegati ad APIMBBONE, AURA/Deleghe chiusi). In questa fase gli ambienti provisionati sono **DEV e pre-produzione** (PROD rinviato per costi); il modello IaaS resta valido per tutti gli ambienti.
+Il documento centrale è **CONSPREF-SRS-V1.0**, redatto da Marco Forneris/Exprivia il 02/03/2026, che specifica il sistema TO-BE con stack tecnologico Angular 19 + Spring Boot 3 + PostgreSQL 18 (target aggiornato da PG17, call CSI 06/08/2026) su infrastruttura cloud [[wiki/concepts/architettura-iaas\|Architettura IaaS]] (IaaS Nivola, provisioning CSI). Ultima revisione recepita: **`CONSPREF-SRS-V1.0-revised_v10`** (rev. 1.9, 29/09/2026 — perimetro solo Webapp Operatore con BE unico a iso-funzionalità, profilo Operatore unico, Gestione Deleghe fuori perimetro, `ConsprefService` SOAP mantenuto, CDU-06 scarico informativa anche per l'Operatore, contratto REST CDU-11 e valori ammessi da `cons_r_consenso_valore`). Le revisioni precedenti (v6 del 15/07/2026: GASP Shibboleth SP, APIMBBONE, DBaaS DEV/pre-prod, ADA/Chef, §7.4 Manutenzione ASR) restano incluse. Chiarimenti sicurezza/integrazioni recepiti dalla **call CSI 20/07/2026** (header CF+`codice_ente`, Q1–Q6 delegati ad APIMBBONE, AURA/Deleghe chiusi). In questa fase gli ambienti provisionati sono **DEV e pre-produzione** (PROD rinviato per costi); il modello IaaS resta valido per tutti gli ambienti.
 
 ---
 
@@ -44,7 +44,8 @@ Operatore (RUPAR/IRIDE) → PUA → Angular SPA  ✅ FE IN — unico frontend sv
                             Spring Boot 3 → PostgreSQL 18 (DBaaS)  ✅ BE IN — unico, serve entrambe le webapp
                             (ADR-021, precisato 22/09/2026: compatibilità iso-funzionalità con la Webapp Cittadino)
 
-Spring Boot → AURA (SOAP), Deleghe (SOAP), UNP (REST), SIA-ASR (SOAP+REST)
+Spring Boot → AURA (SOAP), UNP (REST), Notificatore di Deleghe (REST), SIA-ASR (SOAP out BATCH-01 + SOAP in ConsprefService + REST via APIMBBONE)
+(Gestione Deleghe fuori perimetro — CSI 25/09/2026: nessuna chiamata, il BE riceve solo cf_delegato)
 ```
 
 ---
@@ -83,6 +84,8 @@ Per CDU-15/16/17 (servizi REST verso SIA ASR): token **OAuth2 `client_credential
 ---
 
 ## Evolution
+
+> ⏳ **In attesa di recepimento (tracciato 05/10/2026, su indicazione utente):** la sezione non riporta ancora le evoluzioni del **29/09/2026** ([[wiki/docs/adr/ADR-023-cdu-11-contratto-rest-valori-ammessi\|ADR-023]] e SRS v10 rev. 1.9), del **01/10/2026** (risposta al team FE sul Form Renderer CDU-09/10/11, contratto REST proposto) e del **05/10/2026** (cartella `riassunto/` — [[riassunto/00-README\|Riassunto CDU]]). Dettaglio in [[wiki/log\|Wiki Log]].
 
 - **2026-05-05** — Primo ingest: 6 documenti. Struttura wiki creata. Valutazione SRS.
 - **2026-05-05** — Completamento corpus: 4 documenti rimanenti ingestionati. 2 nuovi rischi identificati: ambiguità BATCH-01/WSDL e differenza AS-IS/TO-BE stato SCADUTO.
