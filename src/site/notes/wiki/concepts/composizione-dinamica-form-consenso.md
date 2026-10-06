@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/composizione-dinamica-form-consenso/","title":"Composizione Dinamica Form Consenso — Single Source of Truth","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"dg-note-properties":{"title":"Composizione Dinamica Form Consenso — Single Source of Truth","aliases":["Composizione Dinamica Form Consenso — Single Source of Truth"],"type":"concept","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"created":"2026-05-14","updated":"2026-09-29","sources":["2026-03-02-conspref-srs-v1-revised"],"related":["[[Gestione Consensi - Applicativo]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Sistemi Esterni Integrati]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/composizione-dinamica-form-consenso/","title":"Composizione Dinamica Form Consenso — Single Source of Truth","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"dg-note-properties":{"title":"Composizione Dinamica Form Consenso — Single Source of Truth","aliases":["Composizione Dinamica Form Consenso — Single Source of Truth"],"type":"concept","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"created":"2026-05-14","updated":"2026-10-06","sources":["2026-03-02-conspref-srs-v1-revised"],"related":["[[Gestione Consensi - Applicativo]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Sistemi Esterni Integrati]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -111,18 +111,27 @@ Tabella principale: `cons_d_sotto_tipo_cons` con campi configurativi:
 
 ### 5.3 Pattern fetch
 ```
-GET /api/v1/config/sotto-tipo-consenso/{sotto_tipo}
+GET /consensi/{cfAssistito}/form?sotto_tipo_consenso_id=..&cod_asr=..&operazione=RILASCIO|MODIFICA|CAMBIO_VALORE
   ↓
 {
-  "sotto_tipo": "ROL",
-  "campi": [...],
-  "valori_ammessi": [...],
-  "domande": [...],
-  "informativa_per_ente": true
+  "sotto_tipo_consenso_id": 12,
+  "codice": "ROL",
+  "descrizione": "...",
+  "tipo_consenso": "AZIENDALE",
+  "cod_asr": "010", "desc_asr": "...",
+  "parametri": { "descrizione_estesa": "...", "domanda": "...", "testo_aggiuntivo": "..." },
+  "valori_ammessi": [ { "valore": "SI", "descrizione": "..." } ],
+  "stato_corrente": "...", "valore_corrente": "...",
+  "informativa": { "d_informativa_id": 45, "descrizione": "...", "data_decorrenza": "...", "pdf_url": "..." },
+  "regole": { "mostra_valore_precedente": true, "valore_modificabile": true,
+              "accettazione_informativa_richiesta": true, "informativa_sola_lettura": false,
+              "bloccato_allineamento": false }
 }
 ```
 
-Il backend (Spring Boot 3) espone l'endpoint, il Form Renderer Angular lo consuma alla `init` della pagina consenso. Cache lato browser opportuna.
+Il backend (Spring Boot 3) espone l'endpoint, il Form Renderer Angular lo consuma alla `init` della pagina consenso. La risposta dipende dall'assistito e dall'operazione (stato e valore correnti, regole), quindi non è una configurazione statica per sotto-tipo.
+
+> 🔄 **Aggiornato 06/10/2026.** Sostituito il contratto iniziale `GET /api/v1/config/sotto-tipo-consenso/{sotto_tipo}` (solo configurazione del sotto-tipo) con quello **proposto il 01/10/2026** dai team FE e BE (`Risposta-FE_Form-Renderer-CDU-09-10-11_2026-10-01.docx`), dettagliato in `riassunto/TRASV-componenti-comuni.md` §9. Lo **stato è ancora di proposta**: non formalizzato in ADR né nella SRS. Deciso solo `PUT /consensi/{cfAssistito}/valore` di CDU-11 ([[wiki/docs/adr/ADR-023-cdu-11-contratto-rest-valori-ammessi\|ADR-023]]). Salvataggi proposti: `POST /consensi/{cfAssistito}` (CDU-09), `PUT /consensi/{cfAssistito}` (CDU-10).
 
 ---
 
