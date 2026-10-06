@@ -96,18 +96,25 @@ Ognuno deve avere paragrafo "Composizione dinamica pagina operatore" che rimanda
 ## 5. Implementazione raccomandata
 
 ### 5.1 Componente architetturale SRS §3.3
-Aggiungere componente **"Form Renderer dinamico"** nei componenti software:
-- Tecnologia: Angular component library condivisa
-- Input: `tipo_consenso`, `sotto_tipo_consenso`, `codice_ente` (per aziendali), `modalita` (`citt` | `operatore`)
-- Output: form renderizzato + binding bidirezionale con backend
-- Riuso: stesso componente importato da `app-cittadino` e `app-operatore`
+Componente **"Form Renderer dinamico"** della Webapp Operatore (SRS v10 §3.3, §6.9–6.11):
+- Tecnologia: componente Angular 19 della **sola Webapp Operatore** ([[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]). Nessuna libreria condivisa con una Webapp Cittadino, che è fuori perimetro.
+- Usato da CDU-09 (rilascio), CDU-10 (modifica) e CDU-11 (cambio valore).
+- Input: `cfAssistito`, `sotto_tipo_consenso_id`, `cod_asr` e `operazione` (`RILASCIO` | `MODIFICA` | `CAMBIO_VALORE`), passati alla GET di §5.3. Non c'è più un parametro `modalita` cittadino/operatore.
+- Output: form con struttura fissa e contenuti dal DB; il comportamento (valore precedente, modificabilità, presa visione, informativa in sola lettura, blocco per allineamento) è guidato dal campo `regole` della risposta.
+- Ordine fisso dei blocchi: intestazione (consenso e azienda) → informativa (PDF, via CDU-06) → descrizione estesa → domanda con radio → testo aggiuntivo → checkbox presa visione → Salva.
 
 ### 5.2 Schema configurazione DB
-Tabella principale: `cons_d_sotto_tipo_cons` con campi configurativi:
-- ~~`valori_ammessi_json` o tabella correlata `cons_d_valore_consenso`~~ → **deciso 29/09/2026 ([[wiki/docs/adr/ADR-023-cdu-11-contratto-rest-valori-ammessi\|ADR-023]]):** relazione `cons_r_consenso_valore` (sotto-tipo ↔ valore, con validità), descrizioni in `cons_d_valore_cons`; esposti al FE nel campo `valori_ammessi: [{valore, descrizione}]` della risposta che carica il consenso. Tabella nuova, creata e popolata dal team BE in migrazione (SI/NO per i sotto-tipi esistenti)
-- `domande_opzionali_json` o tabella correlata
-- `flag_informativa_per_ente` (boolean)
-- `flag_richiesto` (boolean per campo)
+I contenuti del form non stanno in campi JSON di `cons_d_sotto_tipo_cons`, ma in tabelle dedicate (fonte: `riassunto/TRASV-componenti-comuni.md` §9):
+
+| Elemento del form | Fonte DB | Configurato in |
+|---|---|---|
+| Descrizione consenso | `cons_d_sotto_tipo_cons.desc_sotto_tipo_cons` | CDU-12 |
+| Valori ammessi del radio (`valori_ammessi`) | `cons_r_consenso_valore` (sotto-tipo ↔ valore, con validità) + `cons_d_valore_cons.desc_consenso` — deciso 29/09/2026 ([[wiki/docs/adr/ADR-023-cdu-11-contratto-rest-valori-ammessi\|ADR-023]]) | CDU-12; in migrazione SI/NO per tutti i sotto-tipi esistenti |
+| Descrizione estesa, Domanda, Testo aggiuntivo | `cons_r_consenso_parametro` (chiavi in `cons_d_parametro`) | CDU-12 |
+| Flag `online` | `cons_d_informativa` (deroga V03, GOV-02) | CDU-13 |
+| Informativa, per azienda se aziendale | `cons_d_informativa` + `cons_r_informativa_asr` | CDU-13 |
+
+Superate le ipotesi iniziali `domande_opzionali_json`, `flag_informativa_per_ente` e `flag_richiesto`: le domande sono parametri in `cons_r_consenso_parametro`, l'informativa per azienda deriva da `cons_r_informativa_asr` e l'obbligatorietà dei campi è decisa dalle `regole` per operazione. Sono nuove, da creare con gli script di migrazione TO-BE, `cons_r_consenso_valore`, `cons_r_consenso_parametro`, `cons_d_parametro` e la colonna `cons_d_informativa.online`. Aperti: codici di `cons_d_parametro` e formato (testo o HTML) di descrizione estesa e testo aggiuntivo.
 
 ### 5.3 Pattern fetch
 ```
