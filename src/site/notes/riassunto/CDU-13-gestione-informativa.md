@@ -82,7 +82,7 @@ CDU-12 (sotto-tipi); storage; a valle BATCH-02, CDU-06 e il Form Renderer.
 
 ## Punti aperti
 
-- Codice dell'informativa: generato dal BE o inserito dall'utente? Nel modello TO-BE non c'è una colonna `versione` esplicita, mentre CDU-15 espone `informativa.versione`.
+- ~~Codice/versione dell'informativa~~ **Deciso 06/10/2026:** nessuna colonna `versione`. La versione è la riga stessa (`d_informativa_id`), ordinata per `data_decorrenza`; CDU-15 espone solo `informativa.id` e le date.
 - Area di storage dei PDF su IaaS.
 - Si può modificare una versione già pubblicata (es. correggere un refuso)?
 - Rapporto con i flag Online/Annulla della maschera CDU-12.

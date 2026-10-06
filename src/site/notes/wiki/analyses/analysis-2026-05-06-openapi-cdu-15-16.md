@@ -49,8 +49,7 @@ GET /api/v1/consensi/stato
 | `data_espressione` | datetime UTC | Quando il cittadino ha scelto |
 | `data_inizio_validita_consenso` | date/null | Inizio validità |
 | `data_fine_validita_consenso` | date/null | Fine validità (null = attivo) |
-| `informativa.id` | long | ID informativa corrente |
-| `informativa.versione` | string | Versione informativa |
+| `informativa.id` | long | ID informativa corrente (`d_informativa_id`): identifica la versione. Nessun campo `versione` separato (decisione 06/10/2026) |
 | `informativa.data_decorrenza` | date | Decorrenza informativa |
 | `informativa.data_scadenza` | date/null | Scadenza informativa (null = attiva) |
 

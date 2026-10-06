@@ -107,7 +107,7 @@ GET /api/v1/consensi/snapshot
       "data_espressione": "2024-09-12T14:20:11Z",
       "data_inizio_validita_consenso": "2024-09-12",
       "data_fine_validita_consenso": null,
-      "informativa": { "id": 42, "versione": "3.1", "data_decorrenza": "2024-06-01", "data_scadenza": null }
+      "informativa": { "id": 42, "data_decorrenza": "2024-06-01", "data_scadenza": null }
     }
   ],
   "next_cursor": "eyJjb25zX2lkIjogMTIzNDU2fQ==",

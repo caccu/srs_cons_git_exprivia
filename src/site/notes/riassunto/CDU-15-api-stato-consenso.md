@@ -33,7 +33,7 @@ Risposta 200:
   "data_espressione": "2025-01-15T10:30:00Z",
   "data_inizio_validita_consenso": "2025-01-15",
   "data_fine_validita_consenso": null,
-  "informativa": { "id": 42, "versione": "3.1", "data_decorrenza": "2024-06-01", "data_scadenza": null }
+  "informativa": { "id": 42, "data_decorrenza": "2024-06-01", "data_scadenza": null }
 }
 ```
 
@@ -50,7 +50,7 @@ Codici: 200, 400 (parametri mancanti/malformati), 401, 403 (ente non autorizzato
 Mapping da chiarire:
 - `codice_consenso` → `sotto_tipo_consenso` (codice in `cons_d_sotto_tipo_cons`);
 - `codice_ente` → `cod_asr`;
-- `versione` dell'informativa: nel modello TO-BE non c'è una colonna `versione`, va decisa la fonte (vedi CDU-13).
+- Versione dell'informativa: **nessun campo `versione`** (decisione 06/10/2026). Ogni versione è una riga di `cons_d_informativa`; il SIA la identifica con `informativa.id` (`d_informativa_id`) e la colloca nel tempo con `data_decorrenza`/`data_scadenza`. Rimosso anche dall'esempio di SRS §6.15 (rev. 1.10).
 
 Semantica: SCADUTO nel TO-BE indica il **record corrente** con informativa scaduta. Nell'AS-IS lo stesso nome indicava un record superato. Va documentato nell'OpenAPI e comunicato ai SIA.
 
