@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/","title":"OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento","tags":["openapi","cdu-15","cdu-16","sia","rest","api","draft","consolidamento","sicurezza"],"dg-note-properties":{"title":"OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento","aliases":["OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento"],"type":"analysis","tags":["openapi","cdu-15","cdu-16","sia","rest","api","draft","consolidamento","sicurezza"],"created":"2026-05-06","updated":"2026-05-14","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2019-06-01-webservice-consenso-regionale-v03"],"related":["[[analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/analyses/analysis-gap-as-is-to-be\|Analisi Gap AS-IS → TO-BE — Gestione Consensi]]","[[Sistemi Esterni Integrati]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/","title":"OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento","tags":["openapi","cdu-15","cdu-16","sia","rest","api","draft","consolidamento","sicurezza"],"dg-note-properties":{"title":"OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento","aliases":["OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento"],"type":"analysis","tags":["openapi","cdu-15","cdu-16","sia","rest","api","draft","consolidamento","sicurezza"],"created":"2026-05-06","updated":"2026-10-06","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2019-06-01-webservice-consenso-regionale-v03"],"related":["[[analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/analyses/analysis-gap-as-is-to-be\|Analisi Gap AS-IS → TO-BE — Gestione Consensi]]","[[Sistemi Esterni Integrati]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]"]}}
 ---
 
 
@@ -211,13 +211,18 @@ Swagger UI esposta in ambienti non produttivi su `/swagger-ui.html` tramite **Sp
 
 ### ❌ Da consolidare con CSI Piemonte
 
-| ID | Informazione mancante | Impatto sul YAML | Priorità |
+> 🔄 **Aggiornamento 2026-10-06.** Dopo la call CSI del 20/07/2026 ([[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|tracker punti aperti]], SEC-01÷06) autenticazione, scope e rate limit sono a carico di APIMBBONE. Il YAML v0.1 è stato riallineato nella descrizione e nel `securitySchemes`. Restano aperti i punti sotto.
+
+| ID | Informazione | Stato | Priorità |
 |---|---|---|---|
-| TODO-M1 | URL Authorization Server CSI + JWKS endpoint | `securitySchemes.bearerAuth` — ora placeholder | 🔴 Pre go-live |
-| TODO-M2 | Scope OAuth2 richiesto per client SIA (es. `consensi:read`) | Documentazione integrazione SIA | 🔴 Pre go-live |
-| TODO-M3 | Paginazione su CDU-16 richiesta? | Aggiunta `page`/`size` query params + `PaginatedResponse` schema | 🟠 Sprint 2 |
-| TODO-M4 | SLA: rate limit per client, timeout massimo risposta | Header `X-RateLimit-*`, note NFR | 🟡 Pre UAT |
-| TODO-M5 | Lista ASR coinvolte + `client_id` per env DEV/PROD | Env-specific server URLs, test setup | 🟡 Sprint 3 |
+| ~~TODO-M1~~ | URL Authorization Server CSI + JWKS endpoint | ✅ Chiuso 20/07/2026: token emesso e validato da APIMBBONE, nessun JWKS lato backend | — |
+| ~~TODO-M2~~ | Scope OAuth2 per client SIA | ✅ Chiuso 20/07/2026: delegato ad APIMBBONE | — |
+| TODO-M3 | Paginazione su CDU-16 richiesta? | ❌ Aperto (API-03). Se serve, cursor-based come CDU-17 (SRS v10) | 🟠 Sprint 2 |
+| TODO-M4 | SLA: rate limit, timeout massimo | 🟡 Rate limit sul Traffic Manager APIMBBONE; tempo di risposta e throughput aperti (API-04) | 🟡 Pre UAT |
+| TODO-M5 | Lista ASR coinvolte + `client_id` per env DEV/PROD | ⚪ Differito, non vincolante (API-05) | — |
+| — | URL dei server DEV/PROD | ❌ Aperto: dipende dall'istanza CONSPREF e dalla pubblicazione su APIMBBONE | 🔴 Pre sottoscrizione APIM |
+| — | Nome esatto degli header inoltrati dal Gateway | ❌ Aperto: va documentato nel YAML | 🔴 Pre sottoscrizione APIM |
+| — | Conferma architetti CSI sul trust negli header (DEV-05, 25/09/2026) | ❌ Aperto | 🟠 |
 
 ---
 
@@ -231,7 +236,7 @@ Swagger UI esposta in ambienti non produttivi su `/swagger-ui.html` tramite **Sp
 | P04 | Configurare `openapi-generator-maven-plugin` per generazione stub | Sprint 1 |
 | P05 | Implementare endpoint CDU-15 e CDU-16 (Sprint 6 nel piano) | Sprint 6 |
 | P06 | Condividere bozza con referenti tecnici ASR per feedback | **Anticipare a Sprint 2** (non Sprint 6) |
-| P07 | Compilare TODO-M1÷M5 e rimuovere `-DRAFT` dalla versione | Prima di Sprint 6 |
+| P07 | Chiudere i TBD residui (M3, M4, URL server, header) e rimuovere `-DRAFT` dalla versione | Prima della sottoscrizione su APIMBBONE |
 | P08 | Test integrazione con SIA DEV (mock → reale) | Sprint 8 |
 
 ---
@@ -241,16 +246,17 @@ Swagger UI esposta in ambienti non produttivi su `/swagger-ui.html` tramite **Sp
 | Versione | Data | Autore | Modifiche |
 |---|---|---|---|
 | 0.1-DRAFT | 2026-05-06 | Exprivia (wiki LLM) | Prima bozza da SRS §6.15–6.16 |
+| 0.1-DRAFT (agg.) | 2026-10-06 | Exprivia (wiki LLM) | Descrizione e `securitySchemes` riallineati ad APIMBBONE; tabella TBD con stato; nota paginazione cursor-based |
 
 ---
 
 ## Prossimi passi
 
 1. **Subito:** validare il YAML con Swagger Editor (incolla `openapi-cdu-15-16-v0.1.yaml`)
-2. **Sprint 0:** richiedere a CSI URL Auth Server (TODO-M1) e scope (TODO-M2)
+2. ~~**Sprint 0:** richiedere a CSI URL Auth Server (TODO-M1) e scope (TODO-M2)~~ chiuso 20/07/2026 (APIMBBONE); ora servono URL dei server e nomi degli header del Gateway
 3. **Sprint 1:** copiare YAML nel progetto, configurare plugin Maven
-4. **Sprint 2:** condividere bozza con ASR + raccogliere feedback su TODO-M3/M4/M5
-5. **Prima di Sprint 6:** compilare tutti i TBD, rilasciare versione `1.0`
+4. **Sprint 2:** condividere bozza con ASR + raccogliere feedback su TODO-M3/M4 (M5 differito)
+5. **Prima della sottoscrizione su APIMBBONE:** chiudere i TBD residui, rilasciare versione `1.0` (lo swagger è prerequisito APIM)
 
 ---
 

@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/","title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"dg-note-properties":{"title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","aliases":["Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato"],"type":"analysis","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"created":"2026-05-14","updated":"2026-09-29","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-09-25-riscontro-csi-domande-sviluppo"],"related":["[[analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]]","[[sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[analysis-2026-05-06-openapi-cdu-15-16]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]","[[GASP Salute]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[2026-05-05-mermaid-architettura|Diagramma Architettura Sistema — Mermaid]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/","title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"dg-note-properties":{"title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","aliases":["Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato"],"type":"analysis","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"created":"2026-05-14","updated":"2026-10-06","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-09-25-riscontro-csi-domande-sviluppo"],"related":["[[analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]]","[[sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[analysis-2026-05-06-openapi-cdu-15-16]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]","[[GASP Salute]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[2026-05-05-mermaid-architettura|Diagramma Architettura Sistema — Mermaid]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]"]}}
 ---
 
 
@@ -78,10 +78,10 @@ Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-op
 
 | #     | Domanda                                                                                                    | Prio | Sprint   |
 |-------|------------------------------------------------------------------------------------------------------------|------|----------|
-| API-01 | URL Authorization Server CSI (TODO-M1) — confluisce con SEC-01                                            | 🔴   | Sprint 0 |
-| API-02 | Scope OAuth richiesto per `/consensi/stato` (TODO-M2) — confluisce con SEC-05                             | 🟠   | Sprint 1 |
-| API-03 | Schema paginazione cursor-based — `page_size` default + max accettato (TODO-M3)                          | 🟡   | Sprint 2 |
-| API-04 | SLA tempo risposta + throughput target per CDU-15/16 (TODO-M4)                                            | 🟡   | UAT      |
+| API-01 | ~~URL Authorization Server CSI (TODO-M1)~~ ✅ **Chiuso con SEC-01/SEC-02 (20/07/2026):** token emesso e validato da APIMBBONE | ✅ | — |
+| API-02 | ~~Scope OAuth richiesto per `/consensi/stato` (TODO-M2)~~ ✅ **Chiuso con SEC-05 (20/07/2026):** delegato ad APIMBBONE | ✅ | — |
+| API-03 | Paginazione su CDU-16 (TODO-M3): serve? Se sì, cursor-based come CDU-17 — `page_size` default + max accettato | 🟡   | Sprint 2 |
+| API-04 | SLA tempo risposta + throughput target per CDU-15/16 (TODO-M4). Rate limit già sul Traffic Manager APIMBBONE | 🟡   | UAT      |
 | API-05 | Lista ASR coinvolte nel TO-BE + referenti tecnici (TODO-M5). **Call 20/07/2026:** non vincolante, differito. | ⚪ (differito)   | Sprint 2 |
 
 ---
@@ -194,8 +194,7 @@ Domande del team FE all'avvio di CDU-11 (Modifica del valore di un consenso per 
    - 📋 **2026-06-18:** da questo tracker è stata derivata un'agenda formale per la riunione — deliverable `Agenda-riunione-CSI-CONSPREF_2026-06-18.docx`/`.pdf` (root repo), con in più i punti emersi dall'audit del 18/06: dettagli operativi infrastruttura **IaaS** (modello deploy/ingress/segreti/CI-CD + pila CSI di riferimento al posto degli identificativi «k8s») e l'evidenza su **BAT-01** (operazione WSDL attesa SRV-03 NotificaAcquisizioneConsenso).
 2. **Workflow proposto:** ogni voce avrà un campo `risposta_csi` da popolare in revisione successiva del SRS; alla chiusura del punto, la voce si trasforma in entry permanente in [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] o nella relativa concept page.
 3. **Dipendenze incrociate evidenti:**
-   - SEC-01/API-01 (URL AS) → bloccante per qualsiasi test integrazione SIA
-   - SEC-05/PULL-03/API-02 (scope) → da chiarire in singolo round
+   - ~~SEC-01/API-01 (URL AS)~~ e ~~SEC-05/API-02 (scope)~~ → chiusi 20/07/2026 (APIMBBONE); PULL-03 segue il tracker CDU-17
    - INT-01/INT-02 (WSDL AURA/Deleghe) → bloccano CDU-07/08
    - INF-01/INF-03 (DBaaS + automation) → bloccano partenza Sprint 1 tout court
    - PULL-08 (SIA caller capability) → bloccante per PULL-09 (spec CDU-17) e per estensione `EnteAuthorizationFilter` su chiamata inbound

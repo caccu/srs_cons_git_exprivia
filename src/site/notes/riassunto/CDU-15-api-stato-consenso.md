@@ -4,7 +4,7 @@
 
 # CDU-15 — API di recupero stato consenso (per i SIA)
 
-**Perimetro:** solo BE ✅ (machine-to-machine) — Riferimenti: SRS v10 §3.3 (OpenAPI), §6.15, §6.16 "Modello di sicurezza"; ADR-004, ADR-005, ADR-018; `wiki/analyses/openapi-cdu-15-16-v0.1.yaml` (bozza, 5 TBD).
+**Perimetro:** solo BE ✅ (machine-to-machine) — Riferimenti: SRS v10 §3.3 (OpenAPI), §6.15, §6.16 "Modello di sicurezza"; ADR-004, ADR-005, ADR-018; `wiki/analyses/openapi-cdu-15-16-v0.1.yaml` (bozza v0.1, riallineata ad APIMBBONE il 06/10/2026).
 
 ## Cosa fa
 
@@ -56,7 +56,7 @@ Semantica: SCADUTO nel TO-BE indica il **record corrente** con informativa scadu
 
 ## Come svilupparlo
 
-1. **Prima l'OpenAPI 3.x**, che è un deliverable Exprivia: endpoint, schemi con vincoli, security scheme Bearer, mappa errori. Va condivisa con le ASR prima del go-live e serve per la sottoscrizione su APIMBBONE. Esiste una bozza v0.1 con 5 TBD.
+1. **Prima l'OpenAPI 3.x**, che è un deliverable Exprivia: endpoint, schemi con vincoli, security scheme Bearer, mappa errori. Va condivisa con le ASR prima del go-live e serve per la sottoscrizione su APIMBBONE. Esiste una bozza v0.1, già riallineata al modello APIMBBONE (chiusi i TBD su Authorization Server, JWKS e scope); restano aperti SLA, URL dei server, nomi degli header e lista ASR.
 2. Generare gli stub con `openapi-generator-maven-plugin`; SpringDoc per la Swagger UI nei soli ambienti non produttivi.
 3. Implementare filtro di sicurezza, repository con clausola ente obbligatoria e mapper RFC 7807.
 4. Niente rate limiting applicativo: lo fa l'API Manager. Niente validazione JWKS: la fa il Gateway.
@@ -68,7 +68,9 @@ APIMBBONE (sottoscrizione, header inoltrati: nome esatto dell'header `codice_ent
 
 ## Punti aperti
 
-- 5 TBD dell'OpenAPI v0.1.
+- Chiusi M1, M2 e parte di M4 della bozza OpenAPI v0.1: Authorization Server, JWKS, scope e rate limit passano ad APIMBBONE (call CSI 20/07/2026). La bozza YAML è stata riallineata il 06/10/2026.
+- **SLA (TODO-M4 / API-04):** tempo di risposta e throughput target non definiti (prima della UAT).
+- **URL dei server DEV/PROD** (placeholder nella bozza) e **lista ASR / `client_id` per ambiente** (TODO-M5, differito).
 - Conferma formale degli architetti CSI sul modello di trust (DEV-05).
 - Nome e formato degli header inoltrati dal Gateway.
 - Comportamento per i consensi regionali: `codice_ente` resta obbligatorio, visto che il regionale è salvato per ASR?

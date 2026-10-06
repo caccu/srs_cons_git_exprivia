@@ -55,6 +55,12 @@ Configurazione prodotta da CDU-12/13/14.
 
 ## Punti aperti
 
-- TBD dell'OpenAPI.
+- Chiusi M1, M2 e parte di M4 della bozza OpenAPI v0.1: Authorization Server, JWKS, scope e rate limit passano ad APIMBBONE (call CSI 20/07/2026). La bozza YAML è stata riallineata il 06/10/2026.
+- **Paginazione (TODO-M3 / API-03):** ancora da decidere se serve. Il cursor-based della SRS v10 riguarda CDU-17, non CDU-16. Va stimato il volume tipico di consensi attivi per ente.
+- **SLA (TODO-M4 / API-04):** tempo di risposta e throughput target non definiti (prima della UAT).
+- **URL dei server DEV/PROD:** quelli della bozza sono placeholder; dipendono dall'URL dell'istanza CONSPREF e dalla pubblicazione su APIMBBONE.
+- **Nome esatto degli header** inoltrati dal Gateway (`codice_ente`): da documentare nel YAML.
+- **Lista ASR e `client_id` per ambiente (TODO-M5 / API-05):** differito, non vincolante (call 20/07).
+- Conferma formale degli architetti CSI sul modello di trust negli header del Gateway (DEV-05, mail 25/09/2026).
 - Gli endpoint con `stato_allineamento ≠ COMPLETATO` o in manutenzione vanno esposti? Con quale indicazione?
 - Per gli enti `REGIONALE`/`NAZIONALE`, cosa restituire?
