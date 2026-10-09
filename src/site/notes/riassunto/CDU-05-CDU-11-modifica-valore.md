@@ -74,3 +74,4 @@ Il BE ha già un endpoint equivalente con lo stesso motore: va adeguato a questa
 
 - Valore effettivo di `fonte_id`.
 - Ordine di presentazione dei `valori_ammessi` (manca una colonna d'ordine).
+- Consensi regionali migrati in un solo record sull'ASR fittizia 999: il nuovo valore va applicato a tutte le ASR collegate, quindi serve la conversione proposta in DEV-07 (in attesa di CSI).

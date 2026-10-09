@@ -75,7 +75,7 @@ Il rilascio di un consenso nuovo (CDU-09) fa solo i passi 4, 5, 6. BATCH-02 usa 
 
 Coerenza obbligatoria (§8.4.10): `cons_t_consenso.sotto_tipo_consenso` (NOT NULL) deve coincidere con `cons_d_informativa.sotto_tipo_consenso` dell'informativa referenziata. Va garantita nel codice.
 
-**Consenso regionale**: il valore si salva N volte, una per ogni ASR collegata in `cons_r_sotto_tipo_cons_asr_endpoint`, tutte con lo stesso valore. **Consenso aziendale**: un record per coppia consenso/azienda, ogni azienda con la propria informativa.
+**Consenso regionale**: il valore si salva N volte, una per ogni ASR collegata in `cons_r_sotto_tipo_cons_asr_endpoint`, tutte con lo stesso valore. Senza aziende collegate il salvataggio è rifiutato con errore (BE-05). I consensi regionali AS-IS migrati in un solo record sull'ASR fittizia 999 sono in attesa di decisione CSI sulla conversione (DEV-07). **Consenso aziendale**: un record per coppia consenso/azienda, ogni azienda con la propria informativa.
 
 ## 5. Campi di tracciatura valorizzati dal backend
 

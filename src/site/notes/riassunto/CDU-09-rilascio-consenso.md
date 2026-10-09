@@ -55,7 +55,7 @@ Default del radio: l'SRS indica NO. La **proposta** è nessuna preselezione lato
 1. validazione: campi obbligatori, valore tra quelli ammessi, informativa corrente coerente col sotto-tipo, presa visione = true, nessun record valido già ATTIVO/NEGATO, nessun blocco di allineamento o manutenzione;
 2. se c'è un record ANNULLATO valido, va chiuso e storicizzato prima (UPDATE `data_fine` + INSERT `cons_s_consenso`);
 3. INSERT `cons_t_consenso`: `cf_cittadino`, `id_aura`, `nome`, `cognome` (da AURA), `sotto_tipo_consenso`, `cod_asr`, `d_informativa_id`, `tipo_stato` = ATTIVO se SI / NEGATO se NO, `valore_consenso`, `fonte_id` = Punto Assistito, `login_operazione` = CF operatore, `ruoloop_id`, `cf_delegato = NULL`, `data_acquisizione = NOW()`, `uuid`;
-   - **regionale**: N record, uno per ogni ASR collegata in `cons_r_sotto_tipo_cons_asr_endpoint`;
+   - **regionale**: N record, uno per ogni ASR collegata in `cons_r_sotto_tipo_cons_asr_endpoint`. Se il sotto-tipo non ha aziende collegate (oggi TELEMED) il salvataggio è rifiutato con errore applicativo («Consenso non configurato: nessuna azienda collegata») e il form lo segnala già al caricamento (BE-05, 09/10/2026);
    - **aziendale**: un record per l'azienda scelta (vedi punto aperto 4);
 4. INSERT `csi_log_audit` (`operazione = 'insert'`, `ogg_oper = 'cons_t_consenso'`, `key_oper`);
 5. INSERT `cons_t_notifica` (`DA_INVIARE`) per ogni endpoint attivo del sotto-tipo/ASR non `IN_CORSO`.
@@ -91,3 +91,4 @@ CDU-07, CDU-08; configurazione da CDU-12/13/14; motore di storicizzazione e coda
 4. Aziendale: una azienda per salvataggio o più aziende insieme? Il CDU-03 ALG02 dice "un record per ogni ASR a cui l'utente appartiene", ma l'informativa può cambiare per azienda. Proposta: una azienda per operazione.
 5. Descrizione estesa e testo aggiuntivo: testo semplice o HTML? Ordine dei valori ammessi (nessuna colonna d'ordine).
 6. Valore reale di `fonte_id` per il Punto Assistito in `cons_d_fonte`.
+7. Consensi regionali migrati in un solo record sull'ASR fittizia 999: proposta di conversione in N record, uno per azienda collegata, in attesa di CSI (DEV-07). Collegamenti mancanti per TELEMED (DEV-08).

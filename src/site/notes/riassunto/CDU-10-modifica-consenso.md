@@ -76,4 +76,4 @@ CDU-08; BATCH-02 (genera gli stati SCADUTO/ANNULLATO); CDU-13 (nuova informativa
 
 ## Punti aperti
 
-Gli stessi del CDU-09 (default radio, HTML parametri, una azienda per operazione, `fonte_id` reale).
+Gli stessi del CDU-09 (default radio, HTML parametri, una azienda per operazione, `fonte_id` reale, consensi regionali migrati sull'ASR 999 e TELEMED senza aziende collegate: DEV-07, DEV-08, BE-05).

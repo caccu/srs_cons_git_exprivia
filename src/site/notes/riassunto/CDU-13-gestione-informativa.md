@@ -45,7 +45,11 @@ Operatore autenticato.
 - `online` e `annulla_consensi` sono **colonne nuove** su `cons_d_informativa` (non presenti nel DB AS-IS), sorgente autoritativa dei flag in V1.0.
   - `online = false` vuol dire consenso esprimibile solo de visu, presso un punto assistito. Indica il **canale**, non lo stato di pubblicazione: la pubblicazione dipende dalle date.
   - `annulla_consensi` decide SCADUTO o ANNULLATO alla scadenza. Il flag si legge dall'**informativa che scade** (SC67 risolto).
-- Aziendale con informativa per azienda: relazione in `cons_r_informativa_asr`.
+- Aziendale con informativa per azienda: relazione in `cons_r_informativa_asr` (BE-06, 09/10/2026).
+  - È **generale** un'informativa senza righe in `cons_r_informativa_asr`.
+  - Per un'azienda si cerca prima l'informativa corrente collegata a quell'azienda; se non c'è, vale la generale corrente dello stesso sotto-tipo.
+  - Una nuova informativa dell'azienda chiude solo la precedente della stessa azienda; la generale resta valida.
+- Allegati: PDF e HTML vanno entrambi in `cons_t_allegato`; l'HTML resta anche in `html_informativa`, che è il testo mostrato nel form. Stessa operazione, stesso contenuto (BE-07).
 
 ## Logica di backend
 
@@ -66,10 +70,10 @@ Il contratto `Informativa` AS-IS (`id_informativa, desc_informativa, html_inform
 ## Come svilupparlo
 
 **Backend**
-- `GET /config/informative?sotto_tipo_consenso=...` (storico delle versioni), `GET /config/informative/{id}`, `POST /config/informative` (multipart per il PDF), `PATCH /config/informative/{id}` per impostare la scadenza. Le modifiche ai dati di una versione già in uso andrebbero evitate: da decidere.
+- `GET /config/informative?sotto_tipo_consenso=...` (storico delle versioni), `GET /config/informative/{id}`, `POST /config/informative` (multipart per il PDF), `PATCH /config/informative/{id}` per impostare la scadenza. Modifica di una versione già in uso: vedi DEV-09 (proposta: in vigore solo `desc_informativa` e `data_scadenza`).
 - Servizio di storage del PDF (percorso su IaaS da definire con CSI). Lo stesso file è servito da CDU-06.
 - Validazione: date coerenti, nessuna sovrapposizione anomala tra versioni dello stesso sotto-tipo (regola da fissare).
-- Migrazione: aggiungere `online`, `annulla_consensi`, `stato_elaborazione` e valorizzarle per le informative esistenti.
+- Migrazione: aggiungere `online`, `annulla_consensi`, `stato_elaborazione`. Per le informative esistenti (CPROL, TELEMED) `online = true` e `annulla_consensi = false`, i default della maschera (BE-08).
 
 **Frontend**
 - Selezione del sotto-tipo → elenco versioni (corrente, future, scadute).
@@ -83,6 +87,7 @@ CDU-12 (sotto-tipi); storage; a valle BATCH-02, CDU-06 e il Form Renderer.
 ## Punti aperti
 
 - ~~Codice/versione dell'informativa~~ **Deciso 06/10/2026:** nessuna colonna `versione`. La versione è la riga stessa (`d_informativa_id`), ordinata per `data_decorrenza`; CDU-15 espone solo `informativa.id` e le date.
-- Area di storage dei PDF su IaaS.
-- Si può modificare una versione già pubblicata (es. correggere un refuso)?
+- Storage dei PDF su IaaS: volume, limite di dimensione, conservazione → **DEV-11** (proposta: percorso configurabile, 10 MB, nessuna cancellazione). Verificare cosa contiene `pdf_informativa` nel DB AS-IS.
+- Correzione di una versione già pubblicata (es. refuso) → **DEV-09**. Proposta: non in vigore tutto modificabile; in vigore solo `desc_informativa` e `data_scadenza`; HTML e PDF solo come errata corrige autorizzata, con audit.
+- Prima informativa propria di un'azienda che usava la generale: i consensi già espressi scadono? → **DEV-10** (per ora restano validi).
 - Rapporto con i flag Online/Annulla della maschera CDU-12.
