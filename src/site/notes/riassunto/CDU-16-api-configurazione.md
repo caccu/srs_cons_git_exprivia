@@ -38,7 +38,7 @@ Codici: 200, 401, 403 (ente non autorizzato), 404 (nessuna configurazione per l'
 
 1. `EnteAuthorizationFilter`: `{codice_ente}` del path = ente inoltrato dal Gateway, altrimenti 403.
 2. Sotto-tipi attivi per l'ente: `cons_r_sotto_tipo_cons_asr_endpoint` ↔ `cons_r_asr_endpoint` (`cod_asr = :authorizedEnte`, validità attiva) ↔ `cons_d_sotto_tipo_cons` (decorrenza/scadenza valide) ↔ `cons_d_tipo_cons` (per `tipo`).
-3. Per ciascuno: **informativa corrente** (stessa regola di CDU-10/13, considerando `cons_r_informativa_asr` per gli aziendali) ed **endpoint di notifica** attivi (`cons_t_endpoint`, eventualmente filtrati per `destinazione` = notifica).
+3. Per ciascuno: **informativa corrente** (stessa regola di CDU-10/13, considerando `cons_r_informativa_asr` per gli aziendali) ed **endpoint di notifica** attivi (`cons_t_endpoint` con destinazione `NOTIFICA_CONSENSO` o non valorizzata, ADR-024).
 4. Audit strutturato senza dati personali.
 
 ## Esposizione e sicurezza

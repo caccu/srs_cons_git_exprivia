@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/","title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"dg-note-properties":{"title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","aliases":["Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato"],"type":"analysis","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"created":"2026-05-14","updated":"2026-10-09","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-09-22-ricognizione-endpoint-as-is","2026-09-25-riscontro-csi-domande-sviluppo"],"related":["[[analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]]","[[sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[analysis-2026-05-06-openapi-cdu-15-16]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]","[[GASP Salute]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[2026-05-05-mermaid-architettura|Diagramma Architettura Sistema — Mermaid]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/","title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"dg-note-properties":{"title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","aliases":["Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato"],"type":"analysis","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"created":"2026-05-14","updated":"2026-10-15","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-09-22-ricognizione-endpoint-as-is","2026-09-25-riscontro-csi-domande-sviluppo"],"related":["[[analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]]","[[sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[analysis-2026-05-06-openapi-cdu-15-16]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]","[[GASP Salute]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[2026-05-05-mermaid-architettura|Diagramma Architettura Sistema — Mermaid]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]"]}}
 ---
 
 
@@ -7,13 +7,15 @@
 
 **Scopo:** consolidare in un unico tracker tutte le domande, ambiguità, TBD e proposte in attesa di conferma sparse nel corpus wiki. Ogni voce rimanda alla pagina autoritativa.
 
-**Stato alla data (rev. 09/10/2026):** tracker riallineato al log e alle pagine wiki fino al 09/10/2026. Documento di riferimento: `CONSPREF-SRS-V1.0-revised_v10` (rev. 1.10, 06/10/2026). Il quadro sintetico dei punti ancora aperti è in §Riepilogo punti aperti.
+**Stato alla data (rev. 15/10/2026):** tracker riallineato al log e alle pagine wiki fino al 15/10/2026. Documento di riferimento: `CONSPREF-SRS-V1.0-revised_v10` (rev. 1.12, 15/10/2026). Il quadro sintetico dei punti ancora aperti è in §Riepilogo punti aperti.
 
 > 🔄 **Aggiornamento 18/06/2026 (allineato all'agenda riunione):** chiusi/recepiti nel documento — **ID-01** (GASP=SAML2, restano solo metadata), **INF-03** (skeleton Exprivia/IaaS), **INT-05** (Notificatore di Deleghe ≠ UNP), **INF-04** (diagramma aggiornato). Nuovi/raffinati — **INF-05** (dettagli operativi IaaS: deploy/ingress/segreti/CI-CD + pila «k8s»), **BAT-01** (SRV-03 + SRV-04), **BAT-02/SC67** (sorgente `annulla_consensi`: informativa scaduta vs nuova), **GOV-02** (deroga V03 su `online`/`annulla_consensi`). L'ordine del giorno operativo è in `Agenda-riunione-CSI-CONSPREF_2026-06-18`.
 
 > ✅ **Aggiornamento call CSI 20/07/2026 — chiusure di massa.** Chiusi/delegati: **SEC-01÷06** (Q1 header CF+`codice_ente` risolto; Q3/Q4/Q5/Q6 delegati ad APIMBBONE), **INT-01** (AURA: nessun servizio nuovo, stessi WSDL nei properties, credenziali IRIS DEV incluse → chiude anche **ID-03**), **INT-02** (Gestione Deleghe già integrata), **GOV-02** (deroga V03 `online`/`annulla_consensi` approvata, sorgente unica `cons_d_informativa` confermata), **BAT-01** (SRV-03/SRV-04 confermati, "svecchiare + nuova logica"). **Differiti/non vincolanti:** onboarding SIA (evento raro → CR), Manutenzione ASR §7.4 (post-Sprint 0), frequenza BATCH-02, **GOV-05/API-05** (lista ASR), Stato SCADUTO **BAT-03** (call dedicata pending). **Da riformulare:** **BAT-02/SC67** (CSI non ha capito la domanda → domanda mirata a scenario, vedi sotto). **Non toccato:** CDU-17 (attende delucidazioni via mail).
 
 > ✅ **Aggiornamento 29/09/2026** — nuova §10 **FE-01÷08, BE-01÷03**: domande del team FE su CDU-11, risposte recepite in SRS v10 (rev. 1.9). Aperto **FE-08** (presunto accordo di eliminare la composizione dinamica del form: da confermare). Da verificare sull'AS-IS: **FE-03** (multi-azienda), **FE-05** (filtri per ASR). Verifica BE: **BE-01** (`fonte_cod` Punto Assistito). BE-02 e BE-03 chiusi (contratto REST CDU-11 e `valori_ammessi`, [[wiki/docs/adr/ADR-023-cdu-11-contratto-rest-valori-ammessi\|ADR-023]]).
+
+> 🆕 **Aggiornamento 15/10/2026** — nuova §12: domande del team FE su CDU-14. Chiuse internamente: **FE-10** (valori del campo Destinazione, [[wiki/docs/adr/ADR-024-cdu-14-destinazione-endpoint\|ADR-024]], SRS rev. 1.11) e **FE-09** (cascata alla disattivazione dell'ente, già nei requisiti CSI V03, recepita in SRS rev. 1.12). Da chiedere a CSI: **DEV-12** (casi in cui modifica o disattivazione vanno bloccate).
 
 > 🆕 **Aggiornamento 09/10/2026** — nuova §11: domande del team BE su CDU-09/10/11 e CDU-13. Da chiedere a CSI: **DEV-07÷DEV-11** (consensi regionali sull'ASR 999, collegamenti TELEMED, correzione di un'informativa pubblicata, prima informativa propria di un'azienda, storage dei PDF). Chiuse internamente: **BE-05÷BE-08**.
 
@@ -190,7 +192,19 @@ Domande del team BE. Risposte date da Exprivia sulla base dell'SRS v10 e della w
 
 ---
 
-## Riepilogo punti aperti (09/10/2026)
+## 12. Domande team FE su CDU-14 — 15/10/2026
+
+Domande del team FE sulla gestione di enti ed endpoint. Risposte date da Exprivia sulla base dell'SRS v10 e dei requisiti CSI V03 (`raw/CONSPREF-SRS-01-V03-Requisiti-Gestione-Consensi.md`, «Gestione ente ed endpoint»).
+
+| #      | Domanda | Risposta / proposta (15/10/2026) | Residuo | Stato |
+| ------ | ------- | -------------------------------- | ------- | ----- |
+| FE-09  | Disattivando un ente, cosa succede ai suoi endpoint? | **Requisito CSI V03:** la data fine validità dell'ente si propaga a tutti gli endpoint dell'ente (`cons_r_asr_endpoint`), ai legami sotto-tipo/endpoint (`cons_r_sotto_tipo_cons_asr_endpoint`) e alle informative dell'ente (`cons_r_informativa_asr`). L'eliminazione di un endpoint chiude anche i suoi legami. I consensi dell'ente o endpoint chiusi non sono più proposti. Cancellazione sempre logica | Recepito in SRS rev. 1.12 §6.14 (15/10/2026) | ✅ Chiuso |
+| FE-10  | Campo «Destinazione»: quali valori, cosa significa lasciarlo vuoto? | Due valori: `NOTIFICA_CONSENSO` (URL delle notifiche, BATCH-01) e `WEBHOOK_ALLINEAMENTO` (URL del webhook out-of-band CDU-14/CDU-17). Vuoto = `NOTIFICA_CONSENSO`; endpoint AS-IS valorizzati a `NOTIFICA_CONSENSO` in migrazione. Tabella proposta Exprivia, assente nei requisiti CSI: nessuna domanda a CSI. [[wiki/docs/adr/ADR-024-cdu-14-destinazione-endpoint\|ADR-024]], SRS rev. 1.11 §6.14, §8.4.7 | OpenAPI servizi endpoint (PULL-09) | ✅ Chiuso |
+| DEV-12 | Ci sono casi in cui modifica o disattivazione di ente o endpoint vanno bloccate? | Né l'SRS né i requisiti V03 prevedono blocchi. Fino alla risposta il FE non introduce blocchi | CSI: bloccare modifica/disattivazione di un endpoint `IN_CORSO` o `IN_MANUTENZIONE`? Bloccare la chiusura dell'ultimo endpoint `NOTIFICA_CONSENSO` di un sotto-tipo con consensi attivi? Collegato alla regola «aziende con endpoint dismessi» (DEV-01) | 🟠 Da chiedere CSI |
+
+---
+
+## Riepilogo punti aperti (15/10/2026)
 
 > 🔄 **Riscritto il 09/10/2026.** Il riepilogo per Sprint del 14/05/2026 e lo «stato residuo post-call 20/07/2026» elencavano come aperti molti punti chiusi in seguito (ID-01, ID-03, SEC-01÷06, PULL-01/02/05/06/08, API-01/02, INT-01÷03, INT-05, INF-01, INF-03/04, BAT-01/02, GOV-03, DEV-02/03/06). Qui restano solo i punti non chiusi, raggruppati per chi deve rispondere. Il dettaglio è nelle sezioni sopra.
 
@@ -206,6 +220,7 @@ Domande del team BE. Risposte date da Exprivia sulla base dell'SRS v10 e della w
 | INT-04 | Accesso al repo QUASAR CSI | 🟠 |
 | INT-06 | Elenco interfacce della Webapp Cittadino (non-regressione) | 🟠 |
 | DEV-07÷DEV-11 | Domande BE del 09/10/2026: regionali sull'ASR 999, TELEMED, correzione informativa, prima informativa aziendale, storage PDF | 🟠 Da inviare |
+| DEV-12 | Blocchi su modifica/disattivazione di ente ed endpoint (CDU-14) | 🟠 Da inviare |
 
 **Da CSI: in verifica o parziali**
 

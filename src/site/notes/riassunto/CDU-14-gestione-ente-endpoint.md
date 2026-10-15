@@ -48,7 +48,7 @@ Operatore autenticato (webapp); SIA autenticato su APIMBBONE (API).
 | endp_url | sì | URL https valido ("URL non valido") |
 | cod_asr | sì | FK `cons_d_asr` |
 | sotto_tipo_consenso | sì | multi, FK `cons_d_sotto_tipo_cons` |
-| destinazione_id | no | FK `cons_d_asr_destinazione` (tabella nuova: NOTIFICA_CONSENSO, RECUPERO_STATO, CONFIGURAZIONE…) |
+| destinazione_id | no | FK `cons_d_asr_destinazione`: `NOTIFICA_CONSENSO` (default, anche se vuoto) o `WEBHOOK_ALLINEAMENTO` (ADR-024) |
 | valida_inizio | sì | ≤ valida_fine |
 | valida_fine | no | > valida_inizio |
 | stato_allineamento | display | DA_ALLINEARE / IN_CORSO / COMPLETATO / ERRORE (sola lettura) |
@@ -62,6 +62,8 @@ Operatore autenticato (webapp); SIA autenticato su APIMBBONE (API).
   3. per ogni sotto-tipo: INSERT `cons_r_sotto_tipo_cons_asr_endpoint`;
   4. se il consenso ha già un endpoint attivo per l'azienda (caso CDU-17): invio della notifica out-of-band in base al parametro (email/webhook), tracciata in `cons_t_traccia_serv_est`.
 - Eliminazione: logica (`valida_fine` / `data_cancellazione`), non fisica. Gli endpoint dismessi escludono l'azienda dagli elenchi (regola DEV-01 da definire).
+- Destinazione (ADR-024): solo gli endpoint `NOTIFICA_CONSENSO` (o senza destinazione) ricevono le notifiche e partecipano all'allineamento. L'URL del webhook out-of-band è un endpoint `WEBHOOK_ALLINEAMENTO` dell'ente, senza `stato_allineamento`; se manca, il webhook non parte e l'errore va in `cons_t_traccia_serv_est`.
+- Disattivazione ente (requisito CSI V03, SRS rev. 1.12 §6.14): la fine validità si propaga a `cons_r_asr_endpoint`, `cons_r_sotto_tipo_cons_asr_endpoint` e `cons_r_informativa_asr`; l'eliminazione di un endpoint chiude anche i suoi legami. Blocchi su modifica/disattivazione: da chiedere a CSI (DEV-12).
 - Effetti su altri CDU: CDU-09/10/11 non generano notifiche verso endpoint `IN_CORSO` e bloccano l'acquisizione per quel sotto-tipo finché l'allineamento è in corso. BATCH-01 legge l'URL di destinazione.
 
 ## API esposte alle aziende (via APIMBBONE)
@@ -73,7 +75,7 @@ Servizi CRUD endpoint, più `PATCH /api/v1/endpoints/{endp_id}/stato-allineament
 **Backend**
 - Service di dominio unico per enti/endpoint, usato da due controller: webapp (sessione PUA) e API aziende (APIM, `/api/v1/...`).
 - Parametro di configurazione per il canale di notifica (EMAIL | WEBHOOK | ENTRAMBI) e client email/webhook.
-- Migrazione: colonne `tipo_ente`, `stato_allineamento`; tabella `cons_d_asr_destinazione` con seed.
+- Migrazione: colonne `tipo_ente`, `stato_allineamento`, `cons_t_endpoint.destinazione_id`; tabella `cons_d_asr_destinazione` con seed (`NOTIFICA_CONSENSO`, `WEBHOOK_ALLINEAMENTO`); endpoint AS-IS valorizzati a `NOTIFICA_CONSENSO`.
 
 **Frontend**
 - Lista enti → dettaglio ente con elenco endpoint; form ente; form endpoint con multi-select dei sotto-tipi; badge `stato_allineamento` in sola lettura.
@@ -84,6 +86,7 @@ CDU-12 (sotto-tipi); CDU-17 e §7.4 consumano lo stato; BATCH-01 consuma gli URL
 
 ## Punti aperti
 
-- Contratto, firma e sicurezza del webhook verso i SIA (forniti da CSI); indirizzi email destinatari (dove si configurano?).
+- Contratto, firma e sicurezza del webhook verso i SIA (forniti da CSI); indirizzi email destinatari (dove si configurano?). L'URL del webhook si configura come endpoint `WEBHOOK_ALLINEAMENTO` (ADR-024).
+- Blocchi su modifica/disattivazione di ente ed endpoint (DEV-12).
 - Destinatari della notifica "endpoint aggiunto" quando l'azienda non ha ancora altri endpoint.
 - Formalizzazione dello stato `IN_MANUTENZIONE` (colonna dedicata o valore in più).

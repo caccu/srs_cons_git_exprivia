@@ -94,7 +94,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 - [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]] — Descrizione OpenAPI CDU-15/16: 19 punti consolidati, 5 TBD CSI, 8 attività interne, cronologia versioni, prossimi passi
 - [[wiki/analyses/analysis-2026-05-14-tr34-alternativa-batch-03\|analysis-2026-05-14-tr34-alternativa-batch-03]] — Risposta TR34: tracker decisionale CDU-17 PULL (centro stella); ✅ **confermato 20/07/2026** (storico della proposta iniziale)
 - [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] — Tracker master 69 commenti SRS v3 lavorazione + 30 risposte MF; mappatura per tema (A–J) e propagazione wiki
-- [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato]] — Tracker dei punti aperti raggruppati per area (auth, security, pull, openapi, batch, integrazioni, infra, gov) e sprint; §11 domande BE su CDU-09/10/11 e CDU-13 (DEV-07÷11 per CSI); riepilogo punti aperti per responsabile riscritto il 09/10/2026
+- [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato]] — Tracker dei punti aperti raggruppati per area (auth, security, pull, openapi, batch, integrazioni, infra, gov) e sprint; §11 domande BE su CDU-09/10/11 e CDU-13 (DEV-07÷11 per CSI); §12 domande FE su CDU-14 (FE-09/10, DEV-12 per CSI); riepilogo punti aperti per responsabile riscritto il 09/10/2026
 - [[wiki/analyses/analysis-2026-05-27-punti-aperti-spiegati\|Punti Aperti — Spiegati in Modo Semplice]] — Versione in linguaggio piano del tracker: per ogni punto cosa significa, perché blocca, come si chiude
 - [[wiki/analyses/analysis-2026-06-10-riassunto-presentazione-cliente\|Riassunto Esecutivo — Presentazione Progetto Gestione Consensi]] — Sintesi completa per presentazione cliente: contesto, funzionalità, architettura, sicurezza, batch, migrazione, pianificazione, ADR, punti aperti
 - [[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]] — Tracker stato Data Migration Plan PG9→PG18 (target aggiornato da PG17); 7 sezioni con owner.
@@ -122,7 +122,7 @@ Cartella fuori da `wiki/` (05/10/2026): un file per ogni oggetto di sviluppo, co
 
 ## Architecture Decision Records
 
-Registry decisioni architetturali in `docs/adr/`. Lifecycle gestito (proposed/accepted/superseded), cross-link bidirezionale con concept/analysis pages. 23 ADR (19 materializzati il 2026-05-19 + ADR-020/ADR-021 il 06/08/2026 + ADR-022 il 25/09/2026 + ADR-023 il 29/09/2026 — ADR-020 supersede ADR-017, ADR-021 supersede ADR-011 e ADR-019).
+Registry decisioni architetturali in `docs/adr/`. Lifecycle gestito (proposed/accepted/superseded), cross-link bidirezionale con concept/analysis pages. 24 ADR (19 materializzati il 2026-05-19 + ADR-020/ADR-021 il 06/08/2026 + ADR-022 il 25/09/2026 + ADR-023 il 29/09/2026 + ADR-024 il 15/10/2026 — ADR-020 supersede ADR-017, ADR-021 supersede ADR-011 e ADR-019).
 
 Indice completo: [docs/adr/README.md](wiki/docs/adr/README.md)
 
@@ -151,4 +151,5 @@ Indice completo: [docs/adr/README.md](wiki/docs/adr/README.md)
 | [ADR-021](ADR-021-perimetro-solo-operatore.md) | Perimetro progetto: solo Webapp Operatore (supersede ADR-011, ADR-019) | accepted |
 | [ADR-022](ADR-022-cdu-06-scarico-informativa-operatore.md) | CDU-06 scarico informativa anche per l'Operatore (FE Operatore) | accepted |
 | [ADR-023](ADR-023-cdu-11-contratto-rest-valori-ammessi.md) | CDU-11 contratto REST dedicato (`PUT /consensi/{cfAssistito}/valore`) e valori ammessi da `cons_r_consenso_valore` | accepted |
+| [ADR-024](ADR-024-cdu-14-destinazione-endpoint.md) | CDU-14 valori del campo Destinazione degli endpoint: `NOTIFICA_CONSENSO` (default, anche se vuoto) e `WEBHOOK_ALLINEAMENTO` | accepted |
 
