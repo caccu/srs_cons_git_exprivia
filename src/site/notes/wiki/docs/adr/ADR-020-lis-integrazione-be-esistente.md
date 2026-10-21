@@ -75,7 +75,8 @@ Nella mail del 24/09/2026 il team di sviluppo ha segnalato che il nuovo backend 
 
 - **L1 chiusa:** l'endpoint SOAP esposto esiste. Il 22/09 non era stato segnalato; plausibilmente è l'implementazione dei servizi della [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|specifica v03]]. Da verificare la corrispondenza operazione per operazione con SRV-01÷05.
 - **Effetto sull'ipotesi di lavoro:** il canale su cui LIS/RIS sarebbero fruitori ora è confermato come esistente e da mantenere. L'ipotesi "L1 e L2 sono lo stesso punto cieco" si **rafforza**, ma non è ancora dimostrata: la conferma resta la verifica su `fonte_id`.
-- **L2** resta aperta, con peso minore: se la verifica `fonte_id` identifica LIS/RIS come fruitori di `ConsprefService`, L2 si chiude senza altro codice da cercare.
+- ✅ **Verificato su TEST (team di sviluppo, 21/10/2026):** i consensi arrivati dai LIS (**TO3, TO5, CN1, TO4**) risultano inviati tramite **`ConsprefService`**, lo stesso servizio SOAP usato dalle aziende. Non c'è un'integrazione separata da cercare: nel nuovo backend `ConsprefService` c'è già. L1 e L2 erano lo stesso punto cieco. Residuo: stessa verifica sui dati di **produzione**, che può fare solo CSI. RIS non citato nella verifica.
+- ~~**L2** resta aperta, con peso minore:~~ se la verifica `fonte_id` identifica LIS/RIS come fruitori di `ConsprefService`, L2 si chiude senza altro codice da cercare.
 
 ## Alternatives considered
 
@@ -90,7 +91,7 @@ Nella mail del 24/09/2026 il team di sviluppo ha segnalato che il nuovo backend 
   ⚠️ **Non rilevata dalla ricognizione del 22/09/2026** — vedi §Riscontro AS-IS. Attività ora articolata nei tre punti seguenti
 - ✅ **Chiuso 25/09/2026:** esiste `/services/ConsprefService` (SOAP in ingresso), da mantenere per decisione CSI. Resta da mappare operazione per operazione su SRV-01÷05. ~~**[Exprivia] L1 — chiedere conferma sull'assenza di endpoint SOAP esposti** in `consprefbe`: né JAX-WS né WSDL pubblicati per SRV-01÷05, a fronte della [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|specifica v03]] che li documenta sullo stesso namespace `http://consprefbe.csi.it/`. **Domanda dirimente**, perché è il punto cieco più probabile della ricognizione~~
 - 🆕 **[Exprivia] L2 — chiedere conferma sull'assenza di acquisizione da sistemi di reparto**: endpoint, job schedulato, lettura su tabella di appoggio, o valore di `fonte_id` diverso da quelli della webapp
-- 🆕 **[Exprivia/DB] Verifica che discrimina l'ipotesi:** estrarre da `consprefdb` i valori distinti di `fonte_id` sui consensi storici. Identifica i fruitori reali del canale di acquisizione senza dipendere dal ritrovamento di codice dedicato
+- ✅ **Fatto 21/10/2026 su TEST** (LIS → `ConsprefService`); resta la conferma CSI su produzione. ~~**[Exprivia/DB] Verifica che discrimina l'ipotesi:**~~ estrarre da `consprefdb` i valori distinti di `fonte_id` sui consensi storici. Identifica i fruitori reali del canale di acquisizione senza dipendere dal ritrovamento di codice dedicato
 - 🆕 **[CSI] Se L1 e L2 tornano entrambe negative:** riaprire il punto con CSI: l'integrazione dichiarata il 06/08/2026 non è nel materiale consegnato. In quel caso decadrebbe il presupposto di questo ADR e l'acquisizione LIS tornerebbe **sviluppo nuovo**, con impatto su stime e perimetro
 - Verificare se sistemi analoghi (es. RIS) usano lo stesso meccanismo di integrazione o uno distinto
 - Correggere SRS §1/§2 diagramma di contesto: 2 canali di acquisizione UI, non 3 — **allineamento SRS da fare solo dopo conferma esplicita utente** (vedi log)

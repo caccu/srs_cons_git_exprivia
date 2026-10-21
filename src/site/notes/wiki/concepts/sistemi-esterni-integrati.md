@@ -201,7 +201,7 @@ Variante errore [PROPOSTA]: se il servizio non risponde, il sistema impedisce la
 | Aspetto | Dettaglio |
 |---|---|
 | Funzione | Acquisizione/sincronizzazione consenso presso il laboratorio, via integrazione backend |
-| Integrazione | **Già esistente nel codice sorgente AS-IS** — da individuare (protocollo/payload) e migrare al nuovo stack, non da progettare ex-novo |
+| Integrazione | **SOAP `ConsprefService`**, lo stesso servizio delle aziende (verifica su dati TEST, 21/10/2026: LIS TO3, TO5, CN1, TO4). Nessuna integrazione separata; conferma su produzione a CSI |
 | Implicazione SRS | Diagramma di contesto §1/§2: **2 canali di acquisizione** (Cittadino, Operatore); LIS compare come sistema esterno integrato, non come canale |
 
 Nota: l'acronimo LIS resta da chiarire formalmente con CSI, ma non è più bloccante per la progettazione (non blocca più INT-03, chiuso il 06/08/2026).
@@ -254,7 +254,7 @@ Attore che nel [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|deploymen
         ├─ SIA ASR           (SOAP outbound) ← BATCH-01 notifiche puntuali
         ├─ SIA ASR           (REST inbound) ← CDU-15, CDU-16 [spec v0.1-DRAFT]
         ├─ SIA ASR           (REST inbound via API Manager) ← CDU-17 PULL snapshot [✅ confermato 20/07 — swagger da produrre]
-        └─ LIS (e analoghi es. RIS) — integrazione BE esistente AS-IS, da individuare e migrare [ADR-020, 06/08/2026]
+        └─ LIS (e analoghi es. RIS) — via SOAP ConsprefService, come le aziende [ADR-020, verificato su TEST 21/10/2026]
 ```
 
 > Nota: LIS **non** è più un ramo di accesso UI (`[Cittadino c/o LIS] → operatore LIS → Webapp Operatore`) come da ADR-017 originario — è un'integrazione lato backend, elencata sotto l'applicativo Gestione Consensi al pari degli altri sistemi esterni. Vedi [[wiki/docs/adr/ADR-020-lis-integrazione-be-esistente\|ADR-020]].
@@ -271,7 +271,7 @@ Attore che nel [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|deploymen
 | Notificatore di Deleghe  | API + integration spec                                                            | ✅ **AS-IS legacy, riciclato — nessun nuovo sviluppo** (call CSI 06/08/2026; era "❌ Da richiedere" prima di questa call, distinta da UNP) |
 | Notificatore UNP         | Già documentato — gitlab.csi.it                                                   | ✅ Riferimento disponibile                                                                                                                |
 | PUA                      | Registrazione **1 profilo Operatore** (era "2 profili", corretto call CSI 06/08/2026) | ❌ Da richiedere                                                                                                                      |
-| LIS (e analoghi es. RIS) | Individuare integrazione BE esistente nel sorgente AS-IS + migrare al nuovo stack | ❌ Da individuare — dipende da accesso repo/DB AS-IS (INT-04, TECH-01)                                                                    |
+| LIS (e analoghi es. RIS) | Nessuna integrazione dedicata: usano `ConsprefService` | ✅ Verificato su TEST (21/10/2026); conferma produzione a CSI |
 | GASP Salute ❌ OUT        | ~~Documentazione protocollo OIDC/SAML2~~                                          | ⚪ Non più necessario — fuori scope di sviluppo (ADR-021, 06/08/2026)                                                                     |
 | SistemaTS                | —                                                                                 | ⛔ **NON integrato** (decisione MF55R54 — rimosso dal SRS)                                                                                |
 

@@ -147,7 +147,7 @@ Indice completo: [docs/adr/README.md](wiki/docs/adr/README.md)
 | [ADR-017](ADR-017-lis-terzo-canale.md) | LIS terzo canale acquisizione | **superseded** |
 | [ADR-018](ADR-018-rfc-7807-error-response.md) | RFC 7807 error response | accepted |
 | [ADR-019](ADR-019-cdu-06-pdf-scope-ridotto.md) | CDU-06 PDF scope ridotto | **superseded** |
-| [ADR-020](ADR-020-lis-integrazione-be-esistente.md) | LIS/RIS integrazione BE esistente (supersede ADR-017) — ⚠️ integrazione non rilevata dalla ricognizione AS-IS 22/09/2026, verifica L1/L2 pendente | accepted |
+| [ADR-020](ADR-020-lis-integrazione-be-esistente.md) | LIS/RIS integrazione BE esistente (supersede ADR-017) — ✅ LIS usa `ConsprefService` (verifica su TEST 21/10/2026); conferma su produzione a CSI | accepted |
 | [ADR-021](ADR-021-perimetro-solo-operatore.md) | Perimetro progetto: solo Webapp Operatore (supersede ADR-011, ADR-019) | accepted |
 | [ADR-022](ADR-022-cdu-06-scarico-informativa-operatore.md) | CDU-06 scarico informativa anche per l'Operatore (FE Operatore) | accepted |
 | [ADR-023](ADR-023-cdu-11-contratto-rest-valori-ammessi.md) | CDU-11 contratto REST dedicato (`PUT /consensi/{cfAssistito}/valore`) e valori ammessi da `cons_r_consenso_valore` | accepted |
