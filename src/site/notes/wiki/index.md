@@ -81,6 +81,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 - [[wiki/sources/2019-04-08-dizionario-dati-as-is\|Modello Dizionario Dati AS-IS (2019)]] — 12 entità AS-IS (2 business + 1 log + 9 dominio); cons_s_consenso non popolata
 - [[wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione\|ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)]] — Specifiche SOAP inbound: DA01-DA03, upsert logic, 18 codici errore
 - [[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|Ricognizione endpoint AS-IS — riscontro sviluppo]] — 8 endpoint REST `CittadiniApi`/`InformativaApi` = baseline iso-funzionalità Webapp Operatore; Webapp Cittadino assente dalla consegna (coerente col perimetro); WSDL Deleghe senza client ⚠️
+- [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|Deployment diagram AS-IS CONSPREF (CSI)]] — topologia attuale su Nivola: `consprefboweb`/`consprefbe` su JBoss 6.4, PG 9.6, security group SG-INT/SG-RUP/SG-APPL/SG-DBAAS; AURA, LCCE, Notificatore; APISAN su HTTP:80 senza bilanciatore (4 pagine toccate)
 - [[wiki/sources/2026-09-25-riscontro-csi-domande-sviluppo\|Riscontro CSI alle domande di sviluppo (mail 24-25/09/2026)]] — DEV-01÷06: Deleghe fuori perimetro, `ConsprefService` SOAP mantenuto, CDU-06 scarico informativa anche per l'Operatore, ASR 904 da ripristinare; codici errore e trust gateway in verifica CSI (11 pagine toccate)
 
 ---

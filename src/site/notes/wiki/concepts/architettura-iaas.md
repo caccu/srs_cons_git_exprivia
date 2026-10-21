@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/architettura-iaas/","title":"Architettura IaaS","tags":["infrastruttura","iaas","cloud","nivola","csi-piemonte"],"dg-note-properties":{"title":"Architettura IaaS","aliases":["Architettura IaaS"],"type":"concept","tags":["infrastruttura","iaas","cloud","nivola","csi-piemonte"],"created":"2026-05-05","updated":"2026-07-16","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-12-pile-tecnologiche-csi"],"related":["[[CSI Piemonte]]","[[2026-03-12-pile-tecnologiche-csi|Pile Tecnologiche CSI Piemonte]]","[[Gestione Consensi - Applicativo]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/architettura-iaas/","title":"Architettura IaaS","tags":["infrastruttura","iaas","cloud","nivola","csi-piemonte"],"dg-note-properties":{"title":"Architettura IaaS","aliases":["Architettura IaaS"],"type":"concept","tags":["infrastruttura","iaas","cloud","nivola","csi-piemonte"],"created":"2026-05-05","updated":"2026-10-21","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-12-pile-tecnologiche-csi","2026-10-21-deployment-diagram-as-is-csi"],"related":["[[CSI Piemonte]]","[[2026-03-12-pile-tecnologiche-csi|Pile Tecnologiche CSI Piemonte]]","[[Gestione Consensi - Applicativo]]"]}}
 ---
 
 
@@ -98,6 +98,21 @@ Il DB è **esterno all'applicativo** — erogato come servizio gestito da Nivola
 - HikariCP: max-pool-size ≤ 40/replica (istanza 100 conn max, 2 repliche)
 
 > 🔄 **Stato 07/2026 (email CSI):** provisioning DBaaS **in corso**. Per contenere i costi si creano solo gli ambienti **DEV** e **pre-prod** (no PROD in questa fase). Sul DB di **DEV** verrà fornito un **ribaltamento dei dati** attualmente presenti sul DB di **TEST (PostgreSQL 9.6)** → base dati reale per lo sviluppo e per collaudare la migrazione PG9→PG18 (target aggiornato da PG17 a PG18, call CSI 06/08/2026).
+
+---
+
+## Topologia AS-IS (deployment diagram CSI, 21/10/2026)
+
+Fonte: [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|Deployment diagram AS-IS CONSPREF (CSI)]]. Descrive l'impianto attuale su Nivola, da cui parte la migrazione.
+
+| Security group | Contenuto AS-IS |
+|---|---|
+| SG-INT | `lb-conspref-int.nivolapiemonte.it` + Apache FE `/consprefboweb` — ingresso Utente Regionale (operatore) |
+| SG-RUP | `lb-prd-conspref1.site01.nivolapiemonte.it` + Apache FE `/consprefbe-web` — ingresso Aziende Sanitarie (SOAP); Apache BE `ap3-be` senza bilanciatore — ingresso APISAN (HTTP:80) |
+| SG-APPL | JBoss 6.4 a due nodi: `consprefboweb.ear` (`part009`), `consprefbe.ear` (`part010`); batch `consprefnotifica.war` solo su `jb1` |
+| SG-DBAAS | PostgreSQL 9.6.10 `consprefdb` |
+
+Punti da riportare nel TO-BE: separazione tra rete interna (operatori) e RUPAR (ASR/APISAN); eliminazione del canale APISAN in HTTP senza bilanciatore; ridondanza del batch. Se la segmentazione resta uguale su IaaS è parte di **INF-05** nel [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|tracker CSI]].
 
 ---
 

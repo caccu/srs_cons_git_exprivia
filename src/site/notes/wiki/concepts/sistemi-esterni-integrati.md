@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-09-25","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02","2026-09-22-ricognizione-endpoint-as-is","2026-09-25-riscontro-csi-domande-sviluppo"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-10-21","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02","2026-09-22-ricognizione-endpoint-as-is","2026-09-25-riscontro-csi-domande-sviluppo","2026-10-21-deployment-diagram-as-is-csi"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -221,6 +221,14 @@ Registrazione app PUA (**1 profilo Operatore** — non 2, call CSI 06/08/2026) d
 
 **Servizio PUA post-autenticazione (SRS v3 §2.3):** dopo il login via PUA, il backend invoca `getTokenInformation2` per leggere il profilo dell'operatore autenticato e adattare dinamicamente l'interfaccia (mostra solo sezioni/CDU abilitati per quel profilo). Un operatore può essere abilitato a entrambi i profili contemporaneamente.
 
+> 🔵 **Deployment AS-IS (21/10/2026):** `consprefboweb` chiama **LCCE** `https://be-lcce-rupar.isan.csi.it/lccews/TokenInformationService`. Dal nome è il servizio che espone `getTokenInformation2`. Da confermare con CSI (INT-09). Fonte: [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|Deployment diagram AS-IS]].
+
+---
+
+## APISAN (AS-IS, da chiarire)
+
+Attore che nel [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|deployment diagram AS-IS]] chiama `consprefbe` in **HTTP:80** sull'Apache BE `ap3-be-conspref.site01`, senza bilanciatore, in SG-RUP. Il cittadino non compare come attore nel diagramma: l'ipotesi è che la Webapp Cittadino raggiunga il backend tramite APISAN. Se confermato, il contratto APISAN→`consprefbe` è un vincolo di non-regressione ([[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]], INT-06). Domanda aperta: **INT-08**.
+
 ---
 
 ## Mappa integrazioni sintetica (aggiornata)
@@ -228,9 +236,11 @@ Registrazione app PUA (**1 profilo Operatore** — non 2, call CSI 06/08/2026) d
 ```
 [Cittadino] → GASP Salute (SAML2 via Shibboleth SP) → Webapp Citt   ⚠️ FE OUT / BE IN (ADR-021, prec. 22/09/2026)
 [Operatore] → PUA/Configuratore Regionale → Webapp Operatore        ✅ IN — unico FE sviluppato
+[APISAN]    → consprefbe (HTTP:80 AS-IS)                           ❓ ruolo da chiarire (INT-08)
                               ↓
 [Applicativo Gestione Consensi]  ← backend UNICO: serve entrambe le webapp, interamente in perimetro
         ├─ AURA              (SOAP/IRIS) — FindProfiliAnagrafici, getProfiloSanitario
+        ├─ LCCE TokenInformationService — profilo operatore post-login PUA (AS-IS, INT-09)
         ├─ Gestione Deleghe  ❌ OUT — nessuna chiamata dal BE; il BE riceve il CF del delegato (CSI 25/09/2026)
         ├─ SIA ASR / aziende federate (SOAP inbound /services/ConsprefService) — mantenuto, canalità esistente (CSI 25/09/2026)
         ├─ Notificatore Deleghe (REST?) — conferma post-acquisizione al cittadino
