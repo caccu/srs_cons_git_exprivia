@@ -21,7 +21,7 @@ Punti validati dalla Q&A CSI V02 o esplicitamente documentati nell'SRS e negli a
 
 | Componente              | Versione                                           | Fonte conferma                                   |
 | ----------------------- | -------------------------------------------------- | ------------------------------------------------ |
-| Frontend                | Angular 19.x                                       | Q&A CSI #2                                       |
+| Frontend                | Angular 21.x (era 19.x, migrato 21/10/2026)       | Q&A CSI #2                                       |
 | UI Component Library    | QUASAR CSI                                         | Q&A CSI #3                                       |
 | Backend                 | Spring Boot 3.4.10+ / Java 17                      | Q&A CSI #5                                       |
 | Database                | PostgreSQL 17 via DBaaS Nivola                     | Q&A CSI #10                                      |

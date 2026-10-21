@@ -18,6 +18,8 @@ Limiti AS-IS:
 - Lock di tabella tradizionale rischia di bloccare run successive
 - In ambiente multi-pod K8s ([[wiki/docs/adr/ADR-002-piattaforma-ecaas\|ADR-002-piattaforma-ecaas]]), più istanze BATCH-01 potrebbero girare in parallelo e generare duplicati o conflitti
 
+> 🔄 **21/10/2026:** con IaaS il caso concreto è `rconsprefbe` su due VM, con i batch al suo interno. Il team BE estende lo stesso schema `SKIP LOCKED` a **BATCH-02** (presa in carico dell'informativa, battito per lotto, ripresa dopo 120 minuti senza battito, notifiche al cittadino una alla volta). Dettaglio in [[wiki/concepts/batch-processes\|Processi Batch]] §Esecuzione su più nodi.
+
 PostgreSQL 18 ([[wiki/docs/adr/ADR-001-stack-tecnologico\|ADR-001-stack-tecnologico]], [[wiki/docs/adr/ADR-003-dbaas-nivola\|ADR-003-dbaas-nivola]]) supporta nativamente `SELECT FOR UPDATE SKIP LOCKED` — feature che consente lettura concorrente senza collisioni (disponibile fin da PG9.5).
 
 ## Decision

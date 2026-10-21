@@ -83,6 +83,8 @@ Il fornitore ha chiesto se la chiamata in ingresso *"da GASP Salute"* debba arri
 
 **La domanda poggia su un presupposto da correggere:** [[wiki/concepts/gasp-salute\|GASP Salute]] è un Identity Provider federato (SAML2 via Shibboleth SP in reverse proxy) e **non effettua chiamate applicative al backend**. Autentica il cittadino e passa l'identità come attributi di sessione. Il chiamante dei servizi è l'**applicazione Cittadino**, a sessione già stabilita. Non esiste quindi una "chiamata in ingresso da GASP", né un contratto SOAP AS-IS associato a questo flusso — lo conferma la ricognizione stessa, che non ha rilevato endpoint SOAP in ingresso.
 
+> 🔄 **Superato il 21/10/2026:** la ricognizione copriva le API REST di `consprefboweb`. La Webapp Cittadino (SANSOL) chiama direttamente `consprefbe` tramite APISAN, sul SOAP **`ConsensoBeService`** (10 operazioni, circa 41.000 chiamate in audit su TEST). Il contratto cittadino resta SOAP: vedi [[wiki/docs/adr/ADR-025-contratto-cittadino-soap-consensobeservice\|ADR-025]]. Anche la riga «Nessun endpoint SOAP in ingresso» sopra vale solo per `consprefboweb`.
+
 **Risposta data il 22/09/2026:** esporre il servizio come **REST**, coerentemente con il nuovo stack. Il SOAP resta solo dove imposto da un contratto esterno già scritto (servizi verso i SIA delle ASR, client verso Gestione Deleghe e Notificatore). Se l'elenco richiesto a CSI rivelasse un'interfaccia diversa consumata oggi dalla Webapp Cittadino, si valuterà un adapter di compatibilità — non cambia l'indirizzo di progettazione.
 
 ---

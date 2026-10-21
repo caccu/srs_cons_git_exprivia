@@ -19,7 +19,7 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 
 | # | Titolo | Status | Data | Tema |
 |---|---|---|---|---|
-| [ADR-001](ADR-001-stack-tecnologico.md) | Stack tecnologico (Spring Boot 3 + Java 17 + Angular 19 + PG18) | accepted | 2026-03-02 | Stack |
+| [ADR-001](ADR-001-stack-tecnologico.md) | Stack tecnologico (Spring Boot 3 + Java 17 + Angular 21 + PG18) | accepted | 2026-03-02 | Stack |
 | [ADR-002](ADR-002-piattaforma-ecaas.md) | Piattaforma ECaaS Kubernetes Nivola + vincoli | superseded | 2026-03-02 | Infrastruttura |
 | [ADR-003](ADR-003-dbaas-nivola.md) | DBaaS Nivola esterno al namespace | accepted | 2026-03-02 | Infrastruttura |
 | [ADR-004](ADR-004-no-api-gateway.md) | No API Gateway — sicurezza applicativa via Spring Security | partially-superseded | 2026-03-02 | Sicurezza |
@@ -43,6 +43,7 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | [ADR-022](ADR-022-cdu-06-scarico-informativa-operatore.md) | CDU-06 — scarico informativa anche per l'Operatore (FE Operatore) | accepted | 2026-09-25 | UX / CDU |
 | [ADR-023](ADR-023-cdu-11-contratto-rest-valori-ammessi.md) | CDU-11 — contratto REST dedicato e valori ammessi da configurazione | accepted | 2026-09-29 | API |
 | [ADR-024](ADR-024-cdu-14-destinazione-endpoint.md) | CDU-14 — valori del campo Destinazione degli endpoint (NOTIFICA_CONSENSO, WEBHOOK_ALLINEAMENTO) | accepted | 2026-10-15 | Modello dati |
+| [ADR-025](ADR-025-contratto-cittadino-soap-consensobeservice.md) | Contratto Webapp Cittadino — SOAP `ConsensoBeService` preservato (via APISAN) | accepted | 2026-10-21 | Integrazioni |
 
 ---
 
@@ -121,7 +122,7 @@ ADR con open issues:
 - **ADR-005**: SEC-01÷06 (URL AS, JWT, onboarding SIA, TTL, scope, revoca)
 - **ADR-006**: ✅ PULL-01 (blocco), PULL-02 (email+webhook), PULL-05/06/08 chiusi (call 20/07/2026); residui non bloccanti PULL-03/04/07 + swagger CDU-17
 - **ADR-007**: BAT-01 (WSDL SRV-01 vs SRV-03)
-- **ADR-010**: ~~ID-01 (GASP Salute protocollo)~~ non più bloccante — **frontend** CDU-01b fuori scope (ADR-021, 06/08/2026). ⚠️ L'integrazione GASP **lato BE** resta da migrare a iso-funzionalità (precisazione 22/09/2026)
+- **ADR-010**: ~~ID-01 (GASP Salute protocollo)~~ non più bloccante — **frontend** CDU-01b fuori scope (ADR-021, 06/08/2026). ✅ Nessuna integrazione GASP nel backend: autenticazione chiusa su SANSOL/APISAN (dev BE 21/10/2026, ADR-025)
 - **ADR-013**: ~~GOV-03 (responsabile CSI migrazione)~~ ✅ chiuso 16/07/2026 (CSI Piemonte), TECH-01 (audit DDL PG9, target ora PG18)
 - **ADR-016**: SC67 (logica INSERT storicizzazione BATCH-02), BAT-03 (comunicazione ASR cambio semantica)
 - **ADR-017**: ~~INT-03 (acronimo LIS + spec integrazione)~~ ✅ chiuso 06/08/2026 (superseded by ADR-020)

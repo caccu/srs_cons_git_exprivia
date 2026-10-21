@@ -36,6 +36,8 @@
 ### Frontend
 Angular non è listato esplicitamente come pila CSI, ma la risposta Q&A CSI conferma: **Angular v19.x CURRENT** nello stack SPA Angular2/springboot/Resteasy v2.1.0.
 
+> 🔄 **21/10/2026:** il frontend è stato migrato ad **Angular 21** (conferma del team di sviluppo). Vedi [[wiki/docs/adr/ADR-001-stack-tecnologico\|ADR-001]].
+
 ---
 
 ## Implicazioni per il progetto

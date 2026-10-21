@@ -36,6 +36,8 @@ Il **cittadino** non compare come attore.
   - AURA: `.../sanitxens/aura/AURA.WS.AnagrafeFind.cls`, `.../sanitxens/AURA.WS.AnagrafeSanitaria.cls`
   - LCCE: `https://be-lcce-rupar.isan.csi.it/lccews/TokenInformationService`
 
+> 🔵 **Riscontro dev BE (21/10/2026):** nel codice di `consprefboweb` non ci sono accessi diretti al DB (solo una stringa JDBC residua nelle configurazioni di dev e collaudo): i dati passano da `consprefbe` tramite `ConsensoBeService`. Il client AURA invece c'è. Vedi [[wiki/sources/2026-10-21-riscontro-dev-deployment-to-be\|Riscontro dev]].
+
 ### Backend servizi — `consprefbe`
 
 - Apache FE `ap1/2-conspref.site01`, Location `/consprefbe-web` (ingresso Aziende Sanitarie)

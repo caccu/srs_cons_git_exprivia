@@ -43,7 +43,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 - [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] — Sistema centrale consensi sanitari Regione Piemonte: 3 livelli, 3 profili (Cittadino FE OUT / BE IN, **Operatore unico** — non più 2, corretto 06/08/2026 —, SIA), 17 CDU, 2 batch (BATCH-03 rimosso → CDU-17 PULL); 2 canali di acquisizione (LIS non è un terzo canale — ADR-020, 06/08/2026); **un solo frontend sviluppato (Webapp Operatore); backend unico per entrambe le webapp, compatibilità iso-funzionalità con la Webapp Cittadino — ADR-021, precisato 22/09/2026**
 - [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]] — Macchina a stati: NON_ESPRESSO → ATTIVO/NEGATO → SCADUTO/ANNULLATO; no sovrascrittura
 - [[wiki/concepts/architettura-iaas\|Architettura IaaS]] — Infrastruttura IaaS Nivola CSI (non ECaaS/Kubernetes), provisioning CSI; deploy ADA/Chef; 07/2026: ambienti DEV + pre-prod (PROD in fase successiva)
-- [[wiki/concepts/gasp-salute\|GASP Salute]] — Identity Provider federato SPID/CIE; protocollo **SAML2** confermato (verbale 11/06/2026); ⚠️ **FE OUT / BE IN**: nessuna nuova progettazione, ma il backend nuovo deve continuare ad autenticare la Webapp Cittadino (ADR-021, precisato 22/09/2026)
+- [[wiki/concepts/gasp-salute\|GASP Salute]] — Identity Provider federato SPID/CIE; protocollo **SAML2** confermato (verbale 11/06/2026); ❌ **OUT**: nessuna integrazione GASP nel backend; l'autenticazione cittadino si chiude su SANSOL/APISAN e il BE riceve il CF via SOAP `ConsensoBeService` (dev BE, 21/10/2026, ADR-025)
 - [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] — Notifica/scadenza/allineamento asincrono; ⚠️ BATCH-01 ambiguità WSDL SRV-01 vs SRV-03
 - [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] — AURA, SIA ASR (SOAP `ConsprefService` in ingresso mantenuto), Notificatore UNP, PUA/Configuratore; Gestione Deleghe **fuori perimetro** (CSI 25/09/2026: il BE riceve solo `cf_delegato`), LIS/RIS (integrazione BE esistente, non canale — ADR-020); stato approvvigionamento Sprint 0
 - [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]] — Risposta TR30: OAuth2 Client Credentials + JWT + tabella client_ente + filter Spring Security; AS-IS **no API Manager**, difesa a 3 livelli; TO-BE API Manager CSI per nuovi fruitori
@@ -51,7 +51,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 - [[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]] — Pattern SSoT Form Renderer, nato per Citt+Op (CDU-02/03/04/09/10/11); MF26/28/30/35/37/39/41/43/45/57 — **frontend costruito solo per Operatore (CDU-09/10/11); endpoint BE consumati dalla webapp Citt. da migrare a iso-funzionalità — ADR-021, precisato 22/09/2026**
 - [[wiki/concepts/informativa\|Informativa Consenso]] — Oggetto dichiarativo del consenso: modello `cons_d_informativa`, ciclo di vita, lookup CDU-03, base Form Renderer
 - [[wiki/concepts/migrazione-postgres-9-17\|Migrazione PostgreSQL 9 → 18]] — Strategia dump/restore Fase 6 Sprint 9; target aggiornato da PG17 a PG18 (06/08/2026); rischi tipi/auth scram/timestamp; audit DDL prerequisito Sprint 0
-- [[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico Applicativo]] — Angular 19 + Spring Boot 3.4.10+ / Java 17 + PostgreSQL 18 su IaaS Nivola; vincoli docker-base CSI
+- [[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico Applicativo]] — Angular 21 + Spring Boot 3.4.10+ / Java 17 + PostgreSQL 18 su IaaS Nivola; vincoli docker-base CSI
 
 ---
 
@@ -81,6 +81,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 - [[wiki/sources/2019-04-08-dizionario-dati-as-is\|Modello Dizionario Dati AS-IS (2019)]] — 12 entità AS-IS (2 business + 1 log + 9 dominio); cons_s_consenso non popolata
 - [[wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione\|ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)]] — Specifiche SOAP inbound: DA01-DA03, upsert logic, 18 codici errore
 - [[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|Ricognizione endpoint AS-IS — riscontro sviluppo]] — 8 endpoint REST `CittadiniApi`/`InformativaApi` = baseline iso-funzionalità Webapp Operatore; Webapp Cittadino assente dalla consegna (coerente col perimetro); WSDL Deleghe senza client ⚠️
+- [[wiki/sources/2026-10-21-riscontro-dev-deployment-to-be\|Riscontro dev sul deployment TO-BE]] — BFF `rconsprefboweb` + backend `rconsprefbe` con batch interni; cittadino via APISAN, SOAP `ConsensoBeService` ⚠️; Angular 21; SMTP e webhook CDU-14; Notificatore Deleghe assente nel codice ⚠️ (INT-10) (7 pagine toccate)
 - [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|Deployment diagram AS-IS CONSPREF (CSI)]] — topologia attuale su Nivola: `consprefboweb`/`consprefbe` su JBoss 6.4, PG 9.6, security group SG-INT/SG-RUP/SG-APPL/SG-DBAAS; AURA, LCCE, Notificatore; APISAN su HTTP:80 senza bilanciatore (4 pagine toccate)
 - [[wiki/sources/2026-09-25-riscontro-csi-domande-sviluppo\|Riscontro CSI alle domande di sviluppo (mail 24-25/09/2026)]] — DEV-01÷06: Deleghe fuori perimetro, `ConsprefService` SOAP mantenuto, CDU-06 scarico informativa anche per l'Operatore, ASR 904 da ripristinare; codici errore e trust gateway in verifica CSI (11 pagine toccate)
 
@@ -127,7 +128,7 @@ Indice completo: [docs/adr/README.md](wiki/docs/adr/README.md)
 
 | ADR | Titolo | Status |
 |---|---|---|
-| [ADR-001](ADR-001-stack-tecnologico.md) | Stack tecnologico (Spring Boot 3 + Java 17 + Angular 19 + PG18) | accepted |
+| [ADR-001](ADR-001-stack-tecnologico.md) | Stack tecnologico (Spring Boot 3 + Java 17 + Angular 21 + PG18) | accepted |
 | [ADR-002](ADR-002-piattaforma-ecaas.md) | Piattaforma ECaaS Kubernetes Nivola + vincoli | **superseded** |
 | [ADR-003](ADR-003-dbaas-nivola.md) | DBaaS Nivola esterno al namespace | accepted |
 | [ADR-004](ADR-004-no-api-gateway.md) | No API Gateway — sicurezza applicativa Spring Security | accepted |
@@ -151,4 +152,5 @@ Indice completo: [docs/adr/README.md](wiki/docs/adr/README.md)
 | [ADR-022](ADR-022-cdu-06-scarico-informativa-operatore.md) | CDU-06 scarico informativa anche per l'Operatore (FE Operatore) | accepted |
 | [ADR-023](ADR-023-cdu-11-contratto-rest-valori-ammessi.md) | CDU-11 contratto REST dedicato (`PUT /consensi/{cfAssistito}/valore`) e valori ammessi da `cons_r_consenso_valore` | accepted |
 | [ADR-024](ADR-024-cdu-14-destinazione-endpoint.md) | CDU-14 valori del campo Destinazione degli endpoint: `NOTIFICA_CONSENSO` (default, anche se vuoto) e `WEBHOOK_ALLINEAMENTO` | accepted |
+| [ADR-025](ADR-025-contratto-cittadino-soap-consensobeservice.md) | Contratto Webapp Cittadino: SOAP `ConsensoBeService` (10 operazioni) via APISAN, preservato a iso-funzionalità | accepted |
 

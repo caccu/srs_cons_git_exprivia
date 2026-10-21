@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/stack-tecnologico-applicativo/","title":"Stack Tecnologico Applicativo","tags":["stack","tecnologia","spring-boot","angular","postgresql","java"],"dg-note-properties":{"title":"Stack Tecnologico Applicativo","aliases":["Stack Tecnologico Applicativo","Stack Tecnologico","Stack Applicativo"],"type":"concept","tags":["stack","tecnologia","spring-boot","angular","postgresql","java"],"created":"2026-05-15","updated":"2026-07-16","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-12-pile-tecnologiche-csi","2026-03-02-domande-srs-csi-v02"],"related":["[[Architettura IaaS]]","[[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]","[[Gestione Consensi - Applicativo]]","[[migrazione-postgres-9-17|Migrazione PostgreSQL 9 → 17]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/stack-tecnologico-applicativo/","title":"Stack Tecnologico Applicativo","tags":["stack","tecnologia","spring-boot","angular","postgresql","java"],"dg-note-properties":{"title":"Stack Tecnologico Applicativo","aliases":["Stack Tecnologico Applicativo","Stack Tecnologico","Stack Applicativo"],"type":"concept","tags":["stack","tecnologia","spring-boot","angular","postgresql","java"],"created":"2026-05-15","updated":"2026-10-21","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-12-pile-tecnologiche-csi","2026-03-02-domande-srs-csi-v02"],"related":["[[Architettura IaaS]]","[[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]","[[Gestione Consensi - Applicativo]]","[[migrazione-postgres-9-17|Migrazione PostgreSQL 9 → 17]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16]]"]}}
 ---
 
 
@@ -13,7 +13,7 @@ Stack TO-BE del progetto [[wiki/concepts/gestione-consensi-applicativo\|Gestione
 
 | Layer | Tecnologia | Versione | Stato CSI |
 |---|---|---|---|
-| Frontend | Angular | 19.x | CURRENT |
+| Frontend | Angular | **21.x** (era 19.x, migrazione confermata dal team di sviluppo 21/10/2026) | ⚠️ da verificare nel catalogo pile CSI |
 | Frontend componenti | Componenti QUASAR (stack CSI SPA v2.1.0) | — | CURRENT |
 | Web Server | Apache HTTPD (`httpd_csi` docker-base) | — | CURRENT |
 | Backend | Spring Boot | 3.4.10+ | CURRENT |
@@ -24,9 +24,9 @@ Stack TO-BE del progetto [[wiki/concepts/gestione-consensi-applicativo\|Gestione
 
 ---
 
-## Frontend — Angular 19
+## Frontend — Angular 21
 
-- **SPA Angular 19** servita da Apache `httpd_csi` (docker-base CSI)
+- **SPA Angular 21** servita da Apache `httpd_csi` (docker-base CSI)
 - Componenti UI: componenti **QUASAR** forniti da CSI (stack SPA Angular2/SpringBoot/RESTEasy v2.1.0 — `v2.1.0` è la versione del pacchetto stack, non della libreria QUASAR). Accesso repository QUASAR da concordare con referente CSI prima avvio sviluppo UI.
 - Pattern di rendering form: **Form Renderer dinamico** che consuma metadata backend (vedi [[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso]])
 - Build: `ng build --configuration=production`, copia in `dist/` → immagine Docker
@@ -106,6 +106,6 @@ Vedi [[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piem
 
 | ADR | Decisione |
 |---|---|
-| [ADR-001](ADR-001-stack-tecnologico.md) | Stack tecnologico (Spring Boot 3 + Java 17 + Angular 19 + PG18) |
+| [ADR-001](ADR-001-stack-tecnologico.md) | Stack tecnologico (Spring Boot 3 + Java 17 + Angular 21 + PG18) |
 | [ADR-002](ADR-002-piattaforma-ecaas.md) | Piattaforma ECaaS Kubernetes Nivola + vincoli |
 | [ADR-014](ADR-014-apache-cxf-soap-client.md) | Apache CXF come client SOAP |

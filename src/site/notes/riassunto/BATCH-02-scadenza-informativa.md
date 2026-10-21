@@ -45,6 +45,7 @@ Esempio SC67: l'informativa A (`annulla_consensi = NO`) scade ed è sostituita d
 **Transazioni e ripresa**
 - Lotti configurabili (default 1000 record), COMMIT a fine lotto.
 - `stato_elaborazione` (DA_ELABORARE → IN_ELABORAZIONE → ELABORATA) evita di rielaborare dopo un riavvio. A fine informativa: `ELABORATA`.
+- Due nodi (21/10/2026): il job gira su entrambi. La presa in carico (`DA_ELABORARE` → `IN_ELABORAZIONE`) avviene con `SELECT … FOR UPDATE SKIP LOCKED` in una transazione breve, così l'altro nodo non vede l'informativa. A ogni lotto si aggiorna `data_modifica` dell'informativa (colonna esistente), che fa da battito. Un'informativa `IN_ELABORAZIONE` con `data_modifica` ferma da più di 120 minuti viene ripresa da un nodo qualsiasi; i consensi già chiusi non vengono riselezionati, quindi niente duplicati. Le notifiche al cittadino sono prese una alla volta con lo stesso meccanismo. Due variabili d'ambiente disattivano i batch su un nodo, se servisse.
 - Errori non fatali in `cons_t_batch_errori`, senza bloccare l'intera elaborazione.
 - Notifiche sospese per le ASR in manutenzione (§7.4).
 

@@ -12,7 +12,7 @@ Società fornitrice responsabile del rifacimento dell'applicativo [[wiki/concept
 ## Ruolo nel progetto
 
 - Redattore SRS (CONSPREF-SRS-V1.0): Marco Forneris, 02/03/2026
-- Team di sviluppo Angular 19 + Spring Boot 3
+- Team di sviluppo Angular 21 + Spring Boot 3
 - Responsabile produzione specifica OpenAPI 3.x per CDU-15/CDU-16
 - Supporto tecnico al CONSPREF-DMP (audit DDL, test plan, rollback) — la **redazione è in carico a [[wiki/entities/csi-piemonte\|CSI Piemonte]]** (confermato 16/07/2026, GOV-03 chiuso)
 

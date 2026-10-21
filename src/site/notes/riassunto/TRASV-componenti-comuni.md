@@ -14,7 +14,7 @@ Riferimenti: SRS v10 §2.3, §3, §4, §5, §6.4 (algoritmo canonico), §8; ADR-
 
 | Livello | Scelta |
 |---|---|
-| Frontend | Angular 19+, SPA servita da Apache 2.4; componenti UI QUASAR forniti da CSI (accesso al repository da concordare); accessibilità AgID WCAG 2.1 AA |
+| Frontend | Angular 21, SPA servita da Apache 2.4; componenti UI QUASAR forniti da CSI (accesso al repository da concordare); accessibilità AgID WCAG 2.1 AA |
 | Backend | Spring Boot ≥ 3.4.10, Java 17 (Temurin) |
 | DB | PostgreSQL 18 su DBaaS Nivola, istanza per ambiente (oggi DEV e pre-produzione). Su DEV viene ribaltato il DB di TEST PG 9.6 |
 | Esecuzione | IaaS Nivola (VM), **non** Kubernetes. Deploy ADA/Chef |

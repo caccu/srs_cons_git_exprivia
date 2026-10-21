@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/batch-processes/","title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"dg-note-properties":{"title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","aliases":["Processi Batch — BATCH-01, BATCH-02, BATCH-03"],"type":"concept","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"created":"2026-05-05","updated":"2026-07-20","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione"],"related":["[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]","[[Sistemi Esterni Integrati]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/batch-processes/","title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"dg-note-properties":{"title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","aliases":["Processi Batch — BATCH-01, BATCH-02, BATCH-03"],"type":"concept","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"created":"2026-05-05","updated":"2026-10-21","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2026-10-21-riscontro-dev-deployment-to-be"],"related":["[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]","[[Sistemi Esterni Integrati]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -210,6 +210,25 @@ Note tecniche (SRS §BATCH-02):
 > **Azione:** Documentare la differenza nella specifica OpenAPI CDU-15/16 e verificare con tutti i SIA coinvolti.
 >
 > 🟠 **Stato (call CSI 20/07/2026 — BAT-03):** CSI considera lo Stato SCADUTO un **componente da gestire** e ha rinviato a una **call dedicata** per definirne la gestione asincrona e la comunicazione alle ASR. Punto **ancora aperto**.
+
+---
+
+## Esecuzione su più nodi (riscontro dev BE, 21/10/2026)
+
+`rconsprefbe` gira su due nodi e i batch girano dentro `rconsprefbe` ([[wiki/sources/2026-10-21-riscontro-dev-deployment-to-be\|Riscontro dev]]). I job schedulati sono solo due, BATCH-01 e BATCH-02. Girano su **entrambi i nodi** e si coordinano sul DB con blocchi di riga (`SELECT … FOR UPDATE SKIP LOCKED`, [[wiki/docs/adr/ADR-007-batch-01-5min-skip-locked\|ADR-007]]). Niente ShedLock né advisory lock, nessuna configurazione per nodo.
+
+| Job | Coordinamento |
+|---|---|
+| BATCH-01 | Ogni notifica `cons_t_notifica` è presa da un solo nodo; una transazione per notifica |
+| BATCH-02 | Un nodo prende le informative scadute e le marca `IN_ELABORAZIONE` in una transazione breve; l'altro nodo non le vede più. Elaborazione a lotti con commit; a ogni lotto aggiorna `data_modifica` dell'informativa, che fa da **battito** |
+| BATCH-02, ripresa | Se un nodo cade, dopo **120 minuti senza battito** l'informativa `IN_ELABORAZIONE` viene ripresa da un nodo qualsiasi. Nessun duplicato: i consensi già chiusi (`data_fine` valorizzata) non vengono riselezionati |
+| BATCH-02, notifiche cittadino | Prese una alla volta con lo stesso meccanismo `SKIP LOCKED` |
+
+Conseguenze sul modello dati e sugli algoritmi:
+- il battito è `data_modifica` di `cons_d_informativa`, colonna già esistente: **il modello dati non cambia** (dev BE, 21/10/2026);
+- ALG01 seleziona anche le informative `IN_ELABORAZIONE` con `data_modifica` più vecchia di 120 minuti, con `FOR UPDATE SKIP LOCKED`.
+
+Se CSI preferisse un solo nodo attivo per i batch, si disattivano sull'altro con **due variabili d'ambiente**, senza modifiche al codice. Nomi e valori delle variabili sono una scelta interna di Exprivia (decisione 21/10/2026): nessuna domanda a CSI; si comunicano solo se CSI chiederà un nodo unico.
 
 ---
 

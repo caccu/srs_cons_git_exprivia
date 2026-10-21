@@ -11,7 +11,9 @@ Identity Provider (IdP) federato gestito da [[wiki/entities/csi-piemonte\|CSI Pi
 >
 > ~~🔴 **Fuori dal perimetro di sviluppo (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]):** GASP Salute serviva esclusivamente l'accesso diretto del cittadino (CDU-01b e a valle). Questo progetto sviluppa **solo la Webapp Operatore** (autenticazione PUA/RUPAR/IRIDE) — nessuna integrazione GASP Salute è da progettare in questo progetto.~~
 >
-> 🔴 **Perimetro corretto (22/09/2026):** **nessuna progettazione GASP da fare, ma l'integrazione resta viva lato backend.** La Webapp Cittadino è un'app separata che non sviluppiamo, però continua a funzionare **sul backend rifatto da questo progetto** e continua ad autenticare i suoi utenti via GASP Salute. La gestione server-side di quella sessione (SAML2 via Shibboleth SP) va quindi **migrata a iso-funzionalità**, non eliminata.
+> ✅ **Corretto 21/10/2026 (dev BE, codice consprefbe):** nel backend **non c'è nessuna integrazione GASP, Shibboleth o SAML**; nel web.xml c'è solo la basic authentication del servizio. L'autenticazione SPID/CIE del cittadino si chiude su SANSOL/APISAN. Il backend riceve nella richiesta SOAP ConsensoBeService il codice del servizio chiamante (SANSOL), il CF dell'utente autenticato e i CF di cittadino ed eventuale delegato, e verifica il CF su AURA. Nel TO-BE resta uguale ([[wiki/docs/adr/ADR-025-contratto-cittadino-soap-consensobeservice\|ADR-025]]). Nessuna integrazione GASP da migrare.
+>
+> ~~🔴 **Perimetro corretto (22/09/2026):**~~ **nessuna progettazione GASP da fare, ma l'integrazione resta viva lato backend.** La Webapp Cittadino è un'app separata che non sviluppiamo, però continua a funzionare **sul backend rifatto da questo progetto** e continua ad autenticare i suoi utenti via GASP Salute. La gestione server-side di quella sessione (SAML2 via Shibboleth SP) va quindi **migrata a iso-funzionalità**, non eliminata.
 >
 > In sintesi: ❌ niente nuovo design GASP, niente frontend cittadino · ✅ vincolo di non-regressione sull'autenticazione cittadino lato BE. Vedi [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]] §Precisazione 22/09/2026.
 

@@ -14,7 +14,7 @@ Lo scopo di questa cartella è pratico: leggendo un file si deve capire **cosa f
 
 Gestione Consensi è il sistema regionale (Regione Piemonte, gestito da CSI) che raccoglie e conserva i consensi sanitari degli assistiti: nazionali (es. FSE), regionali (es. presa in carico cronicità) e aziendali (es. Ritiro On Line referti di una singola ASR). Ogni variazione viene storicizzata e notificata ai Sistemi Informativi Aziendali (SIA) delle ASR.
 
-Il progetto è un **rifacimento**: stesso dominio, nuovo stack (Angular 19 + Spring Boot 3.4.10+ / Java 17 + PostgreSQL 18 su IaaS Nivola), nuove funzioni di configurazione e nuove API verso i SIA.
+Il progetto è un **rifacimento**: stesso dominio, nuovo stack (Angular 21 + Spring Boot 3.4.10+ / Java 17 + PostgreSQL 18 su IaaS Nivola), nuove funzioni di configurazione e nuove API verso i SIA.
 
 ## 2. Perimetro di sviluppo (ADR-021, precisato 22/09/2026 e 25/09/2026)
 

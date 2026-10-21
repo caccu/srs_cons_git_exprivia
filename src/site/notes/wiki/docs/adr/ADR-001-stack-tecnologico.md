@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-001-stack-tecnologico/","title":"Stack tecnologico applicativo (Spring Boot 3 + Java 17 + Angular 19 + PostgreSQL 18)","tags":["stack","spring-boot","java","angular","postgresql"],"dg-note-properties":{"adr":1,"title":"Stack tecnologico applicativo (Spring Boot 3 + Java 17 + Angular 19 + PostgreSQL 18)","status":"accepted","date":"2026-03-02","updated":"2026-08-06","deciders":["CSI Piemonte","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["stack","spring-boot","java","angular","postgresql"],"related_wiki":["[[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico Applicativo]]","[[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]","[[architettura-iaas|Architettura IaaS]]"],"sources":["[[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #2, #5, #10","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]] §3"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-001-stack-tecnologico/","title":"Stack tecnologico applicativo (Spring Boot 3 + Java 17 + Angular 21 + PostgreSQL 18)","tags":["stack","spring-boot","java","angular","postgresql"],"dg-note-properties":{"adr":1,"title":"Stack tecnologico applicativo (Spring Boot 3 + Java 17 + Angular 21 + PostgreSQL 18)","status":"accepted","date":"2026-03-02","updated":"2026-10-21","deciders":["CSI Piemonte","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["stack","spring-boot","java","angular","postgresql"],"related_wiki":["[[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico Applicativo]]","[[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]","[[architettura-iaas|Architettura IaaS]]"],"sources":["[[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #2, #5, #10","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]] §3"]}}
 ---
 
 
@@ -10,6 +10,8 @@
 `accepted` — confermato da CSI in Q&A V02 e formalizzato in SRS bozza v2 §3.
 
 > 🔄 **Aggiornamento 06/08/2026 (call CSI):** versione database aggiornata **PostgreSQL 17 → 18** (CSI ha nel frattempo migrato il DBaaS). Resto dello stack invariato.
+>
+> 🔄 **Aggiornamento 21/10/2026 (team di sviluppo):** frontend **migrato da Angular 19 ad Angular 21**, confermato dagli sviluppatori. Compatibile con il vincolo SRS §3 «Angular 19.x come versione minima». Residuo: la Q&A CSI #2 validava esplicitamente la 19.x come CURRENT; per la 21 non c'è ancora riscontro dal catalogo pile CSI.
 
 ## Context
 
@@ -25,7 +27,7 @@ Lo stack TO-BE è:
 
 | Layer | Tecnologia | Versione |
 |---|---|---|
-| Frontend SPA | Angular | 19.x |
+| Frontend SPA | Angular | 21.x (era 19.x, migrato 21/10/2026) |
 | Frontend UI library | QUASAR CSI | v2.1.0 |
 | Web Server | Apache HTTPD (`httpd_csi` docker-base) | — |
 | Backend | Spring Boot | 3.4.10+ |
@@ -38,7 +40,7 @@ Lo stack TO-BE è:
 ### Positive
 - Conformità totale a Pile CSI CURRENT
 - Spring Boot 3 abilita Jakarta EE 10, Java 17 LTS, native image (futuro)
-- Angular 19 + QUASAR CSI library garantiscono riuso UI cross-applicativo sanità Piemonte
+- Angular 21 + QUASAR CSI library garantiscono riuso UI cross-applicativo sanità Piemonte
 - PostgreSQL 18 abilita features sfruttate dal TO-BE (già disponibili da PG17): `SELECT FOR UPDATE SKIP LOCKED`, `gen_random_uuid()` nativa, MERGE statement
 
 ### Negative

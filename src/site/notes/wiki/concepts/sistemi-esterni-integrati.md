@@ -134,6 +134,8 @@ SIA ASR  →  PATCH /api/v1/endpoints/{endp_id}/stato-allineamento { IN_CORSO } 
 | Distinzione | Servizio separato dall'UNP — non confondere                                  |
 | Sviluppo    | **AS-IS legacy, riciclato — nessun nuovo sviluppo** (call CSI 06/08/2026)    |
 
+> ⚠️ **Conflict (21/10/2026, precisato):** nel legacy c'è **un solo notificatore**, `notify.csi.it/notify-mb` («Notificatore Regionale», documentazione UNP), usato da `consprefnotifica` per confermare al cittadino l'invio alle aziende. Nessun client separato per un «Notificatore di Deleghe». CSI (06/08/2026) lo dà come legacy riciclato. Da chiedere: sono lo stesso servizio? Unresolved — INT-10, [[wiki/docs/adr/ADR-012-notificatore-deleghe-post-completato\|ADR-012]]. Nel codice nuovo oggi c'è solo il client UNP di BATCH-02; l'avviso post-acquisizione non è ancora sviluppato.
+
 > ⚠️ **Importante:** Notificatore di Deleghe ≠ Notificatore UNP. UNP per notifiche applicative generiche; Notificatore di Deleghe per la conferma al cittadino/delegato a valle dell'acquisizione consenso. Documentare distinzione in SRS §3 e §7 (sezione notifiche). Decisione formalizzata in [[wiki/docs/adr/ADR-012-notificatore-deleghe-post-completato\|ADR-012]].
 
 ---
@@ -229,14 +231,18 @@ Registrazione app PUA (**1 profilo Operatore** — non 2, call CSI 06/08/2026) d
 
 Attore che nel [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|deployment diagram AS-IS]] chiama `consprefbe` in **HTTP:80** sull'Apache BE `ap3-be-conspref.site01`, senza bilanciatore, in SG-RUP. Il cittadino non compare come attore nel diagramma: l'ipotesi è che la Webapp Cittadino raggiunga il backend tramite APISAN. Se confermato, il contratto APISAN→`consprefbe` è un vincolo di non-regressione ([[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]], INT-06). Domanda aperta: **INT-08**.
 
+> 🔵 **Riscontro team di sviluppo (21/10/2026):** APISAN è un prodotto CSI, lato server di SANSOL. La Webapp Cittadino passa da APISAN e usa il **SOAP `ConsensoBeService`**, non REST. Nel TO-BE va ripristinato con lo stesso contratto. Fonte: [[wiki/sources/2026-10-21-riscontro-dev-deployment-to-be\|Riscontro dev sul deployment TO-BE]].
+>
+> ✅ **Conflict risolto (21/10/2026):** la [[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|ricognizione del 22/09]] copriva solo le API REST di `consprefboweb`. `consprefbe-web` espone due SOAP, `ConsprefService` e `ConsensoBeService` (WSDL TEST, 10 operazioni); l'audit `csi_log_audit` su TEST registra ~41.000 chiamate `id_app = SANSOL` dal 2019. Contratto cittadino = SOAP `ConsensoBeService`, [[wiki/docs/adr/ADR-025-contratto-cittadino-soap-consensobeservice\|ADR-025]]. Resta solo la conferma CSI.
+
 ---
 
 ## Mappa integrazioni sintetica (aggiornata)
 
 ```
-[Cittadino] → GASP Salute (SAML2 via Shibboleth SP) → Webapp Citt   ⚠️ FE OUT / BE IN (ADR-021, prec. 22/09/2026)
+[Cittadino] → GASP Salute (SAML2) → Webapp Cittadino SANSOL        ❌ OUT — GASP non arriva al BE (dev BE 21/10/2026)
 [Operatore] → PUA/Configuratore Regionale → Webapp Operatore        ✅ IN — unico FE sviluppato
-[APISAN]    → consprefbe (HTTP:80 AS-IS)                           ❓ ruolo da chiarire (INT-08)
+[Cittadino] → APISAN (CSI, SANSOL) → rconsprefbe, SOAP ConsensoBeService   🔵 riscontro dev 21/10 (INT-08)
                               ↓
 [Applicativo Gestione Consensi]  ← backend UNICO: serve entrambe le webapp, interamente in perimetro
         ├─ AURA              (SOAP/IRIS) — FindProfiliAnagrafici, getProfiloSanitario

@@ -9,6 +9,8 @@
 
 `accepted` — decisione MF33R31 sulla revisione SRS v3.
 
+> ⚠️ **Conflict (21/10/2026):** [[wiki/sources/2026-10-21-riscontro-dev-deployment-to-be\|riscontro del team di sviluppo]]: nel legacy esiste **un solo notificatore**, `notify.csi.it/notify-mb` («Notificatore Regionale», documentazione UNP). Lo usa `consprefnotifica` per confermare al cittadino l'invio alle aziende, cioè proprio la notifica post-COMPLETATO di questo ADR. Non c'è un client separato per un «Notificatore di Deleghe». [[wiki/entities/csi-piemonte\|CSI Piemonte]] (06/08/2026) lo dà come legacy riciclato. Se `notify-mb` è il Notificatore di Deleghe, la distinzione UNP/Deleghe di questo ADR va rivista; altrimenti il client va scritto da zero. Nel codice nuovo l'avviso non è ancora sviluppato. Unresolved — tracker INT-10.
+
 ## Context
 
 A valle di un atto di consenso del cittadino (CDU-03 rilascio o CDU-04/05 modifica/cambio valore), il sistema deve notificare al cittadino/delegato l'avvenuta acquisizione.

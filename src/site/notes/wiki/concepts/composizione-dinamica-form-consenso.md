@@ -97,7 +97,7 @@ Ognuno deve avere paragrafo "Composizione dinamica pagina operatore" che rimanda
 
 ### 5.1 Componente architetturale SRS §3.3
 Componente **"Form Renderer dinamico"** della Webapp Operatore (SRS v10 §3.3, §6.9–6.11):
-- Tecnologia: componente Angular 19 della **sola Webapp Operatore** ([[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]). Nessuna libreria condivisa con una Webapp Cittadino, che è fuori perimetro.
+- Tecnologia: componente Angular 21 della **sola Webapp Operatore** ([[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]). Nessuna libreria condivisa con una Webapp Cittadino, che è fuori perimetro.
 - Usato da CDU-09 (rilascio), CDU-10 (modifica) e CDU-11 (cambio valore).
 - Input: `cfAssistito`, `sotto_tipo_consenso_id`, `cod_asr` e `operazione` (`RILASCIO` | `MODIFICA` | `CAMBIO_VALORE`), passati alla GET di §5.3. Non c'è più un parametro `modalita` cittadino/operatore.
 - Output: form con struttura fissa e contenuti dal DB; il comportamento (valore precedente, modificabilità, presa visione, informativa in sola lettura, blocco per allineamento) è guidato dal campo `regole` della risposta.
