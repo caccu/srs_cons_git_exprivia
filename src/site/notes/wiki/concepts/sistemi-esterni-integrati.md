@@ -117,7 +117,7 @@ SIA ASR  →  PATCH /api/v1/endpoints/{endp_id}/stato-allineamento { IN_CORSO } 
 | Gestore           | [[wiki/entities/csi-piemonte\|CSI Piemonte]]                                                                                               |
 | Protocollo        | REST                                                                                                                         |
 | Canali supportati | Email, push, AppIO                                                                                                           |
-| Uso               | Notifiche applicative generiche verso cittadino (NON per conferma rilascio consenso — quella va via Notificatore di Deleghe) |
+| Uso               | V1.0: notifica al cittadino dei consensi ANNULLATI (BATCH-02, SRS §7.2); nessuna chiamata separata di verifica preferenze. «Notifiche generiche» fuori V1.0, nessun caso d'uso ([[wiki/sources/2026-10-22-domande-dev-be-unp-cdu-02-08\|BE-09/BE-10, 22/10/2026]]). Conferma rilascio consenso via Notificatore di Deleghe (INT-10) |
 | Documentazione    | gitlab.csi.it/user-notification-platform/unpdocumentazione                                                                   |
 
 ---
@@ -134,9 +134,9 @@ SIA ASR  →  PATCH /api/v1/endpoints/{endp_id}/stato-allineamento { IN_CORSO } 
 | Distinzione | Servizio separato dall'UNP — non confondere                                  |
 | Sviluppo    | **AS-IS legacy, riciclato — nessun nuovo sviluppo** (call CSI 06/08/2026)    |
 
-> ⚠️ **Conflict (21/10/2026, precisato):** nel legacy c'è **un solo notificatore**, `notify.csi.it/notify-mb` («Notificatore Regionale», documentazione UNP), usato da `consprefnotifica` per confermare al cittadino l'invio alle aziende. Nessun client separato per un «Notificatore di Deleghe». CSI (06/08/2026) lo dà come legacy riciclato. Da chiedere: sono lo stesso servizio? Unresolved — INT-10, [[wiki/docs/adr/ADR-012-notificatore-deleghe-post-completato\|ADR-012]]. Nel codice nuovo oggi c'è solo il client UNP di BATCH-02; l'avviso post-acquisizione non è ancora sviluppato.
+> ⚠️ **Conflict (21/10/2026, precisato):** nel legacy c'è **un solo notificatore**, `notify.csi.it/notify-mb` («Notificatore Regionale», documentazione UNP), usato da `consprefnotifica` per confermare al cittadino l'invio alle aziende. Nessun client separato per un «Notificatore di Deleghe». CSI (06/08/2026) lo dà come legacy riciclato. Da chiedere: sono lo stesso servizio? Unresolved — INT-10, [[wiki/docs/adr/ADR-012-notificatore-deleghe-post-completato\|ADR-012]]. Nel codice nuovo oggi c'è solo il client UNP di BATCH-02; l'avviso post-acquisizione non è ancora sviluppato. **22/10/2026:** il dev BE conferma che `notify-mb` (`/api/v1/topics/messages`, token in `x-authentication`) è la stessa API del client UNP di BATCH-02, quindi l'avviso si può fare riusando quel client; l'identità con il «Notificatore di Deleghe» la conferma solo CSI ([[wiki/sources/2026-10-22-domande-dev-be-unp-cdu-02-08\|fonte]]).
 
-> ⚠️ **Importante:** Notificatore di Deleghe ≠ Notificatore UNP. UNP per notifiche applicative generiche; Notificatore di Deleghe per la conferma al cittadino/delegato a valle dell'acquisizione consenso. Documentare distinzione in SRS §3 e §7 (sezione notifiche). Decisione formalizzata in [[wiki/docs/adr/ADR-012-notificatore-deleghe-post-completato\|ADR-012]].
+> ⚠️ **Importante:** Notificatore di Deleghe ≠ Notificatore UNP. UNP per la notifica ANNULLATO di BATCH-02 (unico uso V1.0); Notificatore di Deleghe per la conferma al cittadino/delegato a valle dell'acquisizione consenso. Documentare distinzione in SRS §3 e §7 (sezione notifiche). Decisione formalizzata in [[wiki/docs/adr/ADR-012-notificatore-deleghe-post-completato\|ADR-012]].
 
 ---
 
@@ -250,7 +250,7 @@ Attore che nel [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|deploymen
         ├─ Gestione Deleghe  ❌ OUT — nessuna chiamata dal BE; il BE riceve il CF del delegato (CSI 25/09/2026)
         ├─ SIA ASR / aziende federate (SOAP inbound /services/ConsprefService) — mantenuto, canalità esistente (CSI 25/09/2026)
         ├─ Notificatore Deleghe (REST?) — conferma post-acquisizione al cittadino
-        ├─ Notificatore UNP  (REST) — notifiche applicative generiche
+        ├─ Notificatore UNP  (REST) — notifica ANNULLATO (BATCH-02)
         ├─ SIA ASR           (SOAP outbound) ← BATCH-01 notifiche puntuali
         ├─ SIA ASR           (REST inbound) ← CDU-15, CDU-16 [spec v0.1-DRAFT]
         ├─ SIA ASR           (REST inbound via API Manager) ← CDU-17 PULL snapshot [✅ confermato 20/07 — swagger da produrre]

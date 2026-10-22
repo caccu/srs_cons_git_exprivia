@@ -36,6 +36,12 @@ Posizione nel sorgente `consprefbe` (dev BE, 21/10/2026):
 - Nella richiesta SOAP il backend riceve il codice del servizio chiamante (SANSOL), il CF dell'utente autenticato e i CF di cittadino ed eventuale delegato. Nessun token né header Shibboleth.
 - Il CF viene verificato su [[wiki/concepts/sistemi-esterni-integrati\|AURA]].
 - Nel TO-BE resta uguale.
+- Flag `verificaAura` della richiesta `consultaConsensoBe` (dev BE, 22/10/2026): il legacy non lo legge mai. Un TODO del 2019 («verifica su aura da fare solo se il flag verificaaura vale false») non è mai stato implementato, quindi la verifica AURA avviene **sempre**; il Back Office legacy invia `false`. Il nuovo servizio mantiene il campo e lo stesso comportamento (BE-14).
+
+## Operazioni (dev BE, 22/10/2026)
+
+- Il WSDL di TEST ha **10 operazioni**. Un'undicesima, `inserisciInformativa`, è commentata anche nel legacy.
+- SANSOL ne usa **9**: tutte tranne `consultaProfilo`, che nell'audit è chiamata solo dal Back Office AS-IS. Nel TO-BE il BFF usa i REST interni, quindi `consultaProfilo` non ha consumatori noti; resta esposta perché il contratto è il WSDL completo (BE-12).
 
 ## Decision
 

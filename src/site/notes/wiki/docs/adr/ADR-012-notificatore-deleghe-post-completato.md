@@ -10,6 +10,8 @@
 `accepted` — decisione MF33R31 sulla revisione SRS v3.
 
 > ⚠️ **Conflict (21/10/2026):** [[wiki/sources/2026-10-21-riscontro-dev-deployment-to-be\|riscontro del team di sviluppo]]: nel legacy esiste **un solo notificatore**, `notify.csi.it/notify-mb` («Notificatore Regionale», documentazione UNP). Lo usa `consprefnotifica` per confermare al cittadino l'invio alle aziende, cioè proprio la notifica post-COMPLETATO di questo ADR. Non c'è un client separato per un «Notificatore di Deleghe». [[wiki/entities/csi-piemonte\|CSI Piemonte]] (06/08/2026) lo dà come legacy riciclato. Se `notify-mb` è il Notificatore di Deleghe, la distinzione UNP/Deleghe di questo ADR va rivista; altrimenti il client va scritto da zero. Nel codice nuovo l'avviso non è ancora sviluppato. Unresolved — tracker INT-10.
+>
+> 🔄 **Verifica codice (dev BE, 22/10/2026):** un solo notificatore nel legacy, `notify-mb` (`/api/v1/topics/messages`, token nell'header `x-authentication`), usato da `consprefnotifica` per l'avviso al cittadino; nessun client «Notificatore di Deleghe». Il client UNP di BATCH-02 usa la stessa API: l'avviso post-COMPLETATO si può realizzare riusandolo, senza un client nuovo. Resta a CSI confermare se il «Notificatore di Deleghe» è lo stesso servizio con altro nome ([[wiki/sources/2026-10-22-domande-dev-be-unp-cdu-02-08\|fonte]]).
 
 ## Context
 
@@ -44,7 +46,7 @@ Documentazione obbligatoria:
 ### Positive
 - Cittadino riceve conferma solo quando l'atto è effettivamente propagato (no race condition percepita)
 - Allineamento con altri servizi sanità che usano Notificatore di Deleghe per atti formali
-- Notificatore UNP riservato a notifiche generiche (es. promemoria, comunicazioni)
+- Notificatore UNP riservato a notifiche generiche (es. promemoria, comunicazioni). 🔄 **Precisazione 22/10/2026:** nessuna notifica generica è prevista in V1.0; UNP serve solo per la notifica ANNULLATO di BATCH-02 ([[wiki/sources/2026-10-22-domande-dev-be-unp-cdu-02-08\|BE-09]])
 
 ### Negative
 - **Dipendenza temporale stretta** fra BATCH-01 e notifica cittadino — se BATCH-01 ritarda/fallisce, anche la notifica cittadino è ritardata

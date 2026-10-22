@@ -78,7 +78,7 @@ Implicazione: dipendenza temporale stretta. Quando tutti i record `cons_t_notifi
 
 Distinzione canale:
 - **Notificatore di Deleghe**: conferma post-acquisizione al cittadino/delegato (questo caso)
-- **Notificatore UNP**: altre notifiche applicative generiche (vedi [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]])
+- **Notificatore UNP**: in V1.0 solo la notifica ANNULLATO di BATCH-02, senza chiamata separata di verifica preferenze; nessuna «notifica generica» prevista ([[wiki/sources/2026-10-22-domande-dev-be-unp-cdu-02-08\|BE-09/BE-10, 22/10/2026]]; vedi [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]])
 
 ### ⚠️ RISCHIO CRITICO — Ambiguità operazione WSDL
 
