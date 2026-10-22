@@ -58,4 +58,6 @@
 
 **Interlocutori:** tutti i punti si chiudono tra Exprivia e FE, tranne R-06 (DEV-12) e la regola provvisoria di M-04 (DEV-01), entrambe in attesa di CSI.
 
+> ✅ **Rev. 11 (22/10/2026):** tutti i punti recepiti. Verifica e rifiniture residue in [[wiki/sources/2026-10-22-mockup-fe-cdu-rev11\|Mockup FE rev. 11 — verifica correzioni]].
+
 > 🔄 **Aggiornamento 22/10/2026:** M-04, M-05 e M-10 integrati con le [[wiki/sources/2026-10-22-domande-dev-be-unp-cdu-02-08\|risposte al dev BE]] (BE-16÷BE-20): blocchi per stato dell'endpoint, tipologia Nazionale, azioni della card calcolate dal FE, `online = false` non vincolante per l'operatore. Le verifiche BE-12, BE-14 e INT-10 non toccano il mockup.
