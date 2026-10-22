@@ -104,6 +104,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 - [[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]] — Tracker stato Data Migration Plan PG9→PG18 (target aggiornato da PG17); 7 sezioni con owner.
 - [[wiki/analyses/analysis-2026-08-05-stato-scaduto-comunicazione-sia\|Stato SCADUTO — semantica e comunicazione asincrona ai SIA/ASR (BAT-03)]] — Stato consolidato SCADUTO (wiki + SRS v6), omonimia AS-IS/TO-BE, buco canale async (no notifica, fuori snapshot CDU-17), 3 opzioni + checklist call CSI
 - [[wiki/analyses/analysis-2026-08-05-stato-scaduto-spiegato-semplice\|Stato SCADUTO — Spiegato in Modo Semplice]] — Versione in linguaggio piano per il cliente non tecnico: analogia del modulo firmato, tranello del cambio di significato, 3 strade con pro/contro, 8 domande per la call
+- [[wiki/analyses/analysis-2026-10-22-allineamento-srs-wiki\|Allineamento SRS v10 → Wiki (22/10/2026)]] — Audit SRS rev. 1.17 vs wiki: 36 incongruenze (4 critiche: storicizzazione BATCH-02/CDU-13, Online/Annulla in CDU-12 ALG02, takeover multi-nodo BATCH-02); residui GASP/Deleghe/Cittadino nel corpo
 
 ---
 

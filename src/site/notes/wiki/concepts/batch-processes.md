@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/batch-processes/","title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"dg-note-properties":{"title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","aliases":["Processi Batch — BATCH-01, BATCH-02, BATCH-03"],"type":"concept","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"created":"2026-05-05","updated":"2026-10-21","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2026-10-21-riscontro-dev-deployment-to-be"],"related":["[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]","[[Sistemi Esterni Integrati]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/batch-processes/","title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"dg-note-properties":{"title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","aliases":["Processi Batch — BATCH-01, BATCH-02, BATCH-03"],"type":"concept","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"created":"2026-05-05","updated":"2026-10-22","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2026-10-21-riscontro-dev-deployment-to-be"],"related":["[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]","[[Sistemi Esterni Integrati]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -161,7 +161,9 @@ SET data_fine = NOW(), data_modifica = NOW(), login_operazione = 'BATCH_SCADENZA
 WHERE cons_id = :cons_id_da_chiudere AND data_fine IS NULL;
 ```
 
-**2. Inserire il nuovo record storicizzato** (stato `SCADUTO`/`ANNULLATO`, ancorato all'informativa scaduta A):
+**2. Storicizzare il record chiuso** (stessa transazione, ADR-016): `INSERT INTO cons_s_consenso (...) SELECT ... FROM cons_t_consenso WHERE cons_id = :cons_id_da_chiudere`, con FK `cons_id` (SRS §7.2 ALG02, rev. 1.18).
+
+**3. Inserire il nuovo record storicizzato** (stato `SCADUTO`/`ANNULLATO`, ancorato all'informativa scaduta A):
 
 ```sql
 INSERT INTO cons_t_consenso (
@@ -182,7 +184,7 @@ SELECT
   c.valore_consenso,
   NOW()  AS data_acquisizione,
   NULL   AS data_fine,
-  'BATCH-02' AS login_operazione,
+  'BATCH_SCADENZA_INF' AS login_operazione,   -- valore unico per BATCH-02 (allineamento 22/10/2026)
   gen_random_uuid() AS uuid,
   c.cf_delegato,
   NULL   AS endp_id,       -- NULL: valorizzato solo per consensi ricevuti da SIA
@@ -191,6 +193,8 @@ FROM cons_t_consenso c
 JOIN cons_d_informativa i ON i.d_informativa_id = c.d_informativa_id   -- A: informativa scaduta cui il consenso è collegato (SC67 risolto)
 WHERE c.cons_id = :cons_id_da_chiudere;
 ```
+
+**4. Solo per ANNULLATO:** accodare `cons_t_notifica` (`DA_INVIARE`) per ogni endpoint attivo del sotto-tipo (invio ASR via BATCH-01) e notifica UNP al cittadino. `SCADUTO` non accoda notifiche.
 
 Note tecniche (SRS §BATCH-02):
 - `sotto_tipo_consenso` copiato direttamente dal record originale
