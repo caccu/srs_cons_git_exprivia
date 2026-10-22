@@ -27,13 +27,13 @@
 | M-01 | Form CDU-09/10/11 con etichette fisse («Acconsento/Nego» pag. 6-7, «Acconsento/Negato» pag. 8) | §6.9-6.11, [[wiki/docs/adr/ADR-023-cdu-11-contratto-rest-valori-ammessi\|ADR-023]] | Valori dal campo `valori_ammessi` (`cons_r_consenso_valore`; SI/NO in migrazione) |
 | M-02 | Mancano descrizione estesa, domanda e testo aggiuntivo | [[wiki/concepts/composizione-dinamica-form-consenso\|Form Renderer]] §5.1-5.2 | Blocchi da `cons_r_consenso_parametro` nell'ordine fisso concordato |
 | M-03 | Due flussi per CDU-09: multi-azienda con «per tutte» e una sola presa visione (pag. 4-5) e singola azienda (pag. 6) | Contratto `GET /consensi/{cf}/form?…&cod_asr&operazione` | Tenere il flusso a singola azienda. Per i regionali il valore vale per tutte le ASR collegate, senza selezione |
-| M-04 | Banner «La ASR 904 San Luigi non è al momento disponibile» | DEV-01 ([[wiki/sources/2026-09-25-riscontro-csi-domande-sviluppo\|CSI 25/09]]), §7.4 | San Luigi va ripristinata. Messaggio legato allo stato dell'endpoint (`IN_MANUTENZIONE`/`IN_CORSO`), esempio generico |
-| M-05 | CDU-12: «Nuovo tipo» crea tipi | §6.12, requisiti V03 | Tipi = dominio fisso (Nazionale/Regionale/Aziendale, `cons_d_tipo_cons`). L'oggetto gestito è il sotto-tipo, con `fk_tipo_cons` |
+| M-04 | Banner «La ASR 904 San Luigi non è al momento disponibile» | DEV-01 ([[wiki/sources/2026-09-25-riscontro-csi-domande-sviluppo\|CSI 25/09]]), §7.4, [[wiki/sources/2026-10-22-domande-dev-be-unp-cdu-02-08\|BE-16/BE-17]] | San Luigi va ripristinata. Messaggio legato allo stato dell'endpoint (`IN_CORSO`/`IN_MANUTENZIONE`), esempio generico. Con endpoint in questi stati: rilascio, modifica e cambio valore bloccati per quell'azienda; consultazione libera. Elenco aziende: mostrata se ha almeno un endpoint attivo (regola provvisoria, DEV-01) |
+| M-05 | CDU-12: «Nuovo tipo» crea tipi | §6.12, requisiti V03, BE-19 | Tipi = dominio fisso (Nazionale/Regionale/Aziendale, `cons_d_tipo_cons`; «Nazionale» esiste). L'oggetto gestito è il sotto-tipo, con `fk_tipo_cons` |
 | M-06 | CDU-12: manca «Associazione Enti» | §6.12 ALG01 | Tipo consenso + multi-select enti; per l'aziendale solo enti con endpoint attivo |
 | M-07 | CDU-12: valori ammessi a testo libero | §6.12 (Valori Possibili, Multi-Select) | Selezione tra i valori di `cons_d_valore_cons` |
 | M-08 | CDU-12: mancano variante Modifica e filtri Codice/Tipo | §6.12 | Modifica limitata a descrizione, data fine, associazione enti. Descrizione estesa e domanda obbligatorie |
 | M-09 | CDU-08: la card mostra validità/scadenza | §6.8 | Mostrare stato, valore espresso, data acquisizione, informativa |
-| M-10 | CDU-08: casi non rappresentati | §6.11 nota 29/09 | «Cambia valore» solo per ATTIVO/NEGATO (SCADUTO/ANNULLATO → Gestisci, CDU-10). Aggiungere card SCADUTO/ANNULLATO e l'avvio del rilascio di un consenso non espresso |
+| M-10 | CDU-08: casi non rappresentati | §6.11 nota 29/09, BE-18, BE-20 | Le azioni della card le calcola il FE (il BE non le fornisce, BE-20) da stato del consenso e stato dell'endpoint: «Cambia valore» solo per ATTIVO/NEGATO; SCADUTO/ANNULLATO → Gestisci (CDU-10); non espresso → rilascio (CDU-09); endpoint `IN_CORSO`/`IN_MANUTENZIONE` → azioni disabilitate. Il flag `online = false` **non** blocca l'operatore (BE-18). Aggiungere card SCADUTO/ANNULLATO, non espresso e azienda in manutenzione |
 
 ## Da rivedere
 
@@ -56,4 +56,6 @@
 - Scarico informativa lato Operatore ([[wiki/docs/adr/ADR-022-cdu-06-scarico-informativa-operatore\|ADR-022]]).
 - Cambia valore senza riaccettazione, informativa in sola lettura (§6.11 nota 29/09).
 
-**Interlocutori:** tutti i punti si chiudono tra Exprivia e FE, tranne R-06 (DEV-12, già verso CSI).
+**Interlocutori:** tutti i punti si chiudono tra Exprivia e FE, tranne R-06 (DEV-12) e la regola provvisoria di M-04 (DEV-01), entrambe in attesa di CSI.
+
+> 🔄 **Aggiornamento 22/10/2026:** M-04, M-05 e M-10 integrati con le [[wiki/sources/2026-10-22-domande-dev-be-unp-cdu-02-08\|risposte al dev BE]] (BE-16÷BE-20): blocchi per stato dell'endpoint, tipologia Nazionale, azioni della card calcolate dal FE, `online = false` non vincolante per l'operatore. Le verifiche BE-12, BE-14 e INT-10 non toccano il mockup.
