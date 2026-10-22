@@ -61,6 +61,6 @@
 |---|---|---|
 | A-01 | API di aggiornamento ente (CDU-14 §6.14 passo 3) assente dall'OpenAPI 0.2-DRAFT: definire campi modificabili (codice in sola lettura) | BE |
 | A-02 | E-mail di avviso dell'endpoint (`notificaEmail`, canale email PULL-02): aggiungerla alla maschera SRS §6.14 e decidere la colonna nel modello dati. L'OpenAPI 0.2-DRAFT non è nel repository: verificare il campo nel contratto | Exprivia (SRS) + BE |
-| A-03 | Residuo SRS §6.12: la tabella della maschera CDU-12 elenca ancora i campi «Online» e «Annulla consensi» e la variante «Modifica tipo consenso» cita «Flag (Online, Annulla)». Con GOV-02 i flag sono solo in CDU-13 (`cons_d_informativa`), come già nel mockup | Exprivia (SRS) |
+| A-03 | Residuo SRS §6.12: la tabella della maschera CDU-12 elenca ancora i campi «Online» e «Annulla consensi» e la variante «Modifica tipo consenso» cita «Flag (Online, Annulla)». Con GOV-02 i flag sono solo in CDU-13 (`cons_d_informativa`), come già nel mockup | ✅ Chiuso: SRS rev. 1.19 (22/10/2026) |
 
 **Aperti con CSI:** DEV-01 (visibilità aziende ed enti associabili) e DEV-12 (disattivazione durante l'allineamento), invariati ([[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|tracker]]).
