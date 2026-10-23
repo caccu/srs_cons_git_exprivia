@@ -61,7 +61,7 @@ Operatore autenticato (webapp); SIA autenticato su APIMBBONE (API).
   2. INSERT `cons_r_asr_endpoint` (`cod_asr`, `endp_id`, validità, **`stato_allineamento = 'DA_ALLINEARE'`**);
   3. per ogni sotto-tipo: INSERT `cons_r_sotto_tipo_cons_asr_endpoint`;
   4. se il consenso ha già un endpoint attivo per l'azienda (caso CDU-17): invio della notifica out-of-band in base al parametro (email/webhook), tracciata in `cons_t_traccia_serv_est`.
-- Eliminazione: logica (`valida_fine` / `data_cancellazione`), non fisica. Gli endpoint dismessi escludono l'azienda dagli elenchi (regola DEV-01 da definire).
+- Eliminazione: logica (`valida_fine` / `data_cancellazione`), non fisica. Gli endpoint dismessi escludono l'azienda dagli elenchi. Regola provvisoria: azienda visibile con almeno un endpoint attivo (BE-16); DEV-01 da confermare con CSI.
 - Destinazione (ADR-024): solo gli endpoint `NOTIFICA_CONSENSO` (o senza destinazione) ricevono le notifiche e partecipano all'allineamento. L'URL del webhook out-of-band è un endpoint `WEBHOOK_ALLINEAMENTO` dell'ente, senza `stato_allineamento`; se manca, il webhook non parte e l'errore va in `cons_t_traccia_serv_est`.
 - Disattivazione ente (requisito CSI V03, SRS rev. 1.12 §6.14): la fine validità si propaga a `cons_r_asr_endpoint`, `cons_r_sotto_tipo_cons_asr_endpoint` e `cons_r_informativa_asr`; l'eliminazione di un endpoint chiude anche i suoi legami. Blocchi su modifica/disattivazione: da chiedere a CSI (DEV-12).
 - Effetti su altri CDU: CDU-09/10/11 non generano notifiche verso endpoint `IN_CORSO` e bloccano l'acquisizione per quel sotto-tipo finché l'allineamento è in corso. BATCH-01 legge l'URL di destinazione.
@@ -89,4 +89,6 @@ CDU-12 (sotto-tipi); CDU-17 e §7.4 consumano lo stato; BATCH-01 consuma gli URL
 - Contratto, firma e sicurezza del webhook verso i SIA (forniti da CSI); indirizzi email destinatari (dove si configurano?). L'URL del webhook si configura come endpoint `WEBHOOK_ALLINEAMENTO` (ADR-024).
 - Blocchi su modifica/disattivazione di ente ed endpoint (DEV-12).
 - Destinatari della notifica "endpoint aggiunto" quando l'azienda non ha ancora altri endpoint.
-- Formalizzazione dello stato `IN_MANUTENZIONE` (colonna dedicata o valore in più).
+- Formalizzazione di `IN_MANUTENZIONE`: SRS rev. 1.18 (§7.4) lo separa da `stato_allineamento`, con orientamento a colonna di stato dedicata; il dettaglio resta alla progettazione.
+- **A-01** API di aggiornamento ente (§6.14 passo 3) assente dall'OpenAPI 0.2-DRAFT: definire i campi modificabili, codice in sola lettura.
+- **A-02** E-mail di avviso dell'endpoint (`notificaEmail`, canale e-mail PULL-02): da aggiungere alla maschera SRS §6.14 e al modello dati. Nel contratto attuale un campo vuoto mantiene il valore: per poterla cancellare serve un aggiornamento del contratto BE (mockup FE rev. 12).

@@ -4,7 +4,7 @@
 
 # CDU-12 — Gestione tipo consenso (Back Office)
 
-**Perimetro:** FE ✅ · BE ✅ — Riferimenti: SRS v10 §6.12, §8.3.2-8.3.4, §8.3.23-25, §8.4.5, §8.4.6; requisiti [1] par. 2.2.2.1; ADR-008, ADR-023.
+**Perimetro:** FE ✅ · BE ✅ — Riferimenti: SRS v10 §6.12 (rev. 1.19), §8.3.2-8.3.4, §8.3.23-25, §8.4.5, §8.4.6; requisiti [1] par. 2.2.2.1; ADR-008, ADR-023.
 
 ## Cosa fa
 
@@ -25,7 +25,7 @@ Operatore autenticato sul PUA (profilo unico).
 5. Selezione di uno o più enti.
 6. Salva → validazione → salvataggio di tutte le entità (ALG02) → messaggio e lista aggiornata.
 
-**Variante modifica**: maschera precompilata. Sono modificabili **solo** Descrizione, Data fine, flag Online/Annulla e associazione enti.
+**Variante modifica**: maschera precompilata. Sono modificabili **solo** Descrizione, Data fine e associazione enti. Codice, tipo, data inizio, valori ammessi e parametri restano in sola lettura (mockup FE rev. 12, pag. 17-18).
 
 ## Campi
 
@@ -40,8 +40,6 @@ Operatore autenticato sul PUA (profilo unico).
 | Parametri aggiuntivi | Descrizione estesa | sì | text area |
 | | Domanda da porre | sì | max 255 (è l'etichetta del radio nel form) |
 | | Testo aggiuntivo | no | text area |
-| | Consenso online | sì | SI/NO, default SI |
-| | Annulla consensi | sì | SI/NO, default NO |
 | Associazione enti | Tipo consenso | sì | Nazionale / Regionale / Aziendale |
 | | Enti/Aziende | sì | multi-select, almeno uno ("Associare almeno un ente") |
 
@@ -51,7 +49,7 @@ In V1.0 i due flag **non** vanno in `cons_r_consenso_parametro`. La loro unica s
 
 Le due colonne **non esistono nel DB AS-IS**: vanno create con gli script di migrazione TO-BE. In caso di conflitto tra tipo consenso e informativa prevale l'informativa.
 
-Conseguenza pratica: i due campi della maschera CDU-12 vanno propagati sull'informativa (oppure gestiti solo in CDU-13). Il comportamento esatto va definito, vedi punti aperti.
+Conseguenza: i due flag **non compaiono nella maschera CDU-12**. Si impostano solo sull'informativa, in [CDU-13](CDU-13-gestione-informativa.md) (SRS rev. 1.19 del 22/10/2026, punto A-03 della verifica mockup).
 
 ## Logica di backend
 
@@ -67,7 +65,7 @@ Conseguenza pratica: i due campi della maschera CDU-12 vanno propagati sull'info
 
 **ALG02 — Salvataggio** (transazione unica)
 1. INSERT `cons_d_sotto_tipo_cons` (codice, descrizione, date, `tipo_consenso` FK).
-2. Per ogni parametro (Descrizione estesa, Domanda, Testo): INSERT in `cons_r_consenso_parametro` (`sotto_tipo_consenso`, `param_id` ricavato da `cons_d_parametro` per codice, `param_val`). Online e Annulla: vedi sopra.
+2. Per ogni parametro (Descrizione estesa, Domanda, Testo): INSERT in `cons_r_consenso_parametro` (`sotto_tipo_consenso`, `param_id` ricavato da `cons_d_parametro` per codice, `param_val`). Online e Annulla non si salvano qui (vedi sopra).
 3. Per ogni valore possibile: INSERT in `cons_r_consenso_valore` (`sotto_tipo_consenso`, `valore_consenso` FK `cons_d_valore_cons`, validità).
 4. Per ogni ente: INSERT in `cons_r_sotto_tipo_cons_asr_endpoint`. **Logica regionale**: se tipo Regionale e ente "Regione Piemonte", il sistema crea N record, uno per **ogni ASR** della regione.
 5. Audit in `csi_log_audit`.
@@ -90,7 +88,7 @@ Colonne/tabelle nuove in migrazione (`tipo_ente`, `cons_r_consenso_valore`, `con
 
 ## Punti aperti
 
-- Rapporto tra i flag Online/Annulla nella maschera CDU-12 e i flag sull'informativa (CDU-13): sola visualizzazione, default per le nuove informative, o propagazione su quella corrente?
+- ~~Rapporto tra i flag Online/Annulla nella maschera CDU-12 e i flag sull'informativa (CDU-13)~~ **Chiuso 22/10/2026:** i flag stanno solo in CDU-13 (SRS rev. 1.19).
 - Codici di `cons_d_parametro` e formato (testo o HTML) di Descrizione estesa / Testo aggiuntivo.
 - Colonna d'ordine per i valori ammessi.
 - Elenco ASR della "Regione Piemonte" per la logica regionale: con quale criterio? Tutte le `tipo_ente = 'AZIENDALE'`?

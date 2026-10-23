@@ -16,7 +16,7 @@ L'operatore, allo sportello, registra un consenso **nuovo** per l'assistito: un 
 
 - Operatore autenticato, assistito selezionato (CDU-07).
 - Consenso **non** in stato ATTIVO o NEGATO. Se lo è, il sistema rimanda a CDU-11 o CDU-10.
-- Endpoint dell'ente **non** in allineamento (`cons_r_asr_endpoint.stato_allineamento ≠ 'IN_CORSO'`, blocco obbligatorio CDU-17) e ASR non in manutenzione (§7.4).
+- Endpoint dell'ente **non** in allineamento (`cons_r_asr_endpoint.stato_allineamento ≠ 'IN_CORSO'`, blocco obbligatorio CDU-17) e endpoint non `IN_MANUTENZIONE` (§7.4).
 
 ## Flusso
 
@@ -29,7 +29,7 @@ L'operatore, allo sportello, registra un consenso **nuovo** per l'assistito: un 
 7. Il sistema salva e accoda le notifiche.
 8. Messaggio di conferma e ritorno al cruscotto aggiornato.
 
-Dopo la consegna alle aziende (stato `COMPLETATO`), parte la conferma al cittadino/delegato tramite il **Notificatore di Deleghe**. È gestita a valle da BATCH-01 (ADR-012).
+Dopo la consegna alle aziende (stato `COMPLETATO`), parte la conferma al cittadino/delegato tramite il **Notificatore di Deleghe**. È gestita a valle da BATCH-01 (ADR-012). Prima di svilupparla serve la risposta di CSI a **INT-10**: nel legacy c'è un solo notificatore, `notify-mb`, la stessa API del client UNP di BATCH-02.
 
 ## Campi (dal CDU-03)
 
@@ -86,9 +86,9 @@ CDU-07, CDU-08; configurazione da CDU-12/13/14; motore di storicizzazione e coda
 ## Punti aperti (regole di business da chiedere a CSI)
 
 1. "Domande opzionali": è una sola domanda per sotto-tipo? Il DB salva un solo `valore_consenso`.
-2. Consenso con `online = false`: l'operatore può rilasciarlo? Proposta: sì.
+2. ~~Consenso con `online = false`: l'operatore può rilasciarlo?~~ **Chiuso 22/10/2026 (BE-18):** sì.
 3. Default del radio. Proposta: nessuno.
-4. Aziendale: una azienda per salvataggio o più aziende insieme? Il CDU-03 ALG02 dice "un record per ogni ASR a cui l'utente appartiene", ma l'informativa può cambiare per azienda. Proposta: una azienda per operazione.
+4. Aziendale: una azienda per salvataggio o più aziende insieme? Il CDU-03 ALG02 dice "un record per ogni ASR a cui l'utente appartiene", ma l'informativa può cambiare per azienda. Risposta al FE del 29/09/2026 (FE-03): una azienda per operazione, adottata nel mockup FE (M-03). Resta la verifica sull'AS-IS: se la multi-selezione è usata davvero, domanda a CSI.
 5. Descrizione estesa e testo aggiuntivo: testo semplice o HTML? Ordine dei valori ammessi (nessuna colonna d'ordine).
-6. Valore reale di `fonte_id` per il Punto Assistito in `cons_d_fonte`.
+6. Valore reale di `fonte_id` per il Punto Assistito in `cons_d_fonte` (BE-01, verifica interna).
 7. Consensi regionali migrati in un solo record sull'ASR fittizia 999: proposta di conversione in N record, uno per azienda collegata, in attesa di CSI (DEV-07). Collegamenti mancanti per TELEMED (DEV-08).

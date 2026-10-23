@@ -23,7 +23,8 @@ Non è un CDU numerato ed è distinto da CDU-17: non c'è un nuovo endpoint da a
 
 ## Come svilupparlo
 
-- **Modello dati da decidere** in progettazione. Lo stato `IN_MANUTENZIONE` è un'ipotesi: valore aggiuntivo di `stato_allineamento` oppure colonna di stato dedicata su `cons_r_asr_endpoint`/`cons_t_endpoint`. La scelta più pulita è una colonna separata, perché allineamento e manutenzione sono concetti diversi e possono sovrapporsi.
+- **Modello dati:** SRS rev. 1.18 (§7.4) separa `IN_MANUTENZIONE` e `PATCH .../stato` da `stato_allineamento` e dal `PATCH .../stato-allineamento` di CDU-17. Orientamento: colonna di stato dedicata dell'endpoint; il dettaglio resta alla progettazione (decisione Exprivia, non CSI: BE-17).
+- Effetto sulle acquisizioni (proposta Exprivia, BE-17): stesso blocco della precondizione `IN_CORSO` di CDU-09, esteso a CDU-10/11; consultazione CDU-08 libera.
 - Servizio di dominio "disponibilità azienda" interrogato da:
   - servizi di salvataggio consenso → errore di indisponibilità;
   - BATCH-01/02 → salto dei record dell'azienda, lasciati `DA_INVIARE`;
@@ -34,6 +35,6 @@ Non è un CDU numerato ed è distinto da CDU-17: non c'è un nuovo endpoint da a
 
 ## Punti aperti
 
-- Esposizione (estensione OpenAPI o nuovo CDU) e formalizzazione di `IN_MANUTENZIONE`.
+- Esposizione: rientra nello swagger CDU-17 insieme ai servizi endpoint (PULL-09).
 - Granularità: manutenzione per endpoint o per intera azienda? La spec parla di tutti i sistemi dell'azienda, ma il PATCH è per endpoint.
 - Uso dei "dati dell'ultimo invio" comunicati dal SIA alla ripresa (eventuale reinvio?).

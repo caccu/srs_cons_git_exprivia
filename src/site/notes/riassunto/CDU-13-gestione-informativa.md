@@ -90,4 +90,6 @@ CDU-12 (sotto-tipi); storage; a valle BATCH-02, CDU-06 e il Form Renderer.
 - Storage dei PDF su IaaS: volume, limite di dimensione, conservazione → **DEV-11** (proposta: percorso configurabile, 10 MB, nessuna cancellazione). Verificare cosa contiene `pdf_informativa` nel DB AS-IS.
 - Correzione di una versione già pubblicata (es. refuso) → **DEV-09**. Proposta: non in vigore tutto modificabile; in vigore solo `desc_informativa` e `data_scadenza`; HTML e PDF solo come errata corrige autorizzata, con audit.
 - Prima informativa propria di un'azienda che usava la generale: i consensi già espressi scadono? → **DEV-10** (per ora restano validi).
-- Rapporto con i flag Online/Annulla della maschera CDU-12.
+- ~~Rapporto con i flag Online/Annulla della maschera CDU-12~~ **Chiuso 22/10/2026:** la maschera CDU-12 non li ha più (SRS rev. 1.19).
+- «Informativa generale» e «Aziende associate» si escludono: con la generale spuntata l'elenco aziende va disabilitato (rifinitura FE N-01, ancora parziale nel mockup rev. 12).
+- Associazione di aziende a un'informativa già pubblicata: il mockup non la prevede; il vincolo e l'eventuale associazione prima della decorrenza vanno concordati con il BE (R-01).

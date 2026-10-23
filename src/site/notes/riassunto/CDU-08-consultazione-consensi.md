@@ -30,7 +30,7 @@ Regole di presentazione (dal CDU-03 ALG01 e dal passo 2):
 - **regionale**: una riga con lo stato globale;
 - **aziendale**: una riga **per ogni azienda**, con il suo stato;
 - vanno mostrati anche i consensi **non ancora espressi** o **ANNULLATI**, perché da qui si avvia il rilascio;
-- consenso con informativa `online = false`: per il cittadino è "non esprimibile online". Per l'operatore il comportamento è un punto aperto (vedi sotto).
+- consenso con informativa `online = false`: per il cittadino è "non esprimibile online". Per l'operatore **non è un blocco**: è lui il Punto Assistito (BE-18, 22/10/2026).
 
 Azioni per riga, abilitate in base allo stato:
 
@@ -39,7 +39,7 @@ Azioni per riga, abilitate in base allo stato:
 | non espresso / ANNULLATO | Rilascia (CDU-09); ANNULLATO anche via Modifica (CDU-10) |
 | ATTIVO / NEGATO | **Cambia valore** (CDU-11), Scarica informativa (CDU-06) |
 | SCADUTO / ANNULLATO | **Modifica consenso** (CDU-10) con riaccettazione dell'informativa |
-| endpoint in allineamento (`IN_CORSO`) o ASR in manutenzione | azioni di acquisizione disabilitate, con messaggio di indisponibilità |
+| endpoint in allineamento (`IN_CORSO`) o in manutenzione (`IN_MANUTENZIONE`, stato dell'endpoint, §7.4) | rilascio, modifica e cambio valore disabilitati, con messaggio di indisponibilità; consultazione e PDF restano disponibili |
 
 Variante: nessun consenso espresso → messaggio informativo e invito al rilascio.
 
@@ -57,8 +57,9 @@ Due comportamenti AS-IS da **non** replicare così come sono:
 - Endpoint, ad esempio `GET /consensi/{cfAssistito}` (CF operatore dalla sessione). Restituisce per ogni sotto-tipo configurato e valido (`cons_d_sotto_tipo_cons`) e per ogni ASR pertinente:
   - il record corrente in `cons_t_consenso` (`data_fine IS NULL`) oppure "non espresso";
   - `tipo_stato`, `valore_consenso`, `data_acquisizione`, `d_informativa_id` + descrizione;
-  - le **azioni ammesse**, calcolate dal BE (stato, `online`, `stato_allineamento`, manutenzione ASR) così il FE non duplica le regole.
-- Elenco ASR: da `cons_d_asr` e `cons_r_sotto_tipo_cons_asr_endpoint` / `cons_r_asr_endpoint`, escludendo le aziende senza endpoint validi secondo la regola da definire.
+  - lo stato dell'endpoint dell'azienda (`stato_allineamento`, manutenzione).
+- Le **azioni** le ricava il FE da stato del consenso, flag `online` e stato dell'endpoint: un calcolo lato BE non è requisito di SRS né wiki (BE-20, 22/10/2026). Non va confuso con `valori_ammessi`, che è requisito (ADR-023).
+- Elenco ASR: da `cons_d_asr` e `cons_r_sotto_tipo_cons_asr_endpoint` / `cons_r_asr_endpoint`, escludendo le aziende senza endpoint validi. Regola provvisoria: azienda mostrata se ha almeno un endpoint attivo (BE-16), in attesa di DEV-01.
 - Audit della consultazione in `csi_log_audit` (operazione su dati sanitari dell'assistito).
 
 **Frontend**
@@ -72,6 +73,6 @@ CDU-07; dati configurati da CDU-12/13/14 (sotto-tipi, informative, enti, endpoin
 
 ## Punti aperti
 
-- Regola esatta di esclusione delle "aziende con endpoint dismessi": basta un endpoint dismesso o devono esserlo tutti? Vale solo per l'elenco o anche per la raccolta?
+- Regola esatta di esclusione delle "aziende con endpoint dismessi": basta un endpoint dismesso o devono esserlo tutti? Vale solo per l'elenco o anche per la raccolta? Provvisoria: almeno un endpoint attivo (BE-16). Domanda a CSI in **DEV-01**.
 - `modifyToRevoked` AS-IS senza risposta CSI: chiedere di nuovo o chiudere con decisione interna.
-- Comportamento per l'operatore dei consensi con `online = false`. Proposta: l'operatore **può** rilasciarli, perché è lui il punto assistito. Da confermare con CSI.
+- ~~Comportamento per l'operatore dei consensi con `online = false`~~ **Chiuso 22/10/2026 (BE-18):** l'operatore può rilasciarli e modificarli; il flag limita solo il canale cittadino (SRS §8.4.5).

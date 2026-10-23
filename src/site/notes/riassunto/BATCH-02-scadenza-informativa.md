@@ -52,7 +52,7 @@ Esempio SC67: l'informativa A (`annulla_consensi = NO`) scade ed è sostituita d
 ## Come svilupparlo
 
 - Job Spring Batch (chunk = lotto) o `@Scheduled` con paginazione e transazioni per lotto. Riusare il motore di storicizzazione comune (TRASV §4) con stato terminale parametrico.
-- Client REST UNP secondo la documentazione CSI (gitlab.csi.it/user-notification-platform/unpdocumentazione). Token applicativo UNP da definire.
+- Client REST UNP secondo la documentazione CSI (gitlab.csi.it/user-notification-platform/unpdocumentazione). Endpoint `notify-mb` `/api/v1/topics/messages`, token nell'header `x-authentication` (codice legacy, 22/10/2026); valore del token applicativo da definire. Una sola chiamata di invio: la verifica delle preferenze è interna a UNP (BE-10).
 - Migrazione: colonne `stato_elaborazione`, `annulla_consensi` (e `online`) su `cons_d_informativa`, valorizzate per le informative esistenti.
 - Test: informativa con migliaia di consensi, riavvio a metà, SCADUTO senza notifica, ANNULLATO con coda e UNP, scenario SC67.
 

@@ -4,7 +4,7 @@
 
 # Riassunto tecnico-funzionale dei CDU — Gestione Consensi (CONSPREF)
 
-Aggiornato al 05/10/2026. Fonte principale: `CONSPREF-SRS-V1.0-revised_v10.md` (rev. 1.9), integrata con ADR-001÷023, riscontro CSI del 25/09/2026, ricognizione endpoint AS-IS del 22/09/2026 e risposta al team FE sul Form Renderer del 01/10/2026.
+Aggiornato al 23/10/2026. Fonte principale: `CONSPREF-SRS-V1.0-revised_v10.md` (rev. 1.19), integrata con ADR-001÷025, risposte al dev BE del 22/10/2026 (BE-09÷BE-20), verifica del mockup FE rev. 12, riscontro CSI del 25/09/2026, ricognizione endpoint AS-IS del 22/09/2026 e risposta al team FE sul Form Renderer del 01/10/2026.
 
 Lo scopo di questa cartella è pratico: leggendo un file si deve capire **cosa fa il caso d'uso** e **come va sviluppato**. Per il dettaglio normativo resta valido l'SRS: qui ogni file rimanda ai paragrafi di riferimento.
 
@@ -21,7 +21,7 @@ Il progetto è un **rifacimento**: stesso dominio, nuovo stack (Angular 21 + Spr
 - **Si sviluppa un solo frontend: la Webapp Operatore**, a cui si accede dal PUA con profilo unico Operatore.
 - La **Webapp Cittadino** esiste già, è separata e non si tocca. Il **backend però è unico**: va rifatto anche per i servizi che usa la Webapp Cittadino, senza cambiarne il contratto (iso-funzionalità).
 - Gestione Deleghe è **fuori perimetro**: il backend non la chiama, riceve solo il CF del delegato (`cf_delegato`) e lo registra.
-- GASP Salute (SPID/CIE del cittadino): niente nuova progettazione, ma il backend non deve rompere l'autenticazione della Webapp Cittadino.
+- GASP Salute (SPID/CIE del cittadino) è fuori perimetro e **non arriva al backend**: l'autenticazione si chiude su SANSOL/APISAN. La Webapp Cittadino chiama il backend sul SOAP `ConsensoBeService`, da esporre a contratto invariato (ADR-025).
 
 ### Mappa dei CDU
 
@@ -57,7 +57,7 @@ Prima dei singoli CDU conviene leggere [TRASV-componenti-comuni.md](TRASV-compon
 - **coda di notifica** `cons_t_notifica` alimentata dai CDU e svuotata da BATCH-01;
 - **audit** (`csi_log_audit`) e **tracciatura servizi esterni** (`cons_t_traccia_serv_est`);
 - sicurezza: sessione PUA per la webapp, API Manager APIMBBONE per i SIA;
-- client SOAP (Apache CXF) verso AURA e SIA; servizio SOAP in ingresso `/services/ConsprefService` da mantenere;
+- client SOAP (Apache CXF) verso AURA e SIA; servizi SOAP in ingresso da mantenere: `/services/ConsprefService` (aziende federate, LIS) e `ConsensoBeService` (Webapp Cittadino, ADR-025);
 - errori RFC 7807;
 - **Form Renderer** dinamico per CDU-09/10/11;
 - colonne nuove da creare in migrazione.
@@ -74,18 +74,18 @@ L'ordine segue le dipendenze reali tra i pezzi.
 6. **Back Office**: CDU-12 → CDU-13 → CDU-14 (CDU-12 popola le tabelle che il Form Renderer legge).
 7. **BATCH-02** (scatta dalle informative gestite in CDU-13).
 8. **API SIA**: OpenAPI di CDU-15/16/17 prima del codice, poi implementazione dietro APIMBBONE; CDU-17 e manutenzione endpoint dipendono dallo `stato_allineamento` di CDU-14.
-9. **Backend area Cittadino** a iso-funzionalità, in parallelo, appena CSI fornisce l'elenco delle interfacce usate dalla Webapp Cittadino.
+9. **Backend area Cittadino** a iso-funzionalità, in parallelo: SOAP `ConsensoBeService` con lo stesso WSDL (ADR-025).
 
 ## 5. Punti aperti trasversali (da tenere d'occhio)
 
 | Punto | Impatto | Stato |
 |---|---|---|
-| Elenco interfacce usate dalla Webapp Cittadino sul BE | Senza, l'iso-funzionalità del BE Cittadino non è verificabile | Richiesto a CSI |
+| Contratto Webapp Cittadino = SOAP `ConsensoBeService` via APISAN (ADR-025, 10 operazioni, 9 usate da SANSOL) | Non regressione del BE Cittadino | Solo conferma CSI (INT-06/INT-08) |
 | DEV-04: codici HTTP 502/409/503 per errori esterni/DB | Contratto errori FE e integrazioni | In verifica CSI |
 | DEV-05: BE raggiungibile solo dal Gateway APIMBBONE (trust sugli header) | Sicurezza CDU-15/16/17 | Conferma architetti CSI |
-| DEV-01: `modifyToRevoked` AS-IS e regola di esclusione aziende con endpoint dismessi (ASR 904 da ripristinare) | CDU-08/09, elenco ASR | Parziale |
+| DEV-01: `modifyToRevoked` AS-IS e regola di esclusione aziende con endpoint dismessi (ASR 904 da ripristinare) | CDU-08/09/14, elenco ASR | Parziale; regola provvisoria: almeno un endpoint attivo (BE-16) |
 | Valore effettivo di `fonte_id` per il Punto Assistito (`PASS` etichetta logica, es. `WA_PASS` nel DB AS-IS) | CDU-09/10/11 | Da verificare su `cons_d_fonte` |
-| Operazione WSDL esatta per BATCH-01 (SRV-03 / SRV-04) | BATCH-01 | Conferma CSI |
-| 5 regole di business del Form Renderer (domande multiple, online=NO lato operatore, default radio, una o più aziende per salvataggio, HTML nei parametri) | CDU-09/10/11 | Da inviare a CSI |
-| Stato `IN_MANUTENZIONE` e modello dati start/stop | Manutenzione endpoint | Da dettagliare in progettazione |
+| INT-10: Notificatore di Deleghe = `notify-mb`? | avviso al cittadino dopo `COMPLETATO` (BATCH-01) | Da inviare a CSI |
+| Regole residue del Form Renderer: domande multiple, default del radio, HTML nei parametri. Chiuse: `online = NO` lato operatore (BE-18); una azienda per operazione (FE-03, resta la verifica AS-IS) | CDU-09/10/11 | Da inviare a CSI |
+| Stato `IN_MANUTENZIONE` e modello dati start/stop | Manutenzione endpoint | Separato da `stato_allineamento` (SRS rev. 1.18); colonna dedicata da dettagliare in progettazione |
 | Infrastruttura IaaS: ingress/TLS, segreti, scaling | Deploy | Aperto con CSI |

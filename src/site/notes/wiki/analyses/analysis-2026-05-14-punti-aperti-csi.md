@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/","title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"dg-note-properties":{"title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","aliases":["Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato"],"type":"analysis","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"created":"2026-05-14","updated":"2026-10-22","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-09-22-ricognizione-endpoint-as-is","2026-09-25-riscontro-csi-domande-sviluppo","2026-10-21-deployment-diagram-as-is-csi","2026-10-22-domande-dev-be-unp-cdu-02-08"],"related":["[[analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]]","[[sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[analysis-2026-05-06-openapi-cdu-15-16]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]","[[GASP Salute]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[2026-05-05-mermaid-architettura|Diagramma Architettura Sistema — Mermaid]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-14-punti-aperti-csi/","title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"dg-note-properties":{"title":"Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato","aliases":["Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato"],"type":"analysis","tags":["tracker","punti-aperti","csi-piemonte","blocking","sprint-0","sprint-1","da-chiedere"],"created":"2026-05-14","updated":"2026-10-23","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-09-22-ricognizione-endpoint-as-is","2026-09-25-riscontro-csi-domande-sviluppo","2026-10-21-deployment-diagram-as-is-csi","2026-10-22-domande-dev-be-unp-cdu-02-08"],"related":["[[analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]]","[[sicurezza-cdu-15-16|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[analysis-2026-05-06-openapi-cdu-15-16]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]","[[GASP Salute]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[2026-05-05-mermaid-architettura|Diagramma Architettura Sistema — Mermaid]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]"]}}
 ---
 
 
@@ -7,13 +7,15 @@
 
 **Scopo:** consolidare in un unico tracker tutte le domande, ambiguità, TBD e proposte in attesa di conferma sparse nel corpus wiki. Ogni voce rimanda alla pagina autoritativa.
 
-**Stato alla data (rev. 22/10/2026):** tracker riallineato al log e alle pagine wiki fino al 22/10/2026. Documento di riferimento: `CONSPREF-SRS-V1.0-revised_v10` (rev. 1.17, 21/10/2026). Il quadro sintetico dei punti ancora aperti è in §Riepilogo punti aperti.
+**Stato alla data (rev. 23/10/2026):** tracker riallineato al log e alle pagine wiki fino al 23/10/2026. Documento di riferimento: `CONSPREF-SRS-V1.0-revised_v10` (rev. 1.19, 22/10/2026). Il quadro sintetico dei punti ancora aperti è in §Riepilogo punti aperti.
 
 > 🔄 **Aggiornamento 18/06/2026 (allineato all'agenda riunione):** chiusi/recepiti nel documento — **ID-01** (GASP=SAML2, restano solo metadata), **INF-03** (skeleton Exprivia/IaaS), **INT-05** (Notificatore di Deleghe ≠ UNP), **INF-04** (diagramma aggiornato). Nuovi/raffinati — **INF-05** (dettagli operativi IaaS: deploy/ingress/segreti/CI-CD + pila «k8s»), **BAT-01** (SRV-03 + SRV-04), **BAT-02/SC67** (sorgente `annulla_consensi`: informativa scaduta vs nuova), **GOV-02** (deroga V03 su `online`/`annulla_consensi`). L'ordine del giorno operativo è in `Agenda-riunione-CSI-CONSPREF_2026-06-18`.
 
 > ✅ **Aggiornamento call CSI 20/07/2026 — chiusure di massa.** Chiusi/delegati: **SEC-01÷06** (Q1 header CF+`codice_ente` risolto; Q3/Q4/Q5/Q6 delegati ad APIMBBONE), **INT-01** (AURA: nessun servizio nuovo, stessi WSDL nei properties, credenziali IRIS DEV incluse → chiude anche **ID-03**), **INT-02** (Gestione Deleghe già integrata), **GOV-02** (deroga V03 `online`/`annulla_consensi` approvata, sorgente unica `cons_d_informativa` confermata), **BAT-01** (SRV-03/SRV-04 confermati, "svecchiare + nuova logica"). **Differiti/non vincolanti:** onboarding SIA (evento raro → CR), Manutenzione ASR §7.4 (post-Sprint 0), frequenza BATCH-02, **GOV-05/API-05** (lista ASR), Stato SCADUTO **BAT-03** (call dedicata pending). **Da riformulare:** **BAT-02/SC67** (CSI non ha capito la domanda → domanda mirata a scenario, vedi sotto). **Non toccato:** CDU-17 (attende delucidazioni via mail).
 
 > ✅ **Aggiornamento 29/09/2026** — nuova §10 **FE-01÷08, BE-01÷03**: domande del team FE su CDU-11, risposte recepite in SRS v10 (rev. 1.9). Aperto **FE-08** (presunto accordo di eliminare la composizione dinamica del form: da confermare). Da verificare sull'AS-IS: **FE-03** (multi-azienda), **FE-05** (filtri per ASR). Verifica BE: **BE-01** (`fonte_cod` Punto Assistito). BE-02 e BE-03 chiusi (contratto REST CDU-11 e `valori_ammessi`, [[wiki/docs/adr/ADR-023-cdu-11-contratto-rest-valori-ammessi\|ADR-023]]).
+
+> 🆕 **Aggiornamento 23/10/2026** — SRS a rev. 1.19 (22/10/2026: flag Online/Annulla solo in CDU-13): aggiornati stato del tracker e GOV-01. Verificato il [[wiki/sources/2026-10-22-mockup-fe-cdu-rev12\|mockup FE rev. 12]]: residui interni (N-01, N-08, A-01, A-02), DEV-01 e DEV-12 invariati. Nessuna nuova domanda a CSI.
 
 > 🆕 **Aggiornamento 22/10/2026** — nuova §13 **BE-09÷BE-20**: domande del dev BE su UNP, CDU-02 e CDU-08, [[wiki/sources/2026-10-22-domande-dev-be-unp-cdu-02-08\|risposte]]. UNP in V1.0 solo per la notifica ANNULLATO, senza chiamata di verifica preferenze; `IN_MANUTENZIONE` = stato dell'endpoint. **BE-12** e **BE-14** chiusi lo stesso giorno dalla verifica del dev BE (10 operazioni, 9 usate da SANSOL; `verificaAura` mai letto, verifica AURA sempre). **BE-16** confluisce in DEV-01. **INT-10:** il codice conferma un solo notificatore, `notify-mb`, la stessa API del client UNP di BATCH-02; domanda riformulata come richiesta di conferma. Nessuna nuova domanda a CSI. Riallineati di conseguenza INT-05, INT-06, INT-08, DEV-01, DEV-02, DEV-12, GOV-01 e il riepilogo. Riscontro sul [[wiki/sources/2026-10-22-mockup-fe-cdu\|mockup FE rev. 10]]: punti interni, salvo DEV-01 e DEV-12.
 
@@ -140,7 +142,7 @@ Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-op
 
 | #      | Domanda                                                                                                                   | Prio | Sprint         | Fonte                                                                        |
 | ------ | ------------------------------------------------------------------------------------------------------------------------- | ---- | -------------- | ---------------------------------------------------------------------------- |
-| GOV-01 | **Approvazione formale dell'SRS V1.0** da CSI. Il testo è nato per la bozza v2; la revisione corrente è `revised_v10` (rev. 1.17, 21/10/2026). Nessuna approvazione formale registrata nel log | 🟠   | Prima Sprint 1 | Checklist §B12, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]                   |
+| GOV-01 | **Approvazione formale dell'SRS V1.0** da CSI. Il testo è nato per la bozza v2; la revisione corrente è `revised_v10` (rev. 1.19, 22/10/2026). Nessuna approvazione formale registrata nel log | 🟠   | Prima Sprint 1 | Checklist §B12, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]                   |
 | GOV-02 | **Validazione [PROPOSTA] nell'SRS** — ALG02 BATCH-01, CDU-06 PDF, 11 proposte §8.4. ✅ **Deroga V03 su `online`/`annulla_consensi` APPROVATA (call 20/07/2026):** confermata la scelta V1.0 di mantenerli su `cons_d_informativa` (sorgente autoritativa unica); CSI conferma il funzionamento. ⚠️ **24/09/2026:** sul DB AS-IS migrato `online`/`annulla_consensi` **non esistono** → colonne nuove da aggiungere (motivazione «retrocompatibilità AS-IS» corretta in SRS v8, rev. 1.7). Stesso caso per `cons_d_asr.tipo_ente` (§8.4.6, CDU-12): colonna nuova, ✅ **adottata con decisione interna di progetto** (24/09/2026) per chiudere lo sviluppo del CDU-12 — non è un'approvazione CSI. Restano le altre [PROPOSTA]. | 🟠 (deroga V03 ✅) | Prima Sprint 2 | Checklist §B13, [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] §Tema D           |
 | GOV-03 | **CONSPREF-DMP** — ~~chi è responsabile lato CSI?~~ ✅ **CHIUSO 16/07/2026:** redazione in carico a **CSI Piemonte**. Resta la produzione della bozza v1 (Sprint 0) | ✅   | Sprint 0       | [[wiki/sources/2026-03-02-domande-srs-csi-v02\|2026-03-02-domande-srs-csi-v02]], Q11,[[wiki/analyses/valutazione-qualita-srs-consensi\|valutazione-qualita-srs-consensi]] |
 | GOV-04 | **SLA e NFR performance** — tempo risposta max CDU-02, throughput BATCH-01, disponibilità (99.x%)                         | 🟡   | Prima UAT      | Checklist §B15                                                               |
@@ -234,7 +236,7 @@ Domande dello sviluppatore BE. Risposte Exprivia sulla base dell'SRS v10 e della
 
 ---
 
-## Riepilogo punti aperti (22/10/2026)
+## Riepilogo punti aperti (23/10/2026)
 
 > 🔄 **Riscritto il 09/10/2026.** Il riepilogo per Sprint del 14/05/2026 e lo «stato residuo post-call 20/07/2026» elencavano come aperti molti punti chiusi in seguito (ID-01, ID-03, SEC-01÷06, PULL-01/02/05/06/08, API-01/02, INT-01÷03, INT-05, INF-01, INF-03/04, BAT-01/02, GOV-03, DEV-02/03/06). Qui restano solo i punti non chiusi, raggruppati per chi deve rispondere. Il dettaglio è nelle sezioni sopra.
 
@@ -244,7 +246,7 @@ Domande dello sviluppatore BE. Risposte Exprivia sulla base dell'SRS v10 e della
 |---|---|---|
 | PULL-09 | Swagger (OpenAPI) CDU-17, inclusi servizi endpoint e scenario manutenzione | 🟠 Residuo attivo |
 | API-06 | URL server DEV/PROD e nome degli header del Gateway nello YAML CDU-15/16 | 🔴 Pre sottoscrizione APIM |
-| GOV-01 | Approvazione formale dell'SRS (oggi rev. 1.17) | 🟠 |
+| GOV-01 | Approvazione formale dell'SRS (oggi rev. 1.19) | 🟠 |
 | BAT-03 | Stato SCADUTO, comunicazione ai SIA: call dedicata | 🟠 Call pending |
 | INF-05 | IaaS: ingress/TLS, gestione dei segreti applicativi, segmentazione security group (21/10/2026) | 🟠 |
 | INT-04 | Accesso al repo QUASAR CSI | 🟠 |
@@ -271,7 +273,7 @@ Domande dello sviluppatore BE. Risposte Exprivia sulla base dell'SRS v10 e della
 | # | Tema | Stato |
 |---|---|---|
 | FE-08 | Composizione dinamica del form: confermare che resta (01/10/2026) e, se serve, ADR | 🟠 |
-| Mockup FE | Riscontro rev. 10 (22/10/2026): M-01÷M-10 da correggere, R-01÷R-07 da rivedere ([[wiki/sources/2026-10-22-mockup-fe-cdu\|riscontro]]). M-01÷M-03 confermano di fatto la composizione dinamica (FE-08) | 🟠 |
+| Mockup FE | Rev. 12 (23/10/2026): punti della rev. 10 recepiti, N-02÷N-07 chiusi; restano N-01 parziale, N-08 (codice ente modificabile a pag. 31), A-01 (API modifica ente) e A-02 (`notificaEmail` in SRS §6.14) ([[wiki/sources/2026-10-22-mockup-fe-cdu-rev12\|verifica]]). M-01÷M-03 confermano di fatto la composizione dinamica (FE-08) | 🟡 |
 | FE-03, FE-05 | Verifica sull'AS-IS: multi-azienda, filtri per ASR | 🟡 |
 | BE-01 | Valore reale di `fonte_cod` per il Punto Assistito | 🟡 |
 

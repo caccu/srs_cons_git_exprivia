@@ -10,7 +10,7 @@
 
 Svuota la **coda delle notifiche** (`cons_t_notifica`) e invia ai SIA delle ASR, via **SOAP**, ogni nuovo consenso o variazione. I record in coda li scrivono i CDU di salvataggio (09/10/11 e BE cittadino) e BATCH-02 (annullamenti).
 
-Quando tutte le notifiche di una variazione risultano consegnate (`COMPLETATO`), avvisa il cittadino/delegato tramite il **Notificatore di Deleghe**, che è distinto dall'UNP.
+Quando tutte le notifiche di una variazione risultano consegnate (`COMPLETATO`), avvisa il cittadino/delegato tramite il **Notificatore di Deleghe**, che ADR-012 distingue dall'UNP. Nel legacy però c'è un solo notificatore, `notify-mb`: l'identità va confermata da CSI (**INT-10**) prima di sviluppare l'avviso.
 
 ## Dati di base
 
@@ -51,7 +51,7 @@ I record con `flag_notifica_cittadino = TRUE` **non** li gestisce BATCH-01: li i
 
 ## Punti aperti
 
-- Conferma CSI dell'operazione WSDL corretta (SRV-03/SRV-04 contro l'ambiguità storica con SRV-01).
-- Contratto REST e autenticazione del Notificatore di Deleghe.
+- ~~Conferma CSI dell'operazione WSDL corretta~~ **Chiuso (BAT-01, call CSI 20/07/2026):** SRV-03 e SRV-04 confermati.
+- Notificatore di Deleghe (**INT-10**): nel legacy l'avviso al cittadino lo invia `consprefnotifica` su `notify-mb` (`/api/v1/topics/messages`, token nell'header `x-authentication`), la stessa API del client UNP di BATCH-02. Se CSI conferma che sono lo stesso servizio, si riusa quel client.
 - Definizione di "variazione COMPLETATA" per i consensi regionali (N record × M endpoint).
 - Strumento di rilancio manuale degli `ERRORE_PERMANENTE` (funzione di Back Office o operazione DB?).
