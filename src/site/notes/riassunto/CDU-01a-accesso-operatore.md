@@ -59,7 +59,8 @@ Configuratore Regionale e PUA (CSI); specifiche di `getTokenInformation2`. È pr
 ## Punti aperti
 
 - **Deployment e sicurezza (SRS rev. 1.22, da concordare con CSI, INT-09):** BFF raggiungibile solo dallo Shibboleth SP; lo SP toglie `Shib-Iride-IdentitaDigitale` se arriva dal client; backend raggiungibile solo da API Manager e BFF; profilo Spring esplicito in collaudo e produzione (es. `SPRING_PROFILES_ACTIVE=prod`). Il backend ha `spring.profiles.active=local` di default: da togliere (con `local`: `ddl-auto=update` e codice ente SIA accettato anche come parametro URL).
-- **Aperto:** il BFF è senza sessione e il token PUA è mandato una sola volta. Chi impedisce a un utente IRIDE non abilitato di usare le altre rotte? Sessione firmata, controllo LCCE a ogni richiesta o restrizione sullo SP: da decidere.
+- **Oggi (come il legacy):** il BFF non ricorda l'esito di `/cittadino/token` e `/cittadino/login`: un utente IRIDE non abilitato non vede la UI ma può chiamare le API. **Correzione concordata (SRS rev. 1.23):** dopo `/token` SUCCESSO e `/login` con operatore abilitato il BFF salva in `HttpSession` il CF dell'operatore; le altre API rispondono 403 se manca o se il CF dell'header IRIDE è diverso; `removeFromSession` invalida la sessione; il FE non cambia. Più istanze del BFF: sessione sticky sul bilanciatore (da chiedere a CSI) o cookie firmato. Protezione CSRF (SameSite=Strict o token). Quando LCCE è raggiungibile: confronto tra `richiedente.codiceFiscale` e CF dell'header.
+- Profili: scorciatoie di sviluppo (CF semplice nel BFF, codice ente da URL nel backend) solo con `local`; profilo di default del backend rimosso.
 - Da CSI (INT-09): SUCCESSO = operatore abilitato? Serve controllare una funzionalità? Indirizzo e credenziali LCCE per ambiente (LCCE di TEST è su RUPAR, non raggiungibile dalla VPN Exprivia).
 - Durata della sessione e comportamento al timeout.
 - Verificare che CDU-01a sia nelle stime FE: nella prima lista del team FE mancava.
