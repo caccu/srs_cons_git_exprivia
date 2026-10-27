@@ -43,6 +43,10 @@ FOR UPDATE SKIP LOCKED;
 - Macchina a stati `cons_t_notifica`: `DA_INVIARE` → `IN_INVIO` → `INVIATO` / `ERRORE` → `IN_INVIO` (retry) / `FALLITO_DEFINITIVO`
 - Contratto WSDL outbound SOAP invariato (SRV-03 NotificaAcquisizioneConsenso, AS-IS)
 
+> ⚠️ **Conflict (27/10/2026):** questo ADR prevede il retry (`ERRORE` → `IN_INVIO`) e `FALLITO_DEFINITIVO`; il dev BE ([[wiki/sources/2026-10-27-revisione-be-slide-domande\|2026-10-27-revisione-be-slide-domande]]) riferisce che il codice **non ritenta**, come il vecchio sistema (slide 35 e 46 della presentazione). Unresolved: ritentativi da decidere con CSI (domanda 19). Fino ad allora il retry resta PROPOSTA SRS §7.1, non comportamento implementato.
+>
+> ⚠️ **Rischio al passaggio in produzione (27/10/2026):** il vecchio batch inviava i consensi senza riga di notifica; il nuovo invia solo ciò che trova in coda (`DA_INVIARE`). I consensi registrati dal vecchio sistema poco prima del passaggio e non ancora inviati andrebbero persi (63 su DEV: 49 acquisizioni, 14 revoche). Proposta: negli script di migrazione, una notifica `DA_INVIARE` per ciascuno (domanda 16 a CSI; alternativa: ultimo giro del vecchio batch).
+
 ## Consequences
 
 ### Positive

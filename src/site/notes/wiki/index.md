@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-10-05"}}
+{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-10-27"}}
 ---
 
 
@@ -82,6 +82,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 - [[wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione\|ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)]] — Specifiche SOAP inbound: DA01-DA03, upsert logic, 18 codici errore
 - [[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|Ricognizione endpoint AS-IS — riscontro sviluppo]] — 8 endpoint REST `CittadiniApi`/`InformativaApi` = baseline iso-funzionalità Webapp Operatore; Webapp Cittadino assente dalla consegna (coerente col perimetro); WSDL Deleghe senza client ⚠️
 - [[wiki/sources/2026-10-22-domande-dev-be-unp-cdu-02-08\|Domande dev BE su UNP, CDU-02 e CDU-08 — risposte]] — BE-09÷BE-20: UNP in V1.0 solo notifica ANNULLATO, nessuna chiamata di verifica preferenze; cittadino via SOAP `ConsensoBeService` (10 operazioni); `IN_MANUTENZIONE` = stato endpoint; `online=false` non blocca l'operatore; «Nazionale» esiste; azioni ammesse non requisito (7 pagine toccate)
+- [[wiki/sources/2026-10-27-revisione-be-slide-domande\|Revisione dev BE di slide e domande CSI (27/10/2026)]] — 12 punti (E09/NE, migrazione notifiche, `modifyToRevoked`, ritentativi BATCH-01, INT-05); doppio significato dello stato S, snapshot CDU-17 con SCADUTO senza ANNULLATO (SRS rev. 1.20)
 - [[wiki/sources/2026-10-22-mockup-fe-cdu\|Mockup FE Webapp Operatore (rev. 10) — riscontro]] — 23 schermate CDU-06, 08-14; da correggere: form CDU-09/10/11 statico (etichette fisse, mancano parametri), CDU-09 multi-azienda, banner San Luigi, CDU-12 su «tipi» senza Associazione Enti, card CDU-08 senza valore/data acquisizione (2 pagine toccate)
 - [[wiki/sources/2026-10-22-mockup-fe-cdu-rev11\|Mockup FE Webapp Operatore (rev. 11) — verifica correzioni]] — 30 schermate; recepiti tutti i 17 punti della rev. 10; 7 rifiniture FE (N-01÷N-07) e 3 azioni BE/SRS (API modifica ente, e-mail endpoint, residuo flag CDU-12 §6.12) (2 pagine toccate)
 - [[wiki/sources/2026-10-22-mockup-fe-cdu-rev12\|Mockup FE Webapp Operatore (rev. 12) — verifica correzioni]] — 30 schermate; N-02÷N-07 chiusi, N-01 parziale, nuova N-08 (codice ente modificabile a pag. 31); A-01 e A-02 aperti (3 pagine toccate)

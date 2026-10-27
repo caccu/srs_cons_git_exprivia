@@ -58,6 +58,13 @@ NON_ESPRESSO
 | `SCADUTO` | "scaduto" | Informativa cambiata, annulla=NO, valore ancora valido | **No** |
 | `ANNULLATO` | "annullato" | Informativa cambiata, annulla=SI, consenso nullo | **Sì** |
 
+> 🆕 **Chiarimenti dev BE (27/10/2026, SRS §5.1 rev. 1.20)** ([[wiki/sources/2026-10-27-revisione-be-slide-domande\|2026-10-27-revisione-be-slide-domande]]):
+> - **`SCADUTO` ha due significati**, distinti solo da `data_fine`. *Record chiuso* (`data_fine` valorizzata): "record superato", come nell'AS-IS, impostato a ogni variazione per compatibilità con i canali SOAP legacy (`ConsprefService`, `ConsensoBeService`), che considerano corrente ogni record A/R senza guardare la data di fine. *Record aperto* (`data_fine` nulla), creato solo da BATCH-02: SCADUTO TO-BE, consenso vigente da riaccettare.
+> - **Regola:** il consenso vigente è sempre e solo quello con `data_fine` nulla. CDU-15 e CDU-17 filtrano su `data_fine IS NULL`.
+> - **`ANNULLATO` resta aperto per design** (`data_fine` nulla): è lo stato corrente da cui si riesprime il consenso (CDU-09/10), ma copia il valore del record precedente, quindi non è un consenso valido.
+> - **Inserimento su SCADUTO/ANNULLATO** (qualsiasi canale): chiude sempre il record e crea il nuovo sull'informativa corrente, anche a valore invariato (l'inserimento è la riaccettazione, CDU-10). "Stesso valore, nessuna azione" vale solo per ATTIVO/NEGATO.
+> - **Snapshot CDU-17:** restituisce ATTIVO, NEGATO e SCADUTO; non ANNULLATO.
+
 ---
 
 ## Regola fondamentale — No sovrascrittura

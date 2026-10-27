@@ -72,6 +72,7 @@ Storicizzazione segue [[wiki/docs/adr/ADR-015-storicizzazione-immutabile\|ADR-01
 > **Aggiornamento call CSI 20/07/2026.**
 
 - **SC67 (BAT-02)** — ✅ **risolto per via tecnica (2026-07-23):** il flag `annulla_consensi` si legge dall'informativa **scaduta A** e il record terminale resta ancorato ad A. Allinea l'SQL §7.2 alla prosa autoritativa §6.13; nessun impatto su CDU-17 (snapshot esporta solo consensi attivi). SQL SRS §7.2 corretto (2026-07-23, `.md`+`.docx`, riga variazioni 1.4). Vedi [[wiki/concepts/batch-processes\|Processi Batch]] §ALG02.
+- **27/10/2026 — doppio significato di S:** il record *chiuso* a ogni variazione riceve il codice SCADUTO ("superato", AS-IS) per compatibilità con i canali SOAP legacy; solo il record *aperto* creato da BATCH-02 è SCADUTO TO-BE. Vigente = `data_fine` nulla. Inserimento su SCADUTO/ANNULLATO chiude sempre il record, anche a valore invariato. Snapshot CDU-17 con ATTIVO/NEGATO/SCADUTO (non ANNULLATO). Vedi [[wiki/sources/2026-10-27-revisione-be-slide-domande\|2026-10-27-revisione-be-slide-domande]], SRS §5.1 rev. 1.20.
 - **BAT-03** — 🟠 aperto: CSI considera lo Stato SCADUTO "componente da gestire" → **call dedicata pending** per la gestione asincrona e la comunicazione alle ASR.
 - **Frequenza BATCH-02** — ⚪ non vincolante (call 20/07/2026), da concordare in seguito.
 

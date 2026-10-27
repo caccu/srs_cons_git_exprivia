@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-08-05-stato-scaduto-comunicazione-sia/","title":"Stato SCADUTO — semantica e comunicazione asincrona ai SIA/ASR (BAT-03)","tags":["scaduto","batch-02","sia","asr","semantica","asincrono","bat-03","integrazione","cdu-15","cdu-17"],"dg-note-properties":{"title":"Stato SCADUTO — semantica e comunicazione asincrona ai SIA/ASR (BAT-03)","aliases":["Stato SCADUTO — comunicazione asincrona SIA"],"type":"analysis","tags":["scaduto","batch-02","sia","asr","semantica","asincrono","bat-03","integrazione","cdu-15","cdu-17"],"created":"2026-08-05","updated":"2026-08-05","sources":["2026-03-02-conspref-srs-v1-revised","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2019-06-01-webservice-consenso-regionale-v03"],"related":["[[analysis-2026-08-05-stato-scaduto-spiegato-semplice|Stato SCADUTO — Spiegato in Modo Semplice]]","[[ADR-016-scaduto-async-batch-02|ADR-016 SCADUTO async via BATCH-02]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[analysis-gap-as-is-to-be|Analisi Gap AS-IS → TO-BE]]","[[alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17]]","[[analysis-2026-05-14-punti-aperti-csi|Punti Aperti CSI]]","[[analysis-2026-05-06-openapi-cdu-15-16|OpenAPI CDU-15/16]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-08-05-stato-scaduto-comunicazione-sia/","title":"Stato SCADUTO — semantica e comunicazione asincrona ai SIA/ASR (BAT-03)","tags":["scaduto","batch-02","sia","asr","semantica","asincrono","bat-03","integrazione","cdu-15","cdu-17"],"dg-note-properties":{"title":"Stato SCADUTO — semantica e comunicazione asincrona ai SIA/ASR (BAT-03)","aliases":["Stato SCADUTO — comunicazione asincrona SIA"],"type":"analysis","tags":["scaduto","batch-02","sia","asr","semantica","asincrono","bat-03","integrazione","cdu-15","cdu-17"],"created":"2026-08-05","updated":"2026-10-27","sources":["2026-03-02-conspref-srs-v1-revised","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2019-06-01-webservice-consenso-regionale-v03"],"related":["[[analysis-2026-08-05-stato-scaduto-spiegato-semplice|Stato SCADUTO — Spiegato in Modo Semplice]]","[[ADR-016-scaduto-async-batch-02|ADR-016 SCADUTO async via BATCH-02]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[analysis-gap-as-is-to-be|Analisi Gap AS-IS → TO-BE]]","[[alternativa-batch-03-pull|Alternativa BATCH-03 — PULL CDU-17]]","[[analysis-2026-05-14-punti-aperti-csi|Punti Aperti CSI]]","[[analysis-2026-05-06-openapi-cdu-15-16|OpenAPI CDU-15/16]]"]}}
 ---
 
 
@@ -10,6 +10,8 @@
 **Stato del punto:** 🟠 aperto — call dedicata pending (deciso nella call CSI 20/07/2026, cfr. [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|tracker]] riga BAT-03, Sprint 1).
 
 ---
+
+> 🆕 **Aggiornamento 27/10/2026** ([[wiki/sources/2026-10-27-revisione-be-slide-domande\|2026-10-27-revisione-be-slide-domande]]). Il dev BE chiarisce che il codice `SCADUTO` ha **due significati** nel DB, distinti da `data_fine`: record *chiuso* = "superato" (come AS-IS, impostato a ogni variazione per compatibilità con i canali SOAP legacy) e record *aperto* creato da BATCH-02 = SCADUTO TO-BE. Regola: **vigente = `data_fine` nulla**; CDU-15 e CDU-17 non restituiscono mai un record chiuso. L'omonimia del §3.2 resta, ma è ora scritta in SRS §5.1 (rev. 1.20) e va comunicata ai SIA con quella regola. I canali SOAP non espongono SCADUTO: l'inserimento su SCADUTO/ANNULLATO chiude il record e crea il nuovo sull'informativa corrente, anche a valore invariato.
 
 ## 1. In una riga
 
@@ -52,11 +54,11 @@ Fonte: SRS §5.1 (*«Tale variazione non viene notificata alle aziende»*), §7.
 | Canale | Espone SCADUTO? | Note |
 |---|---|---|
 | **CDU-15** `GET /api/v1/consensi/stato` | ✅ sì — campo `stato_consenso` | Pull **puntuale**, un CF + un codice consenso alla volta. Enum e nota integratori già in `openapi-cdu-15-16-v0.1.yaml` |
-| **CDU-17** `GET /api/v1/consensi/snapshot` | ❌ **no** | Lo snapshot esporta **solo i consensi attivi** (SRS §6.17); i record terminali SCADUTO/ANNULLATO non compaiono |
+| **CDU-17** `GET /api/v1/consensi/snapshot` | ✅ **sì** (dal 27/10/2026) | 🔄 Lo snapshot restituisce i consensi **vigenti** (`data_fine` nulla) con stato ATTIVO, NEGATO o SCADUTO; **ANNULLATO escluso** (copia il valore precedente: un SIA lo leggerebbe come valido). Decisione dev BE confermata, SRS §6.17 rev. 1.20. ~~Prima: solo consensi attivi, SCADUTO/ANNULLATO non compaiono~~ |
 | **BATCH-01 / SRV-03** NotificaAcquisizioneConsenso | ❌ no | Innescato solo da acquisizione/variazione |
 | **BATCH-01 / SRV-04** NotificaRevocaConsenso | ❌ no | Innescato solo da ANNULLATO |
 
-**Conclusione:** nessun canale **push** e nessun canale **bulk/delta** copre SCADUTO. Solo polling puntuale CDU-15.
+**Conclusione (aggiornata 27/10/2026):** nessun canale **push** copre SCADUTO. Il canale **bulk** è lo snapshot CDU-17 (che include SCADUTO); resta il polling puntuale CDU-15. Manca ancora un **delta** delle variazioni (Opzione B) per i SIA con copia locale già allineata.
 
 ---
 
@@ -94,7 +96,7 @@ Nota: nell'AS-IS lo stato "scaduto" **non transita mai sui webservice** verso le
 Tre fatti, messi insieme:
 
 1. SCADUTO **non** genera notifica ASR (scelta SRS, coerente: il valore del consenso non cambia).
-2. SCADUTO **non** compare nello snapshot CDU-17 (solo consensi attivi).
+2. ~~SCADUTO **non** compare nello snapshot CDU-17~~ 🔄 dal 27/10/2026 compare (ATTIVO/NEGATO/SCADUTO), ma solo come fotografia: nessun delta delle variazioni.
 3. SCADUTO è **massivo e prevedibile**: alla scadenza di un'informativa transitano *tutti* i consensi collegati, in una sola finestra notturna.
 
 Un SIA che mantiene una **copia locale** dello stato consensi (scenario realistico dopo l'allineamento CDU-17) **non ha modo di sapere** che quei consensi sono transitati in SCADUTO, se non ri-interrogando CDU-15 cittadino per cittadino.
@@ -168,7 +170,7 @@ In tutti e tre gli scenari resta **obbligatoria** la comunicazione documentale s
 
 | Artefatto | Modifica attesa |
 |---|---|
-| SRS §5.1 | Ampliare la nota SIA con l'**omonimia** AS-IS/TO-BE (oggi cita solo l'asincronia) |
+| SRS §5.1 | ✅ fatto (rev. 1.20, 27/10/2026): nota sull'omonimia e regola "vigente = `data_fine` nulla" |
 | SRS §7.2 | Se opzione C: aggiungere INSERT `cons_t_notifica` anche per SCADUTO + flag per ente |
 | SRS §6.17 | Se opzione B: nuovo endpoint/parametro variazioni + criteri di delta |
 | `openapi-cdu-15-16-v0.1.yaml` | Estendere la nota su `StatoConsenso` con l'omonimia; se B, aggiungere l'operazione delta |

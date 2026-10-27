@@ -62,6 +62,7 @@ L'endpoint AS-IS riceve l'intero oggetto `Informativa` con la lista `consenso_li
 ## Open issues
 
 - Aggiornare la specifica OpenAPI del BE Operatore con il nuovo endpoint e il campo `valori_ammessi`.
+- **Codice da adeguare (27/10/2026):** il BE (`rconsprefbe` `82cdab9`) restituisce solo i codici, `["SI","NO"]`, invece di `[{valore, descrizione}]`. Il contratto di questo ADR resta valido (descrizione da `cons_d_valore_cons`): è il codice ad adeguarsi, avvisando il team FE ([[wiki/sources/2026-10-27-revisione-be-slide-domande\|2026-10-27-revisione-be-slide-domande]]).
 
 ## References
 

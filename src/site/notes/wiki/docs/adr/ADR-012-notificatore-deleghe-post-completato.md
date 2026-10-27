@@ -66,7 +66,7 @@ Documentazione obbligatoria:
 
 ## Open issues
 
-- ~~INT-05: distinzione formalizzata in SRS — Notificatore di Deleghe ≠ Notificatore UNP~~ ✅ recepito
+- ~~INT-05: distinzione formalizzata in SRS — Notificatore di Deleghe ≠ Notificatore UNP~~ ✅ recepito. 🔄 27/10/2026: recepito in SRS ma **non chiuso**, da rivedere dopo INT-10: nel codice l'avviso al cittadino usa già `notify-mb`, lo stesso servizio di UNP ([[wiki/sources/2026-10-27-revisione-be-slide-domande\|2026-10-27-revisione-be-slide-domande]])
 - ~~Approvvigionamento spec/API Notificatore di Deleghe da CSI~~ ✅ **chiuso (call CSI 06/08/2026):** componente AS-IS legacy, riciclato — nessun nuovo sviluppo richiesto
 
 ## References
