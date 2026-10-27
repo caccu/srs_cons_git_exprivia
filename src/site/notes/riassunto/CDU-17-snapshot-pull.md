@@ -8,7 +8,7 @@
 
 ## Cosa fa
 
-Quando un'azienda aggiunge un **nuovo endpoint** a un consenso già attivo, il nuovo sistema deve ricevere tutti i consensi esistenti. Invece di un push massivo dal centro (il vecchio BATCH-03, **rimosso**), è il **SIA a scaricarli a pagine** (PULL), secondo il modello "centro stella": il centro espone i dati, la periferia si allinea.
+Quando un'azienda aggiunge un **nuovo endpoint**, il nuovo sistema deve ricevere tutti i consensi esistenti. Invece di un push massivo dal centro (il vecchio BATCH-03, **rimosso**), è il **SIA a scaricarli a pagine** (PULL), secondo il modello "centro stella": il centro espone i dati, la periferia si allinea.
 
 Durante l'allineamento l'acquisizione di nuovi consensi per quel sotto-tipo è **bloccata**, così lo snapshot resta coerente.
 

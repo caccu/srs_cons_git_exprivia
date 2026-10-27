@@ -102,7 +102,7 @@ Il frontend non li invia mai:
 | SIA ASR (uscita) | SOAP, WSDL AS-IS v03 invariato | BATCH-01 | SRV-03 NotificaAcquisizioneConsenso, SRV-04 NotificaRevocaConsenso (confermati, BAT-01) |
 | SIA ASR (ingresso) | SOAP `/services/ConsprefService` | aziende federate, LIS | contratto invariato (DEV-03); LIS verificato su TEST, conferma produzione a CSI (INT-07) |
 | Webapp Cittadino (ingresso) | SOAP `ConsensoBeService` via APISAN | SANSOL | WSDL AS-IS, 10 operazioni, a contratto invariato (ADR-025) |
-| PUA / LCCE | `getTokenInformation2` (`TokenInformationService`) | CDU-01a, dal BFF | ruolo da confermare con CSI (INT-09) |
+| PUA / LCCE | `getTokenInformation2` (`TokenInformationService`) | CDU-01a, dal BFF | solo esito (SUCCESSO = abilitato); CF da header IRIDE; da confermare con CSI (INT-09) |
 | SIA ASR (ingresso REST) | REST via APIMBBONE | CDU-15/16/17, servizi endpoint | OpenAPI da produrre a cura Exprivia |
 | Notificatore UNP (`notify-mb`) | REST | BATCH-02 | in V1.0 solo la notifica ANNULLATO; canale scelto da UNP in base alle preferenze del cittadino |
 | Notificatore di Deleghe | REST | conferma rilascio al cittadino/delegato dopo `COMPLETATO` | distinto da UNP secondo ADR-012; nel legacy c'è un solo notificatore, `notify-mb` (INT-10, da confermare con CSI) |

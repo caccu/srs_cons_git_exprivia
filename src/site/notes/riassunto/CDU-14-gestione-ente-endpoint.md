@@ -10,7 +10,7 @@
 
 Gestisce l'anagrafica degli **enti** (ASR, enti nazionali e regionali) e dei loro **endpoint**, cioè gli URL dei SIA a cui il sistema notifica le variazioni dei consensi. Per ogni endpoint si indica per quali sotto-tipi di consenso è attivo.
 
-Quando si aggiunge un endpoint a un consenso già attivo, il nuovo SIA va **allineato** con i consensi esistenti. Il sistema non fa push massivi: imposta `stato_allineamento = DA_ALLINEARE`, avvisa il SIA fuori banda (email e/o webhook) e il SIA scarica i dati in PULL con [CDU-17](CDU-17-snapshot-pull.md).
+Quando si aggiunge un nuovo endpoint, il nuovo SIA va **allineato** con i consensi esistenti. Il sistema non fa push massivi: imposta `stato_allineamento = DA_ALLINEARE`, avvisa il SIA fuori banda (email e/o webhook) e il SIA scarica i dati in PULL con [CDU-17](CDU-17-snapshot-pull.md).
 
 **Doppia esposizione**: le stesse operazioni su endpoint (inserimento, modifica, eliminazione) sono disponibili
 - dalla **webapp Operatore**, in chiamata diretta senza API Manager;
@@ -26,8 +26,8 @@ Operatore autenticato (webapp); SIA autenticato su APIMBBONE (API).
 2. Nuovo ente o modifica di uno esistente.
 3. Per l'ente, uno o più endpoint: URL, sotto-tipi associati, destinazione, validità.
 4. Salvataggio in `cons_d_asr`, `cons_t_endpoint`, `cons_r_asr_endpoint`, `cons_r_sotto_tipo_cons_asr_endpoint`.
-5. Ogni salvataggio di endpoint imposta `stato_allineamento = DA_ALLINEARE`.
-6. Nuovo endpoint su consenso già attivo: notifica out-of-band al SIA (email, webhook o entrambe, scelta da un parametro). Per il webhook è il SIA a esporre un REST, con contratto, firma e sicurezza forniti da CSI.
+5. La creazione di un endpoint imposta `stato_allineamento = DA_ALLINEARE`. La modifica non cambia lo stato (scelta esplicita: un endpoint COMPLETATO che cambia URL o destinazione resta COMPLETATO, riallineamento manuale se serve).
+6. Nuovo endpoint: notifica out-of-band sempre al SIA (email, webhook o entrambe, scelta da un parametro). Per il webhook è il SIA a esporre un REST, con contratto, firma e sicurezza forniti da CSI.
 
 ## Campi
 
@@ -49,8 +49,8 @@ Operatore autenticato (webapp); SIA autenticato su APIMBBONE (API).
 | cod_asr | sì | FK `cons_d_asr` |
 | sotto_tipo_consenso | sì | multi, FK `cons_d_sotto_tipo_cons` |
 | destinazione_id | no | FK `cons_d_asr_destinazione`: `NOTIFICA_CONSENSO` (default, anche se vuoto) o `WEBHOOK_ALLINEAMENTO` (ADR-024) |
-| valida_inizio | sì | ≤ valida_fine |
-| valida_fine | no | > valida_inizio |
+| valida_inizio | sì | < valida_fine |
+| valida_fine | no | > valida_inizio; fine esclusiva (fine al 30/10 = valido fino al 29/10) |
 | stato_allineamento | display | DA_ALLINEARE / IN_CORSO / COMPLETATO / ERRORE (sola lettura) |
 
 ## Logica di backend
@@ -60,7 +60,7 @@ Operatore autenticato (webapp); SIA autenticato su APIMBBONE (API).
   1. INSERT/UPDATE `cons_t_endpoint` (`endp_url`, validità);
   2. INSERT `cons_r_asr_endpoint` (`cod_asr`, `endp_id`, validità, **`stato_allineamento = 'DA_ALLINEARE'`**);
   3. per ogni sotto-tipo: INSERT `cons_r_sotto_tipo_cons_asr_endpoint`;
-  4. se il consenso ha già un endpoint attivo per l'azienda (caso CDU-17): invio della notifica out-of-band in base al parametro (email/webhook), tracciata in `cons_t_traccia_serv_est`.
+  4. sempre alla creazione (caso CDU-17): invio della notifica out-of-band in base al parametro (email/webhook), tracciata in `cons_t_traccia_serv_est`.
 - Eliminazione: logica (`valida_fine` / `data_cancellazione`), non fisica. Gli endpoint dismessi escludono l'azienda dagli elenchi. Regola provvisoria: azienda visibile con almeno un endpoint attivo (BE-16); DEV-01 da confermare con CSI.
 - Destinazione (ADR-024): solo gli endpoint `NOTIFICA_CONSENSO` (o senza destinazione) ricevono le notifiche e partecipano all'allineamento. L'URL del webhook out-of-band è un endpoint `WEBHOOK_ALLINEAMENTO` dell'ente, senza `stato_allineamento`; se manca, il webhook non parte e l'errore va in `cons_t_traccia_serv_est`.
 - Disattivazione ente (requisito CSI V03, SRS rev. 1.12 §6.14): la fine validità si propaga a `cons_r_asr_endpoint`, `cons_r_sotto_tipo_cons_asr_endpoint` e `cons_r_informativa_asr`; l'eliminazione di un endpoint chiude anche i suoi legami. Blocchi su modifica/disattivazione: da chiedere a CSI (DEV-12).
