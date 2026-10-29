@@ -1,0 +1,193 @@
+---
+{"dg-publish":true,"permalink":"/backup/composizione-dinamica-form-consenso-pre-formdinamico-2026-10-28/","title":"Composizione Dinamica Form Consenso — Single Source of Truth","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"dg-note-properties":{"title":"Composizione Dinamica Form Consenso — Single Source of Truth","aliases":["Composizione Dinamica Form Consenso — Single Source of Truth"],"type":"concept","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"created":"2026-05-14","updated":"2026-10-22","sources":["2026-03-02-conspref-srs-v1-revised","2026-10-22-mockup-fe-cdu"],"related":["[[Gestione Consensi - Applicativo]]","[[2026-10-22-mockup-fe-cdu|Mockup FE Webapp Operatore (rev. 10)]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Sistemi Esterni Integrati]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+---
+
+
+# Composizione Dinamica Form Consenso — Single Source of Truth
+
+**Origine:** risposte MF a revisione SRS v3 — commenti MB29, MB27, MB34, MB36, MB38, MB40, MB42, MB56 (vedi [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] tema C e tema F).
+
+> 🔴 **Perimetro progetto (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]] — precisato 22/09/2026):** questo progetto sviluppa **un solo frontend, la Webapp Operatore**. Il pattern SSoT sotto descritto nasce per un riuso Cittadino+Operatore; qui il **Form Renderer si costruisce solo per l'Operatore** (§4).
+>
+> ⚠️ Attenzione a non estendere l'esclusione al backend: la Webapp Cittadino esistente continua a girare sul backend che rifacciamo, quindi **gli endpoint di configurazione form e di salvataggio consenso che essa consuma vanno migrati a iso-funzionalità**. Le regole di composizione in §2 descrivono comportamento che il BE deve continuare a garantire per entrambi i consumatori.
+
+Pattern architetturale per il rendering delle pagine di consenso lato **Operatore** (CDU-09, CDU-10, CDU-11 — ✅ in scope). Nato come pattern unico condiviso anche con **Cittadino** (CDU-02, CDU-03, CDU-04 — ❌ fuori scope di sviluppo, vedi banner sopra). Vincolo originario: nessuna divergenza di struttura fra le due interfacce — resta valido come principio, ma solo la Webapp Operatore è costruita da questo progetto.
+
+---
+
+## 1. Vincolo architetturale (MF57R56)
+
+**Single Source of Truth (SSoT):** la stessa logica di rendering della pagina cittadino viene riusata lato operatore. Non sono ammesse divergenze nella struttura dei campi tra interfaccia Cittadino e interfaccia Operatore per lo stesso `sotto_tipo_consenso`.
+
+**Conseguenza implementativa:** motore di rendering **"Form Renderer dinamico"**, in questo progetto usato dalla **sola** Webapp Operatore (vedi [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]). Se la Webapp Cittadino esistente riuserà lo stesso componente non è verifica/garanzia di questo progetto. Da riflettere nel SRS §3.3 Componenti software come componente identificato.
+
+---
+
+## 2. Regole di composizione (MF26, MF28, MF30, MF35)
+
+La pagina di consenso si compone **dinamicamente** sulla base della configurazione del tipo di consenso. Nulla è hardcoded a livello UI: tutto deriva dalla configurazione DB.
+
+### 2.1 Cosa è dinamico
+
+| Elemento UI                          | Sorgente DB                                  | Note                                     |
+| ------------------------------------ | -------------------------------------------- | ---------------------------------------- |
+| Campi visualizzati                   | `cons_d_sotto_tipo_cons` + tabelle correlate | Letti per `sotto_tipo_consenso`          |
+| Valori ammessi per `valore_consenso` | `cons_d_sotto_tipo_cons` / tabelle valori    | Non solo SI/NO — possono essere multipli |
+| Domande/flag opzionali               | Tabelle configurazione                       | Mostrate solo se previste                |
+| Flag "campo richiesto"               | Config tipo consenso                         | Vincolo validazione                      |
+| Layout informativa                   | Config aziendale vs regionale                | Vedi §2.3                                |
+
+### 2.2 Lista consensi mostrati (CDU-02 MF26)
+
+> Il sistema mostra **tutti** i tipi di consenso configurati per il cittadino, indipendentemente dallo stato espresso.
+
+| Tipologia | Visualizzazione |
+|---|---|
+| Regionale | **Un singolo record** con stato globale (la scelta si propaga a tutte le ASR) |
+| Aziendale | **Un record per ogni azienda** con il relativo stato (inclusi quelli già espressi) |
+
+Errore da evitare: mostrare solo i consensi non ancora espressi. Il cittadino deve vedere anche quelli già espressi per poterli modificare.
+
+### 2.3 Informativa per consenso aziendale (MF28R27)
+
+> Per i consensi aziendali, se ogni azienda ha una propria informativa specifica, il sistema deve permettere la visualizzazione dell'informativa della singola azienda **prima** di raccogliere il consenso per quell'azienda.
+
+Implementazione: dropdown o tab per azienda; alla selezione, fetch dell'informativa specifica via `d_informativa_id` legato all'ente.
+
+---
+
+## 3. Pulsante unico "Salva" lato cittadino (MF37R36) ❌ OUT scope (FE)
+
+> 🔴 **Fuori perimetro** (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]) — decisione [[wiki/docs/adr/ADR-011-merge-cdu-04-05-cittadino\|ADR-011]] superseded. Sezione mantenuta come contesto storico.
+>
+> Qui l'esclusione è **piena**: si tratta di una scelta di UX sull'interfaccia cittadino, che non sviluppiamo. A differenza di altre sezioni marcate OUT, non c'è un corrispettivo backend da preservare — la distinzione rilascio/modifica lato BE esiste già ed è descritta sotto.
+
+> Web app cittadino: pulsante unico **«Salva»**. Operazioni tecniche distinte (rilascio CDU-03 vs modifica CDU-04) gestite internamente, non esposte UI.
+
+Razionale (MB38, MB44): il cittadino non distingue "rilascio" da "modifica" — vuole solo salvare la propria scelta. Distinzione CDU-03/CDU-04 rilevante solo per logica backend e tracciatura.
+
+**Conseguenza (MF45R44):** lato webapp Cittadino, CDU-05 **NON è caso d'uso separato** — flusso inglobato in CDU-04. La distinzione CDU-04/CDU-05 (modifica con scadenza vs cambio valore) resta rilevante solo per:
+- l'Operatore (UI distinta per casistiche operative diverse)
+- la logica interna (riaccettazione informativa o no)
+
+---
+
+## 4. Lato Operatore — differenze (MF57R56)
+
+Layout dinamico **identico** al lato cittadino. Le sole differenze riguardano i metadati di tracciatura sorgente:
+
+| Campo | Lato Cittadino | Lato Operatore |
+|---|---|---|
+| `fonte_id` | derivato da contesto webapp citt. (es. `WEB_CITT`) | `'PASS'` |
+| `login_operazione` | CF cittadino autenticato | login operatore PUA |
+| `ruoloop_id` | NULL | ID ruolo operatore PUA |
+
+> ⚠️ **Nota (ADR-020, 06/08/2026):** LIS **non** passa dal Form Renderer né dai canali Cittadino/Operatore — è un'integrazione BE esistente nel sorgente AS-IS ([[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] §LIS), da verificare e migrare al nuovo stack. Un eventuale `fonte_id='LIS'` è un valore AS-IS da preservare in migrazione, non un contesto webapp del Form Renderer SSoT.
+
+I CDU operatore coinvolti:
+- **CDU-09** Rilascio consenso per conto dell'assistito
+- **CDU-10** Modifica consenso per conto dell'assistito
+- **CDU-11** Cambio valore consenso per conto dell'assistito
+
+Ognuno deve avere paragrafo "Composizione dinamica pagina operatore" che rimanda esplicitamente alle regole §6.2 (CDU-02 cittadino) e §6.4 (CDU-04 cittadino) come unica fonte autorevole.
+
+---
+
+## 5. Implementazione raccomandata
+
+### 5.1 Componente architetturale SRS §3.3
+Componente **"Form Renderer dinamico"** della Webapp Operatore (SRS v10 §3.3, §6.9–6.11):
+- Tecnologia: componente Angular 21 della **sola Webapp Operatore** ([[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]). Nessuna libreria condivisa con una Webapp Cittadino, che è fuori perimetro.
+- Usato da CDU-09 (rilascio), CDU-10 (modifica) e CDU-11 (cambio valore).
+- Input: `cfAssistito`, `sotto_tipo_consenso_id`, `cod_asr` e `operazione` (`RILASCIO` | `MODIFICA` | `CAMBIO_VALORE`), passati alla GET di §5.3. Non c'è più un parametro `modalita` cittadino/operatore.
+- Output: form con struttura fissa e contenuti dal DB; il comportamento (valore precedente, modificabilità, presa visione, informativa in sola lettura, blocco per allineamento) è guidato dal campo `regole` della risposta.
+- Ordine fisso dei blocchi: intestazione (consenso e azienda) → informativa (PDF, via CDU-06) → descrizione estesa → domanda con radio → testo aggiuntivo → checkbox presa visione → Salva.
+
+> ⚠️ **Mockup FE rev. 10 (22/10/2026):** form disegnato statico, con etichette fisse e senza descrizione estesa, domanda e testo aggiuntivo; CDU-09 proposto anche multi-azienda con «Acconsento per tutte». Riscontro: valori da `valori_ammessi`, blocchi da `cons_r_consenso_parametro`, una azienda per operazione. Vedi [[wiki/sources/2026-10-22-mockup-fe-cdu\|riscontro mockup]] M-01÷M-03.
+
+### 5.2 Schema configurazione DB
+I contenuti del form non stanno in campi JSON di `cons_d_sotto_tipo_cons`, ma in tabelle dedicate (fonte: `riassunto/TRASV-componenti-comuni.md` §9):
+
+| Elemento del form | Fonte DB | Configurato in |
+|---|---|---|
+| Descrizione consenso | `cons_d_sotto_tipo_cons.desc_sotto_tipo_cons` | CDU-12 |
+| Valori ammessi del radio (`valori_ammessi`) | `cons_r_consenso_valore` (sotto-tipo ↔ valore, con validità) + `cons_d_valore_cons.desc_consenso` — deciso 29/09/2026 ([[wiki/docs/adr/ADR-023-cdu-11-contratto-rest-valori-ammessi\|ADR-023]]) | CDU-12; in migrazione SI/NO per tutti i sotto-tipi esistenti |
+| Descrizione estesa, Domanda, Testo aggiuntivo | `cons_r_consenso_parametro` (chiavi in `cons_d_parametro`) | CDU-12 |
+| Flag `online` | `cons_d_informativa` (deroga V03, GOV-02) | CDU-13 |
+| Informativa, per azienda se aziendale | `cons_d_informativa` + `cons_r_informativa_asr` | CDU-13 |
+
+Superate le ipotesi iniziali `domande_opzionali_json`, `flag_informativa_per_ente` e `flag_richiesto`: le domande sono parametri in `cons_r_consenso_parametro`, l'informativa per azienda deriva da `cons_r_informativa_asr` e l'obbligatorietà dei campi è decisa dalle `regole` per operazione. Sono nuove, da creare con gli script di migrazione TO-BE, `cons_r_consenso_valore`, `cons_r_consenso_parametro`, `cons_d_parametro` e la colonna `cons_d_informativa.online`. Aperti: codici di `cons_d_parametro` e formato (testo o HTML) di descrizione estesa e testo aggiuntivo.
+
+### 5.3 Pattern fetch
+```
+GET /consensi/{cfAssistito}/form?sotto_tipo_consenso_id=..&cod_asr=..&operazione=RILASCIO|MODIFICA|CAMBIO_VALORE
+  ↓
+{
+  "sotto_tipo_consenso_id": 12,
+  "codice": "ROL",
+  "descrizione": "...",
+  "tipo_consenso": "AZIENDALE",
+  "cod_asr": "010", "desc_asr": "...",
+  "parametri": { "descrizione_estesa": "...", "domanda": "...", "testo_aggiuntivo": "..." },
+  "valori_ammessi": [ { "valore": "SI", "descrizione": "..." } ],
+  "stato_corrente": "...", "valore_corrente": "...",
+  "informativa": { "d_informativa_id": 45, "descrizione": "...", "data_decorrenza": "...", "pdf_url": "..." },
+  "regole": { "mostra_valore_precedente": true, "valore_modificabile": true,
+              "accettazione_informativa_richiesta": true, "informativa_sola_lettura": false,
+              "bloccato_allineamento": false }
+}
+```
+
+Il backend (Spring Boot 3) espone l'endpoint, il Form Renderer Angular lo consuma alla `init` della pagina consenso. La risposta dipende dall'assistito e dall'operazione (stato e valore correnti, regole), quindi non è una configurazione statica per sotto-tipo.
+
+> 🔄 **Aggiornato 06/10/2026.** Sostituito il contratto iniziale `GET /api/v1/config/sotto-tipo-consenso/{sotto_tipo}` (solo configurazione del sotto-tipo) con quello **proposto il 01/10/2026** dai team FE e BE (`Risposta-FE_Form-Renderer-CDU-09-10-11_2026-10-01.docx`), dettagliato in `riassunto/TRASV-componenti-comuni.md` §9. Lo **stato è ancora di proposta**: non formalizzato in ADR né nella SRS. Deciso solo `PUT /consensi/{cfAssistito}/valore` di CDU-11 ([[wiki/docs/adr/ADR-023-cdu-11-contratto-rest-valori-ammessi\|ADR-023]]). Salvataggi proposti: `POST /consensi/{cfAssistito}` (CDU-09), `PUT /consensi/{cfAssistito}` (CDU-10).
+
+---
+
+## 6. Mapping commenti MF coperti
+
+| Commento revisore | Risposta MF | Sezione di questo concept |
+|---|---|---|
+| MB29 (composizione dinamica) | MF30R29 | §2 |
+| MB27 (informativa per azienda) | MF28R27 | §2.3 |
+| MB34 (valori dinamici) | MF35R34 | §2.1 |
+| MB36 (manca compilazione dinamica) | MF37R36 | §3 |
+| MB38 (pulsante unico) | MF37R36 | §3 |
+| MB40/MB42 (modifica dinamica) | MF39/41/43 | §2 + §3 |
+| MB44 (CDU-04/05 merge cittadino) | MF45R44 | §3 |
+| MB56 (logica operatore = cittadino) | MF57R56 | §1 + §4 |
+| SC25 (lista completa CDU-02) | MF26R25 | §2.2 |
+
+---
+
+## 7. Gap SRS da chiudere
+
+> ⚠️ Nessuna modifica SRS in questa fase (in attesa di conferma utente). Colonna Scope aggiunta 06/08/2026 per riflettere [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]].
+
+| # | Sezione SRS | Modifica | Scope |
+|---|---|---|---|
+| G1 | §6.2 CDU-02 | Riscrittura punto "tipi visibili" come da MF26R25 (regionale=1, aziendale=N per azienda, tutti i tipi mostrati) | ❌ OUT (Cittadino) |
+| G2 | §6.3 CDU-03 | Pulsante unico Salva (MF37) — niente UI rilascio vs modifica | ❌ OUT (Cittadino) |
+| G3 | §6.4 CDU-04 | Stesse regole composizione di §6.2 — riferimento esplicito | ❌ OUT (Cittadino) |
+| G4 | §6.5 CDU-05 | Lato cittadino: inglobato in CDU-04 (fuori scope). Lato operatore: caso d'uso separato resta | ✅ IN (solo parte Operatore) |
+| G5 | §6.9, §6.10, §6.11 | Aggiungere paragrafo "Composizione dinamica pagina operatore" per ogni CDU — rimanda alle regole di composizione (non più a §6.2/§6.4 cittadino, fuori scope) | ✅ IN |
+| G6 | §3.3 Componenti software | Aggiungere "Form Renderer dinamico" come componente — in questo progetto usato dalla sola Webapp Operatore | ✅ IN |
+
+---
+
+## 8. Riferimenti
+
+- Dettaglio risposte MF: [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]
+- Profili utente: [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]]
+- Stati consenso (rendering dipendente): [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]
+- AURA (popolamento dati assistito lato operatore): [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]]
+
+---
+
+## ADR correlati
+
+| ADR | Decisione |
+|---|---|
+| [ADR-008](ADR-008-ssot-form-renderer.md) | SSoT Form Renderer unico (questa concept è la fonte autoritativa) — nota scope: solo Webapp Operatore |
+| [ADR-011](ADR-011-merge-cdu-04-05-cittadino.md) | Merge CDU-04/05 lato Cittadino (pulsante unico Salva) — **superseded** da ADR-021 |
+| [ADR-021](ADR-021-perimetro-solo-operatore.md) | Perimetro progetto: solo Webapp Operatore |
