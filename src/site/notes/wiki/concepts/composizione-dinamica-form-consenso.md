@@ -5,7 +5,7 @@
 
 # Composizione Dinamica Form Consenso — Single Source of Truth
 
-**Origine del requisito (verificata nel `raw/`, 28/10/2026):** requisito funzionale **CSI**. Il documento requisiti V03 (`raw/CONSPREF-SRS-01-V03-Requisiti-Gestione-Consensi.md`, righe 81, 126-138, 253, 272-282, 340) chiede un sistema parametrizzabile con maschera composta leggendo il DB e la tabella `Cons_d_parametro` (label e tipo di campo: testo, text area, radio SI/NO, flag). Il commento CSI del 14/04/2026 (Bontempi) sull'SRS bozza v3 lo ribadisce. **CDU toccati:** 09, 10, 11 (maschera), 12 (configurazione parametri), 13 (informativa e accettazione), 06 e 08 (PDF e punto d'ingresso); Cittadino 02/03/04 fuori perimetro. Non è di CSI il solo componente *condiviso* Cittadino/Operatore. Tracker FE-08: ADR di conferma da scrivere.
+**Origine del requisito (verificata nel `raw/`, 28/10/2026):** requisito funzionale **CSI**. Il documento requisiti V03 (`raw/CONSPREF-SRS-01-V03-Requisiti-Gestione-Consensi.md`, righe 81, 126-138, 253, 272-282, 340) chiede un sistema parametrizzabile con maschera composta leggendo il DB e la tabella `Cons_d_parametro` (label e tipo di campo: testo, text area, radio SI/NO, flag). Il commento CSI del 14/04/2026 (Bontempi) sull'SRS bozza v3 lo ribadisce. **CDU toccati:** 09, 10, 11 (maschera), 12 (configurazione parametri), 13 (informativa e accettazione), 06 e 08 (PDF e punto d'ingresso); Cittadino 02/03/04 fuori perimetro. Non è di CSI il solo componente *condiviso* Cittadino/Operatore. Tracker FE-08: ADR di conferma scritto il 29/10/2026 come [[wiki/docs/adr/ADR-026-form-dinamico-catalogo-campi\|ADR-026]] (proposta).
 
 **Risposta e collegamenti:** risposte MF a revisione SRS v3 — commenti MB29, MB27, MB34, MB36, MB38, MB40, MB42, MB56 (vedi [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] tema C e tema F).
 
@@ -119,6 +119,8 @@ I contenuti del form non stanno in campi JSON di `cons_d_sotto_tipo_cons`, ma in
 | Informativa, per azienda se aziendale | `cons_d_informativa` + `cons_r_informativa_asr` | CDU-13 |
 
 Superate le ipotesi iniziali `domande_opzionali_json`, `flag_informativa_per_ente` e `flag_richiesto`: le domande sono parametri in `cons_r_consenso_parametro`, l'informativa per azienda deriva da `cons_r_informativa_asr` e l'obbligatorietà dei campi è decisa dalle `regole` per operazione. Sono nuove, da creare con gli script di migrazione TO-BE, `cons_r_consenso_valore`, `cons_r_consenso_parametro`, `cons_d_parametro` e la colonna `cons_d_informativa.online`. Aperti: codici di `cons_d_parametro` e formato (testo o HTML) di descrizione estesa e testo aggiuntivo.
+
+> 🆕 **Proposta 29/10/2026 ([[wiki/docs/adr/ADR-026-form-dinamico-catalogo-campi\|ADR-026]], dopo la [[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|call CSI del 28/10]]):** nella call Manuela ha detto che è dinamico anche il **numero di campi**, e che cambia tra consenso aziendale e regionale. I tre campi fissi della tabella sopra non lo coprono. Proposta: `cons_d_parametro` diventa un catalogo con `tipo_campo` (`TESTO`, `TEXTAREA`, `DOMANDA`) e `cons_r_consenso_parametro` ottiene `ordine` e `obbligatorio`; la GET restituisce `campi[]` ordinati al posto di `parametri{}`. Cornice fissa (intestazione, informativa, presa visione, Salva). Documento tecnico per il team: `presentazione/Specifica-tecnica_form-dinamico_2026-10-29.docx`. Non ancora recepita in SRS né nel contratto del 01/10 sotto.
 
 ### 5.3 Pattern fetch
 ```

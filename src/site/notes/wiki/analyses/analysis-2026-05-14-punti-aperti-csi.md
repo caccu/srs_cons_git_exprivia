@@ -276,8 +276,8 @@ Domande dello sviluppatore BE. Risposte Exprivia sulla base dell'SRS v10 e della
 
 | # | Tema | Stato |
 |---|---|---|
-| FE-08 | Composizione dinamica del form: **requisito CSI confermato nel raw** (28/10/2026); resta da scrivere l'ADR | 🟠 |
-| Mockup FE | Rev. 12 (23/10/2026): punti della rev. 10 recepiti, N-02÷N-07 chiusi; restano N-01 parziale, N-08 (codice ente modificabile a pag. 31), A-01 (API modifica ente) e A-02 (`notificaEmail` in SRS §6.14) ([[wiki/sources/2026-10-22-mockup-fe-cdu-rev12\|verifica]]). M-01÷M-03 confermano di fatto la composizione dinamica (FE-08) | 🟡 |
+| FE-08 | Composizione dinamica del form: **requisito CSI confermato nel raw** (28/10/2026); ADR scritto il 29/10/2026 ([[wiki/docs/adr/ADR-026-form-dinamico-catalogo-campi\|ADR-026]], proposta: catalogo di campi tipizzati, numero di campi dinamico come detto da Manuela) e documento tecnico per Boris; da confermare con CSI: campi di input aggiuntivi, chi estende il catalogo, formato del testo; SRS da allineare dopo la conferma | 🟡 |
+| Mockup FE | Rev. 12 (23/10/2026): punti della rev. 10 recepiti, N-02÷N-07 chiusi; restano N-01 parziale, N-08 (codice ente modificabile a pag. 31), A-01 (API modifica ente: campi recepiti in SRS rev. 1.27 dal requisito CSI V03, API da definire ai BE); A-02 (`notificaEmail`) recepito in SRS rev. 1.26 il 29/10/2026, destinatari dell'avviso da confermare a CSI (domanda CDU-14) ([[wiki/sources/2026-10-22-mockup-fe-cdu-rev12\|verifica]]). M-01÷M-03 confermano di fatto la composizione dinamica (FE-08) | 🟡 |
 | FE-03, FE-05 | Verifica sull'AS-IS: multi-azienda, filtri per ASR | 🟡 |
 | BE-01 | Valore reale di `fonte_cod` per il Punto Assistito | 🟡 |
 

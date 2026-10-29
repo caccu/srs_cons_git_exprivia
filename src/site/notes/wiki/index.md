@@ -129,7 +129,7 @@ Cartella fuori da `wiki/` (05/10/2026): un file per ogni oggetto di sviluppo, co
 
 ## Architecture Decision Records
 
-Registry decisioni architetturali in `docs/adr/`. Lifecycle gestito (proposed/accepted/superseded), cross-link bidirezionale con concept/analysis pages. 24 ADR (19 materializzati il 2026-05-19 + ADR-020/ADR-021 il 06/08/2026 + ADR-022 il 25/09/2026 + ADR-023 il 29/09/2026 + ADR-024 il 15/10/2026 — ADR-020 supersede ADR-017, ADR-021 supersede ADR-011 e ADR-019).
+Registry decisioni architetturali in `docs/adr/`. Lifecycle gestito (proposed/accepted/superseded), cross-link bidirezionale con concept/analysis pages. 24 ADR (19 materializzati il 2026-05-19 + ADR-020/ADR-021 il 06/08/2026 + ADR-022 il 25/09/2026 + ADR-023 il 29/09/2026 + ADR-024 il 15/10/2026 — ADR-020 supersede ADR-017, ADR-021 supersede ADR-011 e ADR-019). ADR-026 (form dinamico, FE-08) aggiunto il 29/10/2026 come proposta.
 
 Indice completo: [docs/adr/README.md](wiki/docs/adr/README.md)
 
@@ -160,4 +160,5 @@ Indice completo: [docs/adr/README.md](wiki/docs/adr/README.md)
 | [ADR-023](ADR-023-cdu-11-contratto-rest-valori-ammessi.md) | CDU-11 contratto REST dedicato (`PUT /consensi/{cfAssistito}/valore`) e valori ammessi da `cons_r_consenso_valore` | accepted |
 | [ADR-024](ADR-024-cdu-14-destinazione-endpoint.md) | CDU-14 valori del campo Destinazione degli endpoint: `NOTIFICA_CONSENSO` (default, anche se vuoto) e `WEBHOOK_ALLINEAMENTO` | accepted |
 | [ADR-025](ADR-025-contratto-cittadino-soap-consensobeservice.md) | Contratto Webapp Cittadino: SOAP `ConsensoBeService` (10 operazioni) via APISAN, preservato a iso-funzionalità | accepted |
+| [ADR-026](ADR-026-form-dinamico-catalogo-campi.md) | Form dinamico: catalogo di campi tipizzati (`TESTO`, `TEXTAREA`, `DOMANDA`) configurato in CDU-12 (FE-08) | proposed |
 

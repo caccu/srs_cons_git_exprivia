@@ -44,6 +44,7 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | [ADR-023](ADR-023-cdu-11-contratto-rest-valori-ammessi.md) | CDU-11 — contratto REST dedicato e valori ammessi da configurazione | accepted | 2026-09-29 | API |
 | [ADR-024](ADR-024-cdu-14-destinazione-endpoint.md) | CDU-14 — valori del campo Destinazione degli endpoint (NOTIFICA_CONSENSO, WEBHOOK_ALLINEAMENTO) | accepted | 2026-10-15 | Modello dati |
 | [ADR-025](ADR-025-contratto-cittadino-soap-consensobeservice.md) | Contratto Webapp Cittadino — SOAP `ConsensoBeService` preservato (via APISAN) | accepted | 2026-10-21 | Integrazioni |
+| [ADR-026](ADR-026-form-dinamico-catalogo-campi.md) | Form dinamico: catalogo di campi tipizzati (`TESTO`, `TEXTAREA`, `DOMANDA`) configurato in CDU-12 (FE-08) | proposed | 2026-10-29 | UX / Modello dati |
 
 ---
 
@@ -84,7 +85,8 @@ ADR-004 no API GW
 
 ADR-008 SSoT Form Renderer (nota scope: solo Operatore)
   ├── ADR-011 merge CDU-04/05 cittadino (pulsante unico) — superseded
-  └── ADR-023 CDU-11 contratto REST + valori ammessi da configurazione
+  ├── ADR-023 CDU-11 contratto REST + valori ammessi da configurazione
+  └── ADR-026 form dinamico: catalogo di campi tipizzati (FE-08, proposed)
 
 ADR-017 LIS terzo canale (superseded)
   └── ADR-020 LIS/RIS integrazione BE esistente (non riusa Form Renderer)
