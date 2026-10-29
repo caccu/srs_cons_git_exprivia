@@ -86,7 +86,7 @@ File fornito da CSI: `preprod_metadata_tst-consprefbo-spid.isan.csi.it_gasprp_sa
 | Sistema             | Profilo                            | IdP                                                  |
 | ------------------- | ---------------------------------- | ---------------------------------------------------- |
 | GASP Salute         | Cittadino (SPID/CIE)               | Esterno a [[wiki/concepts/architettura-iaas\|Architettura IaaS]] |
-| PUA / RUPAR / IRIDE | Operatore (profilo unico, call CSI 06/08/2026) | Gestito da [[wiki/entities/csi-piemonte\|CSI Piemonte]]            |
+| PUA / RUPAR / IRIDE | Operatore (due profili di Back Office: sportello e configurazione, call CSI 28/10/2026) | Gestito da [[wiki/entities/csi-piemonte\|CSI Piemonte]]            |
 | OAuth2 `client_credentials` | SIA Aziendale (CDU-15/16/17) | **API Manager CSI (APIMBBONE)** — Key Manager (cfr. [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16]] §1.4) |
 
 > ✅ **Propagazione identità confermata (call CSI 20/07/2026).** Per le chiamate SIA CDU-15/16/17, il Gateway APIMBBONE inoltra al backend, in header/claim, il **Codice Fiscale recuperato da Shibboleth/GASP** e il **`codice_ente`** del fruitore. È il ponte tra l'autenticazione GASP (che produce il CF) e l'isolamento per ente lato backend: il backend non rifà la validazione del token. Dettaglio in [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16]] §1.4/§7.

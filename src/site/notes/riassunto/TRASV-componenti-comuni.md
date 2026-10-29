@@ -30,7 +30,7 @@ Regole pratiche:
 **Webapp Operatore → Backend (diretto, senza API Manager)**
 - L'operatore si autentica sul PUA (RUPAR/IRIDE o SPID/CIE/CNS).
 - Il backend risolve il profilo con `getTokenInformation2` (AS-IS: `GET /cittadino/token/{token}`) e verifica che l'utente sia operatore (AS-IS: `/cittadino/login` risponde 200 o 403).
-- **Profilo unico Operatore** sul Configuratore Regionale: copre CDU-01a, 05, 06, 07÷14. Non ci sono più due profili (Sanitario/Amministrativo e Back Office).
+- **Due profili** di Back Office sul Configuratore Regionale (call CSI 28/10/2026, corregge il profilo unico del 06/08): operatore di sportello (CDU-06÷11, già censito) e profilo di configurazione (CDU-12÷14, nuovo; nome definito da CSI). CDU-01a comune; l'utente non seleziona il profilo, l'interfaccia mostra le sezioni abilitate.
 - Il CF dell'operatore si legge **dalla sessione**, mai dal path o dal body.
 
 **SIA/aziende → Backend (API REST nuove: CDU-15, 16, 17, servizi endpoint)**

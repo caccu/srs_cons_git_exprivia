@@ -54,7 +54,7 @@ In call CSI del 06/08/2026, il cliente ha chiarito che **i progetti in gestione 
 - CDU-15÷17 (API SIA) e area Operatore/Back Office restano interamente validi e prioritari
 
 ### Negative
-- Documentazione SRS §1/§2 (diagramma di contesto), §3 (profili), catalogo CDU **da correggere** per riflettere il perimetro ridotto — **allineamento SRS rimandato**, da eseguire solo dopo conferma esplicita dell'utente
+- Documentazione SRS §1/§2 (diagramma di contesto), §3 (profili; 28/10/2026: due profili di Back Office, vedi [[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|call CSI 28/10/2026]]), catalogo CDU **da correggere** per riflettere il perimetro ridotto — **allineamento SRS rimandato**, da eseguire solo dopo conferma esplicita dell'utente
 - Decisioni pregresse (ADR-010, ADR-008) restano tecnicamente valide ma la loro applicabilità pratica in questo progetto si riduce (solo metà del loro contesto originario è ancora costruito da noi)
 - ~~Rischio di confusione se la Webapp Cittadino esistente diverge nel tempo dal modello dati/API che il backend Operatore/SIA implementa — non è nostro compito verificarlo, ma va tenuto presente~~
   **Riformulato 22/09/2026:** non è un rischio di divergenza futura ma un **vincolo di progetto**. Il backend nuovo deve esporre alla Webapp Cittadino lo stesso contratto di oggi; la verifica è nostra. Mitigazione: estrarre dall'AS-IS l'elenco degli endpoint invocati dalla Webapp Cittadino (path, metodo, formato richiesta/risposta) e usarlo come riferimento di non-regressione in design e collaudo

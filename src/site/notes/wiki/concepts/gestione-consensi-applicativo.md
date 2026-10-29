@@ -42,14 +42,15 @@ Il consenso è esprimibile attraverso **due canali** UI a livello di sistema:
 
 ---
 
-## Profili utente (aggiornato MF7, MF16 — perimetro ADR-021, profilo unico 06/08/2026)
+## Profili utente (aggiornato MF7, MF16 — perimetro ADR-021, due profili di Back Office 28/10/2026)
 
-> ✅ **Chiarito (call CSI 06/08/2026):** **un solo profilo Operatore**, unico, copre **tutte** le nuove funzionalità da sviluppare (CDU-01a, CDU-05, CDU-07÷CDU-14). **Nessun nuovo profilo da creare** in PUA/Configuratore — corregge la precedente distinzione "Operatore Sanitario/Amministrativo" vs "Operatore di Back Office" come profili applicativi separati.
+> ✅ **Chiarito ([[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|call CSI 28/10/2026]]):** i profili di Back Office sono **due**, con funzionalità diverse: **operatore di sportello** (punto assistito, già censito sul Configuratore) e **profilo di configurazione** (consensi, informative, allegati, endpoint; nuovo, nome definito da CSI). Il Configuratore passa il profilo come oggi; l'interfaccia mostra le sezioni abilitate. Corregge il chiarimento del 06/08/2026 ("un solo profilo Operatore"). Da confermare con CSI: se il profilo di configurazione vede anche le sezioni dello sportello.
 
 | Profilo             | Accesso                                                          | CDU                              | Profilo applicativo Configuratore?      | Scope sviluppo |
 | -------------------- | ---------------------------------------------------------------- | --------------------------------- | --------------------------------------- | --- |
 | **Cittadino**         | SPID/CIE via [[wiki/concepts/gasp-salute\|GASP Salute]] su **webapp separata** | CDU-01b, CDU-02÷CDU-06            | ❌ **NO** — non gestito da Configuratore | ⚠️ **FE OUT / BE IN** — [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]] (22/09/2026) |
-| **Operatore** (unico) | PUA / RUPAR/IRIDE                                                | CDU-01a, CDU-05, CDU-07÷CDU-14    | Sì — **1 solo profilo**                 | ✅ IN — unico deliverable |
+| **Operatore di sportello** | PUA / RUPAR/IRIDE                                           | CDU-01a, CDU-06÷CDU-11            | Sì — profilo già censito                | ✅ IN |
+| **Profilo di configurazione** | PUA / RUPAR/IRIDE                                        | CDU-01a, CDU-12÷CDU-14 (CDU-17 innescato da qui) | Sì — profilo nuovo, nome da CSI | ✅ IN |
 | SIA Aziendale         | API REST (OAuth2 Bearer JWT)                                     | CDU-15, CDU-16, CDU-17            | N/A — autenticazione machine-to-machine | ✅ IN |
 
 ### Nota su profilo Cittadino (MF7R5)
@@ -69,7 +70,7 @@ Il caso d'uso di autenticazione viene diviso in due sotto-scenari espliciti:
 | Aspetto | Dettaglio |
 |---|---|
 | Accesso | RUPAR / IRIDE / SPID via PUA |
-| Selezione profilo | ❌ No — **un solo profilo Operatore** (call CSI 06/08/2026), niente selezione multipla |
+| Selezione profilo | ❌ No — l'utente non sceglie; **due profili** (sportello, configurazione) abilitati dal Configuratore (call CSI 28/10/2026) |
 | Precondizioni | Operatore censito in Configuratore Regionale |
 
 ### CDU-01b — Accesso Cittadino ⚠️ FE OUT / BE IN
@@ -132,7 +133,7 @@ Variante 6.1.3 [PROPOSTA]: se il servizio Gestione Deleghe non risponde o restit
 
 ### Area Back Office ✅ IN scope
 
-> Nota (06/08/2026): funzioni descritte come area distinta, ma sotto lo **stesso profilo Operatore unico** — non un secondo profilo Configuratore separato.
+> Nota (28/10/2026): area riservata al **profilo di configurazione**, distinto dall'operatore di sportello (corregge la nota del 06/08/2026 sul profilo unico).
 
 - Configurazione tipi consenso (parametri dinamici — input del Form Renderer)
 - Gestione informative (upload PDF, versioning)

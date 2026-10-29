@@ -129,7 +129,7 @@ Per analisi dettagliata del delta vedi [[wiki/analyses/analysis-gap-as-is-to-be\
 | DBaaS Nivola DEV provisioned | ❌ Da richiedere | Alta latenza |
 | DBaaS Nivola PROD provisioned | ❌ Da richiedere | Alta latenza |
 | Accesso repo QUASAR CSI | ❌ Da richiedere | Prerequisito UI |
-| Registrazione app PUA (**1 profilo Operatore**, corretto call CSI 06/08/2026 — era "2 profili") | ❌ Da richiedere | |
+| Registrazione app PUA (**2 profili**: sportello e configurazione, call CSI 28/10/2026; il 06/08/2026 era "1 profilo") | ❌ Da richiedere | |
 | Credenziali IRIS per AURA | ❌ Da richiedere | |
 | CONSPREF-DMP bozza v1 | ❌ Da produrre | Sprint 0 |
 | Specifica OpenAPI CDU-15/16 bozza | ⚠️ [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|v0.1-DRAFT prodotta]] — 5 TBD aperti | Condividere con ASR dopo TBD chiusi |

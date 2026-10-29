@@ -9,6 +9,10 @@
 
 `accepted` — semantica TO-BE formalizzata in SRS §7.2; SQL canonico definito da MF66R65.
 
+> 🆕 **Ambito di SCADUTO e ANNULLATO ([[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|call CSI 28/10/2026]]):** verso le aziende il contratto AS-IS (`ConsprefService`, SRV-03/04) conosce solo **SÌ e NO** e non cambia, quindi nessuno stato nuovo viene comunicato alle aziende. Il **consenso permanente al ritiro referti online** (informativa generale CPROL) non ha data di fine e al massimo diventa NO: mai SCADUTO né ANNULLATO. Il ciclo di vita completo vale per i **nuovi consensi** (scadenza dell'informativa). L'invio a sistemi terzi e i servizi di divulgazione sono **fuori perimetro**. Risposta data a voce: conferma scritta di CSI in corso (BAT-03). SRS rev. 1.25.
+>
+> La decisione di questo ADR (SCADUTO solo da BATCH-02) non cambia. Cambia l'**impatto verso i SIA**: la nota «i SIA devono aggiornare la propria logica» del rischio integrazione sotto non vale per le aziende, che restano su SÌ/NO. Resta da chiarire come BATCH-01 trasmette ANNULLATO (come NO?).
+
 ## Context
 
 Comportamento AS-IS ([[wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione\|ACC-DEL-CDU-01]]): lo stato `SCADUTO` viene impostato **durante l'operazione di acquisizione** (sincrono), se al momento del rilascio il consenso esistente è collegato a un'informativa scaduta.

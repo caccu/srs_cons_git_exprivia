@@ -9,6 +9,8 @@ Macchina a stati che governa ogni consenso espresso nel sistema [[wiki/concepts/
 
 > 🔴 **Perimetro progetto (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]):** questo progetto sviluppa **solo la Webapp Operatore**. Le righe/riferimenti "Citt" sotto restano come contesto (la macchina a stati è la stessa), ma non descrivono un deliverable di questo progetto.
 
+> 🆕 **Ambito di SCADUTO e ANNULLATO ([[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|call CSI 28/10/2026]]):** verso le aziende il contratto AS-IS (`ConsprefService`, SRV-03/04) conosce solo **SÌ e NO** e non cambia, quindi nessuno stato nuovo viene comunicato alle aziende. Il **consenso permanente al ritiro referti online** (informativa generale CPROL) non ha data di fine e al massimo diventa NO: mai SCADUTO né ANNULLATO. Il ciclo di vita completo vale per i **nuovi consensi** (scadenza dell'informativa). L'invio a sistemi terzi e i servizi di divulgazione sono **fuori perimetro**. Risposta data a voce: conferma scritta di CSI in corso (BAT-03). SRS rev. 1.25.
+
 ---
 
 ## Terminologia UI vs tecnica (MF9R8 — SRS v3)

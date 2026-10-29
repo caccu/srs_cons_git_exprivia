@@ -11,7 +11,9 @@
 
 > 🔄 **Nota di scope (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]):** la distinzione tecnica CDU-01a/01b resta corretta, ma **solo CDU-01a (Operatore) è in scope di sviluppo** di questo progetto. CDU-01b (Cittadino) descrive un accesso che esiste ma non è un deliverable di questo progetto.
 >
-> 🔄 **Correzione profilo (call CSI 06/08/2026):** **un solo profilo Operatore**, non selezione multipla — corregge il punto "Selezione profilo applicativo Configuratore visibile (es. Operatore Sanitario, Operatore Back Office)" in Decision sotto. Nessun nuovo profilo da creare in PUA/Configuratore.
+> 🔄 **Correzione profilo (call CSI 06/08/2026):** un solo profilo Operatore, non selezione multipla. Nessun nuovo profilo da creare in PUA/Configuratore.
+>
+> 🔄 **Correzione della correzione ([[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|call CSI 28/10/2026]]):** i profili di Back Office sono di nuovo **due** — operatore di sportello (già censito sul Configuratore) e profilo di configurazione (nuovo; nome definito da CSI). Il profilo arriva all'applicazione come oggi; l'utente **non seleziona** il profilo (il punto "selezione multipla" resta escluso), l'interfaccia mostra le sezioni in base a quanto abilitato sul Configuratore. SRS rev. 1.24.
 
 ## Context
 
@@ -28,7 +30,7 @@ CDU-01 viene diviso in due sotto-scenari espliciti:
 
 **CDU-01a — Accesso Operatore**
 - Accesso: RUPAR / IRIDE / SPID via PUA
-- ~~Selezione profilo applicativo Configuratore visibile (es. Operatore Sanitario, Operatore Back Office)~~ ⚠️ **corretto 06/08/2026:** un solo profilo Operatore, nessuna selezione multipla
+- ~~Selezione profilo applicativo Configuratore visibile (es. Operatore Sanitario, Operatore Back Office)~~ ⚠️ **corretto 06/08/2026 e 28/10/2026:** nessuna selezione da parte dell'utente; due profili (sportello, configurazione) gestiti dal Configuratore
 - Precondizioni: operatore censito in Configuratore Regionale
 - CDU coinvolti a valle: CDU-05, CDU-07÷CDU-14
 

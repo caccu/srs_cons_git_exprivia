@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/entities/csi-piemonte/","title":"CSI Piemonte","tags":["organizzazione","committente","infrastruttura","piemonte"],"dg-note-properties":{"title":"CSI Piemonte","aliases":["CSI Piemonte"],"type":"entity","tags":["organizzazione","committente","infrastruttura","piemonte"],"created":"2026-05-05","updated":"2026-07-20","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-12-pile-tecnologiche-csi","2026-03-02-domande-srs-csi-v02"],"related":["[[Regione Piemonte]]","[[Architettura IaaS]]","[[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]","[[Gestione Consensi - Applicativo]]"]}}
+{"dg-publish":true,"permalink":"/wiki/entities/csi-piemonte/","title":"CSI Piemonte","tags":["organizzazione","committente","infrastruttura","piemonte"],"dg-note-properties":{"title":"CSI Piemonte","aliases":["CSI Piemonte"],"type":"entity","tags":["organizzazione","committente","infrastruttura","piemonte"],"created":"2026-05-05","updated":"2026-10-28","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-12-pile-tecnologiche-csi","2026-03-02-domande-srs-csi-v02","2026-10-28-call-csi-analisi-dubbi"],"related":["[[Regione Piemonte]]","[[Architettura IaaS]]","[[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]","[[Gestione Consensi - Applicativo]]"]}}
 ---
 
 
@@ -46,3 +46,7 @@ Stack approvato e vincolante per tutti i fornitori. Aggiornato periodicamente su
 - Referente GASP Salute: protocollo SAML2 confermato (verbale 11/06/2026); metadata SP ricevuti (TEST/preprod, 07/2026) — resta censimento federazione
 - Referente CI/CD: architetture_ai@csi.it (per nuove immagini Docker)
 - Referente Nivola: provisioning DBaaS (scheda formale)
+
+## Call 28/10/2026
+
+Referenti nella call ([[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|2026-10-28-call-csi-analisi-dubbi]]): Tommaso Ruggiero (architettura e infrastruttura), Gaia Bourlot, Manuela Bontempi (configuratore, form dinamico, profili), Sabina Caroni. CSI gestisce le regole di rete dopo la migrazione a Oracle Linux e il contratto con il gruppo APISAN per le modifiche ai servizi del cittadino. Architettura semplificata proposta da Exprivia in attesa di approvazione.

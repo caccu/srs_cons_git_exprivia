@@ -210,16 +210,16 @@ Nota: l'acronimo LIS resta da chiarire formalmente con CSI, ma non è più blocc
 
 ## Configuratore Regionale / PUA
 
-> ✅ **Chiarito (call CSI 06/08/2026):** **un solo profilo Operatore** in PUA/Configuratore, che copre **tutte** le nuove funzionalità da sviluppare (CDU-01a, CDU-05, CDU-07÷CDU-14). **Nessun nuovo profilo da creare.** Corregge la precedente ipotesi di "2 profili operatore" (Operatore Sanitario/Amministrativo + Back Office, o Operatore + Amministratore a seconda del documento — nomenclatura mai stata univoca in wiki).
+> ✅ **Chiarito ([[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|call CSI 28/10/2026]]):** **due profili** di Back Office in PUA/Configuratore: operatore di sportello (già censito, CDU-06÷CDU-11) e profilo di configurazione (nuovo, CDU-12÷CDU-14; nome definito da CSI). Torna valida l'ipotesi dei "2 profili operatore" che il 06/08/2026 era stata corretta in profilo unico. Storico del 06/08: ~~**un solo profilo Operatore** (CDU-01a, CDU-05, CDU-07÷CDU-14)~~. Nota originaria, mai univoca: "2 profili operatore" (Operatore Sanitario/Amministrativo + Back Office, o Operatore + Amministratore a seconda del documento — nomenclatura mai stata univoca in wiki).
 
 | Sistema | Funzione | Profilo utente |
 |---|---|---|
 | PUA (Punto Unico di Accesso) | Autenticazione operatore | RUPAR / IRIDE |
-| Configuratore Regionale | Censimento applicazioni, profilo operatore unico, endpoint ASR | **1 profilo Operatore** (unico, copre CDU-01a/05/07÷14) |
+| Configuratore Regionale | Censimento applicazioni, profilo operatore unico, endpoint ASR | **2 profili** (sportello CDU-06÷11, configurazione CDU-12÷14; call 28/10/2026) |
 
 > **Nota MF7R5:** Cittadino **NON** è profilo applicativo del Configuratore — accede via webapp dedicata SPID/CIE (comunque fuori scope, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]). Configuratore gestisce il profilo operatore.
 
-Registrazione app PUA (**1 profilo Operatore** — non 2, call CSI 06/08/2026) da richiedere a [[wiki/entities/csi-piemonte\|CSI Piemonte]] in Sprint 0 ❌.
+Registrazione app PUA (**2 profili**: sportello e configurazione, call CSI 28/10/2026; il 06/08/2026 era "1 profilo") da richiedere a [[wiki/entities/csi-piemonte\|CSI Piemonte]] in Sprint 0 ❌.
 
 **Servizio PUA post-autenticazione (SRS v3 §2.3):** dopo il login via PUA, il backend invoca `getTokenInformation2` per leggere il profilo dell'operatore autenticato e adattare dinamicamente l'interfaccia (mostra solo sezioni/CDU abilitati per quel profilo). Un operatore può essere abilitato a entrambi i profili contemporaneamente.
 
@@ -270,7 +270,7 @@ Attore che nel [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|deploymen
 | Gestione Deleghe ❌ OUT   | WSDL                                                                              | ⚪ Non necessario — **fuori perimetro FE e BE** (CSI 25/09/2026, DEV-02): il BE riceve solo il CF del delegato                             |
 | Notificatore di Deleghe  | API + integration spec                                                            | ✅ **AS-IS legacy, riciclato — nessun nuovo sviluppo** (call CSI 06/08/2026; era "❌ Da richiedere" prima di questa call, distinta da UNP) |
 | Notificatore UNP         | Già documentato — gitlab.csi.it                                                   | ✅ Riferimento disponibile                                                                                                                |
-| PUA                      | Registrazione **1 profilo Operatore** (era "2 profili", corretto call CSI 06/08/2026) | ❌ Da richiedere                                                                                                                      |
+| PUA                      | Registrazione **2 profili** (sportello, configurazione; call CSI 28/10/2026 — il 06/08/2026 era "1 profilo") | ❌ Da richiedere                                                                                                                      |
 | LIS (e analoghi es. RIS) | Nessuna integrazione dedicata: usano `ConsprefService` | ✅ Verificato su TEST (21/10/2026); conferma produzione a CSI |
 | GASP Salute ❌ OUT        | ~~Documentazione protocollo OIDC/SAML2~~                                          | ⚪ Non più necessario — fuori scope di sviluppo (ADR-021, 06/08/2026)                                                                     |
 | SistemaTS                | —                                                                                 | ⛔ **NON integrato** (decisione MF55R54 — rimosso dal SRS)                                                                                |

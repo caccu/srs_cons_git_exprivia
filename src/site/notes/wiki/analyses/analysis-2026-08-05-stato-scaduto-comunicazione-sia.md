@@ -5,6 +5,10 @@
 
 # Stato SCADUTO — come funziona oggi e cosa manca per i SIA/ASR
 
+> 🆕 **Ambito di SCADUTO e ANNULLATO ([[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|call CSI 28/10/2026]]):** verso le aziende il contratto AS-IS (`ConsprefService`, SRV-03/04) conosce solo **SÌ e NO** e non cambia, quindi nessuno stato nuovo viene comunicato alle aziende. Il **consenso permanente al ritiro referti online** (informativa generale CPROL) non ha data di fine e al massimo diventa NO: mai SCADUTO né ANNULLATO. Il ciclo di vita completo vale per i **nuovi consensi** (scadenza dell'informativa). L'invio a sistemi terzi e i servizi di divulgazione sono **fuori perimetro**. Risposta data a voce: conferma scritta di CSI in corso (BAT-03). SRS rev. 1.25.
+>
+> ⚠️ **Conflict:** questa analisi (05/08/2026) tratta come buco la mancata comunicazione dello SCADUTO ai SIA; [[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|2026-10-28-call-csi-analisi-dubbi]] dice che verso le aziende restano solo SÌ/NO e che la divulgazione a terzi è fuori perimetro. Unresolved fino alla conferma scritta di CSI.
+
 **Scopo.** Documento di preparazione alla call dedicata CSI su **BAT-03** ("lo Stato SCADUTO è un componente da gestire"). Riporta lo stato consolidato ad oggi (wiki + SRS v1.0 revised v6), isola il buco reale e propone tre opzioni di comunicazione asincrona ai SIA.
 
 **Stato del punto:** 🟠 aperto — call dedicata pending (deciso nella call CSI 20/07/2026, cfr. [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|tracker]] riga BAT-03, Sprint 1).
