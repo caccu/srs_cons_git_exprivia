@@ -5,7 +5,7 @@
 
 # Checklist Avvio Progetto — Gestione Consensi
 
-**Scopo:** Quadro completo dei punti cardine per far partire il progetto. Distingue ciò che è già confermato da ciò che deve essere richiesto a [[wiki/entities/csi-piemonte\|CSI Piemonte]] o prodotto internamente da [[wiki/entities/exprivia\|Exprivia S.p.A.]].
+**Scopo** Quadro completo dei punti cardine per far partire il progetto. Distingue ciò che è già confermato da ciò che deve essere richiesto a [[wiki/entities/csi-piemonte\|CSI Piemonte]] o prodotto internamente da [[wiki/entities/exprivia\|Exprivia S.p.A.]].
 
 **Fonti:** SRS V1.0 bozza v2, Q&A CSI V02, appunti, pianificazione, spec WebService v03, ACC-DEL-CDU-01.
 
