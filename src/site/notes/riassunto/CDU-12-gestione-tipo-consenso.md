@@ -14,7 +14,7 @@ Tutto quello che il **Form Renderer** (CDU-09/10/11) mostra viene da qui. CDU-12
 
 ## Precondizioni
 
-Operatore autenticato sul PUA (profilo unico).
+Operatore autenticato sul PUA con il profilo di configurazione (call CSI 28/10/2026).
 
 ## Flusso
 

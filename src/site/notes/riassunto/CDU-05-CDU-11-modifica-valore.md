@@ -16,7 +16,7 @@ Inverte il valore di un consenso **già valido** (ATTIVO ↔ NEGATO, "Acconsento
 
 - Operatore autenticato, assistito selezionato (CDU-07), consensi visualizzati (CDU-08).
 - Il pulsante **"Modifica Valore" / "Cambia Valore"** è abilitato **solo per ATTIVO o NEGATO**. Per SCADUTO e ANNULLATO si usa CDU-10.
-- Disponibile al profilo unico Operatore, senza limitazioni per azienda o tipo di consenso.
+- Disponibile al profilo di operatore di sportello (call CSI 28/10/2026), senza limitazioni per azienda o tipo di consenso.
 
 ## Flusso
 

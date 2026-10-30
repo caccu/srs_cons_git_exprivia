@@ -22,7 +22,7 @@ Risposta CSI del 25/09/2026:
 ## Decision
 
 - **Oggetto:** lo scarico riguarda l'**informativa** (il documento), non un'attestazione del consenso. Resta valido lo scope ridotto di ADR-019: niente firma, niente valore del consenso.
-- **Operatore: in perimetro, frontend incluso.** La Webapp Operatore offre lo scarico/stampa dell'informativa per l'assistito. L'"operatore di BO" della risposta CSI è il **profilo unico Operatore** (call 06/08/2026): nessun profilo nuovo.
+- **Operatore: in perimetro, frontend incluso.** La Webapp Operatore offre lo scarico/stampa dell'informativa per l'assistito. L'"operatore di BO" della risposta CSI è il **profilo unico Operatore** (call 06/08/2026): nessun profilo nuovo. *Aggiornamento 28/10/2026:* la call CSI ha reintrodotto **due** profili di Back Office; lo scarico (CDU-06) è dell'operatore di sportello, vedi [[wiki/docs/adr/ADR-010-cdu-01-split\|ADR-010-cdu-01-split]].
 - **Cittadino: solo backend.** Il frontend cittadino resta fuori perimetro ([[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]), ma il servizio di scarico che la Webapp Cittadino usa va garantito sul backend nuovo.
 - **Servizio backend unico** per i due consumatori, con autorizzazione diversa: sessione PUA per l'operatore, sessione GASP per il cittadino.
 - **Sorgente del PDF:** il contratto AS-IS `Informativa` espone già `pdf_informativa` ([[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|ricognizione 22/09/2026]]). Ipotesi preferita: servire il PDF già memorizzato, senza generazione server-side. Da verificare sul modello dati.

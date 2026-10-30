@@ -14,7 +14,7 @@ Il CDU-01 originale comprendeva anche l'accesso del cittadino (CDU-01b) e la sce
 
 ## Attore e precondizioni
 
-- Operatore, profilo unico (copre CDU-05, 06, 07÷14).
+- Operatore di Back Office, con due profili (call CSI 28/10/2026): operatore di sportello (CDU-05÷11) e profilo di configurazione (CDU-12÷14, nuovo, nome definito da CSI).
 - Applicazione "Gestione Consensi BackOffice" registrata sul **Configuratore Regionale** con un unico profilo Operatore. È un prerequisito di go-live.
 
 ## Flusso
@@ -23,7 +23,7 @@ Il CDU-01 originale comprendeva anche l'accesso del cittadino (CDU-01b) e la sce
 2. Il PUA reindirizza con un token.
 3. Il backend passa il token a LCCE **`getTokenInformation2`** (applicazione CONSPREF). **SUCCESSO = operatore abilitato** sul PUA. Il legacy leggeva solo l'esito; le funzionalità restituite non servono (profilo unico, ID-02).
 4. L'identità dell'operatore (CF, nome, cognome) viene dall'header Shibboleth **`Shib-Iride-IdentitaDigitale`**, formato IRIDE a sette campi separati da `/` (`CF/NOME/COGNOME/ID_PROVIDER/TIMESTAMP/LIVELLO/MAC`). Il MAC non è verificato (neanche dal legacy): la garanzia è la rete (vedi sotto). Il CF non viene da LCCE. Il controllo AS-IS su AURA e profilo operatore non filtra: il profilo, se manca, viene creato al primo accesso.
-5. Il frontend mostra solo le sezioni abilitate. Con il profilo unico, in pratica, sono tutte.
+5. Il frontend mostra solo le sezioni abilitate. Con due profili, ciascuno vede solo le proprie (la visibilità incrociata è da confermare con CSI).
 6. Logout / pulizia sessione.
 
 Errori: se il PUA o il servizio token non rispondono, pagina d'errore generica senza dettagli tecnici.

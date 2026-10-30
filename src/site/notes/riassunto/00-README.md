@@ -4,7 +4,7 @@
 
 # Riassunto tecnico-funzionale dei CDU — Gestione Consensi (CONSPREF)
 
-Aggiornato al 23/10/2026. Fonte principale: `CONSPREF-SRS-V1.0-revised_v10.md` (rev. 1.19), integrata con ADR-001÷025, risposte al dev BE del 22/10/2026 (BE-09÷BE-20), verifica del mockup FE rev. 12, riscontro CSI del 25/09/2026, ricognizione endpoint AS-IS del 22/09/2026 e risposta al team FE sul Form Renderer del 01/10/2026.
+Aggiornato al 30/10/2026. Fonte principale: `CONSPREF-SRS-V1.0-revised_v10.md` (rev. 1.27), integrata con ADR-001÷026 (ADR-026 form dinamico, proposta), risposte al dev BE del 22/10/2026 (BE-09÷BE-20), verifica del mockup FE rev. 12, riscontro CSI del 25/09/2026, ricognizione endpoint AS-IS del 22/09/2026 e risposta al team FE sul Form Renderer del 01/10/2026.
 
 Lo scopo di questa cartella è pratico: leggendo un file si deve capire **cosa fa il caso d'uso** e **come va sviluppato**. Per il dettaglio normativo resta valido l'SRS: qui ogni file rimanda ai paragrafi di riferimento.
 
@@ -18,7 +18,7 @@ Il progetto è un **rifacimento**: stesso dominio, nuovo stack (Angular 21 + Spr
 
 ## 2. Perimetro di sviluppo (ADR-021, precisato 22/09/2026 e 25/09/2026)
 
-- **Si sviluppa un solo frontend: la Webapp Operatore**, a cui si accede dal PUA con profilo unico Operatore.
+- **Si sviluppa un solo frontend: la Webapp Operatore**, a cui si accede dal PUA con due profili di Back Office: operatore di sportello (CDU-06÷11) e profilo di configurazione (CDU-12÷14), come chiarito nella call CSI del 28/10/2026.
 - La **Webapp Cittadino** esiste già, è separata e non si tocca. Il **backend però è unico**: va rifatto anche per i servizi che usa la Webapp Cittadino, senza cambiarne il contratto (iso-funzionalità).
 - Gestione Deleghe è **fuori perimetro**: il backend non la chiama, riceve solo il CF del delegato (`cf_delegato`) e lo registra.
 - GASP Salute (SPID/CIE del cittadino) è fuori perimetro e **non arriva al backend**: l'autenticazione si chiude su SANSOL/APISAN. La Webapp Cittadino chiama il backend sul SOAP `ConsensoBeService`, da esporre a contratto invariato (ADR-025).

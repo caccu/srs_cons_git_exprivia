@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-10-27"}}
+{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-10-30"}}
 ---
 
 
@@ -109,6 +109,8 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 - [[wiki/analyses/analysis-2026-08-05-stato-scaduto-comunicazione-sia\|Stato SCADUTO — semantica e comunicazione asincrona ai SIA/ASR (BAT-03)]] — Stato consolidato SCADUTO (wiki + SRS v6), omonimia AS-IS/TO-BE, buco canale async (no notifica, fuori snapshot CDU-17), 3 opzioni + checklist call CSI
 - [[wiki/analyses/analysis-2026-08-05-stato-scaduto-spiegato-semplice\|Stato SCADUTO — Spiegato in Modo Semplice]] — Versione in linguaggio piano per il cliente non tecnico: analogia del modulo firmato, tranello del cambio di significato, 3 strade con pro/contro, 8 domande per la call
 - [[wiki/analyses/analysis-2026-10-22-allineamento-srs-wiki\|Allineamento SRS v10 → Wiki (22/10/2026)]] — Audit SRS rev. 1.17 vs wiki: 36 incongruenze (4 critiche: storicizzazione BATCH-02/CDU-13, Online/Annulla in CDU-12 ALG02, takeover multi-nodo BATCH-02); residui GASP/Deleghe/Cittadino nel corpo
+- [[wiki/analyses/analysis-2026-07-15-allineamento-srs-wiki\|Allineamento SRS v5 → Wiki (15/07/2026)]] — Audit storico SRS v5 vs wiki dopo la riunione CSI/Exprivia dell'11/06/2026; superato dall'audit del 22/10/2026
+- [[wiki/analyses/proposte-allineamento-SRS-vs-wiki\|Proposte di allineamento SRS ↔ Wiki (CDU-15/16/17)]] — Proposte di review SRS v1.0 su CDU-15/16/17, BATCH-03 e sicurezza (giugno-agosto 2026; `cons_t_client_ente` fuori scope V1.0)
 
 ---
 
@@ -129,7 +131,7 @@ Cartella fuori da `wiki/` (05/10/2026): un file per ogni oggetto di sviluppo, co
 
 ## Architecture Decision Records
 
-Registry decisioni architetturali in `docs/adr/`. Lifecycle gestito (proposed/accepted/superseded), cross-link bidirezionale con concept/analysis pages. 24 ADR (19 materializzati il 2026-05-19 + ADR-020/ADR-021 il 06/08/2026 + ADR-022 il 25/09/2026 + ADR-023 il 29/09/2026 + ADR-024 il 15/10/2026 — ADR-020 supersede ADR-017, ADR-021 supersede ADR-011 e ADR-019). ADR-026 (form dinamico, FE-08) aggiunto il 29/10/2026 come proposta.
+Registry decisioni architetturali in `docs/adr/`. Lifecycle gestito (proposed/accepted/superseded), cross-link bidirezionale con concept/analysis pages. 26 ADR (19 materializzati il 2026-05-19 + ADR-020/ADR-021 il 06/08/2026 + ADR-022 il 25/09/2026 + ADR-023 il 29/09/2026 + ADR-024 il 15/10/2026 + ADR-025 il 21/10/2026 — ADR-020 supersede ADR-017, ADR-021 supersede ADR-011 e ADR-019). ADR-026 (form dinamico, FE-08) aggiunto il 29/10/2026 come proposta (unico ADR `proposed`).
 
 Indice completo: [docs/adr/README.md](wiki/docs/adr/README.md)
 

@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/overview/","title":"Overview","tags":["gestione-consensi","sanita-piemonte","srs","exprivia"],"dg-note-properties":{"title":"Overview","aliases":["Overview"],"type":"overview","tags":["gestione-consensi","sanita-piemonte","srs","exprivia"],"created":"2026-05-05","updated":"2026-10-05","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-appunti-e-pianificazione","2026-03-02-domande-srs-csi-v02","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7","2026-03-12-pile-tecnologiche-csi"]}}
+{"dg-publish":true,"permalink":"/wiki/overview/","title":"Overview","tags":["gestione-consensi","sanita-piemonte","srs","exprivia"],"dg-note-properties":{"title":"Overview","aliases":["Overview"],"type":"overview","tags":["gestione-consensi","sanita-piemonte","srs","exprivia"],"created":"2026-05-05","updated":"2026-10-30","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-appunti-e-pianificazione","2026-03-02-domande-srs-csi-v02","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7","2026-03-12-pile-tecnologiche-csi"]}}
 ---
 
 

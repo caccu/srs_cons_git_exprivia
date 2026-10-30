@@ -36,5 +36,9 @@ Non è un CDU numerato ed è distinto da CDU-17: non c'è un nuovo endpoint da a
 ## Punti aperti
 
 - Esposizione: rientra nello swagger CDU-17 insieme ai servizi endpoint (PULL-09).
-- Granularità: manutenzione per endpoint o per intera azienda? La spec parla di tutti i sistemi dell'azienda, ma il PATCH è per endpoint.
+- Granularità: il PATCH è per endpoint, ma l'effetto è sull'intera azienda (SRS §7.4). Proposta del 30/10/2026 (risposta al dev BE, BE-25): azienda in manutenzione finché almeno un suo endpoint è `IN_MANUTENZIONE`.
+- Valore di fine manutenzione: l'SRS scrive `COMPLETATO` (conflitto con CDU-17); proposta `ATTIVO`, SRS da allineare dopo l'approvazione CSI dell'architettura.
+- Consensi regionali con una sola azienda in manutenzione: il consenso si registra, la notifica verso quell'azienda resta in coda (proposta Exprivia).
+- Casi particolari (proposta Exprivia): un endpoint in allineamento (CDU-17) non va in manutenzione e viceversa, errore 409.
+- Esposizione alle aziende e autenticazione: in attesa di CSI (senza API Manager, domanda BE-25); sblocco di una manutenzione dimenticata: domanda BE-26, proposta V1.0 senza limite automatico.
 - Uso dei "dati dell'ultimo invio" comunicati dal SIA alla ripresa (eventuale reinvio?).

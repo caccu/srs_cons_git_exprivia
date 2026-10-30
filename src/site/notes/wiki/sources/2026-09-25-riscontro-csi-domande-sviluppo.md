@@ -105,7 +105,7 @@ La frase sulle aziende federate va letta insieme a DEV-03: le ASR già integrate
 
 **Conseguenze** (formalizzate in [[wiki/docs/adr/ADR-022-cdu-06-scarico-informativa-operatore\|ADR-022]]):
 - l'oggetto è l'**informativa**, non un'attestazione del consenso (coerente con lo scope ridotto di [[wiki/docs/adr/ADR-019-cdu-06-pdf-scope-ridotto\|ADR-019]]);
-- **lato Operatore:** nuova funzione di **frontend** nella Webapp Operatore, quindi in perimetro di sviluppo. L'"operatore di BO" è il **profilo unico Operatore** (call 06/08/2026);
+- **lato Operatore:** nuova funzione di **frontend** nella Webapp Operatore, quindi in perimetro di sviluppo. L'"operatore di BO" è il **profilo unico Operatore** (call 06/08/2026; dal 28/10/2026 i profili sono due e lo scarico spetta all'operatore di sportello, [[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|2026-10-28-call-csi-analisi-dubbi]]);
 - **lato Cittadino:** frontend fuori perimetro, ma il servizio backend di scarico va garantito ([[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]] §Precisazione 22/09/2026);
 - un **servizio backend unico** serve entrambi i consumatori. Il contratto AS-IS `Informativa` espone già il campo `pdf_informativa` ([[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|ricognizione]]): lo scarico può poggiare sul PDF già memorizzato, senza generazione.
 

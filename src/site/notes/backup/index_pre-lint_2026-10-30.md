@@ -1,0 +1,164 @@
+---
+{"dg-publish":true,"permalink":"/backup/index-pre-lint-2026-10-30/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-10-27"}}
+---
+
+
+# Wiki Index
+
+Master catalogo di tutte le pagine. Aggiornato.
+
+> 🔴 **Perimetro progetto (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]] — precisato 22/09/2026):** questo progetto sviluppa **un solo frontend, la Webapp Operatore**. La Webapp Cittadino è un'app separata (link distinto) che esiste già e non tocchiamo.
+>
+> ⚠️ **L'esclusione è solo frontend.** Il backend è unico, serve entrambe le webapp, lo rifacciamo noi e deve restare **compatibile a iso-funzionalità** con la Webapp Cittadino esistente. Le marcature qui sotto vanno lette come: ❌ **OUT** = niente lavoro di interfaccia · ⚠️ **FE OUT / BE IN** = niente interfaccia, ma backend da migrare a contratto invariato.
+
+---
+
+## Rischi Critici Aperti (quick reference)
+
+| Rischio                                                                             | Impatto                                              | Azione                                                                                        |
+| ----------------------------------------------------------------------------------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| ~~GASP Salute: OIDC vs SAML2~~ — ✅ **CHIUSO** SAML2 confermato (verbale 11/06/2026) | CDU-01 può procedere alla progettazione              | —                                                                                             |
+| [[wiki/analyses/conspref-dmp-tracker\|conspref-dmp-tracker]] non formalizzato                                           | Slittamento Fase 6 migrazione PG9→PG18 (target aggiornato da PG17, 06/08/2026) | ✅ Responsabile: **CSI Piemonte** (16/07/2026 — GOV-03 chiuso); sollecitare bozza v1 Sprint 0 |
+| OpenAPI CDU-15/16 — [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]], 5 TBD aperti con CSI | Blocca go-live integrazione SIA ASR                  | Condividere bozza con ASR, confermare 5 TBD Sprint 1-2                                        |
+| BATCH-01: SRV-01 vs SRV-03?                                                         | Errore implementativo WSDL                           | Conferma scritta da CSI                                                                       |
+| SCADUTO AS-IS ≠ TO-BE (BAT-03) — [[wiki/analyses/analysis-2026-08-05-stato-scaduto-comunicazione-sia\|analysis-2026-08-05-stato-scaduto-comunicazione-sia]] | Rottura integrazione SIA ASR (omonimia: AS-IS = record superato, TO-BE = record corrente) | Call CSI dedicata pending: scegliere canale async (racc. delta PULL CDU-17); documentare diff in OpenAPI |
+| ~~BATCH-03 push contestato TR34~~ ✅ risolto                                        | Onere infra regionale, cliente vuole "centro stella" | PULL CDU-17 ([[wiki/docs/adr/ADR-006-batch-03-pull-cdu-17\|ADR-006-batch-03-pull-cdu-17]], **accepted**) — **confermato dal committente 20/07/2026**, Variante B eliminata |
+| SC67 — INSERT storicizzazione BATCH-02                                              | "Da approfondire e verificare meglio"                | Discutere con CSI prima di chiudere SRS                                                       |
+
+Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]]
+
+---
+
+## Entities
+
+- [[wiki/entities/csi-piemonte\|CSI Piemonte]] — Committente tecnico, gestore infrastruttura IaaS/Nivola, fornitore componenti (GASP, AURA, PUA, IRIS, UNP)
+- [[wiki/entities/exprivia\|Exprivia S.p.A.]] — Fornitore sviluppo, redattore SRS, team analisi e sviluppo TO-BE
+- [[wiki/entities/notificatore-unp\|Notificatore UNP]] — User Notification Platform CSI (REST); distinto da Notificatore di Deleghe; canali email/push/IO/mex
+- [[wiki/entities/regione-piemonte\|Regione Piemonte]] — Committente finale, proprietaria Sanità Elettronica Regionale
+
+---
+
+## Concepts
+
+- [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] — Sistema centrale consensi sanitari Regione Piemonte: 3 livelli, 3 profili (Cittadino FE OUT / BE IN, **Operatore unico** — non più 2, corretto 06/08/2026 —, SIA), 17 CDU, 2 batch (BATCH-03 rimosso → CDU-17 PULL); 2 canali di acquisizione (LIS non è un terzo canale — ADR-020, 06/08/2026); **un solo frontend sviluppato (Webapp Operatore); backend unico per entrambe le webapp, compatibilità iso-funzionalità con la Webapp Cittadino — ADR-021, precisato 22/09/2026**
+- [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]] — Macchina a stati: NON_ESPRESSO → ATTIVO/NEGATO → SCADUTO/ANNULLATO; no sovrascrittura
+- [[wiki/concepts/architettura-iaas\|Architettura IaaS]] — Infrastruttura IaaS Nivola CSI (non ECaaS/Kubernetes), provisioning CSI; deploy ADA/Chef; 07/2026: ambienti DEV + pre-prod (PROD in fase successiva)
+- [[wiki/concepts/gasp-salute\|GASP Salute]] — Identity Provider federato SPID/CIE; protocollo **SAML2** confermato (verbale 11/06/2026); ❌ **OUT**: nessuna integrazione GASP nel backend; l'autenticazione cittadino si chiude su SANSOL/APISAN e il BE riceve il CF via SOAP `ConsensoBeService` (dev BE, 21/10/2026, ADR-025)
+- [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]] — Notifica/scadenza/allineamento asincrono; ⚠️ BATCH-01 ambiguità WSDL SRV-01 vs SRV-03
+- [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] — AURA, SIA ASR (SOAP `ConsprefService` in ingresso mantenuto), Notificatore UNP, PUA/Configuratore; Gestione Deleghe **fuori perimetro** (CSI 25/09/2026: il BE riceve solo `cf_delegato`), LIS/RIS (integrazione BE esistente, non canale — ADR-020); stato approvvigionamento Sprint 0
+- [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]] — Risposta TR30: OAuth2 Client Credentials + JWT + tabella client_ente + filter Spring Security; AS-IS **no API Manager**, difesa a 3 livelli; TO-BE API Manager CSI per nuovi fruitori
+- [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]] — Sostituzione BATCH-03 push con PULL REST paginato cursor-based; **hub-and-spoke**, zero push, blocco obbligatorio, riusa security CDU-15/16. **Rielaborato e confermato 20/07/2026** (Variante B eliminata, passo 5, endpoint CRUD via APIM, scenario manutenzione)
+- [[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]] — Pattern SSoT Form Renderer, nato per Citt+Op (CDU-02/03/04/09/10/11); MF26/28/30/35/37/39/41/43/45/57 — **frontend costruito solo per Operatore (CDU-09/10/11); endpoint BE consumati dalla webapp Citt. da migrare a iso-funzionalità — ADR-021, precisato 22/09/2026**
+- [[wiki/concepts/informativa\|Informativa Consenso]] — Oggetto dichiarativo del consenso: modello `cons_d_informativa`, ciclo di vita, lookup CDU-03, base Form Renderer
+- [[wiki/concepts/migrazione-postgres-9-17\|Migrazione PostgreSQL 9 → 18]] — Strategia dump/restore Fase 6 Sprint 9; target aggiornato da PG17 a PG18 (06/08/2026); rischi tipi/auth scram/timestamp; audit DDL prerequisito Sprint 0
+- [[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico Applicativo]] — Angular 21 + Spring Boot 3.4.10+ / Java 17 + PostgreSQL 18 su IaaS Nivola; vincoli docker-base CSI
+
+---
+
+## Sources
+
+### Specifica TO-BE
+
+- [[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] — SRS TO-BE completo: 17 CDU, architettura, NFR, batch, modello dati 26 tabelle (25 §8.3 + cons_t_client_ente §8.4.11)
+- [[wiki/sources/2026-03-02-sommario-srs-consensi\|Sommario SRS Gestione Consensi — Indice Strutturale]] — TOC/mappa strutturale SRS: 26 tabelle TO-BE, 11 proposte §8.4
+- [[wiki/sources/2026-03-02-appunti-e-pianificazione\|Appunti Sistema + Pianificazione Progetto Consensi]] — Sintesi architetturale + 8 fasi + 10 sprint + procedura migrazione PG9→PG17 (target storico, aggiornato a PG18 il 06/08/2026 — vedi [[wiki/concepts/migrazione-postgres-9-17\|migrazione-postgres-9-17]])
+- [[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] — 13 Q&A Exprivia/CSI: no API Gateway, GASP Salute IdP, SOAP AS-IS, DBaaS Nivola
+
+### Requisiti e standard CSI
+
+- [[wiki/sources/2023-09-01-conspref-srs-01-v03\|CONSPREF-SRS-01-V03 Requisiti Gestione Consensi]] — Documento requisiti committente CSI (2023): regole business, backoffice, profili PUA
+- [[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]] — Export stack tecnologici approvati CSI: PG17 CURRENT (fotografia 03/2026), PG9 RETIRED — PG17 superato da PG18 il 06/08/2026, vedi [[wiki/concepts/migrazione-postgres-9-17\|migrazione-postgres-9-17]]
+- [[wiki/sources/2019-06-01-linea-guida-fornitori-cloud-native\|Linee Guida Cloud Native per Fornitori v1.0.1]] — Vincoli ECaaS vincolanti: TRAEFIK, Artifactory, Dockerfile rules, CI/CD, health probes
+
+### Diagrammi e artefatti tecnici
+
+- [[wiki/sources/2026-05-05-mermaid-architettura\|Diagramma Architettura Sistema — Mermaid]] — Diagramma Mermaid TO-BE; ⚠️ conflict: nodo "API Gateway" vs no-API-GW confermato da CSI
+
+### Baseline AS-IS
+
+- [[wiki/sources/2019-02-01-sfu-gestione-consensi-v1-7\|Studio Funzionale Gestione Consensi SoL V1.7 (AS-IS 2019)]] — Baseline funzionale AS-IS: 6 CDU originali, stack legacy
+- [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]] — 5 servizi SOAP AS-IS: SRV-01÷05, WSDL outbound, sicurezza X509
+- [[wiki/sources/2019-04-08-dizionario-dati-as-is\|Modello Dizionario Dati AS-IS (2019)]] — 12 entità AS-IS (2 business + 1 log + 9 dominio); cons_s_consenso non popolata
+- [[wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione\|ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)]] — Specifiche SOAP inbound: DA01-DA03, upsert logic, 18 codici errore
+- [[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|Ricognizione endpoint AS-IS — riscontro sviluppo]] — 8 endpoint REST `CittadiniApi`/`InformativaApi` = baseline iso-funzionalità Webapp Operatore; Webapp Cittadino assente dalla consegna (coerente col perimetro); WSDL Deleghe senza client ⚠️
+- [[wiki/sources/2026-10-22-domande-dev-be-unp-cdu-02-08\|Domande dev BE su UNP, CDU-02 e CDU-08 — risposte]] — BE-09÷BE-20: UNP in V1.0 solo notifica ANNULLATO, nessuna chiamata di verifica preferenze; cittadino via SOAP `ConsensoBeService` (10 operazioni); `IN_MANUTENZIONE` = stato endpoint; `online=false` non blocca l'operatore; «Nazionale» esiste; azioni ammesse non requisito (7 pagine toccate)
+- [[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|Call CSI 28/10/2026 — analisi dubbi su architettura e servizi]] — servizi aziende SOAP invariati; API Manager/OAuth2 da togliere e JWT interno (architettura in attesa di approvazione CSI); due profili di backoffice; SCADUTO solo per i nuovi consensi; form dinamico FE-08 confermato; regole di rete a carico CSI (1 pagina creata, 4 toccate)
+- [[wiki/sources/2026-10-27-revisione-be-slide-domande\|Revisione dev BE di slide e domande CSI (27/10/2026)]] — 12 punti (E09/NE, migrazione notifiche, `modifyToRevoked`, ritentativi BATCH-01, INT-05); doppio significato dello stato S, snapshot CDU-17 con SCADUTO senza ANNULLATO (SRS rev. 1.20)
+- [[wiki/sources/2026-10-22-mockup-fe-cdu\|Mockup FE Webapp Operatore (rev. 10) — riscontro]] — 23 schermate CDU-06, 08-14; da correggere: form CDU-09/10/11 statico (etichette fisse, mancano parametri), CDU-09 multi-azienda, banner San Luigi, CDU-12 su «tipi» senza Associazione Enti, card CDU-08 senza valore/data acquisizione (2 pagine toccate)
+- [[wiki/sources/2026-10-22-mockup-fe-cdu-rev11\|Mockup FE Webapp Operatore (rev. 11) — verifica correzioni]] — 30 schermate; recepiti tutti i 17 punti della rev. 10; 7 rifiniture FE (N-01÷N-07) e 3 azioni BE/SRS (API modifica ente, e-mail endpoint, residuo flag CDU-12 §6.12) (2 pagine toccate)
+- [[wiki/sources/2026-10-22-mockup-fe-cdu-rev12\|Mockup FE Webapp Operatore (rev. 12) — verifica correzioni]] — 30 schermate; N-02÷N-07 chiusi, N-01 parziale, nuova N-08 (codice ente modificabile a pag. 31); A-01 e A-02 aperti (3 pagine toccate)
+- [[wiki/sources/2026-10-21-riscontro-dev-deployment-to-be\|Riscontro dev sul deployment TO-BE]] — BFF `rconsprefboweb` + backend `rconsprefbe` con batch interni; cittadino via APISAN, SOAP `ConsensoBeService` ⚠️; Angular 21; SMTP e webhook CDU-14; Notificatore Deleghe assente nel codice ⚠️ (INT-10) (7 pagine toccate)
+- [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|Deployment diagram AS-IS CONSPREF (CSI)]] — topologia attuale su Nivola: `consprefboweb`/`consprefbe` su JBoss 6.4, PG 9.6, security group SG-INT/SG-RUP/SG-APPL/SG-DBAAS; AURA, LCCE, Notificatore; APISAN su HTTP:80 senza bilanciatore (4 pagine toccate)
+- [[wiki/sources/2026-09-25-riscontro-csi-domande-sviluppo\|Riscontro CSI alle domande di sviluppo (mail 24-25/09/2026)]] — DEV-01÷06: Deleghe fuori perimetro, `ConsprefService` SOAP mantenuto, CDU-06 scarico informativa anche per l'Operatore, ASR 904 da ripristinare; codici errore e trust gateway in verifica CSI (11 pagine toccate)
+
+---
+
+## Analyses
+
+- [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazione Qualità SRS — Gestione Consensi]] — Analisi critica SRS: 7 punti forza, 5 rischi (3 critici + 2 moderati), checklist pre-sprint 12 item
+- [[wiki/analyses/analysis-gap-as-is-to-be\|Analisi Gap AS-IS → TO-BE — Gestione Consensi]] — Delta 6→17 CDU, 12→26 entità DB, 3 cambiamenti semantici critici per integrazione SIA ASR
+- [[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|Checklist Avvio Progetto — Gestione Consensi]] — Quadro completo per sviluppatori: 6 sezioni (confermato/da chiedere CSI/da produrre/rischi/azioni giorno 1)
+- `openapi-cdu-15-16-v0.1.yaml` — Specifica OpenAPI 3.0 DRAFT: CDU-15 (stato consenso) + CDU-16 (configurazione ente), auth via APIMBBONE, RFC 7807; TBD residui: paginazione, SLA, URL server, header Gateway (agg. 06/10/2026) (file YAML in `wiki/analyses/`, vedi [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]])
+- [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]] — Descrizione OpenAPI CDU-15/16: 19 punti consolidati, 5 TBD CSI, 8 attività interne, cronologia versioni, prossimi passi
+- [[wiki/analyses/analysis-2026-05-14-tr34-alternativa-batch-03\|analysis-2026-05-14-tr34-alternativa-batch-03]] — Risposta TR34: tracker decisionale CDU-17 PULL (centro stella); ✅ **confermato 20/07/2026** (storico della proposta iniziale)
+- [[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]] — Tracker master 69 commenti SRS v3 lavorazione + 30 risposte MF; mappatura per tema (A–J) e propagazione wiki
+- [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punti Aperti da Chiedere a CSI Piemonte — Tracker Unificato]] — Tracker dei punti aperti raggruppati per area (auth, security, pull, openapi, batch, integrazioni, infra, gov) e sprint; §11 domande BE su CDU-09/10/11 e CDU-13 (DEV-07÷11 per CSI); §12 domande FE su CDU-14 (FE-09/10, DEV-12 per CSI); riepilogo punti aperti per responsabile riscritto il 09/10/2026
+- [[wiki/analyses/analysis-2026-05-27-punti-aperti-spiegati\|Punti Aperti — Spiegati in Modo Semplice]] — Versione in linguaggio piano del tracker: per ogni punto cosa significa, perché blocca, come si chiude
+- [[wiki/analyses/analysis-2026-06-10-riassunto-presentazione-cliente\|Riassunto Esecutivo — Presentazione Progetto Gestione Consensi]] — Sintesi completa per presentazione cliente: contesto, funzionalità, architettura, sicurezza, batch, migrazione, pianificazione, ADR, punti aperti
+- [[wiki/analyses/conspref-dmp-tracker\|CONSPREF-DMP — Tracker Piano Migrazione Dati]] — Tracker stato Data Migration Plan PG9→PG18 (target aggiornato da PG17); 7 sezioni con owner.
+- [[wiki/analyses/analysis-2026-08-05-stato-scaduto-comunicazione-sia\|Stato SCADUTO — semantica e comunicazione asincrona ai SIA/ASR (BAT-03)]] — Stato consolidato SCADUTO (wiki + SRS v6), omonimia AS-IS/TO-BE, buco canale async (no notifica, fuori snapshot CDU-17), 3 opzioni + checklist call CSI
+- [[wiki/analyses/analysis-2026-08-05-stato-scaduto-spiegato-semplice\|Stato SCADUTO — Spiegato in Modo Semplice]] — Versione in linguaggio piano per il cliente non tecnico: analogia del modulo firmato, tranello del cambio di significato, 3 strade con pro/contro, 8 domande per la call
+- [[wiki/analyses/analysis-2026-10-22-allineamento-srs-wiki\|Allineamento SRS v10 → Wiki (22/10/2026)]] — Audit SRS rev. 1.17 vs wiki: 36 incongruenze (4 critiche: storicizzazione BATCH-02/CDU-13, Online/Annulla in CDU-12 ALG02, takeover multi-nodo BATCH-02); residui GASP/Deleghe/Cittadino nel corpo
+
+---
+
+## Riassunto CDU per lo sviluppo (`riassunto/`)
+
+Cartella fuori da `wiki/` (05/10/2026): un file per ogni oggetto di sviluppo, con cosa fa, perimetro FE/BE, flusso, campi, logica BE e tabelle, contratto API, passi di sviluppo, dipendenze e punti aperti. Fonte: SRS v10 rev. 1.9 + ADR-001÷023 + riscontro CSI 25/09 + risposta FE Form Renderer 01/10. **Riallineata il 23/10/2026** a SRS rev. 1.19, ADR-025, risposte al dev BE del 22/10 (BE-09÷BE-20) e mockup FE rev. 12.
+
+- [[riassunto/00-README\|Indice riassunto]] — perimetro, mappa CDU FE/BE, ordine di sviluppo, punti aperti trasversali
+- [[riassunto/TRASV-componenti-comuni\|Componenti trasversali]] — stack, sicurezza PUA/APIMBBONE, ciclo di vita, storicizzazione canonica, coda notifiche, audit, integrazioni, RFC 7807, Form Renderer, colonne nuove in migrazione
+- Webapp Operatore: [[riassunto/CDU-01a-accesso-operatore\|CDU-01a]] · [[riassunto/CDU-05-CDU-11-modifica-valore\|CDU-05/11]] · [[riassunto/CDU-06-scarico-informativa\|CDU-06]] · [[riassunto/CDU-07-ricerca-assistito\|CDU-07]] · [[riassunto/CDU-08-consultazione-consensi\|CDU-08]] · [[riassunto/CDU-09-rilascio-consenso\|CDU-09]] · [[riassunto/CDU-10-modifica-consenso\|CDU-10]]
+- Back Office: [[riassunto/CDU-12-gestione-tipo-consenso\|CDU-12]] · [[riassunto/CDU-13-gestione-informativa\|CDU-13]] · [[riassunto/CDU-14-gestione-ente-endpoint\|CDU-14]]
+- API SIA: [[riassunto/CDU-15-api-stato-consenso\|CDU-15]] · [[riassunto/CDU-16-api-configurazione\|CDU-16]] · [[riassunto/CDU-17-snapshot-pull\|CDU-17]]
+- Batch e servizi: [[riassunto/BATCH-01-notifica-consensi\|BATCH-01]] · [[riassunto/BATCH-02-scadenza-informativa\|BATCH-02]] · [[riassunto/MANUTENZIONE-endpoint-asr\|Manutenzione endpoint ASR]]
+- Backend area Cittadino (iso-funzionalità): [[riassunto/BE-cittadino-CDU-01b-02-03-04\|CDU-01b/02/03/04]]
+
+
+---
+
+## Architecture Decision Records
+
+Registry decisioni architetturali in `docs/adr/`. Lifecycle gestito (proposed/accepted/superseded), cross-link bidirezionale con concept/analysis pages. 24 ADR (19 materializzati il 2026-05-19 + ADR-020/ADR-021 il 06/08/2026 + ADR-022 il 25/09/2026 + ADR-023 il 29/09/2026 + ADR-024 il 15/10/2026 — ADR-020 supersede ADR-017, ADR-021 supersede ADR-011 e ADR-019). ADR-026 (form dinamico, FE-08) aggiunto il 29/10/2026 come proposta.
+
+Indice completo: [docs/adr/README.md](wiki/docs/adr/README.md)
+
+| ADR | Titolo | Status |
+|---|---|---|
+| [ADR-001](ADR-001-stack-tecnologico.md) | Stack tecnologico (Spring Boot 3 + Java 17 + Angular 21 + PG18) | accepted |
+| [ADR-002](ADR-002-piattaforma-ecaas.md) | Piattaforma ECaaS Kubernetes Nivola + vincoli | **superseded** |
+| [ADR-003](ADR-003-dbaas-nivola.md) | DBaaS Nivola esterno al namespace | accepted |
+| [ADR-004](ADR-004-no-api-gateway.md) | No API Gateway — sicurezza applicativa Spring Security | accepted |
+| [ADR-005](ADR-005-sicurezza-cdu-15-16.md) | Sicurezza CDU-15/16 OAuth2 CC + JWT + per-ente | accepted |
+| [ADR-006](ADR-006-batch-03-pull-cdu-17.md) | BATCH-03 push → CDU-17 PULL centro stella | **accepted** |
+| [ADR-007](ADR-007-batch-01-5min-skip-locked.md) | BATCH-01 5 min con SKIP LOCKED | accepted |
+| [ADR-008](ADR-008-ssot-form-renderer.md) | SSoT Form Renderer (Citt + Op) — nota scope: solo Op | accepted |
+| [ADR-009](ADR-009-eliminazione-sistemats.md) | Eliminazione SistemaTS | accepted |
+| [ADR-010](ADR-010-cdu-01-split.md) | Split CDU-01 (01a Op + 01b Citt) — nota scope: solo 01a | accepted |
+| [ADR-011](ADR-011-merge-cdu-04-05-cittadino.md) | Merge CDU-04/05 cittadino — pulsante unico | **superseded** |
+| [ADR-012](ADR-012-notificatore-deleghe-post-completato.md) | Notificatore di Deleghe ≠ UNP, post-COMPLETATO | accepted |
+| [ADR-013](ADR-013-migrazione-pg-dump-restore.md) | Migrazione PG9 → PG18 dump/restore | accepted |
+| [ADR-014](ADR-014-apache-cxf-soap-client.md) | Apache CXF client SOAP | accepted |
+| [ADR-015](ADR-015-storicizzazione-immutabile.md) | Storicizzazione immutabile | accepted |
+| [ADR-016](ADR-016-scaduto-async-batch-02.md) | SCADUTO async via BATCH-02 | accepted |
+| [ADR-017](ADR-017-lis-terzo-canale.md) | LIS terzo canale acquisizione | **superseded** |
+| [ADR-018](ADR-018-rfc-7807-error-response.md) | RFC 7807 error response | accepted |
+| [ADR-019](ADR-019-cdu-06-pdf-scope-ridotto.md) | CDU-06 PDF scope ridotto | **superseded** |
+| [ADR-020](ADR-020-lis-integrazione-be-esistente.md) | LIS/RIS integrazione BE esistente (supersede ADR-017) — ✅ LIS usa `ConsprefService` (verifica su TEST 21/10/2026); conferma su produzione a CSI | accepted |
+| [ADR-021](ADR-021-perimetro-solo-operatore.md) | Perimetro progetto: solo Webapp Operatore (supersede ADR-011, ADR-019) | accepted |
+| [ADR-022](ADR-022-cdu-06-scarico-informativa-operatore.md) | CDU-06 scarico informativa anche per l'Operatore (FE Operatore) | accepted |
+| [ADR-023](ADR-023-cdu-11-contratto-rest-valori-ammessi.md) | CDU-11 contratto REST dedicato (`PUT /consensi/{cfAssistito}/valore`) e valori ammessi da `cons_r_consenso_valore` | accepted |
+| [ADR-024](ADR-024-cdu-14-destinazione-endpoint.md) | CDU-14 valori del campo Destinazione degli endpoint: `NOTIFICA_CONSENSO` (default, anche se vuoto) e `WEBHOOK_ALLINEAMENTO` | accepted |
+| [ADR-025](ADR-025-contratto-cittadino-soap-consensobeservice.md) | Contratto Webapp Cittadino: SOAP `ConsensoBeService` (10 operazioni) via APISAN, preservato a iso-funzionalità | accepted |
+| [ADR-026](ADR-026-form-dinamico-catalogo-campi.md) | Form dinamico: catalogo di campi tipizzati (`TESTO`, `TEXTAREA`, `DOMANDA`) configurato in CDU-12 (FE-08) | proposed |
+
