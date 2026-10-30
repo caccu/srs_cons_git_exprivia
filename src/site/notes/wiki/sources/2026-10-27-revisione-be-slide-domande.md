@@ -72,5 +72,5 @@ Applicato: SRS rev. 1.22 (§2.3: identità, abilitazione, requisiti di deploymen
 
 - Dev BE: correggere `valori_ammessi`; chiudere SCADUTO/ANNULLATO in `ConsensoBeService` e `/informativa/update`.
 - Dev BE: implementare la sessione dell'operatore (403 senza operatore abilitato), protezione CSRF, scorciatoie solo con `local` (anche filtro SIA del backend, usato dai test con profilo `test`).
-- Marco: confermare con CSI n. 12 (INT-09, esteso), n. 16 (migrazione notifiche), n. 19 (ritentativi), n. 25, estensione snapshot CDU-17.
+- Marco: confermare con CSI n. 12 (INT-09, esteso), n. 16 (migrazione notifiche), n. 19 (ritentativi; ora n. 23, EXP-06; decisione Exprivia 30/10/2026: si applica l'SRS, 3 tentativi, [[wiki/docs/adr/ADR-007-batch-01-5min-skip-locked\|ADR-007-batch-01-5min-skip-locked]]), n. 25, estensione snapshot CDU-17.
 - Specifica OpenAPI CDU-17: non esiste ancora (il file v0.1 copre CDU-15/16, con nota integratori su SCADUTO aggiornata il 27/10); alla stesura riportare gli stati restituiti dallo snapshot.

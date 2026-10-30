@@ -264,6 +264,7 @@ Domande dello sviluppatore BE. Risposte Exprivia sulla base dell'SRS v10 e della
 | BE-24 | Server SMTP per gli avvisi e contratto del webhook | 🟠 Da inviare |
 | BE-25 | Dichiarazione manutenzione ASR senza API Manager (SRS §7.4) | 🟠 Da inviare |
 | BE-26 | Chi sblocca una manutenzione dimenticata | 🟠 Da inviare |
+| EXP-06 (n. 23) | Ritentativi delle notifiche BATCH-01: proposta Exprivia 30/10/2026 = SRS (3 tentativi configurabili, uno per ciclo del batch, poi `ERRORE_PERMANENTE`); avviso al cittadino fermo con errore permanente | 🟠 Da inviare |
 
 **Da CSI: in verifica o parziali**
 

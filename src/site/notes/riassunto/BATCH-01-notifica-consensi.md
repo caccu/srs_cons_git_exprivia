@@ -30,7 +30,7 @@ Quando tutte le notifiche di una variazione risultano consegnate (`COMPLETATO`),
 2. Per ogni record: costruzione del messaggio SOAP. **SRV-03 `NotificaAcquisizioneConsenso`** per acquisizioni/modifiche, **SRV-04 `NotificaRevocaConsenso`** per revoche/annullamenti. Campi obbligatori: `codFiscale`, `codAsr`, `codConsenso`, `valConsenso` (SI/NO), `dataAcquisizione`, `codOperatore`, `fonte`. I nomi esatti vanno presi dal WSDL.
 3. Invio a `not_endp_url`.
 4. Esito OK → stato inviato/completato e `not_fine`.
-5. Errore HTTP o SOAP Fault (VAR01) → `not_stato = 'ERRORE'`, dettaglio in `cons_t_notifica_errore_dett`, `num_tentativi + 1`. Dopo **3 tentativi** (`MAX_TENTATIVI` configurabile) → **`ERRORE_PERMANENTE`**: non viene più ripreso in automatico e richiede intervento manuale.
+5. Errore HTTP o SOAP Fault (VAR01) → `not_stato = 'ERRORE'`, dettaglio in `cons_t_notifica_errore_dett`, `num_tentativi + 1`. Dopo **3 tentativi** (`MAX_TENTATIVI` configurabile) → **`ERRORE_PERMANENTE`**: non viene più ripreso in automatico e richiede intervento manuale. Il ritentativo avviene a ogni ciclo del batch (5 minuti, senza backoff) per le notifiche in `ERRORE` con `num_tentativi < MAX_TENTATIVI` (decisione Exprivia 30/10/2026 su BE-26, conferma CSI richiesta, domanda n. 23); le notifiche non tentate per manutenzione non contano. Il riporto a `DA_INVIARE` è una procedura manuale. Con una notifica in `ERRORE_PERMANENTE` l'avviso al cittadino resta fermo.
 6. Tutte le notifiche di una variazione COMPLETATE → invio della conferma al cittadino/delegato via Notificatore di Deleghe (mai prima).
 7. Ogni chiamata tracciata in `cons_t_traccia_serv_est`. Eccezioni non fatali in `cons_t_batch_errori`.
 
