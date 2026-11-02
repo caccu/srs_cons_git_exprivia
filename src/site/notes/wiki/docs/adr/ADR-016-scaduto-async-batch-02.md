@@ -11,7 +11,7 @@
 
 > 🆕 **Ambito di SCADUTO e ANNULLATO ([[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|call CSI 28/10/2026]]):** verso le aziende il contratto AS-IS (`ConsprefService`, SRV-03/04) conosce solo **SÌ e NO** e non cambia, quindi nessuno stato nuovo viene comunicato alle aziende. Il **consenso permanente al ritiro referti online** (informativa generale CPROL) non ha data di fine e al massimo diventa NO: mai SCADUTO né ANNULLATO. Il ciclo di vita completo vale per i **nuovi consensi** (scadenza dell'informativa). L'invio a sistemi terzi e i servizi di divulgazione sono **fuori perimetro**. Risposta data a voce: conferma scritta di CSI in corso (BAT-03). SRS rev. 1.25.
 >
-> La decisione di questo ADR (SCADUTO solo da BATCH-02) non cambia. Cambia l'**impatto verso i SIA**: la nota «i SIA devono aggiornare la propria logica» del rischio integrazione sotto non vale per le aziende, che restano su SÌ/NO. Resta da chiarire come BATCH-01 trasmette ANNULLATO (come NO?).
+> La decisione di questo ADR (SCADUTO solo da BATCH-02) non cambia. Cambia l'**impatto verso i SIA**: la nota «i SIA devono aggiornare la propria logica» del rischio integrazione sotto non vale per le aziende, che restano su SÌ/NO. **Decisione Exprivia 02/11/2026:** BATCH-01 trasmette ANNULLATO sempre come revoca (SRV-04, NO), qualunque fosse il valore precedente (SRS rev. 1.28 §7.1); conferma scritta di CSI nella domanda BAT-03.
 
 ## Context
 

@@ -19,6 +19,8 @@
 
 > 🆕 **Aggiornamento 27/10/2026** — verifica del 2° dev BE su CDU-14/15/16 ([[wiki/sources/2026-10-27-revisione-be-slide-domande\|2026-10-27-revisione-be-slide-domande]]). Il codice è già a posto; si adeguano SRS (rev. 1.21), slide 28/31 e riassunto: **6.7** DA_ALLINEARE solo alla *creazione* dell'endpoint, la modifica non cambia lo stato (scelta esplicita: un endpoint COMPLETATO che cambia URL o destinazione resta COMPLETATO, riallineamento manuale); **6.6** l'avviso out-of-band parte *sempre* alla creazione (tolta la condizione «consenso già attivo» / «altro endpoint attivo»); **6.10** `valida_fine > valida_inizio`, **fine esclusiva** (fine 30/10 = valido fino al 29/10); **8.4** CDU-16 espone solo `endp_id` ed `endp_url`, senza stato; **n. 9** opzione (c), 404 sugli indirizzi web fino alla risposta CSI. Da avvisare CSI: la condizione «già almeno un altro endpoint attivo» veniva dalla call del 20/07/2026.
 
+> 🆕 **Aggiornamento 02/11/2026** — riscontro del dev BE (`presentazione/Risposta_Marco_dev_BE_02_11_2026.md`): SRS rev. 1.28 (LCCE dal backend, sessione 30 minuti, CSRF con `SameSite=Strict`, blocco di allineamento ristretto all'azienda per i consensi aziendali, ANNULLATO come revoca, salto per ciclo dell'endpoint che non risponde). BE-25 manutenzione sviluppata su DEV. Percorsi BFF `/api/v1/backoffice/informative` e `/api/v1/backoffice/tipi-consenso`.
+
 > 🆕 **Aggiornamento 30/10/2026** — dopo la call CSI del 28/10 e le risposte ai dev (`presentazione/Risposta_Marco_dev_BE-FE_29_10_2026.md`, `Risposta_Marco_dev_BE-25_30_10_2026.md`): SRS a rev. 1.27 (A-02 `notifica_email` in rev. 1.26, A-01 «Modifica ente» in rev. 1.27); N-09 tipo ente in sola lettura. Domande CSI nel docx `Domande-CSI_CONSPREF_2026-10-23.docx`, ora 42: aggiunte **BE-24** (SMTP e webhook), **BE-25** (come l'azienda dichiara la manutenzione senza API Manager, SRS §7.4), **BE-26** (chi sblocca una manutenzione dimenticata), CDU-14 (destinatari avviso «endpoint aggiunto»), telnet in INF-05. CDU-17: se i servizi esistono nell'AS-IS si ripristinano, altrimenti soluzione più semplice; resta da chiedere a CSI se CDU-17 resta. Da recepire dopo l'approvazione CSI: API Manager/OAuth (ADR-004/005, SRS §3.2, §6.15-6.17, §7.4, §8.4.11), form dinamico in SRS e deck.
 
 > 🆕 **Aggiornamento 23/10/2026** — SRS a rev. 1.19 (22/10/2026: flag Online/Annulla solo in CDU-13): aggiornati stato del tracker e GOV-01. Verificato il [[wiki/sources/2026-10-22-mockup-fe-cdu-rev12\|mockup FE rev. 12]]: residui interni (N-01, N-08, A-01, A-02), DEV-01 e DEV-12 invariati. Nessuna nuova domanda a CSI.
@@ -253,7 +255,7 @@ Domande dello sviluppatore BE. Risposte Exprivia sulla base dell'SRS v10 e della
 | PULL-09 | Swagger (OpenAPI) CDU-17, inclusi servizi endpoint e scenario manutenzione | 🟠 Residuo attivo |
 | API-06 | URL server DEV/PROD e nome degli header del Gateway nello YAML CDU-15/16 | 🔴 Pre sottoscrizione APIM |
 | GOV-01 | Approvazione formale dell'SRS (oggi rev. 1.19) | 🟠 |
-| BAT-03 | Stato SCADUTO, comunicazione ai SIA: risposta in call 28/10 (solo SÌ/NO), da confermare per iscritto | 🟡 Risposta a voce |
+| BAT-03 | Stato SCADUTO, comunicazione ai SIA: risposta in call 28/10 (solo SÌ/NO), da confermare per iscritto; ANNULLATO inviato come NO (revoca), decisione Exprivia 02/11/2026, già in DEV | 🟡 Risposta a voce |
 | INF-05 | IaaS: ingress/TLS, gestione dei segreti applicativi, segmentazione security group (21/10/2026) | 🟠 |
 | INT-04 | Accesso al repo QUASAR CSI | 🟠 |
 | INT-06 / INT-08 | Contratto cittadino = SOAP `ConsensoBeService` via APISAN (ADR-025): solo conferma CSI | 🟡 Conferma CSI |
@@ -264,13 +266,13 @@ Domande dello sviluppatore BE. Risposte Exprivia sulla base dell'SRS v10 e della
 | BE-24 | Server SMTP per gli avvisi e contratto del webhook | 🟠 Da inviare |
 | BE-25 | Dichiarazione manutenzione ASR senza API Manager (SRS §7.4) | 🟠 Da inviare |
 | BE-25b (n. 14) | Chi sblocca una manutenzione dimenticata (ex BE-26, rinominata il 02/11/2026: BE-26 è la sigla interna dei dev per i ritentativi, domanda EXP-06) | 🟠 Da inviare |
-| EXP-06 (n. 23, BE-26 per i dev) | Ritentativi delle notifiche BATCH-01: proposta Exprivia 30/10/2026 = SRS (3 tentativi configurabili, uno per ciclo del batch, poi `ERRORE_PERMANENTE`); avviso al cittadino fermo con errore permanente | 🟠 Da inviare |
+| EXP-06 (n. 23, BE-26 per i dev) | Ritentativi delle notifiche BATCH-01: proposta Exprivia 30/10/2026 = SRS (3 tentativi configurabili, uno per ciclo del batch, poi `ERRORE_PERMANENTE`); 02/11: endpoint che non risponde saltato fino al ciclo successivo senza consumare tentativi (SRS rev. 1.28); avviso al cittadino fermo con errore permanente | 🟠 Da inviare |
 
 **Da CSI: in verifica o parziali**
 
 | # | Tema | Stato |
 |---|---|---|
-| DEV-01 | ~~`modifyToRevoked`~~ ✅ chiuso (decisione interna 27/10); regola «endpoint dismessi» (provvisoria: almeno un endpoint attivo, BE-16) | 🟡 Parziale |
+| DEV-01 | ~~`modifyToRevoked`~~ ✅ chiuso (decisione interna 27/10; 02/11: resta attivo sul legacy `informativa/update`, i nuovi servizi creano il NO in un passo); regola «endpoint dismessi» (provvisoria: almeno un endpoint attivo, BE-16) | 🟡 Parziale |
 | DEV-04 | Codici HTTP 502/409/503 | 🟡 In verifica CSI |
 | DEV-05 | Conferma architetti sul trust negli header del Gateway | 🟡 In verifica CSI |
 | GOV-02 | Altre [PROPOSTA] dell'SRS (deroga V03 già approvata) | 🟠 |

@@ -21,7 +21,7 @@ Durante l'allineamento l'acquisizione di nuovi consensi per quel sotto-tipo è *
 ## Flusso
 
 1. SIA → `PATCH /api/v1/endpoints/{endp_id}/stato-allineamento` `{stato: IN_CORSO}`.
-2. Il sistema imposta `cons_r_asr_endpoint.stato_allineamento = 'IN_CORSO'` e **blocca** CDU-03/CDU-09 (e di fatto ogni nuova acquisizione) per quel `sotto_tipo_consenso`. Il blocco è obbligatorio: la variante watermark senza blocco **non** è stata adottata.
+2. Il sistema imposta `cons_r_asr_endpoint.stato_allineamento = 'IN_CORSO'` e **blocca** CDU-03/CDU-09 (e di fatto ogni nuova acquisizione) per quel `sotto_tipo_consenso`: i consensi aziendali solo per l'azienda in allineamento, i regionali per tutti, perché finiscono anche nello snapshot dell'azienda (SRS rev. 1.28, decisione 02/11/2026; prima il codice bloccava il sotto-tipo per tutte le aziende). Il blocco è obbligatorio: la variante watermark senza blocco **non** è stata adottata.
 3. SIA chiama in loop `GET /api/v1/consensi/snapshot?codice_ente=&codice_consenso=&cursor=&page_size=`.
 4. Il sistema restituisce una pagina di consensi **attivi** con `next_cursor`. A ogni chiamata verifica che il SIA legga solo il proprio ente.
 5. Fine del loop quando `has_more = false`.
@@ -48,7 +48,7 @@ PATCH /api/v1/endpoints/{endp_id}/stato-allineamento   { "stato": "IN_CORSO" | "
 
 - **Snapshot Service** (Spring Boot): query sui record di `cons_t_consenso` con `data_fine IS NULL` e stato ATTIVO/NEGATO, filtrati per `cod_asr = :authorizedEnte` e `sotto_tipo_consenso`, ordinati per `cons_id`. Indice su (`sotto_tipo_consenso`, `cod_asr`, `cons_id`).
 - **Gestione dello stato** di `cons_r_asr_endpoint`: transizioni ammesse DA_ALLINEARE → IN_CORSO → COMPLETATO, ERRORE in caso di problemi; 409 se già COMPLETATO. Il PATCH verifica che l'endpoint appartenga all'ente del chiamante.
-- **Blocco acquisizioni**: CDU-09/10/11 (e il BE cittadino) controllano prima di salvare che nessun endpoint del sotto-tipo/azienda sia `IN_CORSO`. In quel caso errore applicativo e, nella webapp, form disabilitato (`regole.bloccato_allineamento`).
+- **Blocco acquisizioni**: CDU-09/10/11 (e il BE cittadino) controllano prima di salvare che nessun endpoint del sotto-tipo sia `IN_CORSO`: per un consenso aziendale si guarda solo l'azienda del consenso, per un regionale tutte. In quel caso errore applicativo e, nella webapp, form disabilitato (`regole.bloccato_allineamento`).
 - Sicurezza identica a CDU-15/16 (`EnteAuthorizationFilter` esteso al caller CDU-17, `WHERE` sull'ente).
 - Audit strutturato di ogni pagina richiesta.
 - SCADUTO non compare nello snapshot, che espone solo i consensi attivi. Il canale asincrono per comunicare SCADUTO ai SIA è un tema aperto (BAT-03).

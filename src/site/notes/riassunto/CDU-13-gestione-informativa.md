@@ -70,7 +70,7 @@ Il contratto `Informativa` AS-IS (`id_informativa, desc_informativa, html_inform
 ## Come svilupparlo
 
 **Backend**
-- `GET /config/informative?sotto_tipo_consenso=...` (storico delle versioni), `GET /config/informative/{id}`, `POST /config/informative` (multipart per il PDF), `PATCH /config/informative/{id}` per impostare la scadenza. Modifica di una versione già in uso: vedi DEV-09 (proposta: in vigore solo `desc_informativa` e `data_scadenza`).
+- `GET /api/v1/backoffice/informative?sotto_tipo_consenso=...` (storico delle versioni), `GET /api/v1/backoffice/informative/{id}`, `POST /api/v1/backoffice/informative` (multipart per il PDF), `PATCH /api/v1/backoffice/informative/{id}` per impostare la scadenza. Modifica di una versione già in uso: vedi DEV-09 (proposta: in vigore solo `desc_informativa` e `data_scadenza`).
 - Servizio di storage del PDF (percorso su IaaS da definire con CSI). Lo stesso file è servito da CDU-06.
 - Validazione: date coerenti, nessuna sovrapposizione anomala tra versioni dello stesso sotto-tipo (regola da fissare).
 - Migrazione: aggiungere `online`, `annulla_consensi`, `stato_elaborazione`. Per le informative esistenti (CPROL, TELEMED) `online = true` e `annulla_consensi = false`, i default della maschera (BE-08).

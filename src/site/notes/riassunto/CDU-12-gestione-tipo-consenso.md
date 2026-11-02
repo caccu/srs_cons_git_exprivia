@@ -75,7 +75,7 @@ Modifica: in linea con la storicizzazione delle tabelle di relazione (`validita_
 ## Come svilupparlo
 
 **Backend**
-- CRUD `/config/tipi-consenso` (lista filtrata, dettaglio, create, update limitato ai campi ammessi).
+- CRUD `/api/v1/backoffice/tipi-consenso` (lista filtrata, dettaglio, create, update limitato ai campi ammessi).
 - Lookup: tipi consenso (`cons_d_tipo_cons`), valori (`cons_d_valore_cons`), parametri (`cons_d_parametro`), enti per tipo (ALG01).
 - Prerequisito DB: seed di `cons_d_parametro` con le chiavi (DESCRIZIONE_ESTESA, DOMANDA, TESTO_AGGIUNTIVO; codici da fissare) e di `tipo_ente` sugli enti esistenti.
 

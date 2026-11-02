@@ -49,7 +49,8 @@ Default del radio: l'SRS indica NO. La **proposta** è nessuna preselezione lato
 - Sotto-tipi validi in `cons_d_sotto_tipo_cons` non ancora espressi dall'assistito o in stato `ANNULLATO`.
 - Per ciascuno, informativa corrente e flag `online` da `cons_d_informativa`. Informativa corrente = stessa `sotto_tipo_consenso`, `data_decorrenza <= NOW()`, `data_scadenza` nulla o futura, non cancellata, la più recente. Per gli aziendali va considerata anche `cons_r_informativa_asr`.
 - `valori_ammessi` da `cons_r_consenso_valore` + `cons_d_valore_cons`; parametri da `cons_r_consenso_parametro`.
-- `regole.bloccato_allineamento = true` se l'endpoint è `IN_CORSO`.
+- `regole.bloccato_allineamento = true` se l'endpoint è `IN_CORSO` (aziendale: solo l'azienda del consenso; regionale: qualunque azienda).
+- `regole.bloccato_manutenzione = true` se l'azienda è in manutenzione (§7.4). Arriva con il nuovo form (`campi[]` e `regole`, BE-05).
 
 **ALG02 — Salvataggio** (passi 4, 5, 6 dell'algoritmo canonico, vedi TRASV §4). In un'unica transazione:
 1. validazione: campi obbligatori, valore tra quelli ammessi, informativa corrente coerente col sotto-tipo, presa visione = true, nessun record valido già ATTIVO/NEGATO, nessun blocco di allineamento o manutenzione;

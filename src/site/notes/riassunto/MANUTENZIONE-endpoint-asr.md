@@ -17,9 +17,9 @@ Non è un CDU numerato ed è distinto da CDU-17: non c'è un nuovo endpoint da a
 
 ## Flusso
 
-1. Il SIA, autenticato su APIMBBONE, chiama `PATCH /api/v1/endpoints/{endp_id}/stato` con `stato = IN_MANUTENZIONE`.
+1. L'azienda (autenticazione in attesa di CSI, BE-25) chiama `PATCH /api/v1/endpoints/{endp_id}/stato` con `stato = IN_MANUTENZIONE`.
 2. Il sistema blocca l'acquisizione per l'azienda, sospende le notifiche verso i suoi sistemi e segnala il blocco alla webapp.
-3. Alla fine il SIA dichiara la ripresa (`stato = COMPLETATO`) e comunica i dati dell'ultimo invio riuscito. Il sistema sblocca, riprende le notifiche (i record rimasti in coda partono al ciclo successivo di BATCH-01) e segnala la ripresa alla webapp.
+3. Alla fine il SIA dichiara la ripresa (`stato = ATTIVO`; l'SRS scrive ancora `COMPLETATO`, vedi punti aperti) e comunica i dati dell'ultimo invio riuscito. Il sistema sblocca, riprende le notifiche (i record rimasti in coda partono al ciclo successivo di BATCH-01) e segnala la ripresa alla webapp.
 
 ## Come svilupparlo
 
@@ -32,6 +32,19 @@ Non è un CDU numerato ed è distinto da CDU-17: non c'è un nuovo endpoint da a
 - API esposta via APIMBBONE con sicurezza per ente (solo i propri endpoint). Equivalente diretto dalla webapp per l'operatore, senza API Manager.
 - Estendere l'OpenAPI (CDU-15/16/17) o definire un CDU dedicato. Il punto è ancora aperto.
 - Audit e tracciatura di ogni cambio di stato.
+
+## Stato di sviluppo (dev BE, 02/11/2026)
+
+Pubblicato su DEV secondo le risposte del 30/10:
+- colonna `stato_endpoint` su `cons_t_endpoint`, valori `ATTIVO` e `IN_MANUTENZIONE`;
+- servizio `PATCH /api/v1/endpoints/{endp_id}/stato`; azienda in manutenzione finché almeno un suo endpoint lo è;
+- bloccati solo i consensi aziendali di quell'azienda, su tutti i canali (anche SOAP); i regionali si registrano e la notifica resta in coda;
+- BATCH-01 lascia in coda le notifiche verso l'azienda e le invia a fine manutenzione;
+- stato esposto nelle GET di enti, endpoint e cruscotto con `aziendaInManutenzione` e `statoEndpoint`; nella lista consensi gli stessi campi arrivano da `informativa/find`; nel form `regole.bloccato_manutenzione` arriva con BE-05;
+- manutenzione e allineamento si escludono: 409;
+- audit: in `csi_log_audit.utente` il codice dell'ente (senza API Manager manca il CF di chi chiama), finché CSI non risponde a BE-25.
+
+Testo per l'OpenAPI (PULL-09): `PATCH /api/v1/endpoints/{endp_id}/stato`, corpo `stato` (`IN_MANUTENZIONE` o `ATTIVO`) e `dati_ultimo_invio` (facoltativo, solo registrato). Risposte: 200; 400 stato non ammesso; 403 endpoint di un altro ente (verificabile solo dopo la risposta di CSI a BE-25); 404 endpoint inesistente; 409 endpoint già nello stato richiesto o allineamento in corso. `PATCH .../stato-allineamento`: 409 se l'endpoint è `IN_MANUTENZIONE`.
 
 ## Punti aperti
 

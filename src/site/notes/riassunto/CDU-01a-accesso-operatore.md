@@ -41,16 +41,18 @@ Attenzione al naming: il prefisso `/cittadino` **non** indica servizi per il cit
 ## Come svilupparlo
 
 **Backend**
-- Endpoint di risoluzione token: chiama `getTokenInformation2` (client configurabile: indirizzo e credenziali per ambiente), valida l'esito e registra in `csi_log_audit`.
+- Endpoint di risoluzione token: chiama `getTokenInformation2` (client configurabile: indirizzo e credenziali per ambiente), valida l'esito. LCCE è chiamato dal backend, come AURA. Nessuna registrazione in `csi_log_audit` della verifica del token (non prevista da SRS né AS-IS): basta la traccia in `cons_t_traccia_serv_est` (dev BE, 02/11/2026).
 - Lettura dell'identità dall'header `Shib-Iride-IdentitaDigitale`: classe `Identita` riprodotta (equivalente a quella del jar CSI `iridev2-pep-intf-2.0.0`, repo `repart.csi.it`); header non in formato IRIDE → 401. Nei profili `local` e `test` è accettato un CF semplice.
 - Spring Security: il filtro di sessione protegge tutte le API della webapp. Il CF operatore va messo nel `SecurityContext` e da lì letto da tutti i CDU (mai dal path).
 - Endpoint "chi sono" (CF, nome, abilitazioni) per il FE.
+- Sessione (SRS rev. 1.28): scade dopo 30 minuti di inattività, poi le API rispondono 403. CSRF: cookie di sessione `SameSite=Strict` (con `HttpOnly` e `Secure`), senza modifiche al FE perché la sessione nasce dopo il caricamento della pagina. Il token anti-CSRF si aggiunge solo se il collaudo lo richiede (per OWASP SameSite è una difesa aggiuntiva).
 - Tracciare la chiamata al servizio token in `cons_t_traccia_serv_est`.
 
 **Frontend**
 - Pagina di ingresso che intercetta il token PUA, chiama il BE e conserva lo stato utente.
 - Guard di routing sulle sezioni (Ricerca assistito; Configurazione: Tipi consenso, Informative, Enti/Endpoint).
 - Pagina d'errore generica e logout.
+- Gestione centralizzata di 401 e 403 (sessione scaduta): messaggio e ritorno al PUA, da concordare tra BE e FE (02/11/2026).
 
 ## Dipendenze
 
