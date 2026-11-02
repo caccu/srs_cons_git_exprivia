@@ -19,7 +19,7 @@ Non è un CDU numerato ed è distinto da CDU-17: non c'è un nuovo endpoint da a
 
 1. L'azienda (autenticazione in attesa di CSI, BE-25) chiama `PATCH /api/v1/endpoints/{endp_id}/stato` con `stato = IN_MANUTENZIONE`.
 2. Il sistema blocca l'acquisizione per l'azienda, sospende le notifiche verso i suoi sistemi e segnala il blocco alla webapp.
-3. Alla fine il SIA dichiara la ripresa (`stato = ATTIVO`; l'SRS scrive ancora `COMPLETATO`, vedi punti aperti) e comunica i dati dell'ultimo invio riuscito. Il sistema sblocca, riprende le notifiche (i record rimasti in coda partono al ciclo successivo di BATCH-01) e segnala la ripresa alla webapp.
+3. Alla fine il SIA dichiara la ripresa (`stato = ATTIVO`, SRS rev. 1.29) e comunica i dati dell'ultimo invio riuscito. Il sistema sblocca, riprende le notifiche (i record rimasti in coda partono al ciclo successivo di BATCH-01) e segnala la ripresa alla webapp.
 
 ## Come svilupparlo
 
@@ -50,7 +50,6 @@ Testo per l'OpenAPI (PULL-09): `PATCH /api/v1/endpoints/{endp_id}/stato`, corpo 
 
 - Esposizione: rientra nello swagger CDU-17 insieme ai servizi endpoint (PULL-09).
 - Granularità: il PATCH è per endpoint, ma l'effetto è sull'intera azienda (SRS §7.4). Proposta del 30/10/2026 (risposta al dev BE, BE-25): azienda in manutenzione finché almeno un suo endpoint è `IN_MANUTENZIONE`.
-- Valore di fine manutenzione: l'SRS scrive `COMPLETATO` (conflitto con CDU-17); proposta `ATTIVO`, SRS da allineare dopo l'approvazione CSI dell'architettura.
 - Consensi regionali con una sola azienda in manutenzione: il consenso si registra, la notifica verso quell'azienda resta in coda (proposta Exprivia).
 - Casi particolari (proposta Exprivia): un endpoint in allineamento (CDU-17) non va in manutenzione e viceversa, errore 409.
 - Esposizione alle aziende e autenticazione: in attesa di CSI (senza API Manager, domanda BE-25); sblocco di una manutenzione dimenticata: domanda BE-25b (n. 14; ex BE-26), proposta V1.0 senza limite automatico.

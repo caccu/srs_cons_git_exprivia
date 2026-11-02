@@ -4,7 +4,7 @@
 
 # Riassunto tecnico-funzionale dei CDU — Gestione Consensi (CONSPREF)
 
-Aggiornato al 02/11/2026. Fonte principale: `CONSPREF-SRS-V1.0-revised_v10.md` (rev. 1.28), integrata con ADR-001÷026 (ADR-026 form dinamico, proposta), risposte al dev BE del 22/10/2026 (BE-09÷BE-20), verifica del mockup FE rev. 12, riscontro CSI del 25/09/2026, ricognizione endpoint AS-IS del 22/09/2026 e risposta al team FE sul Form Renderer del 01/10/2026.
+Aggiornato al 02/11/2026. Fonte principale: `CONSPREF-SRS-V1.0-revised_v10.md` (rev. 1.29), integrata con ADR-001÷026 (ADR-026 form dinamico, proposta), risposte al dev BE del 22/10/2026 (BE-09÷BE-20), verifica del mockup FE rev. 12, riscontro CSI del 25/09/2026, ricognizione endpoint AS-IS del 22/09/2026 e risposta al team FE sul Form Renderer del 01/10/2026.
 
 Lo scopo di questa cartella è pratico: leggendo un file si deve capire **cosa fa il caso d'uso** e **come va sviluppato**. Per il dettaglio normativo resta valido l'SRS: qui ogni file rimanda ai paragrafi di riferimento.
 
@@ -87,5 +87,5 @@ L'ordine segue le dipendenze reali tra i pezzi.
 | Valore effettivo di `fonte_id` per il Punto Assistito (`PASS` etichetta logica, es. `WA_PASS` nel DB AS-IS) | CDU-09/10/11 | Da verificare su `cons_d_fonte` |
 | INT-10: Notificatore di Deleghe = `notify-mb`? | avviso al cittadino dopo `COMPLETATO` (BATCH-01) | Da inviare a CSI |
 | Regole residue del Form Renderer: domande multiple, default del radio, HTML nei parametri. Chiuse: `online = NO` lato operatore (BE-18); una azienda per operazione (FE-03, resta la verifica AS-IS) | CDU-09/10/11 | Da inviare a CSI |
-| Stato `IN_MANUTENZIONE` e modello dati start/stop | Manutenzione endpoint | Separato da `stato_allineamento` (SRS rev. 1.18); colonna dedicata da dettagliare in progettazione |
+| Stato `IN_MANUTENZIONE` e modello dati start/stop | Manutenzione endpoint | Chiuso (02/11/2026, SRS rev. 1.29): colonna `cons_t_endpoint.stato_endpoint` (`ATTIVO`, `IN_MANUTENZIONE`), separata da `stato_allineamento`; ripresa con `stato = ATTIVO`. Resta aperto chi dichiara la manutenzione senza API Manager (BE-25) |
 | Infrastruttura IaaS: ingress/TLS, segreti, scaling | Deploy | Aperto con CSI |
