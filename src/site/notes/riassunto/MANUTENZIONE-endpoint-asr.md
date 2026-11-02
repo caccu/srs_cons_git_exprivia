@@ -40,5 +40,5 @@ Non è un CDU numerato ed è distinto da CDU-17: non c'è un nuovo endpoint da a
 - Valore di fine manutenzione: l'SRS scrive `COMPLETATO` (conflitto con CDU-17); proposta `ATTIVO`, SRS da allineare dopo l'approvazione CSI dell'architettura.
 - Consensi regionali con una sola azienda in manutenzione: il consenso si registra, la notifica verso quell'azienda resta in coda (proposta Exprivia).
 - Casi particolari (proposta Exprivia): un endpoint in allineamento (CDU-17) non va in manutenzione e viceversa, errore 409.
-- Esposizione alle aziende e autenticazione: in attesa di CSI (senza API Manager, domanda BE-25); sblocco di una manutenzione dimenticata: domanda BE-26, proposta V1.0 senza limite automatico.
+- Esposizione alle aziende e autenticazione: in attesa di CSI (senza API Manager, domanda BE-25); sblocco di una manutenzione dimenticata: domanda BE-25b (n. 14; ex BE-26), proposta V1.0 senza limite automatico.
 - Uso dei "dati dell'ultimo invio" comunicati dal SIA alla ripresa (eventuale reinvio?).
