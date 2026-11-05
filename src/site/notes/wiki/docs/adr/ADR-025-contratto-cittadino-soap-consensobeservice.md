@@ -9,6 +9,13 @@
 
 `accepted`: decisione Exprivia del 21/10/2026, su evidenze del team di sviluppo BE. Discende dal vincolo di compatibilità di [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]. Corregge l'indicazione del 22/09/2026 di esporre i servizi cittadino in REST. Recepito in SRS `revised_v10` rev. 1.14 (§4.2: riga nel riepilogo integrazioni e «Nota contratto Web App Cittadino»).
 
+> ⚠️ **In revisione (call CSI 05/11/2026):** CSI apre a rivedere `ConsensoBeService` per avere una sola logica tra cittadino e operatore. Le opzioni sono tre:
+> - mandarlo in pensione, con il cittadino sugli stessi REST con JWT del back office;
+> - adattare il SOAP, se l'impatto è limitato (circa 6 campi);
+> - lasciare il contratto invariato e adattare solo i DAO.
+>
+> La scelta arriva dopo lo swagger REST del back office e la stima di CSI. Fino ad allora vale questo ADR. `ConsprefService` invece resta fermo. Fonte: [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]].
+
 ## Context
 
 [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]] impone che il backend nuovo resti compatibile con la Webapp Cittadino esistente, che non viene modificata. Il contratto da preservare non era noto: la [[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|ricognizione del 22/09/2026]] copriva le API REST del Back Office (`consprefboweb`) e non aveva trovato servizi cittadino. Su quella base il 22/09 era stato indicato di esporre CDU-02 in REST, con un eventuale adapter (INT-06 chiesto a CSI).

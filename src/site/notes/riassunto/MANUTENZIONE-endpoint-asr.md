@@ -17,7 +17,7 @@ Non è un CDU numerato ed è distinto da CDU-17: non c'è un nuovo endpoint da a
 
 ## Flusso
 
-1. L'azienda (autenticazione in attesa di CSI, BE-25) chiama `PATCH /api/v1/endpoints/{endp_id}/stato` con `stato = IN_MANUTENZIONE`.
+1. L'azienda, in mutual TLS (decisione dedotta da ADR-027, BE-25), chiama `PATCH /api/v1/endpoints/{endp_id}/stato` con `stato = IN_MANUTENZIONE`.
 2. Il sistema blocca l'acquisizione per l'azienda, sospende le notifiche verso i suoi sistemi e segnala il blocco alla webapp.
 3. Alla fine il SIA dichiara la ripresa (`stato = ATTIVO`, SRS rev. 1.29) e comunica i dati dell'ultimo invio riuscito. Il sistema sblocca, riprende le notifiche (i record rimasti in coda partono al ciclo successivo di BATCH-01) e segnala la ripresa alla webapp.
 
@@ -29,7 +29,7 @@ Non è un CDU numerato ed è distinto da CDU-17: non c'è un nuovo endpoint da a
   - servizi di salvataggio consenso → errore di indisponibilità;
   - BATCH-01/02 → salto dei record dell'azienda, lasciati `DA_INVIARE`;
   - CDU-08/Form Renderer → azioni disabilitate e messaggio.
-- API esposta via APIMBBONE con sicurezza per ente (solo i propri endpoint). Equivalente diretto dalla webapp per l'operatore, senza API Manager.
+- API esposta alle aziende in mutual TLS, sullo stesso canale di CDU-17 (decisione dedotta da [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]]), con sicurezza per ente (solo i propri endpoint). Equivalente dalla webapp per l'operatore (CDU-14, BFF con JWT interno), che serve anche a togliere una manutenzione dimenticata (BE-25b).
 - Estendere l'OpenAPI (CDU-15/16/17) o definire un CDU dedicato. Il punto è ancora aperto.
 - Audit e tracciatura di ogni cambio di stato.
 
@@ -42,9 +42,9 @@ Pubblicato su DEV secondo le risposte del 30/10:
 - BATCH-01 lascia in coda le notifiche verso l'azienda e le invia a fine manutenzione;
 - stato esposto nelle GET di enti, endpoint e cruscotto con `aziendaInManutenzione` e `statoEndpoint`; nella lista consensi gli stessi campi arrivano da `informativa/find`; nel form `regole.bloccato_manutenzione` arriva con BE-05;
 - manutenzione e allineamento si escludono: 409;
-- audit: in `csi_log_audit.utente` il codice dell'ente (senza API Manager manca il CF di chi chiama), finché CSI non risponde a BE-25.
+- audit: in `csi_log_audit.utente` il codice dell'ente (non c'è il CF di chi chiama); come identificare l'ente in mutual TLS è da concordare con CSI (ST-11).
 
-Testo per l'OpenAPI (PULL-09): `PATCH /api/v1/endpoints/{endp_id}/stato`, corpo `stato` (`IN_MANUTENZIONE` o `ATTIVO`) e `dati_ultimo_invio` (facoltativo, solo registrato). Risposte: 200; 400 stato non ammesso; 403 endpoint di un altro ente (verificabile solo dopo la risposta di CSI a BE-25); 404 endpoint inesistente; 409 endpoint già nello stato richiesto o allineamento in corso. `PATCH .../stato-allineamento`: 409 se l'endpoint è `IN_MANUTENZIONE`.
+Testo per l'OpenAPI (PULL-09): `PATCH /api/v1/endpoints/{endp_id}/stato`, corpo `stato` (`IN_MANUTENZIONE` o `ATTIVO`) e `dati_ultimo_invio` (facoltativo, solo registrato). Risposte: 200; 400 stato non ammesso; 403 endpoint di un altro ente (identificazione dell'ente in mutual TLS da concordare con CSI); 404 endpoint inesistente; 409 endpoint già nello stato richiesto o allineamento in corso. `PATCH .../stato-allineamento`: 409 se l'endpoint è `IN_MANUTENZIONE`.
 
 ## Punti aperti
 
@@ -52,5 +52,5 @@ Testo per l'OpenAPI (PULL-09): `PATCH /api/v1/endpoints/{endp_id}/stato`, corpo 
 - Granularità: il PATCH è per endpoint, ma l'effetto è sull'intera azienda (SRS §7.4). Proposta del 30/10/2026 (risposta al dev BE, BE-25): azienda in manutenzione finché almeno un suo endpoint è `IN_MANUTENZIONE`.
 - Consensi regionali con una sola azienda in manutenzione: il consenso si registra, la notifica verso quell'azienda resta in coda (proposta Exprivia).
 - Casi particolari (proposta Exprivia): un endpoint in allineamento (CDU-17) non va in manutenzione e viceversa, errore 409.
-- Esposizione alle aziende e autenticazione: in attesa di CSI (senza API Manager, domanda BE-25); sblocco di una manutenzione dimenticata: domanda BE-25b (n. 14; ex BE-26), proposta V1.0 senza limite automatico.
+- Esposizione alle aziende e autenticazione: **mutual TLS** come CDU-17 (decisione dedotta da ADR-027, BE-25). Sblocco di una manutenzione dimenticata: **l'operatore da CDU-14** (BE-25b, n. 14; ex BE-26), senza limite automatico in V1.0.
 - Uso dei "dati dell'ultimo invio" comunicati dal SIA alla ripresa (eventuale reinvio?).

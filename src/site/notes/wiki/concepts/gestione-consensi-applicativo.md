@@ -51,7 +51,7 @@ Il consenso è esprimibile attraverso **due canali** UI a livello di sistema:
 | **Cittadino**         | SPID/CIE via [[wiki/concepts/gasp-salute\|GASP Salute]] su **webapp separata** | CDU-01b, CDU-02÷CDU-06            | ❌ **NO** — non gestito da Configuratore | ⚠️ **FE OUT / BE IN** — [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]] (22/09/2026) |
 | **Operatore di sportello** | PUA / RUPAR/IRIDE                                           | CDU-01a, CDU-06÷CDU-11            | Sì — profilo già censito                | ✅ IN |
 | **Profilo di configurazione** | PUA / RUPAR/IRIDE                                        | CDU-01a, CDU-12÷CDU-14 (CDU-17 innescato da qui) | Sì — profilo nuovo, nome da CSI | ✅ IN |
-| SIA Aziendale         | API REST (OAuth2 Bearer JWT)                                     | CDU-15, CDU-16, CDU-17            | N/A — autenticazione machine-to-machine | ✅ IN |
+| SIA Aziendale         | API REST interne, **non esposte in V1.0** ([[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]]); CDU-17 usato dall'operatore | CDU-15, CDU-16, CDU-17            | N/A — autenticazione machine-to-machine | ✅ IN (sviluppati, non esposti) |
 
 ### Nota su profilo Cittadino (MF7R5)
 
@@ -145,7 +145,7 @@ Variante 6.1.3 [PROPOSTA]: se il servizio Gestione Deleghe non risponde o restit
 - `GET /api/v1/configurazione/{codiceEnte}` (CDU-16)
 - `GET /api/v1/consensi/snapshot` (CDU-17, ✅ confermato 20/07/2026 — vedi [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]])
 
-Sicurezza per tutti gli endpoint SIA: vedi [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]].
+Sicurezza per tutti gli endpoint SIA: vedi [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]. In V1.0 non esposti: vedi [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]].
 
 ---
 

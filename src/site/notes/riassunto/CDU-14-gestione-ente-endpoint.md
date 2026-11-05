@@ -12,13 +12,13 @@ Gestisce l'anagrafica degli **enti** (ASR, enti nazionali e regionali) e dei lor
 
 Quando si aggiunge un nuovo endpoint, il nuovo SIA va **allineato** con i consensi esistenti. Il sistema non fa push massivi: imposta `stato_allineamento = DA_ALLINEARE`, avvisa il SIA fuori banda (email e/o webhook) e il SIA scarica i dati in PULL con [CDU-17](CDU-17-snapshot-pull.md).
 
-**Doppia esposizione**: le stesse operazioni su endpoint (inserimento, modifica, eliminazione) sono disponibili
-- dalla **webapp Operatore**, in chiamata diretta senza API Manager;
-- per le **aziende**, via **API Manager APIMBBONE** (servono anche per allineamento e manutenzione, §7.4).
+**Esposizione** (ADR-027, niente API Manager):
+- le operazioni su enti ed endpoint (inserimento, modifica, eliminazione) si fanno **solo dalla webapp Operatore**;
+- le **aziende** possono chiamare solo il cambio di stato di allineamento (CDU-17) e la manutenzione (§7.4), in **mutual TLS** come `ConsprefService` (decisione dedotta da ADR-027; certificati da concordare con CSI, ST-11).
 
 ## Precondizioni
 
-Operatore autenticato (webapp); SIA autenticato su APIMBBONE (API).
+Operatore autenticato (webapp, sessione PUA e JWT interno); SIA in mutual TLS solo per allineamento e manutenzione (decisione dedotta da ADR-027).
 
 ## Flusso (webapp)
 
@@ -66,14 +66,14 @@ Operatore autenticato (webapp); SIA autenticato su APIMBBONE (API).
 - Disattivazione ente (requisito CSI V03, SRS rev. 1.12 §6.14): la fine validità si propaga a `cons_r_asr_endpoint`, `cons_r_sotto_tipo_cons_asr_endpoint` e `cons_r_informativa_asr`; l'eliminazione di un endpoint chiude anche i suoi legami. Blocchi su modifica/disattivazione: da chiedere a CSI (DEV-12).
 - Effetti su altri CDU: CDU-09/10/11 non generano notifiche verso endpoint `IN_CORSO` e bloccano l'acquisizione per quel sotto-tipo finché l'allineamento è in corso. BATCH-01 legge l'URL di destinazione.
 
-## API esposte alle aziende (via APIMBBONE)
+## API esposte alle aziende (mutual TLS, decisione dedotta da ADR-027)
 
-Servizi CRUD endpoint, più `PATCH /api/v1/endpoints/{endp_id}/stato-allineamento` (CDU-17) e `PATCH /api/v1/endpoints/{endp_id}/stato` (manutenzione, §7.4). Sicurezza come CDU-15/16: `EnteAuthorizationFilter`, l'azienda opera solo sui propri endpoint. Vanno descritti nell'OpenAPI.
+`PATCH /api/v1/endpoints/{endp_id}/stato-allineamento` (CDU-17) e `PATCH /api/v1/endpoints/{endp_id}/stato` (manutenzione, §7.4). `EnteAuthorizationFilter`: l'azienda opera solo sui propri endpoint. Il CRUD degli endpoint non è esposto: resta solo nella webapp. Vanno descritti nell'OpenAPI.
 
 ## Come svilupparlo
 
 **Backend**
-- Service di dominio unico per enti/endpoint, usato da due controller: webapp (sessione PUA) e API aziende (APIM, `/api/v1/...`).
+- Service di dominio unico per enti/endpoint, usato da due controller: webapp (sessione PUA) e API aziende (mutual TLS, solo i due `PATCH`, `/api/v1/...`).
 - Parametro di configurazione per il canale di notifica (EMAIL | WEBHOOK | ENTRAMBI) e client email/webhook.
 - Migrazione: colonne `tipo_ente`, `stato_allineamento`, `cons_t_endpoint.destinazione_id`; tabella `cons_d_asr_destinazione` con seed (`NOTIFICA_CONSENSO`, `WEBHOOK_ALLINEAMENTO`); endpoint AS-IS valorizzati a `NOTIFICA_CONSENSO`.
 

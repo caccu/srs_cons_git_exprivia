@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/readme/","title":"Architecture Decision Records — Gestione Consensi","dg-note-properties":{"title":"Architecture Decision Records — Gestione Consensi","type":"index","created":"2026-05-19","updated":"2026-10-15"}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/readme/","title":"Architecture Decision Records — Gestione Consensi","dg-note-properties":{"title":"Architecture Decision Records — Gestione Consensi","type":"index","created":"2026-05-19","updated":"2026-11-05"}}
 ---
 
 
@@ -22,8 +22,8 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | [ADR-001](ADR-001-stack-tecnologico.md) | Stack tecnologico (Spring Boot 3 + Java 17 + Angular 21 + PG18) | accepted | 2026-03-02 | Stack |
 | [ADR-002](ADR-002-piattaforma-ecaas.md) | Piattaforma ECaaS Kubernetes Nivola + vincoli | superseded | 2026-03-02 | Infrastruttura |
 | [ADR-003](ADR-003-dbaas-nivola.md) | DBaaS Nivola esterno al namespace | accepted | 2026-03-02 | Infrastruttura |
-| [ADR-004](ADR-004-no-api-gateway.md) | No API Gateway — sicurezza applicativa via Spring Security | partially-superseded | 2026-03-02 | Sicurezza |
-| [ADR-005](ADR-005-sicurezza-cdu-15-16.md) | Sicurezza CDU-15/16 — OAuth2 CC + JWT + autorizzazione per ente | accepted | 2026-05-14 | Sicurezza |
+| [ADR-004](ADR-004-no-api-gateway.md) | No API Gateway — sicurezza applicativa via Spring Security | superseded by ADR-027 | 2026-03-02 | Sicurezza |
+| [ADR-005](ADR-005-sicurezza-cdu-15-16.md) | Sicurezza CDU-15/16 — OAuth2 CC + JWT + autorizzazione per ente | superseded by ADR-027 | 2026-05-14 | Sicurezza |
 | [ADR-006](ADR-006-batch-03-pull-cdu-17.md) | Sostituzione BATCH-03 push → CDU-17 PULL (centro stella) | **accepted** | 2026-07-20 | Batch / Integrazione |
 | [ADR-007](ADR-007-batch-01-5min-skip-locked.md) | BATCH-01 5 min con SKIP LOCKED | accepted | 2026-05-14 | Batch |
 | [ADR-008](ADR-008-ssot-form-renderer.md) | SSoT Form Renderer unico (Cittadino + Operatore) — nota scope: solo Op | accepted | 2026-05-14 | UX / Architettura |
@@ -45,6 +45,7 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | [ADR-024](ADR-024-cdu-14-destinazione-endpoint.md) | CDU-14 — valori del campo Destinazione degli endpoint (NOTIFICA_CONSENSO, WEBHOOK_ALLINEAMENTO) | accepted | 2026-10-15 | Modello dati |
 | [ADR-025](ADR-025-contratto-cittadino-soap-consensobeservice.md) | Contratto Webapp Cittadino — SOAP `ConsensoBeService` preservato (via APISAN) | accepted | 2026-10-21 | Integrazioni |
 | [ADR-026](ADR-026-form-dinamico-catalogo-campi.md) | Form dinamico: catalogo di campi tipizzati (`TESTO`, `TEXTAREA`, `DOMANDA`) configurato in CDU-12 (FE-08) | proposed | 2026-10-29 | UX / Modello dati |
+| [ADR-027](ADR-027-architettura-senza-api-manager.md) | Architettura TO-BE senza API Manager: JWT interno operatore, basic APISAN, mutual TLS aziende; CDU-15/16 non esposti, CDU-17 avviato dall'operatore ed eseguito dal SIA in mutual TLS (decisione dedotta da ADR-027) | accepted | 2026-11-05 | Sicurezza / Architettura |
 
 ---
 
@@ -79,8 +80,9 @@ ADR-001 stack
   ├── ADR-014 Apache CXF
   └── ADR-007 BATCH-01 5min (SKIP LOCKED nativo PG18)
 
-ADR-004 no API GW
-  └── ADR-005 sicurezza CDU-15/16
+ADR-027 architettura senza API Manager (05/11/2026)
+  ├── supersede ADR-004 no API GW
+  └── supersede ADR-005 sicurezza CDU-15/16
         └── ADR-006 CDU-17 PULL (riusa pattern)
 
 ADR-008 SSoT Form Renderer (nota scope: solo Operatore)
@@ -121,7 +123,7 @@ ADR-019 CDU-06 PDF scope ridotto (standalone, allineato con UX cittadino) — su
 Vedi tracker autoritativo: [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|analysis-2026-05-14-punti-aperti-csi]].
 
 ADR con open issues:
-- **ADR-005**: SEC-01÷06 (URL AS, JWT, onboarding SIA, TTL, scope, revoca)
+- ~~**ADR-005**: SEC-01÷06~~ → superati da ADR-027 (nessun API Manager). **ADR-027**: chi chiama CDU-17; manutenzione da CDU-14 (domanda 12)
 - **ADR-006**: ✅ PULL-01 (blocco), PULL-02 (email+webhook), PULL-05/06/08 chiusi (call 20/07/2026); residui non bloccanti PULL-03/04/07 + swagger CDU-17
 - **ADR-007**: BAT-01 (WSDL SRV-01 vs SRV-03)
 - **ADR-010**: ~~ID-01 (GASP Salute protocollo)~~ non più bloccante — **frontend** CDU-01b fuori scope (ADR-021, 06/08/2026). ✅ Nessuna integrazione GASP nel backend: autenticazione chiusa su SANSOL/APISAN (dev BE 21/10/2026, ADR-025)

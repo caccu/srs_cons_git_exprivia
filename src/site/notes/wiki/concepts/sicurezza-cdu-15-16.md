@@ -1,9 +1,19 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/sicurezza-cdu-15-16/","title":"Sicurezza CDU-15-16 — Modello Autorizzazione per Ente","tags":["sicurezza","cdu-15","cdu-16","oauth2","jwt","multi-tenancy","spring-security","tr30"],"dg-note-properties":{"title":"Sicurezza CDU-15-16 — Modello Autorizzazione per Ente","aliases":["Sicurezza CDU-15-16 — Modello Autorizzazione per Ente"],"type":"concept","tags":["sicurezza","cdu-15","cdu-16","oauth2","jwt","multi-tenancy","spring-security","tr30"],"created":"2026-05-14","updated":"2026-09-25","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-09-25-riscontro-csi-domande-sviluppo"],"related":["[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]","[[Sistemi Esterni Integrati]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]","[[Gestione Consensi - Applicativo]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/sicurezza-cdu-15-16/","title":"Sicurezza CDU-15-16 — Modello Autorizzazione per Ente","tags":["sicurezza","cdu-15","cdu-16","oauth2","jwt","multi-tenancy","spring-security","tr30"],"dg-note-properties":{"title":"Sicurezza CDU-15-16 — Modello Autorizzazione per Ente","aliases":["Sicurezza CDU-15-16 — Modello Autorizzazione per Ente"],"type":"concept","tags":["sicurezza","cdu-15","cdu-16","oauth2","jwt","multi-tenancy","spring-security","tr30"],"created":"2026-05-14","updated":"2026-11-05","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-09-25-riscontro-csi-domande-sviluppo"],"related":["[[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]]","[[2026-11-05-call-csi-analisi-dubbi|Call CSI 05/11/2026]]","[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]","[[Sistemi Esterni Integrati]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]","[[Gestione Consensi - Applicativo]]"]}}
 ---
 
 
 # Sicurezza CDU-15/16 — Modello Autorizzazione per Ente
+
+> ⛔ **Superato per la V1.0 da [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]] (05/11/2026):** nel TO-BE non ci sono API Manager né OAuth2, e CDU-15 e CDU-16 restano nel codice senza essere esposti. Il modello descritto sotto (token OAuth2, header inoltrati dal gateway, livelli A/B/C, `cons_t_client_ente`) resta come riferimento per un'eventuale apertura futura, che richiederà un nuovo ADR.
+
+## Modello TO-BE V1.0 (ADR-027)
+
+- **Operatore:** Angular e BFF, login IRIDE/Shibboleth, JWT interno tra BFF e backend.
+- **Cittadino:** APISAN verso backend in basic authentication.
+- **Aziende e laboratori:** SOAP `ConsprefService` in mutual TLS, come oggi.
+- **CDU-15/16:** non esposti. Se un servizio interno lavora per ente, resta il filtro su `codice_ente` (l'attuale «Livello C»).
+- **Nessun rate limiting o throttling applicativo in V1.0.**
 
 > ✅ **Aggiornamento call CSI 20/07/2026 — punti sicurezza chiusi.** CSI ha confermato:
 > - **Q1 (header/claim) — RISOLTO:** l'**API Manager APIMBBONE inoltra sempre al backend il Codice Fiscale (recuperato da Shibboleth/GASP) e il `codice_ente`** in header/claim. Il backend deriva l'ente da qui, non serve più validazione token lato nostro.

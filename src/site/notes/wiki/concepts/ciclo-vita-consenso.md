@@ -48,6 +48,18 @@ NON_ESPRESSO
 - ATTIVO → NEGATO: cambio valore via webapp cittadino (❌ fuori scope, CDU-04) o operatore (✅ in scope, CDU-05/CDU-11). Nessuna riaccettazione informativa richiesta finché l'informativa è quella corrente.
 - NEGATO → ATTIVO: simmetrica.
 
+> 🆕 **Primo «no» e «revocato» (call CSI 05/11/2026, indicazione a voce):**
+> - **AS-IS:** il primo «no» del cittadino è salvato come A/NO (stato attivo, valore NO). A video conta il valore: si vede come «negato» e si può portare a «sì». L'ha verificato Sabina la mattina del 05/11.
+> - **R/NO** nella decodifica significa «revocato». Se il primo «no» venisse salvato come R/NO, il cittadino lo vedrebbe «revocato» senza aver mai detto sì: CSI lo considera un baco da chiudere.
+> - **TO-BE voluto:**
+>   - il primo «no» è NEGATO e si può portare a «sì»;
+>   - REVOCATO è solo il passaggio da sì a no, tracciando chi l'ha fatto (cittadino o operatore);
+>   - il ciclo di vita deve dire se il consenso era nato «no» o lo è diventato;
+>   - resta l'unione stato + valore (`cons_d_stato`, `cons_d_valore`).
+> - **Da verificare:** il motore TO-BE (ALG02) legge oggi A/NO come ATTIVO e rifiuta il passaggio a «sì» (differenza 2). Va allineato. Prova a video in gruppo ridotto.
+>
+> Fonte: [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]].
+
 ---
 
 ## Semantica degli stati
@@ -60,12 +72,32 @@ NON_ESPRESSO
 | `SCADUTO` | "scaduto" | Informativa cambiata, annulla=NO, valore ancora valido | **No** |
 | `ANNULLATO` | "annullato" | Informativa cambiata, annulla=SI, consenso nullo | **Sì** |
 
+> 🆕 **NON ESPRESSO: record o assenza di record? (call CSI 05/11/2026, da decidere al fornitore)**
+> - Oggi è nella decodifica, ma nel DB non ci sono record con questo stato. È lo stato di partenza: dopo un sì o un no non ci si torna.
+> - **Casi da gestire:**
+>   - consenso regionale per le aziende A, B e C, espresso solo per A e B;
+>   - azienda aggiunta dopo che il cittadino si è già espresso.
+> - **Posizione emersa:** non esprimersi per scelta e non sapere che l'azienda c'era hanno lo stesso risultato, «non espresso». Diverso è il «no» voluto.
+> - In ogni caso il «non espresso» va mostrato: se non è un record, va ricavato dall'assenza (outer join sulle aziende del consenso).
+> - **Da decidere:**
+>   - se scriverlo come record (per esempio come valore di default nel JSON, subito ricoperto);
+>   - oppure lasciarlo come stato iniziale implicito, senza record. In questo caso la macchina a stati resta più semplice (Tommaso).
+>
+> Fonte: [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]].
+
 > 🆕 **Chiarimenti dev BE (27/10/2026, SRS §5.1 rev. 1.20)** ([[wiki/sources/2026-10-27-revisione-be-slide-domande\|2026-10-27-revisione-be-slide-domande]]):
 > - **`SCADUTO` ha due significati**, distinti solo da `data_fine`. *Record chiuso* (`data_fine` valorizzata): "record superato", come nell'AS-IS, impostato a ogni variazione per compatibilità con i canali SOAP legacy (`ConsprefService`, `ConsensoBeService`), che considerano corrente ogni record A/R senza guardare la data di fine. *Record aperto* (`data_fine` nulla), creato solo da BATCH-02: SCADUTO TO-BE, consenso vigente da riaccettare.
 > - **Regola:** il consenso vigente è sempre e solo quello con `data_fine` nulla. CDU-15 e CDU-17 filtrano su `data_fine IS NULL`.
 > - **`ANNULLATO` resta aperto per design** (`data_fine` nulla): è lo stato corrente da cui si riesprime il consenso (CDU-09/10), ma copia il valore del record precedente, quindi non è un consenso valido.
 > - **Inserimento su SCADUTO/ANNULLATO** (qualsiasi canale): chiude sempre il record e crea il nuovo sull'informativa corrente, anche a valore invariato (l'inserimento è la riaccettazione, CDU-10). "Stesso valore, nessuna azione" vale solo per ATTIVO/NEGATO.
 > - **Snapshot CDU-17:** restituisce ATTIVO, NEGATO e SCADUTO; non ANNULLATO.
+
+> 🆕 **Call CSI 05/11/2026, indicazione a voce da confermare nella macchina a stati TO-BE:** CSI riconosce il doppio significato di S come un problema da risolvere.
+> - **S su un record chiuso diventa STORICO:** si cambia la descrizione oppure il record si sposta in una tabella storica. È la chiusura di un record superato, non una scadenza.
+> - **SCADUTO resta solo per la scadenza vera,** forse con più tipi: per termine, per cessazione, per scadenza dell'informativa. Secondo Sabina resta nella stessa tabella, perché si agisce ancora su quei record.
+> - **ANNULLATO** resta lo stato legato al flag `annulla_consensi` dell'informativa.
+>
+> Da approfondire in un'ora tra Marco, Sabina e Manuela, poi nell'incontro tecnico sugli stati. Fino ad allora vale la regola del 27/10: il consenso in vigore è il record con `data_fine` nulla. Fonte: [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]].
 
 ---
 
@@ -77,6 +109,13 @@ NON_ESPRESSO
 - Nuovo stato: `INSERT in cons_t_consenso`
 
 Garantisce storia completa degli atti di consenso. Vale anche per le transizioni dirette ATTIVO↔NEGATO: si chiude il record corrente e si inserisce un nuovo record con il nuovo valore.
+
+> 🆕 **Call CSI 05/11/2026:**
+> - **Non ci sono due record in vigore sullo stesso consenso:** vale sempre l'ultimo. Il caso tipico è il cittadino che si esprime allo sportello e subito dopo cambia idea online. Il record precedente si chiude (oggi con S) e resta come storia: si tengono entrambe le registrazioni.
+> - **Sul record chiuso non si aggiorna chi ha agito:** resta l'autore originale. Se lo si sovrascrivesse, sembrerebbe che anche il valore precedente l'avesse dato chi ha fatto la modifica. CSI (Sabina) propone di mantenerlo così nel TO-BE.
+> - **Chi ha fatto la nuova scrittura** è tracciato sul nuovo record, con il codice fonte (`WA_CITT` Webapp Cittadino, `WA_PASS` Punto Assistito, codice ISTAT per aziende e LIS) e il CF.
+>
+> Fonte: [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]].
 
 ---
 
@@ -108,6 +147,8 @@ Garantisce storia completa degli atti di consenso. Vale anche per le transizioni
 ---
 
 ## Consenso aziendale — caso speciale CDU-04
+
+> 🆕 **Tipi di consenso (call CSI 05/11/2026):** in futuro i tipi possibili sono nazionale, regionale e aziendale. Oggi esiste solo CPROL (aziendale). Possibile il consenso alla sperimentazione (Città della Salute). Fonte: [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]].
 
 Se anche solo **1 consenso** di un cittadino per un'ASR è SCADUTO o ANNULLATO → il cittadino deve riaccettare le informative di **tutte** le ASR per quel tipo consenso.
 

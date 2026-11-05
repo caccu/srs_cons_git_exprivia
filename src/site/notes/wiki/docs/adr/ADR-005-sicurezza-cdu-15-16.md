@@ -1,11 +1,13 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-005-sicurezza-cdu-15-16/","title":"Sicurezza CDU-15/16 — OAuth2 Client Credentials + JWT + autorizzazione per ente a 3 livelli","tags":["sicurezza","cdu-15","cdu-16","oauth2","jwt","multi-tenancy","spring-security","tr30","tr58"],"dg-note-properties":{"adr":5,"title":"Sicurezza CDU-15/16 — OAuth2 Client Credentials + JWT + autorizzazione per ente a 3 livelli","status":"accepted","date":"2026-05-14","deciders":["Marco Forneris","CSI Piemonte","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["sicurezza","cdu-15","cdu-16","oauth2","jwt","multi-tenancy","spring-security","tr30","tr58"],"related_wiki":["[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16 — Modello Autorizzazione per Ente]]","[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|OpenAPI CDU-15/16]]","[[Sistemi Esterni Integrati]]"],"sources":["[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF — Revisione SRS v3 lavorazione]] MF59-62R58 (ex TR30/TR58)","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]] §6.15–§6.16"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-005-sicurezza-cdu-15-16/","title":"Sicurezza CDU-15/16 — OAuth2 Client Credentials + JWT + autorizzazione per ente a 3 livelli","tags":["sicurezza","cdu-15","cdu-16","oauth2","jwt","multi-tenancy","spring-security","tr30","tr58"],"dg-note-properties":{"adr":5,"title":"Sicurezza CDU-15/16 — OAuth2 Client Credentials + JWT + autorizzazione per ente a 3 livelli","status":"superseded","date":"2026-05-14","deciders":["Marco Forneris","CSI Piemonte","Exprivia"],"supersedes":[],"superseded-by":["ADR-027"],"tags":["sicurezza","cdu-15","cdu-16","oauth2","jwt","multi-tenancy","spring-security","tr30","tr58"],"related_wiki":["[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16 — Modello Autorizzazione per Ente]]","[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|OpenAPI CDU-15/16]]","[[Sistemi Esterni Integrati]]"],"sources":["[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|Risposte MF — Revisione SRS v3 lavorazione]] MF59-62R58 (ex TR30/TR58)","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]] §6.15–§6.16"]}}
 ---
 
 
 # ADR-005: Modello sicurezza CDU-15/16 — autorizzazione per ente a 3 livelli
 
 ## Status
+
+> ⛔ **Superseded (05/11/2026) da [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]]:** architettura TO-BE senza API Manager né OAuth2, approvata da CSI nella call del 05/11/2026. Il testo sotto resta come storia.
 
 `accepted` — risposta tecnica autoritativa MF59-62R58 (ex commento TR30/TR58) sulla revisione SRS bozza v3.
 

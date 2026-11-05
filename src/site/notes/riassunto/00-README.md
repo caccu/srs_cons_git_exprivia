@@ -38,7 +38,7 @@ Il progetto è un **rifacimento**: stesso dominio, nuovo stack (Angular 21 + Spr
 | CDU-11 | Modifica valore per conto | ✅ | ✅ | [CDU-05/11](CDU-05-CDU-11-modifica-valore.md) |
 | CDU-12 | Gestione tipo consenso | ✅ (Back Office) | ✅ | [CDU-12](CDU-12-gestione-tipo-consenso.md) |
 | CDU-13 | Gestione informativa | ✅ (Back Office) | ✅ | [CDU-13](CDU-13-gestione-informativa.md) |
-| CDU-14 | Gestione enti ed endpoint | ✅ (Back Office) | ✅ + API per aziende via APIM | [CDU-14](CDU-14-gestione-ente-endpoint.md) |
+| CDU-14 | Gestione enti ed endpoint | ✅ (Back Office) | ✅ + allineamento e manutenzione anche dai SIA in mutual TLS (decisione dedotta da ADR-027) | [CDU-14](CDU-14-gestione-ente-endpoint.md) |
 | CDU-15 | API stato consenso per SIA | — | ✅ | [CDU-15](CDU-15-api-stato-consenso.md) |
 | CDU-16 | API configurazione per SIA | — | ✅ | [CDU-16](CDU-16-api-configurazione.md) |
 | CDU-17 | Snapshot PULL per allineamento | — | ✅ | [CDU-17](CDU-17-snapshot-pull.md) |
@@ -56,7 +56,7 @@ Prima dei singoli CDU conviene leggere [TRASV-componenti-comuni.md](TRASV-compon
 - motore di **storicizzazione** del consenso (mai UPDATE in place);
 - **coda di notifica** `cons_t_notifica` alimentata dai CDU e svuotata da BATCH-01;
 - **audit** (`csi_log_audit`) e **tracciatura servizi esterni** (`cons_t_traccia_serv_est`);
-- sicurezza: sessione PUA per la webapp, API Manager APIMBBONE per i SIA;
+- sicurezza: sessione PUA e JWT interno per la webapp, mutual TLS per i SIA su CDU-17 e manutenzione (decisione dedotta da ADR-027); niente API Manager;
 - client SOAP (Apache CXF) verso AURA e SIA; servizi SOAP in ingresso da mantenere: `/services/ConsprefService` (aziende federate, LIS) e `ConsensoBeService` (Webapp Cittadino, ADR-025);
 - errori RFC 7807;
 - **Form Renderer** dinamico per CDU-09/10/11;
@@ -73,7 +73,7 @@ L'ordine segue le dipendenze reali tra i pezzi.
 5. **BATCH-01** (consuma la coda creata al punto 4).
 6. **Back Office**: CDU-12 → CDU-13 → CDU-14 (CDU-12 popola le tabelle che il Form Renderer legge).
 7. **BATCH-02** (scatta dalle informative gestite in CDU-13).
-8. **API SIA**: OpenAPI di CDU-15/16/17 prima del codice, poi implementazione dietro APIMBBONE; CDU-17 e manutenzione endpoint dipendono dallo `stato_allineamento` di CDU-14.
+8. **API SIA**: OpenAPI di CDU-17 e della manutenzione prima del codice, esposte ai SIA in mutual TLS (decisione dedotta da ADR-027); CDU-15/16 sviluppati ma non esposti in V1.0. CDU-17 e manutenzione endpoint dipendono dallo `stato_allineamento` di CDU-14.
 9. **Backend area Cittadino** a iso-funzionalità, in parallelo: SOAP `ConsensoBeService` con lo stesso WSDL (ADR-025).
 
 ## 5. Punti aperti trasversali (da tenere d'occhio)
@@ -82,10 +82,11 @@ L'ordine segue le dipendenze reali tra i pezzi.
 |---|---|---|
 | Contratto Webapp Cittadino = SOAP `ConsensoBeService` via APISAN (ADR-025, 10 operazioni, 9 usate da SANSOL) | Non regressione del BE Cittadino | Solo conferma CSI (INT-06/INT-08) |
 | DEV-04: codici HTTP 502/409/503 per errori esterni/DB | Contratto errori FE e integrazioni | In verifica CSI |
-| DEV-05: BE raggiungibile solo dal Gateway APIMBBONE (trust sugli header) | Sicurezza CDU-15/16/17 | Conferma architetti CSI |
+| ~~DEV-05: BE raggiungibile solo dal Gateway APIMBBONE~~ | Sicurezza CDU-15/16/17 | Superato da ADR-027 (nessun API Manager) |
+| ST-11: CDU-17 e manutenzione in mutual TLS (servizio separato da `ConsprefService`): decisione dedotta da ADR-027 | Sicurezza SIA | Decisa; da concordare con CSI certificati e identificazione dell'ente |
 | DEV-01: `modifyToRevoked` AS-IS e regola di esclusione aziende con endpoint dismessi (ASR 904 da ripristinare) | CDU-08/09/14, elenco ASR | Parziale; regola provvisoria: almeno un endpoint attivo (BE-16) |
 | Valore effettivo di `fonte_id` per il Punto Assistito (`PASS` etichetta logica, es. `WA_PASS` nel DB AS-IS) | CDU-09/10/11 | Da verificare su `cons_d_fonte` |
 | INT-10: Notificatore di Deleghe = `notify-mb`? | avviso al cittadino dopo `COMPLETATO` (BATCH-01) | Da inviare a CSI |
 | Regole residue del Form Renderer: domande multiple, default del radio, HTML nei parametri. Chiuse: `online = NO` lato operatore (BE-18); una azienda per operazione (FE-03, resta la verifica AS-IS) | CDU-09/10/11 | Da inviare a CSI |
-| Stato `IN_MANUTENZIONE` e modello dati start/stop | Manutenzione endpoint | Chiuso (02/11/2026, SRS rev. 1.29): colonna `cons_t_endpoint.stato_endpoint` (`ATTIVO`, `IN_MANUTENZIONE`), separata da `stato_allineamento`; ripresa con `stato = ATTIVO`. Resta aperto chi dichiara la manutenzione senza API Manager (BE-25) |
+| Stato `IN_MANUTENZIONE` e modello dati start/stop | Manutenzione endpoint | Chiuso (02/11/2026, SRS rev. 1.29): colonna `cons_t_endpoint.stato_endpoint` (`ATTIVO`, `IN_MANUTENZIONE`), separata da `stato_allineamento`; ripresa con `stato = ATTIVO`. La manutenzione la dichiara l'azienda in mutual TLS come CDU-17 (decisione dedotta da ADR-027, BE-25); l'operatore la può togliere da CDU-14 (proposta, BE-25b) |
 | Infrastruttura IaaS: ingress/TLS, segreti, scaling | Deploy | Aperto con CSI |

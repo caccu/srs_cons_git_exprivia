@@ -1,11 +1,13 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-004-no-api-gateway/","title":"No API Gateway/Manager CSI — sicurezza interamente applicativa via Spring Security","tags":["sicurezza","api-gateway","spring-security","architettura","no-apim"],"dg-note-properties":{"adr":4,"title":"No API Gateway/Manager CSI — sicurezza interamente applicativa via Spring Security","status":"partially-superseded","date":"2026-03-02","deciders":["CSI Piemonte","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["sicurezza","api-gateway","spring-security","architettura","no-apim"],"related_wiki":["[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16 — Modello Autorizzazione per Ente]]","[[architettura-iaas|Architettura IaaS]]","[[analysis-2026-05-06-openapi-cdu-15-16|OpenAPI CDU-15/16]]"],"sources":["[[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #6","[[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] §3.2"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-004-no-api-gateway/","title":"No API Gateway/Manager CSI — sicurezza interamente applicativa via Spring Security","tags":["sicurezza","api-gateway","spring-security","architettura","no-apim"],"dg-note-properties":{"adr":4,"title":"No API Gateway/Manager CSI — sicurezza interamente applicativa via Spring Security","status":"superseded","date":"2026-03-02","deciders":["CSI Piemonte","Exprivia"],"supersedes":[],"superseded-by":["ADR-027"],"tags":["sicurezza","api-gateway","spring-security","architettura","no-apim"],"related_wiki":["[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16 — Modello Autorizzazione per Ente]]","[[architettura-iaas|Architettura IaaS]]","[[analysis-2026-05-06-openapi-cdu-15-16|OpenAPI CDU-15/16]]"],"sources":["[[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #6","[[wiki/sources/2026-03-02-conspref-srs-v1-revised\|CONSPREF-SRS-V1.0 revised bozza v2]] §3.2"]}}
 ---
 
 
 # ADR-004: No API Gateway, security applicativa via Spring Security
 
 ## Status
+
+> ⛔ **Superseded (05/11/2026) da [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]]:** architettura TO-BE senza API Manager né OAuth2, approvata da CSI nella call del 05/11/2026. Il testo sotto resta come storia.
 
 `partially-superseded` — **verbale CSI/Exprivia 11/06/2026**: valido per fruitori **AS-IS esistenti** (sicurezza Spring Security applicativa). Per **nuovi fruitori TO-BE**: doppia esposizione tramite **API Manager CSI Piemonte**. Vedi [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16]] §1 per modello aggiornato.
 

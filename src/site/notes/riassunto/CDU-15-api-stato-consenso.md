@@ -4,7 +4,9 @@
 
 # CDU-15 — API di recupero stato consenso (per i SIA)
 
-**Perimetro:** solo BE ✅ (machine-to-machine) — Riferimenti: SRS v10 §3.3 (OpenAPI), §6.15, §6.16 "Modello di sicurezza"; ADR-004, ADR-005, ADR-018; `wiki/analyses/openapi-cdu-15-16-v0.1.yaml` (bozza v0.1, riallineata ad APIMBBONE il 06/10/2026).
+**Perimetro:** solo BE ✅ (machine-to-machine) — Riferimenti: SRS v10 §3.3 (OpenAPI), §6.15, §6.16 "Modello di sicurezza"; ADR-027 (supersede ADR-004 e ADR-005), ADR-018; `wiki/analyses/openapi-cdu-15-16-v0.1.yaml` (bozza v0.1).
+
+> ⏸ **Non esposto in V1.0** (ADR-027, call CSI 05/11/2026: niente API Manager). Il servizio si sviluppa nel backend ma i SIA non lo chiamano. Le parti su APIMBBONE, token, Gateway e rate limit non si applicano. Se in futuro verrà esposto, un nuovo ADR deciderà l'autenticazione.
 
 ## Cosa fa
 
@@ -12,13 +14,13 @@ Un servizio REST che permette al sistema informativo di un'ASR di chiedere: *"qu
 
 ## Attore e precondizioni
 
-SIA dell'ASR, autenticato e autorizzato su **APIMBBONE** (OAuth2 `client_credentials`), che chiama attraverso l'API Gateway.
+SIA dell'ASR. In V1.0 il servizio non è esposto; l'autenticazione sarà definita se verrà aperto (nuovo ADR).
 
 ## Contratto
 
 ```
 GET /api/v1/consensi/stato?codice_fiscale={cf}&codice_consenso={cod}&codice_ente={ente}
-Authorization: Bearer <token APIMBBONE>
+Autenticazione: da definire se esposto (ADR-027)
 ```
 
 Risposta 200:
@@ -42,10 +44,10 @@ Codici: 200, 400 (parametri mancanti/malformati), 401, 403 (ente non autorizzato
 ## Logica di backend
 
 1. Validazione dei parametri (CF formale, codice consenso esistente).
-2. **Autorizzazione per ente**: `EnteAuthorizationFilter` confronta `codice_ente` della query con quello inoltrato dal Gateway → 403 se diversi.
-3. Query sul record valido di `cons_t_consenso` (`data_fine IS NULL`) per `cf_cittadino` + sotto-tipo (da `codice_consenso`) + `cod_asr`, **sempre con `WHERE cod_asr = :authorizedEnte`** (ente preso dal Gateway, mai dal parametro).
+2. **Autorizzazione per ente**: `EnteAuthorizationFilter` confronta `codice_ente` della query con l'ente del chiamante autenticato (da definire se il servizio verrà esposto) → 403 se diversi.
+3. Query sul record valido di `cons_t_consenso` (`data_fine IS NULL`) per `cf_cittadino` + sotto-tipo (da `codice_consenso`) + `cod_asr`, **sempre con `WHERE cod_asr = :authorizedEnte`** (ente del chiamante autenticato, mai dal parametro).
 4. Join con `cons_d_informativa` per i dati dell'informativa.
-5. Risposta. Audit strutturato (`client_id`, ente richiesto/autorizzato, esito, latenza, `trace_id`) **senza CF in chiaro**.
+5. Risposta. Audit strutturato (identificativo del chiamante, ente richiesto/autorizzato, esito, latenza, `trace_id`) **senza CF in chiaro**.
 
 Mapping da chiarire:
 - `codice_consenso` → `sotto_tipo_consenso` (codice in `cons_d_sotto_tipo_cons`);
@@ -56,21 +58,18 @@ Semantica: SCADUTO nel TO-BE indica il **record corrente** con informativa scadu
 
 ## Come svilupparlo
 
-1. **Prima l'OpenAPI 3.x**, che è un deliverable Exprivia: endpoint, schemi con vincoli, security scheme Bearer, mappa errori. Va condivisa con le ASR prima del go-live e serve per la sottoscrizione su APIMBBONE. Esiste una bozza v0.1, già riallineata al modello APIMBBONE (chiusi i TBD su Authorization Server, JWKS e scope); restano aperti SLA, URL dei server, nomi degli header e lista ASR.
+1. **Prima l'OpenAPI 3.x**, che è un deliverable Exprivia: endpoint, schemi con vincoli, mappa errori. Va condivisa con le ASR se il servizio verrà esposto. Esiste una bozza v0.1 (non esposta in V1.0, con un commento in testa nel file YAML).
 2. Generare gli stub con `openapi-generator-maven-plugin`; SpringDoc per la Swagger UI nei soli ambienti non produttivi.
 3. Implementare filtro di sicurezza, repository con clausola ente obbligatoria e mapper RFC 7807.
-4. Niente rate limiting applicativo: lo fa l'API Manager. Niente validazione JWKS: la fa il Gateway.
-5. Requisito infrastrutturale: backend REST raggiungibile **solo** dal Gateway (segregazione di rete su IaaS).
+4. Niente rate limiting applicativo in V1.0.
+5. Requisito infrastrutturale: in V1.0 il servizio non è raggiungibile dai SIA.
 
 ## Dipendenze
 
-APIMBBONE (sottoscrizione, header inoltrati: nome esatto dell'header `codice_ente`), dati di CDU-09/10/11.
+Dati di CDU-09/10/11.
 
 ## Punti aperti
 
-- Chiusi M1, M2 e parte di M4 della bozza OpenAPI v0.1: Authorization Server, JWKS, scope e rate limit passano ad APIMBBONE (call CSI 20/07/2026). La bozza YAML è stata riallineata il 06/10/2026.
+- ⏸ **Sospesi (ADR-027):** URL dei server, header del Gateway, conferma DEV-05, sottoscrizione APIM.
 - **SLA (TODO-M4 / API-04):** tempo di risposta e throughput target non definiti (prima della UAT).
-- **URL dei server DEV/PROD** (placeholder nella bozza) e **lista ASR / `client_id` per ambiente** (TODO-M5, differito).
-- Conferma formale degli architetti CSI sul modello di trust (DEV-05).
-- Nome e formato degli header inoltrati dal Gateway.
 - Comportamento per i consensi regionali: `codice_ente` resta obbligatorio, visto che il regionale è salvato per ASR?

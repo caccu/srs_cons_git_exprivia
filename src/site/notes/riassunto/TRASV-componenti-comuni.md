@@ -33,18 +33,19 @@ Regole pratiche:
 - **Due profili** di Back Office sul Configuratore Regionale (call CSI 28/10/2026, corregge il profilo unico del 06/08): operatore di sportello (CDU-06÷11, già censito) e profilo di configurazione (CDU-12÷14, nuovo; nome definito da CSI). CDU-01a comune; l'utente non seleziona il profilo, l'interfaccia mostra le sezioni abilitate.
 - Il CF dell'operatore si legge **dalla sessione**, mai dal path o dal body.
 
-**SIA/aziende → Backend (API REST nuove: CDU-15, 16, 17, servizi endpoint)**
-- Token OAuth2 `client_credentials` emesso e validato da **APIMBBONE** (Key Manager); servizi dietro l'API Gateway. Il backend non valida JWKS.
-- Il Gateway inoltra in header/claim `codice_ente` (e CF). Il backend lo considera autoritativo.
-- `EnteAuthorizationFilter` (Spring Security custom): se la richiesta contiene un `codice_ente` diverso da quello del Gateway → 403. Le repository applicano sempre `WHERE codice_ente = :authorizedEnte` (difesa in profondità).
-- Rate limiting: lo fa APIMBBONE (Traffic Manager), non il backend.
-- Audit strutturato per ogni chiamata: `client_id`, `codice_ente_requested`, `codice_ente_authorized`, `outcome`, `latency_ms`, `trace_id`. CF mai in chiaro.
-- Precondizione infrastrutturale: backend REST raggiungibile **solo** dal Gateway (DEV-05, conferma formale in corso).
+**SIA/aziende → Backend (CDU-17 e manutenzione; CDU-15/16 non esposti in V1.0)**
+- Nessun API Manager né OAuth2 nel TO-BE V1.0 (ADR-027, approvato da CSI nella call del 05/11/2026).
+- CDU-15 e CDU-16: sviluppati nel backend ma non esposti ai SIA.
+- CDU-17 (snapshot e conferma) e manutenzione (`PATCH .../stato`): esposti ai SIA in **mutual TLS**, come `ConsprefService`, con un servizio separato. Decisione dedotta da ADR-027 (senza API Manager è l'unico canale autenticato). Da concordare con CSI (ST-11): certificati e modo di identificare l'ente.
+- `EnteAuthorizationFilter` (Spring Security custom): l'azienda opera solo sui propri dati. Le repository applicano sempre `WHERE codice_ente = :authorizedEnte` (difesa in profondità).
+- Nessun rate limiting applicativo in V1.0.
+- Audit strutturato per ogni chiamata: identificativo dell'azienda chiamante, `codice_ente_requested`, `codice_ente_authorized`, `outcome`, `latency_ms`, `trace_id`. CF mai in chiaro.
+- Precondizione infrastrutturale: backend raggiungibile solo dal BFF, da APISAN e dai SIA in mutual TLS (regole di rete a carico CSI).
 - `cons_t_client_ente` **non** si implementa in V1.0.
 
 **Aziende federate (canale AS-IS)**
 - Il servizio SOAP in ingresso `/services/ConsprefService` resta **a contratto invariato** (spec. WebService ConsensoRegionaleAziendale v03, namespace `http://consprefbe.csi.it/`). Va sbloccato nella configurazione di sicurezza del nuovo backend con autenticazione equivalente all'AS-IS (da verificare sul sorgente, presumibilmente certificati X509).
-- Le aziende già federate restano su questo canale; il REST via APIM si affianca, non lo sostituisce.
+- Le aziende già federate restano su questo canale; il REST in mutual TLS (CDU-17 e manutenzione) si affianca, non lo sostituisce.
 
 ## 3. Ciclo di vita del consenso
 
@@ -103,7 +104,7 @@ Il frontend non li invia mai:
 | SIA ASR (ingresso) | SOAP `/services/ConsprefService` | aziende federate, LIS | contratto invariato (DEV-03); LIS verificato su TEST, conferma produzione a CSI (INT-07) |
 | Webapp Cittadino (ingresso) | SOAP `ConsensoBeService` via APISAN | SANSOL | WSDL AS-IS, 10 operazioni, a contratto invariato (ADR-025) |
 | PUA / LCCE | `getTokenInformation2` (`TokenInformationService`) | CDU-01a, dal backend (come AURA) | solo esito (SUCCESSO = abilitato); CF da header IRIDE; da confermare con CSI (INT-09) |
-| SIA ASR (ingresso REST) | REST via APIMBBONE | CDU-15/16/17, servizi endpoint | OpenAPI da produrre a cura Exprivia |
+| SIA ASR (ingresso REST) | REST in mutual TLS (decisione dedotta da ADR-027) | CDU-17, manutenzione; CDU-15/16 non esposti | OpenAPI da produrre a cura Exprivia |
 | Notificatore UNP (`notify-mb`) | REST | BATCH-02 | in V1.0 solo la notifica ANNULLATO; canale scelto da UNP in base alle preferenze del cittadino |
 | Notificatore di Deleghe | REST | conferma rilascio al cittadino/delegato dopo `COMPLETATO` | distinto da UNP secondo ADR-012; nel legacy c'è un solo notificatore, `notify-mb` (INT-10, da confermare con CSI) |
 | Gestione Deleghe | — | nessuno | fuori perimetro |

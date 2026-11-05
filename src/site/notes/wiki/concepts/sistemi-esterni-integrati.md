@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-10-21","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02","2026-09-22-ricognizione-endpoint-as-is","2026-09-25-riscontro-csi-domande-sviluppo","2026-10-21-deployment-diagram-as-is-csi"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-11-05","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02","2026-09-22-ricognizione-endpoint-as-is","2026-09-25-riscontro-csi-domande-sviluppo","2026-10-21-deployment-diagram-as-is-csi"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -37,15 +37,17 @@ Conseguenza wiki: rimosso dal corpus dei sistemi integrati. La voce SistemaTS NO
 
 Sistema bidirezionale — consumatore API REST e destinatario notifiche SOAP.
 
+> 🆕 **[[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]] (05/11/2026):** niente API Manager né OAuth2. CDU-15/16 non esposti in V1.0. CDU-17 e manutenzione: il SIA chiama in **mutual TLS**, come per `ConsprefService`, con un servizio separato (decisione dedotta da ADR-027; certificati da concordare con CSI, ST-11). Le righe sotto che citano APIMBBONE sono segnate ⛔.
+
 | Direzione | Protocollo | CDU/Batch | Stato |
 |---|---|---|---|
-| Inbound (SIA→Regionale) | REST OpenAPI 3.x — OAuth2 `client_credentials` via **API Manager CSI (APIMBBONE)** (07/2026) | CDU-15, CDU-16, **CDU-17 (snapshot)**, **servizi endpoint CRUD** | CDU-15/16: [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|v0.1-DRAFT prodotta]], 5 TBD CSI; **CDU-17 rielaborato e confermato (call 20/07/2026)** — swagger da produrre |
+| Inbound (SIA→Regionale) | REST OpenAPI 3.x — OAuth2 `client_credentials` via **API Manager CSI (APIMBBONE)** (07/2026) | CDU-15, CDU-16, **CDU-17 (snapshot)**, **servizi endpoint CRUD** | CDU-15/16: [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|v0.1-DRAFT prodotta]], 5 TBD CSI; **CDU-17 rielaborato e confermato (call 20/07/2026)** — swagger da produrre ⛔ *superato (ADR-027)* |
 | Outbound (Regionale→SIA) | SOAP AS-IS invariato — [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]] | BATCH-01 (solo notifiche puntuali) | Contratto definito ✅ |
 
 **BATCH-03 push rimosso:** l'allineamento massivo per nuovo endpoint passa a modello PULL (CDU-17). Vedi [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]].
 
 **Sicurezza outbound SOAP (BATCH-01):** WS-Security X509, un certificato per ASR — richiederli in Sprint 0.
-**Sicurezza inbound REST:** OAuth2 Client Credentials via **API Manager APIMBBONE**; il Gateway inoltra al backend il **`codice_ente`** (isolamento per ente). **`cons_t_client_ente` fuori scope V1.0** (estensione futura). Vedi [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]].
+**Sicurezza inbound REST:** OAuth2 Client Credentials via **API Manager APIMBBONE**; il Gateway inoltra al backend il **`codice_ente`** (isolamento per ente). **`cons_t_client_ente` fuori scope V1.0** (estensione futura). Vedi [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]. ⛔ *Superato (ADR-027).*
 
 **Rischi aperti:** ambiguità BATCH-01 WSDL + semantica SCADUTO AS-IS≠TO-BE. Vedi [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]].
 
@@ -60,7 +62,7 @@ Sistema bidirezionale — consumatore API REST e destinatario notifiche SOAP.
 ```
 SIA ASR  →  PATCH /api/v1/endpoints/{endp_id}/stato-allineamento { IN_CORSO }   (blocco obbligatorio)
          →  loop: GET /api/v1/consensi/snapshot?codice_ente&codice_consenso&cursor&page_size
-                        ↓  (via API Gateway APIMBBONE — codice_ente inoltrato)
+                        ↓  (via API Gateway APIMBBONE — codice_ente inoltrato)   ⛔ superato (ADR-027): mutual TLS
          [EnteAuthorizationFilter → WHERE codice_ente]
                         ↓
          Gestione Consensi  →  200 { items[], next_cursor, has_more }
@@ -72,15 +74,15 @@ SIA ASR  →  PATCH /api/v1/endpoints/{endp_id}/stato-allineamento { IN_CORSO } 
 
 | Parametro | Tipo | Note |
 |---|---|---|
-| `codice_ente` | string | Codice ASR — **coerenza verificata contro il `codice_ente` inoltrato dal Gateway APIM** |
+| `codice_ente` | string | Codice ASR — **coerenza verificata contro il `codice_ente` inoltrato dal Gateway APIM** ⛔ *superato (ADR-027)* |
 | `codice_consenso` | string | Sotto-tipologia di consenso in allineamento |
 | `cursor` | string (opaco) | Cursore base64 per la pagina successiva (no offset) |
 | `page_size` | int | Dimensione pagina (default 1000) |
-| Authorization header | Bearer JWT | OAuth2 Client Credentials via API Manager APIMBBONE — stesso schema CDU-15/16 |
+| Authorization header | Bearer JWT | OAuth2 Client Credentials via API Manager APIMBBONE — stesso schema CDU-15/16 ⛔ *superato (ADR-027)* |
 
 **Applicazione [[wiki/concepts/sicurezza-cdu-15-16\|EnteAuthorizationFilter]] su chiamata inbound:**
 
-1. **Token** validato dall'**API Manager (Key Manager)**; il Gateway inoltra al backend il **`codice_ente`** (e il CF da Shibboleth)
+1. **Token** validato dall'**API Manager (Key Manager)**; il Gateway inoltra al backend il **`codice_ente`** (e il CF da Shibboleth) ⛔ *Superato (ADR-027).*
 2. **Livello ente:** il repository forza `WHERE codice_ente = :authorizedEnte` (ente del Gateway) → SIA vede **solo** i consensi del proprio ente
 3. In V1.0 **nessun lookup** su `cons_t_client_ente` (tabella fuori scope, estensione futura)
 
@@ -234,6 +236,8 @@ Attore che nel [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|deploymen
 > 🔵 **Riscontro team di sviluppo (21/10/2026):** APISAN è un prodotto CSI, lato server di SANSOL. La Webapp Cittadino passa da APISAN e usa il **SOAP `ConsensoBeService`**, non REST. Nel TO-BE va ripristinato con lo stesso contratto. Fonte: [[wiki/sources/2026-10-21-riscontro-dev-deployment-to-be\|Riscontro dev sul deployment TO-BE]].
 >
 > ✅ **Conflict risolto (21/10/2026):** la [[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|ricognizione del 22/09]] copriva solo le API REST di `consprefboweb`. `consprefbe-web` espone due SOAP, `ConsprefService` e `ConsensoBeService` (WSDL TEST, 10 operazioni); l'audit `csi_log_audit` su TEST registra ~41.000 chiamate `id_app = SANSOL` dal 2019. Contratto cittadino = SOAP `ConsensoBeService`, [[wiki/docs/adr/ADR-025-contratto-cittadino-soap-consensobeservice\|ADR-025]]. Resta solo la conferma CSI.
+>
+> 🆕 **Call CSI 05/11/2026:** `ConsprefService` (servizio verso le aziende) resta invariato, WSDL fermo. `ConsensoBeService` (servizio del cittadino) potrebbe essere rivisto o sostituito dai REST del back office: la decisione arriva dopo lo swagger, vedi [[wiki/docs/adr/ADR-025-contratto-cittadino-soap-consensobeservice\|ADR-025]]. Fonte: [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]].
 
 ---
 
@@ -253,7 +257,7 @@ Attore che nel [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|deploymen
         ├─ Notificatore UNP  (REST) — notifica ANNULLATO (BATCH-02)
         ├─ SIA ASR           (SOAP outbound) ← BATCH-01 notifiche puntuali
         ├─ SIA ASR           (REST inbound) ← CDU-15, CDU-16 [spec v0.1-DRAFT]
-        ├─ SIA ASR           (REST inbound via API Manager) ← CDU-17 PULL snapshot [✅ confermato 20/07 — swagger da produrre]
+        ├─ SIA ASR           (REST inbound via API Manager) ← CDU-17 PULL snapshot [✅ confermato 20/07 — swagger da produrre]  ⛔ superato (ADR-027): mutual TLS
         └─ LIS (e analoghi es. RIS) — via SOAP ConsprefService, come le aziende [ADR-020, verificato su TEST 21/10/2026]
 ```
 
@@ -266,7 +270,7 @@ Attore che nel [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|deploymen
 | Sistema                  | Cosa serve                                                                        | Stato                                                                                                                                    |
 | ------------------------ | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | AURA                     | Credenziali IRIS + WSDL (FindProfiliAnagrafici, getProfiloSanitario)              | ✅ Nei properties (call 20/07/2026) — nessun servizio nuovo                                                                               |
-| SIA ASR                  | Certificati X509 per ogni ASR (AS-IS) / credenziali OAuth via APIMBBONE (TO-BE)   | ❌ Da richiedere (AS-IS) · TO-BE gestito da APIM                                                                                          |
+| SIA ASR                  | Certificati X509 per ogni ASR (AS-IS) / credenziali OAuth via APIMBBONE (TO-BE)   | ❌ Da richiedere (AS-IS) · TO-BE gestito da APIM ⛔ *superato (ADR-027)* |
 | Gestione Deleghe ❌ OUT   | WSDL                                                                              | ⚪ Non necessario — **fuori perimetro FE e BE** (CSI 25/09/2026, DEV-02): il BE riceve solo il CF del delegato                             |
 | Notificatore di Deleghe  | API + integration spec                                                            | ✅ **AS-IS legacy, riciclato — nessun nuovo sviluppo** (call CSI 06/08/2026; era "❌ Da richiedere" prima di questa call, distinta da UNP) |
 | Notificatore UNP         | Già documentato — gitlab.csi.it                                                   | ✅ Riferimento disponibile                                                                                                                |

@@ -13,7 +13,7 @@
 
 La maschera endpoint di CDU-14 (SRS §6.14) ha un campo facoltativo `destinazione_id`, FK verso la tabella nuova `cons_d_asr_destinazione` (SRS §8.4.7). L'SRS v10 riportava i valori solo come esempi (NOTIFICA_CONSENSO, RECUPERO_STATO, CONFIGURAZIONE in un punto; NOTIF, QUERY, CONFIG in un altro) e non diceva cosa significhi lasciare il campo vuoto.
 
-Gli endpoint di `cons_t_endpoint` sono URL che il sistema **chiama**. CDU-15 (recupero stato) e CDU-16 (configurazione) vanno nella direzione opposta: è il SIA a chiamare il sistema tramite APIMBBONE. RECUPERO_STATO e CONFIGURAZIONE non corrispondono quindi a nessun endpoint configurabile.
+Gli endpoint di `cons_t_endpoint` sono URL che il sistema **chiama**. CDU-15 (recupero stato) e CDU-16 (configurazione) vanno nella direzione opposta: è il SIA a chiamare il sistema (in V1.0 non esposti: [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]]). RECUPERO_STATO e CONFIGURAZIONE non corrispondono quindi a nessun endpoint configurabile.
 
 Le chiamate in uscita verso il SIA previste dall'SRS sono due:
 1. notifica delle variazioni dei consensi (`cons_t_notifica`, BATCH-01, [[wiki/docs/adr/ADR-007-batch-01-5min-skip-locked\|ADR-007]]);

@@ -85,7 +85,7 @@ Dettaglio: [[wiki/concepts/architettura-iaas\|Architettura IaaS]] §Toolchain CS
 - **Multi-stage Dockerfile:** build Maven in stage build, JAR copiato in stage finale *(vincolo ECaaS storico — da riverificare per IaaS)*
 - **Label OpenContainers obbligatorie** su ogni immagine *(vincolo ECaaS storico — da riverificare per IaaS)*
 - ~~**Helm chart obbligatori:** `springboot` (backend) + `httpd` (web server) da `helm-base` CSI~~ — **superato (07/2026):** deploy IaaS via **ADA/Chef**, no Helm/GitOps (vedi [[wiki/concepts/architettura-iaas\|Architettura IaaS]] §Toolchain CSI)
-- **Sicurezza API:** [[wiki/concepts/sicurezza-cdu-15-16\|AS-IS: Spring Security diretta (no API Gateway esterno); TO-BE: API Manager CSI Piemonte per nuovi fruitori esterni]] (verbale 11/06/2026)
+- **Sicurezza API:** [[wiki/concepts/sicurezza-cdu-15-16\|AS-IS: Spring Security diretta (no API Gateway esterno); TO-BE: API Manager CSI Piemonte per nuovi fruitori esterni]] (verbale 11/06/2026) ⛔ *Superato da [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]] (05/11/2026): niente API Manager; CDU-15/16 non esposti, CDU-17 e manutenzione in mutual TLS (decisione dedotta).*
 
 ---
 

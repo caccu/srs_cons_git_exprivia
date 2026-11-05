@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/","title":"OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento","tags":["openapi","cdu-15","cdu-16","sia","rest","api","draft","consolidamento","sicurezza"],"dg-note-properties":{"title":"OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento","aliases":["OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento"],"type":"analysis","tags":["openapi","cdu-15","cdu-16","sia","rest","api","draft","consolidamento","sicurezza"],"created":"2026-05-06","updated":"2026-10-06","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2019-06-01-webservice-consenso-regionale-v03"],"related":["[[analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/analyses/analysis-gap-as-is-to-be\|Analisi Gap AS-IS → TO-BE — Gestione Consensi]]","[[Sistemi Esterni Integrati]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16/","title":"OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento","tags":["openapi","cdu-15","cdu-16","sia","rest","api","draft","consolidamento","sicurezza"],"dg-note-properties":{"title":"OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento","aliases":["OpenAPI CDU-15/16 — Descrizione e Stato Consolidamento"],"type":"analysis","tags":["openapi","cdu-15","cdu-16","sia","rest","api","draft","consolidamento","sicurezza"],"created":"2026-05-06","updated":"2026-11-05","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2019-06-01-webservice-consenso-regionale-v03"],"related":["[[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]]","[[analysis-2026-05-06-checklist-avvio-progetto|Checklist Avvio Progetto — Gestione Consensi]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/analyses/analysis-gap-as-is-to-be\|Analisi Gap AS-IS → TO-BE — Gestione Consensi]]","[[Sistemi Esterni Integrati]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]"]}}
 ---
 
 
@@ -7,7 +7,9 @@
 
 **File spec:** `wiki/analyses/openapi-cdu-15-16-v0.1.yaml`
 **Versione corrente:** `0.1-DRAFT`
-**Stato:** Bozza interna — non ancora condivisa con ASR
+**Stato:** Bozza interna — **non esposta in V1.0** ([[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]])
+
+> ⏸ **Non esposta in V1.0 ([[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]], 05/11/2026):** CDU-15 e CDU-16 restano nel codice ma non sono chiamati dai sistemi delle aziende. La specifica resta come bozza per un uso futuro. Sicurezza OAuth2, APIMBBONE, header del gateway, URL dei server per la sottoscrizione e rate limit non si applicano. Le voci collegate (TODO-M4, URL server, header, P07, passo 5) sono sospese fino a un'eventuale apertura, che richiederà un nuovo ADR. Nel file YAML c'è un commento in testa con la stessa indicazione.
 **Fonte SRS:** CONSPREF-SRS-V1.0 bozza v2, §6.15–6.16
 
 ---
@@ -217,10 +219,10 @@ Swagger UI esposta in ambienti non produttivi su `/swagger-ui.html` tramite **Sp
 | ~~TODO-M1~~ | URL Authorization Server CSI + JWKS endpoint | ✅ Chiuso 20/07/2026: token emesso e validato da APIMBBONE, nessun JWKS lato backend | — |
 | ~~TODO-M2~~ | Scope OAuth2 per client SIA | ✅ Chiuso 20/07/2026: delegato ad APIMBBONE | — |
 | TODO-M3 | Paginazione su CDU-16 richiesta? | ❌ Aperto (API-03). Se serve, cursor-based come CDU-17 (SRS v10) | 🟠 Sprint 2 |
-| TODO-M4 | SLA: rate limit, timeout massimo | 🟡 Rate limit sul Traffic Manager APIMBBONE; tempo di risposta e throughput aperti (API-04) | 🟡 Pre UAT |
+| TODO-M4 | SLA: rate limit, timeout massimo | ⏸ Sospeso (ADR-027): era legato al Traffic Manager APIMBBONE | ⏸ Sospeso |
 | TODO-M5 | Lista ASR coinvolte + `client_id` per env DEV/PROD | ⚪ Differito, non vincolante (API-05) | — |
-| — | URL dei server DEV/PROD | ❌ Aperto: dipende dall'istanza CONSPREF e dalla pubblicazione su APIMBBONE | 🔴 Pre sottoscrizione APIM |
-| — | Nome esatto degli header inoltrati dal Gateway | ❌ Aperto: va documentato nel YAML | 🔴 Pre sottoscrizione APIM |
+| — | URL dei server DEV/PROD | ⏸ Sospeso (ADR-027): nessuna pubblicazione su APIMBBONE | ⏸ Sospeso |
+| — | Nome esatto degli header inoltrati dal Gateway | ⏸ Sospeso (ADR-027): nessun Gateway | ⏸ Sospeso |
 | — | Conferma architetti CSI sul trust negli header (DEV-05, 25/09/2026) | ❌ Aperto | 🟠 |
 
 ---
@@ -264,6 +266,7 @@ Swagger UI esposta in ambienti non produttivi su `/swagger-ui.html` tramite **Sp
 | ADR | Decisione |
 |---|---|
 | [ADR-004](ADR-004-no-api-gateway.md) | No API Gateway — sicurezza applicativa |
-| [ADR-005](ADR-005-sicurezza-cdu-15-16.md) | Modello sicurezza CDU-15/16 OAuth2 CC + JWT |
+| [ADR-005](ADR-005-sicurezza-cdu-15-16.md) | Modello sicurezza CDU-15/16 OAuth2 CC + JWT — **superseded** da ADR-027 |
+| [ADR-027](ADR-027-architettura-senza-api-manager.md) | Architettura TO-BE senza API Manager: CDU-15/16 non esposti in V1.0 |
 | [ADR-018](ADR-018-rfc-7807-error-response.md) | RFC 7807 error response |
 | [ADR-016](ADR-016-scaduto-async-batch-02.md) | Stato SCADUTO async (semantica cambiata vs AS-IS) |

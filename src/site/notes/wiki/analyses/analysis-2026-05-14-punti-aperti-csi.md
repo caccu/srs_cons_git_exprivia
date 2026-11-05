@@ -59,6 +59,8 @@
 
 ## 2. Sicurezza CDU-15/16 — OAuth2/JWT (TR30 → TR58)
 
+> ⛔ **Superati da [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]] (05/11/2026):** niente API Manager né OAuth2, CDU-15/16 non esposti in V1.0. Le righe sotto restano come storia.
+
 Tutte da [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]] §Punti da chiarire con CSI.
 
 > ✅ **CHIUSI in call CSI 20/07/2026.** Il token è gestito dall'**API Manager CSI APIMBBONE** (OAuth2 `client_credentials`, Key Manager + Gateway). Q1 (header/claim) risolto; Q3/Q4/Q5/Q6 delegati ad APIMBBONE. **Unico residuo attivo:** produrre e consegnare lo **swagger (OpenAPI)** dei servizi CDU-15/16/17 per abilitare la sottoscrizione. Dettaglio in [[wiki/concepts/sicurezza-cdu-15-16\|sicurezza-cdu-15-16]] §7.
@@ -82,13 +84,13 @@ Tutte da [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Au
 |-------|------------------------------------------------------------------------------------------------------------|------|
 | PULL-01 | ~~Variante blocco o watermark?~~ | ✅ **Blocco obbligatorio** (Variante A). Watermark (B) **eliminata** |
 | PULL-02 | ~~Canale notifica out-of-band~~ | ✅ **email e/o webhook** via parametro di configurazione. Con webhook **il SIA espone un REST** (contratto/firma/sicurezza forniti da CSI) |
-| PULL-03 | Scope OAuth `consensi:snapshot` + lifecycle | Delegato ad **APIMBBONE**; resta lo swagger |
+| PULL-03 | Scope OAuth `consensi:snapshot` + lifecycle | ⛔ Superato (ADR-027): niente OAuth né APIMBBONE |
 | PULL-04 | `page_size` massimo + tarabilità | ⚪ Da precisare (non bloccante) |
 | PULL-05 | ~~Variante export-with-downtime~~ | ✅ **Non perseguita** |
 | PULL-06 | ~~BATCH-03 eliminazione o marker?~~ | ✅ **Rimosso** dal SRS (§6.17) |
 | PULL-07 | Conferma via PATCH idempotente | ✅ Confermato idempotente |
-| PULL-08 | ~~SIA può fare chiamate REST attive?~~ | ✅ **Sì** — SIA/aziende via API Manager |
-| PULL-09 | **Swagger (OpenAPI) CDU-17** da scrivere end-to-end. Ora include: **passo 5** (notifica esito webapp), **servizi endpoint CRUD** esposti alle aziende, **scenario manutenzione** (`IN_MANUTENZIONE`). | 🟠 **Residuo attivo** — Sprint 0/1 |
+| PULL-08 | ~~SIA può fare chiamate REST attive?~~ | ✅ **Sì** — SIA/aziende via API Manager. 🆕 Non più via API Manager: mutual TLS (decisione dedotta da ADR-027, ST-11) |
+| PULL-09 | **Swagger (OpenAPI) CDU-17** da scrivere end-to-end. Ora include: **passo 5** (notifica esito webapp), **servizi endpoint CRUD** esposti alle aziende, **scenario manutenzione** (`IN_MANUTENZIONE`). 🆕 Swagger senza sottoscrizione APIM (ADR-027); servizi endpoint solo dalla webapp, CDU-17 e manutenzione in mutual TLS (decisione dedotta da ADR-027). | 🟠 **Residuo attivo** — Sprint 0/1 |
 
 ---
 
@@ -101,9 +103,9 @@ Da [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-op
 | API-01 | ~~URL Authorization Server CSI (TODO-M1)~~ ✅ **Chiuso con SEC-01/SEC-02 (20/07/2026):** token emesso e validato da APIMBBONE | ✅ | — |
 | API-02 | ~~Scope OAuth richiesto per `/consensi/stato` (TODO-M2)~~ ✅ **Chiuso con SEC-05 (20/07/2026):** delegato ad APIMBBONE | ✅ | — |
 | API-03 | Paginazione su CDU-16 (TODO-M3): serve? Se sì, cursor-based come CDU-17 — `page_size` default + max accettato | 🟡   | Sprint 2 |
-| API-04 | SLA tempo risposta + throughput target per CDU-15/16 (TODO-M4). Rate limit già sul Traffic Manager APIMBBONE | 🟡   | UAT      |
+| API-04 | SLA tempo risposta + throughput target per CDU-15/16 (TODO-M4). Rate limit già sul Traffic Manager APIMBBONE | ⏸ Sospeso (ADR-027) | — |
 | API-05 | Lista ASR coinvolte nel TO-BE + referenti tecnici (TODO-M5). **Call 20/07/2026:** non vincolante, differito. | ⚪ (differito)   | Sprint 2 |
-| API-06 | **URL dei server DEV/PROD** e **nome esatto degli header** inoltrati dal Gateway APIMBBONE, da riportare nello YAML (emersi il 06/10/2026) | 🔴   | Pre sottoscrizione APIM |
+| API-06 | **URL dei server DEV/PROD** e **nome esatto degli header** inoltrati dal Gateway APIMBBONE, da riportare nello YAML (emersi il 06/10/2026) | ⏸ Sospeso (ADR-027): nessun Gateway né sottoscrizione | — |
 
 ---
 
@@ -168,7 +170,7 @@ Fonte: [[wiki/sources/2026-09-25-riscontro-csi-domande-sviluppo\|Riscontro CSI a
 | DEV-02 | ~~Gestione Deleghe (BE-02): dov'è realizzata?~~ | **Fuori perimetro.** Il servizio riceve il CF del delegato che opera per il cittadino | ~~Dettaglio di contratto: servizio, nome campo, persistenza del CF delegato~~ ✅ (22/10/2026, BE-13): CF del delegato nella richiesta SOAP `ConsensoBeService`, nome campo dal WSDL, persistito in `cons_t_consenso.cf_delegato`; nessuna verifica BE | ✅ Chiuso |
 | DEV-03 | ~~SOAP in ingresso `/services/ConsprefService`: chi lo usa, resta SOAP?~~ | **Mantenerlo** per le integrazioni SOAP esistenti | Sbloccare l'accesso nella security del nuovo BE con autenticazione equivalente all'AS-IS. Chiude la lacuna **L1** di [[wiki/docs/adr/ADR-020-lis-integrazione-be-esistente\|ADR-020]] | ✅ Chiuso |
 | DEV-04 | Codici HTTP distinti per errori esterni (502 / 409 / 503) invece di 500 | Coerente, ma **verificare prima gli impatti** su FE e integrazioni esistenti | Proposta: nuovi codici solo su REST nuovi e FE Operatore; contratti AS-IS (Webapp Cittadino, SOAP) invariati | 🟡 In verifica CSI |
-| DEV-05 | CDU-15/16: JWT validato dall'API Manager, il BE si fida degli header del gateway | **Allineato** all'architettura CSI. Conferma formale dagli architetti. Le **aziende federate restano sulla canalità esistente** | Conferma architetti; requisito "BE raggiungibile solo via gateway" da garantire nel deploy IaaS; chiarire che "federate" = aziende sul canale SOAP `ConsprefService` | 🟡 In verifica CSI |
+| DEV-05 | CDU-15/16: JWT validato dall'API Manager, il BE si fida degli header del gateway | **Allineato** all'architettura CSI. Conferma formale dagli architetti. Le **aziende federate restano sulla canalità esistente** | Conferma architetti; requisito "BE raggiungibile solo via gateway" da garantire nel deploy IaaS; chiarire che "federate" = aziende sul canale SOAP `ConsprefService` | ⛔ Superato (ADR-027) |
 | DEV-06 | ~~CDU-06: l'operatore scarica/stampa il PDF?~~ | **Sì:** scarico dell'informativa per cittadino **e** operatore di BO (= profilo unico Operatore) | Collocazione SRS ✅ recepita in v9 (CDU-06 unico a due attori, accesso Operatore da CDU-08); resta la voce backlog FE Operatore. Vedi [[wiki/docs/adr/ADR-022-cdu-06-scarico-informativa-operatore\|ADR-022]] | ✅ Chiuso |
 
 ---
@@ -209,6 +211,13 @@ Domande del team BE. Risposte date da Exprivia sulla base dell'SRS v10 e della w
 | BE-07 | Allegato HTML: va salvato anche in `cons_t_allegato` oltre che in `html_informativa`? | **Sì, come SRS §6.13 passo 5.** La colonna è il testo mostrato nel form; l'allegato HTML è la copia documentale, insieme al PDF. Scritti nella stessa operazione, con lo stesso contenuto | — | ✅ Chiuso |
 | BE-08 | Valori di `online` e `annulla_consensi` per le informative esistenti (CPROL, TELEMED) | Colonne nuove create dagli script di migrazione (SRS §8.4.5), valorizzate con i default della maschera CDU-13 (§6.13): `online = true`, `annulla_consensi = false`. Eventuali eccezioni le imposta l'operatore da CDU-13 | — | ✅ Chiuso |
 
+> 🆕 **DEV-07 (call CSI 05/11/2026):** non decisa, ma sono emersi elementi nuovi.
+> - La 999 è un'azienda di test senza endpoint (Tommaso), ma è il modello per i consensi futuri: CSI creerà consensi e informative, anche regionali, senza endpoint.
+> - Tommaso ha detto «forse puoi usare anche lo stesso». Non è chiaro se intendesse riusare la 999 per i regionali senza endpoint: **da chiarire.**
+> - La scelta «999 o un record per azienda» va ripresa nella macchina a stati TO-BE, insieme a NON ESPRESSO (vedi [[wiki/concepts/ciclo-vita-consenso\|ciclo-vita-consenso]]).
+>
+> Fonte: [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]].
+
 ---
 
 ## 12. Domande team FE su CDU-14 — 15/10/2026
@@ -244,6 +253,26 @@ Domande dello sviluppatore BE. Risposte Exprivia sulla base dell'SRS v10 e della
 
 ---
 
+## 14. Call CSI 05/11/2026 — attività e punti aperti
+
+Attività emerse dalla [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|call CSI del 05/11/2026]]. Indicazioni a voce: la macchina a stati TO-BE è da definire.
+
+| # | Attività | Chi | Stato |
+| ----- | -------- | --- | ----- |
+| ST-01 | Swagger REST del back office e mini interfaccia di base per il prossimo incontro | Exprivia e team | 🟠 Da fare |
+| ST-02 | Prima versione della macchina a stati TO-BE (NON ESPRESSO, ATTIVO, NEGATO, REVOCATO, STORICO, SCADUTO, ANNULLATO), con notifica al cittadino (UNP) e notifiche alle aziende (SRV-03/SRV-04) distinte | Exprivia | 🟠 Da fare |
+| ST-03 | Incontro tecnico per decidere gli stati, dopo ST-01 e ST-02 | CSI ed Exprivia | 🟠 Da pianificare |
+| ST-04 | Un'ora su SCADUTO, ANNULLATO e `annulla_consensi` | Marco, Sabina, Manuela | 🟠 Da pianificare |
+| ST-05 | NON ESPRESSO: record nel DB o assenza di record ([[wiki/concepts/ciclo-vita-consenso\|ciclo-vita-consenso]]) | Exprivia | 🟠 Da decidere |
+| ST-06 | Prova a video su A/NO portato a «sì», in gruppo ridotto | Sabina ed Exprivia | 🟠 Da fare |
+| ST-07 | Documento CPROL (come le aziende ricevono e rimandano il consenso) per mail | CSI | 🟠 In attesa |
+| ST-08 | Stima dell'adattamento del canale cittadino e scelta su `ConsensoBeService` ([[wiki/docs/adr/ADR-025-contratto-cittadino-soap-consensobeservice\|ADR-025]]) | CSI, dopo ST-01 | 🟠 In attesa |
+| ST-09 | Valutazione interna dell'effort | Fornitore (Marie Christine Giuliano) | 🟠 In corso |
+| ST-10 | Da riproporre perché non discussi: decisione 2 (CONSPREFBO nell'audit) e domande 8-12 della presentazione; frase sulla 999 da chiarire (DEV-07) | Exprivia verso CSI | 🟠 Da inviare |
+| ST-11 | CDU-17 e manutenzione esposti ai SIA in mutual TLS, servizio separato da `ConsprefService`: **decisione dedotta** da [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]] (senza API Manager è l'unico canale autenticato, già usato dalle aziende). Restano da concordare i dettagli tecnici: certificati (stessi o nuovi) e identificazione dell'ente | Exprivia con CSI | ✅ Decisa · 🟡 dettagli tecnici |
+
+---
+
 ## Riepilogo punti aperti (23/10/2026)
 
 > 🔄 **Riscritto il 09/10/2026.** Il riepilogo per Sprint del 14/05/2026 e lo «stato residuo post-call 20/07/2026» elencavano come aperti molti punti chiusi in seguito (ID-01, ID-03, SEC-01÷06, PULL-01/02/05/06/08, API-01/02, INT-01÷03, INT-05, INF-01, INF-03/04, BAT-01/02, GOV-03, DEV-02/03/06). Qui restano solo i punti non chiusi, raggruppati per chi deve rispondere. Il dettaglio è nelle sezioni sopra.
@@ -253,7 +282,7 @@ Domande dello sviluppatore BE. Risposte Exprivia sulla base dell'SRS v10 e della
 | # | Tema | Stato |
 |---|---|---|
 | PULL-09 | Swagger (OpenAPI) CDU-17, inclusi servizi endpoint e scenario manutenzione | 🟠 Residuo attivo |
-| API-06 | URL server DEV/PROD e nome degli header del Gateway nello YAML CDU-15/16 | 🔴 Pre sottoscrizione APIM |
+| API-06 | URL server DEV/PROD e nome degli header del Gateway nello YAML CDU-15/16 | ⏸ Sospeso (ADR-027) |
 | GOV-01 | Approvazione formale dell'SRS (oggi rev. 1.19) | 🟠 |
 | BAT-03 | Stato SCADUTO, comunicazione ai SIA: risposta in call 28/10 (solo SÌ/NO), da confermare per iscritto; ANNULLATO inviato come NO (revoca), decisione Exprivia 02/11/2026, già in DEV | 🟡 Risposta a voce |
 | INF-05 | IaaS: ingress/TLS, gestione dei segreti applicativi, segmentazione security group (21/10/2026) | 🟠 |
@@ -264,8 +293,8 @@ Domande dello sviluppatore BE. Risposte Exprivia sulla base dell'SRS v10 e della
 | DEV-12 | Blocchi su modifica/disattivazione di ente ed endpoint (CDU-14) | 🟠 Da inviare |
 | CDU-14 (avviso) | Destinatari dell'avviso «endpoint aggiunto» se l'azienda non ha altri endpoint (proposta: `notifica_email` del nuovo endpoint) | 🟠 Da inviare |
 | BE-24 | Server SMTP per gli avvisi e contratto del webhook | 🟠 Da inviare |
-| BE-25 | Dichiarazione manutenzione ASR senza API Manager (SRS §7.4) | 🟠 Da inviare |
-| BE-25b (n. 14) | Chi sblocca una manutenzione dimenticata (ex BE-26, rinominata il 02/11/2026: BE-26 è la sigla interna dei dev per i ritentativi, domanda EXP-06) | 🟠 Da inviare |
+| BE-25 | Dichiarazione manutenzione ASR senza API Manager (SRS §7.4). Mutual TLS come CDU-17 (decisione dedotta da ADR-027) + operatore da CDU-14 | ✅ Decisa (dedotta) |
+| BE-25b (n. 14) | Chi sblocca una manutenzione dimenticata (ex BE-26, rinominata il 02/11/2026: BE-26 è la sigla interna dei dev per i ritentativi, domanda EXP-06). Proposta: la sblocca l'operatore da CDU-14 | 🟠 Da inviare |
 | EXP-06 (n. 23, BE-26 per i dev) | Ritentativi delle notifiche BATCH-01: proposta Exprivia 30/10/2026 = SRS (3 tentativi configurabili, uno per ciclo del batch, poi `ERRORE_PERMANENTE`); 02/11: endpoint che non risponde saltato fino al ciclo successivo senza consumare tentativi (SRS rev. 1.28); avviso al cittadino fermo con errore permanente | 🟠 Da inviare |
 
 **Da CSI: in verifica o parziali**
@@ -305,7 +334,7 @@ Domande dello sviluppatore BE. Risposte Exprivia sulla base dell'SRS v10 e della
    - ~~INF-01/INF-03 (DBaaS + automation) → bloccano partenza Sprint 1~~ → INF-03 chiuso; INF-01 chiuso 09/10/2026
    - ~~PULL-08 (SIA caller capability)~~ → chiuso 20/07/2026
    - PULL-09 (spec CDU-17) → bloccante per implementazione endpoint, per aggiornamento YAML OpenAPI e per test integrazione SIA
-   - API-06 (URL server, header Gateway) → bloccante per la sottoscrizione su APIMBBONE di CDU-15/16
+   - ~~API-06 (URL server, header Gateway) → bloccante per la sottoscrizione su APIMBBONE di CDU-15/16~~ → sospeso (ADR-027, nessun API Manager)
    - DEV-07/DEV-08 (regionali 999, collegamenti TELEMED) → bloccano lo script di migrazione dei consensi regionali
    - INT-06 (interfacce Webapp Cittadino) → condiziona il collaudo di non-regressione del backend
 1. **Riferimenti operativi:** [[wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto\|Checklist Avvio Progetto — Gestione Consensi]] resta lo strumento day-1 operativo; questo tracker è la versione consolidata e tematicamente raggruppata.

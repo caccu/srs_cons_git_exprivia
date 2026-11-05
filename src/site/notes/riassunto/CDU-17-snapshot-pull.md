@@ -4,7 +4,7 @@
 
 # CDU-17 — Snapshot consensi per allineamento endpoint (PULL)
 
-**Perimetro:** solo BE ✅ (+ visualizzazione dello stato nella webapp, CDU-14) — Riferimenti: SRS v10 §6.17, §7.3, §8.4.3; ADR-006 (accepted, confermato dal committente il 20/07/2026); `CDU-17_diagramma-sequenza.md`.
+**Perimetro:** solo BE ✅ (+ visualizzazione dello stato nella webapp, CDU-14) — Riferimenti: SRS v10 §6.17, §7.3, §8.4.3; ADR-006 (accepted, confermato dal committente il 20/07/2026); ADR-027 (senza API Manager: mutual TLS, decisione dedotta); `CDU-17_diagramma-sequenza.md`.
 
 ## Cosa fa
 
@@ -14,9 +14,9 @@ Durante l'allineamento l'acquisizione di nuovi consensi per quel sotto-tipo è *
 
 ## Innesco e precondizioni
 
-- Un operatore registra il nuovo endpoint dalla webapp (CDU-14, chiamata diretta senza APIM) → `stato_allineamento = DA_ALLINEARE`.
+- Un operatore registra il nuovo endpoint dalla webapp (CDU-14, chiamata dalla webapp tramite BFF) → `stato_allineamento = DA_ALLINEARE`.
 - Il SIA riceve la notifica out-of-band (email e/o webhook, PULL-02).
-- Il SIA è autenticato su APIMBBONE con scope **`consensi:snapshot`**.
+- Il SIA si collega in **mutual TLS**, come per `ConsprefService`, su un servizio separato (decisione dedotta da ADR-027). Certificati e identificazione dell'ente da concordare con CSI (ST-11).
 
 ## Flusso
 
@@ -41,8 +41,8 @@ PATCH /api/v1/endpoints/{endp_id}/stato-allineamento   { "stato": "IN_CORSO" | "
 ```
 
 - Paginazione **cursor-based opaca**, niente offset: `next_cursor` = base64 del `cons_id` dell'ultimo elemento. Query: `WHERE cons_id > :last ORDER BY cons_id LIMIT :n`.
-- Codici: 200, 400 (cursor non valido o parametri mancanti), 401, 403, 404 (endpoint inesistente), **409** (allineamento già COMPLETATO), 429, 500.
-- Rate limit dedicato su `/snapshot` (es. 600 req/min) configurato su APIMBBONE, per non degradare CDU-15.
+- Codici: 200, 400 (cursor non valido o parametri mancanti), 401, 403, 404 (endpoint inesistente), **409** (allineamento già COMPLETATO), 500.
+- Nessun rate limit in V1.0; da rivalutare se lo snapshot rallenta gli altri servizi.
 
 ## Logica di backend
 
@@ -62,7 +62,7 @@ PATCH /api/v1/endpoints/{endp_id}/stato-allineamento   { "stato": "IN_CORSO" | "
 
 ## Dipendenze
 
-CDU-14 (creazione endpoint, stato); APIMBBONE (scope, rate limit); webhook/email PULL-02 (contratto CSI).
+CDU-14 (creazione endpoint, stato); certificati per il mutual TLS (CSI, ST-11); webhook/email PULL-02 (contratto CSI).
 
 ## Punti aperti
 
@@ -70,3 +70,4 @@ CDU-14 (creazione endpoint, stato); APIMBBONE (scope, rate limit); webhook/email
 - Contratto del canale PULL-02 per il passo 8 (come il SIA comunica COMPLETATO alla webapp).
 - Timeout di un allineamento rimasto `IN_CORSO` (sblocco manuale o automatico?).
 - Canale per comunicare ai SIA lo stato SCADUTO (BAT-03, call CSI pending).
+- Mutual TLS deciso (dedotto da ADR-027); da concordare con CSI certificati e identificazione dell'ente: ST-11.

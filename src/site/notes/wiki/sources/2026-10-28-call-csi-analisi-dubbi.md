@@ -9,7 +9,7 @@
 
 **Presenti.** [[wiki/entities/csi-piemonte\|CSI]]: Tommaso Ruggiero, Gaia Bourlot, Manuela Bontempi, Sabina Caroni. Team di sviluppo ([[wiki/entities/exprivia\|Exprivia]]): Donato Palmieri, Boris Minardo Incitti, Henri Molla, Roberto Bruno, Marco Forneris («Relatore 1» nella trascrizione).
 
-> ⚠️ **In attesa di approvazione CSI:** il disegno TO-BE semplificato (senza API Manager) è una proposta di Exprivia emersa dalla call, non ancora approvata da CSI. I punti che lo riguardano sono segnati «architettura» nelle tabelle sotto; wiki e SRS non sono ancora stati allineati su di essi.
+> ✅ **Approvato da CSI (call 05/11/2026):** il disegno TO-BE senza API Manager è confermato da Tommaso Ruggiero («Nessun API Manager. Mi confermate?» «Sì»). I punti segnati «architettura» si recepiscono in wiki e SRS. Fonte: [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]].
 
 ## Servizi
 

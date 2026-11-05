@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/alternativa-batch-03-pull/","title":"Alternativa BATCH-03 — PULL CDU-17 (centro stella)","tags":["batch-03","cdu-17","pull","centro-stella","allineamento","sia","openapi","tr34","proposta"],"dg-note-properties":{"title":"Alternativa BATCH-03 — PULL CDU-17 (centro stella)","aliases":["Alternativa BATCH-03 — PULL CDU-17 (centro stella)"],"type":"concept","tags":["batch-03","cdu-17","pull","centro-stella","allineamento","sia","openapi","tr34","proposta"],"created":"2026-05-14","updated":"2026-07-20","sources":["2026-03-02-conspref-srs-v1-revised"],"related":["[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]","[[Sistemi Esterni Integrati]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/alternativa-batch-03-pull/","title":"Alternativa BATCH-03 — PULL CDU-17 (centro stella)","tags":["batch-03","cdu-17","pull","centro-stella","allineamento","sia","openapi","tr34","proposta"],"dg-note-properties":{"title":"Alternativa BATCH-03 — PULL CDU-17 (centro stella)","aliases":["Alternativa BATCH-03 — PULL CDU-17 (centro stella)"],"type":"concept","tags":["batch-03","cdu-17","pull","centro-stella","allineamento","sia","openapi","tr34","proposta"],"created":"2026-05-14","updated":"2026-11-05","sources":["2026-03-02-conspref-srs-v1-revised"],"related":["[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]","[[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]","[[Sistemi Esterni Integrati]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -12,15 +12,17 @@
 
 **Status:** ✅ **CONFERMATO dal committente (call CSI 20/07/2026)** — CDU-17 rielaborato per intero come da mail cliente.
 
+> ⚠️ **Senza API Manager ([[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]], 05/11/2026): decisione dedotta da ADR-027.** Senza API Manager l'unico canale autenticato per i SIA è il mutual TLS, già usato dalle aziende per `ConsprefService`. Il SIA chiama `/snapshot` e la conferma di fine allineamento (passo 5) in **mutual TLS**, come per `ConsprefService`, con un servizio separato perché il WSDL di ConsprefService è fermo. Centro stella e automazione restano invariati: l'operatore avvia l'allineamento da CDU-14, il batch del SIA scarica e conferma, il sistema regionale avvisa con webhook o email (in uscita). Sono superate le parti su APIMBBONE, scope OAuth, header del gateway e rate limit sul Traffic Manager, segnate ⛔ nel testo. Alternative valutate: A (solo operatore, manuale) e D (implementato non esposto). Restano da concordare con CSI i dettagli tecnici: certificati (stessi di ConsprefService o nuovi) e identificazione dell'ente (ST-11).
+
 > ✅ **Rielaborazione CDU-17 — call CSI 20/07/2026.** Il committente ha fornito il rifacimento completo del caso d'uso. Novità rispetto alla prima proposta:
 > - **Attore** = **operatore con profilo Back Office** sulla **web app Gestione Consensi** (accesso da **PUA**), non un "operatore CSI" generico. Scenario tipico: azienda con ≥1 endpoint già attivo (**es. RIS**) che ne attiva un altro (**es. LIS**) → serve allineamento.
 > - **Variante B (watermark / no-blocco) ELIMINATA.** Resta **solo la Variante A**: il blocco temporaneo delle acquisizioni (`IN_CORSO`) è **obbligatorio** per garantire uno snapshot coerente.
 > - **Nuovo passo 5:** a chiusura, il SIA **comunica alla webapp lo stato `COMPLETATO` + i dati dell'ultimo invio andato a buon fine**, tramite la **canalità PULL-02**.
 > - **PULL-02 (canale notifica) DECISO:** email **e/o** webhook, via **parametro di configurazione** (solo email / solo webhook / entrambi). Con il **webhook** il SIA **espone un servizio REST** il cui **contratto, firma e sicurezza sono forniti da CSI**.
 > - **PULL-01 DECISO** (blocco obbligatorio), **PULL-08 DECISO** (il SIA **può** chiamare i servizi REST).
-> - **Servizi endpoint CRUD** (inserimento/modifica/eliminazione endpoint) della web app **esposti anche alle aziende via API Manager (APIMBBONE)**; le operazioni della **web app NON passano dall'API Manager** (doppia esposizione).
+> - **Servizi endpoint CRUD** (inserimento/modifica/eliminazione endpoint) della web app **esposti anche alle aziende via API Manager (APIMBBONE)**; le operazioni della **web app NON passano dall'API Manager** (doppia esposizione). ⛔ *Superato (ADR-027): vedi avviso in testa.*
 > - **Nuovo scenario di manutenzione endpoint** (senza inserimento di nuovo endpoint): stato **`IN_MANUTENZIONE`**, blocco acquisizione consensi + notifica webapp di blocco/ripresa (`COMPLETATO` + dati ultimo invio). Diagramma dedicato: [[Manutenzione-endpoint_diagramma-sequenza\|Manutenzione endpoint]].
-> - Sicurezza allineata al modello 07/2026: token via **API Manager APIMBBONE**, `codice_ente` inoltrato dal Gateway; **`cons_t_client_ente` fuori scope V1.0** (cfr. [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16]]).
+> - Sicurezza allineata al modello 07/2026: token via **API Manager APIMBBONE**, `codice_ente` inoltrato dal Gateway; **`cons_t_client_ente` fuori scope V1.0** (cfr. [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16]]). ⛔ *Superato (ADR-027): vedi avviso in testa.*
 >
 > Diagrammi di sequenza aggiornati: [[CDU-17_diagramma-sequenza\|CDU-17 — Allineamento PULL]] · [[Manutenzione-endpoint_diagramma-sequenza\|Manutenzione endpoint]].
 
@@ -31,7 +33,7 @@
 **Soluzione semplice e indolore:** sostituire **BATCH-03 push** con **CDU-17 PULL** — un nuovo endpoint REST paginato che il SIA chiama autonomamente quando viene registrato un nuovo endpoint. Sistema regionale = hub (centro stella), SIA = spoke che si tira giù i dati.
 
 - Zero push dal sistema regionale → zero onere infrastrutturale
-- Riusa interamente il modello di sicurezza già definito per [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]] (token via API Manager APIMBBONE; `codice_ente` dal Gateway)
+- Riusa interamente il modello di sicurezza già definito per [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]] (token via API Manager APIMBBONE; `codice_ente` dal Gateway) ⛔ *Superato (ADR-027): vedi avviso in testa.*
 - Paginazione cursor-based → scala su qualunque volume
 - Idempotente: SIA può rieseguire pull senza side-effect
 - BATCH-03 eliminato dal SRS → modello dati semplificato (`cons_t_notifica` non viene popolata in massa)
@@ -137,7 +139,9 @@ SIA conferma fine allineamento. Sistema regionale aggiorna `cons_r_asr_endpoint.
 
 A chiusura, il SIA **comunica alla webapp Gestione Consensi** lo stato **`COMPLETATO`** e i **dati dell'ultimo invio andato a buon fine**, tramite la **stessa canalità di PULL-02** (email e/o webhook, configurabile). La webapp aggiorna lo stato visibile all'operatore Back Office.
 
-### 3.6 Servizi endpoint esposti alle aziende (via API Manager)
+### 3.6 Servizi endpoint e manutenzione — solo dalla webapp (ADR-027)
+
+> 🆕 **ADR-027 (05/11/2026):** i servizi di inserimento, modifica ed eliminazione endpoint e la manutenzione si usano **solo dalla webapp (CDU-14)** e non sono esposti alle aziende. Il testo sotto, con la doppia esposizione tramite API Manager, è superato.
 
 I servizi di **inserimento / modifica / eliminazione endpoint** previsti dalla web app (famiglia CDU-14) sono **esposti anche alle aziende**, che li richiamano **passando dall'API Manager (APIMBBONE)**. Ciò consente ai Sistemi Informativi Aziendali di:
 - **allineare i consensi** (CDU-17, questo documento);
@@ -145,14 +149,22 @@ I servizi di **inserimento / modifica / eliminazione endpoint** previsti dalla w
 
 > ⚠️ **Doppia esposizione:** le operazioni effettuate **dalla web app** Gestione Consensi **NON** passano dall'API Manager (integrazione diretta). Solo le chiamate di **SIA/aziende** transitano dall'API Gateway APIMBBONE.
 
+> 🆕 **Endpoint opzionali (call CSI 05/11/2026):**
+> - Un consenso può nascere senza alcun endpoint: quando l'informativa viene creata, nemmeno l'operatore sa quale sarà.
+> - Senza endpoint il consenso non entra nello scarico CDU-17 e non partono notifiche SRV-03/SRV-04.
+> - La notifica alle aziende dipende dall'esistenza dell'endpoint, non dal canale: cittadino o operatore è uguale (Sabina).
+> - Se in futuro le aziende aderiscono, servono specifiche e servizi nuovi o adattati.
+>
+> Fonte: [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]].
+
 ---
 
 ## 4. Sicurezza
 
 **Identica a [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]**, nessuna modifica:
 
-- OAuth2 Client Credentials — token **emesso e validato dall'API Manager CSI (APIMBBONE)**, non da un Authorization Server a sé (aggiornamento 07/2026, cfr. [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16]] §1.4)
-- Il **Gateway APIM inoltra al backend il `codice_ente`** (con il CF da Shibboleth): l'isolamento per ente si basa su tale valore. **`cons_t_client_ente` è fuori scope V1.0** (estensione futura per multi-ente) — cfr. [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16]] §3/§7
+- OAuth2 Client Credentials — token **emesso e validato dall'API Manager CSI (APIMBBONE)**, non da un Authorization Server a sé (aggiornamento 07/2026, cfr. [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16]] §1.4) ⛔ *Superato (ADR-027): vedi avviso in testa.*
+- Il **Gateway APIM inoltra al backend il `codice_ente`** (con il CF da Shibboleth): l'isolamento per ente si basa su tale valore. **`cons_t_client_ente` è fuori scope V1.0** (estensione futura per multi-ente) — cfr. [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15/16]] §3/§7 ⛔ *Superato (ADR-027): vedi avviso in testa.*
 - Filter `EnteAuthorizationFilter` rigetta con 403 ogni mismatch (ente della request vs ente del Gateway)
 - Repository query forza `WHERE codice_ente = :authorizedEnte` (ente preso dall'header del Gateway)
 
@@ -160,7 +172,7 @@ I servizi di **inserimento / modifica / eliminazione endpoint** previsti dalla w
 - `consensi:snapshot` — distinto da `consensi:read` per consentire concessione granulare
 - Motivo: snapshot è operazione "bulk" che può essere abilitata solo durante onboarding/allineamento, poi disattivata
 
-**Rate limit dedicato:** quota separata per `/snapshot` (es. 600 req/min) configurata sull'**API Manager CSI (Traffic Manager APIM)** — non più `bucket4j` applicativo (07/2026) → impedisce che pull aggressivo di un SIA degradi le risposte CDU-15 real-time degli altri.
+**Rate limit dedicato:** quota separata per `/snapshot` (es. 600 req/min) configurata sull'**API Manager CSI (Traffic Manager APIM)** — non più `bucket4j` applicativo (07/2026) → impedisce che pull aggressivo di un SIA degradi le risposte CDU-15 real-time degli altri. ⛔ *Superato (ADR-027): vedi avviso in testa.*
 
 ---
 
@@ -274,7 +286,7 @@ Raccomandazione: **CDU-17 PULL** come primaria. Export disponibile come fallback
 | Tabella `cons_t_notifica` | Popolata in massa (N record) | Non popolata |
 | Onere infrastrutturale | Sistema regionale | SIA |
 | Coerenza con CDU-15/16 | Diverso paradigma (SOAP push) | Stesso paradigma (REST pull) |
-| Sicurezza | Da definire (X509 outbound) | Riusa OAuth2 CC + JWT esistente |
+| Sicurezza | Da definire (X509 outbound) | Riusa OAuth2 CC + JWT esistente ⛔ *superato (ADR-027)* |
 | Retry/recovery | Custom in BATCH-03 + `cons_t_batch_errori` | Idempotente per costruzione |
 | Volume scalabile | Sì ma onere proporzionale | Sì, paginazione cursor |
 | Downtime | Sì (CDU-03/09 bloccati durante IN_CORSO) | Sì, breve (blocco obbligatorio durante IN_CORSO — Variante A) |
@@ -302,12 +314,12 @@ Raccomandazione: **CDU-17 PULL** come primaria. Export disponibile come fallback
 |---|---|---|
 | Q1 | ~~Variante 6.A (blocco) o 6.B (watermark)?~~ | ✅ **Variante A — blocco obbligatorio.** Variante B eliminata |
 | Q2 | ~~Canale notifica out-of-band: email o webhook?~~ | ✅ **Entrambi**, via parametro di configurazione (solo email / solo webhook / entrambi). Webhook → SIA espone REST (contratto fornito da CSI) |
-| Q3 | Scope OAuth `consensi:snapshot` + lifecycle | Delegato ad APIMBBONE (scope gestiti dall'API Manager). Resta lo swagger da produrre |
+| Q3 | Scope OAuth `consensi:snapshot` + lifecycle | Delegato ad APIMBBONE (scope gestiti dall'API Manager). Resta lo swagger da produrre ⛔ *superato (ADR-027)* |
 | Q4 | `page_size` massimo + tarabilità per ASR | ⚪ Da precisare (non bloccante) |
 | Q5 | ~~Variante export-with-downtime~~ | ✅ **Non perseguita** — si adotta il PULL con blocco |
 | Q6 | ~~Mantenere o rimuovere BATCH-03?~~ | ✅ **Rimosso** dal SRS (sostituito da §6.17 CDU-17) |
 | Q7 | Conferma completamento via PATCH idempotente | PATCH idempotente confermato come modalità |
-| Q8 | ~~SIA può fare chiamate REST attive? (PULL-08)~~ | ✅ **Sì** — i SIA/aziende chiamano i servizi via API Manager |
+| Q8 | ~~SIA può fare chiamate REST attive? (PULL-08)~~ | ✅ **Sì** — i SIA/aziende chiamano i servizi via API Manager ⛔ *superato (ADR-027)* |
 
 ---
 
@@ -325,7 +337,7 @@ Raccomandazione: **CDU-17 PULL** come primaria. Export disponibile come fallback
 >
 > **Precondizioni:**
 > - Un operatore con **profilo Back Office** (web app Gestione Consensi, accesso da PUA) ha registrato il nuovo endpoint via CDU-14 con `stato_allineamento = DA_ALLINEARE` — operazione **diretta, senza API Manager**
-> - SIA autenticato tramite **API Manager APIMBBONE** con scope OAuth `consensi:snapshot`
+> - SIA autenticato tramite **API Manager APIMBBONE** con scope OAuth `consensi:snapshot` ⛔ *Superato (ADR-027): vedi avviso in testa.*
 > - Notifica out-of-band ricevuta dal SIA via **email e/o webhook** (PULL-02, configurabile)
 >
 > **Scenario principale:**
@@ -338,11 +350,11 @@ Raccomandazione: **CDU-17 PULL** come primaria. Export disponibile come fallback
 > 7. Sistema imposta `stato_allineamento = COMPLETATO`, sblocca CDU-03/CDU-09
 > 8. **(nuovo)** Il SIA **comunica alla webapp** lo stato `COMPLETATO` e i **dati dell'ultimo invio andato a buon fine**, tramite la canalità PULL-02
 >
-> **Servizi endpoint esposti alle aziende:** i servizi di inserimento/modifica/eliminazione endpoint (CDU-14) sono esposti anche alle aziende **via API Manager**; le operazioni della web app restano dirette (senza API Manager). Scenario di manutenzione (stato `IN_MANUTENZIONE`): vedi §7.4 SRS.
+> **Servizi endpoint esposti alle aziende:** i servizi di inserimento/modifica/eliminazione endpoint (CDU-14) sono esposti anche alle aziende **via API Manager**; le operazioni della web app restano dirette (senza API Manager). Scenario di manutenzione (stato `IN_MANUTENZIONE`): vedi §7.4 SRS. ⛔ *Superato (ADR-027): vedi avviso in testa.*
 >
 > **Specifiche tecniche API:** vedi swagger (OpenAPI) di CDU-17, da produrre.
 >
-> **Autenticazione:** token OAuth2 Client Credentials **emesso e validato dall'API Manager CSI (APIMBBONE)**, scope `consensi:snapshot`. Modello autorizzazione per ente identico a CDU-15/CDU-16 (`codice_ente` inoltrato dal Gateway; vedi §6.15/§6.16 "Modello di sicurezza").
+> **Autenticazione:** token OAuth2 Client Credentials **emesso e validato dall'API Manager CSI (APIMBBONE)**, scope `consensi:snapshot`. Modello autorizzazione per ente identico a CDU-15/CDU-16 (`codice_ente` inoltrato dal Gateway; vedi §6.15/§6.16 "Modello di sicurezza"). ⛔ *Superato (ADR-027): vedi avviso in testa.*
 >
 > **Codici di risposta:** 200 OK, 400 (cursor invalido o parametri mancanti), 401 Unauthorized, 403 Forbidden (ente non autorizzato), 404 Not Found (endpoint non esistente), 409 Conflict (stato_allineamento già COMPLETATO), 429 Too Many Requests, 500 Internal Server Error.
 
@@ -356,7 +368,7 @@ Raccomandazione: **CDU-17 PULL** come primaria. Export disponibile come fallback
 
 ## 12. Riferimenti
 
-- Decisione sicurezza: [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16]] — AS-IS: Spring Security diretta (no API Gateway per fruitori esistenti); TO-BE: API Manager CSI Piemonte per nuovi fruitori (verbale 11/06/2026; vedi [[wiki/docs/adr/ADR-004-no-api-gateway\|ADR-004]])
+- Decisione sicurezza: [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16]] — AS-IS: Spring Security diretta (no API Gateway per fruitori esistenti); TO-BE: API Manager CSI Piemonte per nuovi fruitori (verbale 11/06/2026; vedi [[wiki/docs/adr/ADR-004-no-api-gateway\|ADR-004]]) ⛔ *Superato (ADR-027): vedi avviso in testa.*
 - Pattern sicurezza riusato: [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]
 - Specifica OpenAPI fratelli CDU-15/16: [[wiki/analyses/analysis-2026-05-06-openapi-cdu-15-16\|analysis-2026-05-06-openapi-cdu-15-16]]
 - Inventario consumer (SIA ASR): [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]]
