@@ -14,7 +14,7 @@ Quando si aggiunge un nuovo endpoint, il nuovo SIA va **allineato** con i consen
 
 **Esposizione** (ADR-027, niente API Manager):
 - le operazioni su enti ed endpoint (inserimento, modifica, eliminazione) si fanno **solo dalla webapp Operatore**;
-- le **aziende** possono chiamare solo il cambio di stato di allineamento (CDU-17) e la manutenzione (§7.4), in **mutual TLS** come `ConsprefService` (decisione dedotta da ADR-027; certificati da concordare con CSI, ST-11).
+- le **aziende** possono chiamare solo il cambio di stato di allineamento (CDU-17) e la manutenzione (§7.4), in **mutual TLS** (decisione dedotta da ADR-027; certificati da concordare con CSI, ST-11). ⚠️ Il documento CPROL v02c indica per `ConsprefService` WS-Security X509, non mutual TLS: meccanismo da confermare con CSI (ST-11).
 
 ## Precondizioni
 

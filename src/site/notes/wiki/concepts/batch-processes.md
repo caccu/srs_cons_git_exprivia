@@ -280,6 +280,8 @@ Design storico (push, deprecato):
 - Trigger: nuovo endpoint ASR (`cons_t_endpoint` con `stato_allineamento=DA_ALLINEARE`)
 - Azione: invia consensi esistenti al nuovo endpoint via SOAP "allineamento massivo"
 
+> ℹ️ **AS-IS (06/11/2026):** l'allineamento massivo non era un servizio SOAP, ma un file CSV che CSI forniva su richiesta dell'ASR, solo dopo una nuova installazione (nuovo gestore aziendale o nuovo dipartimentale). Tracciato: CF, idAura, data, tipo, sottotipo, valore, codice ASR ([[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|documento CPROL v02c]] cap. 9).
+
 ---
 
 ## Sequenza nel ciclo di vita del consenso
@@ -313,7 +315,7 @@ Nuovo endpoint configurato (CDU-14 Back Office)
 - BATCH-01: client SOAP Apache CXF o Spring-WS
 - BATCH-01 concorrenza: `SELECT FOR UPDATE SKIP LOCKED` (PostgreSQL 18 nativa) — più istanze pod sicure
 - BATCH-02: usa `gen_random_uuid()` PostgreSQL 18 per UUID nuovi record storicizzati
-- Certificati X509 WS-Security: richiederli a [[wiki/entities/csi-piemonte\|CSI Piemonte]] in Sprint 0
+- ~~Certificati X509 WS-Security~~ Certificato client per il mutual TLS verso le ASR (uno solo per tutte) e truststore dei server ASR: richiederli a [[wiki/entities/csi-piemonte\|CSI Piemonte]] in Sprint 0 ([[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|documento CPROL v02c]] §10.2, corretto 06/11/2026)
 - `cons_t_batch_errori`: tabella TO-BE per tracciatura anomalie (non presente AS-IS)
 
 ---

@@ -83,9 +83,9 @@ L'ordine segue le dipendenze reali tra i pezzi.
 | Contratto Webapp Cittadino = SOAP `ConsensoBeService` via APISAN (ADR-025, 10 operazioni, 9 usate da SANSOL) | Non regressione del BE Cittadino | Solo conferma CSI (INT-06/INT-08) |
 | DEV-04: codici HTTP 502/409/503 per errori esterni/DB | Contratto errori FE e integrazioni | In verifica CSI |
 | ~~DEV-05: BE raggiungibile solo dal Gateway APIMBBONE~~ | Sicurezza CDU-15/16/17 | Superato da ADR-027 (nessun API Manager) |
-| ST-11: CDU-17 e manutenzione in mutual TLS (servizio separato da `ConsprefService`): decisione dedotta da ADR-027 | Sicurezza SIA | Decisa; da concordare con CSI certificati e identificazione dell'ente |
+| ST-11: CDU-17 e manutenzione in mutual TLS (servizio separato da `ConsprefService`): decisione dedotta da ADR-027 | Sicurezza SIA | Decisa; da concordare con CSI certificati e identificazione dell'ente. ⚠️ Il documento CPROL v02c indica WS-Security X509 per ConsprefService: meccanismo da confermare |
 | DEV-01: `modifyToRevoked` AS-IS e regola di esclusione aziende con endpoint dismessi (ASR 904 da ripristinare) | CDU-08/09/14, elenco ASR | Parziale; regola provvisoria: almeno un endpoint attivo (BE-16) |
-| Valore effettivo di `fonte_id` per il Punto Assistito (`PASS` etichetta logica, es. `WA_PASS` nel DB AS-IS) | CDU-09/10/11 | Da verificare su `cons_d_fonte` |
+| Valore effettivo di `fonte_id` per il Punto Assistito (`PASS` etichetta logica, es. `WA_PASS` nel DB AS-IS). Nel contratto SOAP (documento CPROL v02c): tipo fonte `PASS`, codice fonte `WA_PASS` | CDU-09/10/11 | Da verificare su `cons_d_fonte` |
 | INT-10: Notificatore di Deleghe = `notify-mb`? | avviso al cittadino dopo `COMPLETATO` (BATCH-01) | Da inviare a CSI |
 | Regole residue del Form Renderer: domande multiple, default del radio, HTML nei parametri. Chiuse: `online = NO` lato operatore (BE-18); una azienda per operazione (FE-03, resta la verifica AS-IS) | CDU-09/10/11 | Da inviare a CSI |
 | Stato `IN_MANUTENZIONE` e modello dati start/stop | Manutenzione endpoint | Chiuso (02/11/2026, SRS rev. 1.29): colonna `cons_t_endpoint.stato_endpoint` (`ATTIVO`, `IN_MANUTENZIONE`), separata da `stato_allineamento`; ripresa con `stato = ATTIVO`. La manutenzione la dichiara l'azienda in mutual TLS come CDU-17 (decisione dedotta da ADR-027, BE-25); l'operatore la può togliere da CDU-14 (proposta, BE-25b) |

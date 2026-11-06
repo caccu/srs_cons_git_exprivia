@@ -32,6 +32,11 @@ Casi d'uso coinvolti:
 - **Servizi sugli endpoint** (inserimento, modifica, eliminazione): usati solo dalla webapp (CDU-14).
 - **Manutenzione di un'azienda** (`IN_MANUTENZIONE`, BE-25): l'azienda la dichiara in **mutual TLS**, sullo stesso canale di CDU-17 (decisione dedotta). L'operatore ha la stessa operazione da CDU-14, che serve anche a togliere una manutenzione dimenticata (BE-25b).
 
+> ⚠️ **Conflict (06/11/2026):** il [[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|documento CPROL v02c]] (§2.3 e §10) dice che `ConsprefService` (SRV-01/02) è protetto con **WS-Security X509** (Sign and Encrypt sul messaggio SOAP, un certificato per ogni sistema ASR, associato al sistema nel DB). Il **mutual TLS**, con un solo certificato, lo usa invece CSI per chiamare le ASR (SRV-03/04). Nella [[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|call del 28/10]] CSI ha detto solo «SOAP con certificati». Quindi «mutual TLS come per `ConsprefService`» (aziende, CDU-17, manutenzione) non trova conferma nel documento.
+> - **Resta valido:** il SIA si autentica con i certificati X509 che le aziende hanno già.
+> - **Da decidere con CSI (ST-11):** per i servizi REST di CDU-17 e manutenzione, mutual TLS con gli stessi certificati X509 dei sistemi ASR oppure un altro meccanismo. Da verificare anche come è configurato oggi `ConsprefService` in produzione.
+> Unresolved.
+
 ## Consequences
 
 - Le API si progettano «esponibili in futuro», con uno swagger ridotto. L'apertura a fruitori esterni richiede un nuovo ADR, che sceglierà il meccanismo: API Manager, certificati o altro.

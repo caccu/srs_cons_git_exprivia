@@ -36,7 +36,7 @@ Regole pratiche:
 **SIA/aziende → Backend (CDU-17 e manutenzione; CDU-15/16 non esposti in V1.0)**
 - Nessun API Manager né OAuth2 nel TO-BE V1.0 (ADR-027, approvato da CSI nella call del 05/11/2026).
 - CDU-15 e CDU-16: sviluppati nel backend ma non esposti ai SIA.
-- CDU-17 (snapshot e conferma) e manutenzione (`PATCH .../stato`): esposti ai SIA in **mutual TLS**, come `ConsprefService`, con un servizio separato. Decisione dedotta da ADR-027 (senza API Manager è l'unico canale autenticato). Da concordare con CSI (ST-11): certificati e modo di identificare l'ente.
+- CDU-17 (snapshot e conferma) e manutenzione (`PATCH .../stato`): esposti ai SIA in **mutual TLS** con un servizio separato. Decisione dedotta da ADR-027 (senza API Manager è l'unico canale autenticato). Da concordare con CSI (ST-11): certificati e modo di identificare l'ente. ⚠️ Il documento CPROL v02c indica per `ConsprefService` WS-Security X509, non mutual TLS: meccanismo da confermare con CSI (ST-11).
 - `EnteAuthorizationFilter` (Spring Security custom): l'azienda opera solo sui propri dati. Le repository applicano sempre `WHERE codice_ente = :authorizedEnte` (difesa in profondità).
 - Nessun rate limiting applicativo in V1.0.
 - Audit strutturato per ogni chiamata: identificativo dell'azienda chiamante, `codice_ente_requested`, `codice_ente_authorized`, `outcome`, `latency_ms`, `trace_id`. CF mai in chiaro.
@@ -44,7 +44,7 @@ Regole pratiche:
 - `cons_t_client_ente` **non** si implementa in V1.0.
 
 **Aziende federate (canale AS-IS)**
-- Il servizio SOAP in ingresso `/services/ConsprefService` resta **a contratto invariato** (spec. WebService ConsensoRegionaleAziendale v03, namespace `http://consprefbe.csi.it/`). Va sbloccato nella configurazione di sicurezza del nuovo backend con autenticazione equivalente all'AS-IS (da verificare sul sorgente, presumibilmente certificati X509).
+- Il servizio SOAP in ingresso `/services/ConsprefService` resta **a contratto invariato** (documento CPROL v02c, maggio 2019; l'SRS cita la v03). Namespace: nel documento `http://conspref.csi.it`, nella wiki finora `http://consprefbe.csi.it/`: fa fede il WSDL reale. Va sbloccato nella configurazione di sicurezza del nuovo backend con autenticazione equivalente all'AS-IS: secondo il documento WS-Security X509 Sign and Encrypt con timestamp, un certificato per sistema ASR associato nel DB, certificato vecchio e nuovo accettati insieme durante il rinnovo (da verificare sul sorgente).
 - Le aziende già federate restano su questo canale; il REST in mutual TLS (CDU-17 e manutenzione) si affianca, non lo sostituisce.
 
 ## 3. Ciclo di vita del consenso
@@ -84,7 +84,7 @@ Il frontend non li invia mai:
 
 | Campo | Operatore (CDU-09/10/11) | Cittadino (BE iso) | Batch |
 |---|---|---|---|
-| `fonte_id` | fonte Punto Assistito censita in `cons_d_fonte` (`PASS` etichetta logica; valore reale da verificare, es. `WA_PASS`) | fonte cittadino AS-IS (`CITT`) | invariato dal record originale |
+| `fonte_id` | fonte Punto Assistito censita in `cons_d_fonte` (`PASS` etichetta logica; valore reale da verificare, es. `WA_PASS`; nel contratto SOAP, documento CPROL v02c: `PASS` / `WA_PASS`) | fonte cittadino AS-IS (`CITT`) | invariato dal record originale |
 | `login_operazione` | CF operatore da sessione PUA | CF cittadino | `BATCH-02` / `BATCH_SCADENZA_INF` |
 | `ruoloop_id` | ruolo operatore PUA | NULL | — |
 | `cf_delegato` | NULL | CF del delegato se in sessione di delega (ricevuto in input) | copiato |

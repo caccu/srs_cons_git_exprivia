@@ -11,7 +11,7 @@
 
 - **Operatore:** Angular e BFF, login IRIDE/Shibboleth, JWT interno tra BFF e backend.
 - **Cittadino:** APISAN verso backend in basic authentication.
-- **Aziende e laboratori:** SOAP `ConsprefService` in mutual TLS, come oggi.
+- **Aziende e laboratori:** SOAP `ConsprefService` con certificati, come oggi. ⚠️ Il [[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|documento CPROL v02c]] indica WS-Security X509, non mutual TLS: vedi il conflitto in [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]] (ST-11).
 - **CDU-15/16:** non esposti. Se un servizio interno lavora per ente, resta il filtro su `codice_ente` (l'attuale «Livello C»).
 - **Nessun rate limiting o throttling applicativo in V1.0.**
 

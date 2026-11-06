@@ -53,7 +53,7 @@ Confermato da Manuela come requisito CSI ([[wiki/concepts/composizione-dinamica-
 ## Dubbi aperti sulla trascrizione
 
 - **CDU-17:** servizi per i SIA via API o solo operatore di backoffice? Resta o si elimina?
-- **CPROL:** nella call sembra il consenso permanente del ritiro referti; il glossario del deck lo definisce «informativa generale». Da verificare.
+- **CPROL:** nella call sembra il consenso permanente del ritiro referti; il glossario del deck lo definisce «informativa generale». Da verificare. ✅ **Chiarito 06/11/2026:** `CPROL` è il codice sottotipo del «Consenso Permanente al ROL» (ritiro referti online), consenso aziendale per singola ASR ([[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|documento CPROL v02c]]).
 - **Endpoint:** Gaia dice che gli operatori ASL «raccolgono gli endpoint»; chi li gestisce?
 - **INF-05:** ingresso TLS e gestione dei segreti non trattati.
 

@@ -5,6 +5,13 @@
 
 # Specifica WebService ConsensoRegionaleAziendale v03
 
+> 🆕 **06/11/2026:** questa pagina è stata scritta da come l'SRS cita la v03, che non abbiamo. Il documento vero ricevuto da CSI è la **v02c**: [[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c]]. Rispetto alla v02c questa pagina ha questi errori:
+> - **sicurezza invertita**: WS-Security X509 vale per i servizi esposti da CSI (SRV-01/02), il mutual TLS con un solo certificato per le chiamate verso le ASR (SRV-03/04);
+> - `valoreConsenso` ammette anche `NE`;
+> - tipi fonte anche `LIS` e `RIS`;
+> - namespace `http://conspref.csi.it`;
+> - l'allineamento massivo è un CSV su richiesta, non un servizio; BATCH-03 è stato sostituito dal pull di CDU-17 ([[wiki/docs/adr/ADR-006-batch-03-pull-cdu-17\|ADR-006]]).
+
 **Documento:** Specifica-WebService_ConsensoRegionaleAziendale_v03
 **Data:** Giugno 2019
 **Uso:** Esterno — contratto tecnico tra Modulo Regionale Gestione Consensi e SIA delle ASR

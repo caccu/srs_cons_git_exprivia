@@ -82,6 +82,7 @@ NON_ESPRESSO
 > - **Da decidere:**
 >   - se scriverlo come record (per esempio come valore di default nel JSON, subito ricoperto);
 >   - oppure lasciarlo come stato iniziale implicito, senza record. In questo caso la macchina a stati resta più semplice (Tommaso).
+> - 🆕 **Documento CPROL v02c (06/11/2026):** nel contratto di `ConsprefService` (SRV-01) il valore `NE` (non espresso) è ammesso in ingresso, insieme a `SI` e `NO`. Le notifiche alle aziende (SRV-03) portano solo `SI` e `NO`. Qualunque sia la scelta, il backend deve accettare `NE` in SRV-01 come oggi e non notificarlo. Da chiedere a CSI cosa fa oggi il legacy con un `NE` ricevuto: scrive un record, lo ignora o dà errore. Fonte: [[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c]].
 >
 > Fonte: [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]].
 

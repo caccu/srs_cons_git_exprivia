@@ -37,7 +37,7 @@ Conseguenza wiki: rimosso dal corpus dei sistemi integrati. La voce SistemaTS NO
 
 Sistema bidirezionale — consumatore API REST e destinatario notifiche SOAP.
 
-> 🆕 **[[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]] (05/11/2026):** niente API Manager né OAuth2. CDU-15/16 non esposti in V1.0. CDU-17 e manutenzione: il SIA chiama in **mutual TLS**, come per `ConsprefService`, con un servizio separato (decisione dedotta da ADR-027; certificati da concordare con CSI, ST-11). Le righe sotto che citano APIMBBONE sono segnate ⛔.
+> 🆕 **[[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]] (05/11/2026):** niente API Manager né OAuth2. CDU-15/16 non esposti in V1.0. CDU-17 e manutenzione: il SIA chiama in **mutual TLS**, come per `ConsprefService`, con un servizio separato (decisione dedotta da ADR-027; certificati da concordare con CSI, ST-11). Le righe sotto che citano APIMBBONE sono segnate ⛔. ⚠️ Meccanismo da rivedere: vedi il conflitto in [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]] (06/11/2026).
 
 | Direzione | Protocollo | CDU/Batch | Stato |
 |---|---|---|---|
@@ -46,7 +46,7 @@ Sistema bidirezionale — consumatore API REST e destinatario notifiche SOAP.
 
 **BATCH-03 push rimosso:** l'allineamento massivo per nuovo endpoint passa a modello PULL (CDU-17). Vedi [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]].
 
-**Sicurezza outbound SOAP (BATCH-01):** WS-Security X509, un certificato per ASR — richiederli in Sprint 0.
+**Sicurezza outbound SOAP (BATCH-01):** ~~WS-Security X509, un certificato per ASR — richiederli in Sprint 0.~~ ✅ **Corretto 06/11/2026** ([[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|documento CPROL v02c]] §10.2): SSL Client Authentication (mutual TLS) con **un solo certificato**, uguale per tutte le ASR; truststore dei server ASR; timeout parametrico; messaggi e risposte tracciati in chiaro. Certificato client e truststore da richiedere a CSI.
 **Sicurezza inbound REST:** OAuth2 Client Credentials via **API Manager APIMBBONE**; il Gateway inoltra al backend il **`codice_ente`** (isolamento per ente). **`cons_t_client_ente` fuori scope V1.0** (estensione futura). Vedi [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]. ⛔ *Superato (ADR-027).*
 
 **Rischi aperti:** ambiguità BATCH-01 WSDL + semantica SCADUTO AS-IS≠TO-BE. Vedi [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]].
@@ -62,7 +62,7 @@ Sistema bidirezionale — consumatore API REST e destinatario notifiche SOAP.
 ```
 SIA ASR  →  PATCH /api/v1/endpoints/{endp_id}/stato-allineamento { IN_CORSO }   (blocco obbligatorio)
          →  loop: GET /api/v1/consensi/snapshot?codice_ente&codice_consenso&cursor&page_size
-                        ↓  (via API Gateway APIMBBONE — codice_ente inoltrato)   ⛔ superato (ADR-027): mutual TLS
+                        ↓  (via API Gateway APIMBBONE — codice_ente inoltrato)   ⛔ superato (ADR-027): certificati, meccanismo da concordare (ST-11)
          [EnteAuthorizationFilter → WHERE codice_ente]
                         ↓
          Gestione Consensi  →  200 { items[], next_cursor, has_more }
@@ -257,7 +257,7 @@ Attore che nel [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|deploymen
         ├─ Notificatore UNP  (REST) — notifica ANNULLATO (BATCH-02)
         ├─ SIA ASR           (SOAP outbound) ← BATCH-01 notifiche puntuali
         ├─ SIA ASR           (REST inbound) ← CDU-15, CDU-16 [spec v0.1-DRAFT]
-        ├─ SIA ASR           (REST inbound via API Manager) ← CDU-17 PULL snapshot [✅ confermato 20/07 — swagger da produrre]  ⛔ superato (ADR-027): mutual TLS
+        ├─ SIA ASR           (REST inbound via API Manager) ← CDU-17 PULL snapshot [✅ confermato 20/07 — swagger da produrre]  ⛔ superato (ADR-027): certificati, meccanismo da concordare (ST-11)
         └─ LIS (e analoghi es. RIS) — via SOAP ConsprefService, come le aziende [ADR-020, verificato su TEST 21/10/2026]
 ```
 
@@ -270,7 +270,7 @@ Attore che nel [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|deploymen
 | Sistema                  | Cosa serve                                                                        | Stato                                                                                                                                    |
 | ------------------------ | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | AURA                     | Credenziali IRIS + WSDL (FindProfiliAnagrafici, getProfiloSanitario)              | ✅ Nei properties (call 20/07/2026) — nessun servizio nuovo                                                                               |
-| SIA ASR                  | Certificati X509 per ogni ASR (AS-IS) / credenziali OAuth via APIMBBONE (TO-BE)   | ❌ Da richiedere (AS-IS) · TO-BE gestito da APIM ⛔ *superato (ADR-027)* |
+| SIA ASR                  | AS-IS: certificato client unico per chiamare le ASR (mutual TLS) e certificati X509 dei sistemi ASR verificati da ConsprefService (WS-Security) / credenziali OAuth via APIMBBONE (TO-BE)   | ❌ Da richiedere (AS-IS) · TO-BE gestito da APIM ⛔ *superato (ADR-027)* |
 | Gestione Deleghe ❌ OUT   | WSDL                                                                              | ⚪ Non necessario — **fuori perimetro FE e BE** (CSI 25/09/2026, DEV-02): il BE riceve solo il CF del delegato                             |
 | Notificatore di Deleghe  | API + integration spec                                                            | ✅ **AS-IS legacy, riciclato — nessun nuovo sviluppo** (call CSI 06/08/2026; era "❌ Da richiedere" prima di questa call, distinta da UNP) |
 | Notificatore UNP         | Già documentato — gitlab.csi.it                                                   | ✅ Riferimento disponibile                                                                                                                |

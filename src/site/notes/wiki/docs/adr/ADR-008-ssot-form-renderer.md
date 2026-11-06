@@ -40,7 +40,7 @@ Differenze ammesse fra Cittadino e Operatore — **solo metadati di tracciatura 
 
 | Campo | Cittadino | Operatore |
 |---|---|---|
-| `fonte_id` | da contesto webapp (es. `WEB_CITT`) | `'PASS'` |
+| `fonte_id` | da contesto webapp (es. `WA_CITT`) | `'PASS'` |
 | `login_operazione` | CF cittadino autenticato | login operatore PUA |
 | `ruoloop_id` | NULL | ID ruolo operatore PUA |
 

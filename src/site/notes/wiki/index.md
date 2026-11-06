@@ -77,6 +77,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 ### Baseline AS-IS
 
 - [[wiki/sources/2019-02-01-sfu-gestione-consensi-v1-7\|Studio Funzionale Gestione Consensi SoL V1.7 (AS-IS 2019)]] — Baseline funzionale AS-IS: 6 CDU originali, stack legacy
+- [[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c]] — Documento CPROL di CSI (v02c, mag 2019): SRV-01÷05, sicurezza, notifiche, allineamento massivo
 - [[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]] — 5 servizi SOAP AS-IS: SRV-01÷05, WSDL outbound, sicurezza X509
 - [[wiki/sources/2019-04-08-dizionario-dati-as-is\|Modello Dizionario Dati AS-IS (2019)]] — 12 entità AS-IS (2 business + 1 log + 9 dominio); cons_s_consenso non popolata
 - [[wiki/sources/2019-03-20-acc-del-cdu-01-servizi-acquisizione\|ACC-DEL-CDU-01 Servizi Acquisizione Consensi (AS-IS)]] — Specifiche SOAP inbound: DA01-DA03, upsert logic, 18 codici errore

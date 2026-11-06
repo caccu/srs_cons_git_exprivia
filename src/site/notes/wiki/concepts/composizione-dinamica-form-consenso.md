@@ -80,7 +80,7 @@ Layout dinamico **identico** al lato cittadino. Le sole differenze riguardano i 
 
 | Campo | Lato Cittadino | Lato Operatore |
 |---|---|---|
-| `fonte_id` | derivato da contesto webapp citt. (es. `WEB_CITT`) | `'PASS'` |
+| `fonte_id` | derivato da contesto webapp citt. (es. `WA_CITT`) | `'PASS'` |
 | `login_operazione` | CF cittadino autenticato | login operatore PUA |
 | `ruoloop_id` | NULL | ID ruolo operatore PUA |
 

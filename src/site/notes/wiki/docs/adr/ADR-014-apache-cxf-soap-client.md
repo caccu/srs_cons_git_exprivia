@@ -14,7 +14,7 @@
 Tre integrazioni richiedono client SOAP:
 - **AURA** (FindProfiliAnagrafici, getProfiloSanitario) — WS-Security UsernameToken IRIS
 - **Gestione Deleghe** — OAuth2 Client Credentials
-- **SIA ASR outbound** (BATCH-01) — WS-Security X509, contratto WSDL AS-IS invariato ([[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|2019-06-01-webservice-consenso-regionale-v03]])
+- **SIA ASR outbound** (BATCH-01) — ~~WS-Security X509~~ SSL Client Authentication (mutual TLS) con un solo certificato, contratto WSDL AS-IS invariato ([[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|documento CPROL v02c]] §10.2, corretto 06/11/2026)
 
 Spring Boot 3 + Java 17 hanno migrato a Jakarta EE (namespace `jakarta.*`). Le librerie SOAP devono supportare il nuovo namespace, escludendo molte versioni legacy di Apache CXF, JAX-WS RI o Spring-WS.
 
@@ -45,7 +45,7 @@ Alternativa esplicitamente menzionata in Q&A CSI #9: **Spring-WS** (anch'essa co
 
 ### Neutral
 - Approvvigionamento WSDL AURA, Gestione Deleghe da CSI ancora ❌ (Sprint 0)
-- Certificati X509 per ogni ASR da richiedere (Sprint 0)
+- ~~Certificati X509 per ogni ASR da richiedere (Sprint 0)~~ Certificato client unico e truststore dei server ASR da richiedere a CSI (Sprint 0) — corretto 06/11/2026
 
 ## Alternatives considered
 

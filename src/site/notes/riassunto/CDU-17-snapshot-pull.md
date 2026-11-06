@@ -16,7 +16,7 @@ Durante l'allineamento l'acquisizione di nuovi consensi per quel sotto-tipo è *
 
 - Un operatore registra il nuovo endpoint dalla webapp (CDU-14, chiamata dalla webapp tramite BFF) → `stato_allineamento = DA_ALLINEARE`.
 - Il SIA riceve la notifica out-of-band (email e/o webhook, PULL-02).
-- Il SIA si collega in **mutual TLS**, come per `ConsprefService`, su un servizio separato (decisione dedotta da ADR-027). Certificati e identificazione dell'ente da concordare con CSI (ST-11).
+- Il SIA si collega in **mutual TLS** su un servizio separato (decisione dedotta da ADR-027). Certificati e identificazione dell'ente da concordare con CSI (ST-11). ⚠️ Il documento CPROL v02c indica per `ConsprefService` WS-Security X509, non mutual TLS: meccanismo da confermare con CSI (ST-11).
 
 ## Flusso
 

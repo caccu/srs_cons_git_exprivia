@@ -14,6 +14,8 @@
 
 > ⚠️ **Senza API Manager ([[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]], 05/11/2026): decisione dedotta da ADR-027.** Senza API Manager l'unico canale autenticato per i SIA è il mutual TLS, già usato dalle aziende per `ConsprefService`. Il SIA chiama `/snapshot` e la conferma di fine allineamento (passo 5) in **mutual TLS**, come per `ConsprefService`, con un servizio separato perché il WSDL di ConsprefService è fermo. Centro stella e automazione restano invariati: l'operatore avvia l'allineamento da CDU-14, il batch del SIA scarica e conferma, il sistema regionale avvisa con webhook o email (in uscita). Sono superate le parti su APIMBBONE, scope OAuth, header del gateway e rate limit sul Traffic Manager, segnate ⛔ nel testo. Alternative valutate: A (solo operatore, manuale) e D (implementato non esposto). Restano da concordare con CSI i dettagli tecnici: certificati (stessi di ConsprefService o nuovi) e identificazione dell'ente (ST-11).
 
+> ⚠️ **Conflict (06/11/2026):** secondo il [[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|documento CPROL v02c]] `ConsprefService` usa WS-Security X509, non il mutual TLS. Il canale per `/snapshot` e la conferma di fine allineamento resta da concordare con CSI: vedi il conflitto in [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]] (ST-11). Unresolved.
+
 > ✅ **Rielaborazione CDU-17 — call CSI 20/07/2026.** Il committente ha fornito il rifacimento completo del caso d'uso. Novità rispetto alla prima proposta:
 > - **Attore** = **operatore con profilo Back Office** sulla **web app Gestione Consensi** (accesso da **PUA**), non un "operatore CSI" generico. Scenario tipico: azienda con ≥1 endpoint già attivo (**es. RIS**) che ne attiva un altro (**es. LIS**) → serve allineamento.
 > - **Variante B (watermark / no-blocco) ELIMINATA.** Resta **solo la Variante A**: il blocco temporaneo delle acquisizioni (`IN_CORSO`) è **obbligatorio** per garantire uno snapshot coerente.
@@ -363,6 +365,8 @@ Raccomandazione: **CDU-17 PULL** come primaria. Export disponibile come fallback
 > **7.3 BATCH-03 (RIMOSSO)**
 >
 > Il processo BATCH-03 di allineamento massivo via push SOAP è stato rimosso dalla specifica TO-BE. L'allineamento di un nuovo endpoint con i consensi pre-esistenti è ora gestito in modalità PULL dal SIA tramite CDU-17 (vedi §6.17), in coerenza con il modello "centro stella" richiesto dal committente.
+
+> ℹ️ **AS-IS (06/11/2026):** oggi l'allineamento di un nuovo endpoint è un CSV prodotto da CSI su richiesta dell'ASR ([[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|documento CPROL v02c]] cap. 9). Lo snapshot di CDU-17 rende automatico questo passaggio manuale.
 
 ---
 
