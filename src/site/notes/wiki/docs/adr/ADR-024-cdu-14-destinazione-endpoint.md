@@ -62,7 +62,7 @@ Le chiamate in uscita verso il SIA previste dall'SRS sono due:
 
 ## Open issues
 
-- Aggiornare l'OpenAPI dei servizi endpoint esposti alle aziende (PULL-09) con il campo destinazione.
+- Aggiornare l'OpenAPI dei servizi endpoint della webapp (PULL-09) con il campo destinazione. I servizi endpoint non sono esposti alle aziende (ADR-027).
 
 ## References
 

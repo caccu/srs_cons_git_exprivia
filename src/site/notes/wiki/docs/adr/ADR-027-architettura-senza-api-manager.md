@@ -28,9 +28,14 @@
 Casi d'uso coinvolti:
 
 - **CDU-15 e CDU-16:** i servizi restano nel codice e non sono esposti in V1.0.
-- **CDU-17 (proposta Exprivia del 06/11/2026, da confermare con CSI, ST-11):** l'operatore avvia l'allineamento da CDU-14 e da lì gestisce tutto il percorso. Scarica lo snapshot e lo consegna all'azienda. Dopo la conferma dell'azienda, fuori dal sistema, registra la fine dell'allineamento (passo 8). Oggi succede lo stesso con il CSV su richiesta ([[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|specifica v02c]], cap. 9). I servizi REST per i SIA (download e conferma) restano nel codice ma **non sono esposti in V1.0**, come CDU-15 e CDU-16 (opzioni A+D).
+- **CDU-17 (proposta Exprivia del 06/11/2026, da confermare con CSI, ST-11):** il centro stella resta. In V1.0 l'**operatore di back office aziendale** scarica lo snapshot da CDU-14, in un CSV **identico** a quello dell'allineamento massivo di oggi ([[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|specifica v02c]], cap. 9). Il sistema blocca le acquisizioni solo durante la generazione e segna l'endpoint COMPLETATO allo scaricamento. L'azienda carica il file come fa oggi. I servizi REST per i SIA (download e conferma) restano nel codice ma **non sono esposti in V1.0**, come CDU-15 e CDU-16 (opzioni A+D).
   - ~~Il batch del SIA scarica lo snapshot e conferma la fine in mutual TLS, come per `ConsprefService` (decisione dedotta).~~ Superato: `ConsprefService` non usa il mutual TLS (vedi Conflict sotto).
-  - Se CSI chiede che i SIA chiamino direttamente, serve un nuovo ADR. Bisognerà scegliere il meccanismo, dove termina il TLS e come legare il certificato al codice dell'azienda. Stima del team di sviluppo: 3-5 giorni, esclusa la configurazione infrastrutturale di CSI.
+  - **Vincolo: nessun adeguamento da parte delle ASR.** Ogni scenario in cui il SIA chiama un servizio nuovo richiede un client lato ASR, quindi oggi è escluso. Le strade valutate il 06/11/2026 lo richiedono tutte:
+    - API Manager solo per CDU-17 e manutenzione (codice già pronto, ma client OAuth2 per ogni ASR);
+    - firma WS-Security come `ConsprefService`;
+    - mutual TLS (stima del team di sviluppo: 3-5 giorni, più la configurazione di CSI).
+    Se un giorno servisse, ci vorrà un nuovo ADR.
+  - Alternativa automatica da proporre a CSI, senza lavoro per le ASR: reinviare i consensi attivi al nuovo endpoint con SRV-03 tramite BATCH-01. È però un push massivo, contrario alla scelta del 20/07 ([[wiki/docs/adr/ADR-006-batch-03-pull-cdu-17\|ADR-006]]).
 - **Servizi sugli endpoint** (inserimento, modifica, eliminazione): usati solo dalla webapp (CDU-14).
 - **Manutenzione di un'azienda** (`IN_MANUTENZIONE`, BE-25): proposta Exprivia del 06/11/2026, da confermare con CSI (ST-11). La imposta e la toglie **solo l'operatore** da CDU-14 (BE-25b), su richiesta dell'azienda. Il servizio REST per l'azienda resta nel codice ma non è esposto in V1.0. ~~L'azienda la dichiara in mutual TLS, sullo stesso canale di CDU-17 (decisione dedotta).~~
 
@@ -42,7 +47,7 @@ Casi d'uso coinvolti:
 >   - Nel notificatore legacy, l'alias del certificato di firma di produzione è `cert_test_2024` (nei profili cert/tst `cert_demo20`).
 >   - ⚠️ **Sicurezza:** nel nuovo backend i REST di CDU-17 e manutenzione non hanno né certificato né token. Prendono il codice ente dall'header dell'API Manager, che senza API Manager nessuno imposta. Esposti così, chiunque raggiunga la rete potrebbe agire su qualunque ente. Per questo non si espongono in V1.0 (vedi CDU-17 e manutenzione sopra).
 > - **Da chiedere a CSI (ST-11):**
->   - in V1.0 i SIA devono chiamare CDU-17 o la manutenzione, o basta l'operatore (proposta A+D)?
+>   - il centro stella resta, senza lavoro per le ASR: in V1.0 l'operatore aziendale scarica lo snapshot nello stesso tracciato CSV dell'allineamento massivo di oggi e l'azienda lo carica come ora. Ci mandate un file di esempio? Confermate questa strada, o preferite il reinvio con SRV-03 tramite BATCH-01?
 >   - in produzione `ConsprefService` chiede anche il certificato client TLS, per esempio su un proxy o sul bilanciatore?
 >   - nelle notifiche in uscita il certificato client TLS è impostato a livello di JVM o di server?
 >   - `cert_test_2024` è il certificato giusto per la produzione?

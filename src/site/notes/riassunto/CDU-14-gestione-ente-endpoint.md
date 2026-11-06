@@ -4,21 +4,21 @@
 
 # CDU-14 — Gestione enti ed endpoint (Back Office + API per le aziende)
 
-**Perimetro:** FE ✅ · BE ✅ — Riferimenti: SRS v10 §6.14, §6.17, §7.4, §8.3.7, §8.3.8, §8.3.10, §8.3.23, §8.4.3, §8.4.6, §8.4.7; ADR-006.
+**Perimetro:** FE ✅ · BE ✅ — Riferimenti: SRS v10 §6.14, §6.17, §7.4, §8.3.7, §8.3.8, §8.3.10, §8.3.23, §8.4.3, §8.4.6, §8.4.7; ADR-006; ADR-027 (proposta A+D del 06/11/2026, da confermare con CSI, ST-11).
 
 ## Cosa fa
 
 Gestisce l'anagrafica degli **enti** (ASR, enti nazionali e regionali) e dei loro **endpoint**, cioè gli URL dei SIA a cui il sistema notifica le variazioni dei consensi. Per ogni endpoint si indica per quali sotto-tipi di consenso è attivo.
 
-Quando si aggiunge un nuovo endpoint, il nuovo SIA va **allineato** con i consensi esistenti. Il sistema non fa push massivi: imposta `stato_allineamento = DA_ALLINEARE`, avvisa il SIA fuori banda (email e/o webhook) e il SIA scarica i dati in PULL con [CDU-17](CDU-17-snapshot-pull.md).
+Quando si aggiunge un nuovo endpoint, il nuovo SIA va **allineato** con i consensi esistenti. Il sistema non fa push massivi: imposta `stato_allineamento = DA_ALLINEARE`. In **V1.0** l'operatore di back office aziendale scarica da questa pagina lo snapshot in un CSV identico a quello dell'allineamento massivo di oggi, e l'azienda lo carica come fa ora ([CDU-17](CDU-17-snapshot-pull.md)).
 
 **Esposizione** (ADR-027, niente API Manager):
 - le operazioni su enti ed endpoint (inserimento, modifica, eliminazione) si fanno **solo dalla webapp Operatore**;
-- le **aziende** possono chiamare solo il cambio di stato di allineamento (CDU-17) e la manutenzione (§7.4), in **mutual TLS** (decisione dedotta da ADR-027; certificati da concordare con CSI, ST-11). ⚠️ Il documento CPROL v02c indica per `ConsprefService` WS-Security X509, non mutual TLS: meccanismo da confermare con CSI (ST-11).
+- le **aziende** in V1.0 non chiamano nessun servizio: allineamento (CDU-17) e manutenzione (§7.4) li fa l'operatore da questa pagina (proposta A+D, ST-11; vincolo: nessun adeguamento per le ASR). I due `PATCH` per le aziende restano nel codice ma non sono esposti. ~~Mutual TLS (decisione dedotta).~~
 
 ## Precondizioni
 
-Operatore autenticato (webapp, sessione PUA e JWT interno); SIA in mutual TLS solo per allineamento e manutenzione (decisione dedotta da ADR-027).
+Operatore autenticato (webapp, sessione PUA e JWT interno). In V1.0 nessuna chiamata dai SIA.
 
 ## Flusso (webapp)
 
@@ -27,7 +27,9 @@ Operatore autenticato (webapp, sessione PUA e JWT interno); SIA in mutual TLS so
 3. Per l'ente, uno o più endpoint: URL, sotto-tipi associati, destinazione, validità.
 4. Salvataggio in `cons_d_asr`, `cons_t_endpoint`, `cons_r_asr_endpoint`, `cons_r_sotto_tipo_cons_asr_endpoint`.
 5. La creazione di un endpoint imposta `stato_allineamento = DA_ALLINEARE`. La modifica non cambia lo stato (scelta esplicita: un endpoint COMPLETATO che cambia URL o destinazione resta COMPLETATO, riallineamento manuale se serve).
-6. Nuovo endpoint: notifica out-of-band sempre al SIA (email, webhook o entrambe, scelta da un parametro). Per il webhook è il SIA a esporre un REST, con contratto, firma e sicurezza forniti da CSI.
+6. Nuovo endpoint: avviso all'azienda **solo via email** in V1.0 (parametro = `EMAIL`, proposta). Il webhook richiede che il SIA esponga un REST, quindi lavoro per le ASR: non si usa in V1.0.
+7. Endpoint `DA_ALLINEARE`: pulsante «Scarica snapshot» (CDU-17). Il sistema restituisce il CSV e segna l'endpoint `COMPLETATO`.
+8. Endpoint attivo: pulsante «Manutenzione» (`IN_MANUTENZIONE` / `ATTIVO`, §7.4), su richiesta dell'azienda.
 
 ## Campi
 
@@ -66,19 +68,24 @@ Operatore autenticato (webapp, sessione PUA e JWT interno); SIA in mutual TLS so
 - Disattivazione ente (requisito CSI V03, SRS rev. 1.12 §6.14): la fine validità si propaga a `cons_r_asr_endpoint`, `cons_r_sotto_tipo_cons_asr_endpoint` e `cons_r_informativa_asr`; l'eliminazione di un endpoint chiude anche i suoi legami. Blocchi su modifica/disattivazione: da chiedere a CSI (DEV-12).
 - Effetti su altri CDU: CDU-09/10/11 non generano notifiche verso endpoint `IN_CORSO` e bloccano l'acquisizione per quel sotto-tipo finché l'allineamento è in corso. BATCH-01 legge l'URL di destinazione.
 
-## API esposte alle aziende (mutual TLS, decisione dedotta da ADR-027)
+## Servizi per allineamento e manutenzione (V1.0 solo webapp, tramite BFF)
 
-`PATCH /api/v1/endpoints/{endp_id}/stato-allineamento` (CDU-17) e `PATCH /api/v1/endpoints/{endp_id}/stato` (manutenzione, §7.4). `EnteAuthorizationFilter`: l'azienda opera solo sui propri endpoint. Il CRUD degli endpoint non è esposto: resta solo nella webapp. Vanno descritti nell'OpenAPI.
+- `GET /api/v1/endpoints/{endp_id}/snapshot?codice_consenso=` → CSV (CDU-17).
+- `PATCH /api/v1/endpoints/{endp_id}/stato` (manutenzione, §7.4).
+- `PATCH .../stato-allineamento` non serve in V1.0: COMPLETATO lo imposta lo scaricamento.
+- ⚠️ L'ente si ricava dall'abilitazione dell'operatore nel JWT, **non dall'header dell'API Manager** (rischio ST-14). Il CRUD degli endpoint resta solo nella webapp. Vanno descritti nell'OpenAPI (PULL-09).
+- Scenario futuro, con i due `PATCH` chiamati dal SIA: richiede sviluppo da parte delle ASR, non previsto.
 
 ## Come svilupparlo
 
 **Backend**
-- Service di dominio unico per enti/endpoint, usato da due controller: webapp (sessione PUA) e API aziende (mutual TLS, solo i due `PATCH`, `/api/v1/...`).
-- Parametro di configurazione per il canale di notifica (EMAIL | WEBHOOK | ENTRAMBI) e client email/webhook.
+- Service di dominio unico per enti/endpoint. In V1.0 un solo controller: webapp tramite BFF (sessione PUA, JWT interno). Il controller per le aziende resta nel codice, non esposto.
+- Parametro di configurazione per il canale di notifica (EMAIL | WEBHOOK | ENTRAMBI): in V1.0 `EMAIL`.
 - Migrazione: colonne `tipo_ente`, `stato_allineamento`, `cons_t_endpoint.destinazione_id`; tabella `cons_d_asr_destinazione` con seed (`NOTIFICA_CONSENSO`, `WEBHOOK_ALLINEAMENTO`); endpoint AS-IS valorizzati a `NOTIFICA_CONSENSO`.
 
 **Frontend**
 - Lista enti → dettaglio ente con elenco endpoint; form ente; form endpoint con multi-select dei sotto-tipi; badge `stato_allineamento` in sola lettura.
+- Pulsanti «Scarica snapshot» (solo endpoint `DA_ALLINEARE`) e «Manutenzione» (inizio e fine).
 
 ## Dipendenze
 
@@ -86,7 +93,7 @@ CDU-12 (sotto-tipi); CDU-17 e §7.4 consumano lo stato; BATCH-01 consuma gli URL
 
 ## Punti aperti
 
-- Contratto, firma e sicurezza del webhook verso i SIA (forniti da CSI); indirizzi email destinatari (dove si configurano?). L'URL del webhook si configura come endpoint `WEBHOOK_ALLINEAMENTO` (ADR-024).
+- Webhook verso i SIA: solo scenario futuro (richiede sviluppo da parte delle ASR). In V1.0 email: indirizzi dei destinatari, dove si configurano? L'URL del webhook resta configurabile come endpoint `WEBHOOK_ALLINEAMENTO` (ADR-024).
 - Blocchi su modifica/disattivazione di ente ed endpoint (DEV-12).
 - Destinatari della notifica "endpoint aggiunto" quando l'azienda non ha ancora altri endpoint.
 - Formalizzazione di `IN_MANUTENZIONE`: SRS rev. 1.18 (§7.4) lo separa da `stato_allineamento`, con orientamento a colonna di stato dedicata; il dettaglio resta alla progettazione.

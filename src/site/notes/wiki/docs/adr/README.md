@@ -45,7 +45,7 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | [ADR-024](ADR-024-cdu-14-destinazione-endpoint.md) | CDU-14 — valori del campo Destinazione degli endpoint (NOTIFICA_CONSENSO, WEBHOOK_ALLINEAMENTO) | accepted | 2026-10-15 | Modello dati |
 | [ADR-025](ADR-025-contratto-cittadino-soap-consensobeservice.md) | Contratto Webapp Cittadino — SOAP `ConsensoBeService` preservato (via APISAN) | accepted | 2026-10-21 | Integrazioni |
 | [ADR-026](ADR-026-form-dinamico-catalogo-campi.md) | Form dinamico: catalogo di campi tipizzati (`TESTO`, `TEXTAREA`, `DOMANDA`) configurato in CDU-12 (FE-08) | proposed | 2026-10-29 | UX / Modello dati |
-| [ADR-027](ADR-027-architettura-senza-api-manager.md) | Architettura TO-BE senza API Manager: JWT interno operatore, basic APISAN, mutual TLS aziende; CDU-15/16 non esposti, CDU-17 avviato dall'operatore ed eseguito dal SIA in mutual TLS (decisione dedotta da ADR-027) | accepted | 2026-11-05 | Sicurezza / Architettura |
+| [ADR-027](ADR-027-architettura-senza-api-manager.md) | Architettura TO-BE senza API Manager: JWT interno operatore, basic APISAN, `ConsprefService` con firma WS-Security come oggi; CDU-15/16 non esposti; CDU-17 e manutenzione solo dall'operatore in V1.0 (proposta A+D del 06/11/2026, da confermare con CSI) | accepted | 2026-11-05 | Sicurezza / Architettura |
 
 ---
 

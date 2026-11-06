@@ -33,19 +33,19 @@ Regole pratiche:
 - **Due profili** di Back Office sul Configuratore Regionale (call CSI 28/10/2026, corregge il profilo unico del 06/08): operatore di sportello (CDU-06÷11, già censito) e profilo di configurazione (CDU-12÷14, nuovo; nome definito da CSI). CDU-01a comune; l'utente non seleziona il profilo, l'interfaccia mostra le sezioni abilitate.
 - Il CF dell'operatore si legge **dalla sessione**, mai dal path o dal body.
 
-**SIA/aziende → Backend (CDU-17 e manutenzione; CDU-15/16 non esposti in V1.0)**
+**SIA/aziende → Backend REST (V1.0: nessun REST esposto ai SIA; CDU-15/16/17 e manutenzione solo nel codice)**
 - Nessun API Manager né OAuth2 nel TO-BE V1.0 (ADR-027, approvato da CSI nella call del 05/11/2026).
 - CDU-15 e CDU-16: sviluppati nel backend ma non esposti ai SIA.
-- CDU-17 (snapshot e conferma) e manutenzione (`PATCH .../stato`): esposti ai SIA in **mutual TLS** con un servizio separato. Decisione dedotta da ADR-027 (senza API Manager è l'unico canale autenticato). Da concordare con CSI (ST-11): certificati e modo di identificare l'ente. ⚠️ Il documento CPROL v02c indica per `ConsprefService` WS-Security X509, non mutual TLS: meccanismo da confermare con CSI (ST-11).
-- `EnteAuthorizationFilter` (Spring Security custom): l'azienda opera solo sui propri dati. Le repository applicano sempre `WHERE codice_ente = :authorizedEnte` (difesa in profondità).
+- CDU-17 (snapshot) e manutenzione (`PATCH .../stato`): in V1.0 solo dall'operatore, tramite BFF (proposta A+D, ST-11; vincolo: nessun adeguamento per le ASR). Lo snapshot è un CSV identico a quello dell'allineamento massivo AS-IS. I REST per i SIA restano nel codice, non esposti. ~~Mutual TLS con servizio separato (decisione dedotta).~~
+- `EnteAuthorizationFilter` (Spring Security custom): l'azienda opera solo sui propri dati. Le repository applicano sempre `WHERE codice_ente = :authorizedEnte` (difesa in profondità). ⚠️ Oggi il filtro prende il codice ente dall'header dell'API Manager, che senza API Manager nessuno imposta. In V1.0 l'ente va ricavato dall'abilitazione dell'operatore nel JWT (rischio ST-14).
 - Nessun rate limiting applicativo in V1.0.
 - Audit strutturato per ogni chiamata: identificativo dell'azienda chiamante, `codice_ente_requested`, `codice_ente_authorized`, `outcome`, `latency_ms`, `trace_id`. CF mai in chiaro.
-- Precondizione infrastrutturale: backend raggiungibile solo dal BFF, da APISAN e dai SIA in mutual TLS (regole di rete a carico CSI).
+- Precondizione infrastrutturale: backend raggiungibile solo dal BFF, da APISAN e, per `ConsprefService`, dai sistemi delle aziende (regole di rete a carico di CSI).
 - `cons_t_client_ente` **non** si implementa in V1.0.
 
 **Aziende federate (canale AS-IS)**
-- Il servizio SOAP in ingresso `/services/ConsprefService` resta **a contratto invariato** (documento CPROL v02c, maggio 2019; l'SRS cita la v03). Namespace: nel documento `http://conspref.csi.it`, nella wiki finora `http://consprefbe.csi.it/`: fa fede il WSDL reale. Va sbloccato nella configurazione di sicurezza del nuovo backend con autenticazione equivalente all'AS-IS: secondo il documento WS-Security X509 Sign and Encrypt con timestamp, un certificato per sistema ASR associato nel DB, certificato vecchio e nuovo accettati insieme durante il rinnovo (da verificare sul sorgente).
-- Le aziende già federate restano su questo canale; il REST in mutual TLS (CDU-17 e manutenzione) si affianca, non lo sostituisce.
+- Il servizio SOAP in ingresso `/services/ConsprefService` resta **a contratto invariato** (documento CPROL v02c, maggio 2019; l'SRS cita la v03). Namespace: nel documento `http://conspref.csi.it`, nella wiki finora `http://consprefbe.csi.it/`: fa fede il WSDL reale. Va sbloccato nella configurazione di sicurezza del nuovo backend con autenticazione equivalente all'AS-IS: secondo il documento WS-Security X509 Sign and Encrypt con timestamp, un certificato per sistema ASR associato nel DB, certificato vecchio e nuovo accettati insieme durante il rinnovo (verificato sul sorgente dal team di sviluppo il 06/11/2026: firma XML e timestamp con keystore `TrustedCAKeyStore.jks`, ma **nessun legame tra certificato e azienda**, al contrario di quanto dice il documento; conflitto in ADR-027, ST-11).
+- Le aziende già federate restano su questo canale. In V1.0 non c'è un REST per le aziende (proposta A+D). ~~Il REST in mutual TLS si affianca.~~
 
 ## 3. Ciclo di vita del consenso
 
@@ -104,7 +104,7 @@ Il frontend non li invia mai:
 | SIA ASR (ingresso) | SOAP `/services/ConsprefService` | aziende federate, LIS | contratto invariato (DEV-03); LIS verificato su TEST, conferma produzione a CSI (INT-07) |
 | Webapp Cittadino (ingresso) | SOAP `ConsensoBeService` via APISAN | SANSOL | WSDL AS-IS, 10 operazioni, a contratto invariato (ADR-025) |
 | PUA / LCCE | `getTokenInformation2` (`TokenInformationService`) | CDU-01a, dal backend (come AURA) | solo esito (SUCCESSO = abilitato); CF da header IRIDE; da confermare con CSI (INT-09) |
-| SIA ASR (ingresso REST) | REST in mutual TLS (decisione dedotta da ADR-027) | CDU-17, manutenzione; CDU-15/16 non esposti | OpenAPI da produrre a cura Exprivia |
+| SIA ASR (ingresso REST) | nessuno in V1.0 (proposta A+D, ST-11) | CDU-15/16/17 e manutenzione: nel codice, non esposti (servirebbe sviluppo da parte delle ASR) | OpenAPI dei servizi della webapp a cura di Exprivia (PULL-09) |
 | Notificatore UNP (`notify-mb`) | REST | BATCH-02 | in V1.0 solo la notifica ANNULLATO; canale scelto da UNP in base alle preferenze del cittadino |
 | Notificatore di Deleghe | REST | conferma rilascio al cittadino/delegato dopo `COMPLETATO` | distinto da UNP secondo ADR-012; nel legacy c'è un solo notificatore, `notify-mb` (INT-10, da confermare con CSI) |
 | Gestione Deleghe | — | nessuno | fuori perimetro |

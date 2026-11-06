@@ -15,7 +15,7 @@
 
 | Servizio | Cosa è stato detto | Impatto |
 |---|---|---|
-| Verso le aziende (SOAP `ConsprefService`, SRV-03/04) | Blindati: stessa firma, stessi dati, nemmeno un tag in più; compatibili con Spring Boot 3.4. Mutual authentication con certificati. Impatto zero | Coerente con il [[wiki/sources/2026-09-25-riscontro-csi-domande-sviluppo\|riscontro CSI del 25/09]] (`ConsprefService` SOAP mantenuto) |
+| Verso le aziende (SOAP `ConsprefService`, SRV-03/04) | Blindati: stessa firma, stessi dati, nemmeno un tag in più; compatibili con Spring Boot 3.4. Mutual authentication con certificati. Impatto zero. ⚠️ Il codice (verifica del 06/11/2026) e la specifica v02c indicano la firma WS-Security per `ConsprefService`, non il mutual TLS: vedi [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]]. | Coerente con il [[wiki/sources/2026-09-25-riscontro-csi-domande-sviluppo\|riscontro CSI del 25/09]] (`ConsprefService` SOAP mantenuto) |
 | Verso il cittadino (`ConsensoBeService` via APISAN) | XML ampliabile mantenendo la firma ([[wiki/docs/adr/ADR-025-contratto-cittadino-soap-consensobeservice\|ADR-025]]). Il passaggio a REST richiede di contrattare con il gruppo APISAN (swagger e tempo), fuori dal perimetro di Tommaso e Gaia | Resta SOAP |
 | Interni di backoffice | Il team è libero: REST, firma stabilita da noi | — |
 | API Manager (APIMBBONE) | Da togliere dal disegno: oggi nessun fruitore esterno, l'unico B2B è con le aziende via certificati. Niente OAuth2 né token APIM. Le API si progettano esponibili in futuro (swagger ridotto) ma non ora | **Architettura**: tocca [[wiki/docs/adr/ADR-004-no-api-gateway\|ADR-004]], [[wiki/docs/adr/ADR-005-sicurezza-cdu-15-16\|ADR-005]], [[wiki/concepts/sicurezza-cdu-15-16\|sicurezza-cdu-15-16]] |

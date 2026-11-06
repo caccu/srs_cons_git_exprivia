@@ -38,10 +38,10 @@ Il progetto è un **rifacimento**: stesso dominio, nuovo stack (Angular 21 + Spr
 | CDU-11 | Modifica valore per conto | ✅ | ✅ | [CDU-05/11](CDU-05-CDU-11-modifica-valore.md) |
 | CDU-12 | Gestione tipo consenso | ✅ (Back Office) | ✅ | [CDU-12](CDU-12-gestione-tipo-consenso.md) |
 | CDU-13 | Gestione informativa | ✅ (Back Office) | ✅ | [CDU-13](CDU-13-gestione-informativa.md) |
-| CDU-14 | Gestione enti ed endpoint | ✅ (Back Office) | ✅ + allineamento e manutenzione anche dai SIA in mutual TLS (decisione dedotta da ADR-027) | [CDU-14](CDU-14-gestione-ente-endpoint.md) |
+| CDU-14 | Gestione enti ed endpoint | ✅ (Back Office) | ✅ + scaricamento dello snapshot (CSV) e manutenzione dall'operatore (proposta A+D) | [CDU-14](CDU-14-gestione-ente-endpoint.md) |
 | CDU-15 | API stato consenso per SIA | — | ✅ | [CDU-15](CDU-15-api-stato-consenso.md) |
 | CDU-16 | API configurazione per SIA | — | ✅ | [CDU-16](CDU-16-api-configurazione.md) |
-| CDU-17 | Snapshot PULL per allineamento | — | ✅ | [CDU-17](CDU-17-snapshot-pull.md) |
+| CDU-17 | Snapshot PULL per allineamento | pulsante «Scarica snapshot» in CDU-14 | ✅ | [CDU-17](CDU-17-snapshot-pull.md) |
 | BATCH-01 | Notifica consensi alle aziende | — | ✅ | [BATCH-01](BATCH-01-notifica-consensi.md) |
 | BATCH-02 | Scadenza/annullamento informativa | — | ✅ | [BATCH-02](BATCH-02-scadenza-informativa.md) |
 | §7.4 | Manutenzione endpoint ASR (start/stop) | messaggio di indisponibilità | ✅ | [Manutenzione](MANUTENZIONE-endpoint-asr.md) |
@@ -56,7 +56,7 @@ Prima dei singoli CDU conviene leggere [TRASV-componenti-comuni.md](TRASV-compon
 - motore di **storicizzazione** del consenso (mai UPDATE in place);
 - **coda di notifica** `cons_t_notifica` alimentata dai CDU e svuotata da BATCH-01;
 - **audit** (`csi_log_audit`) e **tracciatura servizi esterni** (`cons_t_traccia_serv_est`);
-- sicurezza: sessione PUA e JWT interno per la webapp, mutual TLS per i SIA su CDU-17 e manutenzione (decisione dedotta da ADR-027); niente API Manager;
+- sicurezza: sessione PUA e JWT interno per la webapp; in V1.0 nessun REST esposto ai SIA, CDU-17 e manutenzione solo dall'operatore (proposta A+D, ST-11); `ConsprefService` con firma WS-Security come oggi; niente API Manager;
 - client SOAP (Apache CXF) verso AURA e SIA; servizi SOAP in ingresso da mantenere: `/services/ConsprefService` (aziende federate, LIS) e `ConsensoBeService` (Webapp Cittadino, ADR-025);
 - errori RFC 7807;
 - **Form Renderer** dinamico per CDU-09/10/11;
@@ -73,7 +73,7 @@ L'ordine segue le dipendenze reali tra i pezzi.
 5. **BATCH-01** (consuma la coda creata al punto 4).
 6. **Back Office**: CDU-12 → CDU-13 → CDU-14 (CDU-12 popola le tabelle che il Form Renderer legge).
 7. **BATCH-02** (scatta dalle informative gestite in CDU-13).
-8. **API SIA**: OpenAPI di CDU-17 e della manutenzione prima del codice, esposte ai SIA in mutual TLS (decisione dedotta da ADR-027); CDU-15/16 sviluppati ma non esposti in V1.0. CDU-17 e manutenzione endpoint dipendono dallo `stato_allineamento` di CDU-14.
+8. **Allineamento e manutenzione**: OpenAPI dei servizi della webapp (scaricamento dello snapshot in CSV, manutenzione) prima del codice, PULL-09. In V1.0 nessun REST esposto ai SIA (proposta A+D); i REST di CDU-15/16/17 per i SIA restano nel codice, non esposti. CDU-17 e manutenzione endpoint dipendono dallo `stato_allineamento` di CDU-14.
 9. **Backend area Cittadino** a iso-funzionalità, in parallelo: SOAP `ConsensoBeService` con lo stesso WSDL (ADR-025).
 
 ## 5. Punti aperti trasversali (da tenere d'occhio)
@@ -83,10 +83,10 @@ L'ordine segue le dipendenze reali tra i pezzi.
 | Contratto Webapp Cittadino = SOAP `ConsensoBeService` via APISAN (ADR-025, 10 operazioni, 9 usate da SANSOL) | Non regressione del BE Cittadino | Solo conferma CSI (INT-06/INT-08) |
 | DEV-04: codici HTTP 502/409/503 per errori esterni/DB | Contratto errori FE e integrazioni | In verifica CSI |
 | ~~DEV-05: BE raggiungibile solo dal Gateway APIMBBONE~~ | Sicurezza CDU-15/16/17 | Superato da ADR-027 (nessun API Manager) |
-| ST-11: CDU-17 e manutenzione in mutual TLS (servizio separato da `ConsprefService`): decisione dedotta da ADR-027 | Sicurezza SIA | Decisa; da concordare con CSI certificati e identificazione dell'ente. ⚠️ Il documento CPROL v02c indica WS-Security X509 per ConsprefService: meccanismo da confermare |
+| ST-11: CDU-17 e manutenzione in V1.0 solo dall'operatore, con CSV identico all'AS-IS (proposta A+D; vincolo: nessun lavoro per le ASR) | Sicurezza SIA | 🟠 Proposta, da confermare con CSI. ~~Mutual TLS (decisione dedotta)~~: `ConsprefService` usa la firma WS-Security (verifica sul codice del 06/11/2026) |
 | DEV-01: `modifyToRevoked` AS-IS e regola di esclusione aziende con endpoint dismessi (ASR 904 da ripristinare) | CDU-08/09/14, elenco ASR | Parziale; regola provvisoria: almeno un endpoint attivo (BE-16) |
 | Valore effettivo di `fonte_id` per il Punto Assistito (`PASS` etichetta logica, es. `WA_PASS` nel DB AS-IS). Nel contratto SOAP (documento CPROL v02c): tipo fonte `PASS`, codice fonte `WA_PASS` | CDU-09/10/11 | Da verificare su `cons_d_fonte` |
 | INT-10: Notificatore di Deleghe = `notify-mb`? | avviso al cittadino dopo `COMPLETATO` (BATCH-01) | Da inviare a CSI |
 | Regole residue del Form Renderer: domande multiple, default del radio, HTML nei parametri. Chiuse: `online = NO` lato operatore (BE-18); una azienda per operazione (FE-03, resta la verifica AS-IS) | CDU-09/10/11 | Da inviare a CSI |
-| Stato `IN_MANUTENZIONE` e modello dati start/stop | Manutenzione endpoint | Chiuso (02/11/2026, SRS rev. 1.29): colonna `cons_t_endpoint.stato_endpoint` (`ATTIVO`, `IN_MANUTENZIONE`), separata da `stato_allineamento`; ripresa con `stato = ATTIVO`. La manutenzione la dichiara l'azienda in mutual TLS come CDU-17 (decisione dedotta da ADR-027, BE-25); l'operatore la può togliere da CDU-14 (proposta, BE-25b) |
+| Stato `IN_MANUTENZIONE` e modello dati start/stop | Manutenzione endpoint | Chiuso (02/11/2026, SRS rev. 1.29): colonna `cons_t_endpoint.stato_endpoint` (`ATTIVO`, `IN_MANUTENZIONE`), separata da `stato_allineamento`; ripresa con `stato = ATTIVO`. In V1.0 la manutenzione la imposta e la toglie l'operatore da CDU-14, su richiesta dell'azienda (proposta A+D, BE-25 e BE-25b) |
 | Infrastruttura IaaS: ingress/TLS, segreti, scaling | Deploy | Aperto con CSI |

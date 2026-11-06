@@ -272,7 +272,7 @@ Alla nascita di un nuovo sistema dipartimentale aziendale, il processo di alline
 
 > ✅ **DESIGN RIVISTO E CONFERMATO — risposta MF69R68 (ex TR34/TR68) + rifacimento call CSI 20/07/2026:**
 >
-> BATCH-03 push è **sostituito** dalla specifica TO-BE a modello **PULL** via CDU-17 (REST snapshot paginato, SIA pulla autonomamente). Il committente ha fornito il **rifacimento completo** del caso d'uso (call 20/07/2026): blocco obbligatorio, passo 5 (notifica esito webapp), servizi endpoint CRUD esposti alle aziende via API Manager, nuovo scenario di manutenzione (`IN_MANUTENZIONE`). Vedi [ADR-006](ADR-006-batch-03-pull-cdu-17.md) — status **`accepted`**.
+> BATCH-03 push è **sostituito** dalla specifica TO-BE a modello **PULL** via CDU-17 (REST snapshot paginato, SIA pulla autonomamente). Il committente ha fornito il **rifacimento completo** del caso d'uso (call 20/07/2026): blocco obbligatorio, passo 5 (notifica esito webapp), servizi endpoint CRUD esposti alle aziende via API Manager, nuovo scenario di manutenzione (`IN_MANUTENZIONE`). Vedi [ADR-006](ADR-006-batch-03-pull-cdu-17.md) — status **`accepted`**. 🆕 **06/11/2026:** in V1.0 il pull lo fa l'operatore aziendale da CDU-14 (CSV identico all'AS-IS); niente API Manager, REST per i SIA non esposti (proposta A+D, [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]]).
 >
 > Dettaglio progettuale completo: [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]. Diagrammi: [[CDU-17_diagramma-sequenza\|CDU-17]] · [[Manutenzione-endpoint_diagramma-sequenza\|Manutenzione endpoint]].
 

@@ -7,7 +7,7 @@
 
 ## Status
 
-> ⚠️ **Sicurezza da rivedere ([[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]], 05/11/2026):** il principio resta valido (pull invece di push, centro stella, blocco obbligatorio). Cambia il canale: niente API Manager, OAuth2, header del gateway né rate limit sul Traffic Manager. **Decisione dedotta da ADR-027:** il SIA chiama `/snapshot` e la conferma del passo 5 in mutual TLS, come per `ConsprefService`, con un servizio separato. I servizi su endpoint e manutenzione si usano solo dalla webapp (CDU-14). Vedi [[wiki/concepts/alternativa-batch-03-pull\|alternativa-batch-03-pull]].
+> ⚠️ **Sicurezza da rivedere ([[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]], 05/11/2026):** il principio resta valido (pull invece di push, centro stella, blocco obbligatorio). Cambia il canale: niente API Manager, OAuth2, header del gateway né rate limit sul Traffic Manager. 🆕 **Proposta A+D del 06/11/2026 (da confermare con CSI, ST-11):** in V1.0 lo snapshot lo scarica l'operatore di back office aziendale da CDU-14, in un CSV identico a quello dell'allineamento massivo AS-IS. I REST per il SIA restano nel codice, non esposti (vincolo: nessun lavoro per le ASR). ~~Il SIA chiama `/snapshot` e la conferma del passo 5 in mutual TLS (decisione dedotta).~~ I servizi su endpoint e manutenzione si usano solo dalla webapp (CDU-14). Vedi [[wiki/concepts/alternativa-batch-03-pull\|alternativa-batch-03-pull]].
 
 `accepted` — proposta formalizzata da Exprivia il 2026-05-14 (risposta al commento **TR34/TR68**) e **confermata dal committente nella call CSI del 20/07/2026**, che ha fornito il **rifacimento completo** del caso d'uso.
 
@@ -79,7 +79,7 @@ Rimuovere BATCH-03 push. Introdurre **CDU-17 — Snapshot consensi per allineame
 - ~~PULL-08: SIA può chiamare REST~~ → **sì**
 - PULL-03/PULL-04/PULL-07: scope lifecycle delegato ad APIMBBONE; `page_size` max e conferma idempotente da rifinire (non bloccanti)
 
-**Residuo attivo:** ~~produrre lo swagger (OpenAPI) di CDU-17 per la sottoscrizione sull'APIM~~ → concordare con CSI certificati e identificazione dell'ente per il mutual TLS (ST-11); swagger di CDU-17 senza sottoscrizione APIM (ADR-027). Stato di manutenzione `IN_MANUTENZIONE`: modello dati/servizi start-stop da dettagliare (SRS §7.4).
+**Residuo attivo:** ~~produrre lo swagger (OpenAPI) di CDU-17 per la sottoscrizione sull'APIM~~ → swagger dei servizi della webapp (scaricamento dello snapshot in CSV, manutenzione) senza sottoscrizione APIM (ADR-027, PULL-09); proposta A+D da confermare con CSI (ST-11). Stato di manutenzione `IN_MANUTENZIONE`: modello dati/servizi start-stop da dettagliare (SRS §7.4).
 
 ## References
 
