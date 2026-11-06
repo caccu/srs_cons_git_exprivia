@@ -316,6 +316,7 @@ Nuovo endpoint configurato (CDU-14 Back Office)
 - BATCH-01 concorrenza: `SELECT FOR UPDATE SKIP LOCKED` (PostgreSQL 18 nativa) — più istanze pod sicure
 - BATCH-02: usa `gen_random_uuid()` PostgreSQL 18 per UUID nuovi record storicizzati
 - ~~Certificati X509 WS-Security~~ Certificato client per il mutual TLS verso le ASR (uno solo per tutte) e truststore dei server ASR: richiederli a [[wiki/entities/csi-piemonte\|CSI Piemonte]] in Sprint 0 ([[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|documento CPROL v02c]] §10.2, corretto 06/11/2026)
+- ⚠️ **Conflict (06/11/2026):** secondo il codice, legacy e nuovo, le notifiche SRV-03/04 sono **firmate** (WS-Security), non in mutual TLS come dice la specifica. Cosa richiedere a CSI (certificato di firma, certificato client TLS o tutti e due) dipende dalla risposta di ST-11, vedi [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]].
 - `cons_t_batch_errori`: tabella TO-BE per tracciatura anomalie (non presente AS-IS)
 
 ---

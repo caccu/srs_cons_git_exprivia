@@ -22,19 +22,31 @@
 
 - **Webapp Operatore:** Angular e BFF (`rconsprefboweb`). Login via IRIDE/Shibboleth, abilitazione LCCE. Tra BFF e backend si usa un JWT interno.
 - **Webapp Cittadino:** SANSOL chiama il backend tramite APISAN in basic authentication. I server di backend non sono visibili dall'esterno. Il contratto resta quello di [[wiki/docs/adr/ADR-025-contratto-cittadino-soap-consensobeservice\|ADR-025]], ora in revisione.
-- **Aziende e laboratori:** SOAP `ConsprefService` con mutual TLS (certificati), come oggi. Le notifiche SRV-03/SRV-04 sono inviate da BATCH-01.
+- **Aziende e laboratori:** SOAP `ConsprefService` con certificati, come oggi: WS-Security X509 con firma del messaggio e timestamp (specifica v02c e codice, verifica del team di sviluppo del 06/11/2026). ~~mutual TLS~~. Le notifiche SRV-03/SRV-04 sono inviate da BATCH-01.
 - **Regole di rete:** a carico di CSI.
 
 Casi d'uso coinvolti:
 
 - **CDU-15 e CDU-16:** i servizi restano nel codice e non sono esposti in V1.0.
-- **CDU-17:** l'operatore avvia l'allineamento da CDU-14; il batch del SIA scarica lo snapshot e conferma la fine in **mutual TLS**, come per `ConsprefService`, con un servizio separato. Centro stella e automazione restano. **Decisione dedotta**: senza API Manager è l'unico canale autenticato per i SIA, già usato per `ConsprefService`. Certificati e identificazione dell'ente da concordare con CSI (ST-11). Alternative valutate: solo operatore (manuale) o implementato non esposto.
+- **CDU-17 (proposta Exprivia del 06/11/2026, da confermare con CSI, ST-11):** l'operatore avvia l'allineamento da CDU-14 e da lì gestisce tutto il percorso. Scarica lo snapshot e lo consegna all'azienda. Dopo la conferma dell'azienda, fuori dal sistema, registra la fine dell'allineamento (passo 8). Oggi succede lo stesso con il CSV su richiesta ([[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|specifica v02c]], cap. 9). I servizi REST per i SIA (download e conferma) restano nel codice ma **non sono esposti in V1.0**, come CDU-15 e CDU-16 (opzioni A+D).
+  - ~~Il batch del SIA scarica lo snapshot e conferma la fine in mutual TLS, come per `ConsprefService` (decisione dedotta).~~ Superato: `ConsprefService` non usa il mutual TLS (vedi Conflict sotto).
+  - Se CSI chiede che i SIA chiamino direttamente, serve un nuovo ADR. Bisognerà scegliere il meccanismo, dove termina il TLS e come legare il certificato al codice dell'azienda. Stima del team di sviluppo: 3-5 giorni, esclusa la configurazione infrastrutturale di CSI.
 - **Servizi sugli endpoint** (inserimento, modifica, eliminazione): usati solo dalla webapp (CDU-14).
-- **Manutenzione di un'azienda** (`IN_MANUTENZIONE`, BE-25): l'azienda la dichiara in **mutual TLS**, sullo stesso canale di CDU-17 (decisione dedotta). L'operatore ha la stessa operazione da CDU-14, che serve anche a togliere una manutenzione dimenticata (BE-25b).
+- **Manutenzione di un'azienda** (`IN_MANUTENZIONE`, BE-25): proposta Exprivia del 06/11/2026, da confermare con CSI (ST-11). La imposta e la toglie **solo l'operatore** da CDU-14 (BE-25b), su richiesta dell'azienda. Il servizio REST per l'azienda resta nel codice ma non è esposto in V1.0. ~~L'azienda la dichiara in mutual TLS, sullo stesso canale di CDU-17 (decisione dedotta).~~
 
 > ⚠️ **Conflict (06/11/2026):** il [[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|documento CPROL v02c]] (§2.3 e §10) dice che `ConsprefService` (SRV-01/02) è protetto con **WS-Security X509** (Sign and Encrypt sul messaggio SOAP, un certificato per ogni sistema ASR, associato al sistema nel DB). Il **mutual TLS**, con un solo certificato, lo usa invece CSI per chiamare le ASR (SRV-03/04). Nella [[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|call del 28/10]] CSI ha detto solo «SOAP con certificati». Quindi «mutual TLS come per `ConsprefService`» (aziende, CDU-17, manutenzione) non trova conferma nel documento.
-> - **Resta valido:** il SIA si autentica con i certificati X509 che le aziende hanno già.
-> - **Da decidere con CSI (ST-11):** per i servizi REST di CDU-17 e manutenzione, mutual TLS con gli stessi certificati X509 dei sistemi ASR oppure un altro meccanismo. Da verificare anche come è configurato oggi `ConsprefService` in produzione.
+> - **Verifica del team di sviluppo sul codice, legacy e nuovo (06/11/2026):**
+>   - `ConsprefService` verifica firma XML e timestamp con un keystore (in produzione `TrustedCAKeyStore.jks`). Non legge nessun certificato client TLS. Il `web.xml` prevede solo BASIC, per `ConsensoBeService`.
+>   - **Non esiste un legame tra certificato e azienda**, nemmeno nel legacy: è accettata qualunque firma valida per il keystore. Questo contraddice la specifica §2.3.
+>   - Anche le notifiche verso le aziende (SRV-03/04) sono **firmate**, non in mutual TLS come dice la specifica. Nel legacy c'è una configurazione di mutual TLS che il client delle notifiche non usa. Dai sorgenti non si vede se l'infrastruttura imposta un certificato client a livello di JVM.
+>   - Nel notificatore legacy, l'alias del certificato di firma di produzione è `cert_test_2024` (nei profili cert/tst `cert_demo20`).
+>   - ⚠️ **Sicurezza:** nel nuovo backend i REST di CDU-17 e manutenzione non hanno né certificato né token. Prendono il codice ente dall'header dell'API Manager, che senza API Manager nessuno imposta. Esposti così, chiunque raggiunga la rete potrebbe agire su qualunque ente. Per questo non si espongono in V1.0 (vedi CDU-17 e manutenzione sopra).
+> - **Da chiedere a CSI (ST-11):**
+>   - in V1.0 i SIA devono chiamare CDU-17 o la manutenzione, o basta l'operatore (proposta A+D)?
+>   - in produzione `ConsprefService` chiede anche il certificato client TLS, per esempio su un proxy o sul bilanciatore?
+>   - nelle notifiche in uscita il certificato client TLS è impostato a livello di JVM o di server?
+>   - `cert_test_2024` è il certificato giusto per la produzione?
+>   - il legame tra certificato e azienda manca anche nell'AS-IS: è un rischio accettato o va aggiunto?
 > Unresolved.
 
 ## Consequences

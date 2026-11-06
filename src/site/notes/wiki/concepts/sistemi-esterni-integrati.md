@@ -37,7 +37,7 @@ Conseguenza wiki: rimosso dal corpus dei sistemi integrati. La voce SistemaTS NO
 
 Sistema bidirezionale — consumatore API REST e destinatario notifiche SOAP.
 
-> 🆕 **[[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]] (05/11/2026):** niente API Manager né OAuth2. CDU-15/16 non esposti in V1.0. CDU-17 e manutenzione: il SIA chiama in **mutual TLS**, come per `ConsprefService`, con un servizio separato (decisione dedotta da ADR-027; certificati da concordare con CSI, ST-11). Le righe sotto che citano APIMBBONE sono segnate ⛔. ⚠️ Meccanismo da rivedere: vedi il conflitto in [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]] (06/11/2026).
+> 🆕 **[[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]] (05/11/2026):** niente API Manager né OAuth2. CDU-15/16 non esposti in V1.0. CDU-17 e manutenzione: in V1.0 **solo l'operatore** da CDU-14. I REST per i SIA restano nel codice ma non sono esposti (proposta A+D del 06/11/2026, da confermare con CSI, ST-11). ~~Il SIA chiama in mutual TLS, come per `ConsprefService` (decisione dedotta).~~ Le righe sotto che citano APIMBBONE sono segnate ⛔. ⚠️ Meccanismo da rivedere: vedi il conflitto in [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]] (06/11/2026).
 
 | Direzione | Protocollo | CDU/Batch | Stato |
 |---|---|---|---|
@@ -47,6 +47,9 @@ Sistema bidirezionale — consumatore API REST e destinatario notifiche SOAP.
 **BATCH-03 push rimosso:** l'allineamento massivo per nuovo endpoint passa a modello PULL (CDU-17). Vedi [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]].
 
 **Sicurezza outbound SOAP (BATCH-01):** ~~WS-Security X509, un certificato per ASR — richiederli in Sprint 0.~~ ✅ **Corretto 06/11/2026** ([[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|documento CPROL v02c]] §10.2): SSL Client Authentication (mutual TLS) con **un solo certificato**, uguale per tutte le ASR; truststore dei server ASR; timeout parametrico; messaggi e risposte tracciati in chiaro. Certificato client e truststore da richiedere a CSI.
+
+> ⚠️ **Conflict (06/11/2026):** la specifica v02c §10.2 dice mutual TLS con un solo certificato. Secondo la verifica del team di sviluppo sul codice, legacy e nuovo, le notifiche SRV-03/04 sono invece **firmate** (WS-Security), come i servizi in ingresso. Nel legacy c'è una configurazione di mutual TLS che il client delle notifiche non usa. Dai sorgenti non si vede se l'infrastruttura imposta un certificato client a livello di JVM. Alias del certificato di firma in produzione: `cert_test_2024`, da confermare. Da chiarire con CSI (ST-11), vedi [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]]. Unresolved.
+
 **Sicurezza inbound REST:** OAuth2 Client Credentials via **API Manager APIMBBONE**; il Gateway inoltra al backend il **`codice_ente`** (isolamento per ente). **`cons_t_client_ente` fuori scope V1.0** (estensione futura). Vedi [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]. ⛔ *Superato (ADR-027).*
 
 **Rischi aperti:** ambiguità BATCH-01 WSDL + semantica SCADUTO AS-IS≠TO-BE. Vedi [[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]].
@@ -62,7 +65,7 @@ Sistema bidirezionale — consumatore API REST e destinatario notifiche SOAP.
 ```
 SIA ASR  →  PATCH /api/v1/endpoints/{endp_id}/stato-allineamento { IN_CORSO }   (blocco obbligatorio)
          →  loop: GET /api/v1/consensi/snapshot?codice_ente&codice_consenso&cursor&page_size
-                        ↓  (via API Gateway APIMBBONE — codice_ente inoltrato)   ⛔ superato (ADR-027): certificati, meccanismo da concordare (ST-11)
+                        ↓  (via API Gateway APIMBBONE — codice_ente inoltrato)   ⛔ superato (ADR-027): in V1.0 solo operatore da CDU-14, REST non esposti (proposta A+D, ST-11)
          [EnteAuthorizationFilter → WHERE codice_ente]
                         ↓
          Gestione Consensi  →  200 { items[], next_cursor, has_more }
@@ -257,7 +260,7 @@ Attore che nel [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|deploymen
         ├─ Notificatore UNP  (REST) — notifica ANNULLATO (BATCH-02)
         ├─ SIA ASR           (SOAP outbound) ← BATCH-01 notifiche puntuali
         ├─ SIA ASR           (REST inbound) ← CDU-15, CDU-16 [spec v0.1-DRAFT]
-        ├─ SIA ASR           (REST inbound via API Manager) ← CDU-17 PULL snapshot [✅ confermato 20/07 — swagger da produrre]  ⛔ superato (ADR-027): certificati, meccanismo da concordare (ST-11)
+        ├─ SIA ASR           (REST inbound via API Manager) ← CDU-17 PULL snapshot [✅ confermato 20/07 — swagger da produrre]  ⛔ superato (ADR-027): in V1.0 solo operatore da CDU-14, REST non esposti (proposta A+D, ST-11)
         └─ LIS (e analoghi es. RIS) — via SOAP ConsprefService, come le aziende [ADR-020, verificato su TEST 21/10/2026]
 ```
 
@@ -270,7 +273,7 @@ Attore che nel [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|deploymen
 | Sistema                  | Cosa serve                                                                        | Stato                                                                                                                                    |
 | ------------------------ | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | AURA                     | Credenziali IRIS + WSDL (FindProfiliAnagrafici, getProfiloSanitario)              | ✅ Nei properties (call 20/07/2026) — nessun servizio nuovo                                                                               |
-| SIA ASR                  | AS-IS: certificato client unico per chiamare le ASR (mutual TLS) e certificati X509 dei sistemi ASR verificati da ConsprefService (WS-Security) / credenziali OAuth via APIMBBONE (TO-BE)   | ❌ Da richiedere (AS-IS) · TO-BE gestito da APIM ⛔ *superato (ADR-027)* |
+| SIA ASR                  | AS-IS: certificati X509 dei sistemi ASR verificati da ConsprefService (WS-Security, nessun legame certificato → azienda nel codice); verso le ASR certificato client unico in mutual TLS secondo la specifica, ma nel codice le notifiche sono firmate (conflitto, ST-11) / credenziali OAuth via APIMBBONE (TO-BE)   | ❌ Da richiedere (AS-IS) · TO-BE gestito da APIM ⛔ *superato (ADR-027)* |
 | Gestione Deleghe ❌ OUT   | WSDL                                                                              | ⚪ Non necessario — **fuori perimetro FE e BE** (CSI 25/09/2026, DEV-02): il BE riceve solo il CF del delegato                             |
 | Notificatore di Deleghe  | API + integration spec                                                            | ✅ **AS-IS legacy, riciclato — nessun nuovo sviluppo** (call CSI 06/08/2026; era "❌ Da richiedere" prima di questa call, distinta da UNP) |
 | Notificatore UNP         | Già documentato — gitlab.csi.it                                                   | ✅ Riferimento disponibile                                                                                                                |
