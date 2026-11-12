@@ -10,7 +10,7 @@
 
 Gestisce l'anagrafica degli **enti** (ASR, enti nazionali e regionali) e dei loro **endpoint**, cioè gli URL dei SIA a cui il sistema notifica le variazioni dei consensi. Per ogni endpoint si indica per quali sotto-tipi di consenso è attivo.
 
-Quando si aggiunge un nuovo endpoint, il nuovo SIA va **allineato** con i consensi esistenti. Il sistema non fa push massivi: imposta `stato_allineamento = DA_ALLINEARE`. In **V1.0** l'operatore di back office aziendale scarica da questa pagina lo snapshot in un CSV identico a quello dell'allineamento massivo di oggi, e l'azienda lo carica come fa ora ([CDU-17](CDU-17-snapshot-pull.md)).
+Quando si aggiunge un nuovo endpoint, il nuovo SIA va **allineato** con i consensi esistenti. Il sistema non fa push massivi: imposta `stato_allineamento = DA_ALLINEARE`. In **V1.0** l'operatore di configurazione scarica da questa pagina lo snapshot in un CSV identico a quello dell'allineamento massivo di oggi, e l'azienda lo carica come fa ora ([CDU-17](CDU-17-snapshot-pull.md)).
 
 **Esposizione** (ADR-027, niente API Manager):
 - le operazioni su enti ed endpoint (inserimento, modifica, eliminazione) si fanno **solo dalla webapp Operatore**;
@@ -18,7 +18,7 @@ Quando si aggiunge un nuovo endpoint, il nuovo SIA va **allineato** con i consen
 
 ## Precondizioni
 
-Operatore autenticato (webapp, sessione PUA e JWT interno). In V1.0 nessuna chiamata dai SIA.
+Operatore di configurazione autenticato (webapp, sessione PUA; tra BFF e backend chiave condivisa). In V1.0 nessun limite per azienda: vede tutti gli enti. Fino alla risposta di CSI sul profilo da LCCE (ST-16), SUCCESSO abilita a tutte le funzioni. In V1.0 nessuna chiamata dai SIA.
 
 ## Flusso (webapp)
 
@@ -62,25 +62,32 @@ Operatore autenticato (webapp, sessione PUA e JWT interno). In V1.0 nessuna chia
   1. INSERT/UPDATE `cons_t_endpoint` (`endp_url`, validità);
   2. INSERT `cons_r_asr_endpoint` (`cod_asr`, `endp_id`, validità, **`stato_allineamento = 'DA_ALLINEARE'`**);
   3. per ogni sotto-tipo: INSERT `cons_r_sotto_tipo_cons_asr_endpoint`;
-  4. sempre alla creazione (caso CDU-17): invio della notifica out-of-band in base al parametro (email/webhook), tracciata in `cons_t_traccia_serv_est`.
+  4. alla creazione di un endpoint `NOTIFICA_CONSENSO`, o quando un endpoint di quel tipo già esistente viene associato a un ente (caso CDU-17; non in modifica): avviso out-of-band «nuovo endpoint da allineare» in base al parametro di canale, tracciato in `cons_t_traccia_serv_est` (dettaglio sotto).
 - Eliminazione: logica (`valida_fine` / `data_cancellazione`), non fisica. Gli endpoint dismessi escludono l'azienda dagli elenchi. Regola provvisoria: azienda visibile con almeno un endpoint attivo (BE-16); DEV-01 da confermare con CSI.
 - Destinazione (ADR-024): solo gli endpoint `NOTIFICA_CONSENSO` (o senza destinazione) ricevono le notifiche e partecipano all'allineamento. L'URL del webhook out-of-band è un endpoint `WEBHOOK_ALLINEAMENTO` dell'ente, senza `stato_allineamento`; se manca, il webhook non parte e l'errore va in `cons_t_traccia_serv_est`.
+- Avviso «nuovo endpoint da allineare», comportamento del codice (riscontro del dev BE, 12/11/2026):
+  - e-mail: va all'indirizzo del campo facoltativo `notifica_email` dell'endpoint. Mittente `noreply@consensi.piemonte.it` (provvisorio: va in configurazione, server SMTP e mittente da confermare con CSI, BE-24), oggetto «CONSPREF - Nuovo endpoint da allineare (endp_id N)». L'esito (accettata dal server SMTP o errore) va in `cons_t_traccia_serv_est`;
+  - webhook: parte solo se l'ente ha anche un endpoint `WEBHOOK_ALLINEAMENTO`;
+  - con il vecchio predefinito `ENTRAMBI`: senza indirizzo non partiva nulla e non si tracciava nulla; senza endpoint webhook si tracciava ogni volta l'errore «webhook assente»;
+  - con `EMAIL` (V1.0): il webhook non parte in nessun caso e l'errore «webhook assente» sparisce; senza indirizzo l'avviso non parte e si traccia l'errore «e-mail assente»;
+  - l'endpoint `WEBHOOK_ALLINEAMENTO` di prova sul DEV non va portato negli ambienti successivi.
 - Disattivazione ente (requisito CSI V03, SRS rev. 1.12 §6.14): la fine validità si propaga a `cons_r_asr_endpoint`, `cons_r_sotto_tipo_cons_asr_endpoint` e `cons_r_informativa_asr`; l'eliminazione di un endpoint chiude anche i suoi legami. Blocchi su modifica/disattivazione: da chiedere a CSI (DEV-12).
 - Effetti su altri CDU: CDU-09/10/11 non generano notifiche verso endpoint `IN_CORSO` e bloccano l'acquisizione per quel sotto-tipo finché l'allineamento è in corso. BATCH-01 legge l'URL di destinazione.
 
 ## Servizi per allineamento e manutenzione (V1.0 solo webapp, tramite BFF)
 
-- `GET /api/v1/endpoints/{endp_id}/snapshot?codice_consenso=` → CSV (CDU-17).
-- `PATCH /api/v1/endpoints/{endp_id}/stato` (manutenzione, §7.4).
+- `GET /internal/v1/endpoints/{endp_id}/snapshot?codice_consenso=` → CSV (CDU-17).
+- `PATCH /internal/v1/endpoints/{endp_id}/stato` (manutenzione, §7.4).
+- Le stesse rotte su `/api/v1` restano nel codice, non esposte, per un eventuale uso futuro dei SIA.
 - `PATCH .../stato-allineamento` non serve in V1.0: COMPLETATO lo imposta lo scaricamento.
-- ⚠️ L'ente si ricava dall'abilitazione dell'operatore nel JWT, **non dall'header dell'API Manager** (rischio ST-14). Il CRUD degli endpoint resta solo nella webapp. Vanno descritti nell'OpenAPI (PULL-09).
+- ⚠️ Il backend accetta l'ente solo dalle chiamate autenticate dal BFF con la chiave condivisa: è l'ente dell'endpoint scelto dall'operatore nella sua sessione. Gli `X-APIM-*` in arrivo da fuori si scartano e resta il `WHERE` sul codice ente (rischio ST-14). Il CRUD degli endpoint resta solo nella webapp. Vanno descritti nell'OpenAPI (PULL-09).
 - Scenario futuro, con i due `PATCH` chiamati dal SIA: richiede sviluppo da parte delle ASR, non previsto.
 
 ## Come svilupparlo
 
 **Backend**
-- Service di dominio unico per enti/endpoint. In V1.0 un solo controller: webapp tramite BFF (sessione PUA, JWT interno). Il controller per le aziende resta nel codice, non esposto.
-- Parametro di configurazione per il canale di notifica (EMAIL | WEBHOOK | ENTRAMBI): in V1.0 `EMAIL`.
+- Service di dominio unico per enti/endpoint. In V1.0 un solo controller: webapp tramite BFF (sessione PUA, chiave condivisa). Il controller per le aziende resta nel codice, non esposto.
+- Parametro di configurazione del backend per il canale di notifica (EMAIL | WEBHOOK | ENTRAMBI), unico per tutti e non scelto dall'operatore: nel codice il predefinito era `ENTRAMBI`, in V1.0 passa a `EMAIL` (confermato al dev BE il 12/11/2026). Anche il mittente dell'e-mail sta in configurazione.
 - Migrazione: colonne `tipo_ente`, `stato_allineamento`, `cons_t_endpoint.destinazione_id`; tabella `cons_d_asr_destinazione` con seed (`NOTIFICA_CONSENSO`, `WEBHOOK_ALLINEAMENTO`); endpoint AS-IS valorizzati a `NOTIFICA_CONSENSO`.
 
 **Frontend**
@@ -93,7 +100,7 @@ CDU-12 (sotto-tipi); CDU-17 e §7.4 consumano lo stato; BATCH-01 consuma gli URL
 
 ## Punti aperti
 
-- Webhook verso i SIA: solo scenario futuro (richiede sviluppo da parte delle ASR). In V1.0 email: indirizzi dei destinatari, dove si configurano? L'URL del webhook resta configurabile come endpoint `WEBHOOK_ALLINEAMENTO` (ADR-024).
+- Webhook verso i SIA: solo scenario futuro (richiede sviluppo da parte delle ASR). In V1.0 solo email, all'indirizzo `notifica_email` dell'endpoint (facoltativo come da SRS rev. 1.26; il destinatario resta da confermare con CSI). L'URL del webhook resta configurabile come endpoint `WEBHOOK_ALLINEAMENTO` (ADR-024).
 - Blocchi su modifica/disattivazione di ente ed endpoint (DEV-12).
 - Destinatari della notifica "endpoint aggiunto" quando l'azienda non ha ancora altri endpoint.
 - Formalizzazione di `IN_MANUTENZIONE`: SRS rev. 1.18 (§7.4) lo separa da `stato_allineamento`, con orientamento a colonna di stato dedicata; il dettaglio resta alla progettazione.

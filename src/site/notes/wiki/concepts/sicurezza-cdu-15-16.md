@@ -9,7 +9,7 @@
 
 ## Modello TO-BE V1.0 (ADR-027)
 
-- **Operatore:** Angular e BFF, login IRIDE/Shibboleth, JWT interno tra BFF e backend.
+- **Operatore:** Angular e BFF, login IRIDE/Shibboleth, chiave condivisa tra BFF e backend (12/11/2026, al posto del JWT interno). Il backend prende operatore ed ente dalla sessione autenticata dell'operatore e scarta gli `X-APIM-*` in arrivo da fuori; resta il `WHERE` sul codice ente.
 - **Cittadino:** APISAN verso backend in basic authentication.
 - **Aziende e laboratori:** SOAP `ConsprefService` con certificati, come oggi. ⚠️ Il [[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|documento CPROL v02c]] indica WS-Security X509, non mutual TLS: vedi il conflitto in [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]] (ST-11).
 - **CDU-15/16:** non esposti. Se un servizio interno lavora per ente, resta il filtro su `codice_ente` (l'attuale «Livello C»).

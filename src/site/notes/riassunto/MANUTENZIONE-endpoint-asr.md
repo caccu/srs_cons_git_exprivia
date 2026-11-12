@@ -18,7 +18,7 @@ Non è un CDU numerato ed è distinto da CDU-17: non c'è un nuovo endpoint da a
 ## Flusso V1.0 (operatore)
 
 1. L'azienda chiede la manutenzione, fuori dal sistema, come oggi.
-2. L'operatore, da CDU-14, imposta `stato = IN_MANUTENZIONE`: webapp → BFF → `PATCH /api/v1/endpoints/{endp_id}/stato`.
+2. L'operatore di configurazione, da CDU-14, imposta `stato = IN_MANUTENZIONE`: webapp → BFF → `PATCH /internal/v1/endpoints/{endp_id}/stato`.
 3. Il sistema blocca l'acquisizione per l'azienda, sospende le notifiche verso i suoi sistemi e segnala il blocco alla webapp.
 4. Alla fine l'operatore imposta `stato = ATTIVO` (SRS rev. 1.29). Il sistema sblocca, riprende le notifiche (i record rimasti in coda partono al ciclo successivo di BATCH-01) e segnala la ripresa alla webapp. I «dati dell'ultimo invio» non servono: BATCH-01 sa già cosa non ha inviato.
 
@@ -38,7 +38,7 @@ Non è un CDU numerato ed è distinto da CDU-17: non c'è un nuovo endpoint da a
   - servizi di salvataggio consenso → errore di indisponibilità;
   - BATCH-01/02 → salto dei record dell'azienda, lasciati `DA_INVIARE`;
   - CDU-08/Form Renderer → azioni disabilitate e messaggio.
-- **V1.0:** lo stesso servizio `PATCH .../stato` è chiamato solo dalla webapp (CDU-14, BFF con JWT interno), anche per togliere una manutenzione dimenticata (BE-25b). ⚠️ **Per il dev BE:** l'ente va ricavato dall'abilitazione dell'operatore nel JWT, **non dall'header dell'API Manager**, che senza API Manager nessuno imposta (rischio ST-14). ~~API esposta alle aziende in mutual TLS (decisione dedotta).~~ Esposizione al SIA: non prevista, richiederebbe uno sviluppo da parte delle ASR ([[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]]).
+- **V1.0:** lo stesso servizio `PATCH .../stato` è chiamato solo dalla webapp (CDU-14, BFF con chiave condivisa, rotta `/internal/v1`; la `/api/v1` resta nel codice, non esposta), anche per togliere una manutenzione dimenticata (BE-25b). ⚠️ **Per il dev BE:** l'ente è quello dell'endpoint scelto dall'operatore nella sua sessione, accettato solo dalle chiamate autenticate dal BFF. Gli `X-APIM-*` in arrivo da fuori si scartano (rischio ST-14). Nessun limite per azienda in V1.0. ~~API esposta alle aziende in mutual TLS (decisione dedotta).~~ Esposizione al SIA: non prevista, richiederebbe uno sviluppo da parte delle ASR ([[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]]).
 - Estendere l'OpenAPI (CDU-15/16/17) o definire un CDU dedicato. Il punto è ancora aperto.
 - Audit e tracciatura di ogni cambio di stato.
 
@@ -46,14 +46,14 @@ Non è un CDU numerato ed è distinto da CDU-17: non c'è un nuovo endpoint da a
 
 Pubblicato su DEV secondo le risposte del 30/10:
 - colonna `stato_endpoint` su `cons_t_endpoint`, valori `ATTIVO` e `IN_MANUTENZIONE`;
-- servizio `PATCH /api/v1/endpoints/{endp_id}/stato`; azienda in manutenzione finché almeno un suo endpoint lo è;
+- servizio `PATCH /api/v1/endpoints/{endp_id}/stato` (da spostare su `/internal/v1`, 12/11/2026); azienda in manutenzione finché almeno un suo endpoint lo è;
 - bloccati solo i consensi aziendali di quell'azienda, su tutti i canali (anche SOAP); i regionali si registrano e la notifica resta in coda;
 - BATCH-01 lascia in coda le notifiche verso l'azienda e le invia a fine manutenzione;
 - stato esposto nelle GET di enti, endpoint e cruscotto con `aziendaInManutenzione` e `statoEndpoint`; nella lista consensi gli stessi campi arrivano da `informativa/find`; nel form `regole.bloccato_manutenzione` arriva con BE-05;
 - manutenzione e allineamento si escludono: 409;
-- audit: in V1.0 in `csi_log_audit.utente` il CF dell'operatore (dal JWT); nello scenario futuro il codice dell'ente del chiamante.
+- audit: in V1.0 in `csi_log_audit.utente` il CF dell'operatore (dalla sessione); nello scenario futuro il codice dell'ente del chiamante.
 
-Testo per l'OpenAPI (PULL-09): `PATCH /api/v1/endpoints/{endp_id}/stato`, corpo `stato` (`IN_MANUTENZIONE` o `ATTIVO`) e `dati_ultimo_invio` (facoltativo, solo registrato; in V1.0 la webapp non lo manda). Risposte: 200; 400 stato non ammesso; 403 endpoint di un altro ente (in V1.0 ente dall'abilitazione dell'operatore); 404 endpoint inesistente; 409 endpoint già nello stato richiesto o allineamento in corso. `PATCH .../stato-allineamento`: 409 se l'endpoint è `IN_MANUTENZIONE`. In V1.0 il servizio è chiamato solo tramite BFF, non è esposto alle aziende.
+Testo per l'OpenAPI (PULL-09): `PATCH /internal/v1/endpoints/{endp_id}/stato`, corpo `stato` (`IN_MANUTENZIONE` o `ATTIVO`) e `dati_ultimo_invio` (facoltativo, solo registrato; in V1.0 la webapp non lo manda). Risposte: 200; 400 stato non ammesso; 403 chiamata senza chiave condivisa valida; 404 endpoint inesistente; 409 endpoint già nello stato richiesto o allineamento in corso. `PATCH .../stato-allineamento`: 409 se l'endpoint è `IN_MANUTENZIONE`. In V1.0 il servizio è chiamato solo tramite BFF, non è esposto alle aziende.
 
 ## Punti aperti
 

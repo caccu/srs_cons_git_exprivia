@@ -8,20 +8,20 @@
 
 ## Cosa fa
 
-Quando un'azienda aggiunge un **nuovo endpoint**, il nuovo sistema deve ricevere tutti i consensi esistenti. Invece di un push massivo dal centro (il vecchio BATCH-03, **rimosso**), è il **SIA a scaricarli a pagine** (PULL), secondo il modello "centro stella": il centro espone i dati, la periferia si allinea. In **V1.0** il pull lo fa l'**operatore di back office aziendale** dalla webapp (CDU-14): scarica lo snapshot in un file e l'azienda lo carica nel suo SIA. Lo scaricamento automatico dal SIA è lo scenario futuro (flusso sotto, non esposto).
+Quando un'azienda aggiunge un **nuovo endpoint**, il nuovo sistema deve ricevere tutti i consensi esistenti. Invece di un push massivo dal centro (il vecchio BATCH-03, **rimosso**), è il **SIA a scaricarli a pagine** (PULL), secondo il modello "centro stella": il centro espone i dati, la periferia si allinea. In **V1.0** il pull lo fa l'**operatore di configurazione** dalla webapp (CDU-14): scarica lo snapshot in un file e l'azienda lo carica nel suo SIA. Lo scaricamento automatico dal SIA è lo scenario futuro (flusso sotto, non esposto).
 
 Durante l'allineamento l'acquisizione di nuovi consensi per quel sotto-tipo è **bloccata**, così lo snapshot resta coerente.
 
 ## Innesco e precondizioni
 
 - Un operatore registra il nuovo endpoint dalla webapp (CDU-14, tramite BFF) → `stato_allineamento = DA_ALLINEARE`.
-- **V1.0:** l'operatore di back office aziendale avvia lo scaricamento da CDU-14. L'ente si ricava dall'abilitazione dell'operatore (LCCE), non da un parametro: da verificare che l'abilitazione LCCE sia per azienda.
+- **V1.0:** l'operatore di configurazione avvia lo scaricamento da CDU-14 sull'endpoint che sceglie. Nessun limite per azienda: vede tutti gli enti. L'ente è quello dell'endpoint scelto e il backend lo accetta solo dalle chiamate autenticate dal BFF (chiave condivisa). `codiceAzienda` di LCCE non si usa (ST-15).
 - **Scenario futuro:** il SIA riceve la notifica out-of-band (email e/o webhook, PULL-02) e si collega su un canale autenticato da definire con un nuovo ADR. ⚠️ Richiede uno sviluppo da parte delle ASR (un client per il nuovo servizio), **oggi non previsto**: le ASR non devono adeguarsi. ~~Mutual TLS (decisione dedotta).~~ Superato: `ConsprefService` usa la firma WS-Security (verifica sul codice del 06/11/2026).
 
 ## Flusso V1.0 (operatore)
 
-1. Operatore → BFF → `GET /api/v1/endpoints/{endp_id}/snapshot?codice_consenso=` (CDU-14).
-2. Il sistema verifica che l'endpoint sia dell'azienda dell'operatore e in `DA_ALLINEARE` (altrimenti 403 o 409).
+1. Operatore → BFF → `GET /internal/v1/endpoints/{endp_id}/snapshot?codice_consenso=` (CDU-14).
+2. Il sistema verifica che l'endpoint esista e sia in `DA_ALLINEARE` (altrimenti 404 o 409).
 3. Imposta `IN_CORSO` e **blocca** CDU-03/CDU-09 per il `sotto_tipo_consenso`, con le stesse regole di sotto (aziendali solo per l'azienda, regionali per tutti).
 4. Genera lo snapshot dei consensi **attivi** dell'azienda e lo restituisce come file in streaming.
 5. A fine generazione imposta `COMPLETATO` e sblocca: il blocco dura solo il tempo della generazione. Se va in errore imposta `ERRORE` e sblocca.
@@ -44,8 +44,8 @@ Durante l'allineamento l'acquisizione di nuovi consensi per quel sotto-tipo è *
 **V1.0 (webapp, tramite BFF; da inserire nello swagger, PULL-09):**
 
 ```
-GET /api/v1/endpoints/{endp_id}/snapshot?codice_consenso={sotto_tipo}
-→ 200 text/csv (streaming) · 403 endpoint di un'altra azienda · 404 · 409 endpoint non DA_ALLINEARE
+GET /internal/v1/endpoints/{endp_id}/snapshot?codice_consenso={sotto_tipo}
+→ 200 text/csv (streaming) · 403 chiamata senza chiave condivisa valida · 404 · 409 endpoint non DA_ALLINEARE
 ```
 
 Formato: **identico** al tracciato dell'allineamento massivo AS-IS (specifica v02c, cap. 9), così l'azienda carica il file come oggi, senza adeguamenti: `cfRichiedente;idAura;dataAcquisizione;codiceTipoConsenso;codiceSottotipoConsenso;valoreConsenso;codiceASR;` Separatore, ordine dei campi, codifica e intestazione da verificare su un file di esempio di CSI (ST-11).
@@ -67,10 +67,10 @@ PATCH /api/v1/endpoints/{endp_id}/stato-allineamento   { "stato": "IN_CORSO" | "
 
 ## Logica di backend
 
-- **Snapshot Service** (Spring Boot): query sui record di `cons_t_consenso` con `data_fine IS NULL` e stato ATTIVO/NEGATO, filtrati per `cod_asr = :authorizedEnte` e `sotto_tipo_consenso`, ordinati per `cons_id`. Indice su (`sotto_tipo_consenso`, `cod_asr`, `cons_id`).
+- **Snapshot Service** (Spring Boot): query sui record di `cons_t_consenso` con `data_fine IS NULL` e stato ATTIVO/NEGATO, filtrati per `cod_asr` = ente dell'endpoint scelto e `sotto_tipo_consenso`, ordinati per `cons_id`. Indice su (`sotto_tipo_consenso`, `cod_asr`, `cons_id`).
 - **Gestione dello stato** di `cons_r_asr_endpoint`: transizioni ammesse DA_ALLINEARE → IN_CORSO → COMPLETATO, ERRORE in caso di problemi; 409 se già COMPLETATO. Il PATCH verifica che l'endpoint appartenga all'ente del chiamante.
 - **Blocco acquisizioni**: CDU-09/10/11 (e il BE cittadino) controllano prima di salvare che nessun endpoint del sotto-tipo sia `IN_CORSO`: per un consenso aziendale si guarda solo l'azienda del consenso, per un regionale tutte. In quel caso errore applicativo e, nella webapp, form disabilitato (`regole.bloccato_allineamento`).
-- **Sicurezza V1.0:** ente dall'abilitazione dell'operatore (sessione PUA, JWT interno), `WHERE` sull'ente.
+- **Sicurezza V1.0:** chiave condivisa tra BFF e backend. Ente dalla sessione dell'operatore (endpoint scelto in CDU-14), mai da header esterni: gli `X-APIM-*` in arrivo da fuori si scartano. Resta il `WHERE` sull'ente.
 - ⚠️ **REST per i SIA (scenario futuro):** oggi `EnteAuthorizationFilter` si fida dell'header dell'API Manager per il codice ente. Senza API Manager nessuno lo imposta: **non esporli** finché un nuovo ADR non definisce autenticazione e legame tra credenziale e azienda (rischio ST-14).
 - Audit strutturato di ogni pagina richiesta.
 - SCADUTO non compare nello snapshot, che espone solo i consensi attivi. Il canale asincrono per comunicare SCADUTO ai SIA è un tema aperto (BAT-03).
