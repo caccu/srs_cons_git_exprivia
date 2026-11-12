@@ -9,7 +9,7 @@
 > **Aggiornamento call CSI 20/07/2026 (rifacimento CDU-17):**
 > - Attore = **operatore con profilo Back Office** sulla **web app Gestione Consensi** (accesso da **PUA**).
 > - **Variante B (watermark/no-blocco) ELIMINATA**: il blocco temporaneo delle acquisizioni è **obbligatorio** (unica modalità) per garantire uno snapshot coerente.
-> - 🆕 **Proposta A+D (06/11/2026, da confermare con CSI, ST-11):** in V1.0 fa tutto l'operatore di back office aziendale dalla web app (BFF, JWT interno). I servizi REST per il SIA restano nel codice ma **non sono esposti** ([[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]]). Il centro stella resta: il dato esce solo dal sistema regionale e l'azienda va a prenderselo. ~~Il SIA chiama in mutual TLS, come per `ConsprefService` (decisione dedotta).~~ Superato: `ConsprefService` usa la firma WS-Security, non il mutual TLS.
+> - 🆕 **Proposta A+D (06/11/2026, da confermare con CSI, ST-11):** in V1.0 fa tutto l'operatore di configurazione dalla web app (BFF, chiave condivisa). I servizi REST per il SIA restano nel codice ma **non sono esposti** ([[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]]). Il centro stella resta: il dato esce solo dal sistema regionale e l'azienda va a prenderselo. ~~Il SIA chiama in mutual TLS, come per `ConsprefService` (decisione dedotta).~~ Superato: `ConsprefService` usa la firma WS-Security, non il mutual TLS.
 > - **Nuovo passo 5**: a chiusura, il SIA **comunica alla webapp lo stato COMPLETATO e i dati dell'ultimo invio andato a buon fine**, tramite la **stessa canalità di PULL-02**.
 > - **Canale notifica PULL-02 (deciso 20/07/2026):** si mantengono **entrambe** le modalità — **email e/o webhook** — selezionabili via **parametro di configurazione** (solo email / solo webhook / entrambi). Con il **webhook** il SIA deve **esporre un servizio REST**, il cui **contratto, firma e sicurezza sono forniti da CSI**. 🆕 In V1.0 solo email (06/11/2026): il webhook richiede sviluppo da parte delle ASR.
 > - I servizi di inserimento, modifica ed eliminazione endpoint si usano **solo dalla web app** (CDU-14). Alle aziende sono esposti solo il cambio di stato di allineamento e la manutenzione.
@@ -24,7 +24,7 @@
 ```mermaid
 sequenceDiagram
     autonumber
-    actor OP as Operatore back office aziendale<br/>(web app, accesso da PUA, IRIDE + LCCE)
+    actor OP as Operatore di configurazione<br/>(web app, accesso da PUA, IRIDE + LCCE)
     participant GC as Gestione Consensi<br/>(sistema regionale + web app)
     participant SIA as SIA (ASR)
 
@@ -39,8 +39,8 @@ sequenceDiagram
 
     rect rgb(234,241,251)
     Note over OP,GC: Fase 1 — Scaricamento snapshot (CDU-14, tramite BFF)
-    OP->>GC: Scarica snapshot (codice_consenso)
-    GC->>GC: ente = azienda dell'operatore (LCCE) · IN_CORSO · blocca CDU-03 / CDU-09 per il sotto_tipo
+    OP->>GC: Scarica snapshot (un file con tutti i consensi dell'endpoint)
+    GC->>GC: ente = azienda dell'endpoint scelto · IN_CORSO (anche da ERRORE) · blocca CDU-03 / CDU-09 per i sotto-tipi dell'endpoint
     GC->>GC: genera lo snapshot · COMPLETATO · sblocca CDU-03 / CDU-09 (blocco di pochi secondi)
     GC-->>OP: file snapshot (CSV identico all'allineamento massivo AS-IS)
     end
@@ -55,7 +55,7 @@ sequenceDiagram
 ### I passi V1.0, in parole semplici
 
 0. **Registrazione.** Un operatore di back office registra il nuovo endpoint da CDU-14. Il sistema lo segna **DA_ALLINEARE** e avvisa l'azienda via email (PULL-02).
-1. **Scaricamento.** L'operatore di back office aziendale scarica lo snapshot da CDU-14. Il sistema prende l'ente dall'abilitazione LCCE dell'operatore, quindi solo i dati della sua azienda (da verificare che l'abilitazione LCCE sia per azienda). Il blocco delle acquisizioni dura solo il tempo di generare lo snapshot; poi l'endpoint è subito **COMPLETATO**.
+1. **Scaricamento.** L'operatore di configurazione scarica lo snapshot da CDU-14 sull'endpoint che sceglie. L'ente è quello dell'endpoint; l'operatore lavora su tutte le aziende. Il blocco delle acquisizioni dura solo il tempo di generare lo snapshot; poi l'endpoint è subito **COMPLETATO**.
 2. **Dopo.** Da quel momento BATCH-01 notifica i nuovi consensi anche al nuovo endpoint. L'azienda carica lo snapshot nel suo SIA, sotto la sua responsabilità, come oggi con il CSV: il file ha lo stesso tracciato ([[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|specifica v02c]], cap. 9), quindi per l'azienda non cambia niente. Non serve una conferma di fine allineamento nel sistema.
 
 ---
@@ -138,7 +138,7 @@ sequenceDiagram
 
 | #   | Punto                       | Esito                                                                                                     | Rif.    |
 | --- | --------------------------- | --------------------------------------------------------------------------------------------------------- | ------- |
-| A   | **Capacità del SIA**        | ✅ Chiamate REST attive confermate (PULL-08). 🆕 In V1.0 nessuna chiamata dal SIA: scarica l'operatore aziendale (proposta A+D, ST-11). ~~canale: mutual TLS (decisione dedotta)~~ | PULL-08 |
+| A   | **Capacità del SIA**        | ✅ Chiamate REST attive confermate (PULL-08). 🆕 In V1.0 nessuna chiamata dal SIA: scarica l'operatore di configurazione (proposta A+D, ST-11). ~~canale: mutual TLS (decisione dedotta)~~ | PULL-08 |
 | B   | **Canale di notifica**      | ✅ **Deciso:** email **e/o** webhook, via parametro di configurazione (solo email / solo webhook / entrambi). Con webhook il SIA espone un endpoint REST (contratto/firma/sicurezza forniti da CSI) | PULL-02 |
 | C   | **Coerenza dello snapshot** | ✅ **Blocco obbligatorio** durante il pull (Variante A). **Variante B watermark ELIMINATA**               | PULL-01 |
 | D   | **Conferma completamento**  | In V1.0 COMPLETATO allo scaricamento, nessuna conferma. Nello scenario futuro: PATCH di conferma idempotente | PULL-07 |

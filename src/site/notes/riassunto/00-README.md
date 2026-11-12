@@ -56,7 +56,7 @@ Prima dei singoli CDU conviene leggere [TRASV-componenti-comuni.md](TRASV-compon
 - motore di **storicizzazione** del consenso (mai UPDATE in place);
 - **coda di notifica** `cons_t_notifica` alimentata dai CDU e svuotata da BATCH-01;
 - **audit** (`csi_log_audit`) e **tracciatura servizi esterni** (`cons_t_traccia_serv_est`);
-- sicurezza: sessione PUA per la webapp e chiave condivisa tra BFF e backend, con l'ente preso dalla sessione dell'operatore; in V1.0 nessun REST esposto ai SIA, CDU-17 e manutenzione solo dall'operatore di configurazione (rotte `/internal/v1`, proposta A+D, ST-11); `ConsprefService` con firma WS-Security come oggi; niente API Manager;
+- sicurezza: sessione PUA per la webapp e chiave condivisa tra BFF e backend, che passa solo il CF dell'operatore (ente = endpoint scelto, nessun filtro sull'ente per l'operatore); in V1.0 nessun REST esposto ai SIA, CDU-17 e manutenzione solo dall'operatore di configurazione (rotte `/internal/v1/backoffice/...`, proposta A+D, ST-11); `ConsprefService` con firma WS-Security come oggi; niente API Manager;
 - client SOAP (Apache CXF) verso AURA e SIA; servizi SOAP in ingresso da mantenere: `/services/ConsprefService` (aziende federate, LIS) e `ConsensoBeService` (Webapp Cittadino, ADR-025);
 - errori RFC 7807;
 - **Form Renderer** dinamico per CDU-09/10/11;

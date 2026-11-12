@@ -9,7 +9,7 @@
 > **Origine:** call CSI 20/07/2026 (rifacimento CDU-17) — "MANCA SCENARIO DI MANUTENZIONE END-POINT". Si lega alla decisione dell'11/06/2026 recepita in **SRS §7.4 (Gestione manutenzione ASR — start/stop servizi)**.
 
 > 🆕 **Proposta A+D (06/11/2026, da confermare con CSI, ST-11; [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]], BE-25):**
-> - in V1.0 inizio e fine manutenzione li imposta **solo l'operatore** di back office da **CDU-14** (BFF, JWT interno), su richiesta dell'azienda. Serve anche a togliere una manutenzione dimenticata (BE-25b);
+> - in V1.0 inizio e fine manutenzione li imposta **solo l'operatore** di back office da **CDU-14** (BFF, chiave condivisa), su richiesta dell'azienda. Serve anche a togliere una manutenzione dimenticata (BE-25b);
 > - il servizio REST per il SIA resta nel codice ma **non è esposto** in V1.0;
 > - ~~il SIA dichiara inizio e fine manutenzione in mutual TLS, sullo stesso canale di CDU-17 (decisione dedotta).~~ Superato: `ConsprefService` usa la firma WS-Security, non il mutual TLS.
 >
@@ -32,7 +32,7 @@ sequenceDiagram
     rect rgb(251,241,234)
     Note over AZ,GC: Fase 1 — Inizio manutenzione
     AZ-->>OP: richiesta di manutenzione (fuori dal sistema)
-    OP->>GC: CDU-14: stato endpoint = IN_MANUTENZIONE (BFF, JWT interno)
+    OP->>GC: CDU-14: stato endpoint = IN_MANUTENZIONE (BFF, chiave condivisa)
     GC->>GC: blocca acquisizione consensi aziendali dell'azienda<br/>e lascia in coda le notifiche BATCH-01 verso l'azienda
     GC-->>WEB: Notifica BLOCCO: servizi ASR in manutenzione
     end
@@ -87,7 +87,7 @@ sequenceDiagram
 
     rect rgb(240,240,250)
     Note over OP,GC: In alternativa, o se la ASR dimentica la ripresa
-    OP->>GC: stessa operazione da CDU-14 (BFF, JWT interno)
+    OP->>GC: stessa operazione da CDU-14 (BFF, chiave condivisa)
     end
 ```
 
@@ -110,7 +110,7 @@ sequenceDiagram
 - **Stato IN_MANUTENZIONE:** colonna `stato_endpoint` su `cons_t_endpoint`, con valori `ATTIVO` e `IN_MANUTENZIONE` (SRS rev. 1.29, sviluppato su DEV il 02/11/2026).
 - **Notifiche verso il SIA:** seguono la canalità **PULL-02 (deciso 20/07/2026)**, cioè email e/o webhook configurabili. Le notifiche di **blocco/ripresa verso la webapp** Consensi sono interne all'applicativo.
 - **Servizi start/stop:** in V1.0 solo dall'operatore (CDU-14). Il servizio REST per le aziende resta nel codice, non esposto (proposta A+D, ST-11). Oggi si fida dell'header dell'API Manager: prima di esporlo servono autenticazione e legame tra credenziale e azienda (rischio ST-14). ~~Esposti alle aziende in mutual TLS insieme a CDU-17 (decisione dedotta).~~
-- **Operatore:** le operazioni dalla **web app** (CDU-14) passano dal BFF con JWT interno.
+- **Operatore:** le operazioni dalla **web app** (CDU-14) passano dal BFF con la chiave condivisa; il BFF passa solo il CF dell'operatore.
 
 ---
 

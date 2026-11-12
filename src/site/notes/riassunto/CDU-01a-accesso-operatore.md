@@ -22,9 +22,10 @@ Il CDU-01 originale comprendeva anche l'accesso del cittadino (CDU-01b) e la sce
 1. L'operatore apre la webapp dal PUA (RUPAR/IRIDE o SPID/CIE/CNS). Il link è diverso da quello della Webapp Cittadino.
 2. Il PUA reindirizza con un token.
 3. Il backend passa il token a LCCE **`getTokenInformation2`** (applicazione CONSPREF). **SUCCESSO = operatore abilitato** sul PUA. Il legacy leggeva solo l'esito; le funzionalità restituite non servono (profilo unico, ID-02).
-4. L'identità dell'operatore (CF, nome, cognome) viene dall'header Shibboleth **`Shib-Iride-IdentitaDigitale`**, formato IRIDE a sette campi separati da `/` (`CF/NOME/COGNOME/ID_PROVIDER/TIMESTAMP/LIVELLO/MAC`). Il MAC non è verificato (neanche dal legacy): la garanzia è la rete (vedi sotto). Il CF non viene da LCCE. Il controllo AS-IS su AURA e profilo operatore non filtra: il profilo, se manca, viene creato al primo accesso.
-5. Il frontend mostra solo le sezioni abilitate. Con due profili, ciascuno vede solo le proprie (la visibilità incrociata è da confermare con CSI).
-6. Logout / pulizia sessione.
+4. L'identità dell'operatore (CF, nome, cognome) viene dall'header Shibboleth **`Shib-Iride-IdentitaDigitale`**, formato IRIDE a sette campi separati da `/` (`CF/NOME/COGNOME/ID_PROVIDER/TIMESTAMP/LIVELLO/MAC`). Il MAC non è verificato (neanche dal legacy): la garanzia è la rete (vedi sotto). Il CF non viene da LCCE. ~~Il controllo AS-IS su AURA e profilo operatore non filtra.~~ Corretto al passo 5.
+5. Il CF deve essere presente su AURA, altrimenti l'accesso è negato. Al primo accesso l'operatore viene registrato in `cons_t_operatorebo`; `cons_d_operatore` contiene solo i tipi di operatore (OPERATORE_BKO, SERVIZI_ASR, WA_CITT). La verifica del profilo risponde sempre SUCCESSO e non blocca. Una volta entrato, l'operatore vede tutte le funzioni (verifica del dev BE sul codice, 12/11/2026).
+6. Il frontend mostra solo le sezioni abilitate. Con due profili, ciascuno vede solo le proprie (la visibilità incrociata è da confermare con CSI).
+7. Logout / pulizia sessione.
 
 Errori: se il PUA o il servizio token non rispondono, pagina d'errore generica senza dettagli tecnici.
 

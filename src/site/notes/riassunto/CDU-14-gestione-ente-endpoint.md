@@ -18,7 +18,7 @@ Quando si aggiunge un nuovo endpoint, il nuovo SIA va **allineato** con i consen
 
 ## Precondizioni
 
-Operatore di configurazione autenticato (webapp, sessione PUA; tra BFF e backend chiave condivisa). In V1.0 nessun limite per azienda: vede tutti gli enti. Fino alla risposta di CSI sul profilo da LCCE (ST-16), SUCCESSO abilita a tutte le funzioni. In V1.0 nessuna chiamata dai SIA.
+Operatore di configurazione autenticato (webapp, sessione PUA; tra BFF e backend chiave condivisa). In V1.0 nessun limite per azienda: vede tutti gli enti. Fino alla risposta di CSI sul profilo da LCCE (ST-16), l'esito SUCCESSO di LCCE e la presenza su AURA abilitano a tutte le funzioni. In V1.0 nessuna chiamata dai SIA.
 
 ## Flusso (webapp)
 
@@ -72,15 +72,15 @@ Operatore di configurazione autenticato (webapp, sessione PUA; tra BFF e backend
   - con `EMAIL` (V1.0): il webhook non parte in nessun caso e l'errore «webhook assente» sparisce; senza indirizzo l'avviso non parte e si traccia l'errore «e-mail assente»;
   - l'endpoint `WEBHOOK_ALLINEAMENTO` di prova sul DEV non va portato negli ambienti successivi.
 - Disattivazione ente (requisito CSI V03, SRS rev. 1.12 §6.14): la fine validità si propaga a `cons_r_asr_endpoint`, `cons_r_sotto_tipo_cons_asr_endpoint` e `cons_r_informativa_asr`; l'eliminazione di un endpoint chiude anche i suoi legami. Blocchi su modifica/disattivazione: da chiedere a CSI (DEV-12).
-- Effetti su altri CDU: CDU-09/10/11 non generano notifiche verso endpoint `IN_CORSO` e bloccano l'acquisizione per quel sotto-tipo finché l'allineamento è in corso. BATCH-01 legge l'URL di destinazione.
+- Effetti su altri CDU: CDU-09/10/11 non generano notifiche verso endpoint `IN_CORSO` e bloccano l'acquisizione per i sotto-tipi associati all'endpoint finché l'allineamento è in corso. BATCH-01 legge l'URL di destinazione.
 
 ## Servizi per allineamento e manutenzione (V1.0 solo webapp, tramite BFF)
 
-- `GET /internal/v1/endpoints/{endp_id}/snapshot?codice_consenso=` → CSV (CDU-17).
-- `PATCH /internal/v1/endpoints/{endp_id}/stato` (manutenzione, §7.4).
-- Le stesse rotte su `/api/v1` restano nel codice, non esposte, per un eventuale uso futuro dei SIA.
+- `GET /internal/v1/backoffice/endpoint/{endpId}/snapshot` → un solo CSV con tutti i consensi associati all'endpoint (CDU-17; ammesso da `DA_ALLINEARE` e `ERRORE`; stesso schema delle altre rotte di CDU-14, da fare).
+- `PATCH /internal/v1/backoffice/endpoint/{endpId}/stato` (manutenzione, §7.4; su dev dal 12/11/2026).
+- Le rotte per le aziende (`/api/v1/endpoints/...`) restano nel codice, non esposte, per un eventuale uso futuro dei SIA.
 - `PATCH .../stato-allineamento` non serve in V1.0: COMPLETATO lo imposta lo scaricamento.
-- ⚠️ Il backend accetta l'ente solo dalle chiamate autenticate dal BFF con la chiave condivisa: è l'ente dell'endpoint scelto dall'operatore nella sua sessione. Gli `X-APIM-*` in arrivo da fuori si scartano e resta il `WHERE` sul codice ente (rischio ST-14). Il CRUD degli endpoint resta solo nella webapp. Vanno descritti nell'OpenAPI (PULL-09).
+- ⚠️ Il BFF passa al backend, con la chiave condivisa, solo il CF dell'operatore. L'ente è quello dell'endpoint scelto dall'operatore. Per l'operatore non c'è filtro sull'ente, perché lavora su tutte le aziende. Il filtro su `codice_ente` resta solo sulle rotte delle aziende (`/api/v1`), non esposte. Gli `X-APIM-*` in arrivo da fuori si scartano (rischio ST-14). Il CRUD degli endpoint resta solo nella webapp. Vanno descritti nell'OpenAPI (PULL-09).
 - Scenario futuro, con i due `PATCH` chiamati dal SIA: richiede sviluppo da parte delle ASR, non previsto.
 
 ## Come svilupparlo
@@ -88,7 +88,13 @@ Operatore di configurazione autenticato (webapp, sessione PUA; tra BFF e backend
 **Backend**
 - Service di dominio unico per enti/endpoint. In V1.0 un solo controller: webapp tramite BFF (sessione PUA, chiave condivisa). Il controller per le aziende resta nel codice, non esposto.
 - Parametro di configurazione del backend per il canale di notifica (EMAIL | WEBHOOK | ENTRAMBI), unico per tutti e non scelto dall'operatore: nel codice il predefinito era `ENTRAMBI`, in V1.0 passa a `EMAIL` (confermato al dev BE il 12/11/2026). Anche il mittente dell'e-mail sta in configurazione.
-- Migrazione: colonne `tipo_ente`, `stato_allineamento`, `cons_t_endpoint.destinazione_id`; tabella `cons_d_asr_destinazione` con seed (`NOTIFICA_CONSENSO`, `WEBHOOK_ALLINEAMENTO`); endpoint AS-IS valorizzati a `NOTIFICA_CONSENSO`.
+- Migrazione: colonne `tipo_ente`, `stato_allineamento`, `cons_t_endpoint.destinazione_id`; tabella `cons_d_asr_destinazione` con seed (`NOTIFICA_CONSENSO`, `WEBHOOK_ALLINEAMENTO`); endpoint AS-IS valorizzati a `NOTIFICA_CONSENSO`. Le associazioni degli endpoint del vecchio sistema (`cons_r_asr_endpoint` e `cons_r_sotto_tipo_cons_asr_endpoint`) le crea lo script di migrazione:
+  - `stato_allineamento = COMPLETATO`, perché ricevevano già tutti i consensi e senza COMPLETATO BATCH-01 non li notificherebbe;
+  - solo CPROL (TELEMED dopo DEV-08);
+  - utente di creazione `MIGRAZIONE_ENDP_LEGACY`;
+  - corrispondenza endpoint → azienda presa dal DB di ogni ambiente;
+  - gli endpoint cancellati si saltano.
+  (Script del dev BE, provato su DEV il 12/11/2026.)
 
 **Frontend**
 - Lista enti → dettaglio ente con elenco endpoint; form ente; form endpoint con multi-select dei sotto-tipi; badge `stato_allineamento` in sola lettura.
