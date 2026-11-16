@@ -44,7 +44,7 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | [ADR-023](ADR-023-cdu-11-contratto-rest-valori-ammessi.md) | CDU-11 — contratto REST dedicato e valori ammessi da configurazione | accepted | 2026-09-29 | API |
 | [ADR-024](ADR-024-cdu-14-destinazione-endpoint.md) | CDU-14 — valori del campo Destinazione degli endpoint (NOTIFICA_CONSENSO, WEBHOOK_ALLINEAMENTO) | accepted | 2026-10-15 | Modello dati |
 | [ADR-025](ADR-025-contratto-cittadino-soap-consensobeservice.md) | Contratto Webapp Cittadino — SOAP `ConsensoBeService` preservato (via APISAN) | accepted | 2026-10-21 | Integrazioni |
-| [ADR-026](ADR-026-form-dinamico-catalogo-campi.md) | Form dinamico: catalogo di campi tipizzati (`TESTO`, `TEXTAREA`, `DOMANDA`) configurato in CDU-12 (FE-08) | proposed | 2026-10-29 | UX / Modello dati |
+| [ADR-026](ADR-026-form-dinamico-catalogo-campi.md) | Form dinamico: catalogo di campi tipizzati (`TESTO`, `TEXTAREA`, `DOMANDA`) (FE-08); rivisto il 16/11/2026: in V1.0 CDU-12 invariato, `ordine` e `obbligatorio` valorizzati dal BE, lista configurabile come evoluzione futura | proposed | 2026-10-29 | UX / Modello dati |
 | [ADR-027](ADR-027-architettura-senza-api-manager.md) | Architettura TO-BE senza API Manager: chiave condivisa BFF-backend, il BFF passa solo il CF dell'operatore (12/11/2026), basic APISAN, `ConsprefService` con firma WS-Security come oggi; CDU-15/16 non esposti; CDU-17 e manutenzione solo dall'operatore in V1.0 (proposta A+D del 06/11/2026, da confermare con CSI) | accepted | 2026-11-05 | Sicurezza / Architettura |
 
 ---
@@ -66,7 +66,7 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | Perimetro | 1 | 0 | 0 |
 | **Totale** | **19** | **0** | **5** |
 
-ADR-006 (CDU-17 PULL) è stato **confermato dal committente nella call CSI del 20/07/2026** (rifacimento completo del caso d'uso) e portato a `accepted`. ADR-017 (LIS terzo canale) è stato **superato dalla call CSI del 06/08/2026** → [ADR-020](ADR-020-lis-integrazione-be-esistente.md). ADR-011 e ADR-019 (funzionalità cittadino) sono stati **superati dalla call CSI del 06/08/2026** → [ADR-021](ADR-021-perimetro-solo-operatore.md) (perimetro ridotto a Webapp Operatore). ADR-022 (25/09/2026) riprende lo scope funzionale di ADR-019 e lo estende all'Operatore, su risposta CSI. Non restano ADR in stato `proposed`.
+ADR-006 (CDU-17 PULL) è stato **confermato dal committente nella call CSI del 20/07/2026** (rifacimento completo del caso d'uso) e portato a `accepted`. ADR-017 (LIS terzo canale) è stato **superato dalla call CSI del 06/08/2026** → [ADR-020](ADR-020-lis-integrazione-be-esistente.md). ADR-011 e ADR-019 (funzionalità cittadino) sono stati **superati dalla call CSI del 06/08/2026** → [ADR-021](ADR-021-perimetro-solo-operatore.md) (perimetro ridotto a Webapp Operatore). ADR-022 (25/09/2026) riprende lo scope funzionale di ADR-019 e lo estende all'Operatore, su risposta CSI. Resta in stato `proposed` solo ADR-026 (form dinamico), in attesa della conferma CSI sul modello dati.
 
 ---
 

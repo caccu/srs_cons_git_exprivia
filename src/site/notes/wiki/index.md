@@ -164,6 +164,6 @@ Indice completo: [docs/adr/README.md](wiki/docs/adr/README.md)
 | [ADR-023](ADR-023-cdu-11-contratto-rest-valori-ammessi.md) | CDU-11 contratto REST dedicato (`PUT /consensi/{cfAssistito}/valore`) e valori ammessi da `cons_r_consenso_valore` | accepted |
 | [ADR-024](ADR-024-cdu-14-destinazione-endpoint.md) | CDU-14 valori del campo Destinazione degli endpoint: `NOTIFICA_CONSENSO` (default, anche se vuoto) e `WEBHOOK_ALLINEAMENTO` | accepted |
 | [ADR-025](ADR-025-contratto-cittadino-soap-consensobeservice.md) | Contratto Webapp Cittadino: SOAP `ConsensoBeService` (10 operazioni) via APISAN, preservato a iso-funzionalità | accepted |
-| [ADR-026](ADR-026-form-dinamico-catalogo-campi.md) | Form dinamico: catalogo di campi tipizzati (`TESTO`, `TEXTAREA`, `DOMANDA`) configurato in CDU-12 (FE-08) | proposed |
+| [ADR-026](ADR-026-form-dinamico-catalogo-campi.md) | Form dinamico: catalogo di campi tipizzati (`TESTO`, `TEXTAREA`, `DOMANDA`) (FE-08); rivisto il 16/11/2026: in V1.0 CDU-12 invariato, `ordine` e `obbligatorio` valorizzati dal BE | proposed |
 | [ADR-027](ADR-027-architettura-senza-api-manager.md) | Architettura TO-BE senza API Manager: chiave condivisa BFF-backend, il BFF passa solo il CF dell'operatore (12/11/2026), basic APISAN, `ConsprefService` con firma WS-Security come oggi; CDU-15/16 non esposti; CDU-17 e manutenzione solo dall'operatore in V1.0 (proposta A+D del 06/11/2026, da confermare con CSI) | accepted |
 
