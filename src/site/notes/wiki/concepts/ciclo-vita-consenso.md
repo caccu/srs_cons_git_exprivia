@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/ciclo-vita-consenso/","title":"Ciclo di Vita del Consenso","tags":["macchina-a-stati","consenso","business-logic","gestione-consensi","terminologia-ui","mf9","mf11","mf14"],"dg-note-properties":{"title":"Ciclo di Vita del Consenso","aliases":["Ciclo di Vita del Consenso"],"type":"concept","tags":["macchina-a-stati","consenso","business-logic","gestione-consensi","terminologia-ui","mf9","mf11","mf14"],"created":"2026-05-05","updated":"2026-09-22","sources":["2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03"],"related":["[[Gestione Consensi - Applicativo]]","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/ciclo-vita-consenso/","title":"Ciclo di Vita del Consenso","tags":["macchina-a-stati","consenso","business-logic","gestione-consensi","terminologia-ui","mf9","mf11","mf14"],"dg-note-properties":{"title":"Ciclo di Vita del Consenso","aliases":["Ciclo di Vita del Consenso"],"type":"concept","tags":["macchina-a-stati","consenso","business-logic","gestione-consensi","terminologia-ui","mf9","mf11","mf14"],"created":"2026-05-05","updated":"2026-11-16","sources":["2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03"],"related":["[[Gestione Consensi - Applicativo]]","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -56,7 +56,9 @@ NON_ESPRESSO
 >   - REVOCATO è solo il passaggio da sì a no, tracciando chi l'ha fatto (cittadino o operatore);
 >   - il ciclo di vita deve dire se il consenso era nato «no» o lo è diventato;
 >   - resta l'unione stato + valore (`cons_d_stato`, `cons_d_valore`).
-> - **Da verificare:** il motore TO-BE (ALG02) legge oggi A/NO come ATTIVO e rifiuta il passaggio a «sì» (differenza 2). Va allineato. Prova a video in gruppo ridotto.
+> - **Verificato (dev BE, 16/11/2026):** il motore TO-BE (ALG02) leggeva A/NO come ATTIVO e rifiutava il passaggio a «sì» (differenza 2). Decisione: un record A con valore NO si legge come NEGATO nella Webapp Operatore e nel SOAP delle aziende; il passaggio a «sì» chiude il record e scrive A/SI, come la Webapp Cittadino. La Webapp Cittadino legge i codici del DB e non cambia.
+> - **SOAP delle aziende come nel vecchio sistema (16/11/2026):** senza un consenso in vigore l'acquisizione scrive A con il valore ricevuto, quindi A/NO nasce solo come primo «no». Con un consenso in vigore è ammesso solo il passaggio da no a sì. La revoca è ammessa solo su un SI e scrive R/NO. Il vecchio sistema è già coerente con CSI («revocato» = da sì a no). R/NO c'è già nei dati del vecchio sistema (revoche delle aziende, passaggi da SI a NO dalla Webapp Cittadino e dal vecchio back office).
+> - Dettaglio: `presentazione/Specifica-tecnica_form-dinamico_2026-10-29.md` 0.3, regole BE 7 e 10.
 >
 > Fonte: [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]].
 
