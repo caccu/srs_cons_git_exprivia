@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/","title":"Checklist Avvio Progetto — Gestione Consensi","tags":["checklist","avvio","sprint-0","cliente","csi-piemonte","exprivia","rischi","prerequisiti"],"dg-note-properties":{"title":"Checklist Avvio Progetto — Gestione Consensi","aliases":["Checklist Avvio Progetto — Gestione Consensi"],"type":"analysis","tags":["checklist","avvio","sprint-0","cliente","csi-piemonte","exprivia","rischi","prerequisiti"],"created":"2026-05-06","updated":"2026-08-06","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-03-02-appunti-e-pianificazione","2023-09-01-conspref-srs-01-v03","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione"],"related":["[[analysis-gap-as-is-to-be|Analisi Gap AS-IS → TO-BE — Gestione Consensi]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[exprivia|Exprivia S.p.A.]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[GASP Salute]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/","title":"Checklist Avvio Progetto — Gestione Consensi","tags":["checklist","avvio","sprint-0","cliente","csi-piemonte","exprivia","rischi","prerequisiti"],"dg-note-properties":{"title":"Checklist Avvio Progetto — Gestione Consensi","aliases":["Checklist Avvio Progetto — Gestione Consensi"],"type":"analysis","tags":["checklist","avvio","sprint-0","cliente","csi-piemonte","exprivia","rischi","prerequisiti"],"created":"2026-05-06","updated":"2026-11-18","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-03-02-appunti-e-pianificazione","2023-09-01-conspref-srs-01-v03","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione"],"related":["[[analysis-gap-as-is-to-be|Analisi Gap AS-IS → TO-BE — Gestione Consensi]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[exprivia|Exprivia S.p.A.]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[GASP Salute]]"]}}
 ---
 
 
@@ -92,7 +92,7 @@ Punti validati dalla Q&A CSI V02 o esplicitamente documentati nell'SRS e negli a
 | B5  | ~~**WSDL AURA** — lista servizi CDU-07/08~~ ✅ **CHIUSO (call 20/07/2026):** nessun servizio nuovo, gli stessi (FindProfiliAnagrafici, getProfiloSanitario) già nei file di properties | — | ✅ |
 | B6  | ~~**WSDL Gestione Deleghe**~~ ✅ **CHIUSO (call 20/07/2026):** già integrato, nulla da fare        | — | ✅ |
 | B7  | ~~**Credenziali IRIS** per AURA (DEV)~~ ✅ **CHIUSO (call 20/07/2026):** incluse nei file di properties | — | ✅ |
-| B8  | **Accesso repo QUASAR CSI** (componenti UI)                                                     | Frontend Sprint 2+ senza componenti ufficiali | Sprint 1 |
+| B8  | ~~**Accesso repo QUASAR CSI** (componenti UI)~~ ✅ **CHIUSO (18/11/2026):** risolto dal team FE (INT-04) | — | ✅ |
 | B9  | **Registrazione app PUA** — **1 profilo Operatore** (unico, corretto call CSI 06/08/2026 — era erroneamente "2 profili")               | Test autenticazione operatori impossibile     | Sprint 2 |
 
 ### 🟡 MODERATO — Necessario prima UAT
@@ -139,7 +139,7 @@ Ordine di priorità per il kick-off:
 1. ~~Richiedere documentazione [[wiki/concepts/gasp-salute\|GASP Salute]]~~ ✅ metadata SP ricevuti 07/2026 (B1) — resta il **censimento SP** via template federazione
 2. **Avviare provisioning DBaaS Nivola DEV + pre-prod** (B2; PROD rinviato — B3) — compilare scheda standard e inviarla
 3. ~~Richiedere WSDL AURA + Gestione Deleghe~~ ✅ chiusi (call 20/07: AURA nei properties, Deleghe già integrato — B5/B6)
-4. **Richiedere accesso repo QUASAR** (B8) — skeleton già in carico a Exprivia (B4 ✅)
+4. ~~Richiedere accesso repo QUASAR~~ ✅ risolto dal team FE (B8, 18/11/2026)
 5. ~~Conferma operazione WSDL BATCH-01~~ ✅ confermata SRV-03/SRV-04 (call 20/07 — B10)
 6. ~~Assegnare responsabile CONSPREF-DMP~~ ✅ (C1 — CSI Piemonte, confermato 16/07/2026)
 7. ✅ **OpenAPI CDU-15/16 v0.1-DRAFT prodotta** — portare a Sprint 0, chiudere 5 TBD con CSI, condividere v0.2 con ASR entro Sprint 2

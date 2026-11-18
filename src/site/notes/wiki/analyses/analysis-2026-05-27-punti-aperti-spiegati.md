@@ -110,8 +110,8 @@ Va prodotto lo **swagger (OpenAPI)** del servizio (parametri, risposta, errori),
 ### ✅ Cos'è "LIS" e come si integra (INT-03) — CHIUSO
 **Cosa significava:** "LIS" sembrava un terzo canale di acquisizione ma non era chiaro l'acronimo né come funzionasse. **Come si è chiuso (call 06/08/2026):** CSI ha chiarito che **non esiste un terzo canale**. LIS (e sistemi analoghi come RIS) acquisiscono i consensi tramite un'**integrazione già presente nel codice esistente** — non va costruito nulla di nuovo lato canale, va solo **verificata e portata sul nuovo stack**.
 
-### 🟠 Accesso ai componenti grafici QUASAR (INT-04)
-**Cosa significa:** QUASAR è la libreria UI di riferimento del CSI. **Come si chiude:** CSI dà accesso al repository.
+### ✅ Accesso ai componenti grafici QUASAR (INT-04) — CHIUSO
+**Cosa significava:** QUASAR è la libreria UI di riferimento del CSI; serviva l'accesso al repository. **Come si è chiuso (18/11/2026):** risolto dal team FE.
 
 ### 🟠 Registrazione del profilo su PUA (ID-02)
 **Cosa significa:** l'app va registrata sul Configuratore con **un solo profilo Operatore** (corretto 06/08/2026 — non due). **Come si chiude:** CSI esegue la registrazione.

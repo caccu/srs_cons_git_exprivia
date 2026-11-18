@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-001-stack-tecnologico/","title":"Stack tecnologico applicativo (Spring Boot 3 + Java 17 + Angular 21 + PostgreSQL 18)","tags":["stack","spring-boot","java","angular","postgresql"],"dg-note-properties":{"adr":1,"title":"Stack tecnologico applicativo (Spring Boot 3 + Java 17 + Angular 21 + PostgreSQL 18)","status":"accepted","date":"2026-03-02","updated":"2026-10-21","deciders":["CSI Piemonte","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["stack","spring-boot","java","angular","postgresql"],"related_wiki":["[[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico Applicativo]]","[[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]","[[architettura-iaas|Architettura IaaS]]"],"sources":["[[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #2, #5, #10","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]] §3"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-001-stack-tecnologico/","title":"Stack tecnologico applicativo (Spring Boot 3 + Java 17 + Angular 21 + PostgreSQL 18)","tags":["stack","spring-boot","java","angular","postgresql"],"dg-note-properties":{"adr":1,"title":"Stack tecnologico applicativo (Spring Boot 3 + Java 17 + Angular 21 + PostgreSQL 18)","status":"accepted","date":"2026-03-02","updated":"2026-11-18","deciders":["CSI Piemonte","Exprivia"],"supersedes":[],"superseded-by":[],"tags":["stack","spring-boot","java","angular","postgresql"],"related_wiki":["[[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico Applicativo]]","[[wiki/sources/2026-03-12-pile-tecnologiche-csi\|Pile Tecnologiche CSI Piemonte]]","[[architettura-iaas|Architettura IaaS]]"],"sources":["[[wiki/sources/2026-03-02-domande-srs-csi-v02\|Domande SRS Consensi — Revisione CSI V02]] Q&A #2, #5, #10","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]] §3"]}}
 ---
 
 
@@ -46,7 +46,7 @@ Lo stack TO-BE è:
 ### Negative
 - Migrazione PG9 → PG18 obbligatoria con salto di 9 major release (vedi [[wiki/docs/adr/ADR-013-migrazione-pg-dump-restore\|ADR-013-migrazione-pg-dump-restore]])
 - Spring Boot 3 incompatible con Java 8/11 — niente backport possibile
-- QUASAR CSI library richiede accesso repo CSI (dipendenza esterna)
+- ~~QUASAR CSI library richiede accesso repo CSI (dipendenza esterna)~~ ✅ risolto dal team FE (INT-04, chiuso 18/11/2026)
 
 ### Neutral
 - ~~Build/deploy gestiti da automation CSI (no skeleton ex-novo richiesto)~~ → Skeleton in carico a **Exprivia** (IaaS); confronto su POM con CSI (verbale 11/06/2026)

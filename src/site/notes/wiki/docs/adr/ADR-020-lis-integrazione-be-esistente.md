@@ -35,7 +35,7 @@ Questo ribalta l'assunzione architetturale di ADR-017: LIS non è un nuovo punto
 - Chiude INT-03 senza bisogno di sciogliere formalmente l'acronimo LIS come prerequisito bloccante — resta utile da chiarire ma non blocca più la progettazione
 
 ### Negative
-- Richiede **individuare nel codice sorgente AS-IS** il punto di integrazione LIS (attività di reverse engineering, non prevista come tale finché non si accede al repo/DB AS-IS — dipende da [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|INT-04 accesso repo QUASAR/AS-IS]] e dall'audit DDL Sprint 0)
+- Richiede **individuare nel codice sorgente AS-IS** il punto di integrazione LIS (attività di reverse engineering, non prevista come tale finché non si accede al repo/DB AS-IS — dipende dall'accesso al repo/DB AS-IS e dall'audit DDL Sprint 0)
 - Finché l'integrazione non è individuata, restano ignoti: protocollo (SOAP/REST/altro), formato payload, eventuali vincoli di sicurezza specifici da migrare
 - Documentazione SRS §1/§2 (diagramma di contesto) da **correggere**: torna a 2 canali di acquisizione, non 3 — passo indietro rispetto a quanto già eventualmente recepito in SRS v6
 

@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/valutazione-qualita-srs-consensi/","title":"Valutazione Qualità SRS — Gestione Consensi","tags":["valutazione","qualita","srs","analisi-critica","gestione-consensi"],"dg-note-properties":{"title":"Valutazione Qualità SRS — Gestione Consensi","aliases":["Valutazione Qualità SRS — Gestione Consensi"],"type":"analysis","tags":["valutazione","qualita","srs","analisi-critica","gestione-consensi"],"created":"2026-05-05","updated":"2026-09-22","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-appunti-e-pianificazione","2026-03-02-domande-srs-csi-v02","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7"],"related":["[[Gestione Consensi - Applicativo]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[Architettura IaaS]]","[[exprivia|Exprivia S.p.A.]]","[[CSI Piemonte]]","[[analysis-2026-05-14-risposte-mf-srs-v3|Risposte MF — Revisione SRS v3 lavorazione (69 commenti)]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/valutazione-qualita-srs-consensi/","title":"Valutazione Qualità SRS — Gestione Consensi","tags":["valutazione","qualita","srs","analisi-critica","gestione-consensi"],"dg-note-properties":{"title":"Valutazione Qualità SRS — Gestione Consensi","aliases":["Valutazione Qualità SRS — Gestione Consensi"],"type":"analysis","tags":["valutazione","qualita","srs","analisi-critica","gestione-consensi"],"created":"2026-05-05","updated":"2026-11-18","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-appunti-e-pianificazione","2026-03-02-domande-srs-csi-v02","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7"],"related":["[[Gestione Consensi - Applicativo]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[Architettura IaaS]]","[[exprivia|Exprivia S.p.A.]]","[[CSI Piemonte]]","[[analysis-2026-05-14-risposte-mf-srs-v3|Risposte MF — Revisione SRS v3 lavorazione (69 commenti)]]"]}}
 ---
 
 
@@ -128,7 +128,7 @@ Per analisi dettagliata del delta vedi [[wiki/analyses/analysis-gap-as-is-to-be\
 | WSDL Gestione Deleghe ricevuti | ✅ Già integrato (call 20/07/2026, riconfermato AS-IS legacy riciclato 06/08/2026) | ⚠️ FE OUT / **BE IN** — integrazione server-side da migrare a iso-funzionalità (ADR-021, precisato 22/09/2026) |
 | DBaaS Nivola DEV provisioned | ❌ Da richiedere | Alta latenza |
 | DBaaS Nivola PROD provisioned | ❌ Da richiedere | Alta latenza |
-| Accesso repo QUASAR CSI | ❌ Da richiedere | Prerequisito UI |
+| Accesso repo QUASAR CSI | ✅ Risolto dal team FE (INT-04, 18/11/2026) | Prerequisito UI |
 | Registrazione app PUA (**2 profili**: sportello e configurazione, call CSI 28/10/2026; il 06/08/2026 era "1 profilo") | ❌ Da richiedere | |
 | Credenziali IRIS per AURA | ❌ Da richiedere | |
 | CONSPREF-DMP bozza v1 | ❌ Da produrre | Sprint 0 |
