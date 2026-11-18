@@ -80,7 +80,7 @@ Operatore di configurazione autenticato (webapp, sessione PUA; tra BFF e backend
 - `PATCH /internal/v1/backoffice/endpoint/{endpId}/stato` (manutenzione, §7.4; su dev dal 12/11/2026).
 - Le rotte per le aziende (`/api/v1/endpoints/...`) restano nel codice, non esposte, per un eventuale uso futuro dei SIA.
 - `PATCH .../stato-allineamento` non serve in V1.0: COMPLETATO lo imposta lo scaricamento.
-- ⚠️ Il BFF passa al backend, con la chiave condivisa, solo il CF dell'operatore. L'ente è quello dell'endpoint scelto dall'operatore. Per l'operatore non c'è filtro sull'ente, perché lavora su tutte le aziende. Il filtro su `codice_ente` resta solo sulle rotte delle aziende (`/api/v1`), non esposte. Gli `X-APIM-*` in arrivo da fuori si scartano (rischio ST-14). Il CRUD degli endpoint resta solo nella webapp. Vanno descritti nell'OpenAPI (PULL-09).
+- ⚠️ Il BFF passa al backend, con la chiave condivisa, solo il CF dell'operatore. L'ente è quello dell'endpoint scelto dall'operatore. Per l'operatore non c'è filtro sull'ente, perché lavora su tutte le aziende. Il filtro su `codice_ente` resta solo sulle rotte delle aziende (`/api/v1`), non esposte. Gli `X-APIM-*` non si scartano: senza la chiave condivisa la richiesta è rifiutata tutta con 401; con la chiave vengono letti come arrivano, quindi la chiave resta solo al BFF (rischio ST-14). Il CRUD degli endpoint resta solo nella webapp. Vanno descritti nell'OpenAPI (PULL-09).
 - Scenario futuro, con i due `PATCH` chiamati dal SIA: richiede sviluppo da parte delle ASR, non previsto.
 
 ## Come svilupparlo

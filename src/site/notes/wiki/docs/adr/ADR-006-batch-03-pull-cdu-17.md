@@ -73,7 +73,7 @@ Rimuovere BATCH-03 push. Introdurre **CDU-17 — Snapshot consensi per allineame
 
 ✅ **Chiusi nella call CSI 20/07/2026** (tracker [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punti Aperti CSI]] §3):
 - ~~PULL-01: blocco vs watermark~~ → **blocco obbligatorio** (Variante A); B eliminata
-- ~~PULL-02: canale notifica~~ → **email e/o webhook** configurabile; webhook → SIA espone REST (contratto fornito da CSI)
+- ~~PULL-02: canale notifica~~ → **email e/o webhook** configurabile; webhook → SIA espone REST (contratto fornito da CSI). 🆕 06/11/2026: in V1.0 solo email (il webhook richiederebbe sviluppo da parte delle ASR).
 - ~~PULL-05: export-with-downtime~~ → **non perseguita**
 - ~~PULL-06: BATCH-03 rimozione~~ → **rimosso** dal SRS (§6.17 CDU-17)
 - ~~PULL-08: SIA può chiamare REST~~ → **sì**

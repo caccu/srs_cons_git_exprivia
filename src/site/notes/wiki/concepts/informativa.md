@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/informativa/","title":"Informativa Consenso","tags":["consenso","informativa","modello-dati","core-domain","gdpr"],"dg-note-properties":{"title":"Informativa Consenso","aliases":["Informativa Consenso","Informativa"],"type":"concept","tags":["consenso","informativa","modello-dati","core-domain","gdpr"],"created":"2026-05-15","updated":"2026-10-09","sources":["2026-03-02-conspref-srs-v1-revised","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2026-03-02-sommario-srs-consensi"],"related":["[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/informativa/","title":"Informativa Consenso","tags":["consenso","informativa","modello-dati","core-domain","gdpr"],"dg-note-properties":{"title":"Informativa Consenso","aliases":["Informativa Consenso","Informativa"],"type":"concept","tags":["consenso","informativa","modello-dati","core-domain","gdpr"],"created":"2026-05-15","updated":"2026-11-18","sources":["2026-03-02-conspref-srs-v1-revised","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2026-03-02-sommario-srs-consensi"],"related":["[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]"]}}
 ---
 
 
@@ -45,6 +45,7 @@ Regole fissate in risposta al team BE ([[wiki/analyses/analysis-2026-05-14-punti
 ### Allegati e flag in migrazione
 
 - PDF e HTML vanno entrambi in `cons_t_allegato`; l'HTML resta anche in `html_informativa` (SRS §6.13 passo 5, BE-07).
+- I file PDF delle informative stanno su **file system** (DEV-11 chiuso il 18/11/2026, [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|tracker]]).
 - Per le informative AS-IS (CPROL, TELEMED) le colonne nuove `online` e `annulla_consensi` prendono i default della maschera CDU-13: `true` e `false` (BE-08).
 
 ---
@@ -97,7 +98,6 @@ L'informativa è la **Single Source of Truth** per la composizione del form di c
 ## Punti aperti
 
 - **Correzione di un'informativa pubblicata** (refuso): DEV-09, in attesa di CSI.
-- **Storage, limite e conservazione dei PDF**: DEV-11, in attesa di CSI.
 - **Versionamento storico:** retention di informative scadute per audit legale → da verificare con [[wiki/entities/csi-piemonte\|CSI Piemonte]] policy retention DB
 - **Notifica scadenza al cittadino:** quando un'informativa scade, va notificato il cittadino con consenso attivo? (no in SRS attuale)
 - **PROPOSTA §8.4.8** non ancora validata da [[wiki/entities/csi-piemonte\|CSI Piemonte]] — vedi tracker [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|Punti Aperti CSI — Tracker Unificato]]

@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-11-02"}}
+{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-11-18"}}
 ---
 
 
@@ -91,6 +91,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 - [[wiki/sources/2026-10-22-mockup-fe-cdu-rev12\|Mockup FE Webapp Operatore (rev. 12) — verifica correzioni]] — 30 schermate; N-02÷N-07 chiusi, N-01 parziale, nuova N-08 (codice ente modificabile a pag. 31); A-01 e A-02 aperti (3 pagine toccate)
 - [[wiki/sources/2026-10-21-riscontro-dev-deployment-to-be\|Riscontro dev sul deployment TO-BE]] — BFF `rconsprefboweb` + backend `rconsprefbe` con batch interni; cittadino via APISAN, SOAP `ConsensoBeService` ⚠️; Angular 21; SMTP e webhook CDU-14; Notificatore Deleghe assente nel codice ⚠️ (INT-10) (7 pagine toccate)
 - [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|Deployment diagram AS-IS CONSPREF (CSI)]] — topologia attuale su Nivola: `consprefboweb`/`consprefbe` su JBoss 6.4, PG 9.6, security group SG-INT/SG-RUP/SG-APPL/SG-DBAAS; AURA, LCCE, Notificatore; APISAN su HTTP:80 senza bilanciatore (4 pagine toccate)
+- [[wiki/sources/2025-06-13-solconfig-specifiche-integrazione\|SOLCONFIG — Specifiche di integrazione del Configuratore (SDI-01 V07)]] — flusso PUA → token → `getTokenInformation2` (LCCE), basic auth nel perimetro CSI, API Manager solo per esterni; registrazione attuale di CONSPREF con un solo profilo `CONSPREF_WA`; template v02 per il profilo di configurazione
 - [[wiki/sources/2026-09-25-riscontro-csi-domande-sviluppo\|Riscontro CSI alle domande di sviluppo (mail 24-25/09/2026)]] — DEV-01÷06: Deleghe fuori perimetro, `ConsprefService` SOAP mantenuto, CDU-06 scarico informativa anche per l'Operatore, ASR 904 da ripristinare; codici errore e trust gateway in verifica CSI (11 pagine toccate)
 
 ---
@@ -121,7 +122,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 Cartella fuori da `wiki/` (05/10/2026): un file per ogni oggetto di sviluppo, con cosa fa, perimetro FE/BE, flusso, campi, logica BE e tabelle, contratto API, passi di sviluppo, dipendenze e punti aperti. Fonte: SRS v10 rev. 1.9 + ADR-001÷023 + riscontro CSI 25/09 + risposta FE Form Renderer 01/10. **Riallineata il 23/10/2026** a SRS rev. 1.19, ADR-025, risposte al dev BE del 22/10 (BE-09÷BE-20) e mockup FE rev. 12.
 
 - [[riassunto/00-README\|Indice riassunto]] — perimetro, mappa CDU FE/BE, ordine di sviluppo, punti aperti trasversali
-- [[riassunto/TRASV-componenti-comuni\|Componenti trasversali]] — stack, sicurezza PUA/APIMBBONE, ciclo di vita, storicizzazione canonica, coda notifiche, audit, integrazioni, RFC 7807, Form Renderer, colonne nuove in migrazione
+- [[riassunto/TRASV-componenti-comuni\|Componenti trasversali]] — stack, sicurezza (PUA/LCCE, chiave condivisa tra BFF e backend, ADR-027), ciclo di vita, storicizzazione canonica, coda notifiche, audit, integrazioni, RFC 7807, Form Renderer, colonne nuove in migrazione
 - Webapp Operatore: [[riassunto/CDU-01a-accesso-operatore\|CDU-01a]] · [[riassunto/CDU-05-CDU-11-modifica-valore\|CDU-05/11]] · [[riassunto/CDU-06-scarico-informativa\|CDU-06]] · [[riassunto/CDU-07-ricerca-assistito\|CDU-07]] · [[riassunto/CDU-08-consultazione-consensi\|CDU-08]] · [[riassunto/CDU-09-rilascio-consenso\|CDU-09]] · [[riassunto/CDU-10-modifica-consenso\|CDU-10]]
 - Back Office: [[riassunto/CDU-12-gestione-tipo-consenso\|CDU-12]] · [[riassunto/CDU-13-gestione-informativa\|CDU-13]] · [[riassunto/CDU-14-gestione-ente-endpoint\|CDU-14]]
 - API SIA: [[riassunto/CDU-15-api-stato-consenso\|CDU-15]] · [[riassunto/CDU-16-api-configurazione\|CDU-16]] · [[riassunto/CDU-17-snapshot-pull\|CDU-17]]

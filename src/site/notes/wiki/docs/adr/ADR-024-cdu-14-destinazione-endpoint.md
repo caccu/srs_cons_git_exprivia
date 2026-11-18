@@ -9,6 +9,8 @@
 
 `accepted`: decisione interna Exprivia del 15/10/2026, su domanda del team FE. Non serve chiedere a CSI: la tabella `cons_d_asr_destinazione` è una proposta Exprivia (marcata `[PROPOSTA]` nelle bozze SRS v2÷v4) e non compare nei requisiti CSI V03, che per l'endpoint chiedono solo URL e sotto-tipi.
 
+> 🆕 **V1.0 (06/11/2026):** l'avviso out-of-band parte solo via email (parametro di canale = `EMAIL`); il webhook e gli endpoint `WEBHOOK_ALLINEAMENTO` restano nel modello per uno scenario futuro.
+
 ## Context
 
 La maschera endpoint di CDU-14 (SRS §6.14) ha un campo facoltativo `destinazione_id`, FK verso la tabella nuova `cons_d_asr_destinazione` (SRS §8.4.7). L'SRS v10 riportava i valori solo come esempi (NOTIFICA_CONSENSO, RECUPERO_STATO, CONFIGURAZIONE in un punto; NOTIF, QUERY, CONFIG in un altro) e non diceva cosa significhi lasciare il campo vuoto.

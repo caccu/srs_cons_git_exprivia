@@ -4,7 +4,7 @@
 
 # Riassunto tecnico-funzionale dei CDU — Gestione Consensi (CONSPREF)
 
-Aggiornato al 02/11/2026. Fonte principale: `CONSPREF-SRS-V1.0-revised_v10.md` (rev. 1.29), integrata con ADR-001÷026 (ADR-026 form dinamico, proposta), risposte al dev BE del 22/10/2026 (BE-09÷BE-20), verifica del mockup FE rev. 12, riscontro CSI del 25/09/2026, ricognizione endpoint AS-IS del 22/09/2026 e risposta al team FE sul Form Renderer del 01/10/2026.
+Aggiornato al 18/11/2026. Fonte principale: `CONSPREF-SRS-V1.0-revised_v10.md` (rev. 1.29), integrata con ADR-001÷027 (ADR-026 form dinamico, proposta; ADR-027 architettura senza API Manager), documentazione del Configuratore SOLCONFIG (18/11/2026), risposte al dev BE del 22/10/2026 (BE-09÷BE-20), verifica del mockup FE rev. 12, riscontro CSI del 25/09/2026, ricognizione endpoint AS-IS del 22/09/2026 e risposta al team FE sul Form Renderer del 01/10/2026.
 
 Lo scopo di questa cartella è pratico: leggendo un file si deve capire **cosa fa il caso d'uso** e **come va sviluppato**. Per il dettaglio normativo resta valido l'SRS: qui ogni file rimanda ai paragrafi di riferimento.
 

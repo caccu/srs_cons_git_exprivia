@@ -10,9 +10,9 @@
 
 Il backend è **unico**: serve la Webapp Operatore (nuova) e la Webapp Cittadino (esistente, SANSOL). La Webapp Cittadino non passa dal Back Office: chiama direttamente il backend tramite **APISAN** (prodotto CSI, lato server di SANSOL) sul servizio **SOAP `ConsensoBeService`** (ADR-025, 21/10/2026).
 
-Il contratto da preservare è quindi il **WSDL di `ConsensoBeService`**, esposto da `rconsprefbe` senza modifiche. Non c'è interfaccia da progettare e non c'è una versione REST dei servizi cittadino in V1.0.
+Il contratto da preservare è quindi il **WSDL di `ConsensoBeService`**, esposto da `rconsprefbe` con adeguamenti minimi (ADR-025, revisione chiusa il 16/11/2026, confermata da CSI). Non c'è interfaccia da progettare e non c'è una versione REST dei servizi cittadino in V1.0.
 
-Le regole di business coincidono con quelle dei CDU operatore, che le riusano. Cambia solo la tracciatura (`fonte_id` cittadino, `login_operazione` = CF dell'utente autenticato, `cf_delegato` se in delega).
+Restano i due motori dell'AS-IS: il motore legacy serve il cittadino, l'ALG02 l'operatore e le aziende; i componenti comuni (verifica AURA, blocchi di allineamento e manutenzione, storicizzazione, coda notifiche, audit) sono gli stessi. Cambia la tracciatura (`fonte_id` cittadino, `login_operazione` = CF dell'utente autenticato, `cf_delegato` se in delega).
 
 ## Il contratto `ConsensoBeService`
 

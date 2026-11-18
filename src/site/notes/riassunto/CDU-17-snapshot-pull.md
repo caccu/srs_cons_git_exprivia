@@ -70,7 +70,7 @@ PATCH /api/v1/endpoints/{endp_id}/stato-allineamento   { "stato": "IN_CORSO" | "
 - **Snapshot Service** (Spring Boot): query sui record di `cons_t_consenso` con `data_fine IS NULL` e stato ATTIVO/NEGATO, filtrati per `cod_asr` = ente dell'endpoint scelto e per i sotto-tipi associati all'endpoint, ordinati per `cons_id`. Indice su (`sotto_tipo_consenso`, `cod_asr`, `cons_id`).
 - **Gestione dello stato** di `cons_r_asr_endpoint`: transizioni ammesse DA_ALLINEARE → IN_CORSO → COMPLETATO, ERRORE in caso di problemi; da ERRORE si può riscaricare (ERRORE → IN_CORSO); 409 se già COMPLETATO. Il PATCH verifica che l'endpoint appartenga all'ente del chiamante.
 - **Blocco acquisizioni**: CDU-09/10/11 (e il BE cittadino) controllano prima di salvare che nessun endpoint del sotto-tipo sia `IN_CORSO`: per un consenso aziendale si guarda solo l'azienda del consenso, per un regionale tutte. In quel caso errore applicativo e, nella webapp, form disabilitato (`regole.bloccato_allineamento`).
-- **Sicurezza V1.0:** chiave condivisa tra BFF e backend. Il BFF passa solo il CF dell'operatore. L'ente è quello dell'endpoint scelto in CDU-14, mai preso da header esterni: gli `X-APIM-*` in arrivo da fuori si scartano. Per l'operatore non c'è filtro sull'ente. Il filtro su `codice_ente` resta solo sulle rotte delle aziende (`/api/v1`), non esposte.
+- **Sicurezza V1.0:** chiave condivisa tra BFF e backend. Il BFF passa solo il CF dell'operatore. L'ente è quello dell'endpoint scelto in CDU-14, mai preso da header esterni. Gli `X-APIM-*` non si scartano: senza la chiave condivisa la richiesta è rifiutata tutta con 401; con la chiave vengono letti come arrivano, quindi la chiave resta solo al BFF (rischio ST-14). Per l'operatore non c'è filtro sull'ente. Il filtro su `codice_ente` resta solo sulle rotte delle aziende (`/api/v1`), non esposte.
 - ⚠️ **REST per i SIA (scenario futuro):** oggi `EnteAuthorizationFilter` si fida dell'header dell'API Manager per il codice ente. Senza API Manager nessuno lo imposta: **non esporli** finché un nuovo ADR non definisce autenticazione e legame tra credenziale e azienda (rischio ST-14).
 - Audit strutturato di ogni pagina richiesta.
 - SCADUTO non compare nello snapshot, che espone solo i consensi attivi. Il canale asincrono per comunicare SCADUTO ai SIA è un tema aperto (BAT-03).
@@ -84,7 +84,7 @@ PATCH /api/v1/endpoints/{endp_id}/stato-allineamento   { "stato": "IN_CORSO" | "
 
 ## Dipendenze
 
-CDU-14 (creazione endpoint, stato, pulsante di scaricamento); abilitazione LCCE per azienda (da verificare). Scenario futuro: canale autenticato per i SIA (nuovo ADR, ST-11), webhook/email PULL-02 (contratto CSI).
+CDU-14 (creazione endpoint, stato, pulsante di scaricamento); profilo di configurazione da LCCE (ST-16); in V1.0 nessun limite per azienda. Scenario futuro: canale autenticato per i SIA (nuovo ADR, ST-11), webhook/email PULL-02 (contratto CSI).
 
 ## Punti aperti
 

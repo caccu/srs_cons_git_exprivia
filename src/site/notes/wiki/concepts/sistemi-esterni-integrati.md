@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-11-05","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02","2026-09-22-ricognizione-endpoint-as-is","2026-09-25-riscontro-csi-domande-sviluppo","2026-10-21-deployment-diagram-as-is-csi"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-11-18","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02","2026-09-22-ricognizione-endpoint-as-is","2026-09-25-riscontro-csi-domande-sviluppo","2026-10-21-deployment-diagram-as-is-csi"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -220,7 +220,7 @@ Nota: l'acronimo LIS resta da chiarire formalmente con CSI, ma non è più blocc
 | Sistema | Funzione | Profilo utente |
 |---|---|---|
 | PUA (Punto Unico di Accesso) | Autenticazione operatore | RUPAR / IRIDE |
-| Configuratore Regionale | Censimento applicazioni, profilo operatore unico, endpoint ASR | **2 profili** (sportello CDU-06÷11, configurazione CDU-12÷14; call 28/10/2026) |
+| Configuratore Regionale | Censimento applicazioni e profili operatore; token del PUA verificato con `getTokenInformation2` (LCCE) | **2 profili** (sportello CDU-06÷11, configurazione CDU-12÷14; call 28/10/2026) |
 
 > **Nota MF7R5:** Cittadino **NON** è profilo applicativo del Configuratore — accede via webapp dedicata SPID/CIE (comunque fuori scope, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]). Configuratore gestisce il profilo operatore.
 
@@ -229,6 +229,8 @@ Registrazione app PUA (**2 profili**: sportello e configurazione, call CSI 28/10
 **Servizio PUA post-autenticazione (SRS v3 §2.3):** dopo il login via PUA, il backend invoca `getTokenInformation2` per leggere il profilo dell'operatore autenticato e adattare dinamicamente l'interfaccia (mostra solo sezioni/CDU abilitati per quel profilo). Un operatore può essere abilitato a entrambi i profili contemporaneamente.
 
 > 🔵 **Deployment AS-IS (21/10/2026):** `consprefboweb` chiama **LCCE** `https://be-lcce-rupar.isan.csi.it/lccews/TokenInformationService`. Dal nome è il servizio che espone `getTokenInformation2`. Da confermare con CSI (INT-09). Fonte: [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|Deployment diagram AS-IS]].
+
+> ✅ **Documentazione del Configuratore (18/11/2026):** LCCE è il servizio del Configuratore che verifica il token del PUA (SOAP `getTokenInformation2` o REST `/login/token-information2`), server-to-server in basic auth nel perimetro CSI, senza API Manager. Il token è monouso; `ipBrowser` deve essere l'IP del browser dell'operatore; il CF restituito va confrontato con l'header Shibboleth. Oggi CONSPREF ha un solo profilo (`CONSPREF_WA`); il profilo di configurazione si chiede con il template v02. Fonte: [[wiki/sources/2025-06-13-solconfig-specifiche-integrazione\|SOLCONFIG SDI-01 V07]].
 
 ---
 
@@ -241,6 +243,8 @@ Attore che nel [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|deploymen
 > ✅ **Conflict risolto (21/10/2026):** la [[wiki/sources/2026-09-22-ricognizione-endpoint-as-is\|ricognizione del 22/09]] copriva solo le API REST di `consprefboweb`. `consprefbe-web` espone due SOAP, `ConsprefService` e `ConsensoBeService` (WSDL TEST, 10 operazioni); l'audit `csi_log_audit` su TEST registra ~41.000 chiamate `id_app = SANSOL` dal 2019. Contratto cittadino = SOAP `ConsensoBeService`, [[wiki/docs/adr/ADR-025-contratto-cittadino-soap-consensobeservice\|ADR-025]]. Resta solo la conferma CSI.
 >
 > 🆕 **Call CSI 05/11/2026:** `ConsprefService` (servizio verso le aziende) resta invariato, WSDL fermo. `ConsensoBeService` (servizio del cittadino) potrebbe essere rivisto o sostituito dai REST del back office: la decisione arriva dopo lo swagger, vedi [[wiki/docs/adr/ADR-025-contratto-cittadino-soap-consensobeservice\|ADR-025]]. Fonte: [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]].
+>
+> ✅ **Chiuso (mail Exprivia del 16/11/2026, confermata da CSI):** resta il SOAP `ConsensoBeService` via APISAN, con adeguamenti minimi del contratto; restano i due motori dell'AS-IS, con i componenti comuni condivisi con l'operatore. `ConsprefService` e le notifiche alle aziende restano invariati. Il REST si usa solo tra il BFF della Webapp Operatore e il backend. Vedi [[wiki/docs/adr/ADR-025-contratto-cittadino-soap-consensobeservice\|ADR-025]].
 
 ---
 

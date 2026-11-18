@@ -15,6 +15,8 @@
 > - lasciare il contratto invariato e adattare solo i DAO.
 >
 > La scelta arriva dopo lo swagger REST del back office e la stima di CSI. Fino ad allora vale questo ADR. `ConsprefService` invece resta fermo. Fonte: [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]].
+>
+> ✅ **Revisione chiusa (mail Exprivia del 16/11/2026, confermata da CSI):** resta il SOAP `ConsensoBeService` via APISAN, con adeguamenti minimi del contratto: delle tre opzioni del 05/11 vale la seconda. Si adeguano i componenti comuni, gli stessi usati dall'operatore; i due motori restano come nell'AS-IS (legacy per il cittadino, ALG02 per operatore e aziende). `ConsprefService` e le notifiche alle aziende restano invariati, senza interventi da parte loro. Il REST si usa solo tra il BFF della Webapp Operatore e il backend. ST-08 chiuso.
 
 ## Context
 
