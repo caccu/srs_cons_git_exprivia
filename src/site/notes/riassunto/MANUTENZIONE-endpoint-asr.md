@@ -13,7 +13,7 @@ Permette a un'ASR di dichiarare che il proprio sistema è **in manutenzione**. P
 - **blocca l'acquisizione** di consensi per quell'azienda (CDU-09, CDU-03);
 - mostra nella webapp un **messaggio di indisponibilità** per i servizi di quell'ASR.
 
-Non è un CDU numerato ed è distinto da CDU-17: non c'è un nuovo endpoint da allineare. In **V1.0** l'inizio e la fine li imposta l'**operatore di back office** da CDU-14, su richiesta dell'ASR (proposta A+D, ST-11). La dichiarazione diretta dal SIA è lo scenario futuro, non esposto.
+Non è un CDU numerato ed è distinto da CDU-17: non c'è un nuovo endpoint da allineare. In **V1.0** l'inizio e la fine li imposta l'**operatore di configurazione** da CDU-14, su richiesta dell'ASR (proposta A+D, ST-11). La dichiarazione diretta dal SIA è lo scenario futuro, non esposto.
 
 ## Flusso V1.0 (operatore)
 

@@ -4,16 +4,31 @@
 
 # Manutenzione endpoint — Diagramma di sequenza (blocco acquisizione durante manutenzione)
 
-**Scopo:** descrivere lo scenario — **distinto da CDU-17** — in cui **non** si inserisce un nuovo endpoint, ma un'azienda (ASR) entra in **finestra di manutenzione** di un endpoint già attivo. Durante la manutenzione il sistema deve **bloccare l'acquisizione dei consensi** verso quell'azienda e **notificare la webapp** Gestione Consensi sia dell'inizio del blocco sia della ripresa delle attività. In **V1.0** la manutenzione la imposta e la toglie l'**operatore di back office** da CDU-14, su richiesta dell'azienda; la dichiarazione automatica dal **SIA** è lo scenario futuro, descritto più sotto.
+**Scopo:** descrivere lo scenario — **distinto da CDU-17** — in cui **non** si inserisce un nuovo endpoint, ma un'azienda (ASR) entra in **finestra di manutenzione** di un endpoint già attivo. Durante la manutenzione il sistema deve **bloccare l'acquisizione dei consensi** verso quell'azienda e **notificare la webapp** Gestione Consensi sia dell'inizio del blocco sia della ripresa delle attività. In **V1.0** la manutenzione la imposta e la toglie l'**operatore di configurazione** da CDU-14, su richiesta dell'azienda; la dichiarazione automatica dal **SIA** è lo scenario futuro, descritto più sotto.
 
 > **Origine:** call CSI 20/07/2026 (rifacimento CDU-17) — "MANCA SCENARIO DI MANUTENZIONE END-POINT". Si lega alla decisione dell'11/06/2026 recepita in **SRS §7.4 (Gestione manutenzione ASR — start/stop servizi)**.
 
 > 🆕 **Proposta A+D (06/11/2026, da confermare con CSI, ST-11; [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]], BE-25):**
-> - in V1.0 inizio e fine manutenzione li imposta **solo l'operatore** di back office da **CDU-14** (BFF, chiave condivisa), su richiesta dell'azienda. Serve anche a togliere una manutenzione dimenticata (BE-25b);
+> - in V1.0 inizio e fine manutenzione li imposta **solo l'operatore di configurazione** da **CDU-14** (BFF, chiave condivisa), su richiesta dell'azienda. Serve anche a togliere una manutenzione dimenticata (BE-25b);
 > - il servizio REST per il SIA resta nel codice ma **non è esposto** in V1.0;
 > - ~~il SIA dichiara inizio e fine manutenzione in mutual TLS, sullo stesso canale di CDU-17 (decisione dedotta).~~ Superato: `ConsprefService` usa la firma WS-Security, non il mutual TLS.
 >
 > Stato di ripresa `ATTIVO` (SRS rev. 1.29). La versione precedente, con autenticazione tramite API Manager, è in `backup/`.
+
+## Sigle
+
+- **AZ, OP, GC, WEB, SIA:** nomi brevi dei partecipanti nei diagrammi: Azienda, operatore di configurazione, Gestione Consensi, Webapp Consensi, SIA.
+- **ASR:** Azienda Sanitaria Regionale.
+- **SIA:** Sistema Informativo Aziendale, il sistema informatico dell'ASR.
+- **CDU-14:** caso d'uso dell'SRS per la gestione di enti ed endpoint; da qui l'operatore imposta e toglie la manutenzione.
+- **SRS:** documento dei requisiti dell'applicativo.
+- **CSI:** CSI Piemonte.
+- **BFF:** Backend For Frontend, il backend della web app; chiama il sistema regionale con una chiave condivisa.
+- **BATCH-01:** processo che ogni 5 minuti invia le notifiche dei consensi agli endpoint delle aziende; durante la manutenzione le tiene in coda.
+- **REST:** servizi web via HTTP (`PATCH`) previsti per il SIA nello scenario futuro.
+- **A+D:** proposta Exprivia del 06/11/2026: in V1.0 fa tutto l'operatore dalla web app; i servizi REST per le aziende restano nel codice ma non sono esposti.
+- **ADR:** Architecture Decision Record, decisione architetturale registrata (es. ADR-027).
+- **PULL-02, ST-11, ST-14, BE-25, BE-25b:** punti aperti del [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|tracker CSI]]. PULL-02: canale di notifica all'azienda (email e/o webhook). ST-11: proposta A+D. ST-14: rischio dei servizi che oggi si fidano dell'header dell'API Manager. BE-25: manutenzione endpoint. BE-25b: sblocco di una manutenzione dimenticata.
 
 ---
 
@@ -23,7 +38,7 @@
 sequenceDiagram
     autonumber
     actor AZ as Azienda (ASR)
-    actor OP as Operatore back office<br/>(webapp, CDU-14)
+    actor OP as Operatore di configurazione<br/>(webapp, CDU-14)
     participant GC as Gestione Consensi<br/>(sistema regionale)
     actor WEB as Webapp Consensi<br/>(operatore/cittadino)
 
@@ -48,7 +63,7 @@ sequenceDiagram
 
 ### I passi V1.0, in parole semplici
 
-1. **Inizio.** L'azienda chiede la manutenzione, fuori dal sistema. L'operatore di back office mette l'endpoint **IN_MANUTENZIONE** da CDU-14. Il sistema blocca l'acquisizione dei consensi aziendali di quell'azienda, su tutti i canali, lascia in coda le notifiche BATCH-01 e avvisa la webapp.
+1. **Inizio.** L'azienda chiede la manutenzione, fuori dal sistema. L'operatore di configurazione mette l'endpoint **IN_MANUTENZIONE** da CDU-14. Il sistema blocca l'acquisizione dei consensi aziendali di quell'azienda, su tutti i canali, lascia in coda le notifiche BATCH-01 e avvisa la webapp.
 2. **Ripresa.** L'azienda comunica la fine. L'operatore rimette l'endpoint **ATTIVO**. Il sistema sblocca l'acquisizione e avvisa la webapp. Le notifiche in coda partono al ciclo successivo di BATCH-01, che sa già cosa non ha inviato: in V1.0 non servono i «dati dell'ultimo invio andato a buon fine».
 
 ---
@@ -62,7 +77,7 @@ sequenceDiagram
     autonumber
     participant SIA as SIA (ASR) — chiamante<br/>(canale autenticato)
     participant GC as Gestione Consensi<br/>(sistema regionale)
-    actor OP as Operatore back office<br/>(webapp, CDU-14)
+    actor OP as Operatore di configurazione<br/>(webapp, CDU-14)
     actor WEB as Webapp Consensi<br/>(operatore/cittadino)
 
     Note over SIA,GC: Scenario SENZA inserimento di nuovo endpoint — endpoint già attivo che entra in manutenzione
@@ -95,20 +110,20 @@ sequenceDiagram
 
 ## I passi dello scenario futuro, in parole semplici
 
-1. **Connessione.** Il SIA chiama il sistema regionale su un canale autenticato con il certificato dell'azienda (da definire con un nuovo ADR; richiede sviluppo da parte delle ASR, non previsto).
+1. **Connessione.** Il SIA chiama il sistema regionale su un canale autenticato con la credenziale dell'azienda (da definire con un nuovo ADR; richiede sviluppo da parte delle ASR, non previsto).
 2. **Inizio manutenzione.** Il SIA (a carico della ASR) dichiara l'endpoint **IN_MANUTENZIONE**. Il sistema:
    - **blocca l'acquisizione dei consensi aziendali** di quell'azienda, su tutti i canali;
    - **lascia in coda le notifiche** BATCH-01 verso quei sistemi;
    - **notifica la webapp** Consensi del blocco (messaggio di indisponibilità per i servizi dell'ASR).
 3. **Ripresa.** Il SIA dichiara la fine manutenzione (**ATTIVO**) comunicando i **dati dell'ultimo invio andato a buon fine**. Il sistema sblocca l'acquisizione, invia le notifiche rimaste in coda e **notifica la webapp** della ripresa.
-4. **Operatore.** Le stesse operazioni sono disponibili all'operatore di back office da CDU-14. Servono anche a togliere una manutenzione che l'azienda ha dimenticato (BE-25b).
+4. **Operatore.** Le stesse operazioni sono disponibili all'operatore di configurazione da CDU-14. Servono anche a togliere una manutenzione che l'azienda ha dimenticato (BE-25b).
 
 ---
 
 ## Note e punti da confermare
 
 - **Stato IN_MANUTENZIONE:** colonna `stato_endpoint` su `cons_t_endpoint`, con valori `ATTIVO` e `IN_MANUTENZIONE` (SRS rev. 1.29, sviluppato su DEV il 02/11/2026).
-- **Notifiche verso il SIA:** seguono la canalità **PULL-02 (deciso 20/07/2026)**, cioè email e/o webhook configurabili. Le notifiche di **blocco/ripresa verso la webapp** Consensi sono interne all'applicativo.
+- **Notifiche verso il SIA:** 🆕 in V1.0 nessuna, perché è l'azienda a chiedere la manutenzione all'operatore. Nello scenario futuro seguono la canalità **PULL-02 (deciso 20/07/2026)**, cioè email e/o webhook configurabili. Le notifiche di **blocco/ripresa verso la webapp** Consensi sono interne all'applicativo.
 - **Servizi start/stop:** in V1.0 solo dall'operatore (CDU-14). Il servizio REST per le aziende resta nel codice, non esposto (proposta A+D, ST-11). Oggi si fida dell'header dell'API Manager: prima di esporlo servono autenticazione e legame tra credenziale e azienda (rischio ST-14). ~~Esposti alle aziende in mutual TLS insieme a CDU-17 (decisione dedotta).~~
 - **Operatore:** le operazioni dalla **web app** (CDU-14) passano dal BFF con la chiave condivisa; il BFF passa solo il CF dell'operatore.
 
