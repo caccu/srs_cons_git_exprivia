@@ -9,7 +9,7 @@
 
 `accepted` — decisione MF33R31 sulla revisione SRS v3.
 
-> ⚠️ **Conflict (21/10/2026):** [[wiki/sources/2026-10-21-riscontro-dev-deployment-to-be\|riscontro del team di sviluppo]]: nel legacy esiste **un solo notificatore**, `notify.csi.it/notify-mb` («Notificatore Regionale», documentazione UNP). Lo usa `consprefnotifica` per confermare al cittadino l'invio alle aziende, cioè proprio la notifica post-COMPLETATO di questo ADR. Non c'è un client separato per un «Notificatore di Deleghe». [[wiki/entities/csi-piemonte\|CSI Piemonte]] (06/08/2026) lo dà come legacy riciclato. Se `notify-mb` è il Notificatore di Deleghe, la distinzione UNP/Deleghe di questo ADR va rivista; altrimenti il client va scritto da zero. Nel codice nuovo l'avviso non è ancora sviluppato. Unresolved — tracker INT-10.
+> ⚠️ **Conflict (21/10/2026):** [[wiki/sources/2026-10-21-riscontro-dev-deployment-to-be\|riscontro del team di sviluppo]]: nel legacy esiste **un solo notificatore**, `notify.csi.it/notify-mb` («Notificatore Regionale», documentazione UNP). Lo usa `consprefnotifica` per confermare al cittadino l'invio alle aziende, cioè proprio la notifica post-COMPLETATO di questo ADR. Non c'è un client separato per un «Notificatore di Deleghe». [[wiki/entities/csi-piemonte\|CSI Piemonte]] (06/08/2026) lo dà come legacy riciclato. Se `notify-mb` è il Notificatore di Deleghe, la distinzione UNP/Deleghe di questo ADR va rivista; altrimenti il client va scritto da zero. Nel codice nuovo l'avviso non è ancora sviluppato. ~~Unresolved — tracker INT-10.~~ ✅ **Risolto 20/11/2026 (INT-10):** un collega Exprivia che ha lavorato su un altro progetto CSI conferma che il Notificatore di Deleghe è `notify-mb`. Non sono due servizi diversi: l'avviso dopo COMPLETATO riusa il client già sviluppato.
 >
 > 🔄 **Verifica codice (dev BE, 22/10/2026):** un solo notificatore nel legacy, `notify-mb` (`/api/v1/topics/messages`, token nell'header `x-authentication`), usato da `consprefnotifica` per l'avviso al cittadino; nessun client «Notificatore di Deleghe». Il client UNP di BATCH-02 usa la stessa API: l'avviso post-COMPLETATO si può realizzare riusandolo, senza un client nuovo. Resta a CSI confermare se il «Notificatore di Deleghe» è lo stesso servizio con altro nome ([[wiki/sources/2026-10-22-domande-dev-be-unp-cdu-02-08\|fonte]]).
 
@@ -34,11 +34,11 @@ Inoltre, il **timing** della notifica al cittadino è critico: non deve partire 
 ## Decision
 
 Notifica cittadino post-acquisizione:
-- **Canale: Notificatore di Deleghe** (NON Notificatore UNP)
+- **Canale: Notificatore di Deleghe** (NON Notificatore UNP) 🆕 20/11/2026: il Notificatore di Deleghe è `notify-mb`, la stessa API del client UNP di BATCH-02 (INT-10). Il timing resta invariato.
 - **Timing: parte SOLO dopo conferma notifica alle aziende** — quando tutti i record `cons_t_notifica` per la variazione raggiungono `INVIATO`/`COMPLETATO` lato BATCH-01
 
 Documentazione obbligatoria:
-- Distinguere chiaramente Notificatore di Deleghe vs UNP in SRS §3 e §7 (sezione notifiche)
+- ~~Distinguere chiaramente Notificatore di Deleghe vs UNP in SRS §3 e §7 (sezione notifiche)~~ superato: sono lo stesso servizio (INT-10, 20/11/2026); l'SRS va corretto nell'allineamento pendente.
 - Wiki [[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] entries separate per i due servizi
 
 ## Consequences
@@ -66,7 +66,7 @@ Documentazione obbligatoria:
 
 ## Open issues
 
-- ~~INT-05: distinzione formalizzata in SRS — Notificatore di Deleghe ≠ Notificatore UNP~~ ✅ recepito. 🔄 27/10/2026: recepito in SRS ma **non chiuso**, da rivedere dopo INT-10: nel codice l'avviso al cittadino usa già `notify-mb`, lo stesso servizio di UNP ([[wiki/sources/2026-10-27-revisione-be-slide-domande\|2026-10-27-revisione-be-slide-domande]])
+- ~~INT-05: distinzione formalizzata in SRS — Notificatore di Deleghe ≠ Notificatore UNP~~ ✅ recepito. 🔄 27/10/2026: recepito in SRS ma **non chiuso**, da rivedere dopo INT-10: nel codice l'avviso al cittadino usa già `notify-mb`, lo stesso servizio di UNP ([[wiki/sources/2026-10-27-revisione-be-slide-domande\|2026-10-27-revisione-be-slide-domande]]). ✅ 20/11/2026: INT-10 chiuso, Notificatore di Deleghe = `notify-mb`. La distinzione recepita nell'SRS va tolta nell'allineamento SRS pendente.
 - ~~Approvvigionamento spec/API Notificatore di Deleghe da CSI~~ ✅ **chiuso (call CSI 06/08/2026):** componente AS-IS legacy, riciclato — nessun nuovo sviluppo richiesto
 
 ## References

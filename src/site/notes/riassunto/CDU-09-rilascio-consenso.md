@@ -29,7 +29,7 @@ L'operatore, allo sportello, registra un consenso **nuovo** per l'assistito: un 
 7. Il sistema salva e accoda le notifiche.
 8. Messaggio di conferma e ritorno al cruscotto aggiornato.
 
-Dopo la consegna alle aziende (stato `COMPLETATO`), parte la conferma al cittadino/delegato tramite il **Notificatore di Deleghe**. È gestita a valle da BATCH-01 (ADR-012). Prima di svilupparla serve la risposta di CSI a **INT-10**: nel legacy c'è un solo notificatore, `notify-mb`, la stessa API del client UNP di BATCH-02.
+Dopo la consegna alle aziende (stato `COMPLETATO`), parte la conferma al cittadino/delegato tramite il **Notificatore di Deleghe**. È gestita a valle da BATCH-01 (ADR-012). Il Notificatore di Deleghe è `notify-mb`, la stessa API del client UNP di BATCH-02 (**INT-10** chiuso il 20/11/2026): si riusa quel client.
 
 ## Campi (dal CDU-03)
 

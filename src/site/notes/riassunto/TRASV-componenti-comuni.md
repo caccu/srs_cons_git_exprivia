@@ -103,10 +103,10 @@ Il frontend non li invia mai:
 | SIA ASR (uscita) | SOAP, WSDL AS-IS v03 invariato | BATCH-01 | SRV-03 NotificaAcquisizioneConsenso, SRV-04 NotificaRevocaConsenso (confermati, BAT-01) |
 | SIA ASR (ingresso) | SOAP `/services/ConsprefService` | aziende federate, LIS | contratto invariato (DEV-03); LIS verificato su TEST, conferma produzione a CSI (INT-07) |
 | Webapp Cittadino (ingresso) | SOAP `ConsensoBeService` via APISAN | SANSOL | WSDL AS-IS, 10 operazioni, a contratto invariato (ADR-025) |
-| PUA / LCCE (Configuratore) | `getTokenInformation2` (`TokenInformationService`), basic auth nel perimetro CSI | CDU-01a, dal backend (come AURA) | token monouso; `applicazione` = CONSPREF, `ipBrowser` = IP del browser passato dal BFF (altrimenti `AUTH_ER_602`); SUCCESSO = abilitato; profilo in `funzionalitaAbilitate` (ST-16); CF da header IRIDE, da confrontare **sempre** con quello restituito (SOLCONFIG SDI-01 V07); indirizzi e credenziali da CSI (INT-09) |
+| PUA / LCCE (Configuratore) | `getTokenInformation2` (`TokenInformationService`), SOAP del legacy riusato (il REST `/login/token-information2` è nuovo e non serve); autenticazione del SOAP da confermare (INT-09: il PDF indica la basic auth solo per il REST) | CDU-01a, dal backend (come AURA) | token monouso; `applicazione` = CONSPREF, `ipBrowser` = IP del browser passato dal BFF (altrimenti `AUTH_ER_602`); SUCCESSO = abilitato; profilo in `funzionalitaAbilitate` (ST-16); CF da header IRIDE, da confrontare **sempre** con quello restituito (SOLCONFIG SDI-01 V07); indirizzi e credenziali da CSI (INT-09) |
 | SIA ASR (ingresso REST) | nessuno in V1.0 (proposta A+D, ST-11) | CDU-15/16/17 e manutenzione: nel codice, non esposti (servirebbe sviluppo da parte delle ASR) | OpenAPI dei servizi della webapp a cura di Exprivia (PULL-09) |
 | Notificatore UNP (`notify-mb`) | REST | BATCH-02 | in V1.0 solo la notifica ANNULLATO; canale scelto da UNP in base alle preferenze del cittadino |
-| Notificatore di Deleghe | REST | conferma rilascio al cittadino/delegato dopo `COMPLETATO` | distinto da UNP secondo ADR-012; nel legacy c'è un solo notificatore, `notify-mb` (INT-10, da confermare con CSI) |
+| Notificatore di Deleghe | REST | conferma rilascio al cittadino/delegato dopo `COMPLETATO` | è `notify-mb`, la stessa API dell'UNP (INT-10 chiuso il 20/11/2026); ADR-012 resta valido per il momento dell'invio |
 | Gestione Deleghe | — | nessuno | fuori perimetro |
 
 Client SOAP: **Apache CXF** (`cxf-spring-boot-starter-jaxws`), Spring-WS solo come fallback (ADR-014).

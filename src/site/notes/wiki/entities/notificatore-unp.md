@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/entities/notificatore-unp/","title":"Notificatore UNP","tags":["sistema-esterno","notifica","csi-piemonte","rest","unp"],"dg-note-properties":{"title":"Notificatore UNP","aliases":["Notificatore UNP","UNP","User Notification Platform"],"type":"entity","tags":["sistema-esterno","notifica","csi-piemonte","rest","unp"],"created":"2026-05-15","updated":"2026-10-22","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-03-02-appunti-e-pianificazione","2026-10-22-domande-dev-be-unp-cdu-02-08"],"related":["[[CSI Piemonte]]","[[Sistemi Esterni Integrati]]","[[Gestione Consensi - Applicativo]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]"]}}
+{"dg-publish":true,"permalink":"/wiki/entities/notificatore-unp/","title":"Notificatore UNP","tags":["sistema-esterno","notifica","csi-piemonte","rest","unp"],"dg-note-properties":{"title":"Notificatore UNP","aliases":["Notificatore UNP","UNP","User Notification Platform"],"type":"entity","tags":["sistema-esterno","notifica","csi-piemonte","rest","unp"],"created":"2026-05-15","updated":"2026-11-20","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-03-02-appunti-e-pianificazione","2026-10-22-domande-dev-be-unp-cdu-02-08"],"related":["[[CSI Piemonte]]","[[Sistemi Esterni Integrati]]","[[Gestione Consensi - Applicativo]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]"]}}
 ---
 
 
@@ -39,7 +39,7 @@ Spring Boot → UNP (REST) → email/push/IO/mex
 Casi d'uso applicativi (non BATCH-01):
 - **Notifica al cittadino di consenso ANNULLATO per scadenza informativa — IN SCOPE V1.0**: inviata direttamente da **BATCH-02** (SRS §7.2) tramite UNP, con flag `flag_notifica_cittadino = TRUE`. (Il consenso che diventa SCADUTO, `annulla_consensi=NO`, non genera notifica.)
 - ~~Notifica eventi applicativi generici (audit, reset, comunicazioni operative)~~ — **fuori V1.0**: nessun caso d'uso nell'SRS v10 (BE-09, 22/10/2026)
-- Conferma post-COMPLETATO al cittadino/delegato: **solo se** CSI conferma Notificatore di Deleghe = `notify-mb` (INT-10). Il legacy la invia già con `notify-mb` (`/api/v1/topics/messages`, token in `x-authentication`), la stessa API del client UNP di BATCH-02: in caso di conferma si riusa quel client (dev BE, 22/10/2026)
+- Conferma post-COMPLETATO al cittadino/delegato: ~~**solo se** CSI conferma Notificatore di Deleghe = `notify-mb` (INT-10)~~ ✅ **in scope:** il Notificatore di Deleghe è `notify-mb` (INT-10 chiuso il 20/11/2026, conferma di un collega Exprivia che ha lavorato su un altro progetto CSI). Il legacy la invia già con `notify-mb` (`/api/v1/topics/messages`, token in `x-authentication`), la stessa API del client UNP di BATCH-02: si riusa quel client (dev BE, 22/10/2026)
 - Verifica preferenze di contatto: interna a UNP, nessuna chiamata separata (SRS §7.2, BE-10)
 
 > ⚠️ **Correzione 2026-06-18:** la notifica di annullamento al cittadino era erroneamente marcata "futuro / non in scope"; il documento SRS la specifica come **in scope** in BATCH-02. Resta valido che la *conferma di rilascio* (CDU-03) vada via Notificatore di Deleghe, non UNP.
@@ -48,12 +48,14 @@ Casi d'uso applicativi (non BATCH-01):
 
 ## Differenza Notificatore UNP vs Notificatore di Deleghe
 
+> 🆕 **20/11/2026 (INT-10):** sono lo stesso servizio, `notify-mb`. La tabella resta per lo storico: oggi la differenza è solo nell'uso (chi invia e quando).
+
 Tema ricorrente sorgente di confusione nel corpus pre-MF33R31. Risolto definitivamente nella revisione 2026-05-14:
 
 | Aspetto | Notificatore UNP | Notificatore di Deleghe |
 |---|---|---|
 | Protocollo | REST | (interno CSI, non specificato) |
-| Scope | V1.0: notifica ANNULLATO al cittadino (BATCH-02) | Conferma post-acquisizione consenso al cittadino/delegato (identità con `notify-mb` da confermare, INT-10) |
+| Scope | V1.0: notifica ANNULLATO al cittadino (BATCH-02) | Conferma post-acquisizione consenso al cittadino/delegato (è `notify-mb`, INT-10 chiuso il 20/11/2026) |
 | Trigger | Consenso ANNULLATO per scadenza informativa | Solo post `stato = COMPLETATO` di tutte le notifiche aziendali (MF33R31) |
 | Owner | CSI Piemonte | CSI Piemonte |
 | Riferimento | Q&A CSI #8 | [[wiki/concepts/batch-processes\|BATCH-01]] §G |

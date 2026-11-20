@@ -50,5 +50,5 @@ Restano i due motori dell'AS-IS: il motore legacy serve il cittadino, l'ALG02 l'
 
 - Conferma CSI che APISAN/SANSOL sia l'unico consumatore esterno di `ConsensoBeService` e che il WSDL di TEST coincida con quello di produzione (INT-06/INT-08).
 - Canale TO-BE APISAN → `rconsprefbe`: oggi HTTP:80 senza bilanciatore, da ridefinire con CSI per TLS e bilanciamento (INF-05).
-- Avviso al cittadino dopo `COMPLETATO`: Notificatore di Deleghe = `notify-mb`? (INT-10).
+- Avviso al cittadino dopo `COMPLETATO`: Notificatore di Deleghe = `notify-mb` (INT-10 chiuso il 20/11/2026).
 - Valore AS-IS di `fonte_id` per il canale cittadino.

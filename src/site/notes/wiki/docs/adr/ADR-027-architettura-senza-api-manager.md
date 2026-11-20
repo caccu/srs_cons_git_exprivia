@@ -25,6 +25,7 @@
 - **Webapp Cittadino:** SANSOL chiama il backend tramite APISAN in basic authentication. I server di backend non sono visibili dall'esterno. Il contratto resta quello di [[wiki/docs/adr/ADR-025-contratto-cittadino-soap-consensobeservice\|ADR-025]]: SOAP con adeguamenti minimi (revisione chiusa il 16/11/2026).
 - **Aziende e laboratori:** SOAP `ConsprefService` con certificati, come oggi: WS-Security X509 con firma del messaggio e timestamp (specifica v02c e codice, verifica del team di sviluppo del 06/11/2026). ~~mutual TLS~~. Le notifiche SRV-03/SRV-04 sono inviate da BATCH-01.
 - **Regole di rete:** a carico di CSI.
+- 🆕 **Servizi esistenti e servizi nuovi (20/11/2026):** un servizio SOAP esistente che si può riusare resta SOAP (per esempio LCCE `getTokenInformation2`, `ConsensoBeService`, `ConsprefService`); le funzioni nuove chiamate dal BFF sono tutte REST. Il REST `/login/token-information2` del Configuratore è nuovo e a CONSPREF non serve (INT-09).
 
 Casi d'uso coinvolti:
 
