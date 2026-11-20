@@ -38,7 +38,7 @@ Rimuovere BATCH-03 push. Introdurre **CDU-17 — Snapshot consensi per allineame
 - Rate limit dedicato `/snapshot` gestito dall'**API Manager (Traffic Manager)** per non degradare CDU-15 real-time
 - **Blocco obbligatorio** (ex Variante 6.A): CDU-03/CDU-09 bloccati durante `IN_CORSO`. **Variante 6.B (watermark) eliminata** (call 20/07/2026)
 - **Passo 5:** il SIA notifica alla webapp `COMPLETATO` + dati ultimo invio, canalità PULL-02
-- **Servizi endpoint CRUD** (CDU-14) esposti alle aziende via API Manager; web app diretta (no APIM)
+- ~~**Servizi endpoint CRUD** (CDU-14) esposti alle aziende via API Manager; web app diretta (no APIM)~~ 🆕 Il CRUD degli endpoint resta solo nella web app (CDU-14, BFF con chiave condivisa, [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]]).
 - **Scenario manutenzione** (stato `IN_MANUTENZIONE`): blocco acquisizione + notifica webapp blocco/ripresa — [[Manutenzione-endpoint_diagramma-sequenza\|diagramma dedicato]]
 
 ## Consequences

@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/","title":"Checklist Avvio Progetto — Gestione Consensi","tags":["checklist","avvio","sprint-0","cliente","csi-piemonte","exprivia","rischi","prerequisiti"],"dg-note-properties":{"title":"Checklist Avvio Progetto — Gestione Consensi","aliases":["Checklist Avvio Progetto — Gestione Consensi"],"type":"analysis","tags":["checklist","avvio","sprint-0","cliente","csi-piemonte","exprivia","rischi","prerequisiti"],"created":"2026-05-06","updated":"2026-11-18","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-03-02-appunti-e-pianificazione","2023-09-01-conspref-srs-01-v03","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione"],"related":["[[analysis-gap-as-is-to-be|Analisi Gap AS-IS → TO-BE — Gestione Consensi]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[exprivia|Exprivia S.p.A.]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[GASP Salute]]"]}}
+{"dg-publish":true,"permalink":"/wiki/analyses/analysis-2026-05-06-checklist-avvio-progetto/","title":"Checklist Avvio Progetto — Gestione Consensi","tags":["checklist","avvio","sprint-0","cliente","csi-piemonte","exprivia","rischi","prerequisiti"],"dg-note-properties":{"title":"Checklist Avvio Progetto — Gestione Consensi","aliases":["Checklist Avvio Progetto — Gestione Consensi"],"type":"analysis","tags":["checklist","avvio","sprint-0","cliente","csi-piemonte","exprivia","rischi","prerequisiti"],"created":"2026-05-06","updated":"2026-11-20","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-03-02-appunti-e-pianificazione","2023-09-01-conspref-srs-01-v03","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione"],"related":["[[analysis-gap-as-is-to-be|Analisi Gap AS-IS → TO-BE — Gestione Consensi]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[exprivia|Exprivia S.p.A.]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[Sistemi Esterni Integrati]]","[[GASP Salute]]"]}}
 ---
 
 
@@ -24,7 +24,7 @@ Punti validati dalla Q&A CSI V02 o esplicitamente documentati nell'SRS e negli a
 | Frontend                | Angular 21.x (era 19.x, migrato 21/10/2026)       | Q&A CSI #2                                       |
 | UI Component Library    | QUASAR CSI                                         | Q&A CSI #3                                       |
 | Backend                 | Spring Boot 3.4.10+ / Java 17                      | Q&A CSI #5                                       |
-| Database                | PostgreSQL 17 via DBaaS Nivola                     | Q&A CSI #10                                      |
+| Database                | ~~PostgreSQL 17~~ **PostgreSQL 18** via DBaaS Nivola | Q&A CSI #10; [[wiki/docs/adr/ADR-001-stack-tecnologico\|ADR-001]] |
 | CI/CD                   | GitLab + Jenkins + SonarQube + Artifactory + **ADA/Chef** (deploy IaaS) + ASGARD — *no Helm/GitOps/K8s* | `ElencoUrlTools` 07/2026, SRS v6 §3.5 |
 | Runtime                 | **IaaS Nivola** (DEV/TEST/PROD) — provisioning CSI | Verbale 11/06/2026 ⚠️                            |
 | SOAP client             | Apache CXF (necessario per SIA ASR AS-IS)          | Q&A CSI #9                                       |
@@ -38,7 +38,7 @@ Punti validati dalla Q&A CSI V02 o esplicitamente documentati nell'SRS e negli a
 | Gestione Deleghe            | SOAP                 | OAuth2 Client Credentials        | ✅ confermato Q&A #7                |
 | Notificatore UNP            | REST                 | Token UNP                        | ✅ confermato Q&A #8                |
 | SIA ASR (outbound BATCH)    | SOAP AS-IS invariato | —                                | ✅ confermato Q&A #9                |
-| SIA ASR (inbound CDU-15/16) | REST OpenAPI 3.x     | **OAuth2 client_credentials via API Manager APIMBBONE** (gateway inoltra CF+codice_ente) | ✅ architettura, swagger ❌ da produrre |
+| SIA ASR (inbound CDU-15/16) | REST OpenAPI 3.x     | ~~OAuth2 client_credentials via API Manager APIMBBONE (gateway inoltra CF+codice_ente)~~ 🆕 non esposti in V1.0 (ADR-027) | ⛔ nel codice, chiusi alle aziende |
 | [[wiki/concepts/gasp-salute\|GASP Salute]] | **SAML2** (Shibboleth SP) | SPID/CIE | ✅ **confermato** — verbale 11/06/2026; **metadata SP ricevuti 07/2026** (TEST/preprod); resta censimento SP |
 
 ### A3. Architettura applicativa
@@ -63,7 +63,7 @@ Punti validati dalla Q&A CSI V02 o esplicitamente documentati nell'SRS e negli a
 - OWASP Top 10 + CSRF su POST/PUT
 - TLS 1.2 minimo
 - Codice Fiscale mascherato nei log
-- Sicurezza API SIA (CDU-15/16/17): **OAuth2 client_credentials gestito dall'API Manager APIMBBONE** (token, rate limiting, scope); isolamento per ente lato backend su `codice_ente` inoltrato dal gateway (call 20/07/2026)
+- Sicurezza API SIA (CDU-15/16/17): ~~OAuth2 client_credentials gestito dall'API Manager APIMBBONE (token, rate limiting, scope); isolamento per ente lato backend su `codice_ente` inoltrato dal gateway (call 20/07/2026)~~ 🆕 niente API Manager né OAuth2 ([[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]], 05/11/2026): REST per i SIA non esposti in V1.0; webapp → backend con chiave condivisa del BFF.
 - ~~Conformità Linee Guida Fornitori Cloud Native v1.0.1~~ — ⚠️ *quelle linee guida sono per il modello **ECaaS/Kubernetes** (container/Helm/registry docker); **CONSPREF è IaaS Nivola** → i vincoli container non si applicano. SRS §3.5 riscritto per IaaS (deploy ADA/Chef). Cfr. [[wiki/concepts/stack-tecnologico-applicativo\|Stack Tecnologico]] §Infrastruttura*
 
 ### A6. Migrazione PG9 → PG17

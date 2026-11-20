@@ -14,8 +14,8 @@ Il CDU-01 originale comprendeva anche l'accesso del cittadino (CDU-01b) e la sce
 
 ## Attore e precondizioni
 
-- Operatore di Back Office, con due profili (call CSI 28/10/2026): operatore di sportello (CDU-05÷11) e profilo di configurazione (CDU-12÷14, nuovo, nome definito da CSI).
-- Applicazione "Gestione Consensi BackOffice" registrata sul **Configuratore Regionale** con un unico profilo Operatore. È un prerequisito di go-live.
+- Operatore di Back Office, con due profili (call CSI 28/10/2026): operatore di sportello (CDU-06÷11) e profilo di configurazione (CDU-12÷14, nuovo, nome definito da CSI).
+- Applicazione "Gestione Consensi BackOffice" registrata sul **Configuratore Regionale** con i due profili. Oggi è censito solo `CONSPREF_WA`; il profilo di configurazione lo crea CSI. È un prerequisito di go-live.
 
 ## Flusso
 

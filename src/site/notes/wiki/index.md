@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-11-18"}}
+{"dg-publish":true,"permalink":"/wiki/index/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-11-20"}}
 ---
 
 
@@ -40,7 +40,7 @@ Dettaglio completo: [[wiki/analyses/valutazione-qualita-srs-consensi\|Valutazion
 
 ## Concepts
 
-- [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] — Sistema centrale consensi sanitari Regione Piemonte: 3 livelli, 3 profili (Cittadino FE OUT / BE IN, **Operatore unico** — non più 2, corretto 06/08/2026 —, SIA), 17 CDU, 2 batch (BATCH-03 rimosso → CDU-17 PULL); 2 canali di acquisizione (LIS non è un terzo canale — ADR-020, 06/08/2026); **un solo frontend sviluppato (Webapp Operatore); backend unico per entrambe le webapp, compatibilità iso-funzionalità con la Webapp Cittadino — ADR-021, precisato 22/09/2026**
+- [[wiki/concepts/gestione-consensi-applicativo\|Gestione Consensi - Applicativo]] — Sistema centrale consensi sanitari Regione Piemonte: 3 livelli, 3 profili (Cittadino FE OUT / BE IN, ~~**Operatore unico** — non più 2, corretto 06/08/2026 —~~ **Operatore con 2 profili** (sportello, configurazione — call CSI 28/10/2026, ID-02), SIA), 17 CDU, 2 batch (BATCH-03 rimosso → CDU-17 PULL); 2 canali di acquisizione (LIS non è un terzo canale — ADR-020, 06/08/2026); **un solo frontend sviluppato (Webapp Operatore); backend unico per entrambe le webapp, compatibilità iso-funzionalità con la Webapp Cittadino — ADR-021, precisato 22/09/2026**
 - [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]] — Macchina a stati: NON_ESPRESSO → ATTIVO/NEGATO → SCADUTO/ANNULLATO; no sovrascrittura
 - [[wiki/concepts/architettura-iaas\|Architettura IaaS]] — Infrastruttura IaaS Nivola CSI (non ECaaS/Kubernetes), provisioning CSI; deploy ADA/Chef; 07/2026: ambienti DEV + pre-prod (PROD in fase successiva)
 - [[wiki/concepts/gasp-salute\|GASP Salute]] — Identity Provider federato SPID/CIE; protocollo **SAML2** confermato (verbale 11/06/2026); ❌ **OUT**: nessuna integrazione GASP nel backend; l'autenticazione cittadino si chiude su SANSOL/APISAN e il BE riceve il CF via SOAP `ConsensoBeService` (dev BE, 21/10/2026, ADR-025)

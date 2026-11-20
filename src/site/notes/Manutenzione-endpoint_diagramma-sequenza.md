@@ -125,7 +125,7 @@ sequenceDiagram
 - **Stato IN_MANUTENZIONE:** colonna `stato_endpoint` su `cons_t_endpoint`, con valori `ATTIVO` e `IN_MANUTENZIONE` (SRS rev. 1.29, sviluppato su DEV il 02/11/2026).
 - **Notifiche verso il SIA:** 🆕 in V1.0 nessuna, perché è l'azienda a chiedere la manutenzione all'operatore. Nello scenario futuro seguono la canalità **PULL-02 (deciso 20/07/2026)**, cioè email e/o webhook configurabili. Le notifiche di **blocco/ripresa verso la webapp** Consensi sono interne all'applicativo.
 - **Servizi start/stop:** in V1.0 solo dall'operatore (CDU-14). Il servizio REST per le aziende resta nel codice, non esposto (proposta A+D, ST-11). Oggi si fida dell'header dell'API Manager: prima di esporlo servono autenticazione e legame tra credenziale e azienda (rischio ST-14). ~~Esposti alle aziende in mutual TLS insieme a CDU-17 (decisione dedotta).~~
-- **Operatore:** le operazioni dalla **web app** (CDU-14) passano dal BFF con la chiave condivisa; il BFF passa solo il CF dell'operatore.
+- **Operatore:** le operazioni dalla **web app** (CDU-14) passano dal BFF con la chiave condivisa; il BFF passa solo il CF dell'operatore **dopo il login** (al login passa anche token e `ipBrowser` per LCCE, INT-09).
 
 ---
 

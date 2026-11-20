@@ -15,7 +15,7 @@ Durante l'allineamento l'acquisizione di nuovi consensi è **bloccata** per tutt
 ## Innesco e precondizioni
 
 - Un operatore registra il nuovo endpoint dalla webapp (CDU-14, tramite BFF) → `stato_allineamento = DA_ALLINEARE`.
-- **V1.0:** l'operatore di configurazione avvia lo scaricamento da CDU-14 sull'endpoint che sceglie. Nessun limite per azienda: vede tutti gli enti. L'ente è quello dell'endpoint scelto. Il BFF passa al backend, con la chiave condivisa, solo il CF dell'operatore. `codiceAzienda` di LCCE non si usa (ST-15).
+- **V1.0:** l'operatore di configurazione avvia lo scaricamento da CDU-14 sull'endpoint che sceglie. Nessun limite per azienda: vede tutti gli enti. L'ente è quello dell'endpoint scelto. Il BFF passa al backend, con la chiave condivisa, solo il CF dell'operatore **dopo il login** (al login passa anche token e `ipBrowser` per LCCE, INT-09). `codiceAzienda` di LCCE non si usa (ST-15).
 - **Scenario futuro:** il SIA riceve la notifica out-of-band (email e/o webhook, PULL-02) e si collega su un canale autenticato da definire con un nuovo ADR. ⚠️ Richiede uno sviluppo da parte delle ASR (un client per il nuovo servizio), **oggi non previsto**: le ASR non devono adeguarsi. ~~Mutual TLS (decisione dedotta).~~ Superato: `ConsprefService` usa la firma WS-Security (verifica sul codice del 06/11/2026).
 
 ## Flusso V1.0 (operatore)
@@ -26,7 +26,7 @@ Durante l'allineamento l'acquisizione di nuovi consensi è **bloccata** per tutt
 4. Genera lo snapshot dei consensi **attivi** dell'azienda per tutti i sotto-tipi dell'endpoint, in un solo file (il tracciato ha già le colonne del tipo e del sotto-tipo), e lo restituisce in streaming.
 5. A fine generazione imposta `COMPLETATO` e sblocca: il blocco dura solo il tempo della generazione. Se va in errore imposta `ERRORE` e sblocca.
 6. Da `COMPLETATO` BATCH-01 notifica i nuovi consensi anche al nuovo endpoint.
-7. L'azienda carica il file nel suo SIA, fuori dal sistema. Non c'è conferma di fine allineamento.
+7. L'operatore consegna il file all'azienda, fuori dal sistema (a cura di CSI); l'azienda lo carica nel suo SIA. Non c'è conferma di fine allineamento.
 
 ## Flusso scenario futuro (SIA chiamante, non esposto in V1.0)
 
@@ -70,7 +70,7 @@ PATCH /api/v1/endpoints/{endp_id}/stato-allineamento   { "stato": "IN_CORSO" | "
 - **Snapshot Service** (Spring Boot): query sui record di `cons_t_consenso` con `data_fine IS NULL` e stato ATTIVO/NEGATO, filtrati per `cod_asr` = ente dell'endpoint scelto e per i sotto-tipi associati all'endpoint, ordinati per `cons_id`. Indice su (`sotto_tipo_consenso`, `cod_asr`, `cons_id`).
 - **Gestione dello stato** di `cons_r_asr_endpoint`: transizioni ammesse DA_ALLINEARE → IN_CORSO → COMPLETATO, ERRORE in caso di problemi; da ERRORE si può riscaricare (ERRORE → IN_CORSO); 409 se già COMPLETATO. Il PATCH verifica che l'endpoint appartenga all'ente del chiamante.
 - **Blocco acquisizioni**: CDU-09/10/11 (e il BE cittadino) controllano prima di salvare che nessun endpoint del sotto-tipo sia `IN_CORSO`: per un consenso aziendale si guarda solo l'azienda del consenso, per un regionale tutte. In quel caso errore applicativo e, nella webapp, form disabilitato (`regole.bloccato_allineamento`).
-- **Sicurezza V1.0:** chiave condivisa tra BFF e backend. Il BFF passa solo il CF dell'operatore. L'ente è quello dell'endpoint scelto in CDU-14, mai preso da header esterni. Gli `X-APIM-*` non si scartano: senza la chiave condivisa la richiesta è rifiutata tutta con 401; con la chiave vengono letti come arrivano, quindi la chiave resta solo al BFF (rischio ST-14). Per l'operatore non c'è filtro sull'ente. Il filtro su `codice_ente` resta solo sulle rotte delle aziende (`/api/v1`), non esposte.
+- **Sicurezza V1.0:** chiave condivisa tra BFF e backend. Il BFF passa solo il CF dell'operatore **dopo il login** (al login passa anche token e `ipBrowser` per LCCE, INT-09). L'ente è quello dell'endpoint scelto in CDU-14, mai preso da header esterni. Gli `X-APIM-*` non si scartano: senza la chiave condivisa la richiesta è rifiutata tutta con 401; con la chiave vengono letti come arrivano, quindi la chiave resta solo al BFF (rischio ST-14). Per l'operatore non c'è filtro sull'ente. Il filtro su `codice_ente` resta solo sulle rotte delle aziende (`/api/v1`), non esposte.
 - ⚠️ **REST per i SIA (scenario futuro):** oggi `EnteAuthorizationFilter` si fida dell'header dell'API Manager per il codice ente. Senza API Manager nessuno lo imposta: **non esporli** finché un nuovo ADR non definisce autenticazione e legame tra credenziale e azienda (rischio ST-14).
 - Audit strutturato di ogni pagina richiesta.
 - SCADUTO non compare nello snapshot, che espone solo i consensi attivi. Il canale asincrono per comunicare SCADUTO ai SIA è un tema aperto (BAT-03).
