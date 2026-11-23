@@ -47,19 +47,29 @@ Regole pratiche:
 - Il servizio SOAP in ingresso `/services/ConsprefService` resta **a contratto invariato** (documento CPROL v02c, maggio 2019; l'SRS cita la v03). Namespace: nel documento `http://conspref.csi.it`, nella wiki finora `http://consprefbe.csi.it/`: fa fede il WSDL reale. Va sbloccato nella configurazione di sicurezza del nuovo backend con autenticazione equivalente all'AS-IS: secondo il documento WS-Security X509 Sign and Encrypt con timestamp, un certificato per sistema ASR associato nel DB, certificato vecchio e nuovo accettati insieme durante il rinnovo (verificato sul sorgente dal team di sviluppo il 06/11/2026: firma XML e timestamp con keystore `TrustedCAKeyStore.jks`, ma **nessun legame tra certificato e azienda**, al contrario di quanto dice il documento; conflitto in ADR-027, ST-11).
 - Le aziende già federate restano su questo canale. In V1.0 non c'è un REST per le aziende (proposta A+D). ~~Il REST in mutual TLS si affianca.~~
 
-## 3. Ciclo di vita del consenso
+## 3. Ciclo di vita del consenso (logica TO-BE indicata da CSI, 23/11/2026)
 
-Valori tecnici di `tipo_stato` (chiave in `cons_d_stato`): `ATTIVO` (UI "Acconsento", valore SI), `NEGATO` (UI "Nego", valore NO), `SCADUTO`, `ANNULLATO`. Stato logico iniziale: `NON_ESPRESSO` (nessun record).
+Fonte: documento CSI «Passaggi di stato CONSPREF» V01 (wiki `sources/2026-11-23-passaggi-stato-consenso-csi`). Sostituisce il modello precedente a cinque stati (NON_ESPRESSO, ATTIVO, NEGATO, SCADUTO, ANNULLATO). Stato e valore sono separati (`cons_d_stato`, `cons_d_valore_cons`).
 
-| Da | A | Chi |
-|---|---|---|
-| NON_ESPRESSO | ATTIVO / NEGATO | CDU-09 (o CDU-03 cittadino) |
-| ATTIVO ↔ NEGATO | cambio valore | CDU-11/05 (senza riaccettare informativa) |
-| ATTIVO / NEGATO | SCADUTO | BATCH-02, informativa scaduta con `annulla_consensi = false` — **non notificato** alle aziende |
-| ATTIVO / NEGATO | ANNULLATO | BATCH-02, informativa scaduta con `annulla_consensi = true` — notificato alle aziende e al cittadino (UNP) |
-| SCADUTO / ANNULLATO | ATTIVO / NEGATO | CDU-10 (o CDU-04 cittadino), con accettazione della nuova informativa |
+- **Stati:** ATT (attivo); SCA (record superato da una variazione, tiene il suo valore); ANN (annullato per cambio di informativa). I codici in `cons_d_stato` sono da definire: nel documento CSI ATT, SCA, ANN; oggi nel DB A, R, S.
+- **Valori:** SI, NO, NE (non espresso, solo sui consensi annullati).
+- **Mai espresso:** nessun record in `cons_t_consenso`.
+- **A video:** ATT/SI «Acconsento», ATT/NO «Nego»; ANN e mai espresso «non espresso».
+- Spariscono NEGATO, REVOCATO, lo SCADUTO da riaccettare e il flag `annulla_consensi`.
 
-Lo stato `SCADUTO` lo imposta **solo** BATCH-02 (diverso dall'AS-IS, dove poteva nascere in acquisizione). Va comunicato ai SIA.
+Passaggi:
+- **Mai espresso → ATT/SI o ATT/NO:** CDU-09 (o CDU-03 cittadino).
+- **ATT/SI ↔ ATT/NO:** il record precedente passa a SCA con il suo valore, il nuovo record è ATT. CDU-11/05, senza riaccettare l'informativa.
+- **ATT → ANN/NE:** BATCH-02, automatico al cambio di informativa, su tutti i consensi ATT dell'informativa; notificato alle aziende con valore NE. I record SCA non cambiano.
+- **ANN/NE → ATT/SI o ATT/NO:** nuova espressione con la nuova informativa. Se passa da CDU-09 (rilascio) o da CDU-10 è da chiarire con CSI (ST-18).
+
+Da chiarire con CSI (ST-18):
+- nel documento CSI l'annullamento modifica lo stesso record invece di chiuderlo e crearne uno nuovo (vedi §4);
+- valore dopo l'annullamento: la mail CSI dice che resta quello del cittadino, il documento mette NE;
+- cosa fare dei record R esistenti e del primo «no» che la Webapp Operatore oggi scrive R/NO (ST-17);
+- se le aziende accettano NE nelle notifiche SRV-03 (oggi solo SI/NO);
+- come esporre gli stati sul SOAP `ConsensoBeService` (CSI li chiede su SOAP e REST, cittadino e operatore);
+- se resta la notifica UNP al cittadino sull'annullamento.
 
 ## 4. Motore di storicizzazione (algoritmo canonico, SRS §6.4 ALG02, ADR-015)
 
@@ -72,7 +82,7 @@ Un consenso **non si sovrascrive mai**. Ogni modifica, in **un'unica transazione
 5. `INSERT` in `csi_log_audit` (`operazione`, `ogg_oper = 'cons_t_consenso'`, `key_oper` = id del record).
 6. `INSERT` in `cons_t_notifica`, un record per ogni endpoint attivo associato al sotto-tipo in `cons_r_sotto_tipo_cons_asr_endpoint` (escludendo quelli con `stato_allineamento = 'IN_CORSO'`), con `not_stato = 'DA_INVIARE'`.
 
-Il rilascio di un consenso nuovo (CDU-09) fa solo i passi 4, 5, 6. BATCH-02 usa la stessa logica con stato terminale SCADUTO/ANNULLATO.
+Il rilascio di un consenso nuovo (CDU-09) fa solo i passi 4, 5, 6. Con la logica CSI il record chiuso al passo 2 prende lo stato SCA e tiene il suo valore (come la S chiusa di oggi). BATCH-02 usa la stessa logica per portare il consenso in ANN/NE; nel documento CSI invece l'annullamento modifica lo stesso record (da chiarire, ST-18).
 
 Coerenza obbligatoria (§8.4.10): `cons_t_consenso.sotto_tipo_consenso` (NOT NULL) deve coincidere con `cons_d_informativa.sotto_tipo_consenso` dell'informativa referenziata. Va garantita nel codice.
 
@@ -100,12 +110,12 @@ Il frontend non li invia mai:
 | Sistema | Protocollo | Usato da | Note |
 |---|---|---|---|
 | AURA | SOAP, WS-Security UsernameToken (PasswordText) con credenziali IRIS | CDU-07 | Servizi `FindProfiliAnagrafici`, `getProfiloSanitario`; nessun servizio nuovo: WSDL e credenziali IRIS DEV sono già nei properties (INT-01). Chiamata solo da `rconsprefbe`. Nessuna chiamata a SistemaTS (ADR-009) |
-| SIA ASR (uscita) | SOAP, WSDL AS-IS v03 invariato | BATCH-01 | SRV-03 NotificaAcquisizioneConsenso, SRV-04 NotificaRevocaConsenso (confermati, BAT-01) |
+| SIA ASR (uscita) | SOAP, WSDL AS-IS v03 invariato | BATCH-01 | SRV-03 NotificaAcquisizioneConsenso, SRV-04 NotificaRevocaConsenso (confermati, BAT-01); con la logica CSI l'annullamento va alle aziende con valore NE, che oggi SRV-03 non ammette (ST-18) |
 | SIA ASR (ingresso) | SOAP `/services/ConsprefService` | aziende federate, LIS | contratto invariato (DEV-03); LIS verificato su TEST, conferma produzione a CSI (INT-07) |
 | Webapp Cittadino (ingresso) | SOAP `ConsensoBeService` via APISAN | SANSOL | WSDL AS-IS, 10 operazioni, a contratto invariato (ADR-025) |
 | PUA / LCCE (Configuratore) | `getTokenInformation2` (`TokenInformationService`), SOAP del legacy riusato (il REST `/login/token-information2` è nuovo e non serve); autenticazione del SOAP da confermare (INT-09: il PDF indica la basic auth solo per il REST) | CDU-01a, dal backend (come AURA) | token monouso; `applicazione` = CONSPREF, `ipBrowser` = IP del browser passato dal BFF (altrimenti `AUTH_ER_602`); SUCCESSO = abilitato; profilo in `funzionalitaAbilitate` (ST-16); CF da header IRIDE, da confrontare **sempre** con quello restituito (SOLCONFIG SDI-01 V07); indirizzi e credenziali da CSI (INT-09) |
 | SIA ASR (ingresso REST) | nessuno in V1.0 (proposta A+D, ST-11) | CDU-15/16/17 e manutenzione: nel codice, non esposti (servirebbe sviluppo da parte delle ASR) | OpenAPI dei servizi della webapp a cura di Exprivia (PULL-09) |
-| Notificatore UNP (`notify-mb`) | REST | BATCH-02 | in V1.0 solo la notifica ANNULLATO; canale scelto da UNP in base alle preferenze del cittadino |
+| Notificatore UNP (`notify-mb`) | REST | BATCH-02 | in V1.0 solo la notifica di annullamento al cittadino; se resta con la logica CSI è da chiarire (ST-18); canale scelto da UNP in base alle preferenze del cittadino |
 | Notificatore di Deleghe | REST | conferma rilascio al cittadino/delegato dopo `COMPLETATO` | è `notify-mb`, la stessa API dell'UNP (INT-10 chiuso il 20/11/2026); ADR-012 resta valido per il momento dell'invio |
 | Gestione Deleghe | — | nessuno | fuori perimetro |
 
@@ -134,10 +144,9 @@ Le regole di visibilità dipendono da operazione e stato e le **calcola il backe
 
 | Operazione | Stato | Valore precedente | Valore modificabile | Checkbox informativa |
 |---|---|---|---|---|
-| RILASCIO (09) | mai espresso / ANNULLATO | — | sì, obbligatorio | obbligatoria |
-| MODIFICA (10) | SCADUTO | mostrato | sì, dopo presa visione | obbligatoria |
-| MODIFICA (10) | ANNULLATO | nascosto | sì, obbligatorio | obbligatoria |
-| CAMBIO_VALORE (11) | ATTIVO / NEGATO | precompilato | sì | no, informativa in sola lettura |
+| RILASCIO (09) | mai espresso / ANN | — | sì, obbligatorio | obbligatoria |
+| MODIFICA (10) | ANN (se CDU-10 resta, da chiarire ST-18) | nascosto | sì, obbligatorio | obbligatoria |
+| CAMBIO_VALORE (11) | ATT (SI o NO) | precompilato | sì | no, informativa in sola lettura |
 
 Contratto proposto (deciso tra team FE e BE, autorizzazione CSI DEV-01):
 
@@ -158,7 +167,7 @@ Tabelle e colonne che **non esistono nel DB AS-IS** e vanno create con gli scrip
 
 | Oggetto | Serve a |
 |---|---|
-| `cons_d_informativa.online`, `.annulla_consensi` (boolean) | CDU-09/13, BATCH-02 (deroga V03 approvata da CSI, GOV-02) |
+| `cons_d_informativa.online` (boolean); `.annulla_consensi` non serve più con la logica CSI (annullamento automatico) | CDU-09/13 (deroga V03 approvata da CSI, GOV-02) |
 | `cons_d_informativa.stato_elaborazione` (DA_ELABORARE / IN_ELABORAZIONE / ELABORATA) | BATCH-02 |
 | `cons_d_asr.tipo_ente` (NAZIONALE / REGIONALE / AZIENDALE) | CDU-12, CDU-14 |
 | `cons_r_asr_endpoint.stato_allineamento` (DA_ALLINEARE / IN_CORSO / COMPLETATO / ERRORE) | CDU-09, CDU-14, CDU-17 |

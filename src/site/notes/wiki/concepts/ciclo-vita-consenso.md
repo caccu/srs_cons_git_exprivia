@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/ciclo-vita-consenso/","title":"Ciclo di Vita del Consenso","tags":["macchina-a-stati","consenso","business-logic","gestione-consensi","terminologia-ui","mf9","mf11","mf14"],"dg-note-properties":{"title":"Ciclo di Vita del Consenso","aliases":["Ciclo di Vita del Consenso"],"type":"concept","tags":["macchina-a-stati","consenso","business-logic","gestione-consensi","terminologia-ui","mf9","mf11","mf14"],"created":"2026-05-05","updated":"2026-11-18","sources":["2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03"],"related":["[[Gestione Consensi - Applicativo]]","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/ciclo-vita-consenso/","title":"Ciclo di Vita del Consenso","tags":["macchina-a-stati","consenso","business-logic","gestione-consensi","terminologia-ui","mf9","mf11","mf14"],"dg-note-properties":{"title":"Ciclo di Vita del Consenso","aliases":["Ciclo di Vita del Consenso"],"type":"concept","tags":["macchina-a-stati","consenso","business-logic","gestione-consensi","terminologia-ui","mf9","mf11","mf14"],"created":"2026-05-05","updated":"2026-11-23","sources":["2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03","2026-11-23-passaggi-stato-consenso-csi","2026-11-23-risposte-csi-domande-funzionali"],"related":["[[Gestione Consensi - Applicativo]]","[[2026-11-23-passaggi-stato-consenso-csi|Passaggi di stato del consenso — logica TO-BE CSI V01]]","[[2026-03-02-conspref-srs-v1-revised|CONSPREF-SRS-V1.0 revised bozza v2]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -10,6 +10,24 @@ Macchina a stati che governa ogni consenso espresso nel sistema [[wiki/concepts/
 > 🔴 **Perimetro progetto (call CSI 06/08/2026, [[wiki/docs/adr/ADR-021-perimetro-solo-operatore\|ADR-021]]):** questo progetto sviluppa **solo la Webapp Operatore**. Le righe/riferimenti "Citt" sotto restano come contesto (la macchina a stati è la stessa), ma non descrivono un deliverable di questo progetto.
 
 > 🆕 **Ambito di SCADUTO e ANNULLATO ([[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|call CSI 28/10/2026]]):** verso le aziende il contratto AS-IS (`ConsprefService`, SRV-03/04) conosce solo **SÌ e NO** e non cambia, quindi nessuno stato nuovo viene comunicato alle aziende. Il **consenso permanente al ritiro referti online** (informativa generale CPROL) non ha data di fine e al massimo diventa NO: mai SCADUTO né ANNULLATO. Il ciclo di vita completo vale per i **nuovi consensi** (scadenza dell'informativa). L'invio a sistemi terzi e i servizi di divulgazione sono **fuori perimetro**. Risposta data a voce: conferma scritta di CSI in corso (BAT-03). SRS rev. 1.25.
+>
+> ⚠️ **Conflict:** [[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|call CSI 28/10]] dice «verso le aziende solo SÌ/NO»; la [[wiki/sources/2026-11-23-risposte-csi-domande-funzionali\|risposta scritta CSI del 23/11/2026]] (2.1) respinge la regola «ANNULLATO inviato come NO», e la [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|logica CSI V01]] notifica alle aziende il valore NE. Sull'invio ai terzi: per CSI i «fruitori terzi» sono le ASR, già in perimetro. Vale la logica CSI, vedi riquadro «Logica TO-BE CSI 23/11/2026».
+
+> 🆕 **Logica TO-BE CSI 23/11/2026 — macchina a stati ([[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|Passaggi di stato V01]]), adottata come TO-BE; dettagli da chiarire in ST-18:**
+> - Stato e valore separati. Stati: **ATT** (attivo, SI o NO), **SCA** (record superato da una variazione, tiene il suo valore), **ANN** (informativa variata, valore NE).
+> - Mai espresso = nessun record. Prima espressione: ATT/SI o ATT/NO.
+> - Variazione sì ↔ no: il record precedente passa a SCA con il suo valore, il nuovo record è ATT.
+> - Cambio informativa con annullamento: un batch porta tutti gli ATT in ANN/NE; a video il consenso è come mai espresso; si notifica alle aziende con valore NE; i record SCA non cambiano.
+> - Senza flag `annulla_consensi`: al cambio di informativa l'annullamento è un processo automatico (mail di risposta, 2.1).
+> - Stati esposti su tutti e due i servizi verso cittadino e operatore, SOAP e REST ([[wiki/sources/2026-11-23-risposte-csi-domande-funzionali\|risposta 2.3]]).
+>
+> Differenze con le regole precedenti di questa pagina, superate dalla logica CSI (le regole sotto restano come storia finché la pagina non viene riscritta):
+> > ⚠️ **Conflict:** [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]] (S chiuso → STORICO, SCADUTO solo per scadenza vera) e la regola 27/10 (SCADUTO aperto da BATCH-02 = valore valido da riaccettare); [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|2026-11-23-passaggi-stato-consenso-csi]]: SCA = solo record superato, nessuno SCADUTO per scadenza dell'informativa. Vale la logica CSI.
+> > ⚠️ **Conflict:** [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]] (REVOCATO solo sì → no) e ST-17 del 18/11 (Webapp Operatore scrive R/NO); [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|2026-11-23-passaggi-stato-consenso-csi]]: niente REVOCATO né NEGATO, sì → no = SCA/SI + ATT/NO. Vale la logica CSI; da chiarire in ST-18 il destino dei record R esistenti.
+> > ⚠️ **Conflict:** [[wiki/docs/adr/ADR-015-storicizzazione-immutabile\|ADR-015]] (nessuna sovrascrittura, si chiude e si crea); [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|2026-11-23-passaggi-stato-consenso-csi]]: l'annullamento modifica lo stesso record (ATT/SI → ANN/NE). Da chiarire in ST-18.
+> > ⚠️ **Conflict:** [[wiki/sources/2026-11-23-risposte-csi-domande-funzionali\|risposta 2.1]] («rimane il valore del cittadino, lo stato diventa NE»); [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|2026-11-23-passaggi-stato-consenso-csi]] (stato ANN, valore NE). Da chiarire in ST-18.
+> > ⚠️ **Conflict:** [[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|documento CPROL v02c]] (notifiche SRV-03 solo SI/NO) e [[wiki/sources/2026-10-27-revisione-be-slide-domande\|2026-10-27-revisione-be-slide-domande]] (nessuno stato nuovo nel contratto SOAP); [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|2026-11-23-passaggi-stato-consenso-csi]] e risposta 2.3: NE notificato alle aziende, stati su SOAP e REST. Vale la logica CSI; da chiarire in ST-18 se le ASR accettano NE.
+> > ⚠️ **Conflict:** regola attuale (SCADUTO o ANNULLATO secondo il flag `annulla_consensi`); [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|2026-11-23-passaggi-stato-consenso-csi]]: flag eliminato, al cambio di informativa l'annullamento è automatico. Vale la logica CSI.
 
 ---
 
@@ -24,25 +42,9 @@ Macchina a stati che governa ogni consenso espresso nel sistema [[wiki/concepts/
 
 ---
 
-## Diagramma degli stati (aggiornato MF11/MF14)
+## Transizioni degli stati (aggiornato MF11/MF14)
 
-```
-NON_ESPRESSO
-    │
-    ├─→ ATTIVO (valore=SI, UI="acconsento")
-    │       ▲
-    │       │  ◄────────────┐
-    │       │   (modifica   │  cambio diretto via webapp citt o operatore
-    │       │    valore)    │  (CDU-04/05 — no nuova informativa richiesta)
-    │       ▼               │
-    └─→ NEGATO (valore=NO, UI="nego") ─┘
-         │
-         ├─[informativa scaduta, annulla_consensi=NO]─→ SCADUTO
-         └─[informativa scaduta, annulla_consensi=SI]─→ ANNULLATO
-                    │
-                    ├─→ ATTIVO (nuova espressione con riaccettazione informativa)
-                    └─→ NEGATO (nuova espressione con riaccettazione informativa)
-```
+Il diagramma degli stati è nell'SRS v10, §5.2.
 
 **Transizioni dirette ATTIVO ↔ NEGATO (MF11R10 + MF14R12):**
 - ATTIVO → NEGATO: cambio valore via webapp cittadino (❌ fuori scope, CDU-04) o operatore (✅ in scope, CDU-05/CDU-11). Nessuna riaccettazione informativa richiesta finché l'informativa è quella corrente.
@@ -86,6 +88,7 @@ NON_ESPRESSO
 >   - se scriverlo come record (per esempio come valore di default nel JSON, subito ricoperto);
 >   - oppure lasciarlo come stato iniziale implicito, senza record. In questo caso la macchina a stati resta più semplice (Tommaso).
 > - 🆕 **Documento CPROL v02c (06/11/2026):** nel contratto di `ConsprefService` (SRV-01) il valore `NE` (non espresso) è ammesso in ingresso, insieme a `SI` e `NO`. Le notifiche alle aziende (SRV-03) portano solo `SI` e `NO`. Qualunque sia la scelta, il backend deve accettare `NE` in SRV-01 come oggi e non notificarlo. Da chiedere a CSI cosa fa oggi il legacy con un `NE` ricevuto: scrive un record, lo ignora o dà errore. Fonte: [[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c]].
+> - 🆕 **Logica CSI 23/11/2026 (chiude ST-05):** mai espresso = nessun record in `T_CONSENSI`; NE compare solo come valore di un consenso annullato (ANN/NE). Vedi [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|2026-11-23-passaggi-stato-consenso-csi]].
 >
 > Fonte: [[wiki/sources/2026-11-05-call-csi-analisi-dubbi\|2026-11-05-call-csi-analisi-dubbi]].
 

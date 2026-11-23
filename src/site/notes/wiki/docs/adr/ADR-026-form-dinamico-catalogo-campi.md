@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-026-form-dinamico-catalogo-campi/","title":"Form dinamico — catalogo di campi tipizzati configurato in CDU-12 (FE-08)","tags":["form-renderer","composizione-dinamica","cdu-12","cdu-09","cdu-10","cdu-11","modello-dati","fe-08"],"dg-note-properties":{"adr":26,"title":"Form dinamico — catalogo di campi tipizzati configurato in CDU-12 (FE-08)","status":"proposed","date":"2026-10-29","deciders":["Exprivia (Marco Forneris)"],"supersedes":[],"superseded-by":[],"tags":["form-renderer","composizione-dinamica","cdu-12","cdu-09","cdu-10","cdu-11","modello-dati","fe-08"],"related_wiki":["[[ADR-008-ssot-form-renderer]]","[[ADR-023-cdu-11-contratto-rest-valori-ammessi]]","[[ADR-021-perimetro-solo-operatore]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso]]","[[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|Call CSI 28/10/2026]]","[[analysis-2026-05-14-punti-aperti-csi|Punti Aperti CSI]]"],"sources":["2026-10-28-call-csi-analisi-dubbi","2026-10-22-mockup-fe-cdu"]}}
+{"dg-publish":true,"permalink":"/wiki/docs/adr/adr-026-form-dinamico-catalogo-campi/","title":"Form dinamico — catalogo di campi tipizzati configurato in CDU-12 (FE-08)","tags":["form-renderer","composizione-dinamica","cdu-12","cdu-09","cdu-10","cdu-11","modello-dati","fe-08"],"dg-note-properties":{"adr":26,"title":"Form dinamico — catalogo di campi tipizzati configurato in CDU-12 (FE-08)","status":"accepted","date":"2026-10-29","deciders":["Exprivia (Marco Forneris)"],"supersedes":[],"superseded-by":[],"tags":["form-renderer","composizione-dinamica","cdu-12","cdu-09","cdu-10","cdu-11","modello-dati","fe-08"],"related_wiki":["[[ADR-008-ssot-form-renderer]]","[[ADR-023-cdu-11-contratto-rest-valori-ammessi]]","[[ADR-021-perimetro-solo-operatore]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso]]","[[wiki/sources/2026-10-28-call-csi-analisi-dubbi\|Call CSI 28/10/2026]]","[[analysis-2026-05-14-punti-aperti-csi|Punti Aperti CSI]]"],"sources":["2026-10-28-call-csi-analisi-dubbi","2026-10-22-mockup-fe-cdu","2026-11-23-risposte-csi-domande-funzionali"]}}
 ---
 
 
@@ -7,9 +7,11 @@
 
 ## Status
 
-`proposed`: proposta Exprivia del 29/10/2026, da condividere con il team FE/BE (documento tecnico per Boris) e da far confermare a CSI sul punto del modello dati. Chiude l'ADR di conferma richiesto dal tracker FE-08. Non ancora recepita in SRS.
+`accepted` dal 23/11/2026 (conferma CSI, sotto). Nato come proposta Exprivia del 29/10/2026, da condividere con il team FE/BE (documento tecnico per Boris) e da far confermare a CSI sul punto del modello dati. Chiude l'ADR di conferma richiesto dal tracker FE-08. Non ancora recepita in SRS.
 
 **Revisione del 16/11/2026** (domande del BE, criterio del minimo impatto): in V1.0 la maschera e le API di CDU-12 non cambiano. `ordine` e `obbligatorio` li valorizzano la migrazione e il BE con valori fissi. La lista di campi configurabile dall'operatore diventa un'evoluzione futura. Il dettaglio è nella specifica tecnica 0.3.
+
+**Conferma CSI del 23/11/2026** ([[wiki/sources/2026-11-23-risposte-csi-domande-funzionali\|risposta 2.5]], chiude FE-08): l'assistito non risponde a nulla oltre alla domanda del valore, quindi bastano i tipi di sola visualizzazione più `DOMANDA`. Il profilo di configurazione non può aggiungere nuovi campi: il catalogo lo fissiamo noi alla migrazione. ADR portato a `accepted`; resta l'allineamento dell'SRS.
 
 ## Context
 
@@ -77,8 +79,8 @@ Il form è composto da una **cornice fissa** e da un **elenco ordinato di campi*
 
 ## Open issues
 
-- **Campi di input aggiuntivi** (radio o flag extra a cui l'assistito risponde): V03 elenca anche radio SI/NO e flag, ma `cons_t_consenso` non ha dove salvare le risposte. In V1.0 i tipi sono di sola visualizzazione più la domanda del valore. Da chiedere a CSI se servono davvero risposte aggiuntive.
-- **Chi estende il catalogo:** solo migrazione o anche un'operazione di CDU-12 (nuova voce con codice, etichetta e tipo)? Proposta: V1.0 solo le tre voci iniziali, estensione futura.
+- ~~**Campi di input aggiuntivi** (radio o flag extra a cui l'assistito risponde): V03 elenca anche radio SI/NO e flag, ma `cons_t_consenso` non ha dove salvare le risposte. In V1.0 i tipi sono di sola visualizzazione più la domanda del valore. Da chiedere a CSI se servono davvero risposte aggiuntive.~~ ✅ Chiuso 23/11/2026: non servono (risposta CSI 2.5).
+- ~~**Chi estende il catalogo:** solo migrazione o anche un'operazione di CDU-12 (nuova voce con codice, etichetta e tipo)? Proposta: V1.0 solo le tre voci iniziali, estensione futura.~~ ✅ Chiuso 23/11/2026: solo la migrazione; il profilo di configurazione non aggiunge campi (risposta CSI 2.5).
 - **Formato del contenuto** di `TEXTAREA` (testo semplice o HTML): già aperto in [[wiki/concepts/composizione-dinamica-form-consenso\|composizione-dinamica-form-consenso]] §5.2.
 - **Storicizzazione:** la modifica del contenuto segue la validità (`validita_inizio` / `validita_fine`) delle altre tabelle di relazione; da definire se una modifica chiude la riga e ne apre una nuova.
 - **Testo dei valori per l'operatore:** le descrizioni in `cons_d_valore_cons` restano «SI»/«NO», perché le restituisce anche il servizio SOAP del cittadino (Webapp Cittadino, SANSOL). Un testo diverso per l'operatore (es. «Acconsento»/«Nego») richiederebbe un campo dedicato: da chiedere a CSI.

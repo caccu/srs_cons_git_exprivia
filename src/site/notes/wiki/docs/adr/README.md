@@ -34,7 +34,7 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | [ADR-013](ADR-013-migrazione-pg-dump-restore.md) | Migrazione PG9 → PG18 via dump/restore | accepted | 2026-03-02 | Database / Migrazione |
 | [ADR-014](ADR-014-apache-cxf-soap-client.md) | Apache CXF come client SOAP | accepted | 2026-03-02 | Integrazione |
 | [ADR-015](ADR-015-storicizzazione-immutabile.md) | Storicizzazione immutabile (no sovrascrittura) | accepted | 2026-03-02 | Modello dati |
-| [ADR-016](ADR-016-scaduto-async-batch-02.md) | Stato SCADUTO async via BATCH-02 | accepted | 2026-03-02 | Batch / Semantica |
+| [ADR-016](ADR-016-scaduto-async-batch-02.md) | Stato SCADUTO async via BATCH-02 | accepted ⚠️ superato dalla logica CSI del 23/11, nuovo ADR da scrivere (ST-18) | 2026-03-02 | Batch / Semantica |
 | [ADR-017](ADR-017-lis-terzo-canale.md) | LIS terzo canale acquisizione consenso | superseded | 2026-05-14 | Canali |
 | [ADR-018](ADR-018-rfc-7807-error-response.md) | RFC 7807 error response | accepted | 2026-03-02 | API |
 | [ADR-019](ADR-019-cdu-06-pdf-scope-ridotto.md) | CDU-06 PDF — scope ridotto, no firma | superseded | 2026-05-14 | CDU |
@@ -44,7 +44,7 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | [ADR-023](ADR-023-cdu-11-contratto-rest-valori-ammessi.md) | CDU-11 — contratto REST dedicato e valori ammessi da configurazione | accepted | 2026-09-29 | API |
 | [ADR-024](ADR-024-cdu-14-destinazione-endpoint.md) | CDU-14 — valori del campo Destinazione degli endpoint (NOTIFICA_CONSENSO, WEBHOOK_ALLINEAMENTO) | accepted | 2026-10-15 | Modello dati |
 | [ADR-025](ADR-025-contratto-cittadino-soap-consensobeservice.md) | Contratto Webapp Cittadino — SOAP `ConsensoBeService` preservato (via APISAN) | accepted | 2026-10-21 | Integrazioni |
-| [ADR-026](ADR-026-form-dinamico-catalogo-campi.md) | Form dinamico: catalogo di campi tipizzati (`TESTO`, `TEXTAREA`, `DOMANDA`) (FE-08); rivisto il 16/11/2026: in V1.0 CDU-12 invariato, `ordine` e `obbligatorio` valorizzati dal BE, lista configurabile come evoluzione futura | proposed | 2026-10-29 | UX / Modello dati |
+| [ADR-026](ADR-026-form-dinamico-catalogo-campi.md) | Form dinamico: catalogo di campi tipizzati (`TESTO`, `TEXTAREA`, `DOMANDA`) (FE-08); rivisto il 16/11/2026: in V1.0 CDU-12 invariato, `ordine` e `obbligatorio` valorizzati dal BE, lista configurabile come evoluzione futura; confermato da CSI il 23/11/2026 | accepted | 2026-10-29 | UX / Modello dati |
 | [ADR-027](ADR-027-architettura-senza-api-manager.md) | Architettura TO-BE senza API Manager: chiave condivisa BFF-backend, il BFF passa solo il CF dell'operatore (12/11/2026), basic APISAN, `ConsprefService` con firma WS-Security come oggi; CDU-15/16 non esposti; CDU-17 e manutenzione solo dall'operatore in V1.0 (proposta A+D del 06/11/2026, da confermare con CSI) | accepted | 2026-11-05 | Sicurezza / Architettura |
 
 ---
@@ -88,7 +88,7 @@ ADR-027 architettura senza API Manager (05/11/2026)
 ADR-008 SSoT Form Renderer (nota scope: solo Operatore)
   ├── ADR-011 merge CDU-04/05 cittadino (pulsante unico) — superseded
   ├── ADR-023 CDU-11 contratto REST + valori ammessi da configurazione
-  └── ADR-026 form dinamico: catalogo di campi tipizzati (FE-08, proposed)
+  └── ADR-026 form dinamico: catalogo di campi tipizzati (FE-08, accepted 23/11/2026)
 
 ADR-017 LIS terzo canale (superseded)
   └── ADR-020 LIS/RIS integrazione BE esistente (non riusa Form Renderer)

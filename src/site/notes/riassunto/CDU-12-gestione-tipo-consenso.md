@@ -51,6 +51,8 @@ Le due colonne **non esistono nel DB AS-IS**: vanno create con gli script di mig
 
 Conseguenza: i due flag **non compaiono nella maschera CDU-12**. Si impostano solo sull'informativa, in [CDU-13](CDU-13-gestione-informativa.md) (SRS rev. 1.19 del 22/10/2026, punto A-03 della verifica mockup).
 
+> ⚠️ **Logica stati CSI (23/11/2026):** il flag `annulla_consensi` non serve più (al cambio di informativa l'annullamento è automatico). Resta solo `online`, su `cons_d_informativa`.
+
 ## Logica di backend
 
 **ALG01 — Popolamento enti per tipo**

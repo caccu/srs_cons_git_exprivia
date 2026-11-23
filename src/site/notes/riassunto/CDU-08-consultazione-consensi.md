@@ -4,7 +4,7 @@
 
 # CDU-08 — Consultazione dei consensi di un assistito
 
-**Perimetro:** FE ✅ · BE ✅ — Riferimenti: SRS v10 §6.8 (rinvia a §6.2 CDU-02), §6.3 ALG01, §7.4; riscontro CSI 25/09/2026 (DEV-01).
+**Perimetro:** FE ✅ · BE ✅ — Riferimenti: SRS v10 §6.8 (rinvia a §6.2 CDU-02), §6.3 ALG01, §7.4; riscontro CSI 25/09/2026 (DEV-01); logica stati CSI 23/11/2026.
 
 ## Cosa fa
 
@@ -19,7 +19,7 @@ Operatore autenticato; assistito selezionato in CDU-07.
 La logica è identica al CDU-02 del cittadino. Per ogni consenso:
 - nome del consenso (`desc_sotto_tipo_cons`);
 - ente/ASR di riferimento (per gli aziendali);
-- stato (Attivo/Acconsento, Negato, Scaduto, Annullato, oppure "non espresso");
+- stato e valore (logica CSI 23/11/2026): ATT/SI «Acconsento», ATT/NO «Nego»; ANN e mai espresso «non espresso»;
 - valore espresso;
 - data di acquisizione / ultima modifica;
 - informativa associata.
@@ -36,9 +36,8 @@ Azioni per riga, abilitate in base allo stato:
 
 | Stato | Azioni |
 |---|---|
-| non espresso / ANNULLATO | Rilascia (CDU-09); ANNULLATO anche via Modifica (CDU-10) |
-| ATTIVO / NEGATO | **Cambia valore** (CDU-11), Scarica informativa (CDU-06) |
-| SCADUTO / ANNULLATO | **Modifica consenso** (CDU-10) con riaccettazione dell'informativa |
+| non espresso / ANN | Rilascia (CDU-09); per ANN anche Modifica (CDU-10), da chiarire con CSI (ST-18) |
+| ATT (SI o NO) | **Cambia valore** (CDU-11), Scarica informativa (CDU-06) |
 | endpoint in allineamento (`IN_CORSO`) o in manutenzione (`IN_MANUTENZIONE`, stato dell'endpoint, §7.4) | rilascio, modifica e cambio valore disabilitati, con messaggio di indisponibilità; consultazione e PDF restano disponibili |
 
 Variante: nessun consenso espresso → messaggio informativo e invito al rilascio.
@@ -55,7 +54,7 @@ Due comportamenti AS-IS da **non** replicare così come sono:
 
 **Backend**
 - Endpoint, ad esempio `GET /consensi/{cfAssistito}` (CF operatore dalla sessione). Restituisce per ogni sotto-tipo configurato e valido (`cons_d_sotto_tipo_cons`) e per ogni ASR pertinente:
-  - il record corrente in `cons_t_consenso` (`data_fine IS NULL`) oppure "non espresso";
+  - il record corrente in `cons_t_consenso` (`data_fine IS NULL`) oppure "non espresso" (nessun record oppure stato ANN);
   - `tipo_stato`, `valore_consenso`, `data_acquisizione`, `d_informativa_id` + descrizione;
   - lo stato dell'endpoint dell'azienda (`stato_allineamento`, manutenzione). Per la manutenzione il BE usa `aziendaInManutenzione` e `statoEndpoint`, aggiunti anche al servizio legacy `informativa/find` da cui il FE costruisce la lista (righe da concordare tra BE e FE, 02/11/2026).
 - Le **azioni** le ricava il FE da stato del consenso, flag `online` e stato dell'endpoint: un calcolo lato BE non è requisito di SRS né wiki (BE-20, 22/10/2026). Non va confuso con `valori_ammessi`, che è requisito (ADR-023).

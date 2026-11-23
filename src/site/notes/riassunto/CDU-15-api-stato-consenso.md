@@ -54,7 +54,7 @@ Mapping da chiarire:
 - `codice_ente` → `cod_asr`;
 - Versione dell'informativa: **nessun campo `versione`** (decisione 06/10/2026). Ogni versione è una riga di `cons_d_informativa`; il SIA la identifica con `informativa.id` (`d_informativa_id`) e la colloca nel tempo con `data_decorrenza`/`data_scadenza`. Rimosso anche dall'esempio di SRS §6.15 (rev. 1.10).
 
-Semantica: SCADUTO nel TO-BE indica il **record corrente** con informativa scaduta. Nell'AS-IS lo stesso nome indicava un record superato. Va documentato nell'OpenAPI e comunicato ai SIA.
+Semantica (logica stati CSI 23/11/2026): SCA indica il record superato da una variazione, come nell'AS-IS; il consenso corrente è ATT (SI o NO) oppure ANN (valore NE). Lo SCADUTO da riaccettare non esiste più. Da documentare nell'OpenAPI.
 
 ## Come svilupparlo
 

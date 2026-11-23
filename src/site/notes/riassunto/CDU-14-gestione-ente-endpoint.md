@@ -106,9 +106,9 @@ CDU-12 (sotto-tipi); CDU-17 e §7.4 consumano lo stato; BATCH-01 consuma gli URL
 
 ## Punti aperti
 
-- Webhook verso i SIA: solo scenario futuro (richiede sviluppo da parte delle ASR). In V1.0 solo email, all'indirizzo `notifica_email` dell'endpoint (facoltativo come da SRS rev. 1.26; il destinatario resta da confermare con CSI). L'URL del webhook resta configurabile come endpoint `WEBHOOK_ALLINEAMENTO` (ADR-024).
-- Blocchi su modifica/disattivazione di ente ed endpoint (DEV-12).
-- Destinatari della notifica "endpoint aggiunto" quando l'azienda non ha ancora altri endpoint.
+- Webhook verso i SIA: solo scenario futuro (richiede sviluppo da parte delle ASR). In V1.0 solo email, all'indirizzo `notifica_email` dell'endpoint (facoltativo come da SRS rev. 1.26; destinatario confermato da CSI il 23/11/2026; CSI annuncia una modifica della tabella dei contatti per endpoint, ST-19). L'URL del webhook resta configurabile come endpoint `WEBHOOK_ALLINEAMENTO` (ADR-024).
+- ~~Blocchi su modifica/disattivazione di ente ed endpoint (DEV-12).~~ Chiuso il 23/11/2026: nessun blocco (risposta CSI).
+- ~~Destinatari della notifica "endpoint aggiunto" quando l'azienda non ha ancora altri endpoint.~~ Chiuso il 23/11/2026: `notifica_email` del nuovo endpoint, confermato da CSI. Aperto ST-19: chi modifica la tabella dei contatti per endpoint e se sostituisce `notifica_email`.
 - Formalizzazione di `IN_MANUTENZIONE`: SRS rev. 1.18 (§7.4) lo separa da `stato_allineamento`, con orientamento a colonna di stato dedicata; il dettaglio resta alla progettazione.
 - **A-01** API di aggiornamento ente (§6.14 passo 3) assente dall'OpenAPI 0.2-DRAFT. Campi modificabili recepiti in SRS rev. 1.27 dal requisito CSI V03: descrizione ente, data fine validità, eliminazione endpoint; codice, tipo ente e data creazione in sola lettura. Resta al BE la definizione dell'API. Il mockup rev. 12 (pag. 31) lascia modificabile il tipo ente (N-09): deciso il 29/10/2026 che resta in sola lettura, il FE allinea la schermata.
-- **A-02** E-mail di avviso dell'endpoint: recepita in SRS rev. 1.26 (campo facoltativo `notifica_email` nella maschera Endpoint e in `cons_t_endpoint`). Nel contratto attuale un campo vuoto mantiene il valore: per poterla cancellare serve un aggiornamento del contratto BE (mockup FE rev. 12). Destinatari dell'avviso: proposta, conferma CSI richiesta.
+- **A-02** E-mail di avviso dell'endpoint: recepita in SRS rev. 1.26 (campo facoltativo `notifica_email` nella maschera Endpoint e in `cons_t_endpoint`). Nel contratto attuale un campo vuoto mantiene il valore: per poterla cancellare serve un aggiornamento del contratto BE (mockup FE rev. 12). Destinatari dell'avviso: confermati da CSI il 23/11/2026 (ST-19 sulla tabella dei contatti).

@@ -4,18 +4,18 @@
 
 # CDU-09 — Rilascio del consenso per conto di un assistito
 
-**Perimetro:** FE ✅ · BE ✅ — Riferimenti: SRS v10 §6.9 (rinvia a §6.3 CDU-03: ALG01, ALG02, tabella campi), §5, §6.17, §7.4; ADR-008, ADR-015, ADR-021; risposta FE 01/10/2026.
+**Perimetro:** FE ✅ · BE ✅ — Riferimenti: SRS v10 §6.9 (rinvia a §6.3 CDU-03: ALG01, ALG02, tabella campi), §5, §6.17, §7.4; ADR-008, ADR-015, ADR-021; risposta FE 01/10/2026; logica stati CSI 23/11/2026.
 
 ## Cosa fa
 
-L'operatore, allo sportello, registra un consenso **nuovo** per l'assistito: un consenso mai espresso, oppure un consenso ANNULLATO che quindi è "vuoto". L'operatore mostra l'informativa, l'assistito ne prende visione, l'operatore registra "Acconsento" o "Nego". Il sistema salva e mette in coda le notifiche verso le aziende.
+L'operatore, allo sportello, registra un consenso **nuovo** per l'assistito: un consenso mai espresso, oppure un consenso ANN (annullato al cambio di informativa, valore NE) che a video è «non espresso». L'operatore mostra l'informativa, l'assistito ne prende visione, l'operatore registra "Acconsento" o "Nego". Il sistema salva e mette in coda le notifiche verso le aziende.
 
 È la stessa logica del CDU-03 del cittadino. Cambiano solo i campi di tracciatura: `fonte_id` = Punto Assistito, `login_operazione` e `ruoloop_id` dell'operatore.
 
 ## Precondizioni
 
 - Operatore autenticato, assistito selezionato (CDU-07).
-- Consenso **non** in stato ATTIVO o NEGATO. Se lo è, il sistema rimanda a CDU-11 o CDU-10.
+- Consenso **non** in stato ATT. Se lo è, il sistema rimanda a CDU-11.
 - Endpoint dell'ente **non** in allineamento (`cons_r_asr_endpoint.stato_allineamento ≠ 'IN_CORSO'`, blocco obbligatorio CDU-17) e endpoint non `IN_MANUTENZIONE` (§7.4).
 
 ## Flusso
@@ -46,16 +46,16 @@ Default del radio: l'SRS indica NO. La **proposta** è nessuna preselezione lato
 ## Logica di backend
 
 **ALG01 — Caricamento**
-- Sotto-tipi validi in `cons_d_sotto_tipo_cons` non ancora espressi dall'assistito o in stato `ANNULLATO`.
+- Sotto-tipi validi in `cons_d_sotto_tipo_cons` non ancora espressi dall'assistito o in stato ANN.
 - Per ciascuno, informativa corrente e flag `online` da `cons_d_informativa`. Informativa corrente = stessa `sotto_tipo_consenso`, `data_decorrenza <= NOW()`, `data_scadenza` nulla o futura, non cancellata, la più recente. Per gli aziendali va considerata anche `cons_r_informativa_asr`.
 - `valori_ammessi` da `cons_r_consenso_valore` + `cons_d_valore_cons`; parametri da `cons_r_consenso_parametro`.
 - `regole.bloccato_allineamento = true` se l'endpoint è `IN_CORSO` (aziendale: solo l'azienda del consenso; regionale: qualunque azienda).
 - `regole.bloccato_manutenzione = true` se l'azienda è in manutenzione (§7.4). Arriva con il nuovo form (`campi[]` e `regole`, BE-05).
 
 **ALG02 — Salvataggio** (passi 4, 5, 6 dell'algoritmo canonico, vedi TRASV §4). In un'unica transazione:
-1. validazione: campi obbligatori, valore tra quelli ammessi, informativa corrente coerente col sotto-tipo, presa visione = true, nessun record valido già ATTIVO/NEGATO, nessun blocco di allineamento o manutenzione;
-2. se c'è un record ANNULLATO valido, va chiuso e storicizzato prima (UPDATE `data_fine` + INSERT `cons_s_consenso`);
-3. INSERT `cons_t_consenso`: `cf_cittadino`, `id_aura`, `nome`, `cognome` (da AURA), `sotto_tipo_consenso`, `cod_asr`, `d_informativa_id`, `tipo_stato` = ATTIVO se SI / NEGATO se NO, `valore_consenso`, `fonte_id` = Punto Assistito, `login_operazione` = CF operatore, `ruoloop_id`, `cf_delegato = NULL`, `data_acquisizione = NOW()`, `uuid`;
+1. validazione: campi obbligatori, valore tra quelli ammessi, informativa corrente coerente col sotto-tipo, presa visione = true, nessun record valido già ATT, nessun blocco di allineamento o manutenzione;
+2. se c'è un record ANN valido, va chiuso (passa a SCA) e storicizzato prima (UPDATE `data_fine` + INSERT `cons_s_consenso`);
+3. INSERT `cons_t_consenso`: `cf_cittadino`, `id_aura`, `nome`, `cognome` (da AURA), `sotto_tipo_consenso`, `cod_asr`, `d_informativa_id`, stato ATT con il valore scelto (oggi il primo «no» dalla Webapp Operatore scrive R/NO come il vecchio back office, ST-17; con la logica CSI è ATT/NO, da chiarire ST-18), `valore_consenso`, `fonte_id` = Punto Assistito, `login_operazione` = CF operatore, `ruoloop_id`, `cf_delegato = NULL`, `data_acquisizione = NOW()`, `uuid`;
    - **regionale**: N record, uno per ogni ASR collegata in `cons_r_sotto_tipo_cons_asr_endpoint`. Se il sotto-tipo non ha aziende collegate (oggi TELEMED) il salvataggio è rifiutato con errore applicativo («Consenso non configurato: nessuna azienda collegata») e il form lo segnala già al caricamento (BE-05, 09/10/2026);
    - **aziendale**: un record per l'azienda scelta (vedi punto aperto 4);
 4. INSERT `csi_log_audit` (`operazione = 'insert'`, `ogg_oper = 'cons_t_consenso'`, `key_oper`);
@@ -76,7 +76,7 @@ POST /consensi/{cfAssistito}
 
 ## Come svilupparlo
 
-**Backend**: servizio di caricamento del form (condiviso con CDU-10/11) + servizio di rilascio che usa il motore di storicizzazione comune. Test su consenso regionale (N record + N×endpoint notifiche), aziendale, ANNULLATO → nuovo, blocco `IN_CORSO`.
+**Backend**: servizio di caricamento del form (condiviso con CDU-10/11) + servizio di rilascio che usa il motore di storicizzazione comune. Test su consenso regionale (N record + N×endpoint notifiche), aziendale, ANN → nuovo, blocco `IN_CORSO`.
 
 **Frontend**: componente **Form Renderer** unico (lo stesso di CDU-10/11), ordine dei blocchi fisso, regole dal campo `regole`, visualizzazione PDF via CDU-06.
 

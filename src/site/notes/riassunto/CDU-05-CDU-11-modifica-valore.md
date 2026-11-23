@@ -4,18 +4,18 @@
 
 # CDU-05 / CDU-11 — Modifica del valore di un consenso (per conto dell'assistito)
 
-**Perimetro:** FE ✅ · BE ✅ — Riferimenti: SRS v10 §6.5, §6.11 (nota chiarimenti 29/09/2026); ADR-023, ADR-015.
+**Perimetro:** FE ✅ · BE ✅ — Riferimenti: SRS v10 §6.5, §6.11 (nota chiarimenti 29/09/2026); ADR-023, ADR-015; logica stati CSI 23/11/2026.
 
 > Lato operatore **CDU-05 e CDU-11 coincidono**: stessa maschera, stesso servizio. Si sviluppano e si stimano una volta sola.
 
 ## Cosa fa
 
-Inverte il valore di un consenso **già valido** (ATTIVO ↔ NEGATO, "Acconsento" ↔ "Nego") senza far riaccettare l'informativa. Il sistema storicizza il vecchio record, ne crea uno nuovo e notifica le aziende.
+Inverte il valore di un consenso **già valido** (ATT/SI ↔ ATT/NO, "Acconsento" ↔ "Nego") senza far riaccettare l'informativa. Il sistema porta il vecchio record a SCA (tiene il suo valore), ne crea uno nuovo ATT e notifica le aziende.
 
 ## Precondizioni
 
 - Operatore autenticato, assistito selezionato (CDU-07), consensi visualizzati (CDU-08).
-- Il pulsante **"Modifica Valore" / "Cambia Valore"** è abilitato **solo per ATTIVO o NEGATO**. Per SCADUTO e ANNULLATO si usa CDU-10.
+- Il pulsante **"Modifica Valore" / "Cambia Valore"** è abilitato **solo per ATT** (SI o NO). Per ANN si usa CDU-09 o CDU-10 (da chiarire con CSI, ST-18).
 - Disponibile al profilo di operatore di sportello (call CSI 28/10/2026), senza limitazioni per azienda o tipo di consenso.
 
 ## Flusso
@@ -54,8 +54,8 @@ PUT /consensi/{cfAssistito}/valore
 
 ## Logica di backend
 
-1. Validazione: record valido esistente con `tipo_stato` in (ATTIVO, NEGATO), altrimenti 409. Nuovo valore ≠ attuale e presente in `cons_r_consenso_valore` per il sotto-tipo (validità attiva). `cod_asr` obbligatorio per gli aziendali, null per i regionali.
-2. Per ogni record coinvolto (1 per aziendale, N per regionale) si applica l'algoritmo canonico: UPDATE chiusura → INSERT `cons_s_consenso` → INSERT nuovo `cons_t_consenso` (stesso `d_informativa_id`, `tipo_stato` = ATTIVO se SI / NEGATO se NO) → `csi_log_audit` → `cons_t_notifica` per gli endpoint attivi non `IN_CORSO`.
+1. Validazione: record valido esistente in stato ATT, altrimenti 409. Nuovo valore ≠ attuale e presente in `cons_r_consenso_valore` per il sotto-tipo (validità attiva). `cod_asr` obbligatorio per gli aziendali, null per i regionali.
+2. Per ogni record coinvolto (1 per aziendale, N per regionale) si applica l'algoritmo canonico: UPDATE chiusura → INSERT `cons_s_consenso` → INSERT nuovo `cons_t_consenso` (stesso `d_informativa_id`, stato ATT con il nuovo valore; il record chiuso passa a SCA) → `csi_log_audit` → `cons_t_notifica` per gli endpoint attivi non `IN_CORSO`. Oggi il passaggio da sì a no scrive R/NO, come il vecchio back office (ST-17); con la logica CSI è ATT/NO. Da chiarire con CSI cosa fare dei record R esistenti (ST-18).
 3. Transazione unica. Rollback totale se fallisce un passo.
 
 Il BE ha già un endpoint equivalente con lo stesso motore: va adeguato a questa forma.

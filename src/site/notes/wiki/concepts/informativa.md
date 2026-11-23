@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/informativa/","title":"Informativa Consenso","tags":["consenso","informativa","modello-dati","core-domain","gdpr"],"dg-note-properties":{"title":"Informativa Consenso","aliases":["Informativa Consenso","Informativa"],"type":"concept","tags":["consenso","informativa","modello-dati","core-domain","gdpr"],"created":"2026-05-15","updated":"2026-11-18","sources":["2026-03-02-conspref-srs-v1-revised","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2026-03-02-sommario-srs-consensi"],"related":["[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/informativa/","title":"Informativa Consenso","tags":["consenso","informativa","modello-dati","core-domain","gdpr"],"dg-note-properties":{"title":"Informativa Consenso","aliases":["Informativa Consenso","Informativa"],"type":"concept","tags":["consenso","informativa","modello-dati","core-domain","gdpr"],"created":"2026-05-15","updated":"2026-11-23","sources":["2026-03-02-conspref-srs-v1-revised","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2026-03-02-sommario-srs-consensi","2026-11-23-passaggi-stato-consenso-csi","2026-11-23-risposte-csi-domande-funzionali"],"related":["[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]"]}}
 ---
 
 
@@ -40,7 +40,7 @@ Regole fissate in risposta al team BE ([[wiki/analyses/analysis-2026-05-14-punti
 - Un'informativa senza righe in `cons_r_informativa_asr` è **generale** e vale per tutte le aziende.
 - Per un consenso aziendale si usa l'informativa corrente collegata a quell'azienda (SRS §6.3 passo 4); se non esiste, la generale corrente dello stesso sotto-tipo.
 - Una nuova informativa dell'azienda chiude solo la precedente della stessa azienda; la generale resta valida.
-- Caso aperto: prima informativa propria di un'azienda che usava la generale → DEV-10.
+- Prima informativa propria di un'azienda che usava la generale (DEV-10, chiuso il 23/11/2026): CSI risponde che non è possibile uno scambio tra tipologie di consenso, da regionale ad aziendale e viceversa ([[wiki/sources/2026-11-23-risposte-csi-domande-funzionali\|risposta 2.2]]). Resta la regola sopra: la generale resta valida e i consensi già espressi non scadono.
 
 ### Allegati e flag in migrazione
 
@@ -59,6 +59,8 @@ Regole fissate in risposta al team BE ([[wiki/analyses/analysis-2026-05-14-punti
 - **Attivazione:** una nuova informativa con `data_decorrenza` futura entra in vigore al raggiungimento della data.
 - **Scadenza implicita:** quando viene attivata una nuova informativa per la stessa coppia (tipo, sotto-tipo), la precedente diventa SCADUTA e i consensi attivi su di essa sono propagati a stato SCADUTO.
 - **Trigger di scadenza:** [[wiki/concepts/batch-processes\|BATCH-02]] verifica periodicamente le informative scadute e applica la transizione di stato sui consensi (storicizzazione in `cons_s_consenso`). Frequenza: **giornaliera notturna (SRS §7.2)**; da confermare con [[wiki/entities/csi-piemonte\|CSI Piemonte]].
+
+> 🆕 **Logica TO-BE indicata da CSI il 23/11/2026 (dettagli in ST-18):** al cambio di informativa un processo automatico annulla sempre i consensi (ANN con valore NE, notificati alle aziende) invece di farli scadere; il flag `annulla_consensi` sparisce. Vedi [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|2026-11-23-passaggi-stato-consenso-csi]].
 
 ---
 

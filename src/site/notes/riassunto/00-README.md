@@ -66,7 +66,7 @@ Prima dei singoli CDU conviene leggere [TRASV-componenti-comuni.md](TRASV-compon
 
 L'ordine segue le dipendenze reali tra i pezzi.
 
-1. **Fondamenta**: schema DB TO-BE e script di migrazione (colonne nuove: `online`, `annulla_consensi`, `stato_elaborazione` su `cons_d_informativa`; `tipo_ente` su `cons_d_asr`; `stato_allineamento` su `cons_r_asr_endpoint`; tabelle nuove come `cons_r_consenso_valore` popolata SI/NO, `cons_t_traccia_serv_est`, `cons_t_batch_errori`, `cons_d_asr_destinazione`), audit, gestione errori, sicurezza PUA.
+1. **Fondamenta**: schema DB TO-BE e script di migrazione (colonne nuove: `online` e `stato_elaborazione` su `cons_d_informativa`, mentre `annulla_consensi` non serve più con la logica stati CSI del 23/11/2026; `tipo_ente` su `cons_d_asr`; `stato_allineamento` su `cons_r_asr_endpoint`; tabelle nuove come `cons_r_consenso_valore` popolata SI/NO, `cons_t_traccia_serv_est`, `cons_t_batch_errori`, `cons_d_asr_destinazione`), audit, gestione errori, sicurezza PUA.
 2. **CDU-01a** (accesso) e **CDU-07** (ricerca AURA): senza questi non si entra nella webapp.
 3. **CDU-08** (elenco consensi) e **CDU-06** (scarico informativa).
 4. **Motore di storicizzazione + coda notifiche**, poi **CDU-11/05** (il più semplice dei tre form), quindi **CDU-09** e **CDU-10** sul Form Renderer.

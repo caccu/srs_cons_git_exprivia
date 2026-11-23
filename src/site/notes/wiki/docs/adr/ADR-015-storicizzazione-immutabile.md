@@ -9,6 +9,8 @@
 
 `accepted` — vincolo TO-BE formalizzato in SRS §5 (macchina a stati) e §8.3 (modello dati).
 
+> ⚠️ **Conflict (23/11/2026):** la [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|logica di stati CSI V01]] rispetta questo ADR sulle variazioni sì ↔ no (il record precedente passa a SCA, poi si crea un nuovo record ATT). Al cambio di informativa invece modifica lo stesso record (ATT/SI → ANN/NE, con data di modifica) invece di chiuderlo e crearne uno nuovo. Unresolved, da chiarire nel riscontro a CSI (ST-18).
+
 ## Context
 
 Un consenso sanitario è un atto formale con valore legale (GDPR, DPCM 178/2015, Nota Garante 0020885/2017). Requisito:

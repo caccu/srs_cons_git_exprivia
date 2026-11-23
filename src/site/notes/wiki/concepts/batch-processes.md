@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/batch-processes/","title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"dg-note-properties":{"title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","aliases":["Processi Batch — BATCH-01, BATCH-02, BATCH-03"],"type":"concept","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"created":"2026-05-05","updated":"2026-10-22","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2026-10-21-riscontro-dev-deployment-to-be"],"related":["[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]","[[Sistemi Esterni Integrati]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/batch-processes/","title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"dg-note-properties":{"title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","aliases":["Processi Batch — BATCH-01, BATCH-02, BATCH-03"],"type":"concept","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"created":"2026-05-05","updated":"2026-11-23","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2026-10-21-riscontro-dev-deployment-to-be","2026-11-23-passaggi-stato-consenso-csi","2026-11-23-risposte-csi-domande-funzionali"],"related":["[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]","[[Sistemi Esterni Integrati]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -105,6 +105,12 @@ Distinzione canale:
 > **Notifica al cittadino su ANNULLATO (SRS §7.2):** inviata **direttamente da BATCH-02** tramite **Notificatore Regionale (UNP)** con `flag_notifica_cittadino = TRUE` (distinta dalla conferma di rilascio, che va via Notificatore di Deleghe). Lo stato SCADUTO non genera notifica.
 
 Vedi [[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]] per semantica completa degli stati.
+
+> 🆕 **Logica TO-BE indicata da CSI il 23/11/2026 ([[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|Passaggi di stato V01]]); dettagli da chiarire in ST-18:** al cambio di informativa un processo automatico (batch) porta sempre tutti i consensi ATT di tutti gli assistiti in ANN con valore NE; la variazione si notifica alle aziende con valore NE. Niente flag `annulla_consensi` e niente SCADUTO per scadenza dell'informativa.
+>
+> ⚠️ **Conflict:** tabella sopra e ALG02 (SCADUTO o ANNULLATO secondo `annulla_consensi`, nuovo record ancorato all'informativa scaduta); [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|2026-11-23-passaggi-stato-consenso-csi]] (solo ANN/NE, sullo stesso record, senza flag). Vale la logica CSI: ALG02 e SRS da adeguare; la scrittura sullo stesso record è da chiarire in ST-18.
+>
+> ⚠️ **Conflict:** regola già in DEV «ANNULLATO notificato alle aziende come NO» (SRS rev. 1.28); la [[wiki/sources/2026-11-23-risposte-csi-domande-funzionali\|risposta CSI 2.1]] la respinge e la logica CSI notifica NE, mentre oggi SRV-03 ammette solo SI/NO. Vale la logica CSI; da chiarire in ST-18 se le ASR accettano NE.
 
 ### SQL canonico — determinazione nuova informativa (MF66R65)
 
@@ -214,6 +220,8 @@ Note tecniche (SRS §BATCH-02):
 > **Azione:** Documentare la differenza nella specifica OpenAPI CDU-15/16 e verificare con tutti i SIA coinvolti.
 >
 > 🟠 **Stato (call CSI 20/07/2026 — BAT-03):** CSI considera lo Stato SCADUTO un **componente da gestire** e ha rinviato a una **call dedicata** per definirne la gestione asincrona e la comunicazione alle ASR. Punto **ancora aperto**.
+>
+> 🆕 **23/11/2026:** risposta scritta CSI su BAT-03: invio alle ASR in perimetro. Nella [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|logica CSI V01]] SCA torna a essere solo il record superato, come nell'AS-IS, e lo SCADUTO di BATCH-02 sparisce. Da decidere in ST-18.
 
 ---
 

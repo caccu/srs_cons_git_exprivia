@@ -67,13 +67,13 @@ PATCH /api/v1/endpoints/{endp_id}/stato-allineamento   { "stato": "IN_CORSO" | "
 
 ## Logica di backend
 
-- **Snapshot Service** (Spring Boot): query sui record di `cons_t_consenso` con `data_fine IS NULL` e stato ATTIVO/NEGATO, filtrati per `cod_asr` = ente dell'endpoint scelto e per i sotto-tipi associati all'endpoint, ordinati per `cons_id`. Indice su (`sotto_tipo_consenso`, `cod_asr`, `cons_id`).
+- **Snapshot Service** (Spring Boot): query sui record di `cons_t_consenso` con `data_fine IS NULL` e stato ATT (SI o NO); se lo snapshot debba includere anche gli ANN con valore NE è da chiarire con CSI (ST-18); filtrati per `cod_asr` = ente dell'endpoint scelto e per i sotto-tipi associati all'endpoint, ordinati per `cons_id`. Indice su (`sotto_tipo_consenso`, `cod_asr`, `cons_id`).
 - **Gestione dello stato** di `cons_r_asr_endpoint`: transizioni ammesse DA_ALLINEARE → IN_CORSO → COMPLETATO, ERRORE in caso di problemi; da ERRORE si può riscaricare (ERRORE → IN_CORSO); 409 se già COMPLETATO. Il PATCH verifica che l'endpoint appartenga all'ente del chiamante.
 - **Blocco acquisizioni**: CDU-09/10/11 (e il BE cittadino) controllano prima di salvare che nessun endpoint del sotto-tipo sia `IN_CORSO`: per un consenso aziendale si guarda solo l'azienda del consenso, per un regionale tutte. In quel caso errore applicativo e, nella webapp, form disabilitato (`regole.bloccato_allineamento`).
 - **Sicurezza V1.0:** chiave condivisa tra BFF e backend. Il BFF passa solo il CF dell'operatore **dopo il login** (al login passa anche token e `ipBrowser` per LCCE, INT-09). L'ente è quello dell'endpoint scelto in CDU-14, mai preso da header esterni. Gli `X-APIM-*` non si scartano: senza la chiave condivisa la richiesta è rifiutata tutta con 401; con la chiave vengono letti come arrivano, quindi la chiave resta solo al BFF (rischio ST-14). Per l'operatore non c'è filtro sull'ente. Il filtro su `codice_ente` resta solo sulle rotte delle aziende (`/api/v1`), non esposte.
 - ⚠️ **REST per i SIA (scenario futuro):** oggi `EnteAuthorizationFilter` si fida dell'header dell'API Manager per il codice ente. Senza API Manager nessuno lo imposta: **non esporli** finché un nuovo ADR non definisce autenticazione e legame tra credenziale e azienda (rischio ST-14).
 - Audit strutturato di ogni pagina richiesta.
-- SCADUTO non compare nello snapshot, che espone solo i consensi attivi. Il canale asincrono per comunicare SCADUTO ai SIA è un tema aperto (BAT-03).
+- Con la logica CSI (23/11/2026) lo SCADUTO da riaccettare non esiste più, quindi il canale per comunicarlo ai SIA (BAT-03) non serve. L'annullamento arriva alle aziende come notifica con valore NE.
 
 ## Come svilupparlo
 
@@ -91,7 +91,7 @@ CDU-14 (creazione endpoint, stato, pulsante di scaricamento); profilo di configu
 - Semantica del parametro `since` (delta) e uso per l'eventuale allineamento incrementale.
 - Contratto del canale PULL-02 per il passo 8: solo scenario futuro. In V1.0 l'azienda viene avvisata con un'email quando l'endpoint è `DA_ALLINEARE` (proposta del 06/11/2026; niente webhook, che richiederebbe sviluppo da parte delle ASR).
 - Timeout di un allineamento rimasto `IN_CORSO`: in V1.0 il blocco dura solo la generazione; serve comunque lo sblocco se il processo si interrompe (`ERRORE`).
-- Canale per comunicare ai SIA lo stato SCADUTO (BAT-03, call CSI pending).
+- Snapshot e consensi ANN con valore NE: inclusi o no (ST-18).
 - Formato del file V1.0: identico al CSV dell'allineamento massivo AS-IS (cap. 9); file di esempio da chiedere a CSI (ST-11).
 - Alternativa automatica da proporre a CSI: reinvio dei consensi attivi al nuovo endpoint con SRV-03 tramite BATCH-01. Nessun lavoro per le ASR, ma è un push massivo, contrario alla scelta del 20/07 (ADR-006).
 - ~~Mutual TLS deciso (dedotto da ADR-027).~~ Proposta A+D da confermare con CSI (ST-11).

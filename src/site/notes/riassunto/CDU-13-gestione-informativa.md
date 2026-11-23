@@ -4,13 +4,13 @@
 
 # CDU-13 — Gestione informativa (Back Office)
 
-**Perimetro:** FE ✅ · BE ✅ — Riferimenti: SRS v10 §6.13, §7.2, §8.3.5, §8.3.6, §8.3.9, §8.4.5, §8.4.8; ADR-015, ADR-016.
+**Perimetro:** FE ✅ · BE ✅ — Riferimenti: SRS v10 §6.13, §7.2, §8.3.5, §8.3.6, §8.3.9, §8.4.5, §8.4.8; ADR-015, ADR-016 (superato dalla logica CSI); logica stati CSI 23/11/2026.
 
 ## Cosa fa
 
-L'operatore carica e gestisce le **informative privacy** collegate ai consensi: testo HTML, PDF, date di validità, flag `online` e `annulla_consensi`.
+L'operatore carica e gestisce le **informative privacy** collegate ai consensi: testo HTML, PDF, date di validità, flag `online` (il flag `annulla_consensi` non serve più con la logica CSI del 23/11/2026).
 
-Le informative sono **versionate**: per cambiare un'informativa se ne pubblica una nuova e si mette una data di scadenza alla precedente. La scadenza **non** aggiorna subito i consensi. Se ne occupa **BATCH-02** di notte: i consensi legati all'informativa scaduta passano a SCADUTO (`annulla_consensi = false`) o ANNULLATO (`true`).
+Le informative sono **versionate**: per cambiare un'informativa se ne pubblica una nuova e si mette una data di scadenza alla precedente. La scadenza **non** aggiorna subito i consensi. Se ne occupa **BATCH-02** di notte: i consensi ATT legati all'informativa scaduta vengono annullati in automatico (ANN con valore NE) e l'annullamento è notificato alle aziende (logica CSI, 23/11/2026).
 
 ## Precondizioni
 
@@ -36,15 +36,14 @@ Operatore autenticato.
 | data_decorrenza | sì | GG/MM/AAAA | oggi |
 | data_scadenza | no | > decorrenza ("Data scadenza non valida") | |
 | online | no | checkbox | selezionato |
-| annulla_consensi | no | checkbox | non selezionato |
 
 ## Regole importanti
 
 - **Versionamento, non modifica in place**: una nuova informativa è un nuovo record. L'informativa corrente di un sotto-tipo è quella con `data_decorrenza <= oggi`, `data_scadenza` nulla o futura, non cancellata, la più recente.
 - La modifica dell'**allegato** non cambia lo stato dei consensi espressi.
-- `online` e `annulla_consensi` sono **colonne nuove** su `cons_d_informativa` (non presenti nel DB AS-IS), sorgente autoritativa dei flag in V1.0.
+- `online` è una **colonna nuova** su `cons_d_informativa` (non presente nel DB AS-IS), sorgente autoritativa del flag in V1.0.
   - `online = false` vuol dire consenso esprimibile solo de visu, presso un punto assistito. Indica il **canale**, non lo stato di pubblicazione: la pubblicazione dipende dalle date.
-  - `annulla_consensi` decide SCADUTO o ANNULLATO alla scadenza. Il flag si legge dall'**informativa che scade** (SC67 risolto).
+  - `annulla_consensi` non serve più: con la logica CSI, al cambio di informativa l'annullamento è sempre automatico.
 - Aziendale con informativa per azienda: relazione in `cons_r_informativa_asr` (BE-06, 09/10/2026).
   - È **generale** un'informativa senza righe in `cons_r_informativa_asr`.
   - Per un'azienda si cerca prima l'informativa corrente collegata a quell'azienda; se non c'è, vale la generale corrente dello stesso sotto-tipo.
@@ -55,7 +54,7 @@ Operatore autenticato.
 
 **ALG01 — Creazione/Modifica**
 1. Validazione dei campi.
-2. INSERT in `cons_d_informativa` (`sotto_tipo_consenso`, `tipo_consenso`, `desc_informativa`, `html_informativa`, date, `online`, `annulla_consensi`, `stato_elaborazione = 'DA_ELABORARE'`, `login_operazione`, `ruoloop_id`).
+2. INSERT in `cons_d_informativa` (`sotto_tipo_consenso`, `tipo_consenso`, `desc_informativa`, `html_informativa`, date, `online`, `stato_elaborazione = 'DA_ELABORARE'`, `login_operazione`, `ruoloop_id`).
 3. PDF caricato: salvataggio sullo storage dedicato, percorso in `pdf_informativa` e record in `cons_t_allegato`.
 4. Eventuale relazione con le ASR in `cons_r_informativa_asr`.
 5. Audit `csi_log_audit` (operazione tipo `GESTIONE_INFORMATIVA`).
@@ -73,12 +72,13 @@ Il contratto `Informativa` AS-IS (`id_informativa, desc_informativa, html_inform
 - `GET /api/v1/backoffice/informative?sotto_tipo_consenso=...` (storico delle versioni), `GET /api/v1/backoffice/informative/{id}`, `POST /api/v1/backoffice/informative` (multipart per il PDF), `PATCH /api/v1/backoffice/informative/{id}` per impostare la scadenza. Modifica di una versione già in uso: vedi DEV-09 (proposta: in vigore solo `desc_informativa` e `data_scadenza`).
 - Servizio di storage del PDF (percorso su IaaS da definire con CSI). Lo stesso file è servito da CDU-06.
 - Validazione: date coerenti, nessuna sovrapposizione anomala tra versioni dello stesso sotto-tipo (regola da fissare).
-- Migrazione: aggiungere `online`, `annulla_consensi`, `stato_elaborazione`. Per le informative esistenti (CPROL, TELEMED) `online = true` e `annulla_consensi = false`, i default della maschera (BE-08).
+- Migrazione: aggiungere `online` e `stato_elaborazione`. Per le informative esistenti (CPROL, TELEMED) `online = true`, il default della maschera (BE-08). `annulla_consensi` non serve più (logica CSI).
 
 **Frontend**
 - Selezione del sotto-tipo → elenco versioni (corrente, future, scadute).
 - Form nuova versione con editor HTML, upload PDF, date e flag.
-- Azione "imposta scadenza" sulla versione corrente, con avviso degli effetti (SCADUTO o ANNULLATO dei consensi collegati, notifica alle aziende se annullati).
+- Azione "imposta scadenza" sulla versione corrente, con avviso degli effetti (annullamento dei consensi collegati, notifica alle aziende con valore NE).
+- Checkbox `annulla_consensi` da togliere dalla maschera (logica CSI, 23/11/2026).
 
 ## Dipendenze
 
@@ -89,7 +89,7 @@ CDU-12 (sotto-tipi); storage; a valle BATCH-02, CDU-06 e il Form Renderer.
 - ~~Codice/versione dell'informativa~~ **Deciso 06/10/2026:** nessuna colonna `versione`. La versione è la riga stessa (`d_informativa_id`), ordinata per `data_decorrenza`; CDU-15 espone solo `informativa.id` e le date.
 - Storage dei PDF su IaaS: volume, limite di dimensione, conservazione → **DEV-11** (proposta: percorso configurabile, 10 MB, nessuna cancellazione). Verificare cosa contiene `pdf_informativa` nel DB AS-IS.
 - Correzione di una versione già pubblicata (es. refuso) → **DEV-09**. Proposta: non in vigore tutto modificabile; in vigore solo `desc_informativa` e `data_scadenza`; HTML e PDF solo come errata corrige autorizzata, con audit.
-- Prima informativa propria di un'azienda che usava la generale: i consensi già espressi scadono? → **DEV-10** (per ora restano validi).
+- Prima informativa propria di un'azienda che usava la generale → **DEV-10** chiuso il 23/11/2026: CSI risponde che non è possibile uno scambio tra tipologie di consenso; la generale resta valida e i consensi già espressi non scadono.
 - ~~Rapporto con i flag Online/Annulla della maschera CDU-12~~ **Chiuso 22/10/2026:** la maschera CDU-12 non li ha più (SRS rev. 1.19).
 - «Informativa generale» e «Aziende associate» si escludono: con la generale spuntata l'elenco aziende va disabilitato (rifinitura FE N-01, ancora parziale nel mockup rev. 12).
 - Associazione di aziende a un'informativa già pubblicata: il mockup non la prevede; il vincolo e l'eventuale associazione prima della decorrenza vanno concordati con il BE (R-01).

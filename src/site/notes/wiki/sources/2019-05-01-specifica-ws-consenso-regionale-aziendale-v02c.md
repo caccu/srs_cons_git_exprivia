@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c/","title":"Specifica servizi Acquisizione-Revoca e Notifica Consenso v02c (CPROL)","tags":["soap","webservice","as-is","cprol","consprefservice","srv-03","srv-04","sicurezza","asr"],"dg-note-properties":{"title":"Specifica servizi Acquisizione-Revoca e Notifica Consenso v02c (CPROL)","aliases":["Specifica WebService ConsensoRegionaleAziendale v02c","Documento CPROL"],"type":"source","tags":["soap","webservice","as-is","cprol","consprefservice","srv-03","srv-04","sicurezza","asr"],"created":"2026-11-06","updated":"2026-11-06","sources":[],"related":["[[2019-06-01-webservice-consenso-regionale-v03|Specifica WebService v03 (pagina da citazioni SRS)]]","[[2026-11-05-call-csi-analisi-dubbi|Call CSI 05/11/2026]]","[[sistemi-esterni-integrati|Sistemi Esterni Integrati]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[batch-processes|Processi Batch]]"]}}
+{"dg-publish":true,"permalink":"/wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c/","title":"Specifica servizi Acquisizione-Revoca e Notifica Consenso v02c (CPROL)","tags":["soap","webservice","as-is","cprol","consprefservice","srv-03","srv-04","sicurezza","asr"],"dg-note-properties":{"title":"Specifica servizi Acquisizione-Revoca e Notifica Consenso v02c (CPROL)","aliases":["Specifica WebService ConsensoRegionaleAziendale v02c","Documento CPROL"],"type":"source","tags":["soap","webservice","as-is","cprol","consprefservice","srv-03","srv-04","sicurezza","asr"],"created":"2026-11-06","updated":"2026-11-23","sources":[],"related":["[[2019-06-01-webservice-consenso-regionale-v03|Specifica WebService v03 (pagina da citazioni SRS)]]","[[2026-11-05-call-csi-analisi-dubbi|Call CSI 05/11/2026]]","[[sistemi-esterni-integrati|Sistemi Esterni Integrati]]","[[ciclo-vita-consenso|Ciclo di Vita del Consenso]]","[[batch-processes|Processi Batch]]"]}}
 ---
 
 
@@ -39,6 +39,7 @@
 - `codiceTipoConsenso`: `A` aziendale, `R` regionale. Con `R` il codice ASR **non** va valorizzato (ERR_0026).
 - `codiceSottotipoConsenso`: per ora solo `CPROL`, con descrizione «Consenso Permanente ROL».
 - `valoreConsenso`: `SI`, `NO`, `NE` (non espresso). Nelle notifiche SRV-03 solo `SI` e `NO`.
+  - ⚠️ **Conflict (23/11/2026):** la [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|logica CSI V01]] notifica alle aziende i consensi annullati con valore NE. Da chiarire se le ASR accettano NE in SRV-03 o se il contratto cambia (ST-18).
 
 ## Esiti
 
