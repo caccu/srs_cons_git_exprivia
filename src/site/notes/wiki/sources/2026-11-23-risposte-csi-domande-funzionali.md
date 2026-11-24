@@ -23,6 +23,7 @@
 
 **Risposta CSI:**
 - l'invio a terzi non è fuori perimetro: i consensi vanno inviati alle aziende (ASR). Per CSI «fruitori terzi» sono le ASR;
+  - CSI chiede cosa intendevamo con «fruitori terzi»: risposta nella mail del 24/11 (destinatari diversi dai sistemi delle aziende già collegati, come emerso nella call del 28/10, per esempio futuri servizi di diffusione del consenso; restano fuori perimetro);
 - la regola «ANNULLATO come NO» **non è accettata**: lo stato del consenso e il valore espresso dal cittadino sono cose distinte. Quando l'informativa è annullata, «rimane comunque il valore di espressione del cittadino, ma lo stato diventa NE (non espresso)»;
 - CSI rimanda al documento sui passaggi di stato, che secondo loro semplifica il lavoro ed elimina il flag «annulla consensi».
 
