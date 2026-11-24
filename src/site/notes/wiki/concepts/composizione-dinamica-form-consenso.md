@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/composizione-dinamica-form-consenso/","title":"Composizione Dinamica Form Consenso — Single Source of Truth","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"dg-note-properties":{"title":"Composizione Dinamica Form Consenso — Single Source of Truth","aliases":["Composizione Dinamica Form Consenso — Single Source of Truth"],"type":"concept","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"created":"2026-05-14","updated":"2026-11-23","sources":["2026-03-02-conspref-srs-v1-revised","2026-10-22-mockup-fe-cdu","2026-11-23-risposte-csi-domande-funzionali"],"related":["[[Gestione Consensi - Applicativo]]","[[2026-10-22-mockup-fe-cdu|Mockup FE Webapp Operatore (rev. 10)]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Sistemi Esterni Integrati]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/composizione-dinamica-form-consenso/","title":"Composizione Dinamica Form Consenso — Single Source of Truth","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"dg-note-properties":{"title":"Composizione Dinamica Form Consenso — Single Source of Truth","aliases":["Composizione Dinamica Form Consenso — Single Source of Truth"],"type":"concept","tags":["ui","form","dinamico","cdu-02","cdu-03","cdu-04","cdu-09","cdu-10","cdu-11","ssot","form-renderer","mf57","mf26","mf30"],"created":"2026-05-14","updated":"2026-11-24","sources":["2026-03-02-conspref-srs-v1-revised","2026-10-22-mockup-fe-cdu","2026-11-23-risposte-csi-domande-funzionali"],"related":["[[Gestione Consensi - Applicativo]]","[[2026-10-22-mockup-fe-cdu|Mockup FE Webapp Operatore (rev. 10)]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Sistemi Esterni Integrati]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -80,9 +80,9 @@ Layout dinamico **identico** al lato cittadino. Le sole differenze riguardano i 
 
 | Campo | Lato Cittadino | Lato Operatore |
 |---|---|---|
-| `fonte_id` | derivato da contesto webapp citt. (es. `WA_CITT`) | `'PASS'` |
+| `fonte_id` | derivato da contesto webapp citt. (es. `WA_CITT`) | `WA_PASS` (etichetta SRS `PASS`, BE-01) |
 | `login_operazione` | CF cittadino autenticato | login operatore PUA |
-| `ruoloop_id` | NULL | ID ruolo operatore PUA |
+| `ruoloop_id` | NULL | vuoto, come nell'AS-IS (decisione 24/11/2026) |
 
 > ⚠️ **Nota (ADR-020, 06/08/2026):** LIS **non** passa dal Form Renderer né dai canali Cittadino/Operatore — è un'integrazione BE esistente nel sorgente AS-IS ([[wiki/concepts/sistemi-esterni-integrati\|Sistemi Esterni Integrati]] §LIS), da verificare e migrare al nuovo stack. Un eventuale `fonte_id='LIS'` è un valore AS-IS da preservare in migrazione, non un contesto webapp del Form Renderer SSoT.
 

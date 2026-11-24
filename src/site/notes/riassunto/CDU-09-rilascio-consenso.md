@@ -10,7 +10,7 @@
 
 L'operatore, allo sportello, registra un consenso **nuovo** per l'assistito: un consenso mai espresso, oppure un consenso ANN (annullato al cambio di informativa, valore NE) che a video è «non espresso». L'operatore mostra l'informativa, l'assistito ne prende visione, l'operatore registra "Acconsento" o "Nego". Il sistema salva e mette in coda le notifiche verso le aziende.
 
-È la stessa logica del CDU-03 del cittadino. Cambiano solo i campi di tracciatura: `fonte_id` = Punto Assistito, `login_operazione` e `ruoloop_id` dell'operatore.
+È la stessa logica del CDU-03 del cittadino. Cambiano solo i campi di tracciatura: `fonte_id` = Punto Assistito, `login_operazione` dell'operatore (`ruoloop_id` resta vuoto come nell'AS-IS, 24/11/2026).
 
 ## Precondizioni
 
@@ -72,7 +72,7 @@ POST /consensi/{cfAssistito}
   "d_informativa_id": 45, "accettazione_informativa": true }
 ```
 
-`fonte_id`, `login_operazione`, `ruoloop_id` e CF operatore li valorizza il BE dalla sessione.
+`fonte_id` (`WA_PASS`), `login_operazione` e CF operatore li valorizza il BE dalla sessione; `ruoloop_id` resta vuoto come nell'AS-IS.
 
 ## Come svilupparlo
 
@@ -91,5 +91,5 @@ CDU-07, CDU-08; configurazione da CDU-12/13/14; motore di storicizzazione e coda
 3. Default del radio. Proposta: nessuno.
 4. Aziendale: una azienda per salvataggio o più aziende insieme? Il CDU-03 ALG02 dice "un record per ogni ASR a cui l'utente appartiene", ma l'informativa può cambiare per azienda. Risposta al FE del 29/09/2026 (FE-03): una azienda per operazione, adottata nel mockup FE (M-03). Resta la verifica sull'AS-IS: se la multi-selezione è usata davvero, domanda a CSI.
 5. Descrizione estesa e testo aggiuntivo: testo semplice o HTML? Ordine dei valori ammessi (nessuna colonna d'ordine).
-6. Valore reale di `fonte_id` per il Punto Assistito in `cons_d_fonte` (BE-01, verifica interna).
+6. ~~Valore reale di `fonte_id` per il Punto Assistito in `cons_d_fonte` (BE-01, verifica interna).~~ Chiuso il 24/11/2026: `WA_PASS`, già usato.
 7. Consensi regionali migrati in un solo record sull'ASR fittizia 999: proposta di conversione in N record, uno per azienda collegata, in attesa di CSI (DEV-07). Collegamenti mancanti per TELEMED (DEV-08).

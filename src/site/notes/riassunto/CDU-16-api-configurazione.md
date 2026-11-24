@@ -34,7 +34,7 @@ Autenticazione: da definire se esposto (ADR-027)
 }
 ```
 
-Codici: 200, 401, 403 (ente non autorizzato), 404 (nessuna configurazione per l'ente), 429, 500 — RFC 7807.
+Codici: 200, 401, 403 (ente non autorizzato), 404 (nessuna configurazione per l'ente), 429, 500 — RFC 7807. Anche il 401 è in RFC 7807 (dev BE, 24/11/2026).
 
 ## Logica di backend
 

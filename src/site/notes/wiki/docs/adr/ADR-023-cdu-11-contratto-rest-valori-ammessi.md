@@ -33,7 +33,7 @@ L'endpoint AS-IS riceve l'intero oggetto `Informativa` con la lista `consenso_li
 
   - `sotto_tipo_consenso_id` obbligatorio: con `cf_cittadino` e `cod_asr` identifica il record da storicizzare ([[wiki/docs/adr/ADR-015-storicizzazione-immutabile\|ADR-015]]).
   - CF dell'operatore letto dalla sessione, non dal path.
-  - `fonte_id`, `login_operazione`, `ruoloop_id`, `cf_delegato` valorizzati dal BE.
+  - `fonte_id` (`WA_PASS`) e `login_operazione` valorizzati dal BE dalla sessione; `cf_delegato` resta NULL; `ruoloop_id` resta vuoto come nell'AS-IS (decisione 24/11/2026).
   - Il BE ha già un endpoint equivalente, con lo stesso motore di storicizzazione di CDU-05: viene adeguato a questa forma, così il FE sviluppa da subito sul contratto definitivo.
 - **Valori ammessi** esposti nel campo `valori_ammessi: [{valore, descrizione}]` della risposta che carica il consenso: una sola chiamata dal FE. Fonte: `cons_r_consenso_valore` (sotto-tipo ↔ valore, con validità), descrizioni in `cons_d_valore_cons`. È l'applicazione di [[wiki/docs/adr/ADR-008-ssot-form-renderer\|ADR-008]] al campo valore.
 - **`cons_r_consenso_valore`** non esiste nel DB AS-IS: la crea e la popola il **team BE Exprivia** in migrazione, con SI/NO per tutti i sotto-tipi esistenti. I sotto-tipi nuovi li popola CDU-12.

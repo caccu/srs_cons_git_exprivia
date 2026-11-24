@@ -18,9 +18,9 @@ Operatore autenticato via PUA (CDU-01a).
 
 1. L'operatore vede la maschera di ricerca.
 2. Inserisce il CF **oppure** cognome, nome e data di nascita (almeno uno dei due criteri).
-3. Il backend invoca AURA: `FindProfiliAnagrafici` e `getProfiloSanitario`.
+3. Il backend invoca AURA `FindProfiliAnagrafici`, come il vecchio back office (`getProfiloSanitario` non è usato; dev BE, 24/11/2026).
 4. Nessun risultato → messaggio *"La ricerca con il filtro fornito non ha prodotto risultati"*. **Nessun fallback su SistemaTS** (eliminato, ADR-009).
-5. Risultati: tabella con **Cognome, Nome, Codice Fiscale, Data di nascita, Comune di nascita, ASR di appartenenza**.
+5. Risultati: tabella con **Cognome, Nome, Codice Fiscale, Data di nascita, Comune di nascita**. L'ASR di appartenenza non è restituita, né oggi né nel vecchio sistema: tolta il 24/11/2026 (SRS §6.7 da allineare).
 6. Con più risultati l'operatore sceglie la riga giusta (omonimi).
 7. Il sistema carica il cruscotto consensi (CDU-08).
 

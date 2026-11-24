@@ -94,22 +94,24 @@ Il frontend non li invia mai:
 
 | Campo | Operatore (CDU-09/10/11) | Cittadino (BE iso) | Batch |
 |---|---|---|---|
-| `fonte_id` | fonte Punto Assistito censita in `cons_d_fonte` (`PASS` etichetta logica; valore reale da verificare, es. `WA_PASS`; nel contratto SOAP, documento CPROL v02c: `PASS` / `WA_PASS`) | fonte cittadino AS-IS (`CITT`) | invariato dal record originale |
+| `fonte_id` | fonte Punto Assistito censita in `cons_d_fonte` (`PASS` etichetta logica; `WA_PASS`, già usato (BE-01 chiuso il 24/11); nel contratto SOAP, documento CPROL v02c: `PASS` / `WA_PASS`) | fonte cittadino AS-IS (`CITT`) | invariato dal record originale |
 | `login_operazione` | CF operatore da sessione PUA | CF cittadino | `BATCH-02` / `BATCH_SCADENZA_INF` |
-| `ruoloop_id` | ruolo operatore PUA | NULL | — |
+| `ruoloop_id` | vuoto, come nel vecchio sistema che non lo ha mai scritto (decisione 24/11/2026; l'SRS chiede i dati dell'operatore, da correggere) | NULL | — |
 | `cf_delegato` | NULL | CF del delegato se in sessione di delega (ricevuto in input) | copiato |
 
 ## 6. Audit e tracciatura
 
 - **`csi_log_audit`**: ogni evento di business (timestamp, utente, profilo, CF assistito, operazione, esito, IP, dettagli/errore, payload).
 - **`cons_t_traccia_serv_est`** (tabella nuova, obbligatoria): ogni chiamata in uscita verso AURA, UNP, SIA, con request/response completi, esito, codice/descrizione errore e FK `audit_id`.
+- Date di audit e tracciature in ora italiana, come nel vecchio sistema (dev BE, 24/11/2026).
+- Su una richiesta rifiutata (dalle aziende via SOAP o dal back office) l'audit della chiamata e la traccia della verifica su AURA restano salvati, come nel vecchio sistema (dev BE, 24/11/2026).
 - Log applicativo SLF4J/Logback; dati personali mascherati. Il logging centralizzato su IaaS è ancora da confermare con CSI.
 
 ## 7. Integrazioni esterne
 
 | Sistema | Protocollo | Usato da | Note |
 |---|---|---|---|
-| AURA | SOAP, WS-Security UsernameToken (PasswordText) con credenziali IRIS | CDU-07 | Servizi `FindProfiliAnagrafici`, `getProfiloSanitario`; nessun servizio nuovo: WSDL e credenziali IRIS DEV sono già nei properties (INT-01). Chiamata solo da `rconsprefbe`. Nessuna chiamata a SistemaTS (ADR-009) |
+| AURA | SOAP, WS-Security UsernameToken (PasswordText) con credenziali IRIS | CDU-07 | Servizio `FindProfiliAnagrafici` (`getProfiloSanitario` non usato, come nel vecchio back office; 24/11/2026); nessun servizio nuovo: WSDL e credenziali IRIS DEV sono già nei properties (INT-01). Chiamata solo da `rconsprefbe`. Nessuna chiamata a SistemaTS (ADR-009) |
 | SIA ASR (uscita) | SOAP, WSDL AS-IS v03 invariato | BATCH-01 | SRV-03 NotificaAcquisizioneConsenso, SRV-04 NotificaRevocaConsenso (confermati, BAT-01); con la logica CSI l'annullamento va alle aziende con valore NE, che oggi SRV-03 non ammette (ST-18) |
 | SIA ASR (ingresso) | SOAP `/services/ConsprefService` | aziende federate, LIS | contratto invariato (DEV-03); LIS verificato su TEST, conferma produzione a CSI (INT-07) |
 | Webapp Cittadino (ingresso) | SOAP `ConsensoBeService` via APISAN | SANSOL | WSDL AS-IS, 10 operazioni, a contratto invariato (ADR-025) |

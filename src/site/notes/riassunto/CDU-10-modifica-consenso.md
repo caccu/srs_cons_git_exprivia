@@ -44,7 +44,7 @@ Consenso aziendale: se anche una sola azienda è in ANN, va riaccettata l'inform
 4. Calcolo delle `regole` (tabella sopra).
 
 **ALG02 — Salvataggio**: algoritmo canonico completo (TRASV §4):
-SELECT valido → UPDATE `data_fine` → INSERT `cons_s_consenso` → INSERT `cons_t_consenso` con nuovo `d_informativa_id`, stato ATT con valore SI o NO; il record ANN chiuso prende lo stato SCA (TRASV §4), `fonte_id` Punto Assistito, `login_operazione`, `ruoloop_id` → `csi_log_audit` (`update`) → `cons_t_notifica` per ogni endpoint attivo non `IN_CORSO`.
+SELECT valido → UPDATE `data_fine` → INSERT `cons_s_consenso` → INSERT `cons_t_consenso` con nuovo `d_informativa_id`, stato ATT con valore SI o NO; il record ANN chiuso prende lo stato SCA (TRASV §4), `fonte_id` Punto Assistito (`WA_PASS`), `login_operazione`, `ruoloop_id` vuoto come nell'AS-IS → `csi_log_audit` (`update`) → `cons_t_notifica` per ogni endpoint attivo non `IN_CORSO`.
 
 Per i regionali l'operazione riguarda tutti i record delle ASR collegate.
 

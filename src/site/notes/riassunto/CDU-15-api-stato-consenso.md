@@ -39,7 +39,7 @@ Risposta 200:
 }
 ```
 
-Codici: 200, 400 (parametri mancanti/malformati), 401, 403 (ente non autorizzato), 404 (consenso non trovato), 429, 500. Tutti gli errori in **RFC 7807** `application/problem+json`.
+Codici: 200, 400 (parametri mancanti/malformati), 401, 403 (ente non autorizzato), 404 (consenso non trovato), 429, 500. Tutti gli errori in **RFC 7807** `application/problem+json`. Ordine dei controlli: prima i parametri (codice fiscale malformato o codice consenso inesistente → 400), poi l'ente (403), poi la ricerca (404), come SRS §6.15. Anche il 401 è in RFC 7807 (dev BE, 24/11/2026).
 
 ## Logica di backend
 

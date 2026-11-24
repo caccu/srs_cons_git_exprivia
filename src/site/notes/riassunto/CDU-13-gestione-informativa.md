@@ -54,7 +54,7 @@ Operatore autenticato.
 
 **ALG01 — Creazione/Modifica**
 1. Validazione dei campi.
-2. INSERT in `cons_d_informativa` (`sotto_tipo_consenso`, `tipo_consenso`, `desc_informativa`, `html_informativa`, date, `online`, `stato_elaborazione = 'DA_ELABORARE'`, `login_operazione`, `ruoloop_id`).
+2. INSERT in `cons_d_informativa` (`sotto_tipo_consenso`, `tipo_consenso`, `desc_informativa`, `html_informativa`, date, `online`, `stato_elaborazione = 'DA_ELABORARE'`, `login_operazione`; `ruoloop_id` vuoto come nell'AS-IS).
 3. PDF caricato: salvataggio sullo storage dedicato, percorso in `pdf_informativa` e record in `cons_t_allegato`.
 4. Eventuale relazione con le ASR in `cons_r_informativa_asr`.
 5. Audit `csi_log_audit` (operazione tipo `GESTIONE_INFORMATIVA`).
@@ -87,7 +87,7 @@ CDU-12 (sotto-tipi); storage; a valle BATCH-02, CDU-06 e il Form Renderer.
 ## Punti aperti
 
 - ~~Codice/versione dell'informativa~~ **Deciso 06/10/2026:** nessuna colonna `versione`. La versione è la riga stessa (`d_informativa_id`), ordinata per `data_decorrenza`; CDU-15 espone solo `informativa.id` e le date.
-- Storage dei PDF su IaaS: volume, limite di dimensione, conservazione → **DEV-11** (proposta: percorso configurabile, 10 MB, nessuna cancellazione). Verificare cosa contiene `pdf_informativa` nel DB AS-IS.
+- ~~Storage dei PDF su IaaS → DEV-11~~ Chiuso il 18/11: PDF su file system; caricamento fino a 10 MB, oltre il limite errore nel formato standard (dev BE, 24/11/2026). `pdf_informativa`: indirizzo web per le informative migrate, file system per le nuove (dev BE, 24/11/2026).
 - Correzione di una versione già pubblicata (es. refuso) → **DEV-09**. Proposta: non in vigore tutto modificabile; in vigore solo `desc_informativa` e `data_scadenza`; HTML e PDF solo come errata corrige autorizzata, con audit.
 - Prima informativa propria di un'azienda che usava la generale → **DEV-10** chiuso il 23/11/2026: CSI risponde che non è possibile uno scambio tra tipologie di consenso; la generale resta valida e i consensi già espressi non scadono.
 - ~~Rapporto con i flag Online/Annulla della maschera CDU-12~~ **Chiuso 22/10/2026:** la maschera CDU-12 non li ha più (SRS rev. 1.19).

@@ -35,6 +35,7 @@ Non servono librerie di generazione PDF (SRS §6.6: «Non applicabile»).
 - Un solo servizio, ad esempio `GET /informative/{d_informativa_id}/pdf` (stesso URL che il Form Renderer espone come `pdf_url`). Risposta `Content-Type: application/pdf`, stream binario.
 - Lato operatore: sessione PUA. Lato cittadino il backend non riceve l'identità GASP: la Webapp Cittadino passa da APISAN sul SOAP `ConsensoBeService` (ADR-025), che espone anche l'informativa. Il servizio di dominio è unico, i due canali restano distinti.
 - Lettura del file dallo storage dedicato (CDU-13 lo salva e memorizza il percorso). 404 RFC 7807 se manca.
+- Informative migrate: `pdf_informativa` contiene un indirizzo web e il PDF si scarica da lì; le nuove stanno su file system. Il 404 sulle informative reali non c'è più (dev BE, 24/11/2026).
 - Audit dello scarico in `csi_log_audit`.
 
 **Frontend (Operatore)**
@@ -48,6 +49,6 @@ CDU-13 (caricamento PDF e storage); CDU-08.
 
 ## Punti aperti
 
-- Confermare il modello dati di `pdf_informativa` (percorso o contenuto) sul DB AS-IS migrato. Storage su IaaS: **DEV-11** a CSI (proposta: percorso configurabile, 10 MB, nessuna cancellazione).
+- ~~Confermare il modello dati di `pdf_informativa` (percorso o contenuto) sul DB AS-IS migrato.~~ Chiarito (dev BE, 24/11/2026): indirizzo web per le migrate, file system per le nuove. DEV-11 chiuso il 18/11; caricamento fino a 10 MB (24/11).
 - ~~Riallineare il passo 4 dell'SRS~~ **Chiuso:** SRS rev. 1.18 (22/10/2026).
 - ~~Contratto attuale usato dalla Webapp Cittadino per lo scarico~~ **Chiarito 21/10/2026:** SOAP `ConsensoBeService` via APISAN (ADR-025). Resta da verificare quale operazione restituisce il PDF.

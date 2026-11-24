@@ -32,7 +32,7 @@ Inverte il valore di un consenso **già valido** (ATT/SI ↔ ATT/NO, "Acconsento
 ## Regole chiarite il 29/09/2026
 
 - **Aziendale**: ogni operazione riguarda **una sola azienda**. **Regionale**: il nuovo valore vale per tutte le ASR collegate.
-- `cf_delegato` resta **NULL**; l'operatore è tracciato con `login_operazione` + `ruoloop_id`.
+- `cf_delegato` resta **NULL**; l'operatore è tracciato con `login_operazione`; `ruoloop_id` resta vuoto come nell'AS-IS (24/11/2026).
 - `fonte_id` **non** arriva dal FE: lo valorizza il BE con la fonte Punto Assistito di `cons_d_fonte`, mantenendo il codice AS-IS (`PASS` è l'etichetta logica, il valore reale va verificato, es. `WA_PASS`). Nel contratto SOAP (documento CPROL v02c): tipo fonte `PASS`, codice fonte `WA_PASS`; cittadino `CITT` / `WA_CITT`.
 - Esito mostrato all'operatore = esito del salvataggio. Consenso e righe di `cons_t_notifica` si scrivono nella **stessa transazione**. Gli errori di invio alle aziende (BATCH-01, asincrono) **non** compaiono qui.
 - Nessuna accettazione dell'informativa.

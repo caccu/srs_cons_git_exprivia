@@ -6,6 +6,8 @@
 
 **Perimetro:** FE ✅ · BE ✅ — Riferimenti: SRS v10 §2.3, §6.1; ADR-010, ADR-021; ricognizione AS-IS 22/09/2026.
 
+> ✅ **Stato del codice (dev BE, 24/11/2026):** sviluppato. Dal 18/11 il backend verifica il token del PUA con l'IP della postazione, confronta il codice fiscale, legge i due profili e apre la sessione. Dal 24/11 il login restituisce anche nome e cognome dell'operatore: copre il «chi sono». Da CSI mancano i codici dei profili, le credenziali e gli utenti di prova.
+
 ## Cosa fa
 
 È la porta d'ingresso della Webapp Operatore. L'operatore arriva dal PUA già autenticato, il sistema verifica che sia un operatore abilitato, legge il suo profilo e gli apre la webapp (ricerca assistito e Back Office).
@@ -20,10 +22,10 @@ Il CDU-01 originale comprendeva anche l'accesso del cittadino (CDU-01b) e la sce
 ## Flusso
 
 1. L'operatore apre la webapp dal PUA (RUPAR/IRIDE o SPID/CIE/CNS). Il link è diverso da quello della Webapp Cittadino.
-2. Il PUA reindirizza con un token.
+2. Il PUA reindirizza alla webapp con un token; la webapp chiama il BFF.
 3. Il backend passa a LCCE (Configuratore) **`getTokenInformation2`** il token, l'applicazione CONSPREF e `ipBrowser`, cioè l'IP del browser dell'operatore che il BFF gli passa (se diverso da quello del login: `AUTH_ER_602`). Il token è monouso. **SUCCESSO = operatore abilitato** sul PUA. Il profilo arriva in `funzionalitaAbilitate` (`codiceFunzionalitaPadre`) e serve a distinguere operatore e operatore di configurazione (ST-16, ID-02); il legacy leggeva solo l'esito.
 4. L'identità dell'operatore (CF, nome, cognome) viene dall'header Shibboleth **`Shib-Iride-IdentitaDigitale`**, formato IRIDE a sette campi separati da `/` (`CF/NOME/COGNOME/ID_PROVIDER/TIMESTAMP/LIVELLO/MAC`). Il MAC non è verificato (neanche dal legacy): la garanzia è la rete (vedi sotto). Il CF non viene da LCCE. ~~Il controllo AS-IS su AURA e profilo operatore non filtra.~~ Corretto al passo 5.
-5. Il CF deve essere presente su AURA, altrimenti l'accesso è negato. Al primo accesso l'operatore viene registrato in `cons_t_operatorebo`; `cons_d_operatore` contiene solo i tipi di operatore (OPERATORE_BKO, SERVIZI_ASR, WA_CITT). La verifica del profilo risponde sempre SUCCESSO e non blocca. Una volta entrato, l'operatore vede tutte le funzioni (verifica del dev BE sul codice, 12/11/2026).
+5. Il CF deve essere presente su AURA, altrimenti l'accesso è negato. Al primo accesso l'operatore viene registrato in `cons_t_operatorebo`; `cons_d_operatore` contiene solo i tipi di operatore (OPERATORE_BKO, SERVIZI_ASR, WA_CITT). ~~La verifica del profilo risponde sempre SUCCESSO e non blocca. Una volta entrato, l'operatore vede tutte le funzioni (verifica del dev BE sul codice, 12/11/2026).~~ Dal 24/11/2026 l'accesso è negato se i requisiti di accesso non corrispondono ai profili dedicati a CONSPREF provenienti dal Configuratore (operatore e operatore di configurazione). I codici dei profili li deve ancora dare CSI (ID-02, ST-16).
 6. Il frontend mostra solo le sezioni abilitate. Con due profili, ciascuno vede solo le proprie (la visibilità incrociata è da confermare con CSI).
 7. Logout / pulizia sessione.
 
@@ -45,7 +47,7 @@ Attenzione al naming: il prefisso `/cittadino` **non** indica servizi per il cit
 - Endpoint di risoluzione token: chiama `getTokenInformation2` (client configurabile: indirizzo e credenziali per ambiente), valida l'esito. LCCE è chiamato dal backend, come AURA. Nessuna registrazione in `csi_log_audit` della verifica del token (non prevista da SRS né AS-IS): basta la traccia in `cons_t_traccia_serv_est` (dev BE, 02/11/2026).
 - Lettura dell'identità dall'header `Shib-Iride-IdentitaDigitale`: classe `Identita` riprodotta (equivalente a quella del jar CSI `iridev2-pep-intf-2.0.0`, repo `repart.csi.it`); header non in formato IRIDE → 401. Nei profili `local` e `test` è accettato un CF semplice.
 - Spring Security: il filtro di sessione protegge tutte le API della webapp. Il CF operatore va messo nel `SecurityContext` e da lì letto da tutti i CDU (mai dal path).
-- Endpoint "chi sono" (CF, nome, abilitazioni) per il FE.
+- Endpoint "chi sono" (CF, nome, abilitazioni) per il FE: coperto dal login, che dal 24/11 restituisce anche nome e cognome.
 - Sessione (SRS rev. 1.28): scade dopo 30 minuti di inattività, poi le API rispondono 403. CSRF: cookie di sessione `SameSite=Strict` (con `HttpOnly` e `Secure`), senza modifiche al FE perché la sessione nasce dopo il caricamento della pagina. Il token anti-CSRF si aggiunge solo se il collaudo lo richiede (per OWASP SameSite è una difesa aggiuntiva).
 - Tracciare la chiamata al servizio token in `cons_t_traccia_serv_est`.
 

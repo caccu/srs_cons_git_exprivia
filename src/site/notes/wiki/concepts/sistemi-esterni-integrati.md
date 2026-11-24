@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-11-23","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02","2026-09-22-ricognizione-endpoint-as-is","2026-09-25-riscontro-csi-domande-sviluppo","2026-10-21-deployment-diagram-as-is-csi","2026-11-23-passaggi-stato-consenso-csi","2026-11-23-risposte-csi-domande-funzionali"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/sistemi-esterni-integrati/","title":"Sistemi Esterni Integrati","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"dg-note-properties":{"title":"Sistemi Esterni Integrati","aliases":["Sistemi Esterni Integrati"],"type":"concept","tags":["integrazione","soap","rest","aura","sia","notificatore","gestione-deleghe","pua","configuratore","lis","mf53","mf55","mf33"],"created":"2026-05-05","updated":"2026-11-24","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2026-03-02-domande-srs-csi-v02","2026-09-22-ricognizione-endpoint-as-is","2026-09-25-riscontro-csi-domande-sviluppo","2026-10-21-deployment-diagram-as-is-csi","2026-11-23-passaggi-stato-consenso-csi","2026-11-23-risposte-csi-domande-funzionali","2026-11-24-revisione-be-deck-glossario"],"related":["[[Gestione Consensi - Applicativo]]","[[Architettura IaaS]]","[[CSI Piemonte]]","[[wiki/concepts/batch-processes\|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]","[[GASP Salute]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -17,7 +17,7 @@ Sistemi esterni con cui [[wiki/concepts/gestione-consensi-applicativo\|Gestione 
 | Protocollo                 | SOAP + WS-Security UsernameToken (credenziali IRIS)                  |
 | Credenziali                | IRIS — ✅ **incluse nei file di properties** (call CSI 20/07/2026)    |
 | Uso                        | Ricerca assistito per codice fiscale (CDU-07, CDU-08 area Operatore) |
-| Servizi invocati (MF53R52) | **FindProfiliAnagrafici**, **getProfiloSanitario**                   |
+| Servizi invocati (MF53R52) | **FindProfiliAnagrafici** (`getProfiloSanitario` non usato, come nel vecchio back office: dev BE e decisione 24/11/2026)                   |
 | Fallback                   | **NESSUNO** — vedi nota sotto                                        |
 | WSDL                       | ✅ **Nessun servizio nuovo** — gli stessi già nei properties (call CSI 20/07/2026) |
 
@@ -25,7 +25,9 @@ Sistemi esterni con cui [[wiki/concepts/gestione-consensi-applicativo\|Gestione 
 
 ### Comportamento ricerca assistito (MF53R52, MF55R54)
 
-> Il sistema invoca **FindProfiliAnagrafici** + **getProfiloSanitario** di AURA. Se il CF non viene trovato → messaggio fisso: **«La ricerca con il filtro fornito non ha prodotto risultati»**. **Nessuna chiamata a SistemaTS.**
+> Il sistema invoca **FindProfiliAnagrafici** ~~+ **getProfiloSanitario**~~ di AURA (vedi la nota del 24/11 qui sotto). Se il CF non viene trovato → messaggio fisso: **«La ricerca con il filtro fornito non ha prodotto risultati»**. **Nessuna chiamata a SistemaTS.**
+>
+> 🆕 **24/11/2026 ([[wiki/sources/2026-11-24-revisione-be-deck-glossario\|dev BE]]):** la ricerca usa solo **FindProfiliAnagrafici**, come il vecchio back office; `getProfiloSanitario` non è usato e l'«ASR di appartenenza» non viene restituita, né oggi né nel vecchio sistema. Decisione 24/11/2026: si toglie dai risultati (SRS §6.7 da allineare).
 
 > ⚠️ **Eliminazione SistemaTS dal SRS:** decisione MF55R54 elimina **tutti i riferimenti** a SistemaTS come fallback in SRS §6.7. SistemaTS non fa parte dell'integrazione del sistema Gestione Consensi TO-BE.
 
@@ -258,7 +260,7 @@ Attore che nel [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|deploymen
 [Cittadino] → APISAN (CSI, SANSOL) → rconsprefbe, SOAP ConsensoBeService   🔵 riscontro dev 21/10 (INT-08)
                               ↓
 [Applicativo Gestione Consensi]  ← backend UNICO: serve entrambe le webapp, interamente in perimetro
-        ├─ AURA              (SOAP/IRIS) — FindProfiliAnagrafici, getProfiloSanitario
+        ├─ AURA              (SOAP/IRIS) — FindProfiliAnagrafici
         ├─ LCCE TokenInformationService — profilo operatore post-login PUA (AS-IS, INT-09)
         ├─ Gestione Deleghe  ❌ OUT — nessuna chiamata dal BE; il BE riceve il CF del delegato (CSI 25/09/2026)
         ├─ SIA ASR / aziende federate (SOAP inbound /services/ConsprefService) — mantenuto, canalità esistente (CSI 25/09/2026)
@@ -278,11 +280,11 @@ Attore che nel [[wiki/sources/2026-10-21-deployment-diagram-as-is-csi\|deploymen
 
 | Sistema                  | Cosa serve                                                                        | Stato                                                                                                                                    |
 | ------------------------ | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| AURA                     | Credenziali IRIS + WSDL (FindProfiliAnagrafici, getProfiloSanitario)              | ✅ Nei properties (call 20/07/2026) — nessun servizio nuovo                                                                               |
+| AURA                     | Credenziali IRIS + WSDL (FindProfiliAnagrafici)              | ✅ Nei properties (call 20/07/2026) — nessun servizio nuovo                                                                               |
 | SIA ASR                  | AS-IS: certificati X509 dei sistemi ASR verificati da ConsprefService (WS-Security, nessun legame certificato → azienda nel codice); verso le ASR certificato client unico in mutual TLS secondo la specifica, ma nel codice le notifiche sono firmate (conflitto, ST-11) / credenziali OAuth via APIMBBONE (TO-BE)   | ❌ Da richiedere (AS-IS) · TO-BE gestito da APIM ⛔ *superato (ADR-027)* |
 | Gestione Deleghe ❌ OUT   | WSDL                                                                              | ⚪ Non necessario — **fuori perimetro FE e BE** (CSI 25/09/2026, DEV-02): il BE riceve solo il CF del delegato                             |
 | Notificatore di Deleghe  | API + integration spec                                                            | ✅ **AS-IS legacy, riciclato — nessun nuovo sviluppo** (call CSI 06/08/2026; era "❌ Da richiedere" prima di questa call, distinta da UNP) |
-| Notificatore UNP         | Già documentato — gitlab.csi.it                                                   | ✅ Riferimento disponibile                                                                                                                |
+| Notificatore UNP         | Già documentato — gitlab.csi.it                                                   | ✅ Riferimento disponibile; token di test dato da CSI il 17/11/2026; quello di produzione è in carico a CSI (BE-24, 24/11)                                                                                                                |
 | PUA                      | Registrazione **2 profili** (sportello, configurazione; call CSI 28/10/2026 — il 06/08/2026 era "1 profilo") | ❌ Da richiedere                                                                                                                      |
 | LIS (e analoghi es. RIS) | Nessuna integrazione dedicata: usano `ConsprefService` | ✅ Verificato su TEST (21/10/2026); conferma produzione a CSI |
 | GASP Salute ❌ OUT        | ~~Documentazione protocollo OIDC/SAML2~~                                          | ⚪ Non più necessario — fuori scope di sviluppo (ADR-021, 06/08/2026)                                                                     |

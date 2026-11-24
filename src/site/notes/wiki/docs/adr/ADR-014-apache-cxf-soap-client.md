@@ -12,7 +12,7 @@
 ## Context
 
 Tre integrazioni richiedono client SOAP:
-- **AURA** (FindProfiliAnagrafici, getProfiloSanitario) — WS-Security UsernameToken IRIS
+- **AURA** (FindProfiliAnagrafici; `getProfiloSanitario` non usato, 24/11/2026) — WS-Security UsernameToken IRIS
 - **Gestione Deleghe** — OAuth2 Client Credentials
 - **SIA ASR outbound** (BATCH-01) — ~~WS-Security X509~~ SSL Client Authentication (mutual TLS) con un solo certificato, contratto WSDL AS-IS invariato ([[wiki/sources/2019-05-01-specifica-ws-consenso-regionale-aziendale-v02c\|documento CPROL v02c]] §10.2, corretto 06/11/2026)
 

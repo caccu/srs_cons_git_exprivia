@@ -12,7 +12,7 @@
 ## Context
 
 La bozza SRS v3 prevedeva, per CDU-07 (ricerca assistito da Operatore), una catena:
-1. **AURA** invocato per primo (FindProfiliAnagrafici + getProfiloSanitario)
+1. **AURA** invocato per primo (FindProfiliAnagrafici; `getProfiloSanitario` non usato, 24/11/2026)
 2. **SistemaTS** come fallback se AURA non trova il CF
 
 Considerazioni emerse durante revisione cliente:
@@ -25,7 +25,7 @@ Considerazioni emerse durante revisione cliente:
 **SistemaTS NON è integrato** dal sistema Gestione Consensi TO-BE.
 
 CDU-07 comportamento aggiornato:
-- Invoca **solo** AURA (`FindProfiliAnagrafici` + `getProfiloSanitario`)
+- Invoca **solo** AURA (`FindProfiliAnagrafici`; `getProfiloSanitario` non usato, 24/11/2026)
 - Se CF non trovato → messaggio fisso «La ricerca con il filtro fornito non ha prodotto risultati»
 - Nessun fallback, nessuna chiamata a SistemaTS
 

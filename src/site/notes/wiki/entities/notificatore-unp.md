@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/entities/notificatore-unp/","title":"Notificatore UNP","tags":["sistema-esterno","notifica","csi-piemonte","rest","unp"],"dg-note-properties":{"title":"Notificatore UNP","aliases":["Notificatore UNP","UNP","User Notification Platform"],"type":"entity","tags":["sistema-esterno","notifica","csi-piemonte","rest","unp"],"created":"2026-05-15","updated":"2026-11-20","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-03-02-appunti-e-pianificazione","2026-10-22-domande-dev-be-unp-cdu-02-08"],"related":["[[CSI Piemonte]]","[[Sistemi Esterni Integrati]]","[[Gestione Consensi - Applicativo]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]"]}}
+{"dg-publish":true,"permalink":"/wiki/entities/notificatore-unp/","title":"Notificatore UNP","tags":["sistema-esterno","notifica","csi-piemonte","rest","unp"],"dg-note-properties":{"title":"Notificatore UNP","aliases":["Notificatore UNP","UNP","User Notification Platform"],"type":"entity","tags":["sistema-esterno","notifica","csi-piemonte","rest","unp"],"created":"2026-05-15","updated":"2026-11-24","sources":["2026-03-02-conspref-srs-v1-revised","2026-03-02-domande-srs-csi-v02","2026-03-02-appunti-e-pianificazione","2026-10-22-domande-dev-be-unp-cdu-02-08","2026-11-24-revisione-be-deck-glossario"],"related":["[[CSI Piemonte]]","[[Sistemi Esterni Integrati]]","[[Gestione Consensi - Applicativo]]","[[batch-processes|Processi Batch — BATCH-01, BATCH-02, BATCH-03]]"]}}
 ---
 
 
@@ -69,7 +69,7 @@ Vedi `analysis-2026-05-14-risposte-mf-srs-v3.md` §MF33R31 per il rationale comp
 | Item | Stato |
 |---|---|
 | Endpoint REST UNP | Confermato (Q&A CSI #8) |
-| Token applicativo UNP | Da richiedere Sprint 0/1 a CSI |
+| Token applicativo UNP | Test: dato da CSI il 17/11/2026 (dev BE, 24/11); produzione in carico a CSI (BE-24, 24/11/2026) |
 | Documentazione API UNP | Da richiedere a CSI |
 | Test di integrazione | Pianificato Sprint 2 |
 

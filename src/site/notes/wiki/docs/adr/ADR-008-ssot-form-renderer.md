@@ -40,9 +40,9 @@ Differenze ammesse fra Cittadino e Operatore — **solo metadati di tracciatura 
 
 | Campo | Cittadino | Operatore |
 |---|---|---|
-| `fonte_id` | da contesto webapp (es. `WA_CITT`) | `'PASS'` |
+| `fonte_id` | da contesto webapp (es. `WA_CITT`) | `WA_PASS` (etichetta SRS `PASS`, BE-01) |
 | `login_operazione` | CF cittadino autenticato | login operatore PUA |
-| `ruoloop_id` | NULL | ID ruolo operatore PUA |
+| `ruoloop_id` | NULL | vuoto, come nell'AS-IS (decisione 24/11/2026) |
 
 Configurazione completamente DB-driven (`cons_d_sotto_tipo_cons` + tabelle correlate). Nulla hardcoded a livello UI.
 

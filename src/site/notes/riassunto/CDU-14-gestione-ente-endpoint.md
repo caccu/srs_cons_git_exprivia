@@ -18,7 +18,7 @@ Quando si aggiunge un nuovo endpoint, il nuovo SIA va **allineato** con i consen
 
 ## Precondizioni
 
-Operatore di configurazione autenticato (webapp, sessione PUA; tra BFF e backend chiave condivisa). In V1.0 nessun limite per azienda: vede tutti gli enti. Fino alla risposta di CSI sul profilo da LCCE (ST-16), l'esito SUCCESSO di LCCE e la presenza su AURA abilitano a tutte le funzioni. In V1.0 nessuna chiamata dai SIA.
+Operatore di configurazione autenticato (webapp, sessione PUA; tra BFF e backend chiave condivisa). In V1.0 nessun limite per azienda: vede tutti gli enti. L'accesso è negato se i requisiti di accesso non corrispondono ai profili dedicati a CONSPREF provenienti dal Configuratore (24/11/2026; codici dei profili da CSI, ID-02, ST-16). In V1.0 nessuna chiamata dai SIA.
 
 ## Flusso (webapp)
 
@@ -66,7 +66,7 @@ Operatore di configurazione autenticato (webapp, sessione PUA; tra BFF e backend
 - Eliminazione: logica (`valida_fine` / `data_cancellazione`), non fisica. Gli endpoint dismessi escludono l'azienda dagli elenchi. Regola provvisoria: azienda visibile con almeno un endpoint attivo (BE-16); DEV-01 da confermare con CSI.
 - Destinazione (ADR-024): solo gli endpoint `NOTIFICA_CONSENSO` (o senza destinazione) ricevono le notifiche e partecipano all'allineamento. L'URL del webhook out-of-band è un endpoint `WEBHOOK_ALLINEAMENTO` dell'ente, senza `stato_allineamento`; se manca, il webhook non parte e l'errore va in `cons_t_traccia_serv_est`.
 - Avviso «nuovo endpoint da allineare», comportamento del codice (riscontro del dev BE, 12/11/2026):
-  - e-mail: va all'indirizzo del campo facoltativo `notifica_email` dell'endpoint. Mittente `noreply@consensi.piemonte.it` (provvisorio: va in configurazione, server SMTP e mittente da confermare con CSI, BE-24), oggetto «CONSPREF - Nuovo endpoint da allineare (endp_id N)». L'esito (accettata dal server SMTP o errore) va in `cons_t_traccia_serv_est`;
+  - e-mail: va all'indirizzo del campo facoltativo `notifica_email` dell'endpoint. Mittente `noreply@consensi.piemonte.it` (provvisorio: va in configurazione; server SMTP e mittente di produzione in carico a CSI, BE-24), oggetto «CONSPREF - Nuovo endpoint da allineare (endp_id N)». L'esito (accettata dal server SMTP o errore) va in `cons_t_traccia_serv_est`;
   - webhook: parte solo se l'ente ha anche un endpoint `WEBHOOK_ALLINEAMENTO`;
   - con il vecchio predefinito `ENTRAMBI`: senza indirizzo non partiva nulla e non si tracciava nulla; senza endpoint webhook si tracciava ogni volta l'errore «webhook assente»;
   - con `EMAIL` (V1.0): il webhook non parte in nessun caso e l'errore «webhook assente» sparisce; senza indirizzo l'avviso non parte e si traccia l'errore «e-mail assente»;
@@ -110,5 +110,5 @@ CDU-12 (sotto-tipi); CDU-17 e §7.4 consumano lo stato; BATCH-01 consuma gli URL
 - ~~Blocchi su modifica/disattivazione di ente ed endpoint (DEV-12).~~ Chiuso il 23/11/2026: nessun blocco (risposta CSI).
 - ~~Destinatari della notifica "endpoint aggiunto" quando l'azienda non ha ancora altri endpoint.~~ Chiuso il 23/11/2026: `notifica_email` del nuovo endpoint, confermato da CSI. Aperto ST-19: chi modifica la tabella dei contatti per endpoint e se sostituisce `notifica_email`.
 - Formalizzazione di `IN_MANUTENZIONE`: SRS rev. 1.18 (§7.4) lo separa da `stato_allineamento`, con orientamento a colonna di stato dedicata; il dettaglio resta alla progettazione.
-- **A-01** API di aggiornamento ente (§6.14 passo 3) assente dall'OpenAPI 0.2-DRAFT. Campi modificabili recepiti in SRS rev. 1.27 dal requisito CSI V03: descrizione ente, data fine validità, eliminazione endpoint; codice, tipo ente e data creazione in sola lettura. Resta al BE la definizione dell'API. Il mockup rev. 12 (pag. 31) lascia modificabile il tipo ente (N-09): deciso il 29/10/2026 che resta in sola lettura, il FE allinea la schermata.
-- **A-02** E-mail di avviso dell'endpoint: recepita in SRS rev. 1.26 (campo facoltativo `notifica_email` nella maschera Endpoint e in `cons_t_endpoint`). Nel contratto attuale un campo vuoto mantiene il valore: per poterla cancellare serve un aggiornamento del contratto BE (mockup FE rev. 12). Destinatari dell'avviso: confermati da CSI il 23/11/2026 (ST-19 sulla tabella dei contatti).
+- **A-01** ✅ Fatto dal 12/11 (dev BE, 24/11/2026): dell'ente si modificano descrizione e data di fine. API di aggiornamento ente (§6.14 passo 3) assente dall'OpenAPI 0.2-DRAFT. Campi modificabili recepiti in SRS rev. 1.27 dal requisito CSI V03: descrizione ente, data fine validità, eliminazione endpoint; codice, tipo ente e data creazione in sola lettura. Resta al BE la definizione dell'API. Il mockup rev. 12 (pag. 31) lascia modificabile il tipo ente (N-09): deciso il 29/10/2026 che resta in sola lettura, il FE allinea la schermata.
+- **A-02** E-mail di avviso dell'endpoint: recepita in SRS rev. 1.26 (campo facoltativo `notifica_email` nella maschera Endpoint e in `cons_t_endpoint`). ✅ Dal 12/11 l'e-mail dell'endpoint si può cancellare (dev BE, 24/11/2026). Destinatari dell'avviso: confermati da CSI il 23/11/2026 (ST-19 sulla tabella dei contatti).
