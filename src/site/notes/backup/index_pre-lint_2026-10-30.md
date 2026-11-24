@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/backup/index-pre-lint-2026-10-30/","title":"Wiki Index","tags":["gardenEntry"],"dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-10-27"}}
+{"dg-publish":true,"permalink":"/backup/index-pre-lint-2026-10-30/","title":"Wiki Index","dg-note-properties":{"title":"Wiki Index","aliases":["Wiki Index"],"type":"index","updated":"2026-10-27"}}
 ---
 
 
