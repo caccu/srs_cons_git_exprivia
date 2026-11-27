@@ -30,13 +30,13 @@ Quando tutte le notifiche di una variazione risultano consegnate (`COMPLETATO`),
 2. Per ogni record: costruzione del messaggio SOAP. **SRV-03 `NotificaAcquisizioneConsenso`** per acquisizioni/modifiche, **SRV-04 `NotificaRevocaConsenso`** per revoche/annullamenti. Campi obbligatori: `codFiscale`, `codAsr`, `codConsenso`, `valConsenso` (SI/NO), `dataAcquisizione`, `codOperatore`, `fonte`. I nomi esatti vanno presi dal WSDL.
 3. Invio a `not_endp_url`.
 4. Esito OK → stato inviato/completato e `not_fine`.
-5. Errore HTTP o SOAP Fault (VAR01) → `not_stato = 'ERRORE'`, dettaglio in `cons_t_notifica_errore_dett`, `num_tentativi + 1`. Dopo **3 tentativi** (`MAX_TENTATIVI` configurabile) → **`ERRORE_PERMANENTE`**: non viene più ripreso in automatico e richiede intervento manuale. Il ritentativo avviene a ogni ciclo del batch (5 minuti, senza backoff) per le notifiche in `ERRORE` con `num_tentativi < MAX_TENTATIVI` (decisione Exprivia 30/10/2026 su BE-26, conferma CSI richiesta, domanda n. 23; già nel codice, dev BE 24/11/2026); le notifiche non tentate per manutenzione non contano. Se in un ciclo un endpoint non risponde (errore di connessione o timeout), le altre notifiche verso quell'endpoint si saltano fino al ciclo successivo senza consumare tentativi; gli errori funzionali restituiti dal sistema dell'azienda contano (SRS rev. 1.28, decisione 02/11/2026). ~~Un consenso `ANNULLATO` si invia sempre come revoca (SRV-04, NO), qualunque fosse il valore precedente.~~ Regola respinta da CSI il 23/11/2026: con la logica CSI un consenso annullato si invia con valore NE; operazione (SRV-03 o SRV-04) e accettazione di NE da parte delle aziende da chiarire con CSI (ST-18). Il riporto a `DA_INVIARE` è una procedura manuale. Con una notifica in `ERRORE_PERMANENTE` l'avviso al cittadino resta fermo.
+5. Errore HTTP o SOAP Fault (VAR01) → `not_stato = 'ERRORE'`, dettaglio in `cons_t_notifica_errore_dett`, `num_tentativi + 1`. Dopo **3 tentativi** (`MAX_TENTATIVI` configurabile) → **`ERRORE_PERMANENTE`**: non viene più ripreso in automatico e richiede intervento manuale. Il ritentativo avviene a ogni ciclo del batch (5 minuti, senza backoff) per le notifiche in `ERRORE` con `num_tentativi < MAX_TENTATIVI` (decisione Exprivia 30/10/2026 su BE-26, conferma CSI richiesta, domanda n. 23; già nel codice, dev BE 24/11/2026); le notifiche non tentate per manutenzione non contano. Se in un ciclo un endpoint non risponde (errore di connessione o timeout), le altre notifiche verso quell'endpoint si saltano fino al ciclo successivo senza consumare tentativi; gli errori funzionali restituiti dal sistema dell'azienda contano (SRS rev. 1.28, decisione 02/11/2026). ~~Un consenso `ANNULLATO` si invia sempre come revoca (SRV-04, NO), qualunque fosse il valore precedente.~~ Regola respinta da CSI il 23/11/2026: con la logica CSI un consenso annullato si invia con valore NE; operazione SRV-04 (decisione Exprivia del 27/11); accettazione di NE da parte delle aziende a carico di CSI. Il riporto a `DA_INVIARE` è una procedura manuale. Con una notifica in `ERRORE_PERMANENTE` l'avviso al cittadino resta fermo.
 6. Tutte le notifiche di una variazione COMPLETATE → invio della conferma al cittadino/delegato via Notificatore di Deleghe (mai prima).
 7. Ogni chiamata tracciata in `cons_t_traccia_serv_est`. Eccezioni non fatali in `cons_t_batch_errori`.
 
 Macchina a stati indicativa (ADR-007): `DA_INVIARE → IN_INVIO → INVIATO | ERRORE → (retry) IN_INVIO | ERRORE_PERMANENTE`.
 
-Durante una **manutenzione ASR** (§7.4) le notifiche verso quell'azienda sono sospese: i record restano in coda.
+~~Durante una **manutenzione ASR** (§7.4) le notifiche verso quell'azienda sono sospese: i record restano in coda.~~ ⛔ Manutenzione fuori V1.0 dal 27/11.
 
 I record con `flag_notifica_cittadino = TRUE` **non** li gestisce BATCH-01: li invia BATCH-02 all'UNP.
 
@@ -47,7 +47,7 @@ I record con `flag_notifica_cittadino = TRUE` **non** li gestisce BATCH-01: li i
 - Configurazione: `batch_size`, `MAX_TENTATIVI`, timeout SOAP, autenticazione verso i SIA come da contratto AS-IS.
 - Funzione di "conferma COMPLETATO per variazione": raggruppare i record di `cons_t_notifica` per `cons_id` (o UUID della variazione) e verificare che siano tutti consegnati.
 - Migrazione: colonne `num_tentativi`, `flag_notifica_cittadino`, `notificatore_uuid`, `notificatore_data_invio`; tabella `cons_t_batch_errori`.
-- Test: concorrenza tra due istanze (nessun doppio invio), retry, errore permanente, sospensione per manutenzione.
+- Test: concorrenza tra due istanze (nessun doppio invio), retry, errore permanente, sospensione per manutenzione (non in V1.0).
 - I due batch sono spenti per default: negli ambienti di deploy si accendono con la loro variabile d'ambiente (dev BE, 24/11/2026).
 
 ## Punti aperti

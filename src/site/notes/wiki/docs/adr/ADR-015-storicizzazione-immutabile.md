@@ -7,9 +7,11 @@
 
 ## Status
 
-`accepted` — vincolo TO-BE formalizzato in SRS §5 (macchina a stati) e §8.3 (modello dati).
+`accepted`, con un'eccezione per l'annullamento dal 27/11/2026 — vincolo TO-BE formalizzato in SRS §5 (macchina a stati) e §8.3 (modello dati).
 
-> ⚠️ **Conflict (23/11/2026):** la [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|logica di stati CSI V01]] rispetta questo ADR sulle variazioni sì ↔ no (il record precedente passa a SCA, poi si crea un nuovo record ATT). Al cambio di informativa invece modifica lo stesso record (ATT/SI → ANN/NE, con data di modifica) invece di chiuderlo e crearne uno nuovo. Unresolved, da chiarire nel riscontro a CSI (ST-18).
+> ⚠️ **Conflict (23/11/2026):** la [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|logica di stati CSI V01]] rispetta questo ADR sulle variazioni sì ↔ no (il record precedente passa a SCA, poi si crea un nuovo record ATT). Al cambio di informativa invece modifica lo stesso record (ATT/SI → ANN/NE, con data di modifica) invece di chiuderlo e crearne uno nuovo. Unresolved, da chiarire nel riscontro a CSI (ST-18). ✅ Risolto 27/11/2026, vedi sotto.
+
+> ✅ **Eccezione per l'annullamento (27/11/2026, [[wiki/sources/2026-11-27-risposte-csi-riscontro-stati-cdu17\|risposte CSI]]):** CSI conferma lo schema della logica V01. Al cambio di informativa lo stesso record passa da ATT/SI ad ANN/NE con la data di modifica, senza essere chiuso e senza un nuovo record. La proposta Exprivia (chiudere il record come SCA con il suo valore e crearne uno nuovo ANN/NE) è respinta. Per le variazioni sì ↔ no l'ADR resta valido: il record precedente passa a SCA con il suo valore e si crea un nuovo record ATT.
 
 ## Context
 

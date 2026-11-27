@@ -60,5 +60,5 @@ Configurazione prodotta da CDU-12/13/14.
 - ⏸ **Sospesi (ADR-027):** URL dei server, header del Gateway, lista ASR e `client_id`, conferma DEV-05, sottoscrizione APIM.
 - **Paginazione (TODO-M3 / API-03):** ancora da decidere se serve. Il cursor-based della SRS v10 riguarda CDU-17, non CDU-16. Va stimato il volume tipico di consensi attivi per ente.
 - **SLA (TODO-M4 / API-04):** tempo di risposta e throughput target non definiti (prima della UAT).
-- Gli endpoint con `stato_allineamento ≠ COMPLETATO` o in manutenzione vanno esposti? Con quale indicazione?
+- Gli endpoint con `stato_allineamento ≠ COMPLETATO` o in manutenzione vanno esposti? Con quale indicazione? (allineamento e manutenzione fuori V1.0 dal 27/11)
 - Per gli enti `REGIONALE`/`NAZIONALE`, cosa restituire?

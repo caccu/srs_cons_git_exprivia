@@ -6,6 +6,8 @@
 
 **Perimetro:** BE ✅ + messaggio di indisponibilità nella webapp — Riferimenti: SRS v10 §7.4, §6.17; verbale CSI 11/06/2026 (punto 5), call 20/07/2026; `Manutenzione-endpoint_diagramma-sequenza.md`; ADR-027 (proposta A+D del 06/11/2026: in V1.0 solo operatore, da confermare con CSI, ST-11).
 
+> ⛔ **Fuori dal flusso di sviluppo V1.0 (risposte CSI del 27/11/2026):** CSI non chiede lo sviluppo dell'allineamento di un nuovo endpoint. Il pregresso lo migrano le ASR fuori linea, come oggi, e CSI fa un export della base dati se un'azienda non può recuperarlo. Escono lo snapshot (pulsante, CSV, stati DA_ALLINEARE, IN_CORSO e COMPLETATO, blocco delle acquisizioni) e la manutenzione dell'endpoint (BE-25 e BE-25b pending). Resta la gestione del nuovo endpoint da CDU-14. Il testo sotto resta come storia.
+
 ## Cosa fa
 
 Permette a un'ASR di dichiarare che il proprio sistema è **in manutenzione**. Per tutta la finestra il sistema regionale:

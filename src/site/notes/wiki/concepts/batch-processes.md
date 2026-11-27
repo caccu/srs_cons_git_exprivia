@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/batch-processes/","title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"dg-note-properties":{"title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","aliases":["Processi Batch — BATCH-01, BATCH-02, BATCH-03"],"type":"concept","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"created":"2026-05-05","updated":"2026-11-23","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2026-10-21-riscontro-dev-deployment-to-be","2026-11-23-passaggi-stato-consenso-csi","2026-11-23-risposte-csi-domande-funzionali"],"related":["[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]","[[Sistemi Esterni Integrati]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/batch-processes/","title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"dg-note-properties":{"title":"Processi Batch — BATCH-01, BATCH-02, BATCH-03","aliases":["Processi Batch — BATCH-01, BATCH-02, BATCH-03"],"type":"concept","tags":["batch","notifica","scadenza","allineamento","soap","asincrono","rischio","mf64","mf66","mf33","skip-locked"],"created":"2026-05-05","updated":"2026-11-27","sources":["2026-03-02-conspref-srs-v1-revised","2019-06-01-webservice-consenso-regionale-v03","2019-03-20-acc-del-cdu-01-servizi-acquisizione","2026-10-21-riscontro-dev-deployment-to-be","2026-11-23-passaggi-stato-consenso-csi","2026-11-23-risposte-csi-domande-funzionali"],"related":["[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Gestione Consensi - Applicativo]]","[[wiki/sources/2019-06-01-webservice-consenso-regionale-v03\|Specifica WebService ConsensoRegionaleAziendale v03 (AS-IS)]]","[[Sistemi Esterni Integrati]]","[[valutazione-qualita-srs-consensi|Valutazione Qualità SRS — Gestione Consensi]]","[[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]","[[analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -149,7 +149,7 @@ WHERE d_informativa_id = :id_informativa_scaduta
 > **Motivazione.** `annulla_consensi` descrive *cosa accade ai consensi alla scadenza di quella informativa* → è una proprietà dell'informativa **A** che scade. La determinazione della "nuova informativa corrente B" **non serve** a BATCH-02: B rileva solo quando il cittadino ri-esprime il consenso (CDU-04, accettazione nuova informativa), non alla scadenza.
 >
 > **Nessun impatto verificato:**
-> - **CDU-17 snapshot** esporta **solo consensi attivi** (SRS §6.17); i record terminali `SCADUTO`/`ANNULLATO` non vi compaiono → l'informativa cui sono agganciati è invisibile al SIA.
+> - **CDU-17 snapshot** esporta **solo consensi attivi** (SRS §6.17); i record terminali `SCADUTO`/`ANNULLATO` non vi compaiono → l'informativa cui sono agganciati è invisibile al SIA. ⛔ 27/11/2026: fuori dal flusso di sviluppo V1.0 ([[wiki/sources/2026-11-27-risposte-csi-riscontro-stati-cdu17\|risposte CSI]]).
 > - Notifica ASR su `ANNULLATO` (BATCH-01/SRV-04) invariata: guidata da `A.annulla_consensi = SI`.
 > - `SCADUTO` async (BAT-03) invariato.
 >
@@ -277,6 +277,8 @@ Alla nascita di un nuovo sistema dipartimentale aziendale, il processo di alline
 ---
 
 ## ~~BATCH-03~~ — sostituito da PULL CDU-17 (✅ **confermato dal committente 20/07/2026**)
+
+> ⛔ **Fuori dal flusso di sviluppo V1.0 (27/11/2026, [[wiki/sources/2026-11-27-risposte-csi-riscontro-stati-cdu17\|risposte CSI]]):** CSI non chiede lo sviluppo dell'allineamento di un nuovo endpoint. Il pregresso lo migrano le ASR, come oggi, e CSI fa un export della base dati se un'azienda non può recuperarlo. Escono lo snapshot CDU-17 (pulsante «Scarica snapshot» in CDU-14, CSV, stati DA_ALLINEARE, IN_CORSO e COMPLETATO, blocco delle acquisizioni) e la manutenzione dell'endpoint (`IN_MANUTENZIONE`, BE-25). Resta la gestione del nuovo endpoint da back office (CDU-14). Il testo sotto resta come storia.
 
 > ✅ **DESIGN RIVISTO E CONFERMATO — risposta MF69R68 (ex TR34/TR68) + rifacimento call CSI 20/07/2026:**
 >

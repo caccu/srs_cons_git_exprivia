@@ -33,10 +33,10 @@ Regole pratiche:
 - **Due profili** di Back Office sul Configuratore Regionale (call CSI 28/10/2026, corregge il profilo unico del 06/08): operatore di sportello (CDU-06÷11, già censito) e profilo di configurazione (CDU-12÷14, nuovo; nome definito da CSI). CDU-01a comune; l'utente non seleziona il profilo, l'interfaccia mostra le sezioni abilitate.
 - Il CF dell'operatore si legge **dalla sessione**, mai dal path o dal body.
 
-**SIA/aziende → Backend REST (V1.0: nessun REST esposto ai SIA; CDU-15/16/17 e manutenzione solo nel codice)**
+**SIA/aziende → Backend REST (V1.0: nessun REST esposto ai SIA; CDU-15/16 solo nel codice; CDU-17 e manutenzione fuori V1.0)**
 - Nessun API Manager né OAuth2 nel TO-BE V1.0 (ADR-027, approvato da CSI nella call del 05/11/2026).
 - CDU-15 e CDU-16: sviluppati nel backend ma non esposti ai SIA.
-- CDU-17 (snapshot) e manutenzione (`PATCH .../stato`): in V1.0 solo dall'operatore, tramite BFF (proposta A+D, ST-11; vincolo: nessun adeguamento per le ASR). Lo snapshot è un CSV identico a quello dell'allineamento massivo AS-IS. I REST per i SIA restano nel codice, non esposti. ~~Mutual TLS con servizio separato (decisione dedotta).~~
+- CDU-17 (snapshot) e manutenzione: ⛔ fuori dal flusso di sviluppo V1.0 (risposte CSI del 27/11/2026): il pregresso di un nuovo endpoint lo migrano le ASR fuori linea, CSI fa un export se serve. I REST per i SIA restano nel codice, non esposti.
 - `EnteAuthorizationFilter` (Spring Security custom): l'azienda opera solo sui propri dati. Le repository applicano sempre `WHERE codice_ente = :authorizedEnte` (difesa in profondità). ⚠️ Oggi il filtro prende il codice ente dall'header dell'API Manager, che senza API Manager nessuno imposta. In V1.0 il filtro vale solo per le rotte delle aziende (`/api/v1`), non esposte. Gli `X-APIM-*` non si scartano: senza la chiave condivisa la richiesta è rifiutata tutta con 401; con la chiave vengono letti come arrivano, quindi la chiave resta solo al BFF (rischio ST-14). Per l'operatore non c'è filtro sull'ente: il BFF passa solo il CF con la chiave condivisa e l'operatore lavora su tutte le aziende.
 - Nessun rate limiting applicativo in V1.0.
 - Audit strutturato per ogni chiamata: identificativo dell'azienda chiamante, `codice_ente_requested`, `codice_ente_authorized`, `outcome`, `latency_ms`, `trace_id`. CF mai in chiaro.
@@ -61,15 +61,15 @@ Passaggi:
 - **Mai espresso → ATT/SI o ATT/NO:** CDU-09 (o CDU-03 cittadino).
 - **ATT/SI ↔ ATT/NO:** il record precedente passa a SCA con il suo valore, il nuovo record è ATT. CDU-11/05, senza riaccettare l'informativa.
 - **ATT → ANN/NE:** BATCH-02, automatico al cambio di informativa, su tutti i consensi ATT dell'informativa; notificato alle aziende con valore NE. I record SCA non cambiano.
-- **ANN/NE → ATT/SI o ATT/NO:** nuova espressione con la nuova informativa. Se passa da CDU-09 (rilascio) o da CDU-10 è da chiarire con CSI (ST-18).
+- **ANN/NE → ATT/SI o ATT/NO:** nuova espressione con la nuova informativa. Passa da CDU-09 (rilascio) o da CDU-10, che resta separato (27/11).
 
-Da chiarire con CSI (ST-18):
-- nel documento CSI l'annullamento modifica lo stesso record invece di chiuderlo e crearne uno nuovo (vedi §4);
-- valore dopo l'annullamento: la mail CSI dice che resta quello del cittadino, il documento mette NE;
-- cosa fare dei record R esistenti e del primo «no» che la Webapp Operatore oggi scrive R/NO (ST-17);
-- se le aziende accettano NE nelle notifiche SRV-03 (oggi solo SI/NO);
-- come esporre gli stati sul SOAP `ConsensoBeService` (CSI li chiede su SOAP e REST, cittadino e operatore);
-- se resta la notifica UNP al cittadino sull'annullamento.
+Deciso il 27/11/2026 (risposte CSI e decisioni Exprivia, ST-18):
+- annullamento sullo stesso record (schema CSI V01, eccezione ad ADR-015): copia del record ATT nello storico, poi UPDATE ad ANN/NE (vedi §4 e BATCH-02);
+- valore dopo l'annullamento: NE, come nel documento;
+- record R esistenti: migrazione dei dati vecchi a carico di CSI; il primo «no» R/NO (ST-17) è superato dai codici TO-BE;
+- annullamento verso le aziende con SRV-04; se accettano NE lo verifica CSI;
+- stati sul SOAP `ConsensoBeService`: a carico di CSI;
+- resta aperta la notifica UNP al cittadino sull'annullamento.
 
 ## 4. Motore di storicizzazione (algoritmo canonico, SRS §6.4 ALG02, ADR-015)
 
@@ -80,9 +80,9 @@ Un consenso **non si sovrascrive mai**. Ogni modifica, in **un'unica transazione
 3. `INSERT` in `cons_s_consenso` con copia del record chiuso e FK `cons_id`.
 4. `INSERT` del nuovo record in `cons_t_consenso`: `tipo_stato`, `valore_consenso`, `d_informativa_id`, `data_acquisizione = NOW()`, `data_fine = NULL`, `fonte_id`, `cf_delegato` (se presente), `endp_id = NULL` (valorizzato solo per consensi arrivati da SIA), `uuid`.
 5. `INSERT` in `csi_log_audit` (`operazione`, `ogg_oper = 'cons_t_consenso'`, `key_oper` = id del record).
-6. `INSERT` in `cons_t_notifica`, un record per ogni endpoint attivo associato al sotto-tipo in `cons_r_sotto_tipo_cons_asr_endpoint` (escludendo quelli con `stato_allineamento = 'IN_CORSO'`), con `not_stato = 'DA_INVIARE'`.
+6. `INSERT` in `cons_t_notifica`, un record per ogni endpoint attivo associato al sotto-tipo in `cons_r_sotto_tipo_cons_asr_endpoint`, con `not_stato = 'DA_INVIARE'`.
 
-Il rilascio di un consenso nuovo (CDU-09) fa solo i passi 4, 5, 6. Con la logica CSI il record chiuso al passo 2 prende lo stato SCA e tiene il suo valore (come la S chiusa di oggi). BATCH-02 usa la stessa logica per portare il consenso in ANN/NE; nel documento CSI invece l'annullamento modifica lo stesso record (da chiarire, ST-18).
+Il rilascio di un consenso nuovo (CDU-09) fa solo i passi 4, 5, 6. Con la logica CSI il record chiuso al passo 2 prende lo stato SCA e tiene il suo valore (come la S chiusa di oggi). BATCH-02 invece non chiude il record: copia il record ATT nello storico e aggiorna lo stesso record ad ANN/NE (schema CSI, 27/11; eccezione ad ADR-015).
 
 Coerenza obbligatoria (§8.4.10): `cons_t_consenso.sotto_tipo_consenso` (NOT NULL) deve coincidere con `cons_d_informativa.sotto_tipo_consenso` dell'informativa referenziata. Va garantita nel codice.
 
@@ -112,12 +112,12 @@ Il frontend non li invia mai:
 | Sistema | Protocollo | Usato da | Note |
 |---|---|---|---|
 | AURA | SOAP, WS-Security UsernameToken (PasswordText) con credenziali IRIS | CDU-07 | Servizio `FindProfiliAnagrafici` (`getProfiloSanitario` non usato, come nel vecchio back office; 24/11/2026); nessun servizio nuovo: WSDL e credenziali IRIS DEV sono già nei properties (INT-01). Chiamata solo da `rconsprefbe`. Nessuna chiamata a SistemaTS (ADR-009) |
-| SIA ASR (uscita) | SOAP, WSDL AS-IS v03 invariato | BATCH-01 | SRV-03 NotificaAcquisizioneConsenso, SRV-04 NotificaRevocaConsenso (confermati, BAT-01); con la logica CSI l'annullamento va alle aziende con valore NE, che oggi SRV-03 non ammette (ST-18) |
+| SIA ASR (uscita) | SOAP, WSDL AS-IS v03 invariato | BATCH-01 | SRV-03 NotificaAcquisizioneConsenso, SRV-04 NotificaRevocaConsenso (confermati, BAT-01); l'annullamento va alle aziende con SRV-04 e valore NE (27/11); se le aziende accettano NE lo verifica CSI |
 | SIA ASR (ingresso) | SOAP `/services/ConsprefService` | aziende federate, LIS | contratto invariato (DEV-03); LIS verificato su TEST, conferma produzione a CSI (INT-07) |
 | Webapp Cittadino (ingresso) | SOAP `ConsensoBeService` via APISAN | SANSOL | WSDL AS-IS, 10 operazioni, a contratto invariato (ADR-025) |
 | PUA / LCCE (Configuratore) | `getTokenInformation2` (`TokenInformationService`), SOAP del legacy riusato (il REST `/login/token-information2` è nuovo e non serve); autenticazione del SOAP da confermare (INT-09: il PDF indica la basic auth solo per il REST) | CDU-01a, dal backend (come AURA) | token monouso; `applicazione` = CONSPREF, `ipBrowser` = IP del browser passato dal BFF (altrimenti `AUTH_ER_602`); SUCCESSO = abilitato; profilo in `funzionalitaAbilitate` (ST-16); CF da header IRIDE, da confrontare **sempre** con quello restituito (SOLCONFIG SDI-01 V07); indirizzi e credenziali da CSI (INT-09) |
-| SIA ASR (ingresso REST) | nessuno in V1.0 (proposta A+D, ST-11) | CDU-15/16/17 e manutenzione: nel codice, non esposti (servirebbe sviluppo da parte delle ASR) | OpenAPI dei servizi della webapp a cura di Exprivia (PULL-09) |
-| Notificatore UNP (`notify-mb`) | REST | BATCH-02 | in V1.0 solo la notifica di annullamento al cittadino; se resta con la logica CSI è da chiarire (ST-18); canale scelto da UNP in base alle preferenze del cittadino |
+| SIA ASR (ingresso REST) | nessuno in V1.0 | CDU-15/16: nel codice, non esposti (servirebbe sviluppo da parte delle ASR); CDU-17 e manutenzione fuori V1.0 (27/11) | OpenAPI dei servizi degli endpoint a cura di Exprivia (PULL-09) |
+| Notificatore UNP (`notify-mb`) | REST | BATCH-02 | in V1.0 solo la notifica di annullamento al cittadino; resta aperta (ST-18); canale scelto da UNP in base alle preferenze del cittadino |
 | Notificatore di Deleghe | REST | conferma rilascio al cittadino/delegato dopo `COMPLETATO` | è `notify-mb`, la stessa API dell'UNP (INT-10 chiuso il 20/11/2026); ADR-012 resta valido per il momento dell'invio |
 | Gestione Deleghe | — | nessuno | fuori perimetro |
 
@@ -147,7 +147,7 @@ Le regole di visibilità dipendono da operazione e stato e le **calcola il backe
 | Operazione | Stato | Valore precedente | Valore modificabile | Checkbox informativa |
 |---|---|---|---|---|
 | RILASCIO (09) | mai espresso / ANN | — | sì, obbligatorio | obbligatoria |
-| MODIFICA (10) | ANN (se CDU-10 resta, da chiarire ST-18) | nascosto | sì, obbligatorio | obbligatoria |
+| MODIFICA (10) | ANN (CDU-10 resta separato, 27/11) | nascosto | sì, obbligatorio | obbligatoria |
 | CAMBIO_VALORE (11) | ATT (SI o NO) | precompilato | sì | no, informativa in sola lettura |
 
 Contratto proposto (deciso tra team FE e BE, autorizzazione CSI DEV-01):
@@ -172,7 +172,7 @@ Tabelle e colonne che **non esistono nel DB AS-IS** e vanno create con gli scrip
 | `cons_d_informativa.online` (boolean); `.annulla_consensi` non serve più con la logica CSI (annullamento automatico) | CDU-09/13 (deroga V03 approvata da CSI, GOV-02) |
 | `cons_d_informativa.stato_elaborazione` (DA_ELABORARE / IN_ELABORAZIONE / ELABORATA) | BATCH-02 |
 | `cons_d_asr.tipo_ente` (NAZIONALE / REGIONALE / AZIENDALE) | CDU-12, CDU-14 |
-| `cons_r_asr_endpoint.stato_allineamento` (DA_ALLINEARE / IN_CORSO / COMPLETATO / ERRORE) | CDU-09, CDU-14, CDU-17 |
+| `cons_r_asr_endpoint.stato_allineamento` (DA_ALLINEARE / IN_CORSO / COMPLETATO / ERRORE) | CDU-09, CDU-14, CDU-17 (fuori V1.0 dal 27/11) |
 | `cons_t_notifica`: `flag_notifica_cittadino`, `num_tentativi`, `notificatore_uuid`, `notificatore_data_invio` | BATCH-01/02 |
 | `cons_t_consenso` / `cons_s_consenso`: `sotto_tipo_consenso` NOT NULL, `endp_id` | tutti gli algoritmi |
 | `cons_r_consenso_valore` (popolata SI/NO) | Form Renderer, CDU-12 |

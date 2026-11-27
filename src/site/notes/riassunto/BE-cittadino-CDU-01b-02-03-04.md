@@ -12,7 +12,7 @@ Il backend è **unico**: serve la Webapp Operatore (nuova) e la Webapp Cittadino
 
 Il contratto da preservare è quindi il **WSDL di `ConsensoBeService`**, esposto da `rconsprefbe` con adeguamenti minimi (ADR-025, revisione chiusa il 16/11/2026, confermata da CSI). Non c'è interfaccia da progettare e non c'è una versione REST dei servizi cittadino in V1.0.
 
-Restano i due motori dell'AS-IS: il motore legacy serve il cittadino, l'ALG02 l'operatore e le aziende; i componenti comuni (verifica AURA, blocchi di allineamento e manutenzione, storicizzazione, coda notifiche, audit) sono gli stessi. Cambia la tracciatura (`fonte_id` cittadino, `login_operazione` = CF dell'utente autenticato, `cf_delegato` se in delega).
+Restano i due motori dell'AS-IS: il motore legacy serve il cittadino, l'ALG02 l'operatore e le aziende; i componenti comuni (verifica AURA, storicizzazione, coda notifiche, audit; blocchi di allineamento e manutenzione fuori V1.0 dal 27/11) sono gli stessi. Cambia la tracciatura (`fonte_id` cittadino, `login_operazione` = CF dell'utente autenticato, `cf_delegato` se in delega).
 
 ## Il contratto `ConsensoBeService`
 
@@ -28,7 +28,7 @@ Restano i due motori dell'AS-IS: il motore legacy serve il cittadino, l'ALG02 l'
 | **01b** Accesso | SPID/CIE tramite GASP Salute, che si chiude su SANSOL/APISAN. Il cittadino può operare per sé o per un delegante | CDU-01a | Nessuna integrazione GASP, Shibboleth o SAML nel backend: solo **basic authentication** del servizio. Nella richiesta SOAP arrivano il codice del chiamante (SANSOL), il CF dell'utente autenticato e i CF di cittadino ed eventuale delegato. Il CF è verificato su AURA |
 | **02** Consultazione | Cruscotto dei propri consensi | CDU-08 | Stesso dominio del cruscotto operatore. Il BE restituisce quello che restituisce il legacy (lista piatta): il raggruppamento è del FE cittadino (BE-15) |
 | **03** Rilascio | Nuovo consenso con presa visione dell'informativa. Se `online = false` non è esprimibile online | CDU-09 | ALG01/ALG02 identici a CDU-09, con la fonte del canale cittadino. Avviso al cittadino dopo `COMPLETATO`: vedi INT-10 |
-| **04** Modifica | Cambio valore e riespressione dopo l'annullamento (ANN; lo SCADUTO da riaccettare non esiste più, logica CSI 23/11/2026) | CDU-10 + CDU-11 | Operazioni di modifica di `ConsensoBeService` sull'algoritmo canonico di storicizzazione. Il comportamento dei pulsanti è della Webapp Cittadino, fuori perimetro. Stati da esporre anche sul SOAP (risposta CSI 2.3; come farlo è da chiarire in ST-18) |
+| **04** Modifica | Cambio valore e riespressione dopo l'annullamento (ANN; lo SCADUTO da riaccettare non esiste più, logica CSI 23/11/2026) | CDU-10 + CDU-11 | Operazioni di modifica di `ConsensoBeService` sull'algoritmo canonico di storicizzazione. Il comportamento dei pulsanti è della Webapp Cittadino, fuori perimetro. Stati da esporre anche sul SOAP (risposta CSI 2.3; a carico di CSI, 27/11) |
 | **06** Scarico informativa | Informativa del consenso | CDU-06 (operatore) | Stesso servizio di dominio; lato cittadino passa da `ConsensoBeService` |
 
 ## Vincoli da rispettare
@@ -36,7 +36,7 @@ Restano i due motori dell'AS-IS: il motore legacy serve il cittadino, l'ALG02 l'
 - **Contratto invariato** verso la Webapp Cittadino, errori compresi: la classificazione 502/409/503 (DEV-04) non si applica a questi servizi.
 - **Deleghe fuori perimetro**: il BE non chiama Gestione Deleghe e non verifica la delega (verificata a monte). Riceve il CF del delegato nella richiesta SOAP e lo registra in `cons_t_consenso.cf_delegato` (DEV-02, BE-13). Il nome del campo è quello del WSDL.
 - Flag `verificaAura` di `consultaConsensoBe`: il legacy non lo legge mai e verifica **sempre** su AURA. Il nuovo servizio mantiene il campo e lo stesso comportamento (BE-14).
-- Stesse regole di blocco dei CDU operatore (endpoint `IN_CORSO` o `IN_MANUTENZIONE`) e stessa scrittura della coda notifiche.
+- Nessun blocco di allineamento o manutenzione in V1.0 (27/11); stessa scrittura della coda notifiche.
 - Il motore di storicizzazione, la coda notifiche e i dati del form (`valori_ammessi`, parametri) sono **gli stessi** dei CDU operatore: nessuna duplicazione di logica.
 
 ## Come svilupparlo

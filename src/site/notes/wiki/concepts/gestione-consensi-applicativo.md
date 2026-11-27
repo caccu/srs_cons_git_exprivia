@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/concepts/gestione-consensi-applicativo/","title":"Gestione Consensi - Applicativo","tags":["applicativo","gestione-consensi","sanita-piemonte","to-be"],"dg-note-properties":{"title":"Gestione Consensi - Applicativo","aliases":["Gestione Consensi - Applicativo"],"type":"concept","tags":["applicativo","gestione-consensi","sanita-piemonte","to-be"],"created":"2026-05-05","updated":"2026-11-24","sources":["2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7","2026-09-25-riscontro-csi-domande-sviluppo","2026-11-24-revisione-be-deck-glossario"],"related":["[[CSI Piemonte]]","[[exprivia|Exprivia S.p.A.]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Architettura IaaS]]","[[2026-03-12-pile-tecnologiche-csi|Pile Tecnologiche CSI Piemonte]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
+{"dg-publish":true,"permalink":"/wiki/concepts/gestione-consensi-applicativo/","title":"Gestione Consensi - Applicativo","tags":["applicativo","gestione-consensi","sanita-piemonte","to-be"],"dg-note-properties":{"title":"Gestione Consensi - Applicativo","aliases":["Gestione Consensi - Applicativo"],"type":"concept","tags":["applicativo","gestione-consensi","sanita-piemonte","to-be"],"created":"2026-05-05","updated":"2026-11-27","sources":["2026-03-02-conspref-srs-v1-revised","2023-09-01-conspref-srs-01-v03","2019-02-01-sfu-gestione-consensi-v1-7","2026-09-25-riscontro-csi-domande-sviluppo","2026-11-24-revisione-be-deck-glossario"],"related":["[[CSI Piemonte]]","[[exprivia|Exprivia S.p.A.]]","[[wiki/concepts/ciclo-vita-consenso\|Ciclo di Vita del Consenso]]","[[Architettura IaaS]]","[[2026-03-12-pile-tecnologiche-csi|Pile Tecnologiche CSI Piemonte]]","[[wiki/concepts/composizione-dinamica-form-consenso\|Composizione Dinamica Form Consenso — Single Source of Truth]]","[[wiki/analyses/analysis-2026-05-14-risposte-mf-srs-v3\|analysis-2026-05-14-risposte-mf-srs-v3]]"]}}
 ---
 
 
@@ -143,7 +143,7 @@ Variante 6.1.3 [PROPOSTA]: se il servizio Gestione Deleghe non risponde o restit
 
 - `GET /api/v1/consensi/stato` (CDU-15)
 - `GET /api/v1/configurazione/{codiceEnte}` (CDU-16)
-- `GET /api/v1/consensi/snapshot` (CDU-17, ✅ confermato 20/07/2026 — vedi [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]])
+- `GET /api/v1/consensi/snapshot` (CDU-17, ✅ confermato 20/07/2026 — vedi [[wiki/concepts/alternativa-batch-03-pull\|Alternativa BATCH-03 — PULL CDU-17 (centro stella)]]). ⛔ 27/11/2026: fuori dal flusso di sviluppo V1.0 ([[wiki/sources/2026-11-27-risposte-csi-riscontro-stati-cdu17\|risposte CSI]]).
 
 Sicurezza per tutti gli endpoint SIA: vedi [[wiki/concepts/sicurezza-cdu-15-16\|Sicurezza CDU-15-16 — Modello Autorizzazione per Ente]]. In V1.0 non esposti: vedi [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]].
 

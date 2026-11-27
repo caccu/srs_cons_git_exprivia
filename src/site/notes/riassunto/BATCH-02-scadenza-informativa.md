@@ -10,8 +10,8 @@
 
 Ogni notte cerca le **informative scadute** (sostituite da una nuova versione) e **annulla** in automatico i consensi collegati (logica TO-BE indicata da CSI, 23/11/2026):
 - i consensi ATT (SI o NO) dell'informativa passano ad **ANN** con valore **NE**: a video risultano come mai espressi e vanno riespressi con la nuova informativa;
-- l'annullamento si notifica alle aziende (via coda e BATCH-01) con valore NE;
-- notifica al cittadino tramite **UNP**: oggi prevista, da confermare con CSI (ST-18).
+- l'annullamento si notifica alle aziende (via coda e BATCH-01) con SRV-04 e valore NE (decisione Exprivia del 27/11; accettazione di NE a carico di CSI);
+- notifica al cittadino tramite **UNP**: oggi prevista, resta aperta (ST-18).
 
 Non esistono più il flag `annulla_consensi` e lo SCADUTO da riaccettare. I record SCA (superati da una variazione) non cambiano.
 
@@ -35,22 +35,21 @@ WHERE d_informativa_id = :id_scaduta AND tipo_stato = 'ATT' AND data_fine IS NUL
 ```
 
 **ALG02 — Annullamento**, per ogni `cons_id` (con il motore comune, TRASV §4):
-1. UPDATE chiusura: `data_fine = NOW()`, `data_modifica = NOW()`, `login_operazione = 'BATCH_SCADENZA_INF'`; il record chiuso prende lo stato SCA e tiene il suo valore.
-2. INSERT in `cons_s_consenso` (copia del record chiuso con FK `cons_id`).
-3. INSERT del nuovo record in `cons_t_consenso`: copia dei dati, stato ANN, `valore_consenso = 'NE'`, `d_informativa_id` = **informativa scaduta** (non la nuova), `data_acquisizione = NOW()`, `data_fine = NULL`, `login_operazione = 'BATCH-02'`, `uuid = gen_random_uuid()`, `endp_id = NULL`.
-4. INSERT in `cons_t_notifica` (`DA_INVIARE`) per gli endpoint, con valore NE → li invia BATCH-01.
-5. Notifica al cittadino via **UNP**, se confermata con CSI (ST-18). Record con `flag_notifica_cittadino = TRUE`, inviato **direttamente da BATCH-02**: CF, codice modulo "Gestione Consensi", tipo evento, testo/template. Il canale (email, push, IO, area riservata) lo sceglie l'UNP in base alle preferenze; SMS non usato. Il cittadino senza preferenze non riceve nulla e il caso è chiuso. Si salvano `notificatore_uuid` e `notificatore_data_invio`, tracciatura in `cons_t_traccia_serv_est`.
+1. INSERT in `cons_s_consenso` della copia del record ATT (FK `cons_id`): il valore espresso dal cittadino resta nello storico.
+2. UPDATE dello stesso record (schema CSI V01, confermato il 27/11/2026; eccezione ad ADR-015): stato ANN, `valore_consenso = 'NE'`, `data_modifica = NOW()`, `login_operazione = 'BATCH_SCADENZA_INF'`; `data_fine` resta NULL e `d_informativa_id` resta l'informativa scaduta.
+3. INSERT in `cons_t_notifica` (`DA_INVIARE`) per gli endpoint, con SRV-04 e valore NE: li invia BATCH-01.
+4. Notifica al cittadino via **UNP**, se confermata (ST-18, aperto). Record con `flag_notifica_cittadino = TRUE`, inviato **direttamente da BATCH-02**: CF, codice modulo "Gestione Consensi", tipo evento, testo/template. Il canale (email, push, IO, area riservata) lo sceglie l'UNP in base alle preferenze; SMS non usato. Il cittadino senza preferenze non riceve nulla e il caso è chiuso. Si salvano `notificatore_uuid` e `notificatore_data_invio`, tracciatura in `cons_t_traccia_serv_est`.
 
-> **Da chiarire con CSI (ST-18):** nel documento CSI l'annullamento modifica lo stesso record (stato ANN, valore NE, data di modifica) invece dei passi 1-3; la mail CSI dice invece che resta il valore del cittadino. Oggi SRV-03 accetta solo SI/NO.
+> ✅ **Deciso il 27/11/2026 (risposte CSI):** l'annullamento aggiorna lo stesso record come nello schema CSI V01; la proposta Exprivia (chiusura come SCA più nuovo record ANN/NE) è respinta. La copia nello storico al passo 1 è una scelta Exprivia (27/11). Annullamento verso le aziende con SRV-04 (decisione Exprivia); se le aziende accettano NE lo verifica CSI.
 
-Lo scenario SC67 (flag diverso tra informativa scaduta e nuova) non si pone più: senza flag l'annullamento vale sempre. La nuova informativa corrente si cerca quando il consenso viene riespresso (CDU-09 o CDU-10, da chiarire ST-18).
+Lo scenario SC67 (flag diverso tra informativa scaduta e nuova) non si pone più: senza flag l'annullamento vale sempre. La nuova informativa corrente si cerca quando il consenso viene riespresso (CDU-09 o CDU-10).
 
 **Transazioni e ripresa**
 - Lotti configurabili (default 1000 record), COMMIT a fine lotto.
 - `stato_elaborazione` (DA_ELABORARE → IN_ELABORAZIONE → ELABORATA) evita di rielaborare dopo un riavvio. A fine informativa: `ELABORATA`.
 - Due nodi (21/10/2026): il job gira su entrambi. La presa in carico (`DA_ELABORARE` → `IN_ELABORAZIONE`) avviene con `SELECT … FOR UPDATE SKIP LOCKED` in una transazione breve, così l'altro nodo non vede l'informativa. A ogni lotto si aggiorna `data_modifica` dell'informativa (colonna esistente), che fa da battito. Un'informativa `IN_ELABORAZIONE` con `data_modifica` ferma da più di 120 minuti viene ripresa da un nodo qualsiasi; i consensi già chiusi non vengono riselezionati, quindi niente duplicati. Le notifiche al cittadino sono prese una alla volta con lo stesso meccanismo. I due batch sono spenti per default: negli ambienti di deploy si accendono con la loro variabile d'ambiente (dev BE, 24/11/2026).
 - Errori non fatali in `cons_t_batch_errori`, senza bloccare l'intera elaborazione.
-- Notifiche sospese per le ASR in manutenzione (§7.4).
+- ~~Notifiche sospese per le ASR in manutenzione (§7.4).~~ Manutenzione fuori V1.0 dal 27/11.
 
 ## Come svilupparlo
 
@@ -67,4 +66,4 @@ CDU-13 (informative e date); BATCH-01 (consegna notifiche ASR); UNP.
 
 - Cadenza esatta e finestra notturna.
 - Template e testo della notifica UNP; codice modulo.
-- Dettagli della logica CSI (ST-18): annullamento sullo stesso record o chiusura più nuovo record; valore dopo l'annullamento; NE nelle notifiche SRV-03; notifica UNP al cittadino.
+- Notifica UNP al cittadino sull'annullamento (ST-18, aperto).

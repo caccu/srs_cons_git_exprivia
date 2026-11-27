@@ -36,9 +36,9 @@ Azioni per riga, abilitate in base allo stato:
 
 | Stato | Azioni |
 |---|---|
-| non espresso / ANN | Rilascia (CDU-09); per ANN anche Modifica (CDU-10), da chiarire con CSI (ST-18) |
+| non espresso / ANN | Rilascia (CDU-09); per ANN anche Modifica (CDU-10, resta separato, 27/11) |
 | ATT (SI o NO) | **Cambia valore** (CDU-11), Scarica informativa (CDU-06) |
-| endpoint in allineamento (`IN_CORSO`) o in manutenzione (`IN_MANUTENZIONE`, stato dell'endpoint, §7.4) | rilascio, modifica e cambio valore disabilitati, con messaggio di indisponibilità; consultazione e PDF restano disponibili |
+| ~~endpoint in allineamento (`IN_CORSO`) o in manutenzione (`IN_MANUTENZIONE`, stato dell'endpoint, §7.4)~~ fuori V1.0 (27/11) | ~~rilascio, modifica e cambio valore disabilitati, con messaggio di indisponibilità~~; consultazione e PDF sempre disponibili |
 
 Variante: nessun consenso espresso → messaggio informativo e invito al rilascio.
 
@@ -56,7 +56,7 @@ Due comportamenti AS-IS da **non** replicare così come sono:
 - Endpoint, ad esempio `GET /consensi/{cfAssistito}` (CF operatore dalla sessione). Restituisce per ogni sotto-tipo configurato e valido (`cons_d_sotto_tipo_cons`) e per ogni ASR pertinente:
   - il record corrente in `cons_t_consenso` (`data_fine IS NULL`) oppure "non espresso" (nessun record oppure stato ANN);
   - `tipo_stato`, `valore_consenso`, `data_acquisizione`, `d_informativa_id` + descrizione;
-  - lo stato dell'endpoint dell'azienda (`stato_allineamento`, manutenzione). Per la manutenzione il BE usa `aziendaInManutenzione` e `statoEndpoint`, aggiunti anche al servizio legacy `informativa/find` da cui il FE costruisce la lista (righe da concordare tra BE e FE, 02/11/2026).
+  - lo stato dell'endpoint dell'azienda (`stato_allineamento`, manutenzione). Per la manutenzione il BE usa `aziendaInManutenzione` e `statoEndpoint`, aggiunti anche al servizio legacy `informativa/find` da cui il FE costruisce la lista (righe da concordare tra BE e FE, 02/11/2026). ⛔ Allineamento e manutenzione fuori V1.0 dal 27/11.
 - Le **azioni** le ricava il FE da stato del consenso, flag `online` e stato dell'endpoint: un calcolo lato BE non è requisito di SRS né wiki (BE-20, 22/10/2026). Non va confuso con `valori_ammessi`, che è requisito (ADR-023).
 - Elenco ASR: da `cons_d_asr` e `cons_r_sotto_tipo_cons_asr_endpoint` / `cons_r_asr_endpoint`, escludendo le aziende senza endpoint validi. Regola provvisoria: azienda mostrata se ha almeno un endpoint attivo (BE-16), in attesa di DEV-01.
 - Audit della consultazione in `csi_log_audit` (operazione su dati sanitari dell'assistito).

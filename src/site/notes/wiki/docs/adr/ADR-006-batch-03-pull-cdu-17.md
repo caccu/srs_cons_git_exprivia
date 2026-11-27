@@ -7,6 +7,8 @@
 
 ## Status
 
+> ⛔ **Fuori dal flusso di sviluppo V1.0 (27/11/2026, [[wiki/sources/2026-11-27-risposte-csi-riscontro-stati-cdu17\|risposte CSI]]):** CSI non chiede lo sviluppo dell'allineamento di un nuovo endpoint. Il pregresso lo migrano le ASR, come oggi, e CSI fa un export della base dati se un'azienda non può recuperarlo. Escono lo snapshot CDU-17 (pulsante «Scarica snapshot» in CDU-14, CSV, stati DA_ALLINEARE, IN_CORSO e COMPLETATO, blocco delle acquisizioni) e la manutenzione dell'endpoint (`IN_MANUTENZIONE`, BE-25). Resta la gestione del nuovo endpoint da back office (CDU-14). Il testo sotto resta come storia. L'ADR resta `accepted` per l'eliminazione di BATCH-03 push.
+
 > ⚠️ **Sicurezza da rivedere ([[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]], 05/11/2026):** il principio resta valido (pull invece di push, centro stella, blocco obbligatorio). Cambia il canale: niente API Manager, OAuth2, header del gateway né rate limit sul Traffic Manager. 🆕 **Proposta A+D del 06/11/2026 (da confermare con CSI, ST-11):** in V1.0 lo snapshot lo scarica l'operatore di configurazione da CDU-14, in un CSV identico a quello dell'allineamento massivo AS-IS. I REST per il SIA restano nel codice, non esposti (vincolo: nessun lavoro per le ASR). ~~Il SIA chiama `/snapshot` e la conferma del passo 5 in mutual TLS (decisione dedotta).~~ I servizi su endpoint e manutenzione si usano solo dalla webapp (CDU-14). Vedi [[wiki/concepts/alternativa-batch-03-pull\|alternativa-batch-03-pull]].
 
 `accepted` — proposta formalizzata da Exprivia il 2026-05-14 (risposta al commento **TR34/TR68**) e **confermata dal committente nella call CSI del 20/07/2026**, che ha fornito il **rifacimento completo** del caso d'uso.

@@ -15,7 +15,7 @@ Inverte il valore di un consenso **già valido** (ATT/SI ↔ ATT/NO, "Acconsento
 ## Precondizioni
 
 - Operatore autenticato, assistito selezionato (CDU-07), consensi visualizzati (CDU-08).
-- Il pulsante **"Modifica Valore" / "Cambia Valore"** è abilitato **solo per ATT** (SI o NO). Per ANN si usa CDU-09 o CDU-10 (da chiarire con CSI, ST-18).
+- Il pulsante **"Modifica Valore" / "Cambia Valore"** è abilitato **solo per ATT** (SI o NO). Per ANN si usa CDU-09 o CDU-10 (CDU-10 resta separato, 27/11).
 - Disponibile al profilo di operatore di sportello (call CSI 28/10/2026), senza limitazioni per azienda o tipo di consenso.
 
 ## Flusso
@@ -55,7 +55,7 @@ PUT /consensi/{cfAssistito}/valore
 ## Logica di backend
 
 1. Validazione: record valido esistente in stato ATT, altrimenti 409. Nuovo valore ≠ attuale e presente in `cons_r_consenso_valore` per il sotto-tipo (validità attiva). `cod_asr` obbligatorio per gli aziendali, null per i regionali.
-2. Per ogni record coinvolto (1 per aziendale, N per regionale) si applica l'algoritmo canonico: UPDATE chiusura → INSERT `cons_s_consenso` → INSERT nuovo `cons_t_consenso` (stesso `d_informativa_id`, stato ATT con il nuovo valore; il record chiuso passa a SCA) → `csi_log_audit` → `cons_t_notifica` per gli endpoint attivi non `IN_CORSO`. Oggi il passaggio da sì a no scrive R/NO, come il vecchio back office (ST-17); con la logica CSI è ATT/NO. Da chiarire con CSI cosa fare dei record R esistenti (ST-18).
+2. Per ogni record coinvolto (1 per aziendale, N per regionale) si applica l'algoritmo canonico: UPDATE chiusura → INSERT `cons_s_consenso` → INSERT nuovo `cons_t_consenso` (stesso `d_informativa_id`, stato ATT con il nuovo valore; il record chiuso passa a SCA) → `csi_log_audit` → `cons_t_notifica` per gli endpoint attivi. Oggi il passaggio da sì a no scrive R/NO, come il vecchio back office (ST-17); con la logica CSI è ATT/NO. I record R esistenti li migra CSI (27/11).
 3. Transazione unica. Rollback totale se fallisce un passo.
 
 Il BE ha già un endpoint equivalente con lo stesso motore: va adeguato a questa forma.

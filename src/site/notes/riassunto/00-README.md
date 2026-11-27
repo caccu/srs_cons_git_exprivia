@@ -38,13 +38,13 @@ Il progetto è un **rifacimento**: stesso dominio, nuovo stack (Angular 21 + Spr
 | CDU-11 | Modifica valore per conto | ✅ | ✅ | [CDU-05/11](CDU-05-CDU-11-modifica-valore.md) |
 | CDU-12 | Gestione tipo consenso | ✅ (Back Office) | ✅ | [CDU-12](CDU-12-gestione-tipo-consenso.md) |
 | CDU-13 | Gestione informativa | ✅ (Back Office) | ✅ | [CDU-13](CDU-13-gestione-informativa.md) |
-| CDU-14 | Gestione enti ed endpoint | ✅ (Back Office) | ✅ + scaricamento dello snapshot (CSV) e manutenzione dall'operatore (proposta A+D) | [CDU-14](CDU-14-gestione-ente-endpoint.md) |
+| CDU-14 | Gestione enti ed endpoint | ✅ (Back Office) | ✅ (snapshot e manutenzione fuori V1.0, 27/11) | [CDU-14](CDU-14-gestione-ente-endpoint.md) |
 | CDU-15 | API stato consenso per SIA | — | ✅ | [CDU-15](CDU-15-api-stato-consenso.md) |
 | CDU-16 | API configurazione per SIA | — | ✅ | [CDU-16](CDU-16-api-configurazione.md) |
-| CDU-17 | Snapshot PULL per allineamento | pulsante «Scarica snapshot» in CDU-14 | ✅ | [CDU-17](CDU-17-snapshot-pull.md) |
+| CDU-17 | Snapshot PULL per allineamento | ⛔ fuori V1.0 (27/11) | ⛔ fuori V1.0: allineamento fuori linea a cura delle ASR | [CDU-17](CDU-17-snapshot-pull.md) |
 | BATCH-01 | Notifica consensi alle aziende | — | ✅ | [BATCH-01](BATCH-01-notifica-consensi.md) |
 | BATCH-02 | Scadenza/annullamento informativa | — | ✅ | [BATCH-02](BATCH-02-scadenza-informativa.md) |
-| §7.4 | Manutenzione endpoint ASR (start/stop) | messaggio di indisponibilità | ✅ | [Manutenzione](MANUTENZIONE-endpoint-asr.md) |
+| §7.4 | Manutenzione endpoint ASR (start/stop) | ⛔ fuori V1.0 (27/11) | ⛔ fuori V1.0, con CDU-17 (BE-25 pending) | [Manutenzione](MANUTENZIONE-endpoint-asr.md) |
 | BATCH-03 | Allineamento push | **rimosso**, sostituito da CDU-17 | — | — |
 
 **Lista FE Operatore da stimare:** 01a, 06, 07, 08, 09, 10, 11, 12, 13, 14 (CDU-05 lato operatore è la stessa maschera di CDU-11).
@@ -73,7 +73,7 @@ L'ordine segue le dipendenze reali tra i pezzi.
 5. **BATCH-01** (consuma la coda creata al punto 4).
 6. **Back Office**: CDU-12 → CDU-13 → CDU-14 (CDU-12 popola le tabelle che il Form Renderer legge).
 7. **BATCH-02** (scatta dalle informative gestite in CDU-13).
-8. **Allineamento e manutenzione**: OpenAPI dei servizi della webapp (scaricamento dello snapshot in CSV, manutenzione) prima del codice, PULL-09. In V1.0 nessun REST esposto ai SIA (proposta A+D); i REST di CDU-15/16/17 per i SIA restano nel codice, non esposti. CDU-17 e manutenzione endpoint dipendono dallo `stato_allineamento` di CDU-14.
+8. **Allineamento e manutenzione**: ⛔ fuori dal flusso di sviluppo V1.0 (risposte CSI del 27/11/2026): il pregresso di un nuovo endpoint lo migrano le ASR fuori linea, CSI fa un export se serve. Resta la gestione del nuovo endpoint da CDU-14; OpenAPI dei servizi degli endpoint (PULL-09). I REST di CDU-15/16 per i SIA restano nel codice, non esposti.
 9. **Backend area Cittadino** a iso-funzionalità, in parallelo: SOAP `ConsensoBeService` con lo stesso WSDL (ADR-025).
 
 ## 5. Punti aperti trasversali (da tenere d'occhio)
@@ -83,10 +83,10 @@ L'ordine segue le dipendenze reali tra i pezzi.
 | Contratto Webapp Cittadino = SOAP `ConsensoBeService` via APISAN (ADR-025, 10 operazioni, 9 usate da SANSOL) | Non regressione del BE Cittadino | Solo conferma CSI (INT-06/INT-08) |
 | DEV-04: codici HTTP 502/409/503 per errori esterni/DB | Contratto errori FE e integrazioni | In verifica CSI |
 | ~~DEV-05: BE raggiungibile solo dal Gateway APIMBBONE~~ | Sicurezza CDU-15/16/17 | Superato da ADR-027 (nessun API Manager) |
-| ST-11: CDU-17 e manutenzione in V1.0 solo dall'operatore, con CSV identico all'AS-IS (proposta A+D; vincolo: nessun lavoro per le ASR) | Sicurezza SIA | 🟠 Proposta, da confermare con CSI. ~~Mutual TLS (decisione dedotta)~~: `ConsprefService` usa la firma WS-Security (verifica sul codice del 06/11/2026) |
+| ST-11: CDU-17 e manutenzione in V1.0 solo dall'operatore, con CSV identico all'AS-IS (proposta A+D; vincolo: nessun lavoro per le ASR) | Sicurezza SIA | ✅ Chiuso 27/11/2026: CSI non vuole lo snapshot, allineamento fuori linea; manutenzione fuori V1.0; aperte le domande sui certificati. ~~Mutual TLS (decisione dedotta)~~: `ConsprefService` usa la firma WS-Security (verifica sul codice del 06/11/2026) |
 | DEV-01: `modifyToRevoked` AS-IS e regola di esclusione aziende con endpoint dismessi (ASR 904 da ripristinare) | CDU-08/09/14, elenco ASR | Parziale; regola provvisoria: almeno un endpoint attivo (BE-16) |
 | Valore effettivo di `fonte_id` per il Punto Assistito (`PASS` etichetta logica, es. `WA_PASS` nel DB AS-IS). Nel contratto SOAP (documento CPROL v02c): tipo fonte `PASS`, codice fonte `WA_PASS` | CDU-09/10/11 | Da verificare su `cons_d_fonte` |
 | INT-10: Notificatore di Deleghe = `notify-mb` | avviso al cittadino dopo `COMPLETATO` (BATCH-01) | ✅ Chiuso 20/11/2026: sì, stesso servizio (collega Exprivia) |
 | Regole residue del Form Renderer: domande multiple, default del radio, HTML nei parametri. Chiuse: `online = NO` lato operatore (BE-18); una azienda per operazione (FE-03, resta la verifica AS-IS) | CDU-09/10/11 | Da inviare a CSI |
-| Stato `IN_MANUTENZIONE` e modello dati start/stop | Manutenzione endpoint | Chiuso (02/11/2026, SRS rev. 1.29): colonna `cons_t_endpoint.stato_endpoint` (`ATTIVO`, `IN_MANUTENZIONE`), separata da `stato_allineamento`; ripresa con `stato = ATTIVO`. In V1.0 la manutenzione la imposta e la toglie l'operatore da CDU-14, su richiesta dell'azienda (proposta A+D, BE-25 e BE-25b) |
+| Stato `IN_MANUTENZIONE` e modello dati start/stop | Manutenzione endpoint | Chiuso (02/11/2026, SRS rev. 1.29): colonna `cons_t_endpoint.stato_endpoint` (`ATTIVO`, `IN_MANUTENZIONE`), separata da `stato_allineamento`; ripresa con `stato = ATTIVO`. In V1.0 la manutenzione la imposta e la toglie l'operatore da CDU-14, su richiesta dell'azienda (proposta A+D, BE-25 e BE-25b). ⏸ 27/11/2026: manutenzione fuori dal flusso di sviluppo V1.0, BE-25 e BE-25b pending. |
 | Infrastruttura IaaS: ingress/TLS, segreti, scaling | Deploy | Aperto con CSI |

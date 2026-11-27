@@ -24,7 +24,7 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | [ADR-003](ADR-003-dbaas-nivola.md) | DBaaS Nivola esterno al namespace | accepted | 2026-03-02 | Infrastruttura |
 | [ADR-004](ADR-004-no-api-gateway.md) | No API Gateway — sicurezza applicativa via Spring Security | superseded by ADR-027 | 2026-03-02 | Sicurezza |
 | [ADR-005](ADR-005-sicurezza-cdu-15-16.md) | Sicurezza CDU-15/16 — OAuth2 CC + JWT + autorizzazione per ente | superseded by ADR-027 | 2026-05-14 | Sicurezza |
-| [ADR-006](ADR-006-batch-03-pull-cdu-17.md) | Sostituzione BATCH-03 push → CDU-17 PULL (centro stella) | **accepted** | 2026-07-20 | Batch / Integrazione |
+| [ADR-006](ADR-006-batch-03-pull-cdu-17.md) | Sostituzione BATCH-03 push → CDU-17 PULL (centro stella) | **accepted** (snapshot CDU-17 fuori perimetro V1.0, 27/11/2026) | 2026-07-20 | Batch / Integrazione |
 | [ADR-007](ADR-007-batch-01-5min-skip-locked.md) | BATCH-01 5 min con SKIP LOCKED | accepted | 2026-05-14 | Batch |
 | [ADR-008](ADR-008-ssot-form-renderer.md) | SSoT Form Renderer unico (Cittadino + Operatore) — nota scope: solo Op | accepted | 2026-05-14 | UX / Architettura |
 | [ADR-009](ADR-009-eliminazione-sistemats.md) | Eliminazione SistemaTS dall'integrazione | accepted | 2026-05-14 | Integrazione |
@@ -33,7 +33,7 @@ Registry delle decisioni architetturali del progetto **Gestione Consensi Regione
 | [ADR-012](ADR-012-notificatore-deleghe-post-completato.md) | Notifica via Notificatore di Deleghe (non UNP), post-COMPLETATO | accepted | 2026-05-14 | Notifica |
 | [ADR-013](ADR-013-migrazione-pg-dump-restore.md) | Migrazione PG9 → PG18 via dump/restore | accepted | 2026-03-02 | Database / Migrazione |
 | [ADR-014](ADR-014-apache-cxf-soap-client.md) | Apache CXF come client SOAP | accepted | 2026-03-02 | Integrazione |
-| [ADR-015](ADR-015-storicizzazione-immutabile.md) | Storicizzazione immutabile (no sovrascrittura) | accepted | 2026-03-02 | Modello dati |
+| [ADR-015](ADR-015-storicizzazione-immutabile.md) | Storicizzazione immutabile (no sovrascrittura) | accepted (eccezione per l'annullamento, 27/11/2026) | 2026-03-02 | Modello dati |
 | [ADR-016](ADR-016-scaduto-async-batch-02.md) | Stato SCADUTO async via BATCH-02 | accepted ⚠️ superato dalla logica CSI del 23/11, nuovo ADR da scrivere (ST-18) | 2026-03-02 | Batch / Semantica |
 | [ADR-017](ADR-017-lis-terzo-canale.md) | LIS terzo canale acquisizione consenso | superseded | 2026-05-14 | Canali |
 | [ADR-018](ADR-018-rfc-7807-error-response.md) | RFC 7807 error response | accepted | 2026-03-02 | API |
@@ -123,8 +123,8 @@ ADR-019 CDU-06 PDF scope ridotto (standalone, allineato con UX cittadino) — su
 Vedi tracker autoritativo: [[wiki/analyses/analysis-2026-05-14-punti-aperti-csi\|analysis-2026-05-14-punti-aperti-csi]].
 
 ADR con open issues:
-- ~~**ADR-005**: SEC-01÷06~~ → superati da ADR-027 (nessun API Manager). **ADR-027**: chi chiama CDU-17; manutenzione da CDU-14 (domanda 12)
-- **ADR-006**: ✅ PULL-01 (blocco), PULL-02 (email+webhook), PULL-05/06/08 chiusi (call 20/07/2026); residui non bloccanti PULL-03/04/07 + swagger CDU-17
+- ~~**ADR-005**: SEC-01÷06~~ → superati da ADR-027 (nessun API Manager). **ADR-027**: chi chiama CDU-17; manutenzione da CDU-14 (domanda 12). ⛔ 27/11/2026: snapshot CDU-17 e manutenzione fuori dal flusso di sviluppo V1.0
+- **ADR-006**: ✅ PULL-01 (blocco), PULL-02 (email+webhook), PULL-05/06/08 chiusi (call 20/07/2026); residui non bloccanti PULL-03/04/07 + swagger CDU-17. ⛔ 27/11/2026: snapshot CDU-17 e manutenzione fuori dal flusso di sviluppo V1.0
 - **ADR-007**: BAT-01 (WSDL SRV-01 vs SRV-03)
 - **ADR-010**: ~~ID-01 (GASP Salute protocollo)~~ non più bloccante — **frontend** CDU-01b fuori scope (ADR-021, 06/08/2026). ✅ Nessuna integrazione GASP nel backend: autenticazione chiusa su SANSOL/APISAN (dev BE 21/10/2026, ADR-025)
 - **ADR-013**: ~~GOV-03 (responsabile CSI migrazione)~~ ✅ chiuso 16/07/2026 (CSI Piemonte), TECH-01 (audit DDL PG9, target ora PG18)

@@ -6,6 +6,8 @@
 
 **Perimetro:** solo BE ✅ (+ visualizzazione dello stato nella webapp, CDU-14) — Riferimenti: SRS v10 §6.17, §7.3, §8.4.3; ADR-006 (accepted, confermato dal committente il 20/07/2026); ADR-027 (senza API Manager; **proposta A+D del 06/11/2026**: in V1.0 solo operatore, REST per i SIA nel codice ma non esposti, da confermare con CSI, ST-11); `CDU-17_diagramma-sequenza.md`.
 
+> ⛔ **Fuori dal flusso di sviluppo V1.0 (risposte CSI del 27/11/2026):** CSI non chiede lo sviluppo dell'allineamento di un nuovo endpoint. Il pregresso lo migrano le ASR fuori linea, come oggi, e CSI fa un export della base dati se un'azienda non può recuperarlo. Escono lo snapshot (pulsante, CSV, stati DA_ALLINEARE, IN_CORSO e COMPLETATO, blocco delle acquisizioni) e la manutenzione dell'endpoint (BE-25 e BE-25b pending). Resta la gestione del nuovo endpoint da CDU-14. Il testo sotto resta come storia.
+
 ## Cosa fa
 
 Quando un'azienda aggiunge un **nuovo endpoint**, il nuovo sistema deve ricevere tutti i consensi esistenti. Invece di un push massivo dal centro (il vecchio BATCH-03, **rimosso**), è il **SIA a scaricarli a pagine** (PULL), secondo il modello "centro stella": il centro espone i dati, la periferia si allinea. In **V1.0** il pull lo fa l'**operatore di configurazione** dalla webapp (CDU-14): scarica lo snapshot in un file e l'azienda lo carica nel suo SIA. Lo scaricamento automatico dal SIA è lo scenario futuro (flusso sotto, non esposto).

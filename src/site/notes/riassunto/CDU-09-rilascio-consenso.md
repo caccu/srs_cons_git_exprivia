@@ -16,7 +16,7 @@ L'operatore, allo sportello, registra un consenso **nuovo** per l'assistito: un 
 
 - Operatore autenticato, assistito selezionato (CDU-07).
 - Consenso **non** in stato ATT. Se lo è, il sistema rimanda a CDU-11.
-- Endpoint dell'ente **non** in allineamento (`cons_r_asr_endpoint.stato_allineamento ≠ 'IN_CORSO'`, blocco obbligatorio CDU-17) e endpoint non `IN_MANUTENZIONE` (§7.4).
+- ~~Endpoint dell'ente **non** in allineamento (`cons_r_asr_endpoint.stato_allineamento ≠ 'IN_CORSO'`, blocco obbligatorio CDU-17) e endpoint non `IN_MANUTENZIONE` (§7.4).~~ Nessun blocco di allineamento o manutenzione in V1.0 (risposte CSI del 27/11/2026).
 
 ## Flusso
 
@@ -49,17 +49,17 @@ Default del radio: l'SRS indica NO. La **proposta** è nessuna preselezione lato
 - Sotto-tipi validi in `cons_d_sotto_tipo_cons` non ancora espressi dall'assistito o in stato ANN.
 - Per ciascuno, informativa corrente e flag `online` da `cons_d_informativa`. Informativa corrente = stessa `sotto_tipo_consenso`, `data_decorrenza <= NOW()`, `data_scadenza` nulla o futura, non cancellata, la più recente. Per gli aziendali va considerata anche `cons_r_informativa_asr`.
 - `valori_ammessi` da `cons_r_consenso_valore` + `cons_d_valore_cons`; parametri da `cons_r_consenso_parametro`.
-- `regole.bloccato_allineamento = true` se l'endpoint è `IN_CORSO` (aziendale: solo l'azienda del consenso; regionale: qualunque azienda).
-- `regole.bloccato_manutenzione = true` se l'azienda è in manutenzione (§7.4). Arriva con il nuovo form (`campi[]` e `regole`, BE-05).
+- ~~`regole.bloccato_allineamento = true` se l'endpoint è `IN_CORSO` (aziendale: solo l'azienda del consenso; regionale: qualunque azienda).~~ (non in V1.0, 27/11)
+- ~~`regole.bloccato_manutenzione = true` se l'azienda è in manutenzione (§7.4). Arriva con il nuovo form (`campi[]` e `regole`, BE-05).~~ (non in V1.0, 27/11)
 
 **ALG02 — Salvataggio** (passi 4, 5, 6 dell'algoritmo canonico, vedi TRASV §4). In un'unica transazione:
-1. validazione: campi obbligatori, valore tra quelli ammessi, informativa corrente coerente col sotto-tipo, presa visione = true, nessun record valido già ATT, nessun blocco di allineamento o manutenzione;
+1. validazione: campi obbligatori, valore tra quelli ammessi, informativa corrente coerente col sotto-tipo, presa visione = true, nessun record valido già ATT;
 2. se c'è un record ANN valido, va chiuso (passa a SCA) e storicizzato prima (UPDATE `data_fine` + INSERT `cons_s_consenso`);
-3. INSERT `cons_t_consenso`: `cf_cittadino`, `id_aura`, `nome`, `cognome` (da AURA), `sotto_tipo_consenso`, `cod_asr`, `d_informativa_id`, stato ATT con il valore scelto (oggi il primo «no» dalla Webapp Operatore scrive R/NO come il vecchio back office, ST-17; con la logica CSI è ATT/NO, da chiarire ST-18), `valore_consenso`, `fonte_id` = Punto Assistito, `login_operazione` = CF operatore, `ruoloop_id`, `cf_delegato = NULL`, `data_acquisizione = NOW()`, `uuid`;
+3. INSERT `cons_t_consenso`: `cf_cittadino`, `id_aura`, `nome`, `cognome` (da AURA), `sotto_tipo_consenso`, `cod_asr`, `d_informativa_id`, stato ATT con il valore scelto (oggi il primo «no» dalla Webapp Operatore scrive R/NO come il vecchio back office, ST-17; con la logica CSI è ATT/NO; i record R esistenti li migra CSI (27/11)), `valore_consenso`, `fonte_id` = Punto Assistito, `login_operazione` = CF operatore, `ruoloop_id`, `cf_delegato = NULL`, `data_acquisizione = NOW()`, `uuid`;
    - **regionale**: N record, uno per ogni ASR collegata in `cons_r_sotto_tipo_cons_asr_endpoint`. Se il sotto-tipo non ha aziende collegate (oggi TELEMED) il salvataggio è rifiutato con errore applicativo («Consenso non configurato: nessuna azienda collegata») e il form lo segnala già al caricamento (BE-05, 09/10/2026);
    - **aziendale**: un record per l'azienda scelta (vedi punto aperto 4);
 4. INSERT `csi_log_audit` (`operazione = 'insert'`, `ogg_oper = 'cons_t_consenso'`, `key_oper`);
-5. INSERT `cons_t_notifica` (`DA_INVIARE`) per ogni endpoint attivo del sotto-tipo/ASR non `IN_CORSO`.
+5. INSERT `cons_t_notifica` (`DA_INVIARE`) per ogni endpoint attivo del sotto-tipo/ASR.
 
 L'esito per l'operatore dipende solo dal salvataggio. L'invio alle aziende è asincrono (BATCH-01).
 

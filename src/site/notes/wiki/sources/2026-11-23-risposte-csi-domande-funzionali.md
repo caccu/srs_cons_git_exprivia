@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/wiki/sources/2026-11-23-risposte-csi-domande-funzionali/","title":"Risposte CSI alle domande funzionali (23/11/2026)","tags":["csi","risposte","domande-funzionali","bat-03","dev-10","dev-12","cdu-14","fe-08","notifiche","macchina-a-stati"],"dg-note-properties":{"title":"Risposte CSI alle domande funzionali (23/11/2026)","aliases":["Risposte CSI alle domande funzionali (23/11/2026)"],"type":"source","tags":["csi","risposte","domande-funzionali","bat-03","dev-10","dev-12","cdu-14","fe-08","notifiche","macchina-a-stati"],"created":"2026-11-23","updated":"2026-11-23","sources":["2026-11-23-risposte-csi-domande-funzionali"],"related":["[[csi-piemonte|CSI Piemonte]]","[[2026-11-23-passaggi-stato-consenso-csi|Passaggi di stato del consenso — logica TO-BE CSI V01]]","[[analysis-2026-05-14-punti-aperti-csi|Punti aperti CSI]]","[[ciclo-vita-consenso|Ciclo di vita del consenso]]","[[composizione-dinamica-form-consenso|Composizione dinamica del form]]"]}}
+{"dg-publish":true,"permalink":"/wiki/sources/2026-11-23-risposte-csi-domande-funzionali/","title":"Risposte CSI alle domande funzionali (23/11/2026)","tags":["csi","risposte","domande-funzionali","bat-03","dev-10","dev-12","cdu-14","fe-08","notifiche","macchina-a-stati"],"dg-note-properties":{"title":"Risposte CSI alle domande funzionali (23/11/2026)","aliases":["Risposte CSI alle domande funzionali (23/11/2026)"],"type":"source","tags":["csi","risposte","domande-funzionali","bat-03","dev-10","dev-12","cdu-14","fe-08","notifiche","macchina-a-stati"],"created":"2026-11-23","updated":"2026-11-27","sources":["2026-11-23-risposte-csi-domande-funzionali"],"related":["[[csi-piemonte|CSI Piemonte]]","[[2026-11-23-passaggi-stato-consenso-csi|Passaggi di stato del consenso — logica TO-BE CSI V01]]","[[analysis-2026-05-14-punti-aperti-csi|Punti aperti CSI]]","[[ciclo-vita-consenso|Ciclo di vita del consenso]]","[[composizione-dinamica-form-consenso|Composizione dinamica del form]]"]}}
 ---
 
 
@@ -23,11 +23,11 @@
 
 **Risposta CSI:**
 - l'invio a terzi non è fuori perimetro: i consensi vanno inviati alle aziende (ASR). Per CSI «fruitori terzi» sono le ASR;
-  - CSI chiede cosa intendevamo con «fruitori terzi»: risposta nella mail del 24/11 (destinatari diversi dai sistemi delle aziende già collegati, come emerso nella call del 28/10, per esempio futuri servizi di diffusione del consenso; restano fuori perimetro);
+  - CSI chiede cosa intendevamo con «fruitori terzi»: risposta nella mail del 24/11 (destinatari diversi dai sistemi delle aziende già collegati, come emerso nella call del 28/10, per esempio futuri servizi di diffusione del consenso; restano fuori perimetro); 🆕 Nella mail effettivamente inviata il testo è diverso: «Come da voi indicato per Sistemi Terzi si intende le ASR»; CSI: OK ([[wiki/sources/2026-11-27-risposte-csi-riscontro-stati-cdu17\|risposte CSI del 27/11]]);
 - la regola «ANNULLATO come NO» **non è accettata**: lo stato del consenso e il valore espresso dal cittadino sono cose distinte. Quando l'informativa è annullata, «rimane comunque il valore di espressione del cittadino, ma lo stato diventa NE (non espresso)»;
 - CSI rimanda al documento sui passaggi di stato, che secondo loro semplifica il lavoro ed elimina il flag «annulla consensi».
 
-> ⚠️ **Da chiarire con CSI:** la mail dice che resta il valore del cittadino e lo stato diventa NE; il documento sui passaggi di stato mette stato ANN e valore NE. Vedi [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|2026-11-23-passaggi-stato-consenso-csi]].
+> ⚠️ **Da chiarire con CSI:** la mail dice che resta il valore del cittadino e lo stato diventa NE; il documento sui passaggi di stato mette stato ANN e valore NE. Vedi [[wiki/sources/2026-11-23-passaggi-stato-consenso-csi\|2026-11-23-passaggi-stato-consenso-csi]]. ✅ Risolto 27/11/2026: vale il documento, con ANN/NE sullo stesso record ([[wiki/sources/2026-11-27-risposte-csi-riscontro-stati-cdu17\|risposte CSI del 27/11]]).
 
 ### 2.2 Prima informativa propria di un'azienda (DEV-10)
 
@@ -36,6 +36,8 @@
 **Risposta CSI:** non è possibile uno scambio tra tipologie di consenso, ad esempio da regionale ad aziendale e viceversa.
 
 Risposta presa come definitiva (23/11/2026).
+
+🆕 27/11/2026: CSI spiega che il consenso può essere nazionale, regionale o aziendale e che il tipo non cambia, quindi l'informativa non passa da regionale ad aziendale né al contrario ([[wiki/sources/2026-11-27-risposte-csi-riscontro-stati-cdu17\|risposte CSI del 27/11]]).
 
 ### 2.3 Quando bloccare modifica o disattivazione (DEV-12)
 
@@ -46,6 +48,8 @@ Risposta presa come definitiva (23/11/2026).
 - in ogni caso gli stati devono essere riportati su entrambi i servizi esposti verso cittadino e operatore di back office (SOAP e REST).
 
 Risposta presa come definitiva (23/11/2026): nessun blocco su modifica o disattivazione.
+
+🆕 27/11/2026: nella mail inviata il nostro riscontro dice «il Sistema invia le notifiche soltanto ai Sistemi Terzi attivi»; CSI: OK ([[wiki/sources/2026-11-27-risposte-csi-riscontro-stati-cdu17\|risposte CSI del 27/11]]).
 
 ### 2.4 A chi va l'avviso quando si aggiunge un sistema (CDU-14)
 

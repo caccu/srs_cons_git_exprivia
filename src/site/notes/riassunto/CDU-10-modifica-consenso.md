@@ -6,7 +6,7 @@
 
 **Perimetro:** FE ✅ · BE ✅ — Riferimenti: SRS v10 §6.10 (rinvia a §6.4 CDU-04: ALG01, ALG02 canonico, tabella campi); ADR-008, ADR-015, ADR-016 (superato dalla logica CSI), logica stati CSI 23/11/2026; risposta FE 01/10/2026.
 
-> ⚠️ **Logica stati CSI (23/11/2026):** lo SCADUTO da riaccettare non esiste più. Resta solo il caso ANN (consenso annullato al cambio di informativa), che a video è come mai espresso: riesprimerlo equivale a un rilascio (CDU-09). Da chiarire con CSI se CDU-10 resta un percorso separato per ANN o viene assorbito da CDU-09 (ST-18).
+> ⚠️ **Logica stati CSI (23/11/2026):** lo SCADUTO da riaccettare non esiste più. Resta solo il caso ANN (consenso annullato al cambio di informativa), che a video è come mai espresso: riesprimerlo equivale a un rilascio (CDU-09). Decisione del 27/11/2026: CDU-10 resta un percorso separato per ANN.
 
 ## Cosa fa
 
@@ -16,7 +16,7 @@ Differenza con CDU-11: CDU-11 cambia solo il valore (SI↔NO) di un consenso ATT
 
 ## Precondizioni
 
-Operatore autenticato, assistito selezionato (CDU-07), consenso esistente in stato ANN. Valgono gli stessi blocchi di allineamento e manutenzione del CDU-09.
+Operatore autenticato, assistito selezionato (CDU-07), consenso esistente in stato ANN. Nessun blocco di allineamento o manutenzione in V1.0 (27/11).
 
 ## Comportamento per stato
 
@@ -75,4 +75,4 @@ CDU-08; BATCH-02 (genera lo stato ANN); CDU-13 (nuova informativa); motore comun
 ## Punti aperti
 
 Gli stessi del CDU-09 (default radio, HTML parametri, una azienda per operazione, `fonte_id` reale, consensi regionali migrati sull'ASR 999 e TELEMED senza aziende collegate: DEV-07, DEV-08, BE-05).
-- CDU-10 come percorso separato per ANN o assorbito da CDU-09 (ST-18).
+- ~~CDU-10 come percorso separato per ANN o assorbito da CDU-09 (ST-18).~~ Deciso 27/11: resta separato.
