@@ -6,6 +6,8 @@
 
 **Scopo:** descrivere lo scenario — **distinto da CDU-17** — in cui **non** si inserisce un nuovo endpoint, ma un'azienda (ASR) entra in **finestra di manutenzione** di un endpoint già attivo. Durante la manutenzione il sistema deve **bloccare l'acquisizione dei consensi** verso quell'azienda e **notificare la webapp** Gestione Consensi sia dell'inizio del blocco sia della ripresa delle attività. In **V1.0** la manutenzione la imposta e la toglie l'**operatore di configurazione** da CDU-14, su richiesta dell'azienda; la dichiarazione automatica dal **SIA** è lo scenario futuro, descritto più sotto.
 
+> ⛔ **Fuori dal flusso di sviluppo V1.0 ([[wiki/sources/2026-11-27-risposte-csi-riscontro-stati-cdu17\|risposte CSI del 27/11/2026]]):** con l'allineamento di un nuovo endpoint ([[CDU-17_diagramma-sequenza\|CDU-17]]) esce dalla V1.0 anche la manutenzione dell'endpoint: lo stato `IN_MANUTENZIONE`, il blocco delle acquisizioni e il messaggio di indisponibilità nella webapp. BE-25 e BE-25b restano pending. Il pregresso di un nuovo endpoint lo migrano le ASR fuori linea, e CSI fa un export della base dati se serve. Resta la gestione dell'endpoint da back office (CDU-14). I diagrammi e il testo sotto restano come storia.
+
 > **Origine:** call CSI 20/07/2026 (rifacimento CDU-17) — "MANCA SCENARIO DI MANUTENZIONE END-POINT". Si lega alla decisione dell'11/06/2026 recepita in **SRS §7.4 (Gestione manutenzione ASR — start/stop servizi)**.
 
 > 🆕 **Proposta A+D (06/11/2026, da confermare con CSI, ST-11; [[wiki/docs/adr/ADR-027-architettura-senza-api-manager\|ADR-027]], BE-25):**

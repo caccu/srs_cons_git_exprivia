@@ -6,6 +6,8 @@
 
 **Scopo:** descrivere il funzionamento del **CDU-17**, il caso d'uso che sostituisce **BATCH-03**. Quando l'**operatore di configurazione** registra un nuovo endpoint per un'azienda che ha **già almeno un altro endpoint attivo** (es. RIS attivo, si attiva un LIS → serve allineamento dei consensi), non è più il sistema regionale a "spingere" (push) i consensi: è **l'azienda** che li **scarica** (pull) dal sistema regionale ("centro stella"). In **V1.0** lo scaricamento lo fa l'**operatore di configurazione** dalla web app, che lavora su tutte le aziende; lo scaricamento automatico dal **SIA** è lo scenario futuro, descritto più sotto.
 
+> ⛔ **Fuori dal flusso di sviluppo V1.0 ([[wiki/sources/2026-11-27-risposte-csi-riscontro-stati-cdu17\|risposte CSI del 27/11/2026]]):** CSI non chiede lo sviluppo dell'allineamento di un nuovo endpoint. Il pregresso lo migrano le ASR fuori linea, come oggi, e CSI fa un export della base dati se un'azienda non può recuperarlo. Escono lo snapshot (pulsante «Scarica snapshot» in CDU-14, CSV, stati DA_ALLINEARE, IN_CORSO e COMPLETATO, blocco delle acquisizioni) e la manutenzione dell'endpoint ([[Manutenzione-endpoint_diagramma-sequenza\|Manutenzione endpoint]], BE-25 e BE-25b pending). Resta la gestione del nuovo endpoint da back office (CDU-14). ST-11 è chiuso; restano aperte le domande sui certificati. I diagrammi e il testo sotto restano come storia.
+
 > **Aggiornamento call CSI 20/07/2026 (rifacimento CDU-17):**
 > - Attore = **operatore con profilo Back Office** sulla **web app Gestione Consensi** (accesso da **PUA**).
 > - **Variante B (watermark/no-blocco) ELIMINATA**: il blocco temporaneo delle acquisizioni è **obbligatorio** (unica modalità) per garantire uno snapshot coerente.
